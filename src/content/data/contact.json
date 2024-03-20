@@ -1,0 +1,37 @@
+[
+    {
+        "name": "Communnauté Discord",
+        "icon": "/icons/company/discord.svg",
+        "link": "https://discord.gg/your-server",
+        "description": "Rejoignez notre serveur Discord pour discuter avec la communauté.",
+        "button": "Rejoins-nous"
+    },
+    {
+        "name": "Twitter",
+        "icon": "/icons/company/twitter.svg",
+        "link": "https://twitter.com/your-twitter",
+        "description": "Suivez-nous sur Twitter pour être au courant des dernières actualités.",
+        "button": "@Voxel.io"
+    },
+    {
+        "name": "Github",
+        "icon": "/icons/company/github.svg",
+        "link": "https://instagram.com/your-instagram",
+        "description": "Accédez à notre code source sur Github.",
+        "button": "@Hardel-DW"
+    },
+    {
+        "name": "Mail",
+        "icon": "/icons/mail.svg",
+        "link": "mailto:hardel7401@gmaiil.com",
+        "description": "Envoyez-nous un mail pour toute demande.",
+        "button": "Contactez-nous"
+    },
+    {
+        "name": "Discord - Message privé",
+        "icon": "/icons/company/discord.svg",
+        "link": "https://discord.com/users/your-id",
+        "description": "Envoie moi un message privé sur Discord",
+        "button": "Message privé"
+    }
+]

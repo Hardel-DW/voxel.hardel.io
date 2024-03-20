@@ -1,0 +1,52 @@
+html, body {
+    height: 100%;
+}
+
+body {
+    font-family: "Inter", sans-serif;
+    color: #e8e8e8;
+    background-color: #050107;
+    margin: 0;
+    padding: 0;
+    min-height: 100dvh;
+    display: grid;
+    grid-template-rows: 1fr auto;
+}
+
+hr {
+    flex-shrink: 0;
+    border-top: 0 solid rgba(0, 0, 0, 0.08);
+    border-right: 0 solid rgba(0, 0, 0, 0.08);
+    border-left: 0 solid rgba(0, 0, 0, 0.08);
+    height: 0.0625rem;
+    margin: 1rem 0;
+    border-bottom: none;
+    opacity: 0.25;
+    width: 100%;
+    background-color: transparent;
+    background-image: linear-gradient(to right, rgba(0, 117, 255, 0), #fff, rgba(255, 255, 255, 0)) !important;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 10px 10px rgba(255, 255, 255, 0);
+    border: solid 3px transparent;
+    border-radius: 32px;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 32px;
+    box-shadow: inset 0 0 10px 10px #959595;
+    border: solid 3px transparent;
+}
+
+::-webkit-scrollbar-corner {
+    display: none;
+}
+
+::-webkit-resizer {
+    display: none;
+}

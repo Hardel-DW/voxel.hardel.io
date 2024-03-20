@@ -1,0 +1,88 @@
+{
+    "social": [
+        {
+            "name": "Github",
+            "path": "https://github.com/Hardel-DW",
+            "icon": "github.svg"
+        },
+        {
+            "name": "Twitter or X",
+            "path": "https://twitter.com/Hardel7401",
+            "icon": "twitter.svg"
+        },
+        {
+            "name": "Discord",
+            "path": "https://discord.gg/8z3tkQhay7",
+            "icon": "discord.svg"
+        }
+    ],
+    "content": [
+        {
+            "name": "Navigation",
+            "links": [
+                {
+                    "title": "Accueil",
+                    "path": "/"
+                },
+                {
+                    "title": "Guides",
+                    "path": "/guides"
+                },
+                {
+                    "title": "Ressource",
+                    "path": "/ressource"
+                },
+                {
+                    "title": "Blog",
+                    "path": "/blog"
+                },
+                {
+                    "title": "Contact",
+                    "path": "/contact"
+                }
+            ]
+        },
+        {
+            "name": "Autres",
+            "links": [
+                {
+                    "title": "Labs de Hardel",
+                    "path": "https://labs.hardel.io"
+                },
+                {
+                    "title": "Nouveautés",
+                    "path": "/blog/news"
+                },
+                {
+                    "title": "FAQ",
+                    "path": "/faq"
+                },
+                {
+                    "title": "À propos",
+                    "path": "/about"
+                }
+            ]
+        },
+        {
+            "name": "Support",
+            "links": [
+                {
+                    "title": "Centre d'aide",
+                    "path": "/contact"
+                },
+                {
+                    "title": "Terme de service",
+                    "path": "/terms"
+                },
+                {
+                    "title": "Legal",
+                    "path": "/legal"
+                },
+                {
+                    "title": "Politique de confidentialité",
+                    "path": "/privacy"
+                }
+            ]
+        }
+    ]
+}

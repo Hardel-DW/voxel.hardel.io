@@ -1,0 +1,26 @@
+[
+    {
+        "question": "Voxel, qu'est-ce que c'est ?",
+        "answer": "Ces des guides en français, du niveau débutant à avancé, pour apprendre à développer des mods ou enrichir ses connaissances existantes."
+    },
+    {
+        "question": "Je ne connais rien à la programmation, puis-je quand même apprendre à développer des mods ?",
+        "answer": "Oui, les guides sont conçus pour être accessibles à tous, même si vous n'avez jamais programmé."
+    },
+    {
+        "question": "Je suis déjà un 'moddeur' expérimenté, qu'est que voxel peut m'apporter ?",
+        "answer": "Voxel proposeras dans le futur des guides avancés pour vous aider à aller plus loin dans le développement de mods, comme des animations, Data-Driven, etc."
+    },
+    {
+        "question": "Est-ce que ces guides sont gratuits ?",
+        "answer": "Nos resources sont proposés via un modèle lucratif pour assurer leur qualité et leurs régulaité. Cependant des contenus gratuits seront envisagés à l'avenir pour élargir là communauté."
+    },
+    {
+        "question": "Comment savoir si les guides sont à jour ?",
+        "answer": "La version de Minecraft est indiqués pour chaque guide"
+    },
+    {
+        "question": "Comment savoir si les guides sont pertinents et qu'il peuvent m'aider ?",
+        "answer": "Malgré que les guides sont payants, vous pouvez accéder à des chapitre gratuit pour vous faire une idée de la qualité des guides."
+    }
+]

@@ -1,0 +1,27 @@
+---
+export interface Props {
+    data: Array<{
+        question: string;
+        answer: string;
+    }>;
+}
+
+const {data} = Astro.props;
+---
+
+
+<section class="grid divide-y divide-zinc-700 max-w-5xl mx-auto mt-8">
+    {data.map((item: { question: string; answer: string }) => (
+            <div class="py-5">
+                <details class="group">
+                    <summary class="flex justify-between items-center gap-x-10 font-medium cursor-pointer list-none">
+                        <span class="select-none text-white text-xl">{item.question}</span>
+                        <span class="transition group-open:rotate-180 flex-shrink-0">
+                        <img loading="eager" src="/icons/arrow.svg" alt="arrow" class="w-8 h-8"/>
+                    </span>
+                    </summary>
+                    <p class="text-zinc-300 mt-3 group-open:animate-fadein">{item.answer}</p>
+                </details>
+            </div>
+    ))}
+</section>

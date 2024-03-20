@@ -2,7 +2,6 @@
 import '@fontsource/inter/latin.css';
 import '../../global.css';
 import {ViewTransitions} from 'astro:transitions';
-import {SEO} from 'astro-seo';
 import Navbar from "./compound/navbar.astro";
 import Footer from "./compound/footer.astro";
 
@@ -14,39 +13,37 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site).toString();
 const resolvedImageWithDomain = new URL('/opengraph.webp', Astro.site).toString();
 const {title} = Astro.props;
 const shownTitle = title ? 'Voxel | ' + title : 'Voxel';
+const description = "Voxel, la référence pour tout développeur souhaitant se lancer ou se perfectionner dans la création de mods Minecraft. Offrant des ressources de pointe et des guides avancés, nous accompagnons chaque talent, du novice à l'expert, avec des solutions professionnelles adaptées à vos besoins.";
 ---
 
 <!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8"/>
-    <meta name="description"
-          content="Voxel, la référence pour tout développeur souhaitant se lancer ou se perfectionner dans la création de mods Minecraft. Offrant des ressources de pointe et des guides avancés, nous accompagnons chaque talent, du novice à l'expert, avec des solutions professionnelles adaptées à vos besoins."/>
-    <meta name="viewport" content="width=device-width"/>
+    <title>{shownTitle}</title>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg"/>
-    <meta name="generator" content={Astro.generator}/>
-    <title>{title}</title>
+    <link rel="canonical" href={canonicalURL}>
+    <meta charset="UTF-8"/>
 
-    <SEO
-            title={shownTitle}
-            description="Voxel, la référence pour tout développeur souhaitant se lancer ou se perfectionner dans la création de mods Minecraft. Offrant des ressources de pointe et des guides avancés, nous accompagnons chaque talent, du novice à l'expert, avec des solutions professionnelles adaptées à vos besoins."
-            canonical={canonicalURL}
-            twitter={{
-                description: 'Voxel, la référence pour tout développeur souhaitant se lancer ou se perfectionner dans la création de mods Minecraft. Offrant des ressources de pointe et des guides avancés, nous accompagnons chaque talent, du novice à l\'expert, avec des solutions professionnelles adaptées à vos besoins.',
-                creator: '@Hardel-DW',
-                site: 'https://voxel.hardel.fr',
-                card: 'summary_large_image'
-            }}
-            openGraph={{
-                basic: {
-                    url: canonicalURL,
-                    type: 'website',
-                    title: shownTitle,
-                    image: resolvedImageWithDomain
-                },
-                image: {alt: 'Voxel'}
-            }}
-    />
+    <meta name="description" content={description}/>
+    <meta name="viewport" content="width=device-width"/>
+    <meta name="generator" content={Astro.generator}/>
+    <meta name="description" content={description}>
+    <meta name="theme-color" content="#721582">
+
+    <meta property="og:title" content="Voxel">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content={resolvedImageWithDomain}>
+    <meta property="og:description" content={description}>
+    <meta property="og:url" content={canonicalURL}>
+    <meta property="og:image:url" content={resolvedImageWithDomain}>
+    <meta property="og:image:alt" content="Voxel">
+
+    <meta name="twitter:title" content="Voxel">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content={canonicalURL}>
+    <meta name="twitter:description" content={description}>
+    <meta name="twitter:creator" content="@Hardel-DW">
+
     <ViewTransitions/>
 </head>
 <body>

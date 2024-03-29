@@ -7,7 +7,9 @@ import react from "@astrojs/react";
 // https://astro.build/config
 export default defineConfig({
     site: "https://voxel.hardel.io/",
-    image: ['https://lh3.googleusercontent.com/'],
+    image: {
+        domains: ["https://voxel.hardel.io/", "https://lh3.googleusercontent.com/"],
+    },
     output: "server",
     integrations: [tailwind(), react()],
     adapter: vercel()

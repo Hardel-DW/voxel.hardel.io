@@ -1,6 +1,7 @@
-/** @type {import('tailwindcss').Config} */
+import type {Config} from "tailwindcss";
+
 export default {
-    content: ["./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}"],
+    content: ["./src/**/*.{astro,md,mdx,ts,tsx}"],
     theme: {
         extend: {
             fontFamily: {
@@ -23,5 +24,5 @@ export default {
             }
         }
     },
-    plugins: []
-};
+    plugins: [require("@tailwindcss/typography"), require("tailwindcss-animate")]
+} satisfies Config;

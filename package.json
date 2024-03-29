@@ -2,22 +2,43 @@
     "name": "voxel",
     "type": "module",
     "version": "0.0.1",
+    "private": true,
     "scripts": {
         "dev": "astro dev",
-        "remote": "astro dev --remote",
         "start": "astro dev",
         "build": "astro check && astro build",
         "preview": "astro preview",
-        "astro": "astro"
+        "astro": "astro",
+        "prettier": "prettier --write . --plugin=prettier-plugin-astro",
+        "db:generate": "drizzle-kit generate:pg",
+        "db:push": "drizzle-kit push:pg"
     },
     "dependencies": {
         "@astrojs/check": "^0.5.9",
-        "@astrojs/db": "^0.8.8",
+        "@astrojs/react": "^3.1.0",
         "@astrojs/tailwind": "^5.1.0",
         "@astrojs/vercel": "^7.3.6",
         "@fontsource/inter": "^5.0.17",
+        "@lucia-auth/adapter-drizzle": "^1.0.7",
+        "@neondatabase/serverless": "^0.9.0",
+        "@types/react": "^18.2.73",
+        "@types/react-dom": "^18.2.23",
+        "arctic": "^1.5.0",
         "astro": "^4.5.6",
+        "drizzle-orm": "^0.30.6",
+        "github-slugger": "^2.0.0",
+        "lucia": "^3.1.1",
+        "react": "^18.2.0",
+        "react-dom": "^18.2.0",
+        "tailwind-merge": "^2.2.2",
         "tailwindcss": "^3.4.1",
+        "tailwindcss-animate": "^1.0.7",
         "typescript": "^5.4.2"
+    },
+    "devDependencies": {
+        "@tailwindcss/typography": "^0.5.12",
+        "drizzle-kit": "^0.20.14",
+        "prettier": "^3.2.5",
+        "prettier-plugin-astro": "^0.13.0"
     }
 }

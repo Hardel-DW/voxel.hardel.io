@@ -1,17 +1,8 @@
 ---
-import {db, WaitList} from 'astro:db';
-import Layout from '../components/layouts/Layout.astro';
 import {Image} from 'astro:assets';
+import Layout from '../components/layouts/Layout.astro';
 import Faq from "../components/faq.astro";
 import faq_data from "../content/data/faq.json";
-
-if (Astro.request.method === 'POST') {
-    const formData = await Astro.request.formData();
-    const email = formData.get('email');
-    if (typeof email === 'string') {
-        await db.insert(WaitList).values({email});
-    }
-}
 ---
 
 <Layout>
@@ -58,20 +49,3 @@ if (Astro.request.method === 'POST') {
         <Faq data={faq_data}/>
     </section>
 </Layout>
-
-<script is:inline>
-    const email = document.getElementById('email');
-    const btnComingSoon = document.getElementById('btn-coming-soon');
-
-    email.addEventListener('input', () => {
-        if (email.value.length > 0) {
-            btnComingSoon.style.opacity = "1";
-            btnComingSoon.removeAttribute('disabled');
-            btnComingSoon.innerText = 'Rejoindre la liste d\'attente';
-        } else {
-            btnComingSoon.style.opacity = "0.5";
-            btnComingSoon.setAttribute('disabled', '');
-            btnComingSoon.innerText = 'Disponible bientôt';
-        }
-    });
-</script>

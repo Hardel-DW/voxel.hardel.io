@@ -1,0 +1,658 @@
+{
+    "metadata": {
+        "draft": false,
+        "title": "Modding Forge - Bases du modding",
+        "short": "Bases du modding",
+        "snippet": "Les bases des concepts de 'modding' pour Minecraft Java 1.20",
+        "author": "Hardel",
+        "tags": [
+            "modding",
+            "forge",
+            "1.20"
+        ],
+        "publishDate": "2024-02-22 13:55",
+        "images": {
+            "src": "/images/background/minecraft_120.webp",
+            "alt": "alt text"
+        }
+    },
+    "premium": {
+        "product_id": "7f8ad16c-0d25-455b-86e9-6e53691dbf2c",
+        "title": "Pack - Base du dévelopeement de Mods et de Java Minecraft - 1.20+",
+        "description": "Le pack complet pour apprendre les bases du développement de mods pour Minecraft en Java. Ce pack contient les guides pour Forge, Fabric et NeoForge, des ressources exclusives, des exemples de code et du support personnalisé.",
+        "button": "Acheter le pack",
+        "price": 29.99,
+        "currency": "€",
+        "url": "https://voxel.lemonsqueezy.com/checkout/buy/7f8ad16c-0d25-455b-86e9-6e53691dbf2c",
+        "items": [
+            "/images/background/minecraft_120.webp"
+        ],
+        "faq": [
+            {
+                "question": "Qu'est-ce que je vais apprendre ?",
+                "answer": "Vous allez apprendre les bases de Java, Forge, Fabric et NeoForge pour commencer à créer vos propres mods pour Minecraft."
+            },
+            {
+                "question": "Est-ce que je dois connaître Java pour commencer ?",
+                "answer": "Non, vous n'avez pas besoin de connaître Java pour commencer. Les bases de Java sont expliquées dans le guide."
+            },
+            {
+                "question": "Les ressources sont-elles téléchargeables ?",
+                "answer": "Oui, vous pouvez télécharger les ressources, les codes sources et les exemples pour les utiliser dans vos projets."
+            },
+            {
+                "question": "Est-ce que je peux poser des questions ou avoir de l'aide ?",
+                "answer": "Oui, je suis disponible pour répondre à vos questions et vous aider dans votre apprentissage."
+            },
+            {
+                "question": "Est-ce le paiement est sécurisé ?",
+                "answer": "La plateforme choisie pour le paiement est Lemon Squeezy, un service de paiement sécurisé, réputé et fiable."
+            }
+        ]
+    },
+    "navigation": [
+        {
+            "title": "Forge",
+            "slug": "basic_concept_forge",
+            "logo": "/icons/company/forge.svg"
+        },
+        {
+            "title": "Fabric",
+            "slug": "basic_concept_fabric",
+            "logo": "/icons/company/fabric.svg"
+        },
+        {
+            "title": "NeoForge",
+            "slug": "basic_concept_neoforge",
+            "logo": "/icons/company/neoforge.svg"
+        }
+    ],
+    "sections": [
+        {
+            "title": "Introduction",
+            "slug": "introduction",
+            "article": [
+                {
+                    "title": "Informations avant de commencer",
+                    "redirect": "before-starting",
+                    "time": "2 min",
+                    "description": "Les informations avant de commencer"
+                },
+                {
+                    "title": "Prérequis",
+                    "redirect": "prerequis",
+                    "time": "5 min",
+                    "description": "Les prérequis pour commencer"
+                },
+                {
+                    "title": "Installation de l'environnement de développement",
+                    "redirect": "install",
+                    "time": "5 min",
+                    "description": "Installation de IntelliJ IDEA, de Java et de Forge"
+                },
+                {
+                    "title": "Comment exporter votre mod",
+                    "redirect": "export",
+                    "time": "5 min",
+                    "description": "Obtenir votre mod prêt à être partagé au format .jar",
+                    "premium": true
+                }
+            ]
+        },
+        {
+            "title": "Concept de base",
+            "slug": "base",
+            "article": [
+                {
+                    "title": "Rajouter un item",
+                    "redirect": "item",
+                    "time": "5 min",
+                    "description": "Rajouter un item dans le jeu et ses fonctionnalités"
+                },
+                {
+                    "title": "Rajouter un bloc",
+                    "redirect": "block",
+                    "time": "5 min",
+                    "description": "Rajouter un bloc dans le jeu avec une interaction"
+                },
+                {
+                    "title": "Rajouter un onglet créatif",
+                    "redirect": "creative-tab",
+                    "time": "5 min",
+                    "description": "Rajouter un onglet dans l'inventaire créatif",
+                    "premium": true
+                },
+                {
+                    "title": "Rajouter un nouveau type de bois",
+                    "redirect": "wood",
+                    "time": "5 min",
+                    "description": "Rajouter un nouveau type de bois dans le jeu",
+                    "premium": true
+                },
+                {
+                    "title": "Rajouter des sons",
+                    "redirect": "sounds",
+                    "time": "5 min",
+                    "description": "Comprendre le sound design et rajouter des sons dans le jeu",
+                    "premium": true
+                },
+                {
+                    "title": "Effets de potion",
+                    "redirect": "potion-effects",
+                    "time": "5 min",
+                    "description": "Rajouter des effets de potion dans le jeu",
+                    "premium": true
+                },
+                {
+                    "title": "Particules",
+                    "redirect": "particles",
+                    "time": "5 min",
+                    "description": "Rajouter des particules dans le jeu",
+                    "premium": true
+                }
+            ]
+        },
+        {
+            "title": "Datapacks",
+            "slug": "datapacks",
+            "article": [
+                {
+                    "title": "Introduction",
+                    "redirect": "introduction",
+                    "time": "5 min",
+                    "description": "Introduction aux datapacks et comment les utiliser et la structure"
+                },
+                {
+                    "title": "Les recettes",
+                    "redirect": "recipes",
+                    "time": "5 min",
+                    "description": "Créer des recettes pour le jeu"
+                },
+                {
+                    "title": "Les tags",
+                    "redirect": "tags",
+                    "time": "5 min",
+                    "description": "Explication des différents tags et comment les utiliser",
+                    "premium": true
+                },
+                {
+                    "title": "Progrès",
+                    "redirect": "advancements",
+                    "time": "5 min",
+                    "description": "Créer des progrès (advancements) pour le jeu",
+                    "premium": true
+                },
+                {
+                    "title": "Les table de loot",
+                    "redirect": "loot-tables",
+                    "time": "5 min",
+                    "description": "Créer des tables de loot pour le jeu, structure, entité, coffre, etc",
+                    "premium": true
+                },
+                {
+                    "title": "Les ornements d'armure",
+                    "redirect": "trim",
+                    "time": "5 min",
+                    "description": "Rajouter des ornements d'armure dans le jeu",
+                    "premium": true
+                },
+                {
+                    "title": "Type de dégâts",
+                    "redirect": "damage-type",
+                    "time": "5 min",
+                    "description": "Rajouter des types de dégâts dans le jeu",
+                    "premium": true
+                },
+                {
+                    "title": "Rajouter des patterns de bannières",
+                    "redirect": "banner-patterns",
+                    "time": "5 min",
+                    "description": "Rajouter des patterns de bannières dans le jeu",
+                    "premium": true
+                }
+            ]
+        },
+        {
+            "title": "Resource packs",
+            "slug": "resource_packs",
+            "article": [
+                {
+                    "title": "Introduction",
+                    "redirect": "introduction",
+                    "time": "5 min",
+                    "description": "Introduction aux resource packs, structures et conseils graphiques.",
+                    "premium": true
+                },
+                {
+                    "title": "Les textures",
+                    "redirect": "textures",
+                    "time": "5 min",
+                    "description": "Techniques avancées pour les textures, overlay, etc",
+                    "premium": true
+                },
+                {
+                    "title": "Les langues",
+                    "redirect": "languages",
+                    "time": "5 min",
+                    "description": "Traduire le jeu dans différentes langues",
+                    "premium": true
+                },
+                {
+                    "title": "Animation",
+                    "redirect": "animation",
+                    "time": "5 min",
+                    "description": "Animer des textures, des blocs, des items, etc",
+                    "premium": true
+                },
+                {
+                    "title": "Les modèles",
+                    "redirect": "modeles",
+                    "time": "5 min",
+                    "description": "Créer des modèles pour le jeu avec Blockbench",
+                    "premium": true
+                },
+                {
+                    "title": "Les sons",
+                    "redirect": "sound",
+                    "time": "5 min",
+                    "description": "Rajouter des sons, trouver des sons libres de droits adaptés à Minecraft",
+                    "premium": true
+                }
+            ]
+        },
+        {
+            "title": "Concept avancé",
+            "slug": "advanced_concept",
+            "article": [
+                {
+                    "title": "Les événements",
+                    "redirect": "events",
+                    "time": "5 min",
+                    "description": "Comprendre les événements et comment les utiliser",
+                    "premium": true
+                },
+                {
+                    "title": "Les packets",
+                    "redirect": "packets",
+                    "time": "5 min",
+                    "description": "Transmettre des données entre le serveur et le client",
+                    "premium": true
+                },
+                {
+                    "title": "Les codecs",
+                    "redirect": "codecs",
+                    "time": "5 min",
+                    "description": "Transmettre des données entre le serveur et le client",
+                    "premium": true
+                },
+                {
+                    "title": "Interfaces HUD/GUI",
+                    "redirect": "interfaces",
+                    "time": "5 min",
+                    "description": "Créer des interfaces pour le jeu avec des boutons, des barres de progression, etc",
+                    "premium": true
+                },
+                {
+                    "title": "Les NBT",
+                    "redirect": "nbt",
+                    "time": "5 min",
+                    "description": "Stocker des données dans les entités, les blocs, les items, etc",
+                    "premium": true
+                },
+                {
+                    "title": "Les components (1.20.5)",
+                    "redirect": "components",
+                    "time": "5 min",
+                    "description": "Migration des NBT vers les components",
+                    "premium": true
+                },
+                {
+                    "title": "Commandes",
+                    "redirect": "commands",
+                    "time": "5 min",
+                    "description": "Créer des commandes avec des arguments pour le jeu",
+                    "premium": true
+                },
+                {
+                    "title": "Multi-plateforme",
+                    "redirect": "multi-platform",
+                    "time": "5 min",
+                    "description": "Un seul code pour Forge, Fabric, NeoForge et Quilt",
+                    "premium": true
+                },
+                {
+                    "title": "Les Energies",
+                    "redirect": "energy",
+                    "time": "5 min",
+                    "description": "Les mods d'énergies et comment les utiliser",
+                    "premium": true
+                },
+                {
+                    "title": "JEI",
+                    "redirect": "jei",
+                    "time": "5 min",
+                    "description": "Rajouter des recettes dans JEI",
+                    "premium": true
+                },
+                {
+                    "title": "Les villageois",
+                    "redirect": "villagers",
+                    "time": "5 min",
+                    "description": "Les villageois, rajouter des variantes, métiers et des échanges, etc",
+                    "premium": true
+                },
+                {
+                    "title": "Les mixins",
+                    "redirect": "mixins",
+                    "time": "5 min",
+                    "description": "Modifier le comportement de Minecraft sans modifier le code source",
+                    "premium": true
+                },
+                {
+                    "title": "Dependances",
+                    "redirect": "dependances",
+                    "time": "5 min",
+                    "description": "Utiliser des dépendances dans ton mod",
+                    "premium": true
+                },
+                {
+                    "title": "Les mods serveur uniquement",
+                    "redirect": "server-mods",
+                    "time": "5 min",
+                    "description": "Rajouter des fonctionnalités côté serveur",
+                    "premium": true
+                },
+                {
+                    "title": "Les mods client uniquement",
+                    "redirect": "client-mods",
+                    "time": "5 min",
+                    "description": "Rajouter des fonctionnalités côté client",
+                    "premium": true
+                },
+                {
+                    "title": "Data Driven",
+                    "redirect": "data-driven",
+                    "time": "5 min",
+                    "description": "Utiliser les Data Driven pour rajouter des fonctionnalités",
+                    "premium": true
+                }
+            ]
+        },
+        {
+            "title": "Les items avancés",
+            "slug": "advanced_items",
+            "article": [
+                {
+                    "title": "Les outils",
+                    "redirect": "tools",
+                    "time": "5 min",
+                    "description": "Rajouter des outils dans le jeu avec des fonctionnalités spécifiques"
+                },
+                {
+                    "title": "Les aliments",
+                    "redirect": "food",
+                    "time": "5 min",
+                    "description": "Rajouter des aliments dans le jeu avec des fonctionnalités spécifiques",
+                    "premium": true
+                },
+                {
+                    "title": "Les potions",
+                    "redirect": "potions",
+                    "time": "5 min",
+                    "description": "Rajouter des potions dans le jeu avec des fonctionnalités spécifiques",
+                    "premium": true
+                },
+                {
+                    "title": "Les armures",
+                    "redirect": "armor",
+                    "time": "5 min",
+                    "description": "Rajouter des armures dans le jeu avec des fonctionnalités spécifiques",
+                    "premium": true
+                },
+                {
+                    "title": "Les armes et arcs",
+                    "redirect": "weapon",
+                    "time": "5 min",
+                    "description": "Rajouter des armes dans le jeu avec des fonctionnalités spécifiques",
+                    "premium": true
+                },
+                {
+                    "title": "Les enchantements",
+                    "redirect": "enchantements",
+                    "time": "5 min",
+                    "description": "Rajouter des enchantements dans le jeu avec des fonctionnalités spécifiques",
+                    "premium": true
+                },
+                {
+                    "title": "Les items en 3D",
+                    "redirect": "items-3d",
+                    "time": "5 min",
+                    "description": "Modéliser des items en 3D",
+                    "premium": true
+                }
+            ]
+        },
+        {
+            "title": "Les blocs avancés",
+            "slug": "advanced_blocks",
+            "article": [
+                {
+                    "title": "Les blocs avancés",
+                    "redirect": "blocks",
+                    "time": "5 min",
+                    "description": "Faire un bloc avec des fonctionnalités spécifiques"
+                },
+                {
+                    "title": "Blocs State",
+                    "redirect": "blocs-state",
+                    "time": "5 min",
+                    "description": "Comprendre les blocs state et comment les utiliser",
+                    "premium": true
+                },
+                {
+                    "title": "Les cultures",
+                    "redirect": "crops",
+                    "time": "5 min",
+                    "description": "Rajouter des cultures dans le jeu",
+                    "premium": true
+                },
+                {
+                    "title": "Les fluides",
+                    "redirect": "fluids",
+                    "time": "5 min",
+                    "description": "Rajouter des fluides dans le jeu avec des fonctionnalités spécifiques",
+                    "premium": true
+                },
+                {
+                    "title": "La 3D Complexe",
+                    "redirect": "blocks-3d",
+                    "time": "5 min",
+                    "description": "Modéliser des blocs en 3D",
+                    "premium": true
+                },
+                {
+                    "title": "Les fleurs",
+                    "redirect": "flowers",
+                    "time": "5 min",
+                    "description": "Blocs de plusieurs hauteurs, comme les fleurs, les herbes, etc",
+                    "premium": true
+                },
+                {
+                    "title": "Tile Entity I - Introduction",
+                    "redirect": "tile-entity-introduction",
+                    "time": "5 min",
+                    "description": "Lier des données à un bloc",
+                    "premium": true
+                },
+                {
+                    "title": "Tile Entity II - Conteneurs et Affichage",
+                    "redirect": "tile-entity-conteneurs",
+                    "time": "5 min",
+                    "description": "Faire en sorte que ton bloc puisse stocker des items et les afficher dans un GUI",
+                    "premium": true
+                },
+                {
+                    "title": "Tile Entity III - Énergie",
+                    "redirect": "tile-entity-energy",
+                    "time": "5 min",
+                    "description": "Rajouter un système d'énergie à un bloc",
+                    "premium": true
+                },
+                {
+                    "title": "Tile Entity IV - Recettes",
+                    "redirect": "tile-entity-recipe",
+                    "time": "5 min",
+                    "description": "Rajouter des recettes avec un datapack, création et explications des Data Driven personnalisés",
+                    "premium": true
+                },
+                {
+                    "title": "Tile Entity V - Animation",
+                    "redirect": "tile-entity-other",
+                    "time": "5 min",
+                    "description": "Afficher des animations sur ton bloc",
+                    "premium": true
+                }
+            ]
+        },
+        {
+            "title": "Les entités avancées",
+            "slug": "entities",
+            "article": [
+                {
+                    "title": "Les entités",
+                    "redirect": "entity",
+                    "time": "5 min",
+                    "description": "Rajouter une entité simple"
+                },
+                {
+                    "title": "Apparition",
+                    "redirect": "spawn",
+                    "time": "5 min",
+                    "description": "Faire apparaître ton entité dans le monde",
+                    "premium": true
+                },
+                {
+                    "title": "Animations",
+                    "redirect": "animations",
+                    "time": "5 min",
+                    "description": "Animer ton entité",
+                    "premium": true
+                },
+                {
+                    "title": "Projectile",
+                    "redirect": "projectile",
+                    "time": "5 min",
+                    "description": "Rajouter un projectile",
+                    "premium": true
+                },
+                {
+                    "title": "Boss",
+                    "redirect": "boss",
+                    "time": "5 min",
+                    "description": "Les barres de boss et les attaques spéciales",
+                    "premium": true
+                },
+                {
+                    "title": "Monture et dressage",
+                    "redirect": "ride",
+                    "time": "5 min",
+                    "description": "Comprendre les entités plus complexes, comme les montures et les apprivoisements",
+                    "premium": true
+                },
+                {
+                    "title": "Variante",
+                    "redirect": "variant",
+                    "time": "5 min",
+                    "description": "Rajouter des variantes à ton entité",
+                    "premium": true
+                },
+                {
+                    "title": "Les entités autres",
+                    "redirect": "other-entities",
+                    "time": "5 min",
+                    "description": "Rajouter des entités spécifiques, comme les villageois, les golems, etc",
+                    "premium": true
+                },
+                {
+                    "title": "Les familiers",
+                    "redirect": "familiers",
+                    "time": "5 min",
+                    "description": "Idée originale pour rajouter des familiers dans le jeu",
+                    "premium": true
+                }
+            ]
+        },
+        {
+            "title": "La génération",
+            "slug": "generation",
+            "article": [
+                {
+                    "title": "Les minerais",
+                    "redirect": "minerais",
+                    "time": "5 min",
+                    "description": "Rajouter des minerais dans le jeu avec leur génération, conseils pour concevoir la texture"
+                },
+                {
+                    "title": "Les structures",
+                    "redirect": "structures",
+                    "time": "5 min",
+                    "description": "Rajouter des structures pour le jeu et comment les générer dans le monde",
+                    "premium": true
+                },
+                {
+                    "title": "Les biomes",
+                    "redirect": "biomes",
+                    "time": "5 min",
+                    "description": "Créer des biomes pour le jeu et comment les générer",
+                    "premium": true
+                },
+                {
+                    "title": "Les dimensions",
+                    "redirect": "dimensions",
+                    "time": "5 min",
+                    "description": "Créer des dimensions pour le jeu et comment les générer",
+                    "premium": true
+                },
+                {
+                    "title": "Les arbres",
+                    "redirect": "arbres",
+                    "time": "5 min",
+                    "description": "Rajouter des arbres dans le jeu avec leur génération, conseils pour concevoir la texture",
+                    "premium": true
+                },
+                {
+                    "title": "Les Features autres",
+                    "redirect": "features",
+                    "time": "5 min",
+                    "description": "Rajouter des éléments dans le monde, comme des pics rocheux, des géodes, etc",
+                    "premium": true
+                },
+                {
+                    "title": "Les couleurs",
+                    "redirect": "colors",
+                    "time": "5 min",
+                    "description": "Modifier les couleurs de certains blocs, des feuilles, du ciel avec un biome",
+                    "premium": true
+                }
+            ]
+        },
+        {
+            "title": "Conclusion",
+            "slug": "conclusion",
+            "article": [
+                {
+                    "title": "Inspiration & Analyse des mods",
+                    "redirect": "analyse",
+                    "time": "5 min",
+                    "description": "Trouver des idées pour votre mod en analysant les autres mods"
+                },
+                {
+                    "title": "Conclusion",
+                    "redirect": "conclusion",
+                    "time": "5 min",
+                    "description": "Conclusion et conseils pour continuer"
+                }
+            ]
+        }
+    ]
+}

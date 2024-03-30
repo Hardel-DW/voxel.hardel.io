@@ -1,8 +1,8 @@
 ---
 import {Image} from 'astro:assets';
-import Layout from '../components/layouts/Layout.astro';
-import Faq from "../components/faq.astro";
-import faq_data from "../content/data/faq.json";
+import Layout from '@/components/layouts/Layout.astro';
+import Faq from "@/components/faq.astro";
+import faq_data from "@/content/data/faq.json";
 ---
 
 <Layout>
@@ -38,7 +38,7 @@ import faq_data from "../content/data/faq.json";
             </div>
         </div>
         <div class="relative w-full hidden xl:flex justify-center items-center">
-            <Image loading="eager" width="500" height="500" src="/images/features/dev.png" alt="404"
+            <Image loading="eager" width="500" height="500" src="/images/features/dev.webp" alt="404"
                    class="w-1/2 aspect-auto animate-levitate"/>
             <img class="absolute opacity-10" src="/icons/circle.svg" alt="box"/>
             <div class="absolute -z-10 w-96 h-96 shadow-2xl bg-gradient-to-r from-pink-900 to-blue-900 rounded-full blur-[10rem]"/>

@@ -5,9 +5,8 @@ import {lucia} from "@/lib/lucia.ts";
 /**
  * These pages are pre-rendered and cause warnings when the middleware is applied to them.
  */
-const excludedPaths = ["/", "/contact", "terms", "/privacy", "/404"];
-
 export const onRequest = defineMiddleware(async (context, next) => {
+    const excludedPaths = ["/", "/contact", "terms", "/privacy", "/404"];
     const url = new URL(context.request.url);
     if (excludedPaths.includes(url.pathname)) {
         return next();
@@ -30,7 +29,7 @@ export const onRequest = defineMiddleware(async (context, next) => {
         return next();
     }
 
-    const {session, user} = await lucia.validateSession(sessionId);
+    const { session, user } = await lucia.validateSession(sessionId);
     if (session && session.fresh) {
         const sessionCookie = lucia.createSessionCookie(session.id);
         context.cookies.set(sessionCookie.name, sessionCookie.value, sessionCookie.attributes);

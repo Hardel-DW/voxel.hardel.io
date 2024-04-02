@@ -1,0 +1,52 @@
+---
+import {Image} from "astro:assets";
+import CompoundLayout from "@/components/layouts/CompoundLayout.astro";
+import Faq from "@/components/faq.astro";
+import faq_data from "@/content/data/faq.json";
+---
+
+<CompoundLayout>
+    <section class="h-[90dvh] py-20 w-3/4 mx-auto flex xl:grid grid-cols-2 items-center gap-8">
+        <div class="h-full w-[95%] md:w-full md:mx-16 mx-auto relative">
+            <div class="xl:invisible visible absolute flex justify-center items-center size-full -z-10">
+                <div class="absolute inset-0 top-1/2 -translate-y-1/2 shadow-2xl bg-gradient-to-r from-pink-900 to-blue-900 rounded-full blur-[5rem]">
+                </div>
+            </div>
+
+            <div class="size-full flex flex-col justify-center">
+                <small class="text-pink-700 font-bold tracking-wide text-[16px]">- VOXEL</small>
+                <h1 class="text-white text-6xl font-bold mt-4 text-balance">Developpe les mods de tes rêves</h1>
+                <p class="text-gray-300 mt-4">
+                    VOXEL, qu'est-ce que c'est ? Ce sont des guides en français, du niveau débutant à avancé, pour
+                    apprendre à développer
+                    des mods ou enrichir ses connaissances existantes.
+                </p>
+                <form class="mt-8 w-full md:w-10/12 flex flex-col-reverse md:flex-row gap-y-4 gap-x-8" method="POST">
+                    <button disabled id="btn-coming-soon" type="submit"
+                            class="bg-pink-700 text-nowrap transition duration-500 text-white px-6 py-3 rounded-md font-bold hover:bg-pink-600"
+                            style={{opacity: 0.5}}
+                    >
+                        Disponible bientôt
+                    </button>
+
+                    <label for="email" class="hidden">Email</label>
+                    <input id="email" name="email" type="email"
+                           placeholder="Soyez le premier informé, laissez votre email."
+                           class="flex-1 bg-zinc-800 text-white px-6 py-3 rounded-md font-bold border border-zinc-700 focus:outline-none focus:border-pink-700"
+                    />
+                </form>
+            </div>
+        </div>
+        <div class="relative w-full hidden xl:flex justify-center items-center">
+            <Image loading="eager" width="500" height="500" src="/images/features/dev.webp" alt="404"
+                   class="w-1/2 aspect-auto animate-levitate"
+            />
+            <img class="absolute opacity-10" src="/icons/circle.svg" alt="box"/>
+            <div class="absolute -z-10 w-96 h-96 shadow-2xl bg-gradient-to-r from-pink-900 to-blue-900 rounded-full blur-[10rem]"></div>
+        </div>
+    </section>
+
+    <section class="w-3/4 xl:w-full mx-auto py-20 relative">
+        <Faq data={faq_data}/>
+    </section>
+</CompoundLayout>

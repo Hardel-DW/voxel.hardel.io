@@ -3,6 +3,8 @@ import {Image} from "astro:assets";
 import CompoundLayout from "@/components/layouts/CompoundLayout.astro";
 import Faq from "@/components/faq.astro";
 import faq_data from "@/content/data/faq.json";
+
+export const prerender = true;
 ---
 
 <CompoundLayout>

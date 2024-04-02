@@ -6,36 +6,39 @@ import {BaseLayoutProps, LayoutHelper} from "@/lib/LayoutHelper";
 
 export interface Props extends BaseLayoutProps {
 }
-const {title, description, openGraph} = Astro.props;
-const Content = new LayoutHelper({url: Astro.url, site: Astro.site, title, description, openGraph});
+
+const LayoutContent = new LayoutHelper(Astro.url, Astro.site);
+LayoutContent.setTitle(Astro.props.title);
+LayoutContent.setDescription(Astro.props.description);
+LayoutContent.setOpenGraph(Astro.props.openGraph);
 ---
 
 <!doctype html>
 <html lang="en">
 <head>
-    <title>{Content.shownTitle}</title>
+    <title>{LayoutContent.shownTitle}</title>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg"/>
-    <link rel="canonical" href={Content.canonicalURL}/>
+    <link rel="canonical" href={LayoutContent.canonicalURL}/>
     <meta charset="UTF-8"/>
 
-    <meta name="description" content={Content.shownDescription}/>
+    <meta name="description" content={LayoutContent.shownDescription}/>
     <meta name="viewport" content="width=device-width"/>
     <meta name="generator" content={Astro.generator}/>
-    <meta name="description" content={Content.shownDescription}/>
+    <meta name="description" content={LayoutContent.shownDescription}/>
     <meta name="theme-color" content="#721582"/>
 
     <meta property="og:title" content="Voxel"/>
     <meta property="og:type" content="website"/>
-    <meta property="og:image" content={Content.resolvedImageWithDomain}/>
-    <meta property="og:description" content={Content.shownDescription}/>
-    <meta property="og:url" content={Content.canonicalURL}/>
-    <meta property="og:image:url" content={Content.resolvedImageWithDomain}/>
+    <meta property="og:image" content={LayoutContent.resolvedImageWithDomain}/>
+    <meta property="og:description" content={LayoutContent.shownDescription}/>
+    <meta property="og:url" content={LayoutContent.canonicalURL}/>
+    <meta property="og:image:url" content={LayoutContent.resolvedImageWithDomain}/>
     <meta property="og:image:alt" content="Voxel"/>
 
     <meta name="twitter:title" content="Voxel"/>
     <meta name="twitter:card" content="summary_large_image"/>
-    <meta name="twitter:site" content={Content.canonicalURL}/>
-    <meta name="twitter:description" content={Content.shownDescription}/>
+    <meta name="twitter:site" content={LayoutContent.canonicalURL}/>
+    <meta name="twitter:description" content={LayoutContent.shownDescription}/>
     <meta name="twitter:creator" content="@Hardel-DW"/>
     <ViewTransitions/>
 </head>

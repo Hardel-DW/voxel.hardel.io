@@ -1,5 +1,5 @@
 ---
-import footer from '@/content/data/footer.json';
+import footer from "@/content/data/footer.json";
 ---
 
 <footer class="pt-8 pb-4 bg-black border-t border-zinc-800">
@@ -7,28 +7,26 @@ import footer from '@/content/data/footer.json';
         <div class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
             <div class="sm:col-span-2 md:col-span-3 lg:col-span-2">
                 <a href="/public" class="text-lg flex items-center">
-                    <img loading="lazy" src="/favicon.svg" alt="Voxelwind" class="w-6 h-6 brightness-90 mr-2"/>
+                    <img loading="lazy" src="/favicon.svg" alt="Voxelwind" class="w-6 h-6 brightness-90 mr-2" />
                     <span class="font-bold text-primary">Voxel</span>
                 </a>
                 <p class="mt-4 text-sm text-zinc-400 tracking-tight font-light
                  max-w-xs">
-                    VOXEL, qu'est-ce que c'est ? Ce sont des guides en français, du niveau débutant à avancé, pour
-                    apprendre
-                    à développer des mods ou enrichir ses connaissances existantes.
+                    VOXEL, qu'est-ce que c'est ? Ce sont des guides en français, du niveau débutant à avancé, pour apprendre à développer
+                    des mods ou enrichir ses connaissances existantes.
                 </p>
                 <div class="flex gap-3 mt-4 items-center">
                     {
                         footer.social.map((item) => (
-                                <a
-                                        href={item.path}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        class="bg-zinc-950 hover:bg-zinc-900 rounded w-6 h-6 inline-flex items-center justify-center text-zinc-200"
-                                >
-                                    <img loading="lazy" src={'/icons/company/' + item.icon} alt={item.name}
-                                         class="w-8 h-8 invert"/>
-                                    <span class="sr-only">{item.name}</span>
-                                </a>
+                            <a
+                                href={item.path}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                class="bg-zinc-950 hover:bg-zinc-900 rounded w-6 h-6 inline-flex items-center justify-center text-zinc-200"
+                            >
+                                <img loading="lazy" src={"/icons/company/" + item.icon} alt={item.name} class="w-8 h-8 invert" />
+                                <span class="sr-only">{item.name}</span>
+                            </a>
                         ))
                     }
                 </div>
@@ -36,17 +34,16 @@ import footer from '@/content/data/footer.json';
 
             {
                 footer.content.map((item) => (
-                        <div>
-                            <h3 class="font-medium text-sm text-zinc-200">{item.name}</h3>
-                            <div class="flex flex-col mt-3">
-                                {item.links.map((link) => (
-                                        <a href={link.path || '#'}
-                                           class="py-2 text-sm text-zinc-400 hover:text-zinc-200">
-                                            {link.title}
-                                        </a>
-                                ))}
-                            </div>
+                    <div>
+                        <h3 class="font-medium text-sm text-zinc-200">{item.name}</h3>
+                        <div class="flex flex-col mt-3">
+                            {item.links.map((link) => (
+                                <a href={link.path || "#"} class="py-2 text-sm text-zinc-400 hover:text-zinc-200">
+                                    {link.title}
+                                </a>
+                            ))}
                         </div>
+                    </div>
                 ))
             }
         </div>

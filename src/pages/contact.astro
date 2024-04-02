@@ -1,0 +1,46 @@
+---
+import Button from "@/components/button.astro";
+import data from "@/content/data/contact.json";
+import DashedPattern from "@/components/pattern/DashedPattern.astro";
+import GridPattern from "@/components/pattern/GridPattern.astro";
+import CompoundLayout from "@/components/layouts/CompoundLayout.astro";
+
+export const prerender = true;
+---
+
+<CompoundLayout title="Contact">
+    <img class="absolute left-0 rotate-90 opacity-10 h-full [mask-image:radial-gradient(100%_100%_at_bottom_left,white,transparent_90%)]"
+         src="/icons/circle.svg" alt="box"/>
+    <img class="absolute right-0 top-20 -rotate-90 opacity-20 h-full [mask-image:radial-gradient(100%_100%_at_bottom_left,white,transparent_90%)]"
+         src="/icons/circle.svg" alt="box"/>
+
+    <section class="mt-10 max-w-6xl w-full mx-auto grid grid-cols-6 gap-10 relative">
+        <div class="col-span-6 h-[40dvh] relative flex items-center justify-center border border-zinc-800 rounded-xl">
+            <GridPattern/>
+
+            <div>
+                <h1 class="text-7xl -tracking-wide text-center font-semibold mb-2">Contactez-nous</h1>
+                <div class="w-1/2 h-2 bg-white mx-auto rounded-xl"></div>
+            </div>
+        </div>
+
+        {
+            data.map((item) => (
+                    <div class="col-span-2 relative border overflow-hidden border-zinc-800 rounded-xl">
+                        <DashedPattern/>
+
+                        <div class="p-8">
+                            <img src={item.icon} alt="Discord" class="w-12 h-12 invert opacity-90"/>
+
+                            <h2 class="text-2xl font-semibold mt-4">{item.name}</h2>
+                            <p class="mt-2 text-zinc-400">{item.description}</p>
+
+                            <Button href={item.link} size="sm" class="mt-8">
+                                {item.button}
+                            </Button>
+                        </div>
+                    </div>
+            ))
+        }
+    </section>
+</CompoundLayout>

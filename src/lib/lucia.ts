@@ -1,8 +1,8 @@
-import {DrizzlePostgreSQLAdapter} from "@lucia-auth/adapter-drizzle";
-import {db} from "@/database/db.ts";
-import {sessionTable, userTable} from "@/database/schema.ts";
-import {Lucia} from "lucia";
-import {Google} from "arctic";
+import { DrizzlePostgreSQLAdapter } from "@lucia-auth/adapter-drizzle";
+import { db } from "@/database/db.ts";
+import { sessionTable, userTable } from "@/database/schema.ts";
+import { Lucia } from "lucia";
+import { Google } from "arctic";
 
 const baseUrl = import.meta.env.VERCEL_URL ? `https://${import.meta.env.VERCEL_URL}` : "http://localhost:4321";
 export const adapter = new DrizzlePostgreSQLAdapter(db, sessionTable, userTable);

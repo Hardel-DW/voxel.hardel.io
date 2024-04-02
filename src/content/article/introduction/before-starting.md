@@ -8,10 +8,10 @@ parti.
 
 Le modding pour Minecraft ouvre un monde infini de possibilités créatives. Avec les bonnes compétences et l'imagination,
 
-- **Si vous n'avez jamais touché à la programmation**, Minecraft est l'environnement idéal pour exprimer à la fois votre
-  créativité et apprendre de manière ludique les bases de la programmation.
-- Pour les **développeurs expérimentés**, Minecraft devient une structure imposante où il est possible d'avoir un avenir
-  professionnel.
+-   **Si vous n'avez jamais touché à la programmation**, Minecraft est l'environnement idéal pour exprimer à la fois votre
+    créativité et apprendre de manière ludique les bases de la programmation.
+-   Pour les **développeurs expérimentés**, Minecraft devient une structure imposante où il est possible d'avoir un avenir
+    professionnel.
 
 ### Apprendre Java à travers Minecraft
 

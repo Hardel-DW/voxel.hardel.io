@@ -1,5 +1,5 @@
-import type {Config} from "drizzle-kit";
-import {database_url} from "@/database/db.ts";
+import type { Config } from "drizzle-kit";
+import { database_url } from "@/database/db.ts";
 
 export default {
     out: "./src/database/migrations",

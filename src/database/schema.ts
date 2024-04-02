@@ -1,4 +1,4 @@
-import {timestamp, pgTable, text, varchar} from "drizzle-orm/pg-core";
+import { timestamp, pgTable, text, varchar } from "drizzle-orm/pg-core";
 
 export const userTable = pgTable("user", {
     id: text("id").primaryKey(),
@@ -6,7 +6,7 @@ export const userTable = pgTable("user", {
     picture: text("picture"),
     email: text("email").notNull(),
     provider: text("provider").notNull(),
-    providerId: varchar("provider_id", {length: 255}).notNull()
+    providerId: varchar("provider_id", { length: 255 }).notNull()
 });
 
 export const sessionTable = pgTable("session", {

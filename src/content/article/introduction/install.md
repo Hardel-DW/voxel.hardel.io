@@ -13,10 +13,10 @@ environnement de développement avec IntelliJ IDEA, un choix incontournable pour
 
 **Ce dont vous aurez besoin:**
 
-- **Minecraft Java Edition**: La toile vierge sur laquelle vous allez peindre vos idées.
-- **IntelliJ IDEA**: Notre atelier d'artiste, où les idées prennent forme. Assurez-vous de l'avoir installé.
-- **JDK (Java Development Kit) version 8 ou ultérieure**: Les pinceaux de notre atelier. Si vous êtes nouveau dans le
-  monde de Java, je vous recommande fortement de suivre une formation dédiée à Java pour solidifier vos bases.
+-   **Minecraft Java Edition**: La toile vierge sur laquelle vous allez peindre vos idées.
+-   **IntelliJ IDEA**: Notre atelier d'artiste, où les idées prennent forme. Assurez-vous de l'avoir installé.
+-   **JDK (Java Development Kit) version 8 ou ultérieure**: Les pinceaux de notre atelier. Si vous êtes nouveau dans le
+    monde de Java, je vous recommande fortement de suivre une formation dédiée à Java pour solidifier vos bases.
 
 ## Télécharger et Installer Forge
 
@@ -31,11 +31,11 @@ Après avoir extrait le contenu du MDK téléchargé, ouvrez IntelliJ IDEA et im
 IntelliJ IDEA est conçu pour faciliter la vie des développeurs, et son intégration avec Gradle rend le processus presque
 magique.
 
-- Dans IntelliJ, sélectionnez `File > New > Project from Existing Sources...` et naviguez jusqu'au dossier que vous avez
-  extrait.
-- IntelliJ détectera le projet Gradle. Suivez les instructions à l'écran, en vous assurant de choisir la version JDK
-  appropriée pour votre projet. Cela va configurer l'environnement de développement et préparer le terrain pour vos
-  futures créations.
+-   Dans IntelliJ, sélectionnez `File > New > Project from Existing Sources...` et naviguez jusqu'au dossier que vous avez
+    extrait.
+-   IntelliJ détectera le projet Gradle. Suivez les instructions à l'écran, en vous assurant de choisir la version JDK
+    appropriée pour votre projet. Cela va configurer l'environnement de développement et préparer le terrain pour vos
+    futures créations.
 
 ## Préparation et Configuration Initiale du Projet
 

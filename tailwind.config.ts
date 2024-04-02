@@ -1,4 +1,4 @@
-import type {Config} from "tailwindcss";
+import type { Config } from "tailwindcss";
 
 export default {
     content: ["./src/**/*.{astro,md,mdx,ts,tsx}"],
@@ -13,13 +13,13 @@ export default {
             },
             keyframes: {
                 levitate: {
-                    "0%": {transform: "translateY(-1.5rem)"},
-                    "50%": {transform: "translateY(1.5rem)"},
-                    "100%": {transform: "translateY(-1.5rem)"}
+                    "0%": { transform: "translateY(-1.5rem)" },
+                    "50%": { transform: "translateY(1.5rem)" },
+                    "100%": { transform: "translateY(-1.5rem)" }
                 },
                 fadein: {
-                    from: {opacity: "0"},
-                    to: {opacity: "1"}
+                    from: { opacity: "0" },
+                    to: { opacity: "1" }
                 }
             }
         }

@@ -1,55 +1,45 @@
 ---
-import {ViewTransitions} from 'astro:transitions';
-import '@fontsource/inter/latin.css';
-import '@/global.css';
-import Navbar from "./compound/navbar.astro";
-import Footer from "./compound/footer.astro";
+import "@fontsource/inter/latin.css";
+import "@/global.css";
+import {ViewTransitions} from "astro:transitions";
+import {BaseLayoutProps, LayoutHelper} from "@/lib/LayoutHelper";
 
-export interface Props {
-    title?: string;
+export interface Props extends BaseLayoutProps {
 }
-
-const canonicalURL = new URL(Astro.url.pathname, Astro.site).toString();
-const resolvedImageWithDomain = new URL('/opengraph.webp', Astro.site).toString();
-const {title} = Astro.props;
-const shownTitle = title ? 'Voxel | ' + title : 'Voxel';
-const description = "Voxel, la référence pour tout développeur souhaitant se lancer ou se perfectionner dans la création de mods Minecraft. Offrant des ressources de pointe et des guides avancés, nous accompagnons chaque talent, du novice à l'expert, avec des solutions professionnelles adaptées à vos besoins.";
+const {title, description, openGraph} = Astro.props;
+const Content = new LayoutHelper({url: Astro.url, site: Astro.site, title, description, openGraph});
 ---
 
 <!doctype html>
 <html lang="en">
 <head>
-    <title>{shownTitle}</title>
+    <title>{Content.shownTitle}</title>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg"/>
-    <link rel="canonical" href={canonicalURL}>
+    <link rel="canonical" href={Content.canonicalURL}/>
     <meta charset="UTF-8"/>
 
-    <meta name="description" content={description}/>
+    <meta name="description" content={Content.shownDescription}/>
     <meta name="viewport" content="width=device-width"/>
     <meta name="generator" content={Astro.generator}/>
-    <meta name="description" content={description}>
-    <meta name="theme-color" content="#721582">
+    <meta name="description" content={Content.shownDescription}/>
+    <meta name="theme-color" content="#721582"/>
 
-    <meta property="og:title" content="Voxel">
-    <meta property="og:type" content="website">
-    <meta property="og:image" content={resolvedImageWithDomain}>
-    <meta property="og:description" content={description}>
-    <meta property="og:url" content={canonicalURL}>
-    <meta property="og:image:url" content={resolvedImageWithDomain}>
-    <meta property="og:image:alt" content="Voxel">
+    <meta property="og:title" content="Voxel"/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:image" content={Content.resolvedImageWithDomain}/>
+    <meta property="og:description" content={Content.shownDescription}/>
+    <meta property="og:url" content={Content.canonicalURL}/>
+    <meta property="og:image:url" content={Content.resolvedImageWithDomain}/>
+    <meta property="og:image:alt" content="Voxel"/>
 
-    <meta name="twitter:title" content="Voxel">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:site" content={canonicalURL}>
-    <meta name="twitter:description" content={description}>
-    <meta name="twitter:creator" content="@Hardel-DW">
-
+    <meta name="twitter:title" content="Voxel"/>
+    <meta name="twitter:card" content="summary_large_image"/>
+    <meta name="twitter:site" content={Content.canonicalURL}/>
+    <meta name="twitter:description" content={Content.shownDescription}/>
+    <meta name="twitter:creator" content="@Hardel-DW"/>
     <ViewTransitions/>
 </head>
 <body>
-<Navbar/>
-
 <slot/>
-<Footer/>
 </body>
 </html>

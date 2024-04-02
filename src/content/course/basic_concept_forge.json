@@ -5,11 +5,7 @@
         "short": "Bases du modding",
         "snippet": "Les bases des concepts de 'modding' pour Minecraft Java 1.20",
         "author": "Hardel",
-        "tags": [
-            "modding",
-            "forge",
-            "1.20"
-        ],
+        "tags": ["modding", "forge", "1.20"],
         "publishDate": "2024-02-22 13:55",
         "images": {
             "src": "/images/background/minecraft_120.webp",
@@ -24,9 +20,7 @@
         "price": 29.99,
         "currency": "€",
         "url": "https://voxel.lemonsqueezy.com/checkout/buy/7f8ad16c-0d25-455b-86e9-6e53691dbf2c",
-        "items": [
-            "/images/background/minecraft_120.webp"
-        ],
+        "items": ["/images/background/minecraft_120.webp"],
         "faq": [
             {
                 "question": "Qu'est-ce que je vais apprendre ?",

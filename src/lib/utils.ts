@@ -1,4 +1,4 @@
-import {twMerge} from "tailwind-merge";
+import { twMerge } from "tailwind-merge";
 
 export type ClassDictionary = Record<string, any>;
 export type ClassArray = ClassValue[];
@@ -34,8 +34,8 @@ export function cn(...args: ClassValue[]) {
 export const getFormattedDate = (date: string | number | Date, regions: string = "fr-fr") =>
     date
         ? new Date(date).toLocaleDateString(regions, {
-            year: "numeric",
-            month: "short",
-            day: "numeric"
-        })
+              year: "numeric",
+              month: "short",
+              day: "numeric"
+          })
         : "";

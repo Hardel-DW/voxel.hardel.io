@@ -6,7 +6,7 @@ body {
 body {
     font-family: "Inter", sans-serif;
     color: #e8e8e8;
-    background-color: #050107;
+    background-color: #080507;
     margin: 0;
     padding: 0;
     min-height: 100dvh;
@@ -19,9 +19,9 @@ hr {
     border-top: 0 solid rgba(0, 0, 0, 0.08);
     border-right: 0 solid rgba(0, 0, 0, 0.08);
     border-left: 0 solid rgba(0, 0, 0, 0.08);
+    border-bottom: none;
     height: 0.0625rem;
     margin: 1rem 0;
-    border-bottom: none;
     opacity: 0.25;
     width: 100%;
     background-color: transparent;

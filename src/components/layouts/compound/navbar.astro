@@ -1,6 +1,76 @@
-<div class="sticky h-20 top-0 border-b z-20 backdrop-blur-lg py-4 px-8 md:px-20 w-full flex items-center bg-black/80 border-zinc-800">
-    <a href="/" class="flex items-center gap-x-4">
-        <img src="/favicon.svg" alt="Voxelwind" class="w-6 h-6 brightness-90 mx-2" />
-        <span class="text-lg text-white font-bold">VOXEL</span>
-    </a>
-</div>
+---
+import Button from "@/components/button.astro";
+import NavBarItem from "@/components/layouts/compound/NavbarContent";
+
+const links = [
+    {name: "Accueil", href: "/"},
+    {name: "Resources", href: "/resources"},
+    {name: "Contact", href: "/contact"},
+];
+---
+
+<header class="mt-8 fixed left-0 right-0 z-20 group" id="header" aria-expanded="false">
+    <nav id="navbar"
+         class="flex group-aria-expanded:border-t group-aria-expanded:border-l group-aria-expanded:bg-header-translucent transition-colors duration-150 ease-linear border-zinc-800 justify-between items-center max-w-full h-14 mx-auto rounded-3xl backdrop-blur-md px-2 w-10/12 md:w-3/4">
+        <!-- Left Part -->
+        <div class="flex items-center gap-4 pl-2">
+            <a href="/" class="flex items-center gap-x-4">
+                <img src="/favicon.svg" alt="Voxelwind" class="w-6 h-6 brightness-90 mx-2"/>
+                <span class="text-lg text-white font-bold">VOXEL</span>
+            </a>
+
+            <!-- Desktop -->
+            <div class="hidden md:block">
+                <NavBarItem client:idle/>
+            </div>
+        </div>
+
+        <!-- Right Part -->
+        <div>
+            <!-- Desktop -->
+            <div class="hidden lg:flex items-center gap-2">
+                <Button rounded="full" variant="ghost">Connexion</Button>
+                <Button rounded="full" variant="primary" class="group">Commencer</Button>
+            </div>
+
+            <!-- Mobile -->
+            <div class="lg:hidden inline-block">
+                <Button size="icon" rounded="full" variant="icon" aria-label="Menu" id="menu">
+                    <img src="/icons/menu.svg" alt="Menu" class="w-6 h-6 invert"/>
+                </Button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile -->
+    <nav class="group-aria-expanded:flex hidden md:hidden mt-2 shadow-zinc-500/20 shadow-2xl border-zinc-800 border-t border-l bg-header-translucent flex-col gap-2 rounded-3xl backdrop-blur-md p-2 mx-auto w-10/12 md:w-3/4">
+        <div class="size-full flex flex-col gap-y-2">
+            <div class="py-2">
+                {links.map((item) =>
+                        <a href={item.href}
+                           class="rounded-3xl px-4 py-3 leading-none flex justify-between transition-colors text-zinc-400 hover:bg-zinc-700/10 hover:text-white">
+                            <span>{item.name}</span>
+                            <img src="/icons/chevron-right.svg" alt="Chevron" class="w-4 h-4 invert"/>
+                        </a>
+                )}
+            </div>
+            <hr class="my-0">
+            <div class="mt-2 space-y-2">
+                <Button class="w-full mt-0" rounded="full" variant="ghost">Connexion</Button>
+                <Button class="w-full mt-0" rounded="full" variant="primary">Guides</Button>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<script>
+    const classList = document.getElementById('navbar').classList;
+    const strings = ['border-t', 'border-l', 'bg-header-translucent'];
+    window.addEventListener('scroll', () => window.scrollY > 0 ? classList.add(...strings) : classList.remove(...strings));
+
+    const menu = document.getElementById('menu');
+    const header = document.getElementById('header');
+    menu.addEventListener('click', () => {
+        header.setAttribute('aria-expanded', header.getAttribute('aria-expanded') === 'true' ? 'false' : 'true');
+    });
+</script>

@@ -1,0 +1,202 @@
+---
+import Button from "@/components/button.astro";
+import CompoundLayout from "@/components/layouts/CompoundLayout.astro";
+import Playground from "@/components/container/playground.astro";
+import PlaygroundGroup from "@/components/container/PlaygroundGroup.astro";
+---
+
+<CompoundLayout title="Button Playground">
+    <section class="w-3/4 mx-auto pb-8 pt-16 gap-2">
+        <h1 class="text-4xl text-r font-bold mb-2 text-white">
+            Button Component Playground
+        </h1>
+        <p class="text-lg text-r text-zinc-400">
+            This is a playground for the Button component. You can test different variants, sizes, and colors.
+        </p>
+        <hr>
+    </section>
+
+    <section class="w-3/4 mx-auto space-y-8">
+        <Playground>
+            <Fragment slot="title">Default Button</Fragment>
+            <Fragment slot="content">This is a default button. With not attribute except the "variant"</Fragment>
+
+            <PlaygroundGroup>
+                <Button>Default Button</Button>
+                <Button variant="ghost">Ghost Variant</Button>
+                <Button variant="primary">Primary Variant</Button>
+                <Button variant="destructive">Destructive Variant</Button>
+                <Button variant="black">Black Variant</Button>
+                <Button variant="link">Link Variant</Button>
+            </PlaygroundGroup>
+        </Playground>
+
+        <Playground>
+            <Fragment slot="title">Default Sizes</Fragment>
+            <Fragment slot="content"> You can change the size of the button by using the <code>size</code> prop.
+            </Fragment>
+
+            <div class="flex flex-wrap gap-8">
+                <div class="space-y-4">
+                    <PlaygroundGroup>
+                        <Button size="icon">
+                            <img src="/favicon.svg" alt="icon" class="w-6 h-6 invert"/></Button>
+                        <Button size="sm">Small</Button>
+                        <Button size="md">Medium</Button>
+                        <Button size="lg">Large</Button>
+                        <Button size="xl">Extra Large</Button>
+                    </PlaygroundGroup>
+                    <PlaygroundGroup>
+                        <Button variant="destructive" size="icon">
+                            <img src="/favicon.svg" alt="icon" class="w-6 h-6 "/>
+                        </Button>
+                        <Button variant="destructive" size="sm">Small</Button>
+                        <Button variant="destructive" size="md">Medium</Button>
+                        <Button variant="destructive" size="lg">Large</Button>
+                        <Button variant="destructive" size="xl">Extra Large</Button>
+                    </PlaygroundGroup>
+                    <PlaygroundGroup>
+                        <Button variant="primary" size="icon">
+                            <img src="/favicon.svg" alt="icon" class="w-6 h-6"/>
+                        </Button>
+                        <Button variant="primary" size="sm">Small</Button>
+                        <Button variant="primary" size="md">Medium</Button>
+                        <Button variant="primary" size="lg">Large</Button>
+                        <Button variant="primary" size="xl">Extra Large</Button>
+                    </PlaygroundGroup>
+                    <PlaygroundGroup>
+                        <Button variant="black" size="icon">
+                            <img src="/favicon.svg" alt="icon" class="w-6 h-6"/>
+                        </Button>
+                        <Button variant="black" size="sm">Small</Button>
+                        <Button variant="black" size="md">Medium</Button>
+                        <Button variant="black" size="lg">Large</Button>
+                        <Button variant="black" size="xl">Extra Large</Button>
+                    </PlaygroundGroup>
+                    <PlaygroundGroup>
+                        <Button variant="ghost" size="icon">
+                            <img src="/favicon.svg" alt="icon" class="w-6 h-6"/>
+                        </Button>
+                        <Button variant="ghost" size="sm">Small</Button>
+                        <Button variant="ghost" size="md">Medium</Button>
+                        <Button variant="ghost" size="lg">Large</Button>
+                        <Button variant="ghost" size="xl">Extra Large</Button>
+                    </PlaygroundGroup>
+                </div>
+
+                <div class="space-y-4">
+                    <PlaygroundGroup>
+                        <Button ring="white" size="icon">
+                            <img src="/favicon.svg" alt="icon" class="w-6 h-6 invert"/>
+                        </Button>
+                        <Button ring="white" size="sm">Small</Button>
+                        <Button ring="white" size="md">Medium</Button>
+                        <Button ring="white" size="lg">Large</Button>
+                        <Button ring="white" size="xl">Extra Large</Button>
+                    </PlaygroundGroup>
+                    <PlaygroundGroup>
+                        <Button ring="destructive" variant="destructive" size="icon">
+                            <img src="/favicon.svg" alt="icon" class="w-6 h-6 "/>
+                        </Button>
+                        <Button ring="destructive" variant="destructive" size="sm">Small</Button>
+                        <Button ring="destructive" variant="destructive" size="md">Medium</Button>
+                        <Button ring="destructive" variant="destructive" size="lg">Large</Button>
+                        <Button ring="destructive" variant="destructive" size="xl">Extra Large</Button>
+                    </PlaygroundGroup>
+                    <PlaygroundGroup>
+                        <Button ring="primary" variant="primary" size="icon">
+                            <img src="/favicon.svg" alt="icon" class="w-6 h-6"/>
+                        </Button>
+                        <Button ring="primary" variant="primary" size="sm">Small</Button>
+                        <Button ring="primary" variant="primary" size="md">Medium</Button>
+                        <Button ring="primary" variant="primary" size="lg">Large</Button>
+                        <Button ring="primary" variant="primary" size="xl">Extra Large</Button>
+                    </PlaygroundGroup>
+                    <PlaygroundGroup>
+                        <Button ring="destructive" variant="black" size="icon">
+                            <img src="/favicon.svg" alt="icon" class="w-6 h-6"/>
+                        </Button>
+                        <Button ring="destructive" variant="black" size="sm">Small</Button>
+                        <Button ring="destructive" variant="black" size="md">Medium</Button>
+                        <Button ring="destructive" variant="black" size="lg">Large</Button>
+                        <Button ring="destructive" variant="black" size="xl">Extra Large</Button>
+                    </PlaygroundGroup>
+                    <PlaygroundGroup>
+                        <Button variant="ghost" size="icon">
+                            <img src="/favicon.svg" alt="icon" class="w-6 h-6"/>
+                        </Button>
+                        <Button variant="ghost" size="sm">Small</Button>
+                        <Button variant="ghost" size="md">Medium</Button>
+                        <Button variant="ghost" size="lg">Large</Button>
+                        <Button variant="ghost" size="xl">Extra Large</Button>
+                    </PlaygroundGroup>
+                </div>
+            </div>
+        </Playground>
+
+        <Playground>
+            <Fragment slot="title">Button Rounded</Fragment>
+            <Fragment slot="content"> You can change the border radius of the button by using the <code>rounded</code>
+                prop.
+            </Fragment>
+
+            <div class="flex flex-wrap gap-8">
+                <div class="space-y-4">
+                    <PlaygroundGroup>
+                        <Button>Default Button</Button>
+                        <Button rounded="full">Full Rounded Button</Button>
+                        <Button rounded="none">Not Rounded</Button>
+                    </PlaygroundGroup>
+                    <PlaygroundGroup>
+                        <Button variant="destructive">Default Button</Button>
+                        <Button variant="destructive" rounded="full">Full Rounded Button</Button>
+                        <Button variant="destructive" rounded="none">Not Rounded</Button>
+                    </PlaygroundGroup>
+                    <PlaygroundGroup>
+                        <Button variant="primary">Default Button</Button>
+                        <Button variant="primary" rounded="full">Full Rounded Button</Button>
+                        <Button variant="primary" rounded="none">Not Rounded</Button>
+                    </PlaygroundGroup>
+                    <PlaygroundGroup>
+                        <Button variant="ghost">Default Button</Button>
+                        <Button variant="ghost" rounded="full">Full Rounded Button</Button>
+                        <Button variant="ghost" rounded="none">Not Rounded</Button>
+                    </PlaygroundGroup>
+                    <PlaygroundGroup>
+                        <Button variant="black">Default Button</Button>
+                        <Button variant="black" rounded="full">Full Rounded Button</Button>
+                        <Button variant="black" rounded="none">Not Rounded</Button>
+                    </PlaygroundGroup>
+                </div>
+
+                <div class="space-y-4">
+                    <PlaygroundGroup>
+                        <Button ring="white">Default Button</Button>
+                        <Button ring="white" rounded="full">Full Rounded Button</Button>
+                        <Button ring="white" rounded="none">Not Rounded</Button>
+                    </PlaygroundGroup>
+                    <PlaygroundGroup>
+                        <Button ring="destructive" variant="destructive">Default Button</Button>
+                        <Button ring="destructive" variant="destructive" rounded="full">Full Rounded Button</Button>
+                        <Button ring="destructive" variant="destructive" rounded="none">Not Rounded</Button>
+                    </PlaygroundGroup>
+                    <PlaygroundGroup>
+                        <Button ring="primary" variant="primary">Default Button</Button>
+                        <Button ring="primary" variant="primary" rounded="full">Full Rounded Button</Button>
+                        <Button ring="primary" variant="primary" rounded="none">Not Rounded</Button>
+                    </PlaygroundGroup>
+                    <PlaygroundGroup>
+                        <Button ring="destructive" variant="ghost">Default Button</Button>
+                        <Button ring="destructive" variant="ghost" rounded="full">Full Rounded Button</Button>
+                        <Button ring="destructive" variant="ghost" rounded="none">Not Rounded</Button>
+                    </PlaygroundGroup>
+                    <PlaygroundGroup>
+                        <Button variant="black">Default Button</Button>
+                        <Button variant="black" rounded="full">Full Rounded Button</Button>
+                        <Button variant="black" rounded="none">Not Rounded</Button>
+                    </PlaygroundGroup>
+                </div>
+            </div>
+        </Playground>
+    </section>
+</CompoundLayout>

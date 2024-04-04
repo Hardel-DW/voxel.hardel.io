@@ -7,6 +7,13 @@ export default {
             fontFamily: {
                 sans: ["Inter"]
             },
+            colors: {
+                header: {
+                    translucent: "#18181bcc",
+                    cloudy: "#151418"
+                },
+                content: "#38373f66"
+            },
             animation: {
                 levitate: "levitate 5s ease-in-out infinite",
                 fadein: "fadein 0.2s ease-in"

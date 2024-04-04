@@ -1,6 +1,6 @@
-import {verifyRequestOrigin} from "lucia";
-import {defineMiddleware} from "astro:middleware";
-import {lucia} from "@/lib/lucia.ts";
+import { verifyRequestOrigin } from "lucia";
+import { defineMiddleware } from "astro:middleware";
+import { lucia } from "@/lib/lucia.ts";
 
 /**
  * These pages are pre-rendered and cause warnings when the middleware is applied to them.

@@ -5,10 +5,14 @@ import "@fontsource/inter/latin.css";
 
 export interface Props extends BaseLayoutProps {}
 
+if (!Astro?.url || !Astro?.site) {
+    throw new Error("Astro.url and Astro.site must be defined in your astro config");
+}
+
 const LayoutContent = new LayoutHelper(Astro.url, Astro.site);
-LayoutContent.setTitle(Astro.props.title);
-LayoutContent.setDescription(Astro.props.description);
-LayoutContent.setOpenGraph(Astro.props.openGraph);
+LayoutContent.setTitle(Astro.props?.title);
+LayoutContent.setDescription(Astro.props?.description);
+LayoutContent.setOpenGraph(Astro.props?.openGraph);
 ---
 
 <!doctype html>

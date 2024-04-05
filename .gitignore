@@ -22,4 +22,3 @@ pnpm-debug.log*
 .idea
 .vscode
 pnpm-lock.yaml
-.npmrc

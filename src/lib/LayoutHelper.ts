@@ -13,21 +13,21 @@ type LayoutHelperProps = {
     url: URL;
 };
 
+const defaultTitle = "Voxel";
+const defaultDescription =
+    "Voxel, la référence pour tout développeur souhaitant se lancer ou se perfectionner dans la création de mods Minecraft. Offrant des ressources de pointe et des guides avancés, nous accompagnons chaque talent, du novice à l'expert, avec des solutions professionnelles adaptées à vos besoins.";
+const defaultImage = {
+    title: defaultTitle,
+    description: defaultDescription,
+    image: "/opengraph.webp"
+};
+
 export class LayoutHelper implements BaseLayoutProps, LayoutHelperProps {
     site: URL;
     url: URL;
-    title = "Voxel";
-    description =
-        "Voxel, la référence pour tout développeur souhaitant se lancer ou se perfectionner dans la création de mods Minecraft. Offrant des ressources de pointe et des guides avancés, nous accompagnons chaque talent, du novice à l'expert, avec des solutions professionnelles adaptées à vos besoins.";
-    openGraph: {
-        title: string;
-        description: string;
-        image: string;
-    } = {
-        title: this.title,
-        description: this.description,
-        image: "/opengraph.webp"
-    };
+    title = defaultTitle;
+    description = defaultDescription;
+    openGraph: { title: string; description: string; image: string } = defaultImage;
 
     constructor(site: URL, url: URL, props?: BaseLayoutProps) {
         this.site = site;
@@ -41,15 +41,16 @@ export class LayoutHelper implements BaseLayoutProps, LayoutHelperProps {
         }
     }
 
-    public setTitle(title: string) {
-        this.title = title;
+    public setTitle(title: string | undefined) {
+        this.title = title || defaultTitle;
     }
 
-    public setDescription(description: string) {
-        this.description = description;
+    public setDescription(description: string | undefined) {
+        this.description = description || defaultDescription;
     }
 
-    public setOpenGraph(props: BaseLayoutProps["openGraph"]) {
+    public setOpenGraph(props: BaseLayoutProps["openGraph"] | undefined) {
+        if (!props) this.openGraph = defaultImage;
         if (props?.title) this.openGraph.title = props.title;
         if (props?.description) this.openGraph.description = props.description;
         if (props?.image) this.openGraph.image = props.image;
@@ -76,7 +77,7 @@ export class LayoutHelper implements BaseLayoutProps, LayoutHelperProps {
     }
 
     get shownTitle() {
-        return this.title ? `Voxel | ${this.title}` : "Voxel";
+        return this.title ? `${defaultTitle} | ${this.title}` : defaultTitle;
     }
 
     get shownDescription() {

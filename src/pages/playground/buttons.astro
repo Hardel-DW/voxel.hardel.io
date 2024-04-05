@@ -4,23 +4,33 @@ import PlaygroundGroup from "@/components/container/PlaygroundGroup.astro";
 import Playground from "@/components/container/playground.astro";
 import CompoundLayout from "@/components/layouts/CompoundLayout.astro";
 
-const sizes = [
-    {name: "Small", value: "sm"},
-    {name: "Medium", value: "md"},
-    {name: "Large", value: "lg"},
-    {name: "Extra Large", value: "xl"},
-    {name: "2x Extra Large", value: "2xl"},
-    {name: "3x Extra Large", value: "3xl"}
-];
+const VARIANT_VALUES = {
+    primary: "Primary",
+    destructive: "Destructive",
+    black: "Black",
+    ghost: "Ghost",
+    transparent: "Transparent",
+    link: "Link"
+} as const;
 
-const variants = [
-    {name: "Primary", value: "primary"},
-    {name: "Destructive", value: "destructive"},
-    {name: "Black", value: "black"},
-    {name: "Ghost", value: "ghost"},
-    {name: "Transparent", value: "transparent"},
-    {name: "Link", value: "link"}
-];
+const SIZE_VALUES = {
+    sm: "Small",
+    md: "Medium",
+    lg: "Large",
+    xl: "Extra Large",
+    "2xl": "2x Extra Large",
+    "3xl": "3x Extra Large",
+    icon: "Icon"
+} as const;
+
+type Variant = keyof typeof VARIANT_VALUES;
+type Size = keyof typeof SIZE_VALUES;
+
+const variants = Object.entries(VARIANT_VALUES).map(([value, name]) => ({ value, name })) as {
+    value: Variant;
+    name: string;
+}[];
+const sizes = Object.entries(SIZE_VALUES).map(([value, name]) => ({ value, name })) as { value: Size; name: string }[];
 ---
 
 <CompoundLayout title="Button Playground">

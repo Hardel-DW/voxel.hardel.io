@@ -35,7 +35,7 @@ const links = [
 
             <!-- Mobile -->
             <div class="lg:hidden inline-block">
-                <Button size="icon" rounded="full" variant="icon" aria-label="Menu" id="menu">
+                <Button size="icon" variant="link" rounded="full" aria-label="Menu" id="menu">
                     <img src="/icons/menu.svg" alt="Menu" class="w-6 h-6 invert"/>
                 </Button>
             </div>
@@ -64,12 +64,12 @@ const links = [
 </header>
 
 <script>
-    const classList = document.getElementById('navbar').classList;
+    const classList = document.getElementById('navbar')!.classList;
     const strings = ['border-t', 'border-l', 'bg-header-translucent'];
     window.addEventListener('scroll', () => window.scrollY > 0 ? classList.add(...strings) : classList.remove(...strings));
 
-    const menu = document.getElementById('menu');
-    const header = document.getElementById('header');
+    const menu = document.getElementById('menu')!;
+    const header = document.getElementById('header')!;
     menu.addEventListener('click', () => {
         header.setAttribute('aria-expanded', header.getAttribute('aria-expanded') === 'true' ? 'false' : 'true');
     });

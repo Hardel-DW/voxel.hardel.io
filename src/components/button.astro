@@ -47,7 +47,7 @@ const variants = {
         size: "default",
         variant: "default",
         rounded: "default",
-        ring: "none"
+        ring: "default"
     }
 };
 
@@ -59,12 +59,12 @@ interface Props extends HTMLAttributes<"a"> {
 }
 
 const {
-    variant = variants.defaultVariant.variant,
-    size = variants.defaultVariant.size,
-    rounded = variants.defaultVariant.rounded,
-    ring = variants.defaultVariant.ring,
+    variant = variants.defaultVariant.variant as keyof typeof variants.variant,
+    size = variants.defaultVariant.size as keyof typeof variants.size,
+    rounded = variants.defaultVariant.rounded as keyof typeof variants.rounded,
+    ring = variants.defaultVariant.ring as keyof typeof variants.ring,
     ...rest
-} = Astro.props;
+}: Props = Astro.props;
 ---
 
 <a

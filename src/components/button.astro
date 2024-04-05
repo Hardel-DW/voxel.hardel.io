@@ -1,6 +1,8 @@
 ---
-import { HTMLAttributes } from "astro/types";
-import { cn } from "@/lib/utils";
+import {HTMLAttributes} from "astro/types";
+import {cn} from "@/lib/utils";
+
+export const a = 1;
 
 /**
  * Color:
@@ -27,6 +29,8 @@ const variants = {
         md: "h-10 rounded-md px-4",
         lg: "h-11 rounded-md px-8",
         xl: "h-12 rounded-md px-10",
+        "2xl": "h-12 rounded-md px-16",
+        "3xl": "h-12 rounded-md px-20",
         icon: "h-12 w-12 p-2"
     },
     rounded: {

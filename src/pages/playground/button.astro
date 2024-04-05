@@ -3,10 +3,28 @@ import Button from "@/components/button.astro";
 import CompoundLayout from "@/components/layouts/CompoundLayout.astro";
 import Playground from "@/components/container/playground.astro";
 import PlaygroundGroup from "@/components/container/PlaygroundGroup.astro";
+import ViewTransition from "astro:transition";
+
+const sizes = [
+    {name: "Small", value: "sm"},
+    {name: "Medium", value: "md"},
+    {name: "Large", value: "lg"},
+    {name: "Extra Large", value: "xl"},
+    {name: "2x Extra Large", value: "2xl"},
+    {name: "3x Extra Large", value: "3xl"},
+];
+
+const variants = [
+    {name: "Primary", value: "primary"},
+    {name: "Destructive", value: "destructive"},
+    {name: "Black", value: "black"},
+    {name: "Ghost", value: "ghost"},
+    {name: "Link", value: "link"},
+];
 ---
 
 <CompoundLayout title="Button Playground">
-    <section class="w-3/4 mx-auto pb-8 pt-16 gap-2">
+    <section class="w-3/4 mx-auto pb-8 pt-32 gap-2">
         <h1 class="text-4xl text-r font-bold mb-2 text-white">
             Button Component Playground
         </h1>
@@ -23,12 +41,28 @@ import PlaygroundGroup from "@/components/container/PlaygroundGroup.astro";
 
             <PlaygroundGroup>
                 <Button>Default Button</Button>
-                <Button variant="ghost">Ghost Variant</Button>
-                <Button variant="primary">Primary Variant</Button>
-                <Button variant="destructive">Destructive Variant</Button>
-                <Button variant="black">Black Variant</Button>
-                <Button variant="link">Link Variant</Button>
+                {variants.map((variant) => (
+                        <Button variant={variant.value}>{variant.name} Button</Button>
+                ))}
             </PlaygroundGroup>
+        </Playground>
+
+        <Playground>
+            <Fragment slot="title">Button Ring</Fragment>
+            <Fragment slot="content"> You can change the border color of the button by using the <code>ring</code> prop.
+            </Fragment>
+
+            <div class="flex flex-wrap gap-8">
+                <div class="space-y-4">
+                    <PlaygroundGroup>
+                        <Button ring="white">Default Button</Button>
+                        <Button ring="destructive" variant="destructive">Default Button</Button>
+                        <Button ring="primary" variant="primary">Default Button</Button>
+                        <Button ring="destructive" variant="ghost">Default Button</Button>
+                        <Button variant="black">Default Button</Button>
+                    </PlaygroundGroup>
+                </div>
+            </div>
         </Playground>
 
         <Playground>
@@ -40,96 +74,22 @@ import PlaygroundGroup from "@/components/container/PlaygroundGroup.astro";
                 <div class="space-y-4">
                     <PlaygroundGroup>
                         <Button size="icon">
-                            <img src="/favicon.svg" alt="icon" class="w-6 h-6 invert"/></Button>
-                        <Button size="sm">Small</Button>
-                        <Button size="md">Medium</Button>
-                        <Button size="lg">Large</Button>
-                        <Button size="xl">Extra Large</Button>
-                    </PlaygroundGroup>
-                    <PlaygroundGroup>
-                        <Button variant="destructive" size="icon">
-                            <img src="/favicon.svg" alt="icon" class="w-6 h-6 "/>
-                        </Button>
-                        <Button variant="destructive" size="sm">Small</Button>
-                        <Button variant="destructive" size="md">Medium</Button>
-                        <Button variant="destructive" size="lg">Large</Button>
-                        <Button variant="destructive" size="xl">Extra Large</Button>
-                    </PlaygroundGroup>
-                    <PlaygroundGroup>
-                        <Button variant="primary" size="icon">
-                            <img src="/favicon.svg" alt="icon" class="w-6 h-6"/>
-                        </Button>
-                        <Button variant="primary" size="sm">Small</Button>
-                        <Button variant="primary" size="md">Medium</Button>
-                        <Button variant="primary" size="lg">Large</Button>
-                        <Button variant="primary" size="xl">Extra Large</Button>
-                    </PlaygroundGroup>
-                    <PlaygroundGroup>
-                        <Button variant="black" size="icon">
-                            <img src="/favicon.svg" alt="icon" class="w-6 h-6"/>
-                        </Button>
-                        <Button variant="black" size="sm">Small</Button>
-                        <Button variant="black" size="md">Medium</Button>
-                        <Button variant="black" size="lg">Large</Button>
-                        <Button variant="black" size="xl">Extra Large</Button>
-                    </PlaygroundGroup>
-                    <PlaygroundGroup>
-                        <Button variant="ghost" size="icon">
-                            <img src="/favicon.svg" alt="icon" class="w-6 h-6"/>
-                        </Button>
-                        <Button variant="ghost" size="sm">Small</Button>
-                        <Button variant="ghost" size="md">Medium</Button>
-                        <Button variant="ghost" size="lg">Large</Button>
-                        <Button variant="ghost" size="xl">Extra Large</Button>
-                    </PlaygroundGroup>
-                </div>
-
-                <div class="space-y-4">
-                    <PlaygroundGroup>
-                        <Button ring="white" size="icon">
                             <img src="/favicon.svg" alt="icon" class="w-6 h-6 invert"/>
                         </Button>
-                        <Button ring="white" size="sm">Small</Button>
-                        <Button ring="white" size="md">Medium</Button>
-                        <Button ring="white" size="lg">Large</Button>
-                        <Button ring="white" size="xl">Extra Large</Button>
+                        {sizes.map((size) => (
+                                <Button size={size.value}>{size.name}</Button>
+                        ))}
                     </PlaygroundGroup>
-                    <PlaygroundGroup>
-                        <Button ring="destructive" variant="destructive" size="icon">
-                            <img src="/favicon.svg" alt="icon" class="w-6 h-6 "/>
-                        </Button>
-                        <Button ring="destructive" variant="destructive" size="sm">Small</Button>
-                        <Button ring="destructive" variant="destructive" size="md">Medium</Button>
-                        <Button ring="destructive" variant="destructive" size="lg">Large</Button>
-                        <Button ring="destructive" variant="destructive" size="xl">Extra Large</Button>
-                    </PlaygroundGroup>
-                    <PlaygroundGroup>
-                        <Button ring="primary" variant="primary" size="icon">
-                            <img src="/favicon.svg" alt="icon" class="w-6 h-6"/>
-                        </Button>
-                        <Button ring="primary" variant="primary" size="sm">Small</Button>
-                        <Button ring="primary" variant="primary" size="md">Medium</Button>
-                        <Button ring="primary" variant="primary" size="lg">Large</Button>
-                        <Button ring="primary" variant="primary" size="xl">Extra Large</Button>
-                    </PlaygroundGroup>
-                    <PlaygroundGroup>
-                        <Button ring="destructive" variant="black" size="icon">
-                            <img src="/favicon.svg" alt="icon" class="w-6 h-6"/>
-                        </Button>
-                        <Button ring="destructive" variant="black" size="sm">Small</Button>
-                        <Button ring="destructive" variant="black" size="md">Medium</Button>
-                        <Button ring="destructive" variant="black" size="lg">Large</Button>
-                        <Button ring="destructive" variant="black" size="xl">Extra Large</Button>
-                    </PlaygroundGroup>
-                    <PlaygroundGroup>
-                        <Button variant="ghost" size="icon">
-                            <img src="/favicon.svg" alt="icon" class="w-6 h-6"/>
-                        </Button>
-                        <Button variant="ghost" size="sm">Small</Button>
-                        <Button variant="ghost" size="md">Medium</Button>
-                        <Button variant="ghost" size="lg">Large</Button>
-                        <Button variant="ghost" size="xl">Extra Large</Button>
-                    </PlaygroundGroup>
+                    {variants.filter((s) => s.value !== "link").map((variant) => (
+                            <PlaygroundGroup>
+                                <Button variant={variant.value} size="icon">
+                                    <img src="/favicon.svg" alt="icon" class="w-6 h-6"/>
+                                </Button>
+                                {sizes.map((size) => (
+                                        <Button variant={variant.value} size={size.value}>{size.name}</Button>
+                                ))}
+                            </PlaygroundGroup>
+                    ))}
                 </div>
             </div>
         </Playground>
@@ -147,54 +107,13 @@ import PlaygroundGroup from "@/components/container/PlaygroundGroup.astro";
                         <Button rounded="full">Full Rounded Button</Button>
                         <Button rounded="none">Not Rounded</Button>
                     </PlaygroundGroup>
-                    <PlaygroundGroup>
-                        <Button variant="destructive">Default Button</Button>
-                        <Button variant="destructive" rounded="full">Full Rounded Button</Button>
-                        <Button variant="destructive" rounded="none">Not Rounded</Button>
-                    </PlaygroundGroup>
-                    <PlaygroundGroup>
-                        <Button variant="primary">Default Button</Button>
-                        <Button variant="primary" rounded="full">Full Rounded Button</Button>
-                        <Button variant="primary" rounded="none">Not Rounded</Button>
-                    </PlaygroundGroup>
-                    <PlaygroundGroup>
-                        <Button variant="ghost">Default Button</Button>
-                        <Button variant="ghost" rounded="full">Full Rounded Button</Button>
-                        <Button variant="ghost" rounded="none">Not Rounded</Button>
-                    </PlaygroundGroup>
-                    <PlaygroundGroup>
-                        <Button variant="black">Default Button</Button>
-                        <Button variant="black" rounded="full">Full Rounded Button</Button>
-                        <Button variant="black" rounded="none">Not Rounded</Button>
-                    </PlaygroundGroup>
-                </div>
-
-                <div class="space-y-4">
-                    <PlaygroundGroup>
-                        <Button ring="white">Default Button</Button>
-                        <Button ring="white" rounded="full">Full Rounded Button</Button>
-                        <Button ring="white" rounded="none">Not Rounded</Button>
-                    </PlaygroundGroup>
-                    <PlaygroundGroup>
-                        <Button ring="destructive" variant="destructive">Default Button</Button>
-                        <Button ring="destructive" variant="destructive" rounded="full">Full Rounded Button</Button>
-                        <Button ring="destructive" variant="destructive" rounded="none">Not Rounded</Button>
-                    </PlaygroundGroup>
-                    <PlaygroundGroup>
-                        <Button ring="primary" variant="primary">Default Button</Button>
-                        <Button ring="primary" variant="primary" rounded="full">Full Rounded Button</Button>
-                        <Button ring="primary" variant="primary" rounded="none">Not Rounded</Button>
-                    </PlaygroundGroup>
-                    <PlaygroundGroup>
-                        <Button ring="destructive" variant="ghost">Default Button</Button>
-                        <Button ring="destructive" variant="ghost" rounded="full">Full Rounded Button</Button>
-                        <Button ring="destructive" variant="ghost" rounded="none">Not Rounded</Button>
-                    </PlaygroundGroup>
-                    <PlaygroundGroup>
-                        <Button variant="black">Default Button</Button>
-                        <Button variant="black" rounded="full">Full Rounded Button</Button>
-                        <Button variant="black" rounded="none">Not Rounded</Button>
-                    </PlaygroundGroup>
+                    {variants.filter((s) => s.value !== "link").map((variant) => (
+                            <PlaygroundGroup>
+                                <Button variant={variant.value}>Default Button</Button>
+                                <Button variant={variant.value} rounded="full">Full Rounded Button</Button>
+                                <Button variant={variant.value} rounded="none">Not Rounded</Button>
+                            </PlaygroundGroup>
+                    ))}
                 </div>
             </div>
         </Playground>

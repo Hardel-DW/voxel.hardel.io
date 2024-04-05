@@ -4,11 +4,13 @@ import CompoundLayout from "@/components/layouts/CompoundLayout.astro";
 import Button from "@/components/button.astro";
 import Faq from "@/components/faq.astro";
 import faq_data from "@/content/data/faq.json";
+import Box from "@/components/pages/home/Box.astro";
 
 export const prerender = true;
 ---
 
 <CompoundLayout>
+    <!-- Main view -->
     <section class="h-dvh py-20 w-3/4 mx-auto flex xl:grid grid-cols-2 items-center gap-8">
         <div class="absolute w-10/12 -translate-x-1/2 left-1/2 bottom-0 top-1/2 -translate-y-1/2 shadow-2xl bg-gradient-to-r from-pink-900 to-blue-900 opacity-30 rounded-full blur-[5rem]"/>
 
@@ -48,7 +50,7 @@ export const prerender = true;
     </section>
 
     <!-- Features -->
-    <section class="mb-20 md:my-40 w-3/4 mx-auto xl:grid grid-cols-2 gap-40 relative">
+    <section class="my-60 w-3/4 mx-auto xl:grid grid-cols-2 gap-40 relative">
         <div class="absolute w-10/12 h-full -translate-x-1/2 left-1/2 bottom-0 top-1/2 -translate-y-1/2">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="-8.7671 1.5919 73.18 32.93"
                  class="blur-[60px] opacity-10">
@@ -90,6 +92,48 @@ export const prerender = true;
         </div>
     </section>
 
+    <!-- Product -->
+    <section class="my-60 w-3/4 xl:w-1/2 mx-auto grid md:grid-cols-2 gap-8">
+        <Box image="/images/features/structure/tree.webp" class="border-zinc-800 border-2 relative z-10">
+            <div class="absolute -z-10 top-0 left-0 w-full h-full bg-gradient-to-r from-pink-900 to-blue-900 opacity-30 rounded-full blur-[5rem]"/>
+            <h2 class="text-white text-xl md:text-2xl font-bold text-left line-clamp-1">Bases du modding - 1.20</h2>
+            <p class="text-zinc-400 text-sm md:text-base mt-2 line-clamp-3">
+                Apprenez les bases du modding Minecraft, de la création de simples blocs à l'ajout de nouvelles
+                fonctionnalités.
+            </p>
+            <div class="flex flex-wrap gap-4">
+                <Button href="/" size="md" variant="primary" class="mt-4">Commencer</Button>
+                <Button href="/" size="md" variant="transparent" class="mt-4">En savoir plus</Button>
+            </div>
+        </Box>
+        <Box image="/images/features/bundle.webp">
+            <h2 class="text-white text-xl md:text-2xl font-bold text-left line-clamp-1">
+                Resources de qualité
+            </h2>
+            <p class="text-zinc-400 text-sm md:text-base mt-2 line-clamp-3">
+                Augmentez la qualité de vos mods en ajoutant des ressources de qualité.
+            </p>
+            <Button href="/" size="md" variant="transparent" class="mt-4">Faire un tour</Button>
+        </Box>
+        <Box image="/images/features/title/question_mark.webp">
+            <h2 class="text-white text-xl md:text-2xl font-bold text-left line-clamp-1">Bientôt</h2>
+            <p class="text-zinc-400 text-sm md:text-base mt-2 line-clamp-3">
+                Une fonctionnalité est en cours de <b>01010</b> développement, elle sera bientôt disponible, 10110
+                <b>AI</b>
+                l'écoute
+                !
+            </p>
+        </Box>
+
+        <Box image="/images/features/title/question_mark.webp">
+            <h2 class="text-white text-xl md:text-2xl font-bold text-left line-clamp-1">Bientôt</h2>
+            <p class="text-zinc-400 text-sm md:text-base mt-2 line-clamp-3">
+                Une fonctionnalité est en cours de développement, elle sera bientôt disponible, restez à l'écoute !
+            </p>
+        </Box>
+    </section>
+
+    <!-- FAQ -->
     <section class="w-3/4 xl:w-full mx-auto py-20 relative">
         <Faq data={faq_data}/>
     </section>

@@ -40,6 +40,12 @@ hr {
     all: unset;
 }
 
+.gradient-gray {
+    background-image: radial-gradient(circle farthest-side at 0 100%, #151414, transparent),
+    radial-gradient(circle farthest-side at 100% 0, #0c0c0c, transparent), radial-gradient(circle farthest-side at 100% 100%, #1c1b1b, transparent),
+    radial-gradient(circle farthest-side at 0 0, rgba(24, 24, 24, 0.8), #100707);
+}
+
 .pixelated {
     image-rendering: pixelated;
 }

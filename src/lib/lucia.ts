@@ -1,8 +1,8 @@
-import { DrizzlePostgreSQLAdapter } from "@lucia-auth/adapter-drizzle";
 import { db } from "@/database/db.ts";
 import { sessionTable, userTable } from "@/database/schema.ts";
-import { Lucia } from "lucia";
+import { DrizzlePostgreSQLAdapter } from "@lucia-auth/adapter-drizzle";
 import { Google } from "arctic";
+import { Lucia } from "lucia";
 
 const baseUrl = import.meta.env.VERCEL_URL ? `https://${import.meta.env.VERCEL_URL}` : "http://localhost:4321";
 export const adapter = new DrizzlePostgreSQLAdapter(db, sessionTable, userTable);
@@ -27,7 +27,7 @@ export const lucia = new Lucia(adapter, {
 export const google = new Google(
     import.meta.env.GOOGLE_CLIENT_ID,
     import.meta.env.GOOGLE_CLIENT_SECRET,
-    baseUrl + "/login/google/callback"
+    `${baseUrl}/login/google/callback`
 );
 
 declare module "lucia" {

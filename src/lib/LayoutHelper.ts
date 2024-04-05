@@ -16,8 +16,8 @@ type LayoutHelperProps = {
 export class LayoutHelper implements BaseLayoutProps, LayoutHelperProps {
     site: URL;
     url: URL;
-    title: string = "Voxel";
-    description: string =
+    title = "Voxel";
+    description =
         "Voxel, la référence pour tout développeur souhaitant se lancer ou se perfectionner dans la création de mods Minecraft. Offrant des ressources de pointe et des guides avancés, nous accompagnons chaque talent, du novice à l'expert, avec des solutions professionnelles adaptées à vos besoins.";
     openGraph: {
         title: string;
@@ -76,7 +76,7 @@ export class LayoutHelper implements BaseLayoutProps, LayoutHelperProps {
     }
 
     get shownTitle() {
-        return this.title ? "Voxel | " + this.title : "Voxel";
+        return this.title ? `Voxel | ${this.title}` : "Voxel";
     }
 
     get shownDescription() {

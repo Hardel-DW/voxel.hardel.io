@@ -1,6 +1,6 @@
-import * as React from "react";
-import * as NavigationMenuPrimitive from "@radix-ui/react-navigation-menu";
 import { cn } from "@/lib/utils.ts";
+import * as NavigationMenuPrimitive from "@radix-ui/react-navigation-menu";
+import * as React from "react";
 
 const NavigationMenu = React.forwardRef<
     React.ElementRef<typeof NavigationMenuPrimitive.Root>,

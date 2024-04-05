@@ -1,10 +1,9 @@
 ---
-import "@fontsource/inter/latin.css";
 import "@/global.css";
-import {BaseLayoutProps, LayoutHelper} from "@/lib/LayoutHelper";
+import { type BaseLayoutProps, LayoutHelper } from "@/lib/LayoutHelper";
+import "@fontsource/inter/latin.css";
 
-export interface Props extends BaseLayoutProps {
-}
+export interface Props extends BaseLayoutProps {}
 
 const LayoutContent = new LayoutHelper(Astro.url, Astro.site);
 LayoutContent.setTitle(Astro.props.title);

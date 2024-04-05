@@ -1,11 +1,10 @@
 ---
-import Navbar from "@/components/layouts/compound/navbar.astro";
-import Footer from "@/components/layouts/compound/footer.astro";
 import Layout from "@/components/layouts/Layout.astro";
-import type {BaseLayoutProps} from "@/lib/LayoutHelper";
+import Footer from "@/components/layouts/compound/footer.astro";
+import Navbar from "@/components/layouts/compound/navbar.astro";
+import type { BaseLayoutProps } from "@/lib/LayoutHelper";
 
-export interface Props extends BaseLayoutProps {
-}
+export interface Props extends BaseLayoutProps {}
 ---
 
 <Layout {...Astro.props}>

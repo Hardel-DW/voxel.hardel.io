@@ -28,6 +28,14 @@ hr {
     background-image: linear-gradient(to right, rgba(0, 117, 255, 0), #fff, rgba(255, 255, 255, 0)) !important;
 }
 
+.drag-none {
+    user-select: none;
+    user-drag: none;
+    -moz-user-select: none;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+}
+
 .unset {
     all: unset;
 }

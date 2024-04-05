@@ -1,6 +1,7 @@
 ---
-import { Image } from "astro:assets";
+import {Image} from "astro:assets";
 import CompoundLayout from "@/components/layouts/CompoundLayout.astro";
+import Button from "@/components/button.astro";
 import Faq from "@/components/faq.astro";
 import faq_data from "@/content/data/faq.json";
 
@@ -8,44 +9,84 @@ export const prerender = true;
 ---
 
 <CompoundLayout>
-    <section class="h-[90dvh] py-20 w-3/4 mx-auto flex xl:grid grid-cols-2 items-center gap-8">
+    <section class="h-dvh py-20 w-3/4 mx-auto flex xl:grid grid-cols-2 items-center gap-8">
+        <div class="absolute w-10/12 -translate-x-1/2 left-1/2 bottom-0 top-1/2 -translate-y-1/2 shadow-2xl bg-gradient-to-r from-pink-900 to-blue-900 opacity-30 rounded-full blur-[5rem]"/>
+
         <div class="h-full w-[95%] md:w-full md:mx-16 mx-auto relative">
             <div class="xl:invisible visible absolute flex justify-center items-center size-full -z-10">
-                <div class="absolute inset-0 top-1/2 -translate-y-1/2 shadow-2xl bg-gradient-to-r from-pink-900 to-blue-900 rounded-full blur-[5rem]">
-                </div>
+                <div class="absolute inset-0 top-1/2 -translate-y-1/2 shadow-2xl bg-gradient-to-r from-pink-900 to-blue-900 opacity-50 rounded-full blur-[5rem]"/>
             </div>
 
             <div class="size-full flex flex-col justify-center">
                 <small class="text-pink-700 font-bold tracking-wide text-[16px]">- VOXEL</small>
-                <h1 class="text-white text-3xl md:text-6xl font-bold mt-4 text-balance">Developpe les mods de tes
+                <h1 class="text-white text-4xl md:text-6xl font-bold mt-4 text-balance">Developpe les mods de tes
                     rêves</h1>
                 <p class="text-gray-300 mt-4">
                     VOXEL, qu'est-ce que c'est ? Ce sont des guides en français, du niveau débutant à avancé, pour
                     apprendre à développer
                     des mods ou enrichir ses connaissances existantes.
                 </p>
-                <form class="mt-8 w-full md:w-10/12 flex flex-col-reverse md:flex-row gap-y-4 gap-x-8" method="POST">
-                    <button disabled id="btn-coming-soon" type="submit"
-                            class="bg-pink-700 text-nowrap transition duration-500 text-white px-6 py-3 rounded-md font-bold hover:bg-pink-600"
-                            style={{opacity: 0.5}}
-                    >
-                        Disponible bientôt
-                    </button>
 
-                    <label for="email" class="hidden">Email</label>
-                    <input id="email" name="email" type="email"
-                           placeholder="Soyez le premier informé, laissez votre email."
-                           class="flex-1 bg-zinc-800 text-white px-6 py-3 rounded-md font-bold border border-zinc-700 focus:outline-none focus:border-pink-700"
-                    />
-                </form>
+                <div class="mt-8 flex gap-4">
+                    <Button href="/" size="xl" variant="primary">Commencer</Button>
+                    <Button href="/" size="xl" variant="ghost">En savoir plus</Button>
+                </div>
             </div>
         </div>
         <div class="relative w-full hidden xl:flex justify-center items-center">
             <Image loading="eager" width="500" height="500" src="/images/features/dev.webp" alt="404"
-                   class="w-1/2 aspect-auto animate-levitate"
+                   class="w-1/2 aspect-auto animate-levitate drag-none"
             />
-            <img class="absolute opacity-10" src="/icons/circle.svg" alt="box"/>
-            <div class="absolute -z-10 w-96 h-96 shadow-2xl bg-gradient-to-r from-pink-900 to-blue-900 rounded-full blur-[10rem]"></div>
+            <img class="absolute opacity-10 drag-none" src="/icons/circle.svg" alt="box"/>
+            <img id="red_sword" src="/images/features/item/red_sword.webp" alt="sword"
+                 class="pixelated drag-none z-10 absolute size-24 top-8 left-8">
+            <img id="solar" src="/images/features/item/solar.webp" alt="sword"
+                 class="pixelated drag-none z-10 absolute top-8 right-8 size-24">
+            <img id="diamond" src="/images/features/item/diamond.webp" alt="sword"
+                 class="pixelated drag-none z-10 absolute -bottom-16 size-24 hue-rotate-60">
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section class="mb-20 md:my-40 w-3/4 mx-auto xl:grid grid-cols-2 gap-40 relative">
+        <div class="absolute w-10/12 h-full -translate-x-1/2 left-1/2 bottom-0 top-1/2 -translate-y-1/2">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="-8.7671 1.5919 73.18 32.93"
+                 class="blur-[60px] opacity-10">
+                // Gradient Gray scale
+                <defs>
+                    <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" style="stop-color:rgb(52,52,52);stop-opacity:1"/>
+                        <stop offset="100%" style="stop-color:rgb(227,224,224);stop-opacity:1"/>
+                    </linearGradient>
+                </defs>
+                <path d="M 6 5 C 0 -4 -16 7 -5 13 C 6 19 6 29 9 32 C 19 41 30 23 40 23 C 49 23 59 33 64 25 C 67 18 53 1 42 4 C 34 10 19 21 16 16"
+                      fill="url(#grad1)" stroke-width="1"/>
+            </svg>
+        </div>
+
+        <div class="hidden xl:flex justify-center items-center relative w-full">
+            <Image loading="eager" width="442" height="544" src="/images/features/skin/avatar.webp" alt="404"
+                   class="w-1/2 aspect-auto animate-levitate scale-x-[-1] drag-none"/>
+            <img class="absolute opacity-10 drag-none" src="/icons/circle.svg" alt="box"/>
+        </div>
+
+        <div class="w-[95%] xl:w-full mx-auto">
+            <small class="text-pink-700 font-bold tracking-wide text-[16px]">- Voxel</small>
+            <h1 class="text-white text-4xl md:text-6xl font-bold mt-4">Fait par un passionné pour les passionnés</h1>
+            <p class="text-zinc-400 text-sm md:text-base mt-6">
+                VOXEL est un projet personnel, créé par un passionné de développement de mods Minecraft. L'objectif
+                est de partager mes connaissances et de vous aider à développer vos propres mods.
+            </p>
+
+            <div class="grid grid-cols-3 gap-4 mt-8">
+                {['Depuis Zero', 'En Français', '1.20.x'].map((element) => (
+                        <div class="relative flex items-center justify-center bg-zinc-900 border border-zinc-700 px-3 py-4 rounded-xl shadow-xl shadow-zinc-950 overflow-hidden">
+                            <h2 class="text-white text-sm md:text-xl font-bold text-center">
+                                {element}
+                            </h2>
+                        </div>
+                ))}
+            </div>
         </div>
     </section>
 

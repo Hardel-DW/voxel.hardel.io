@@ -12,7 +12,7 @@ const uris = {
     local: "localhost:4321"
 };
 const uri = uris[env as keyof typeof uris] || uris.local;
-const redirect = `https://${uri}}/auth/google/callback`;
+const redirect = `https://${uri}/auth/google/callback`;
 
 export const adapter = new DrizzlePostgreSQLAdapter(db, sessionTable, userTable);
 export const lucia = new Lucia(adapter, {

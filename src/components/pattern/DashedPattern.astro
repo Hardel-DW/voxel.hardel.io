@@ -7,8 +7,8 @@ const props = Astro.props;
 ---
 
 <svg
+    class={cn("size-full -z-10 absolute stroke-purple-500/30 [mask-image:radial-gradient(white,transparent_70%)] [stroke-dasharray:5_6] [stroke-dashoffset:10] stroke-[6]", props.class)}
     {...props}
-    class={cn("size-full -z-10 absolute stroke-purple-500/30 [mask-image:radial-gradient(white,transparent_70%)] [stroke-dasharray:5_6] [stroke-dashoffset:10] lg:stroke-[6]", props.class)}
 >
     <defs>
         <pattern id="grid" viewBox="0 0 64 64" width="32" height="32" patternUnits="userSpaceOnUse" x="0" y="0">

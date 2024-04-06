@@ -1,23 +1,29 @@
 ---
 import Button from "@/components/button.astro";
 import CompoundLayout from "@/components/layouts/CompoundLayout.astro";
+import DashedPattern from "@/components/pattern/DashedPattern.astro";
 
 export const prerender = true;
 ---
 
 <CompoundLayout title="404 Not Found">
-    <div class="container">
-        <div class="min-h-[calc(100vh-20rem)] flex items-center justify-center">
-            <div class="mt-16 text-center">
-                <h1
-                        class="text-6xl lg:text-9xl font-bold lg:tracking-tight bg-gradient-to-b from-pink-800 to-pink-300 bg-clip-text text-transparent"
-                >
-                    404
-                </h1>
-                <p class="text-lg lg:text-2xl font-medium mt-4 text-slate-700">The page you are looking for doesn’t
-                    exist.</p>
-                <div class="mt-10">
-                    <Button href="/">Back to Home</Button>
+    <div class="relative h-dvh max-w-full flex justify-center items-center container mx-auto mt-16">
+        <DashedPattern class="stroke-zinc-500/30" />
+
+        <div>
+            <h1 class="font-bold text-white text-center" style={{
+                fontSize: "clamp(5rem, 10dvw, 12rem)",
+                lineHeight: "1",
+            }}>
+                404
+            </h1>
+            <div class="max-w-full w-1/2 mx-auto">
+                <p class="text-base lg:text-2xl font-medium mt-4 text-zinc-500 text-center">
+                    Cette page n'existe pas, ou a été déplacée, contactez-nous si vous pensez qu'il s'agit d'une erreur.
+                </p>
+                <div class="mt-10 *:w-full grid xl:grid-cols-2 gap-y-4 gap-x-8">
+                    <Button size="xl" href="/">Revenir a l'accueil</Button>
+                    <Button size="xl" variant="ghost" href="/contact">Nous contacter</Button>
                 </div>
             </div>
         </div>

@@ -4,7 +4,8 @@ import { DrizzlePostgreSQLAdapter } from "@lucia-auth/adapter-drizzle";
 import { Google } from "arctic";
 import { Lucia } from "lucia";
 
-const baseUrl = import.meta.env.VERCEL_URL ? `https://${import.meta.env.VERCEL_URL}` : "http://localhost:4321";
+const vercel = process.env.VERCEL_URL ?? import.meta.env?.VERCEL_URL;
+const baseUrl = vercel ? `https://${vercel}` : "http://localhost:4321";
 export const adapter = new DrizzlePostgreSQLAdapter(db, sessionTable, userTable);
 
 export const lucia = new Lucia(adapter, {

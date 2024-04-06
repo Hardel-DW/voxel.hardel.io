@@ -4,10 +4,17 @@ import { DrizzlePostgreSQLAdapter } from "@lucia-auth/adapter-drizzle";
 import { Google } from "arctic";
 import { Lucia } from "lucia";
 
-const vercel = process.env.VERCEL_URL ?? import.meta.env?.VERCEL_URL;
-const baseUrl = vercel ? `https://${vercel}` : "http://localhost:4321";
-export const adapter = new DrizzlePostgreSQLAdapter(db, sessionTable, userTable);
+const env = process.env.ENVIRONMENT ?? import.meta.env.ENVIRONMENT;
+const uris = {
+    production: "voxel.hardel.io",
+    development: "devvoxel.hardel.io",
+    staging: "stagingvoxel.hardel.io",
+    local: "localhost:4321"
+};
+const uri = uris[env as keyof typeof uris] || uris.local;
+const redirect = `https://${uri}}/auth/google/callback`;
 
+export const adapter = new DrizzlePostgreSQLAdapter(db, sessionTable, userTable);
 export const lucia = new Lucia(adapter, {
     sessionCookie: {
         attributes: {
@@ -25,7 +32,10 @@ export const lucia = new Lucia(adapter, {
     }
 });
 
-export const google = new Google(import.meta.env.GOOGLE_CLIENT_ID, import.meta.env.GOOGLE_CLIENT_SECRET, `${baseUrl}/auth/google/callback`);
+const googleid = process.env.GOOGLE_CLIENT_ID ?? import.meta.env.GOOGLE_CLIENT_ID;
+const googlesecret = process.env.GOOGLE_CLIENT_SECRET ?? import.meta.env.GOOGLE_CLIENT_SECRET;
+
+export const google = new Google(googleid, googlesecret, redirect);
 
 declare module "lucia" {
     interface Register {

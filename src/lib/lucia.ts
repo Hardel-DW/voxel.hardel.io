@@ -24,11 +24,7 @@ export const lucia = new Lucia(adapter, {
     }
 });
 
-export const google = new Google(
-    import.meta.env.GOOGLE_CLIENT_ID,
-    import.meta.env.GOOGLE_CLIENT_SECRET,
-    `${baseUrl}/login/google/callback`
-);
+export const google = new Google(import.meta.env.GOOGLE_CLIENT_ID, import.meta.env.GOOGLE_CLIENT_SECRET, `${baseUrl}/auth/google/callback`);
 
 declare module "lucia" {
     interface Register {

@@ -5,6 +5,7 @@ import type { APIContext } from "astro";
 export async function GET(context: APIContext): Promise<Response> {
     const state = generateState();
     const codeVerifier = generateCodeVerifier();
+    const originalUrl = context.url.searchParams.get("redirect") ?? import.meta.env.SITE;
     const url = await google.createAuthorizationURL(state, codeVerifier, {
         scopes: ["profile", "email"]
     });
@@ -20,6 +21,14 @@ export async function GET(context: APIContext): Promise<Response> {
 
     // store code verifier as cookie
     context.cookies.set("code_verifier", codeVerifier, {
+        secure: import.meta.env.PROD,
+        sameSite: "lax",
+        path: "/",
+        httpOnly: true,
+        maxAge: 60 * 10 // 10 min
+    });
+
+    context.cookies.set("callback_auth", originalUrl, {
         secure: import.meta.env.PROD,
         sameSite: "lax",
         path: "/",

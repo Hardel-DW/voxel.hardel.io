@@ -1,6 +1,7 @@
 ---
 import Button from "@/components/button.astro";
 import NavBarItem from "@/components/layouts/compound/NavbarContent";
+import { generateRedirectUrl } from "@/lib/lucia";
 
 const links = [
     { name: "Accueil", href: "/" },
@@ -29,7 +30,7 @@ const links = [
         <div>
             <!-- Desktop -->
             <div class="hidden lg:flex items-center gap-2">
-                <Button href="/auth/google" rounded="full" variant="ghost">Connexion</Button>
+                <Button href={generateRedirectUrl(Astro.url.toString())} rounded="full" variant="ghost">Connexion</Button>
                 <Button rounded="full" variant="primary" class="group">Commencer</Button>
             </div>
 

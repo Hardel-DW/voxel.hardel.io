@@ -13,7 +13,7 @@ interface ImportMetaEnv {
     readonly GOOGLE_CLIENT_ID: string;
     readonly GOOGLE_CLIENT_SECRET: string;
     readonly DATABASE_URL: string;
-    readonly ENVIRONMENT: string;
+    readonly VITE_ENVIRONMENT: string;
 }
 
 interface ImportMeta {

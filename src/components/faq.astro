@@ -9,14 +9,14 @@ export interface Props {
 const { data } = Astro.props;
 ---
 
-<section class="grid divide-y divide-zinc-700 max-w-5xl mx-auto mt-8">
+<section class="grid divide-y divide-zinc-700 max-w-5xl mx-auto">
     {data.map((item: { question: string; answer: string }) => (
             <div class="py-5">
                 <details class="group">
                     <summary class="flex justify-between items-center gap-x-10 font-medium cursor-pointer list-none">
-                        <span class="select-none text-zinc-200 text-xl">{item.question}</span>
+                        <span class="select-none text-zinc-200 text-base md:text-xl">{item.question}</span>
                         <span class="transition group-open:rotate-180 flex-shrink-0">
-                        <img loading="eager" src="/icons/chevron-down.svg" alt="arrow" class="w-8 h-8 invert"/>
+                        <img loading="eager" src="/icons/chevron-down.svg" alt="arrow" class="size-6 md:size-8 invert"/>
                     </span>
                     </summary>
                     <p class="text-zinc-400 mt-4 group-open:animate-fadein">{item.answer}</p>

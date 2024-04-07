@@ -57,7 +57,7 @@ const links = [
             </div>
             <hr class="my-0">
             <div class="mt-2 space-y-2">
-                <Button class="w-full mt-0" rounded="full" variant="ghost">Connexion</Button>
+                <Button href={generateRedirectUrl(Astro.url.toString())} class="w-full mt-0" rounded="full" variant="ghost">Connexion</Button>
                 <Button class="w-full mt-0" rounded="full" variant="primary">Guides</Button>
             </div>
         </div>

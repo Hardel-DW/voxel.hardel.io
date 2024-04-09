@@ -19,7 +19,7 @@ export default function NavBarItem() {
                             <li className="row-span-3">
                                 <NavigationMenuLink asChild>
                                     <a
-                                        className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b to-zinc-950/50 from-zinc-700/50 p-6 no-underline outline-none focus:shadow-md"
+                                        className="flex h-full w-full select-none flex-col justify-end rounded-2xl bg-gradient-to-b to-zinc-950/50 from-zinc-700/50 p-6 no-underline outline-none focus:shadow-md"
                                         href="/public"
                                     >
                                         <img src="/favicon.svg" alt="Voxel" className="w-12 h-12" />
@@ -47,7 +47,7 @@ export default function NavBarItem() {
                         <div className="p-6 md:w-[400px] lg:w-[500px]">
                             <a
                                 href="/course"
-                                className="h-40 group relative cursor-pointer flex flex-col justify-end select-none gap-1 p-3"
+                                className="h-40 group/picture relative cursor-pointer flex flex-col justify-end select-none gap-1 p-3"
                             >
                                 <div className="text-xl font-medium text-white leading-none relative z-10">Minecraft Modding - 1.20</div>
                                 <p className="line-clamp-2 text-sm leading-snug text-zinc-400">
@@ -56,7 +56,7 @@ export default function NavBarItem() {
                                 </p>
 
                                 <span
-                                    className="absolute bg-cover rounded-2xl bg-center bg-no-repeat inset-0 size-full z-0 opacity-100 group-hover:opacity-70 transition-opacity duration-200"
+                                    className="absolute bg-cover rounded-2xl bg-center bg-no-repeat inset-0 size-full z-0 opacity-100 group-hover/picture:opacity-70 transition-opacity duration-200"
                                     style={{
                                         backgroundImage: "url('/images/background/bees.webp')",
                                         maskImage: "linear-gradient(to top, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 1))"

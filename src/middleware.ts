@@ -6,7 +6,7 @@ import { verifyRequestOrigin } from "lucia";
  * These pages are pre-rendered and cause warnings when the middleware is applied to them.
  */
 export const onRequest = defineMiddleware(async (context, next) => {
-    const excludedPaths = ["/", "/contact", "terms", "/privacy", "/404"];
+    const excludedPaths = ["/", "guide", "contact", "terms", "privacy", "404"];
     const url = new URL(context.request.url);
     if (excludedPaths.includes(url.pathname)) {
         return next();

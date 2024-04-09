@@ -1,0 +1,84 @@
+---
+import { Picture } from "astro:assets";
+import { getCollection } from "astro:content";
+import CompoundLayout from "@/components/layouts/CompoundLayout.astro";
+import { getFormattedDate } from "@/lib/utils";
+import DashedPattern from "../../components/pattern/DashedPattern.astro";
+
+export const prerender = true;
+export async function getStaticPaths({ paginate }) {
+    const PAGE_SIZE = 6;
+    const allPosts = await getCollection("guide", ({ data }) => !data.metadata.draft);
+    const allSortedPosts = allPosts.sort((a, b) => b.data.metadata.publishDate.valueOf() - a.data.metadata.publishDate.valueOf());
+
+    return paginate(allSortedPosts, {
+        pageSize: PAGE_SIZE
+    });
+}
+
+
+const { page } = Astro.props;
+---
+
+<CompoundLayout title="Voxel - Guide">
+    <div class="relative container mx-auto px-4 pt-40">
+        <DashedPattern />
+        <div class="px-2">
+            <h1 class="text-4xl font-bold mt-8">
+                Les derniers guides publiés
+            </h1>
+            <p class="text-zinc-400 text-sm md:text-base mt-3">
+                Apprends à créer des mods et des data packs pour Minecraft. Exprime ta créativité et transforme ton jeu en un univers unique.
+            </p>
+        </div>
+        <hr>
+
+        <main class="mt-16">
+            <ul class="grid sm:grid-cols-2 md:grid-cols-3 gap-10 lg:gap-16">
+                {page.data.map((post, index) => (
+                    <li>
+                        <a href={`/guide/${post.id}`}>
+                            <div>
+                                <Picture
+                                    width={800} height={600}
+                                    src={post.data.metadata.images.src}
+                                    alt={post.data.metadata.images.alt}
+                                    loading={index <= 2 ? 'eager' : 'lazy'}
+                                    decoding={index <= 2 ? 'sync' : 'async'}
+                                    class="w-full rounded-2xl object-cover" />
+
+                                <div class="mt-4">
+                                    <span class="text-pink-400 uppercase tracking-wider text-xs font-medium">{post.data.metadata.tags.join(' - ')}</span>
+                                    <h2 class="text-xl font-semibold leading-snug tracking-tight mt-1">{post.data.metadata.title}</h2>
+                                    <div class="flex gap-2 mt-2 text-sm">
+                                        <span class="text-gray-400">{post.data.metadata.author}</span>
+                                        <span class="text-gray-400">• </span>
+                                        <time class="text-gray-400" datetime={getFormattedDate(post.data.metadata.publishDate)}>
+                                            {getFormattedDate(post.data.metadata.publishDate)}
+                                        </time>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                ))}
+            </ul>
+
+            <div class="flex justify-center items-center mt-10 gap-4">
+                {page.url.prev && (
+                        <a class="bg-gray-100 px-5 py-2 rounded-md hover:bg-gray-200 transition" href={page.url.prev} title="Go to Previous">
+                            &larr; Prev
+                        </a>
+                    )
+                }
+                {page.url.next && (
+                        <a class="bg-gray-100 px-5 py-2 rounded-md hover:bg-gray-200 transition" href={page.url.next} title="Go to Next">
+                            Next &rarr;
+                        </a>
+                    )
+                }
+            </div>
+
+        </main>
+    </div>
+</CompoundLayout>

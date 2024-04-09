@@ -7,7 +7,7 @@ const articleCollection = defineCollection({
     })
 });
 
-const courseCollection = defineCollection({
+const guideCollection = defineCollection({
     type: "data",
     schema: z.object({
         metadata: z.object({
@@ -66,5 +66,5 @@ const courseCollection = defineCollection({
 
 export const collections = {
     article: articleCollection,
-    course: courseCollection
+    course: guideCollection
 };

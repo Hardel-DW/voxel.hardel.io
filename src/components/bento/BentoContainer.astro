@@ -1,0 +1,15 @@
+---
+import type {HTMLAttributes} from "astro/types";
+import {cn} from "@/lib/utils";
+
+interface Props extends HTMLAttributes<"div"> {
+}
+const props: Props = Astro.props;
+---
+
+<div
+        class={cn("flex flex-none flex-col gap-8 md:flex-row md:flex-wrap xl:flex-nowrap items-center justify-start size-full", props.class)}
+        {...props}
+>
+    <slot/>
+</div>

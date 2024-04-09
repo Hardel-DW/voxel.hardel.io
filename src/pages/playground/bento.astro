@@ -1,0 +1,36 @@
+---
+import CompoundLayout from "../../components/layouts/CompoundLayout.astro";
+import BentoItem from "../../components/bento/BentoItem.astro";
+import BentoContainer from "../../components/bento/BentoContainer.astro";
+import BentoRows from "../../components/bento/BentoRows.astro";
+import BentoColumn from "../../components/bento/BentoColumn.astro";
+---
+<CompoundLayout title="Voxel - Bento">
+    <div class="flex items-center justify-center w-full xl:min-h-[calc(100dvh)] px-8 md:px-16 pt-32 py-16">
+        <BentoContainer>
+            <BentoColumn class="md:flex-[1_0_0px] xl:flex-[.6_0_0px] h-[780px] md:h-[680px]">
+                <BentoItem size="1"/>
+                <BentoItem size="1"/>
+                <BentoItem size="1"/>
+            </BentoColumn>
+            <BentoColumn class="md:flex-[1_0_0px] h-[680px]">
+                <BentoRows class="max-xl:hidden">
+                    <BentoItem size="1"/>
+                    <BentoItem size="1"/>
+                </BentoRows>
+                <BentoItem size="1.45"/>
+                <BentoItem size="1"/>
+            </BentoColumn>
+            <BentoColumn class="xl:flex-[1_0_0px] h-auto">
+                <BentoRows height="385" class="xl:flex-[1.2_0_0px]">
+                    <BentoItem size="0.9"/>
+                    <BentoItem size="1.1"/>
+                </BentoRows>
+                <BentoRows height="385">
+                    <BentoItem size="1.2"/>
+                    <BentoItem size="1"/>
+                </BentoRows>
+            </BentoColumn>
+        </BentoContainer>
+    </div>
+</CompoundLayout>

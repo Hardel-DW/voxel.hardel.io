@@ -1,0 +1,17 @@
+---
+import type {HTMLAttributes} from "astro/types";
+import {cn} from "@/lib/utils";
+
+interface Props extends HTMLAttributes<"div"> {
+    size: number;
+}
+const props: Props = Astro.props;
+---
+
+<div
+        class={cn("bg-zinc-900 animate-pulse rounded-2xl h-full w-full", props.class)}
+        style={{flex: `${props.size} 0 0px`}}
+        {...props}
+>
+    <slot/>
+</div>

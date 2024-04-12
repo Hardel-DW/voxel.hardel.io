@@ -78,7 +78,8 @@ export const prerender = true;
 
     <!-- Product -->
     <section class="my-16 md:my-52 w-3/4 xl:w-1/2 mx-auto grid md:grid-cols-2 gap-8">
-        <Box image="/images/features/structure/tree.webp" class="border-zinc-800 border-2 relative z-10">
+        <Box loading="eager" image="/images/features/structure/tree.webp"
+             class="border-zinc-800 border-2 relative z-10">
             <div class="absolute -z-10 top-0 left-0 w-full h-full bg-gradient-to-r from-pink-900 to-blue-900 opacity-30 rounded-full blur-[5rem]"/>
             <h2 class="text-white text-xl md:text-2xl font-bold text-left line-clamp-1">Bases du modding - 1.20</h2>
             <p class="text-zinc-400 text-sm md:text-base mt-2 line-clamp-3">
@@ -90,7 +91,7 @@ export const prerender = true;
                 <Button class="w-full xl:w-fit" href="/guides" size="md" variant="transparent">En savoir plus</Button>
             </div>
         </Box>
-        <Box image="/images/features/bundle.webp">
+        <Box loading="lazy" image="/images/features/bundle.webp">
             <h2 class="text-white text-xl md:text-2xl font-bold text-left line-clamp-1">
                 Resources de qualité
             </h2>
@@ -99,7 +100,7 @@ export const prerender = true;
             </p>
             <Button class="w-full xl:w-fit mt-6" href="/" size="md" variant="transparent">Faire un tour</Button>
         </Box>
-        <Box image="/images/features/title/question_mark.webp">
+        <Box loading="lazy" image="/images/features/title/question_mark.webp">
             <h2 class="text-white text-xl md:text-2xl font-bold text-left line-clamp-1">Bientôt</h2>
             <p class="text-zinc-400 text-sm md:text-base mt-2 line-clamp-3">
                 Une fonctionnalité est en cours de <b>01010</b> développement, elle sera bientôt disponible, 10110
@@ -109,7 +110,7 @@ export const prerender = true;
             </p>
         </Box>
 
-        <Box image="/images/features/title/question_mark.webp">
+        <Box loading="lazy" image="/images/features/title/question_mark.webp">
             <h2 class="text-white text-xl md:text-2xl font-bold text-left line-clamp-1">Bientôt</h2>
             <p class="text-zinc-400 text-sm md:text-base mt-2 line-clamp-3">
                 Une fonctionnalité est en cours de développement, elle sera bientôt disponible, restez à l'écoute !

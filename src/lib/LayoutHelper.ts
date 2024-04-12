@@ -56,18 +56,6 @@ export class LayoutHelper implements BaseLayoutProps, LayoutHelperProps {
         if (props?.image) this.openGraph.image = props.image;
     }
 
-    public setOpenGraphTitle(title: string) {
-        this.openGraph.title = title;
-    }
-
-    public setOpenGraphDescription(description: string) {
-        this.openGraph.description = description;
-    }
-
-    public setOpenGraphImage(image: string) {
-        this.openGraph.image = image;
-    }
-
     get canonicalURL() {
         return new URL(this.url.pathname, this.site).toString();
     }
@@ -82,21 +70,5 @@ export class LayoutHelper implements BaseLayoutProps, LayoutHelperProps {
 
     get shownDescription() {
         return this.description;
-    }
-
-    get shownOpenGraphTitle() {
-        return this.openGraph.title;
-    }
-
-    get shownOpenGraphDescription() {
-        return this.openGraph.description;
-    }
-
-    get shownOpenGraphImage() {
-        return this.resolvedImageWithDomain;
-    }
-
-    get shownOpenGraphURL() {
-        return this.canonicalURL;
     }
 }

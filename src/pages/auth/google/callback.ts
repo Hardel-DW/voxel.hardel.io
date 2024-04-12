@@ -2,7 +2,7 @@ import { db } from "@/database/db.ts";
 import { userTable } from "@/database/schema.ts";
 import { google, lucia } from "@/lib/lucia.ts";
 import { OAuth2RequestError } from "arctic";
-import type { APIContext } from "astro";
+import type { APIContext, AstroCookieSetOptions } from "astro";
 import { and, eq } from "drizzle-orm";
 import { generateId } from "lucia";
 
@@ -43,7 +43,7 @@ export async function GET(context: APIContext): Promise<Response> {
         if (existingUser[0]) {
             const session = await lucia.createSession(existingUser[0].id, {});
             const sessionCookie = lucia.createSessionCookie(session.id);
-            context.cookies.set(sessionCookie.name, sessionCookie.value, sessionCookie.attributes);
+            context.cookies.set(sessionCookie.name, sessionCookie.value, sessionCookie.attributes as AstroCookieSetOptions);
             return context.redirect(redirectUrl);
         }
 
@@ -59,7 +59,7 @@ export async function GET(context: APIContext): Promise<Response> {
 
         const session = await lucia.createSession(userId, {});
         const sessionCookie = lucia.createSessionCookie(session.id);
-        context.cookies.set(sessionCookie.name, sessionCookie.value, sessionCookie.attributes);
+        context.cookies.set(sessionCookie.name, sessionCookie.value, sessionCookie.attributes as AstroCookieSetOptions);
         return context.redirect(redirectUrl);
     } catch (e) {
         if (e instanceof OAuth2RequestError && e.message === "bad_verification_code") {

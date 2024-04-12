@@ -1,6 +1,6 @@
 import { google } from "@/lib/lucia.ts";
 import { generateCodeVerifier, generateState } from "arctic";
-import type { APIContext } from "astro";
+import type { APIContext, AstroCookieSetOptions } from "astro";
 
 export async function GET(context: APIContext): Promise<Response> {
     const state = generateState();
@@ -17,7 +17,7 @@ export async function GET(context: APIContext): Promise<Response> {
         sameSite: "lax",
         httpOnly: true,
         maxAge: 60 * 10 // 10 min
-    });
+    } as AstroCookieSetOptions);
 
     // store code verifier as cookie
     context.cookies.set("code_verifier", codeVerifier, {
@@ -26,7 +26,7 @@ export async function GET(context: APIContext): Promise<Response> {
         path: "/",
         httpOnly: true,
         maxAge: 60 * 10 // 10 min
-    });
+    } as AstroCookieSetOptions);
 
     context.cookies.set("callback_auth", originalUrl, {
         secure: import.meta.env.PROD,
@@ -34,7 +34,7 @@ export async function GET(context: APIContext): Promise<Response> {
         path: "/",
         httpOnly: true,
         maxAge: 60 * 10 // 10 min
-    });
+    } as AstroCookieSetOptions);
 
     return context.redirect(url.toString());
 }

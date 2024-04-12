@@ -1,5 +1,5 @@
 import { lucia } from "@/lib/lucia.ts";
-import type { APIContext } from "astro";
+import type { APIContext, AstroCookieSetOptions } from "astro";
 
 export async function POST(context: APIContext): Promise<Response> {
     if (!context.locals.session) {
@@ -11,7 +11,7 @@ export async function POST(context: APIContext): Promise<Response> {
     await lucia.invalidateSession(context.locals.session.id);
 
     const sessionCookie = lucia.createBlankSessionCookie();
-    context.cookies.set(sessionCookie.name, sessionCookie.value, sessionCookie.attributes);
+    context.cookies.set(sessionCookie.name, sessionCookie.value, sessionCookie.attributes as AstroCookieSetOptions);
     const redirection = context.cookies.get("callback_auth")?.value ?? null;
     let redirectUrl = "/";
     if (redirection) {

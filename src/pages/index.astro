@@ -1,9 +1,10 @@
 ---
-import { Image } from "astro:assets";
+import {Image} from "astro:assets";
 import Button from "@/components/button.astro";
 import Faq from "@/components/faq.astro";
 import CompoundLayout from "@/components/layouts/CompoundLayout.astro";
 import Box from "@/components/pages/home/Box.astro";
+import Fog from "@/components/pattern/Fog.astro";
 import faq_data from "@/content/data/faq.json";
 
 export const prerender = true;
@@ -30,8 +31,8 @@ export const prerender = true;
                 </p>
 
                 <div class="mt-8 flex gap-4">
-                    <Button href="/" size="xl" variant="primary">Commencer</Button>
-                    <Button href="/" size="xl" variant="ghost">En savoir plus</Button>
+                    <Button href="/guides" size="xl" variant="primary">Commencer</Button>
+                    <Button href="/guides" size="xl" variant="ghost">En savoir plus</Button>
                 </div>
             </div>
         </div>
@@ -40,29 +41,13 @@ export const prerender = true;
                    class="w-1/2 aspect-auto animate-levitate drag-none"
             />
             <img class="absolute opacity-10 drag-none" src="/icons/circle.svg" alt="box"/>
-            <img id="red_sword" src="/images/features/item/red_sword.webp" alt="sword"
-                 class="pixelated drag-none z-10 absolute size-24 top-8 left-8">
-            <img id="solar" src="/images/features/item/solar.webp" alt="sword"
-                 class="pixelated drag-none z-10 absolute top-8 right-8 size-24">
-            <img id="diamond" src="/images/features/item/diamond.webp" alt="sword"
-                 class="pixelated drag-none z-10 absolute -bottom-16 size-24 hue-rotate-60">
         </div>
     </section>
 
     <!-- Features -->
     <section class="mb-32 md:my-52 w-3/4 mx-auto xl:grid grid-cols-2 gap-40 relative">
         <div class="absolute w-10/12 h-full -translate-x-1/2 left-1/2 bottom-0 top-1/2 -translate-y-1/2">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="-8.7671 1.5919 73.18 32.93"
-                 class="blur-[60px] opacity-10">
-                <defs>
-                    <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="0%">
-                        <stop offset="0%" style="stop-color:rgb(52,52,52);stop-opacity:1"/>
-                        <stop offset="100%" style="stop-color:rgb(227,224,224);stop-opacity:1"/>
-                    </linearGradient>
-                </defs>
-                <path d="M 6 5 C 0 -4 -16 7 -5 13 C 6 19 6 29 9 32 C 19 41 30 23 40 23 C 49 23 59 33 64 25 C 67 18 53 1 42 4 C 34 10 19 21 16 16"
-                      fill="url(#grad1)" stroke-width="1"/>
-            </svg>
+            <Fog/>
         </div>
 
         <div class="hidden xl:flex justify-center items-center relative w-full">
@@ -101,8 +86,8 @@ export const prerender = true;
                 fonctionnalités.
             </p>
             <div class="flex flex-wrap gap-2 mt-6">
-                <Button class="w-full xl:w-fit" href="/" size="md" variant="primary">Commencer</Button>
-                <Button class="w-full xl:w-fit" href="/" size="md" variant="transparent">En savoir plus</Button>
+                <Button class="w-full xl:w-fit" href="/guides" size="md" variant="primary">Commencer</Button>
+                <Button class="w-full xl:w-fit" href="/guides" size="md" variant="transparent">En savoir plus</Button>
             </div>
         </Box>
         <Box image="/images/features/bundle.webp">
@@ -133,7 +118,7 @@ export const prerender = true;
     </section>
 
     <!-- FAQ -->
-    <section class="mt-20 w-3/4 xl:w-full mx-auto relative">
+    <section class="mt-20 mb-20 w-3/4 xl:w-full mx-auto relative">
         <Faq data={faq_data}/>
     </section>
 </CompoundLayout>

@@ -46,7 +46,7 @@ export default function NavBarItem() {
                     <NavigationMenuContent>
                         <div className="p-6 md:w-[400px] lg:w-[500px]">
                             <a
-                                href="/course"
+                                href="/guides"
                                 className="h-40 group/picture relative cursor-pointer flex flex-col justify-end select-none gap-1 p-3"
                             >
                                 <div className="text-xl font-medium text-white leading-none relative z-10">Minecraft Modding - 1.20</div>

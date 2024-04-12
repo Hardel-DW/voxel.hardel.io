@@ -1,22 +1,22 @@
 ---
-import type {GetStaticPaths, InferGetStaticPropsType} from "astro";
-import {Image} from "astro:assets";
-import {getCollection} from "astro:content";
-import Card from "@/components/card.astro";
+import { Image } from "astro:assets";
+import { getCollection } from "astro:content";
 import Button from "@/components/button.astro";
-import DashedPattern from "@/components/pattern/DashedPattern.astro";
+import Card from "@/components/card.astro";
 import CompoundLayout from "@/components/layouts/CompoundLayout.astro";
+import DashedPattern from "@/components/pattern/DashedPattern.astro";
+import type { GetStaticPaths, InferGetStaticPropsType } from "astro";
 
 export const prerender = true;
-export const getStaticPaths = (async ({paginate}) => {
-    const allPosts = await getCollection("guide", ({data}) => !data.metadata.draft);
+export const getStaticPaths = (async ({ paginate }) => {
+    const allPosts = await getCollection("guide", ({ data }) => !data.metadata.draft);
     const allSortedPosts = allPosts.sort((a, b) => b.data.metadata.publishDate.valueOf() - a.data.metadata.publishDate.valueOf());
 
-    return paginate(allSortedPosts, {pageSize: 6});
+    return paginate(allSortedPosts, { pageSize: 6 });
 }) satisfies GetStaticPaths;
 
 type Props = InferGetStaticPropsType<typeof getStaticPaths>;
-const {page}: Props = Astro.props;
+const { page }: Props = Astro.props;
 const latestPost = page.data[0];
 ---
 

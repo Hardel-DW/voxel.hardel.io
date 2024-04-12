@@ -1,23 +1,22 @@
 ---
-import type {HTMLAttributes} from "astro/types";
-import {Picture} from "astro:assets";
-import {getFormattedDate} from "@/lib/utils";
+import { Picture } from "astro:assets";
+import { getFormattedDate } from "@/lib/utils";
+import type { HTMLAttributes } from "astro/types";
 
 interface Props extends HTMLAttributes<"div"> {
     href: string;
     images: {
         src: string;
         alt: string;
-    }
-    loading?: 'eager' | 'lazy';
-    decoding?: 'sync' | 'async';
+    };
+    loading?: "eager" | "lazy";
+    decoding?: "sync" | "async";
     date?: string;
     heading?: string;
     author?: string;
 }
 
-const {href, heading, date, author, images, loading = "lazy", decoding = "async"}: Props = Astro.props;
-const parsedDate = getFormattedDate(date);
+const { href, heading, date, author, images, loading = "lazy", decoding = "async" }: Props = Astro.props;
 ---
 
 <a href={href}>
@@ -41,7 +40,8 @@ const parsedDate = getFormattedDate(date);
             <div class="flex gap-2 mt-2 text-sm">
                 {author && <span class="text-sm s:text-base text-gray-400">{author} • </span>}
                 {date &&
-                        <time class="text-sm s:text-base text-gray-400" datetime={parsedDate}>{parsedDate}</time>}
+                        <time class="text-sm s:text-base text-gray-400"
+                              datetime={getFormattedDate(date)}>{getFormattedDate(date)}</time>}
             </div>
         </div>
     </div>

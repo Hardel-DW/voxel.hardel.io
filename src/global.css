@@ -81,3 +81,16 @@ hr {
 ::-webkit-resizer {
     display: none;
 }
+
+label {
+    @apply relative h-6;
+
+    [type="checkbox"] {
+        all: unset;
+        @apply w-11 cursor-pointer;
+        @apply after:absolute after:top-0 after:block after:rounded-full after:w-5 after:h-5 after:mt-0.5 after:ml-0.5 after:shadow-md after:duration-200 after:bg-zinc-400 after:checked:bg-pink-900;
+        @apply before:absolute before:top-0 before:inline-block before:rounded-full before:duration-100 before:w-10 before:h-6 before:bg-zinc-200 before:checked:bg-pink-500;
+        @apply checked:after:duration-300 checked:after:translate-x-4;
+        @apply disabled:after:bg-opacity-75 disabled:cursor-not-allowed disabled:checked:before:bg-opacity-40;
+    }
+}

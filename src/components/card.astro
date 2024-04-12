@@ -1,0 +1,49 @@
+---
+import type {HTMLAttributes} from "astro/types";
+import {Picture} from "astro:assets";
+import {getFormattedDate} from "@/lib/utils";
+import DashedPattern from "./pattern/DashedPattern.astro";
+
+interface Props extends HTMLAttributes<"div"> {
+    href: string;
+    images: {
+        src: string;
+        alt: string;
+    }
+    loading?: 'eager' | 'lazy';
+    decoding?: 'sync' | 'async';
+    date?: string;
+    heading?: string;
+    author?: string;
+}
+
+const {href, heading, date, author, images, loading = "lazy", decoding = "async"}: Props = Astro.props;
+const parsedDate = getFormattedDate(date);
+---
+
+<a href={href}>
+    <div>
+        <div class="w-full relative">
+            <div class="absolute inset-0 z-10 rounded-2xl bg-gradient-to-t from-black/50 to-transparent"/>
+            <Picture
+                    width={800} height={600}
+                    src={images.src}
+                    alt={images.alt}
+                    loading={loading}
+                    decoding={decoding}
+                    class="w-full rounded-2xl object-cover transition transform hover:rotate-6 duration-300"/>
+        </div>
+
+        <div class="mt-4">
+            {heading && <span class="text-pink-400 uppercase tracking-wider text-xs font-medium">{heading}</span>}
+            <h2 class="text-base s:text-xl font-semibold leading-snug tracking-tight mt-1">
+                <slot/>
+            </h2>
+            <div class="flex gap-2 mt-2 text-sm">
+                {author && <span class="text-sm s:text-base text-gray-400">{author} • </span>}
+                {date &&
+                        <time class="text-sm s:text-base text-gray-400" datetime={parsedDate}>{parsedDate}</time>}
+            </div>
+        </div>
+    </div>
+</a>

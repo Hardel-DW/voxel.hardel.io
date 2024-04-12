@@ -1,0 +1,36 @@
+---
+import Switch from "@/components/switch.astro";
+import { cn } from "@/lib/utils";
+import type { HTMLAttributes } from "astro/types";
+
+interface Props extends HTMLAttributes<"details"> {
+    alwaysActive?: boolean;
+    active?: boolean;
+}
+---
+
+<details
+        data-active={Astro.props.active}
+        class={cn("space-y-4 px-4 py-4 border border-zinc-800 bg-zinc-950 relative", Astro.props.class)}
+        {...Astro.props}>
+    <summary
+            class="before:absolute before:inset-0 before:cursor-pointer text-white tracking-normal text-base flex justify-between items-center gap-x-10 cursor-pointer list-none">
+        <span>
+            <slot name="title">
+                    Define your own custom title here.
+            </slot>
+        </span>
+        <span class="text-zinc-400 tracking-normal text-sm h-8 flex items-center">
+            {Astro.props.alwaysActive ?
+                    'Always Active' :
+                    <Switch data-localname={Astro.props.id}
+                            checked={Astro.props.active}/>
+            }
+        </span>
+    </summary>
+    <p class="text-zinc-300 tracking-normal text-sm">
+        <slot name="description">
+            Define your own custom description here.
+        </slot>
+    </p>
+</details>

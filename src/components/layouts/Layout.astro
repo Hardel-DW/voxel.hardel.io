@@ -1,4 +1,5 @@
 ---
+import Tracking from "@/components/layouts/compound/tracking/tracking.astro";
 import "@/global.css";
 import { type BaseLayoutProps, LayoutHelper } from "@/lib/LayoutHelper";
 import "@fontsource/inter/latin.css";
@@ -45,5 +46,6 @@ LayoutContent.setOpenGraph(Astro.props?.openGraph);
 </head>
 <body>
 <slot/>
+<Tracking/>
 </body>
 </html>

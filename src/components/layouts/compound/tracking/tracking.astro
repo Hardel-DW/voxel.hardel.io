@@ -1,0 +1,146 @@
+---
+import Button from "@/components/button.astro";
+import Tracker from "@/components/layouts/compound/tracking/tracker.astro";
+---
+
+<div id="tracking" class="fixed bottom-0 left-0 p-4 w-full s:max-w-[30rem] z-10">
+    <div class="p-4 space-y-4 rounded-2xl border border-zinc-800 bg-black/90 backdrop-blur-xl">
+        <p class="text-zinc-300 tracking-normal text-sm">
+            This site uses tracking technologies. You may opt in or opt out of the use of these technologies
+        </p>
+        <div class="flex justify-between items-center flex-col s:flex-row gap-2">
+            <Button id="open" class="w-full s:w-auto" rounded="full" variant="transparent">Consent
+                Settings
+            </Button>
+            <div class="w-full s:w-auto flex gap-2">
+                <Button id="accept" class="flex-1" rounded="full">Accept</Button>
+                <Button id="decline" class="flex-1" rounded="full">Decline</Button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<dialog id="dialog"
+        class="fixed max-w-[720px] inset-0 rounded-2xl border border-zinc-700 bg-black backdrop-blur-xl space-y-6 backdrop:bg-black/50 backdrop:backdrop-blur-md backdrop:z-10">
+    <div class="space-y-4 pt-8 px-8">
+        <h1 class="text-white font-bold tracking-normal text-2xl">
+            Your Privacy
+        </h1>
+        <p class="text-zinc-300 tracking-normal text-sm">
+            This site uses tracking technologies. You may opt in or opt out of the use of these technologies, by
+            clicking on the buttons below.
+        </p>
+    </div>
+
+    <div class="px-12 py-4 mt-0">
+        <Tracker alwaysActive class="rounded-t-2xl">
+            <Fragment slot="title">Necessary Cookies</Fragment>
+            <Fragment slot="description">Necessary cookies help make a website usable by enabling basic functions like
+                page navigation and access to secure areas of the website. The website cannot function properly without
+                these cookies.
+            </Fragment>
+        </Tracker>
+        <Tracker active id="analytics">
+            <Fragment slot="title">Analytics Cookies</Fragment>
+            <Fragment slot="description">Analytical cookies help us to improve our website by collecting and reporting
+                information on its usage.
+            </Fragment>
+        </Tracker>
+        <Tracker active id="marketing" class="rounded-b-2xl">
+            <Fragment slot="title">Marketing Cookies</Fragment>
+            <Fragment slot="description">Marketing cookies are used to track visitors across websites. The intention is
+                to display ads that are relevant and engaging for the individual user and thereby more valuable for
+                publishers and third party advertisers.
+            </Fragment>
+        </Tracker>
+    </div>
+
+    <div class="flex justify-between items-center flex-col s:flex-row gap-2 border-t border-zinc-800 rounded-b-2xl bg-zinc-950 p-4">
+        <Button id="consent-dialog" data-open-modal class="w-full s:w-auto" rounded="full" variant="transparent">Consent
+            Save
+        </Button>
+        <div class="w-full s:w-auto flex gap-2">
+            <Button id="deny-dialog" class="px-4 flex-1" rounded="full">Deny</Button>
+            <Button id="accept-dialog" class="flex-1" rounded="full">Accept</Button>
+            <Button class="flex-1" variant="link" href="/privacy">Privacy Policy</Button>
+        </div>
+    </div>
+</dialog>
+
+<script>
+    const storage = window.localStorage;
+    const dialog = document.getElementById('dialog')! as HTMLDialogElement;
+    const tracking = document.getElementById('tracking')!;
+    const openModalButtons = document.getElementById('open')!;
+    const acceptButton = document.getElementById('accept')!;
+    const denyButton = document.getElementById('decline')!;
+    const consentButton = document.getElementById('consent-dialog')!;
+    const denyDialogButton = document.getElementById('deny-dialog')!;
+    const acceptDialogButton = document.getElementById('accept-dialog')!;
+    const analytics = document.getElementById('analytics')! as HTMLInputElement;
+    const marketing = document.getElementById('marketing')! as HTMLInputElement;
+
+    if (storage.getItem('consent')) {
+        tracking.style.display = 'none';
+    }
+
+    if (!!storage.getItem('analytics')) {
+        const input = analytics.querySelector('input');
+        if (input !== null) {
+            input.checked = storage.getItem('analytics') === 'true';
+        }
+    }
+
+    if (!!storage.getItem('marketing')) {
+        const input = marketing.querySelector('input');
+        if (input !== null) {
+            input.checked = storage.getItem('marketing') === 'true';
+        }
+    }
+
+    const onConsent = () => {
+        storage.setItem('consent', 'true');
+        tracking.style.display = 'none';
+        dialog.close();
+    };
+
+    const onDecline = () => {
+        storage.setItem('consent', 'false');
+        tracking.style.display = 'none';
+        dialog.close();
+    };
+
+    const changeTracker = (e: Event) => {
+        const target = e.target as HTMLInputElement;
+        if (!target) return;
+        const name = target.getAttribute('data-localname')!;
+        const checked = target.checked;
+        storage.setItem(name, checked.toString());
+    };
+
+    openModalButtons.addEventListener('click', () => dialog.showModal());
+    denyButton.addEventListener('click', onDecline);
+    denyDialogButton.addEventListener('click', onDecline);
+    acceptButton.addEventListener('click', onConsent);
+    acceptDialogButton.addEventListener('click', onConsent);
+    consentButton.addEventListener('click', onConsent);
+    analytics.addEventListener('change', changeTracker);
+    marketing.addEventListener('change', changeTracker);
+
+    dialog.addEventListener('click', (e: MouseEvent) => {
+        if (!(e.target instanceof HTMLElement)) return;
+        if (e.target.tagName !== 'DIALOG') return;
+
+        const rect = e.target.getBoundingClientRect();
+        const clickedInDialog = (
+                rect.top <= e.clientY &&
+                e.clientY <= rect.top + rect.height &&
+                rect.left <= e.clientX &&
+                e.clientX <= rect.left + rect.width
+        );
+
+        if (clickedInDialog === false) {
+            (e.target as HTMLDialogElement).close();
+        }
+    });
+</script>

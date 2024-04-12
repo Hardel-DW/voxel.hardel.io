@@ -1,0 +1,89 @@
+---
+import type {GetStaticPaths, InferGetStaticPropsType} from "astro";
+import {Image} from "astro:assets";
+import {getCollection} from "astro:content";
+import Card from "@/components/card.astro";
+import Button from "@/components/button.astro";
+import DashedPattern from "@/components/pattern/DashedPattern.astro";
+import CompoundLayout from "@/components/layouts/CompoundLayout.astro";
+
+export const prerender = true;
+export const getStaticPaths = (async ({paginate}) => {
+    const allPosts = await getCollection("guide", ({data}) => !data.metadata.draft);
+    const allSortedPosts = allPosts.sort((a, b) => b.data.metadata.publishDate.valueOf() - a.data.metadata.publishDate.valueOf());
+
+    return paginate(allSortedPosts, {pageSize: 6});
+}) satisfies GetStaticPaths;
+
+type Props = InferGetStaticPropsType<typeof getStaticPaths>;
+const {page}: Props = Astro.props;
+const latestPost = page.data[0];
+---
+
+<CompoundLayout transparent={false} title="Voxel - Guide">
+    <main>
+        <section class="relative pt-40 pb-16 overflow-hidden">
+            <div class="absolute inset-0 bg-cover bg-center bg-no-repeat blur-2xl brightness-[30%] saturate-150"
+                 style={{backgroundImage: `url(${latestPost.data.metadata.images.src})`}}>
+            </div>
+
+            <div class="w-5/6 mx-auto md:p-8 flex flex-col-reverse xl:flex-row justify-between items-center gap-8 relative z-10">
+                <div class="w-full xl:w-1/2 flex items-center justify-center">
+                    <div class="w-11/12">
+                        <small class="text-sm md:text-base text-pink-600 font-bold tracking-wide">- VOXEL</small>
+                        <h1 class="text-2xl md:text-4xl font-bold text-white pt-2">
+                            {latestPost.data.metadata.snippet}
+                        </h1>
+                        <p class="text-gray-300 mt-2 text-sm w-11/12">
+                            Ce pack contient les guides pour Forge, Fabric et NeoForge, des ressources exclusives,
+                            des exemples de code et du support personnalisé.
+                        </p>
+                        <div class="mt-8 flex gap-4">
+                            <Button href="/guides" size="xl" variant="primary">Commencer</Button>
+                            <Button href={`/guide/${latestPost.id}`} size="xl" variant="transparent">En savoir plus
+                            </Button>
+                        </div>
+                    </div>
+                </div>
+                <div class="w-full xl:w-1/2 transition duration-300 ease-in-out transform hover:scale-95">
+                    <a class="relative" href={`/guide/${latestPost.id}`}>
+                        <Image width={800} height={600}
+                               loading="eager" decoding="sync"
+                               src={latestPost.data.metadata.images.src}
+                               alt={latestPost.data.metadata.images.alt}
+                               class="w-full rounded-2xl object-cover shadow-2xl shadow-black"
+                        />
+                        <div class="absolute rounded-2xl inset-0 bg-gradient-to-t from-black/30 to-transparent"/>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-20 overflow-hidden relative">
+            <div class="absolute top-1/4 left-1/4 w-1/2 h-96 blur-[100px] bg-gradient-to-br from-zinc-700 to-zinc-900 rounded-full opacity-20"/>
+            <DashedPattern/>
+            <div class="w-5/6 s:w-10/12 md:w-4/5 mx-auto py-16 relative">
+                <div class="w-full flex flex-col items-center md:items-start gap-2 mb-16">
+                    <h2 class="text-2xl sm:text-3xl font-bold">Derniers guides</h2>
+                    <div class="h-1 rounded-full w-20 bg-pink-600"/>
+                </div>
+                <article class="grid sm:grid-cols-2 md:grid-cols-3 gap-10 lg:gap-16">
+
+                    {page.data.map((post, index: number) => (
+                            <Card heading={post.data.metadata.tags.join(' - ')}
+                                  date={post.data.metadata.publishDate}
+                                  author={post.data.metadata.author}
+                                  loading={index <= 2 ? 'eager' : 'lazy'}
+                                  decoding={index <= 2 ? 'sync' : 'async'}
+                                  href={`/guide/${post.id}`}
+                                  images={{...post.data.metadata.images}}
+                            >
+                                {post.data.metadata.title}
+                            </Card>
+                    ))}
+                </article>
+            </div>
+        </section>
+    </main>
+
+</CompoundLayout>

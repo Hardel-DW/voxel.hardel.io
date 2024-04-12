@@ -1,9 +1,8 @@
 ---
-import type {HTMLAttributes} from "astro/types";
-import {cn} from "@/lib/utils";
+import { cn } from "@/lib/utils";
+import type { HTMLAttributes } from "astro/types";
 
 interface Props extends HTMLAttributes<"div"> {
-    size: number;
     height?: number;
 }
 const props: Props = Astro.props;

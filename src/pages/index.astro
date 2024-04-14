@@ -1,11 +1,11 @@
 ---
-import { Image } from "astro:assets";
+import {Image} from "astro:assets";
 import Button from "@/components/button.astro";
 import Faq from "@/components/faq.astro";
 import CompoundLayout from "@/components/layouts/CompoundLayout.astro";
 import Box from "@/components/pages/home/Box.astro";
 import Fog from "@/components/pattern/Fog.astro";
-import faq_data from "@/content/data/faq.json";
+import {faq} from "@/lib/data";
 
 export const prerender = true;
 ---
@@ -120,6 +120,6 @@ export const prerender = true;
 
     <!-- FAQ -->
     <section class="mt-20 mb-20 w-3/4 xl:w-full mx-auto relative">
-        <Faq data={faq_data}/>
+        <Faq data={faq}/>
     </section>
 </CompoundLayout>

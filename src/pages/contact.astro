@@ -2,7 +2,7 @@
 import Button from "@/components/button.astro";
 import CompoundLayout from "@/components/layouts/CompoundLayout.astro";
 import DashedPattern from "@/components/pattern/DashedPattern.astro";
-import data from "@/content/data/contact.json";
+import {contact} from "@/lib/data";
 
 export const prerender = true;
 ---
@@ -23,7 +23,7 @@ export const prerender = true;
             </div>
         </div>
 
-        {data.map((item) => (
+        {contact.map((item) => (
                 <div class="col-span-6 sm:col-span-3 xl:col-span-2 relative border overflow-hidden border-zinc-800 rounded-xl">
                     <DashedPattern/>
 

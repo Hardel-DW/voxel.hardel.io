@@ -4,7 +4,7 @@ body {
 }
 
 body {
-    font-family: "Inter", sans-serif;
+    font-family: "Rubik", sans-serif;
     color: #e8e8e8;
     background-color: #080507;
     margin: 0;
@@ -79,4 +79,12 @@ label {
         @apply checked:after:duration-300 checked:after:translate-x-4;
         @apply disabled:after:bg-opacity-75 disabled:cursor-not-allowed disabled:checked:before:bg-opacity-40;
     }
+}
+
+.stack {
+    display: grid;
+}
+
+.stack > * {
+    grid-area: 1 / 1 / 2 / 2;
 }

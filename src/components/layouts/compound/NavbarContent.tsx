@@ -13,7 +13,9 @@ export default function NavBarItem() {
         <NavigationMenu>
             <NavigationMenuList>
                 <NavigationMenuItem>
-                    <NavigationMenuTrigger>Accueil</NavigationMenuTrigger>
+                    <a href="/">
+                        <NavigationMenuTrigger>Accueil</NavigationMenuTrigger>
+                    </a>
                     <NavigationMenuContent>
                         <ul className="grid gap-3 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
                             <li className="row-span-3">
@@ -42,11 +44,13 @@ export default function NavBarItem() {
                 </NavigationMenuItem>
 
                 <NavigationMenuItem>
-                    <NavigationMenuTrigger>Guides</NavigationMenuTrigger>
+                    <a href="/guides">
+                        <NavigationMenuTrigger>Guides</NavigationMenuTrigger>
+                    </a>
                     <NavigationMenuContent>
                         <div className="p-6 md:w-[400px] lg:w-[500px]">
                             <a
-                                href="/guides"
+                                href="/guides/basic_concept_forge"
                                 className="h-40 group/picture relative cursor-pointer flex flex-col justify-end select-none gap-1 p-3"
                             >
                                 <div className="text-xl font-medium text-white leading-none relative z-10">Minecraft Modding - 1.20</div>
@@ -63,7 +67,6 @@ export default function NavBarItem() {
                                     }}
                                 />
                             </a>
-                            <hr />
                             <ul className="grid gap-3 mt-3 lg:grid-cols-[.75fr_1fr]">
                                 <ListItem href="/docs" title="Java pour Minecraft">
                                     Apprendre les bases de Java pour Minecraft

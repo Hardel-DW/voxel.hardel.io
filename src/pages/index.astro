@@ -1,11 +1,11 @@
 ---
-import {Image} from "astro:assets";
+import { Image } from "astro:assets";
 import Button from "@/components/button.astro";
 import Faq from "@/components/faq.astro";
 import CompoundLayout from "@/components/layouts/CompoundLayout.astro";
 import Box from "@/components/pages/home/Box.astro";
 import Fog from "@/components/pattern/Fog.astro";
-import {faq} from "@/lib/data";
+import { faq } from "@/lib/data";
 
 export const prerender = true;
 ---
@@ -32,7 +32,7 @@ export const prerender = true;
 
                 <div class="mt-8 flex gap-4">
                     <Button href="/guides" size="xl" variant="primary">Commencer</Button>
-                    <Button href="/guides" size="xl" variant="ghost">En savoir plus</Button>
+                    <Button href="/guides/basic_concept_forge" size="xl" variant="ghost">En savoir plus</Button>
                 </div>
             </div>
         </div>

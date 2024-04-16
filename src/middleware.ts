@@ -1,15 +1,14 @@
-import { defineMiddleware } from "astro:middleware";
-import { lucia } from "@/lib/lucia.ts";
-import type { AstroCookieSetOptions } from "astro";
-import { verifyRequestOrigin } from "lucia";
+import {defineMiddleware} from "astro:middleware";
+import {lucia} from "@/lib/lucia.ts";
+import type {AstroCookieSetOptions} from "astro";
+import {verifyRequestOrigin} from "lucia";
 
 /**
  * These pages are pre-rendered and cause warnings when the middleware is applied to them.
  */
 export const onRequest = defineMiddleware(async (context, next) => {
-    const excludedPaths = ["/", "guide", "contact", "terms", "privacy", "404"];
-    const url = new URL(context.request.url);
-    if (excludedPaths.includes(url.pathname)) {
+    const excludedPaths = ["/", "/guides", "/contact", "/terms", "/privacy", "/404"];
+    if (excludedPaths.includes(context.url.pathname)) {
         return next();
     }
 

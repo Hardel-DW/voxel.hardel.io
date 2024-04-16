@@ -61,6 +61,7 @@ const {slug} = Astro.params;
                 </div>
             </div>
         </section>
+
         {data.presentations && (
                 <section class="mt-20 pb-20 mx-auto max-w-7xl relative">
                     <div class="space-y-2 mb-8">
@@ -72,7 +73,7 @@ const {slug} = Astro.params;
                         </div>
                     </div>
 
-                    <div class="sm:grid md:grid-cols-2 xl:grid-cols-4 gap-x-8">
+                    <div class="w-5/6 xl:w-full mx-auto grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-8">
                         {data.presentations.cards?.map((card) =>
                                 <LandingGuideCard>
                                     <Fragment slot="title">{card.title}</Fragment>
@@ -83,7 +84,7 @@ const {slug} = Astro.params;
                 </section>
         )}
 
-        <section class="my-20 mx-auto w-2/3 space-y-16 relative">
+        <section class="my-20 mx-auto w-11/12 xl:w-2/3 space-y-16 relative">
             <DashedPattern
                     class="[mask-image:radial-gradient(white,transparent_75%)]"/>
 

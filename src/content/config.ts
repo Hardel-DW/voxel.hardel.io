@@ -13,9 +13,10 @@ const guideCollection = defineCollection({
         metadata: z.object({
             draft: z.boolean(),
             title: z.string(),
-            short: z.string(),
             snippet: z.string(),
+            description: z.string(),
             author: z.string(),
+            locked: z.boolean(),
             tags: z.array(z.string()),
             publishDate: z.string().transform((str) => new Date(str)),
             images: z.object({
@@ -23,22 +24,24 @@ const guideCollection = defineCollection({
                 alt: z.string()
             })
         }),
-        premium: z.object({
-            product_id: z.string(),
-            title: z.string(),
-            description: z.string(),
-            button: z.string(),
-            price: z.number(),
-            currency: z.string(),
-            url: z.string(),
-            items: z.array(z.string()),
-            faq: z.array(
-                z.object({
-                    question: z.string(),
-                    answer: z.string()
-                })
-            )
-        }),
+        premium: z
+            .object({
+                product_id: z.string(),
+                title: z.string(),
+                description: z.string(),
+                button: z.string(),
+                price: z.number(),
+                currency: z.string(),
+                url: z.string(),
+                items: z.array(z.string()),
+                faq: z.array(
+                    z.object({
+                        question: z.string(),
+                        answer: z.string()
+                    })
+                )
+            })
+            .optional(),
         navigation: z.array(
             z.object({
                 title: z.string(),
@@ -60,7 +63,19 @@ const guideCollection = defineCollection({
                     })
                 )
             })
-        )
+        ),
+        presentations: z
+            .object({
+                cards: z
+                    .array(
+                        z.object({
+                            title: z.string(),
+                            description: z.string()
+                        })
+                    )
+                    .optional()
+            })
+            .optional()
     })
 });
 

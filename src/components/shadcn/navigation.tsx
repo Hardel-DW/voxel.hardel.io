@@ -3,17 +3,20 @@ import * as NavigationMenuPrimitive from "@radix-ui/react-navigation-menu";
 import * as React from "react";
 
 const NavigationMenu = React.forwardRef<
-    React.ElementRef<typeof NavigationMenuPrimitive.Root>,
-    React.ComponentPropsWithoutRef<typeof NavigationMenuPrimitive.Root>
+  React.ElementRef<typeof NavigationMenuPrimitive.Root>,
+  React.ComponentPropsWithoutRef<typeof NavigationMenuPrimitive.Root>
 >(({ className, children, ...props }, ref) => (
-    <NavigationMenuPrimitive.Root
-        ref={ref}
-        className={cn("relative z-10 flex max-w-max flex-1 items-center justify-center", className)}
-        {...props}
-    >
-        {children}
-        <NavigationMenuViewport />
-    </NavigationMenuPrimitive.Root>
+  <NavigationMenuPrimitive.Root
+    ref={ref}
+    className={cn(
+      "relative z-10 flex max-w-max flex-1 items-center justify-center",
+      className
+    )}
+    {...props}
+  >
+    {children}
+    <NavigationMenuViewport />
+  </NavigationMenuPrimitive.Root>
 ));
 NavigationMenu.displayName = NavigationMenuPrimitive.Root.displayName;
 
@@ -63,7 +66,7 @@ const NavigationMenuContent = React.forwardRef<
     <NavigationMenuPrimitive.Content
         ref={ref}
         className={cn(
-            "left-0 top-2 w-full bg-header-cloudy border-t border-zinc-800 rounded-3xl data-[motion^=from-]:animate-in data-[motion^=to-]:animate-out data-[motion^=from-]:fade-in data-[motion^=to-]:fade-out data-[motion=from-end]:slide-in-from-right-52 data-[motion=from-start]:slide-in-from-left-52 data-[motion=to-end]:slide-out-to-right-52 data-[motion=to-start]:slide-out-to-left-52 md:absolute md:w-auto",
+            "left-0 top-2 w-full gradient-gray border-t border-zinc-800 rounded-3xl data-[motion^=from-]:animate-in data-[motion^=to-]:animate-out data-[motion^=from-]:fade-in data-[motion^=to-]:fade-out data-[motion=from-end]:slide-in-from-right-52 data-[motion=from-start]:slide-in-from-left-52 data-[motion=to-end]:slide-out-to-right-52 data-[motion=to-start]:slide-out-to-left-52 md:absolute md:w-auto",
             className
         )}
         {...props}
@@ -113,7 +116,7 @@ const ListItem = React.forwardRef<React.ElementRef<"a">, React.ComponentPropsWit
                     <a
                         ref={ref}
                         className={cn(
-                            "block select-none space-y-1 rounded-3xl p-3 leading-none no-underline outline-none transition-colors hover:bg-zinc-900 hover:text-white focus:bg-zinc-800 focus:text-white",
+                            "block select-none space-y-1 rounded-3xl px-6 py-4 leading-none no-underline outline-none transition-colors hover:bg-stone-900 hover:text-white focus:bg-zinc-800 focus:text-white",
                             className
                         )}
                         {...props}

@@ -1,10 +1,10 @@
 import { defineCollection, z } from "astro:content";
 
 const articleCollection = defineCollection({
-  schema: z.object({
-    draft: z.boolean().default(false),
-    author: z.string().default("Hardel"),
-  }),
+    schema: z.object({
+        draft: z.boolean().default(false),
+        author: z.string().default("Hardel")
+    })
 });
 
 const guideCollection = defineCollection({

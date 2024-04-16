@@ -11,13 +11,13 @@ interface Props extends HTMLAttributes<"div"> {
     };
     loading?: "eager" | "lazy";
     decoding?: "sync" | "async";
-    date?: string;
+    date: string;
     snippet?: string;
     author?: string;
 }
 
-const {href, snippet, date, author, images, loading = "lazy", decoding = "async"}: Props = Astro.props;
-const formatedDate = getFormattedDate(date!);
+const {href, snippet, date, images, loading = "lazy", decoding = "async"}: Props = Astro.props;
+const formatedDate = getFormattedDate(date);
 ---
 
 <a href={href} data-card={images.src} class="sm:even:translate-y-1/2 group">

@@ -1,14 +1,15 @@
 {
     "metadata": {
         "draft": false,
-        "title": "Modding Forge - Bases du modding",
-        "short": "Bases du modding",
+        "locked": false,
+        "title": "Les bases du modding et de Java",
         "snippet": "Les base du dévelopeement de mods et de Java Minecraft 1.20",
+        "description": "Ce pack contient les guides pour Forge, Fabric et NeoForge, des ressources exclusives, des exemples de code et du support personnalisé.",
         "author": "Hardel",
         "tags": ["modding", "forge", "1.20"],
         "publishDate": "2024-02-22 13:55",
         "images": {
-            "src": "/images/background/minecraft_120.webp",
+            "src": "/images/background/guides/bases.webp",
             "alt": "alt text"
         }
     },
@@ -648,5 +649,25 @@
                 }
             ]
         }
-    ]
+    ],
+    "presentations": {
+        "cards": [
+            {
+                "title": "Les bases de la programmation",
+                "description": "Apprends les bases de la programmation Java grâce a Minecraft"
+            },
+            {
+                "title": "Créer ton univers",
+                "description": "Apprend a créer des blocs, des items et même des dimensions toutes entières."
+            },
+            {
+                "title": "Va au delà de Minecraft",
+                "description": "Maitrise des tecniques avancées, et apprend a créer des mods qui vont au delà de Minecraft"
+            },
+            {
+                "title": "Et aprés ?",
+                "description": "Les migrations de version, les optimisations, les bonnes pratiques, et bien plus sont disponibles gratuitement"
+            }
+        ]
+    }
 }

@@ -1,0 +1,51 @@
+{
+    "metadata": {
+        "draft": false,
+        "locked": true,
+        "title": "Pack de données - De débutant à expert",
+        "snippet": "Les datapacks de Minecraft de débutant à expert en 1.21",
+        "description": "Recettes, dimensions, biome, Butin aléatoire (Loot), tout est possible avec les datapacks de Minecraft. Apprenez à créer des datapacks de débutant à expert en 1.21",
+        "author": "Hardel",
+        "tags": ["datapacks", "1.21"],
+        "publishDate": "2024-02-22 13:55",
+        "images": {
+            "src": "/images/background/guides/datapacks.webp",
+            "alt": "alt text"
+        }
+    },
+    "navigation": [],
+    "sections": [
+        {
+            "title": "Introduction",
+            "slug": "introduction",
+            "article": [
+                {
+                    "title": "Informations avant de commencer",
+                    "redirect": "before-starting",
+                    "time": "2 min",
+                    "description": "Les informations avant de commencer"
+                }
+            ]
+        }
+    ],
+    "presentations": {
+        "cards": [
+            {
+                "title": "Les bases de la programmation",
+                "description": "Apprends les bases de la programmation Java grâce a Minecraft"
+            },
+            {
+                "title": "Créer ton univers",
+                "description": "Apprend a créer des blocs, des items et même des dimensions toutes entières."
+            },
+            {
+                "title": "Va au delà de Minecraft",
+                "description": "Maitrise des tecniques avancées, et apprend a créer des mods qui vont au delà de Minecraft"
+            },
+            {
+                "title": "Et aprés ?",
+                "description": "Les migrations de version, les optimisations, les bonnes pratiques, et bien plus sont disponibles gratuitement"
+            }
+        ]
+    }
+}

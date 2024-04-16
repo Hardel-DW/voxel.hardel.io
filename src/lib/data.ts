@@ -34,7 +34,7 @@ export const contact = [
         description: "Envoie moi un message privé sur Discord",
         button: "Message privé"
     }
-]
+];
 
 export const faq = [
     {
@@ -61,7 +61,7 @@ export const faq = [
         question: "Comment savoir si les guides sont pertinents et qu'il peuvent m'aider ?",
         answer: "Malgré que les guides sont payants, vous pouvez accéder à des chapitre gratuit pour vous faire une idée de la qualité des guides."
     }
-]
+];
 
 export const footer = {
     social: [
@@ -150,4 +150,4 @@ export const footer = {
             ]
         }
     ]
-}
+};

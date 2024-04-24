@@ -1,7 +1,7 @@
-import {defineMiddleware} from "astro:middleware";
-import {lucia} from "@/lib/lucia.ts";
-import type {AstroCookieSetOptions} from "astro";
-import {verifyRequestOrigin} from "lucia";
+import { defineMiddleware } from "astro:middleware";
+import { lucia } from "@/lib/lucia.ts";
+import type { AstroCookieSetOptions } from "astro";
+import { verifyRequestOrigin } from "lucia";
 
 /**
  * These pages are pre-rendered and cause warnings when the middleware is applied to them.

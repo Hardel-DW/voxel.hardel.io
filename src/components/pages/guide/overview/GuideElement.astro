@@ -1,5 +1,5 @@
 ---
-import {cn} from "@/lib/utils";
+import { cn } from "@/lib/utils";
 
 export interface Props {
     title: string;
@@ -9,7 +9,7 @@ export interface Props {
     premium: boolean;
 }
 
-const {title, redirect, description, premium} = Astro.props;
+const { title, redirect, description, premium } = Astro.props;
 
 const path = premium ? "/premium" : redirect;
 ---
@@ -26,7 +26,7 @@ const path = premium ? "/premium" : redirect;
             </p>
         </a>
     </div>
-    <div class="hidden space-y-2">
+    <div class="hidden md:block space-y-2">
         {premium && <img src="/icons/lock.svg" alt="lock" class="w-8 h-8 invert opacity-70"/>}
         {!premium &&
                 <a href={redirect} class="text-black hover:bg-zinc-400 transition bg-zinc-200 rounded-xl py-2 px-4">

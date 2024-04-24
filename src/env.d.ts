@@ -19,3 +19,5 @@ interface ImportMetaEnv {
 interface ImportMeta {
     readonly env: ImportMetaEnv;
 }
+
+type WithRequired<T, K extends keyof T> = T & { [P in K]-?: T[P] };

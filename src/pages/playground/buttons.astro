@@ -1,8 +1,8 @@
 ---
-import Button from "@/components/button.astro";
-import PlaygroundGroup from "@/components/container/PlaygroundGroup.astro";
-import Playground from "@/components/container/playground.astro";
 import CompoundLayout from "@/components/layouts/CompoundLayout.astro";
+import Playground from "@/components/pages/playground/PlaygroundContainer.astro";
+import PlaygroundGroup from "@/components/pages/playground/PlaygroundGroup.astro";
+import Button from "@/components/ui/button.astro";
 
 const VARIANT_VALUES = {
     primary: "Primary",
@@ -26,11 +26,11 @@ const SIZE_VALUES = {
 type Variant = keyof typeof VARIANT_VALUES;
 type Size = keyof typeof SIZE_VALUES;
 
-const variants = Object.entries(VARIANT_VALUES).map(([value, name]) => ({ value, name })) as {
+const variants = Object.entries(VARIANT_VALUES).map(([value, name]) => ({value, name})) as {
     value: Variant;
     name: string;
 }[];
-const sizes = Object.entries(SIZE_VALUES).map(([value, name]) => ({ value, name })) as { value: Size; name: string }[];
+const sizes = Object.entries(SIZE_VALUES).map(([value, name]) => ({value, name})) as { value: Size; name: string }[];
 ---
 
 <CompoundLayout title="Button Playground">

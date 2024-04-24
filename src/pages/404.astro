@@ -1,14 +1,14 @@
 ---
-import Button from "@/components/button.astro";
 import CompoundLayout from "@/components/layouts/CompoundLayout.astro";
-import DashedPattern from "@/components/pattern/DashedPattern.astro";
+import Button from "@/components/ui/button.astro";
+import DashedPattern from "@/components/ui/pattern/DashedPattern.astro";
 
 export const prerender = true;
 ---
 
 <CompoundLayout title="404 Not Found">
     <div class="relative h-dvh max-w-full flex justify-center items-center container mx-auto">
-        <DashedPattern />
+        <DashedPattern/>
         <div>
             <h1 class="font-bold text-white text-center" style={{
                 fontSize: "clamp(3.5rem, 7dvw, 12rem)",

@@ -1,7 +1,7 @@
 ---
-import Switch from "@/components/switch.astro";
-import { cn } from "@/lib/utils";
-import type { HTMLAttributes } from "astro/types";
+import {cn} from "@/lib/utils";
+import type {HTMLAttributes} from "astro/types";
+import Switch from "@/components/ui/switch.astro";
 
 interface Props extends HTMLAttributes<"details"> {
     alwaysActive?: boolean;
@@ -22,7 +22,7 @@ interface Props extends HTMLAttributes<"details"> {
         </span>
         <span class="text-zinc-400 tracking-normal text-sm h-8 flex items-center">
             {Astro.props.alwaysActive ?
-                    'Always Active' :
+                'Always Active' :
                     <Switch data-localname={Astro.props.id}
                             checked={Astro.props.active}/>
             }

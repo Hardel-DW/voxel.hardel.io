@@ -6,7 +6,7 @@ import {
     NavigationMenuLink,
     NavigationMenuList,
     NavigationMenuTrigger
-} from "@/components/shadcn/navigation";
+} from "@/components/ui/navigation.tsx";
 
 export default function NavBarItem() {
     return (

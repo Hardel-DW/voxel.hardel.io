@@ -1,26 +1,26 @@
 ---
-import Button from "@/components/button.astro";
 import NavBarItem from "@/components/layouts/compound/NavbarContent";
-import { generateRedirectUrl } from "@/lib/lucia";
-import { cn } from "@/lib/utils";
+import {generateAuthUrl} from "@/lib/lucia";
+import {cn} from "@/lib/utils";
+import Button from "@/components/ui/button.astro";
 
 const links = [
-    { name: "Accueil", href: "/" },
-    { name: "Resources", href: "/resources" },
-    { name: "Contact", href: "/contact" }
+    {name: "Accueil", href: "/"},
+    {name: "Resources", href: "/resources"},
+    {name: "Contact", href: "/contact"}
 ];
 
 interface Props {
     transparent?: boolean;
 }
 
-const { transparent = true }: Props = Astro.props;
+const {transparent = true}: Props = Astro.props;
 ---
 
 <header class="mt-8 fixed left-0 right-0 z-20 group" id="header" aria-expanded="false">
     <nav id="navbar"
          class={cn("flex group-aria-expanded:border-t group-aria-expanded:border-l group-aria-expanded:bg-header-translucent transition-colors duration-150 ease-linear border-zinc-800 justify-between items-center max-w-full h-14 mx-auto rounded-3xl backdrop-blur-md px-2 w-10/12 md:w-3/4",
-                 {"bg-header-translucent border-t border-l": !transparent}
+             {"bg-header-translucent border-t border-l": !transparent}
          )}>
         <!-- Left Part -->
         <div class="flex items-center gap-4 pl-2">
@@ -39,7 +39,7 @@ const { transparent = true }: Props = Astro.props;
         <div>
             <!-- Desktop -->
             <div class="hidden lg:flex items-center gap-2">
-                <Button href={generateRedirectUrl(Astro.url.toString())} rounded="full" variant="ghost">Connexion
+                <Button href={generateAuthUrl(Astro.url.toString())} rounded="full" variant="ghost">Connexion
                 </Button>
                 <Button href="/guides" rounded="full" variant="primary" class="group">Commencer</Button>
             </div>
@@ -67,7 +67,7 @@ const { transparent = true }: Props = Astro.props;
             </div>
             <hr class="my-0">
             <div class="mt-2 space-y-2">
-                <Button href={generateRedirectUrl(Astro.url.toString())} class="w-full mt-0" rounded="full"
+                <Button href={generateAuthUrl(Astro.url.toString())} class="w-full mt-0" rounded="full"
                         variant="ghost">Connexion
                 </Button>
                 <Button href="/guides" class="w-full mt-0" rounded="full" variant="primary">Guides</Button>

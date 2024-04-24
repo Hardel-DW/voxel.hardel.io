@@ -12,11 +12,7 @@ export async function POST(context: APIContext): Promise<Response> {
 
     const sessionCookie = lucia.createBlankSessionCookie();
     context.cookies.set(sessionCookie.name, sessionCookie.value, sessionCookie.attributes as AstroCookieSetOptions);
-    const redirection = context.cookies.get("callback_auth")?.value ?? null;
-    let redirectUrl = "/";
-    if (redirection) {
-        redirectUrl = new URL(redirection).pathname;
-    }
 
-    return context.redirect(redirectUrl);
+    const originalUrl = context.url.searchParams.get("redirect") ?? import.meta.env.SITE;
+    return context.redirect(originalUrl);
 }

@@ -41,8 +41,15 @@ declare module "lucia" {
     }
 }
 
-export const generateRedirectUrl = (path: string) => {
+export const generateAuthUrl = (path: string) => {
     const url = new URL(`${site}auth/google`);
+    url.searchParams.set("redirect", path);
+
+    return url.toString();
+};
+
+export const generateLogoutUrl = (path: string) => {
+    const url = new URL(`${site}api/logout`);
     url.searchParams.set("redirect", path);
 
     return url.toString();

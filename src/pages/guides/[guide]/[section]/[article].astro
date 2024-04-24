@@ -1,0 +1,102 @@
+---
+import {getEntry} from "astro:content";
+import Layout from "@/components/layouts/Layout.astro";
+import Dropdown from "@/components/ui/dropdown.astro";
+import Navigation from "@/components/pages/guide/content/Navigation.astro";
+import PageContent from "@/components/pages/guide/content/PageContent.astro";
+import PremiumLogged from "@/components/pages/guide/content/PremiumLogged.astro";
+import PremiumLogout from "@/components/pages/guide/content/PremiumLogout.astro";
+import User from "@/components/pages/guide/content/User.astro";
+
+export const prerender = false;
+const {guide, section, article} = Astro.params;
+const {user} = Astro.locals;
+
+if (typeof guide !== "string") throw new Error("Missing required parameter 'guide'");
+if (typeof section !== "string") throw new Error("Invalid parameter 'section'");
+if (typeof article !== "string") throw new Error("Invalid parameter 'article'");
+
+const guideEntry = await getEntry("guide", guide);
+if (!guideEntry) throw new Error(`Guide not found: ${guide}`);
+
+const articles = guideEntry.data.sections.flatMap(({article}) => article.map((i) => ({...i})));
+const currentIndex = articles.findIndex((element) => element.redirect === article);
+const nextArticle = articles[currentIndex + 1] || articles[0];
+const previousArticle = articles[currentIndex - 1] || articles[articles.length - 1];
+const isPremium = articles[currentIndex].premium;
+
+const dropdowns = guideEntry.data.navigation.map((element) => ({
+    url: `/${[element.slug, section, article].join("/")}`,
+    id: element.slug,
+    title: element.title,
+    logo: element.logo
+}));
+const filteredDropdowns = dropdowns.filter((element) => element.id !== guide);
+const currentDropdown = dropdowns.find((element) => element.id === guide);
+if (!currentDropdown) throw new Error(`Dropdown not found: ${guide}`);
+
+const premiumLogged = isPremium && Boolean(user);
+const premiumLogout = isPremium && !user;
+const contentCondition = premiumLogged || !isPremium;
+---
+
+<Layout>
+    <div class="flex relative bg-gradient-to-br from-guides-gradient-from to-guides-gradient-to md:p-4 h-dvh">
+        <input type="checkbox" id="menu" class="hidden peer"/>
+        <!-- Listes des Guides -->
+        <div class="flex-shrink-0 overflow-hidden transition-[width] ease-in-out peer-checked:w-0 w-[350px] max-md:w-0 max-md:absolute max-md:inset-0 max-md:bg-gradient-to-br max-md:from-guides-gradient-from max-md:to-guides-gradient-to max-md:z-50 max-md:py-4 max-md:rounded-r-2xl max-md:border max-md:border-zinc-700">
+            <div class="h-full w-[350px] flex flex-col relative z-10 pr-4">
+                <!-- Navbar -->
+                <div class="flex h-full flex-col my-4 -mr-2 pr-2 overflow-hidden">
+                    <div class="flex flex-1 flex-col">
+                        <div class="flex w-full items-center justify-between">
+                            <a href="/"
+                               class="text-lg flex items-center transition focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-indigo-500 focus-visible:outline-none focus-visible:shadow-outline-indigo rounded-full px-2 -ml-2">
+                                <img src="/favicon.svg" alt="Voxelwind" class="w-6 h-6 brightness-90 mx-2"/>
+                                <span class="font-bold text-primary">VOXEL</span>
+                            </a>
+                            <label for="menu" class="cursor-pointer block md:hidden">
+                                <img src="/icons/menu.svg" alt="menu" class="w-6 h-6 invert-[75%]"/>
+                            </label>
+                        </div>
+                        <Dropdown id="variants" current={currentDropdown} elements={filteredDropdowns}/>
+                    </div>
+
+                    <Navigation schema={guideEntry} slug={{guide, section, article}}/>
+                </div>
+
+                <User/>
+            </div>
+        </div>
+
+        <!-- Content -->
+        <div class="overflow-x-hidden stack flex bg-content md:border md:border-zinc-700 md:rounded-2xl w-full relative z-0">
+            <div class="size-full fixed -z-10" style="filter: hue-rotate(45deg) brightness(0.2)">
+                <img src="/images/shine.avif" alt="Shine"/>
+            </div>
+
+            <div class="flex absolute inset-0 p-4 justify-between items-center select-none h-fit gap-x-4">
+                <label for="menu" class="cursor-pointer ">
+                    <img src="/icons/menu.svg" alt="Menu" class="w-6 h-6 invert opacity-75"/>
+                </label>
+
+                <h1 class="text-sm text-zinc-400 truncate">{guideEntry.data.metadata.title}</h1>
+
+                <a href="/" class="select-none size-fit">
+                    <img src="/favicon.svg" alt="Voxel" class="w-6 h-6 opacity-75"/>
+                </a>
+            </div>
+
+
+            <div id="content" class="px-8 lg:px-0 pt-12 transition w-full md:w-3/4 justify-self-center">
+                {premiumLogged &&
+                        <PremiumLogged schema={guideEntry}/>}
+                {premiumLogout &&
+                        <PremiumLogout schema={guideEntry}/>}
+                {contentCondition &&
+                        <PageContent previousArticle={previousArticle} nextArticle={nextArticle}
+                                     slug={[section, article].join('/')}/>}
+            </div>
+        </div>
+    </div>
+</Layout>

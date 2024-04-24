@@ -1,0 +1,35 @@
+---
+import { getEntry } from "astro:content";
+import Button from "@/components/ui/button.astro";
+
+interface Article {
+    title: string;
+    redirect: string;
+}
+
+interface Props {
+    slug: string;
+    previousArticle: Article;
+    nextArticle: Article;
+}
+
+const { slug, previousArticle, nextArticle }: Props = Astro.props;
+const entry = await getEntry("article", slug);
+if (!entry) {
+    throw new Error(`No entry found for slug: ${slug}`);
+}
+
+const { Content } = await entry.render();
+---
+
+<div class="max-w-full prose prose-invert prose-a:text-pink-200 prose-a:decoration-0 prose-p:text-zinc-300 prose-headings:text-zinc-200 prose-headings:mb-2 prose-headings:mt-8">
+    <Content/>
+    <div class="grid md:grid-cols-2 gap-y-4 gap-x-10 py-12">
+        <Button variant="transparent" class="no-underline" href={previousArticle.redirect} size="xl">
+            ← {previousArticle.title}
+        </Button>
+        <Button variant="transparent" class="no-underline" href={nextArticle.redirect} size="xl">
+            {nextArticle.title} →
+        </Button>
+    </div>
+</div>

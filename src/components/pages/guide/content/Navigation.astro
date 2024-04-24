@@ -1,0 +1,33 @@
+---
+import type { CollectionEntry } from "astro:content";
+import GithubSlugger from "github-slugger";
+import NavigationTree from "./NavigationTree.astro";
+
+const slugger = new GithubSlugger();
+interface Props {
+    schema: CollectionEntry<"guide">;
+    slug: { guide: string; section: string; article: string };
+}
+
+const { schema, slug }: Props = Astro.props;
+---
+
+<div class="flex-grow min-h-0 relative">
+    <div class="h-full p-4 overflow-y-auto">
+        <div class="flex flex-col gap-y-2">
+            {schema.data.sections.map((element) => (
+                    <NavigationTree
+                            title={element.title}
+                            selected={element.slug === slug.section}
+                            elements={element.article.map((guide) => ({
+                                href: '/guides/' + [slug.guide, element.slug, guide.redirect].join('/') + "#" + slugger.slug(slug.article),
+                                information: guide.time,
+                                selected: guide.redirect === slug.article,
+                                checked: false,
+                                title: guide.title
+                            }))}
+                    />
+            ))}
+        </div>
+    </div>
+</div>

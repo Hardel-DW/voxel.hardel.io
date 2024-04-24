@@ -1,8 +1,8 @@
+import { createNoise3D } from "@/lib/noise.ts";
 import { cn } from "@/lib/utils.ts";
 import { motion } from "framer-motion";
 import type React from "react";
 import { useEffect, useRef } from "react";
-import { createNoise3D } from "simplex-noise";
 
 interface VortexProps {
     children?: React.ReactNode;

@@ -1,20 +1,20 @@
 ---
 import NavBarItem from "@/components/layouts/compound/NavbarContent";
-import {generateAuthUrl} from "@/lib/lucia";
-import {cn} from "@/lib/utils";
 import Button from "@/components/ui/button.astro";
+import { generateAuthUrl } from "@/lib/lucia";
+import { cn } from "@/lib/utils";
 
 const links = [
-    {name: "Accueil", href: "/"},
-    {name: "Resources", href: "/resources"},
-    {name: "Contact", href: "/contact"}
+    { name: "Accueil", href: "/" },
+    { name: "Resources", href: "/resources" },
+    { name: "Contact", href: "/contact" }
 ];
 
 interface Props {
     transparent?: boolean;
 }
 
-const {transparent = true}: Props = Astro.props;
+const { transparent = true }: Props = Astro.props;
 ---
 
 <header class="mt-8 fixed left-0 right-0 z-20 group" id="header" aria-expanded="false">

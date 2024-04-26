@@ -1,7 +1,7 @@
 ---
-import {Picture} from "astro:assets";
-import type {HTMLAttributes} from "astro/types";
-import {getFormattedDate} from "@/lib/utils";
+import { Picture } from "astro:assets";
+import { getFormattedDate } from "@/lib/utils";
+import type { HTMLAttributes } from "astro/types";
 
 interface Props extends HTMLAttributes<"div"> {
     href: string;
@@ -16,7 +16,7 @@ interface Props extends HTMLAttributes<"div"> {
     author?: string;
 }
 
-const {href, snippet, date, images, loading = "lazy", decoding = "async"}: Props = Astro.props;
+const { href, snippet, date, images, loading = "lazy", decoding = "async" }: Props = Astro.props;
 const formatedDate = getFormattedDate(date);
 ---
 

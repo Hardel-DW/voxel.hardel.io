@@ -1,28 +1,28 @@
 ---
-import {Image} from "astro:assets";
-import {getCollection} from "astro:content";
+import { Image } from "astro:assets";
+import { getCollection } from "astro:content";
 import CompoundLayout from "@/components/layouts/CompoundLayout.astro";
 import GuideElement from "@/components/pages/guide/overview/GuideElement.astro";
 import GuideSection from "@/components/pages/guide/overview/GuideSection.astro";
 import LandingGuideCard from "@/components/pages/guide/overview/LandingGuideCard.astro";
 import Button from "@/components/ui/button.astro";
 import DashedPattern from "@/components/ui/pattern/DashedPattern.astro";
-import type {InferGetStaticPropsType} from "astro";
-import type {GetStaticPaths} from "astro";
+import type { InferGetStaticPropsType } from "astro";
+import type { GetStaticPaths } from "astro";
 
 export const prerender = true;
 export const getStaticPaths = (async () => {
-    const guides = await getCollection("guide", ({data}) => !data.metadata.draft && data.metadata.publishDate < new Date());
+    const guides = await getCollection("guide", ({ data }) => !data.metadata.draft && data.metadata.publishDate < new Date());
 
     return guides.map((post) => ({
-        params: {guide: post.id},
-        props: {data: post.data}
+        params: { guide: post.id },
+        props: { data: post.data }
     }));
 }) satisfies GetStaticPaths;
 
 type Props = InferGetStaticPropsType<typeof getStaticPaths>;
-const {data}: Props = Astro.props;
-const {guide} = Astro.params;
+const { data }: Props = Astro.props;
+const { guide } = Astro.params;
 
 const firstSection = data.sections[0];
 const firstArticle = firstSection.article[0];

@@ -1,26 +1,26 @@
 ---
-import {getEntry, getCollection} from "astro:content";
+import { getCollection, getEntry } from "astro:content";
 import Layout from "@/components/layouts/Layout.astro";
-import Dropdown from "@/components/ui/dropdown.astro";
 import Navigation from "@/components/pages/guide/content/Navigation";
 import PageContent from "@/components/pages/guide/content/PageContent.astro";
 import PremiumLogged from "@/components/pages/guide/content/PremiumLogged.astro";
 import PremiumLogout from "@/components/pages/guide/content/PremiumLogout.astro";
 import User from "@/components/pages/guide/content/User.astro";
+import Dropdown from "@/components/ui/dropdown.astro";
 
 export const prerender = false;
-const {guide, section, article} = Astro.params;
-const {user} = Astro.locals;
+const { guide, section, article } = Astro.params;
+const { user } = Astro.locals;
 
 if (typeof guide !== "string") throw new Error("Missing required parameter 'guide'");
 if (typeof section !== "string") throw new Error("Invalid parameter 'section'");
 if (typeof article !== "string") throw new Error("Invalid parameter 'article'");
 
 const guideEntry = await getEntry("guide", guide);
-const posts = await getCollection("guide", ({data}) => !data.metadata.draft);
+const posts = await getCollection("guide", ({ data }) => !data.metadata.draft);
 if (!guideEntry) throw new Error(`Guide not found: ${guide}`);
 
-const articles = guideEntry.data.sections.flatMap(({article}) => article.map((i) => ({...i})));
+const articles = guideEntry.data.sections.flatMap(({ article }) => article.map((i) => ({ ...i })));
 const currentIndex = articles.findIndex((element) => element.redirect === article);
 const nextArticle = articles[currentIndex + 1] || articles[0];
 const previousArticle = articles[currentIndex - 1] || articles[articles.length - 1];

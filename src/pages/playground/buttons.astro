@@ -26,11 +26,11 @@ const SIZE_VALUES = {
 type Variant = keyof typeof VARIANT_VALUES;
 type Size = keyof typeof SIZE_VALUES;
 
-const variants = Object.entries(VARIANT_VALUES).map(([value, name]) => ({value, name})) as {
+const variants = Object.entries(VARIANT_VALUES).map(([value, name]) => ({ value, name })) as {
     value: Variant;
     name: string;
 }[];
-const sizes = Object.entries(SIZE_VALUES).map(([value, name]) => ({value, name})) as { value: Size; name: string }[];
+const sizes = Object.entries(SIZE_VALUES).map(([value, name]) => ({ value, name })) as { value: Size; name: string }[];
 ---
 
 <CompoundLayout title="Button Playground">

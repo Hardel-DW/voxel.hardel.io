@@ -38,6 +38,7 @@ export default function NavigationTree({ title, elements, completed, selected, q
 
             {/* Card */}
             <div
+                onKeyDown={(e) => e.key === "e" && setOpen(!open)}
                 onClick={() => setOpen(!open)}
                 className="flex flex-col justify-between rounded-t-xl w-full p-4 h-36 relative cursor-pointer border-b-0 border border-zinc-800 transition-all group-hover/card:border-zinc-600 bg-content"
             >

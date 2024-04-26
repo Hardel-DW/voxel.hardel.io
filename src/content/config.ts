@@ -42,13 +42,15 @@ const guideCollection = defineCollection({
                 )
             })
             .optional(),
-        navigation: z.array(
-            z.object({
-                title: z.string(),
-                slug: z.string(),
-                logo: z.string()
-            })
-        ),
+        navigation: z
+            .array(
+                z.object({
+                    title: z.string(),
+                    slug: z.string(),
+                    logo: z.string()
+                })
+            )
+            .optional(),
         sections: z.array(
             z.object({
                 title: z.string(),

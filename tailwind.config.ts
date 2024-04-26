@@ -22,13 +22,19 @@ export default {
                 },
                 guides: {
                     gradient: {
-                        from: "#1d1d1d",
-                        to: "#06060a"
+                        from: "#0d0709",
+                        to: "#151416"
                     }
                 },
                 card: "#1c1b1ec2",
                 content: "#38373f33",
                 background: "#080507"
+            },
+            hueRotate: {
+                45: "45deg"
+            },
+            brightness: {
+                20: ".2"
             },
             animation: {
                 levitate: "levitate 5000ms ease-in-out infinite",

@@ -1,7 +1,6 @@
 import type { CollectionEntry } from "astro:content";
 import GuideTree from "@/components/pages/guide/content/GuideTree.tsx";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import React from "react";
 import NavigationTree from "./NavigationTree.tsx";
 
 export type Guides = {

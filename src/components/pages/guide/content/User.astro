@@ -1,44 +1,55 @@
 ---
-import { Image } from "astro:assets";
+import {Image} from "astro:assets";
 import Button from "@/components/ui/button.astro";
-import { generateAuthUrl, generateLogoutUrl } from "@/lib/lucia";
+import {generateAuthUrl, generateLogoutUrl} from "@/lib/lucia";
 import UserItem from "./UserItem.astro";
-const { user } = Astro.locals;
+const {user} = Astro.locals;
 ---
+<div class="relative">
+    <div id="authtoggle"
+         class="flex items-center justify-between rounded-2xl gap-x-4 px-4 py-2 border border-zinc-900 relative overflow-hidden cursor-pointer">
+        <div class="absolute right-0 size-32 bg-gradient-to-r from-fuchsia-500 via-pink-500 to-transparent opacity-20 rounded-full blur-[70px]"/>
 
-<div class="relative flex items-center justify-between bg-header-cloudy rounded-2xl gap-x-4 px-4 py-2 border border-zinc-700">
-    <input type="checkbox" id="usertoggle" class="hidden peer"/>
-
-    {user ? (
-            <label for="usertoggle" class="flex-shrink-0 h-12 w-12 m-2">
-                <Image src={user.picture} alt="Avatar"
-                       class="rounded-full cursor-pointer hover:opacity-50 transition"
-                       decoding="async"
-                       loading="eager"
-                       height={48}
-                       width={48}
-                       id="avatar"/>
-            </label>
-    ) : (
-            <div class="space-y-4 py-2">
-                <div class="flex flex-col space-y-1.5 p-2">
-                    <h3 class="whitespace-nowrap text-2xl font-semibold leading-none tracking-tight">
-                        Premium
+        {user ? (
+                <div class="flex-shrink-0 h-12 w-12 m-2 justify-between">
+                    <Image src={user.picture} alt="Avatar"
+                           class="rounded-full"
+                           decoding="async"
+                           loading="eager"
+                           height={48}
+                           width={48}
+                           id="avatar"/>
+                </div>
+                <div class="text-right flex flex-col gap-y-1">
+                    <h3 class="truncate text-zinc-400 transition-colors font-semibold leading-none tracking-tight">
+                        Contenu Limité
                     </h3>
-                    <p class="text-sm text-zinc-400">
-                        Apprend à ton rythme, Deviens un pro et amuse-toi
+                    <p class="text-sm text-zinc-500">
+                        {user.email}
                     </p>
                 </div>
-                <div class="w-full">
-                    <Button href={generateAuthUrl(Astro.url.toString())} class="w-full">
-                        Connexion avec Google
-                    </Button>
+        ) : (
+                <div class="space-y-4 py-2">
+                    <div class="flex flex-col space-y-1.5 p-2">
+                        <h3 class="whitespace-nowrap text-2xl font-semibold leading-none tracking-tight">
+                            Premium
+                        </h3>
+                        <p class="text-sm text-zinc-400">
+                            Apprend à ton rythme, Deviens un pro et amuse-toi
+                        </p>
+                    </div>
+                    <div class="w-full">
+                        <Button href={generateAuthUrl(Astro.url.toString())} class="w-full">
+                            Connexion avec Google
+                        </Button>
+                    </div>
                 </div>
-            </div>
-    )}
+        )}
+    </div>
 
     {user && (
-            <div class="absolute animate-fadein ease-in-out z-10 bg-header-cloudy rounded-2xl -translate-y-full -top-2 left-0 w-full px-2 py-2 border border-zinc-700 hidden peer-checked:block">
+            <div id="authreveal"
+                 class="absolute backdrop-blur-2xl animate-fadein ease-in-out z-10 rounded-2xl -translate-y-full -top-2 left-0 w-full px-2 py-2 border border-zinc-700 hidden">
                 <ul class="flex flex-col gap-y-2">
                     <UserItem>
                         <span class="bg-gradient-to-r from-blue-500 via-teal-500 to-purple-500 font-bold text-transparent bg-clip-text transition-all bg-[length:200%_200%] group-hover:bg-[length:100%_50%]">
@@ -49,7 +60,7 @@ const { user } = Astro.locals;
                     <UserItem>
                         <form method="post" action={generateLogoutUrl(Astro.url.toString())} class="w-full">
                             <button class="w-full flex justify-between items-center">
-                                <span class="transition-colors group-hover:text-red-400">Déconnexion</span>
+                                <span class="transition-colors group-hover:text-red-500">Déconnexion</span>
                                 <img src="/icons/logout.svg" alt="Déconnexion"
                                      class="w-5 h-5 fill-red-500 invert"/>
                             </button>
@@ -60,3 +71,12 @@ const { user } = Astro.locals;
             </div>
     )}
 </div>
+
+<script>
+    const authToggle = document.getElementById('authtoggle')!;
+    const authReveal = document.getElementById('authreveal')!;
+
+    authToggle.addEventListener('click', () => {
+        authReveal.classList.toggle('hidden');
+    });
+</script>

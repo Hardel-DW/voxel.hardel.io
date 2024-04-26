@@ -1,5 +1,5 @@
 ---
-import type { HTMLAttributes } from "astro/types";
+import type {HTMLAttributes} from "astro/types";
 type DropdownElement = {
     title: string;
     url: string;
@@ -19,7 +19,7 @@ if (currentElement === undefined) throw new Error("Current element not found");
 
 
 <div class="relative w-full cursor-pointer select-none" id={props.id + "-container"}>
-    <div class="w-full mb-2 mt-4 border px-4 py-2 inline-flex items-center justify-between text-sm font-normal border-zinc-700 hover:border-zinc-600 text-zinc-400 hover:text-zinc-200 whitespace-nowrap transition-colors rounded-[0.5rem]">
+    <div class="w-full mt-4 border px-4 py-2 inline-flex items-center justify-between text-sm font-normal border-zinc-700 hover:border-zinc-600 text-zinc-400 hover:text-zinc-200 whitespace-nowrap transition-colors rounded-[0.5rem]">
         <div class="flex gap-x-2 items-center">
             {currentElement?.logo &&
                     <img src={currentElement.logo} alt={currentElement.title} class="h-6 w-6 mr-2 invert"/>}

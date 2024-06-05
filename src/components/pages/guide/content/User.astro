@@ -3,6 +3,7 @@ import { Image } from "astro:assets";
 import Button from "@/components/ui/button.astro";
 import { generateAuthUrl, generateLogoutUrl } from "@/lib/lucia";
 import UserItem from "./UserItem.astro";
+
 const { user } = Astro.locals;
 ---
 <div class="relative">

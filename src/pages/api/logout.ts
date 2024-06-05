@@ -1,7 +1,7 @@
 import { lucia } from "@/lib/lucia.ts";
-import type { APIContext, AstroCookieSetOptions } from "astro";
+import type { APIRoute, AstroCookieSetOptions } from "astro";
 
-export async function POST(context: APIContext): Promise<Response> {
+export const POST: APIRoute = async (context) => {
     if (!context.locals.session) {
         return new Response(null, {
             status: 401
@@ -15,4 +15,4 @@ export async function POST(context: APIContext): Promise<Response> {
 
     const originalUrl = context.url.searchParams.get("redirect") ?? import.meta.env.SITE;
     return context.redirect(originalUrl);
-}
+};

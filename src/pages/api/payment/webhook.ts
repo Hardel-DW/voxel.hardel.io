@@ -9,7 +9,7 @@ export const POST: APIRoute = async ({ request }) => {
         const eventType = request.headers.get("X-Event-Name");
         const body = await request.json();
 
-        const secret = import.meta.env.LEMON_SQUEEZY_SIGNKEY;
+        const secret = process.env.LEMON_SQUEEZY_SIGNKEY || import.meta.env.LEMON_SQUEEZY_SIGNKEY;
         const hmac = crypto.createHmac("sha256", secret);
         const digest = Buffer.from(hmac.update(await clonedReq.text()).digest("hex"), "utf8");
         const signature = Buffer.from(request.headers.get("X-Signature") || "", "utf8");

@@ -27,6 +27,7 @@ const guideCollection = defineCollection({
         premium: z
             .object({
                 product_id: z.string(),
+                variant_id: z.string(),
                 title: z.string(),
                 description: z.string(),
                 button: z.string(),

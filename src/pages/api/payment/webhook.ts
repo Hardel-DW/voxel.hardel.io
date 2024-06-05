@@ -24,13 +24,12 @@ export const POST: APIRoute = async ({ request }) => {
         }
 
         if (eventType === "order_created") {
-            const userId = body.meta.custom_data.user_id;
             const isSuccessful = body.data.attributes.status === "paid";
             if (isSuccessful) {
                 await db.insert(purchase).values({
-                    id: body.data.id,
-                    userId: userId,
-                    productId: body.data.attributes.checkout_data.variant_id
+                    id: body.meta.webhook_id,
+                    userId: body.meta.custom_data.user_id,
+                    productId: body.data.attributes.first_order_item.product_id
                 });
             }
         }

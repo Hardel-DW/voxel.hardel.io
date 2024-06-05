@@ -14,7 +14,8 @@
         }
     },
     "premium": {
-        "product_id": "303050",
+        "product_id": "222216",
+        "variant_id": "303050",
         "title": "Pack - Base du dévelopeement de Mods et de Java Minecraft - 1.20+",
         "description": "Le pack complet pour apprendre les bases du développement de mods pour Minecraft en Java. Ce pack contient les guides pour Forge, Fabric et NeoForge, des ressources exclusives, des exemples de code et du support personnalisé.",
         "button": "Acheter le pack",

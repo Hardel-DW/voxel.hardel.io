@@ -2,7 +2,7 @@
 import Layout from "@/components/layouts/Layout.astro";
 import Navbar from "@/components/layouts/compound/navbar.astro";
 import EnchantTool from "@/components/pages/tools/enchant/EnchantTool";
-import ShiningStars from "@/components/ui/object/ShiningStars";
+import ShiningStars from "@/components/ui/object/ShiningStars.astro";
 import { getTranslations, names } from "@/lib/i18n";
 
 const { lang } = await getTranslations(Astro.url);
@@ -16,7 +16,7 @@ export async function getStaticPaths() {
 
 <Layout title="Enchant Confiruator">
     <div class="fixed inset-0">
-        <ShiningStars client:only="react"/>
+        <ShiningStars/>
     </div>
     <div class="absolute rounded-full w-3/4 h-1/2 bg-gradient-to-r from-[#830335] to-[#311e7696] opacity-20 blur-[10rem] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"/>
 

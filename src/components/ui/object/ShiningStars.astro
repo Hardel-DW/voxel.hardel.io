@@ -1,6 +1,16 @@
 <canvas id="shining-stars" class="size-full"></canvas>
 
 <script>
+    interface Star {
+        x: number;
+        y: number;
+        baseOpacity: number;
+        size: number;
+        speed: number;
+        isDot: boolean;
+        phase: number;
+    }
+
     document.addEventListener('DOMContentLoaded', () => {
         const canvas = document.getElementById('shining-stars') as HTMLCanvasElement;
         if (!canvas) return;
@@ -29,7 +39,7 @@
 
         const stars = Array.from({length: 100}, createStar);
 
-        const drawStar = (star: any, time: number) => {
+        const drawStar = (star: Star, time: number) => {
             ctx.save();
             ctx.globalAlpha = star.baseOpacity + Math.sin(time * star.speed + star.phase) * 0.5;
             ctx.translate(star.x, star.y);

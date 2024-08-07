@@ -1,0 +1,127 @@
+import type React from "react";
+import { useEffect, useRef } from "react";
+
+interface Star {
+    x: number;
+    y: number;
+    baseOpacity: number;
+    size: number;
+    speed: number;
+    isDot: boolean;
+    phase: number;
+}
+
+const ShiningStars: React.FC = () => {
+    const canvasRef = useRef<HTMLCanvasElement>(null);
+
+    useEffect(() => {
+        const canvas = canvasRef.current;
+        if (!canvas) return;
+
+        const ctx = canvas.getContext("2d");
+        if (!ctx) return;
+
+        let animationFrameId: number;
+
+        const resizeCanvas = () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        };
+
+        resizeCanvas();
+        window.addEventListener("resize", resizeCanvas);
+
+        const createStar = (): Star => ({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            baseOpacity: Math.random() * 0.5 + 0.5,
+            size: 0.2 + Math.random() * 1.4,
+            speed: 0.001 + Math.random() * 0.005,
+            isDot: Math.random() < 0.8,
+            phase: Math.random() * Math.PI * 2
+        });
+
+        const stars: Star[] = Array.from({ length: 100 }, createStar);
+
+        const drawStar = (star: Star, time: number) => {
+            ctx.save();
+            ctx.globalAlpha = star.baseOpacity + Math.sin(time * star.speed + star.phase) * 0.5;
+            ctx.translate(star.x, star.y);
+            ctx.fillStyle = "#FFFFFF";
+            ctx.strokeStyle = "#FFFFFF";
+
+            if (star.isDot) {
+                ctx.beginPath();
+                ctx.arc(0, 0, star.size, 0, Math.PI * 2);
+                ctx.fill();
+            } else {
+                const length = star.size * 5;
+                const innerLength = length / 3;
+                const tipRadius = innerLength / 2; // Radius for rounded tips
+
+                ctx.beginPath();
+
+                // Start at the top point
+                ctx.moveTo(0, -length);
+
+                // Draw top-right arm
+                ctx.arcTo(tipRadius, -length + tipRadius, innerLength, -innerLength, tipRadius);
+                ctx.lineTo(innerLength, -innerLength);
+
+                // Draw right-top arm
+                ctx.arcTo(length - tipRadius, -tipRadius, length, 0, tipRadius);
+                ctx.lineTo(length, 0);
+
+                // Draw right-bottom arm
+                ctx.arcTo(length - tipRadius, tipRadius, innerLength, innerLength, tipRadius);
+                ctx.lineTo(innerLength, innerLength);
+
+                // Draw bottom-right arm
+                ctx.arcTo(tipRadius, length - tipRadius, 0, length, tipRadius);
+                ctx.lineTo(0, length);
+
+                // Draw bottom-left arm
+                ctx.arcTo(-tipRadius, length - tipRadius, -innerLength, innerLength, tipRadius);
+                ctx.lineTo(-innerLength, innerLength);
+
+                // Draw left-bottom arm
+                ctx.arcTo(-length + tipRadius, tipRadius, -length, 0, tipRadius);
+                ctx.lineTo(-length, 0);
+
+                // Draw left-top arm
+                ctx.arcTo(-length + tipRadius, -tipRadius, -innerLength, -innerLength, tipRadius);
+                ctx.lineTo(-innerLength, -innerLength);
+
+                // Draw top-left arm
+                ctx.arcTo(-tipRadius, -length + tipRadius, 0, -length, tipRadius);
+                ctx.lineTo(0, -length);
+
+                ctx.closePath();
+                ctx.stroke();
+            }
+
+            ctx.restore();
+        };
+
+        const animate = (time: number) => {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            for (const star of stars) {
+                drawStar(star, time);
+            }
+
+            animationFrameId = requestAnimationFrame(animate);
+        };
+
+        animate(0);
+
+        return () => {
+            cancelAnimationFrame(animationFrameId);
+            window.removeEventListener("resize", resizeCanvas);
+        };
+    }, []);
+
+    return <canvas ref={canvasRef} style={{ width: "100%", height: "100%" }} />;
+};
+
+export default ShiningStars;

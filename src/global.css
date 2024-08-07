@@ -1,11 +1,21 @@
-html, body {
+@font-face {
+    font-family: 'Rubik';
+    font-style: normal;
+    font-display: swap;
+    font-weight: 300 900;
+    src: url(@fontsource-variable/rubik/files/rubik-latin-wght-normal.woff2) format('woff2-variations');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+html,
+body {
     height: 100%;
 }
 
 body {
-    font-family: "Inter", sans-serif;
+    font-family: "Rubik", sans-serif;
     color: #e8e8e8;
-    background-color: #050107;
+    background: #000000 radial-gradient(hsl(0 0% 0% / 1), hsl(243.97deg 41% 7%));
     margin: 0;
     padding: 0;
     min-height: 100dvh;
@@ -13,22 +23,9 @@ body {
     grid-template-rows: 1fr auto;
 }
 
-hr {
-    flex-shrink: 0;
-    border-top: 0 solid rgba(0, 0, 0, 0.08);
-    border-right: 0 solid rgba(0, 0, 0, 0.08);
-    border-left: 0 solid rgba(0, 0, 0, 0.08);
-    height: 0.0625rem;
-    margin: 1rem 0;
-    border-bottom: none;
-    opacity: 0.25;
-    width: 100%;
-    background-color: transparent;
-    background-image: linear-gradient(to right, rgba(0, 117, 255, 0), #fff, rgba(255, 255, 255, 0)) !important;
-}
-
 ::-webkit-scrollbar {
     width: 10px;
+    height: 10px;
 }
 
 ::-webkit-scrollbar-track {
@@ -49,4 +46,146 @@ hr {
 
 ::-webkit-resizer {
     display: none;
+}
+
+input[type="number"] {
+    -webkit-appearance: textfield;
+    -moz-appearance: textfield;
+    appearance: textfield;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none; /* Supprime l'apparence par défaut */
+    appearance: none;
+    margin: 0; /* Supprime la marge */
+}
+
+/* Style de la flèche d'incrémentation */
+input[type="number"]::-webkit-inner-spin-button {
+    display: none; /* Cache la flèche d'incrémentation */
+}
+
+/* Style de la flèche de décrémentation */
+input[type="number"]::-webkit-outer-spin-button {
+    display: none; /* Cache la flèche de décrémentation */
+}
+
+label {
+    @apply relative h-6;
+
+    [type="checkbox"] {
+        all: unset;
+        @apply w-11 cursor-pointer;
+        @apply after:absolute after:top-0 after:block after:rounded-full after:w-4 after:h-4 after:mt-1 after:ml-1 after:shadow-md after:duration-200 after:bg-stone-300 after:checked:bg-neutral-300;
+        @apply before:absolute before:top-0 before:inline-block before:rounded-full before:duration-100 before:w-10 before:h-6 before:bg-neutral-600 before:checked:bg-rose-900;
+        @apply checked:after:duration-300 checked:after:translate-x-4;
+        @apply disabled:cursor-not-allowed disabled:after:bg-opacity-70;
+        @apply disabled:checked:before:opacity-50;
+    }
+}
+
+input[type="range"] {
+    height: 1.5rem;
+    width: 100%;
+    cursor: pointer;
+    -moz-appearance: none;
+    appearance: none;
+    -webkit-appearance: none;
+    overflow: hidden;
+    border-radius: 1rem;
+    background-color: transparent
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+    height: .5rem;
+    width: 100%;
+    border-radius: 1rem;
+    background-color: #101112
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    position: relative;
+    height: 1.5rem;
+    width: 1.5rem;
+    border-radius: 1rem;
+    border-style: none;
+    -moz-appearance: none;
+    appearance: none;
+    -webkit-appearance: none;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: #fdfdfd;
+    color: rgb(136, 19, 55);
+    box-shadow: 0 0 0 3px rgb(136, 19, 55) inset, calc(100rem * -1 - .6rem) 0 0 100rem
+}
+
+input[type="range"]:focus {
+    outline: none
+}
+
+/* Custom utilities class */
+.drag-none {
+    user-select: none;
+    user-drag: none;
+    -moz-user-select: none;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+}
+
+.gradient-gray {
+    background-image: radial-gradient(circle farthest-side at 0 100%, #151414, transparent),
+    radial-gradient(circle farthest-side at 100% 0, #0c0c0c, transparent), radial-gradient(circle farthest-side at 100% 100%, #1c1b1b, transparent),
+    radial-gradient(circle farthest-side at 0 0, rgba(24, 24, 24, 0.8), #100707);
+}
+
+.gradient-gray-opacity {
+    background-image: radial-gradient(circle farthest-side at 0 100%, rgba(21, 20, 20, 0.5), transparent),
+    radial-gradient(circle farthest-side at 100% 0, rgba(12, 12, 12, 0.5), transparent), radial-gradient(circle farthest-side at 100% 100%, rgba(28, 27, 27, 0.5), transparent),
+    radial-gradient(circle farthest-side at 0 0, rgba(24, 24, 24, 0.25), rgba(16, 7, 7, 0.5));
+}
+
+
+.pixelated {
+    image-rendering: pixelated;
+}
+
+.stack {
+    display: grid;
+}
+
+.stack > * {
+    grid-area: 1 / 1 / 2 / 2;
+}
+
+.scrollbar-hover::-webkit-scrollbar-thumb {
+    box-shadow: inset 0 0 10px 10px rgba(0, 0, 0, 0);
+}
+
+.scrollbar-hover:hover::-webkit-scrollbar-thumb {
+    box-shadow: inset 0 0 10px 10px #959595;
+}
+
+.move-left {
+    transform: translateX(-200px);
+    animation: move-left linear forwards;
+}
+
+@keyframes move-left {
+    from {
+        transform: translateX(-200px)
+    }
+    to {
+        transform: translateX(0)
+    }
+}
+
+.container-type {
+    container-type: inline-size;
+}
+
+@container (min-width: 350px) {
+    .fix {
+        padding-left: 0;
+    }
 }

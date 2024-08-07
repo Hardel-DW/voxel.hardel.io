@@ -1,0 +1,70 @@
+---
+import { getCollection } from "astro:content";
+import CompoundLayout from "@/components/layouts/CompoundLayout.astro";
+import Card from "@/components/pages/guide/overview/Card.astro";
+import ShiningStars from "@/components/ui/object/ShiningStars";
+import DashedPattern from "@/components/ui/pattern/DashedPattern.astro";
+import { cn } from "@/lib/utils";
+import type { GetStaticPaths, InferGetStaticPropsType } from "astro";
+
+export const prerender = true;
+export const getStaticPaths = (async ({ paginate }) => {
+    const allPosts = await getCollection("guide", ({ data }) => !data.metadata.draft);
+    const allSortedPosts = allPosts.sort((a, b) => b.data.metadata.publishDate.valueOf() - a.data.metadata.publishDate.valueOf());
+
+    return paginate(allSortedPosts, { pageSize: 6 });
+}) satisfies GetStaticPaths;
+
+type Props = InferGetStaticPropsType<typeof getStaticPaths>;
+const { page }: Props = Astro.props;
+---
+
+<CompoundLayout transparent={false} title="Voxel - Guide">
+    <div class="fixed inset-0">
+        <ShiningStars client:only="react"/>
+    </div>
+
+    <section class="stack items-center">
+        <div id="background"
+             class="size-full -z-10 bg-cover bg-center bg-no-repeat opacity-10 blur-3xl transition-all duration-300"/>
+
+        <div class="place-self-center w-1/2 h-3/4 blur-[100px] bg-gradient-to-br from-zinc-700 to-zinc-900 rounded-full opacity-20"/>
+        <DashedPattern class="relative"/>
+        <div class="w-11/12 md:w-4/5 mx-auto py-16 relative">
+            <article class={cn("grid md:grid-cols-2 pt-12 gap-10 lg:gap-16", {
+                "pb-56": page.data.length % 2 === 1
+            })}>
+                <div class="size-full pt-20 md:pt-0 md:translate-y-8 xl:translate-y-12 flex flex-col justify-center items-start xl:gap-2">
+                    <h2 class="text-4xl xl:text-7xl font-bold">Les Guides</h2>
+                    <p class="text-xl xl:text-3xl text-gray-400">
+                        Découvrez nos derniers guides et amusez-vous.
+                    </p>
+                    <div class="h-1 xl:h-2 w-20 bg-pink-700 rounded-full mt-2"/>
+                </div>
+                {page.data.map((post, index: number) => (
+                        <Card snippet={post.data.metadata.snippet}
+                              date={post.data.metadata.publishDate.toDateString()}
+                              author={post.data.metadata.author}
+                              loading={index <= 2 ? 'eager' : 'lazy'}
+                              decoding={index <= 2 ? 'sync' : 'async'}
+                              href={`/guides/${post.id}`}
+                              images={{...post.data.metadata.images}}
+                        >
+                            {post.data.metadata.title}
+                        </Card>
+                ))}
+            </article>
+        </div>
+    </section>
+</CompoundLayout>
+
+<script is:inline>
+    const background = document.getElementById('background');
+    const cards = document.querySelectorAll('[data-card]');
+
+    for (const card of cards) {
+        card.addEventListener('mouseenter', () => {
+            background.style.backgroundImage = `url(${card.getAttribute('data-card')})`;
+        });
+    }
+</script>

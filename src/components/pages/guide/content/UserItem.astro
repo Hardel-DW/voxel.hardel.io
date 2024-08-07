@@ -1,0 +1,9 @@
+---
+import { cn } from "@/lib/utils";
+const props = Astro.props;
+---
+
+<li {...props}
+    class={cn('group hover:bg-white/10 transition w-full px-4 py-2 cursor-pointer rounded-xl flex items-center justify-between', props.class)}>
+    <slot/>
+</li>

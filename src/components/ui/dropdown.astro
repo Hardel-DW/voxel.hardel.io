@@ -1,0 +1,65 @@
+---
+import type { HTMLAttributes } from "astro/types";
+type DropdownElement = {
+    title: string;
+    url: string;
+    id: string;
+    logo?: string;
+};
+
+interface Props extends WithRequired<HTMLAttributes<"a">, "id"> {
+    current?: DropdownElement;
+    elements: Array<DropdownElement>;
+}
+
+const props: Props = Astro.props;
+const currentElement = props.current ? props.current : props.elements[0];
+if (currentElement === undefined) throw new Error("Current element not found");
+---
+
+
+<div class="relative w-full cursor-pointer select-none" id={props.id + "-container"}>
+    <div class="w-full mt-4 border px-4 py-2 inline-flex items-center justify-between text-sm font-normal border-zinc-700 hover:border-zinc-600 text-zinc-400 hover:text-zinc-200 whitespace-nowrap transition-colors rounded-[0.5rem]">
+        <div class="flex gap-x-2 items-center">
+            {currentElement?.logo &&
+                    <img src={currentElement.logo} alt={currentElement.title} class="h-6 w-6 mr-2 invert"/>}
+            <span>{currentElement.title}</span>
+        </div>
+        <img src="/icons/chevron-down.svg" alt="Open" class="h-4 w-4 invert"/>
+    </div>
+
+    <div id={props.id + "-content"}
+         class="hidden space-y-2 p-2 mt-2 absolute w-full z-10 border border-zinc-700 hover:border-zinc-600 backdrop-blur-2xl bg-black/50 rounded-[0.5rem] shadow-lg">
+        {props.elements.map((element) => (
+                <a href={element.url} class="block rounded px-4 py-2 text-zinc-200 hover:bg-white/5">
+                    <div class="flex items-center">
+                        {element.logo && <img src={element.logo} alt={element.title} class="h-6 w-6 mr-2 invert"/>}
+                        <span>{element.title}</span>
+                    </div>
+                </a>
+        ))}
+    </div>
+</div>
+
+<script is:inline define:vars={{id: props.id}}>
+    const container = document.getElementById(id + "-container");
+    const dropdown = document.getElementById(id + "-content");
+
+    container.addEventListener("click", () => {
+        dropdown.classList.toggle("hidden");
+        dropdown.classList.toggle("animate-open");
+    });
+
+    document.addEventListener("click", (event) => {
+        if (!container.contains(event.target) && !dropdown.contains(event.target)) {
+            dropdown.classList.add("hidden");
+        }
+    });
+
+    document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") {
+            dropdown.classList.add("hidden");
+        }
+    });
+</script>
+

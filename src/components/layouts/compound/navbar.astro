@@ -1,6 +1,102 @@
-<div class="sticky h-20 top-0 border-b z-20 backdrop-blur-lg py-4 px-8 md:px-20 w-full flex items-center bg-black/80 border-zinc-800">
-    <a href="/" class="flex items-center gap-x-4">
-        <img src="/favicon.svg" alt="Voxelwind" class="w-6 h-6 brightness-90 mx-2"/>
-        <span class="text-lg text-white font-bold">VOXEL</span>
-    </a>
-</div>
+---
+import NavBarItem from "@/components/layouts/compound/NavbarContent";
+import Button from "@/components/ui/button.astro";
+import { getTranslations } from "@/lib/i18n";
+import { generateAuthUrl } from "@/lib/lucia";
+import { cn } from "@/lib/utils";
+
+const { translate, lang } = await getTranslations(Astro.url);
+const links = [
+    { name: translate["navbar.item.home"], href: `/${lang}` },
+    { name: translate["navbar.item.resources"], href: `/${lang}/soon` },
+    { name: translate["navbar.item.contact"], href: `/${lang}/contact` }
+];
+
+interface Props {
+    transparent?: boolean;
+    full?: boolean;
+    className?: string;
+}
+const { transparent = true, full = true, className }: Props = Astro.props;
+---
+
+<header id="header" aria-expanded="false" class={cn("mt-8 fixed left-0 right-0 z-20 group", className)}>
+    <nav id="navbar"
+         class={cn("flex group-aria-expanded:border-t group-aria-expanded:border-l group-aria-expanded:bg-header-translucent transition-colors duration-150 ease-linear border-zinc-800 justify-between items-center max-w-full h-14 rounded-3xl backdrop-blur-md px-2",
+             {"bg-header-translucent border-t border-l": !transparent},
+             {"mx-auto w-10/12 md:w-3/4": full}
+         )}>
+        <!-- Left Part -->
+        <div class="flex items-center gap-4 pl-2">
+            <a href=`/${lang}` class="flex items-center gap-x-4">
+                <img src="/favicon.svg" alt="Voxel" class="w-6 h-6 brightness-90 mx-2"/>
+                <span class="text-lg text-white font-bold">
+                    {translate["generic.website"]}
+                </span>
+            </a>
+
+            <!-- Desktop -->
+            <div class="hidden md:block">
+                <NavBarItem url={Astro.url} lang={lang} client:idle/>
+            </div>
+        </div>
+
+        <!-- Right Part -->
+        <div>
+            <!-- Desktop -->
+            <div class="hidden lg:flex items-center gap-2">
+                <Button href={generateAuthUrl(Astro.url.toString())} rounded="full" variant="ghost">
+                    {translate["generic.login"]}
+                </Button>
+                <Button href=`/${lang}/soon` rounded="full" variant="primary" class="group">
+                    {translate["generic.start"]}
+                </Button>
+            </div>
+
+            <!-- Mobile -->
+            <div class="lg:hidden inline-block">
+                <Button size="icon" variant="link" rounded="full" aria-label="Menu" id="menu">
+                    <img src="/icons/menu.svg" alt="Menu" class="w-6 h-6 invert"/>
+                </Button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile -->
+    <nav class="group-aria-expanded:flex hidden md:hidden mt-2 shadow-zinc-500/20 shadow-2xl border-zinc-800 border-t border-l bg-header-translucent flex-col gap-2 rounded-3xl backdrop-blur-md p-2 mx-auto w-10/12 md:w-3/4">
+        <div class="size-full flex flex-col gap-y-2">
+            <div class="py-2">
+                {links.map((item) =>
+                        <a href={item.href}
+                           class="rounded-3xl px-4 py-3 leading-none flex justify-between transition-colors text-zinc-400 hover:bg-zinc-700/10 hover:text-white">
+                            <span>{item.name}</span>
+                            <img src="/icons/chevron-right.svg" alt="Chevron" class="w-4 h-4 invert"/>
+                        </a>
+                )}
+            </div>
+            <div class="mt-2 space-y-2">
+                <Button href={generateAuthUrl(Astro.url.toString())} class="w-full mt-0" rounded="full"
+                        variant="ghost">
+                    {translate["generic.login"]}
+                </Button>
+                <Button href="/guides" class="w-full mt-0" rounded="full" variant="primary">
+                    {translate["navbar.item.guides"]}
+                </Button>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<script is:inline define:vars={{transparent}}>
+    const classList = document.getElementById('navbar').classList;
+    const strings = ['border-t', 'border-l', 'bg-header-translucent'];
+    if (transparent) {
+        window.addEventListener('scroll', () => window.scrollY > 0 ? classList.add(...strings) : classList.remove(...strings));
+    }
+
+    const menu = document.getElementById('menu');
+    const header = document.getElementById('header');
+    menu.addEventListener('click', () => {
+        header.setAttribute('aria-expanded', header.getAttribute('aria-expanded') === 'true' ? 'false' : 'true');
+    });
+</script>

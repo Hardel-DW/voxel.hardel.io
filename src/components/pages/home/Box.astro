@@ -1,0 +1,24 @@
+---
+import { Image } from "astro:assets";
+import { cn } from "@/lib/utils";
+import type { HTMLAttributes } from "astro/types";
+
+interface Props extends HTMLAttributes<"div"> {
+    image: string;
+    loading: "lazy" | "eager";
+}
+---
+
+<div class={cn(
+        "flex flex-col items-center justify-between gradient-gray cursor-pointer border-t-2 border-r border-zinc-800 p-10 sm:p-16 rounded-3xl shadow-2xl shadow-black transition opacity-75 hover:opacity-100",
+        Astro.props.class)}
+     {...Astro.props}>
+    <div class="flex justify-center h-full">
+        <Image loading={Astro.props.loading} width="500" height="500" src={Astro.props.image} alt="404"
+               class="w-3/4 drag-none self-center"/>
+    </div>
+
+    <div class="place-items-end">
+        <slot/>
+    </div>
+</div>

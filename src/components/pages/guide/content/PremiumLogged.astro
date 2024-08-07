@@ -1,0 +1,47 @@
+---
+import type { CollectionEntry } from "astro:content";
+import Button from "@/components/ui/button.astro";
+import Faq from "@/components/ui/faq.astro";
+import { createCheckout } from "@/lib/lemon";
+const { user } = Astro.locals;
+
+interface Props {
+    schema: CollectionEntry<"guide">;
+}
+
+const { schema }: Props = Astro.props;
+if (schema.data.premium === undefined) {
+    throw new Error("Missing premium data");
+}
+
+if (!user) {
+    throw new Error("Missing user data");
+}
+
+const checkoutUrl = await createCheckout(user.id, schema.data.premium.variant_id);
+---
+
+<div class="flex justify-center items-center h-full w-full">
+    <div class="flex flex-col justify-between min-w-96 max-h-full overflow-y-auto bg-zinc-950/50 border-zinc-800 border-t border-l rounded-3xl p-8 shadow-xl shadow-zinc-700/10">
+        <div class="md:px-8 pt-5 grid xl:grid-cols-2 gap-12">
+            <img src={schema.data.premium.items[0]} alt="Preview" class="w-full rounded-xl"/>
+
+            <div>
+                <div class="flex justify-center gap-x-12">
+                    <h2 class="text-xl text-zinc-200 font-bold">{schema.data.premium.title}</h2>
+                    <p class="text-2xl text-zinc-100 text-end font-semibold">{schema.data.premium.price}{schema.data.premium.currency}</p>
+                </div>
+                <p class="text-sm text-zinc-400 mt-4">{schema.data.premium.description}</p>
+                <Button size="sm"
+                        href={checkoutUrl}
+                        class="mt-6 w-48 mb-8">{schema.data.premium.button}</Button>
+            </div>
+        </div>
+
+        <div class="my-8 h-px bg-gradient-to-r from-zinc-800/50 via-zinc-700/70 to-zinc-800/50"/>
+
+        <div class="md:px-8 gr8 xl:grid-cols-2 gap-12">
+            <Faq data={schema.data.premium.faq}/>
+        </div>
+    </div>
+</div>

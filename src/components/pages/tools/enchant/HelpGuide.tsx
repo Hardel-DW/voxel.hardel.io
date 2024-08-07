@@ -47,10 +47,7 @@ export default function HelpGuide({
                         <p className="text-gray-300 mt-4">{translate["tools.enchantments.home.description"]}</p>
                         <small className="text-gray-300 mt-4 text-xs bg-header-cloudy border-zinc-800 border-t border-l px-4 py-4 rounded-xl w-fit">
                             {translate["tools.enchantments.home.small"]}
-                            <a
-                                href="https://www.curseforge.com/minecraft/mc-mods/neo-enchant-plus"
-                                className="text-blue-400 hover:underline"
-                            >
+                            <a href="https://modrinth.com/datapack/neoenchant" className="text-blue-400 hover:underline">
                                 {translate["generic.modrinth"]}
                             </a>
                         </small>

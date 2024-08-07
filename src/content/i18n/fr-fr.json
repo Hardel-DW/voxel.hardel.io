@@ -1,5 +1,5 @@
 {
-    "name": "French",
+    "name": "Français",
     "translations": {
         "generic.website": "VOXEL",
         "generic.section": "- VOXEL",
@@ -7,6 +7,9 @@
         "generic.back": "Revenir a l'accueil",
         "generic.contact_us": "Nous contacter",
         "generic.start": "Commencer",
+        "generic.cancel": "Refuser",
+        "generic.accept": "Accepter",
+        "generic.settings": "Paramètres",
         "generic.learn_more": "En savoir plus",
         "generic.take_a_look": "Faire un tour",
         "generic.soon": "Bientôt",
@@ -17,6 +20,19 @@
         "generic.join_us": "Rejoignez-nous",
         "generic.private_message": "Message privé",
         "generic.translation.missing": "Traduction manquante",
+
+        "tracker.title": "Votre vie privée",
+        "tracker.description": "Ce site utilise des technologies de suivi. Vous pouvez accepter ou refuser l'utilisation de ces technologies,",
+        "tracker.privacy": "Politique de confidentialité",
+        "tracker.privacy.description": "Ce site utilise des technologies de suivi. Vous pouvez accepter ou refuser l'utilisation de ces technologies, en cliquant sur les boutons ci-dessous.",
+
+        "tracker.consent_save": "Enregistrer les préférences",
+        "tracker.necessary.title": "Cookies nécessaires",
+        "tracker.necessary.description": "Les cookies nécessaires contribuent à rendre un site Web utilisable en activant des fonctions de base comme la navigation dans les pages et l'accès aux zones sécurisées du site Web. Le site Web ne peut pas fonctionner correctement sans ces cookies.",
+        "tracker.analytics.title": "Cookies analytiques",
+        "tracker.analytics.description": "Les cookies analytiques nous aident à améliorer notre site Web en collectant et en rapportant des informations sur son utilisation.",
+        "tracker.marketing.title": "Cookies marketing",
+        "tracker.marketing.description": "Les cookies marketing sont utilisés pour suivre les visiteurs sur les sites Web. L'objectif est d'afficher des publicités qui sont pertinentes et engageantes pour l'utilisateur individuel et donc plus précieuses pour les éditeurs et les annonceurs tiers.",
 
         "lost.title": "T'es perdu ?",
         "lost.description": "Cette page n'existe pas, ou a été déplacée, contactez-nous si vous pensez qu'il s'agit d'une erreur.",

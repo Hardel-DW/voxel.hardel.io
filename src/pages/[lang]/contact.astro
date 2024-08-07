@@ -1,7 +1,7 @@
 ---
 import CompoundLayout from "@/components/layouts/CompoundLayout.astro";
 import Button from "@/components/ui/button.astro";
-import ShiningStars from "@/components/ui/object/ShiningStars";
+import ShiningStars from "@/components/ui/object/ShiningStars.astro";
 import DashedPattern from "@/components/ui/pattern/DashedPattern.astro";
 import { getTranslations, names } from "@/lib/i18n";
 
@@ -61,7 +61,7 @@ const contact = [
 
     <section class="mt-32 mb-20 w-11/12 xl:w-3/4 mx-auto grid grid-cols-6 gap-10 relative">
         <div class="fixed inset-0 -z-10">
-            <ShiningStars client:only="react"/>
+            <ShiningStars/>
         </div>
 
         <div class="col-span-6 h-72 md:h-96 relative flex items-center justify-center border border-zinc-800 rounded-xl">

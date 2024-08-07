@@ -1,27 +1,27 @@
 ---
-import { getCollection } from "astro:content";
+import {getCollection} from "astro:content";
 import CompoundLayout from "@/components/layouts/CompoundLayout.astro";
 import Card from "@/components/pages/guide/overview/Card.astro";
-import ShiningStars from "@/components/ui/object/ShiningStars";
 import DashedPattern from "@/components/ui/pattern/DashedPattern.astro";
-import { cn } from "@/lib/utils";
-import type { GetStaticPaths, InferGetStaticPropsType } from "astro";
+import {cn} from "@/lib/utils";
+import type {GetStaticPaths, InferGetStaticPropsType} from "astro";
+import ShiningStars from "@/components/ui/object/ShiningStars.astro";
 
 export const prerender = true;
-export const getStaticPaths = (async ({ paginate }) => {
-    const allPosts = await getCollection("guide", ({ data }) => !data.metadata.draft);
+export const getStaticPaths = (async ({paginate}) => {
+    const allPosts = await getCollection("guide", ({data}) => !data.metadata.draft);
     const allSortedPosts = allPosts.sort((a, b) => b.data.metadata.publishDate.valueOf() - a.data.metadata.publishDate.valueOf());
 
-    return paginate(allSortedPosts, { pageSize: 6 });
+    return paginate(allSortedPosts, {pageSize: 6});
 }) satisfies GetStaticPaths;
 
 type Props = InferGetStaticPropsType<typeof getStaticPaths>;
-const { page }: Props = Astro.props;
+const {page}: Props = Astro.props;
 ---
 
 <CompoundLayout transparent={false} title="Voxel - Guide">
     <div class="fixed inset-0">
-        <ShiningStars client:only="react"/>
+        <ShiningStars/>
     </div>
 
     <section class="stack items-center">

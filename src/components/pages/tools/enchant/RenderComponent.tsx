@@ -97,7 +97,6 @@ export function RenderComponent({ component, formValues, handleChange }: RenderC
         case "Slot": {
             const value = getValue<boolean>(component.name as keyof EnchantmentProps, false);
             const locked = formValues?.lockedFields?.find((field) => field.field === component.name);
-            console.log(locked);
 
             return (
                 <ToolSlot

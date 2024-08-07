@@ -5,7 +5,7 @@ import CompoundLayout from "@/components/layouts/CompoundLayout.astro";
 import Box from "@/components/pages/home/Box.astro";
 import Button from "@/components/ui/button.astro";
 import Faq from "@/components/ui/faq.astro";
-import ShiningStars from "@/components/ui/object/ShiningStars";
+import ShiningStars from "@/components/ui/object/ShiningStars.astro";
 import Fog from "@/components/ui/pattern/Fog.astro";
 import Vortex from "@/components/ui/pattern/Vortex";
 import { getTranslations, names } from "@/lib/i18n";
@@ -28,7 +28,7 @@ export async function getStaticPaths() {
 
         <!-- Shining stars -->
         <div class="fixed inset-0 -z-10">
-            <ShiningStars client:only="react"/>
+            <ShiningStars/>
         </div>
 
         <!-- Particles -->

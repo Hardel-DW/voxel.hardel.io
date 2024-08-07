@@ -4,6 +4,7 @@ import Button from "@/components/ui/button.astro";
 import { getTranslations } from "@/lib/i18n";
 import { generateAuthUrl } from "@/lib/lucia";
 import { cn } from "@/lib/utils";
+import Internalization from "./internalization.astro";
 
 const { translate, lang } = await getTranslations(Astro.url);
 const links = [
@@ -45,6 +46,7 @@ const { transparent = true, full = true, className }: Props = Astro.props;
         <div>
             <!-- Desktop -->
             <div class="hidden lg:flex items-center gap-2">
+                <Internalization/>
                 <Button href={generateAuthUrl(Astro.url.toString())} rounded="full" variant="ghost">
                     {translate["generic.login"]}
                 </Button>

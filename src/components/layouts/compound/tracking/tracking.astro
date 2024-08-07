@@ -1,6 +1,9 @@
 ---
 import Tracker from "@/components/layouts/compound/tracking/tracker.astro";
 import Button from "@/components/ui/button.astro";
+import { getTranslations } from "@/lib/i18n";
+
+const { translate } = await getTranslations(Astro.url);
 ---
 
 <div id="tracking" class="fixed bottom-0 left-0 md:bottom-2 md:left-2 p-2 w-full s:max-w-[30rem] z-10"
@@ -8,23 +11,22 @@ import Button from "@/components/ui/button.astro";
     <div class="p-4 space-y-6 rounded-2xl border border-zinc-800 bg-black/90 backdrop-blur-xl">
         <div>
             <h1 class="text-white font-bold tracking-normal text-base mb-1">
-                Votre vie privée
+                {translate["tracker.title"]}
             </h1>
             <p class="text-zinc-300 tracking-normal text-sm">
-                Ce site utilise des technologies de suivi. Vous pouvez accepter ou refuser l'utilisation de ces
-                technologies,
+                {translate["tracker.description"]}
             </p>
         </div>
         <div class="flex justify-between items-center flex-col s:flex-row gap-2">
             <Button id="open" class="w-full s:w-auto" rounded="full" variant="transparent">
-                Paramètres
+                {translate["generic.settings"]}
             </Button>
             <div class="w-full s:w-auto flex gap-2">
                 <Button id="accept" class="flex-1" rounded="full">
-                    Accepter
+                    {translate["generic.accept"]}
                 </Button>
                 <Button id="decline" class="flex-1" rounded="full">
-                    Refuser
+                    {translate["generic.cancel"]}
                 </Button>
             </div>
         </div>
@@ -35,45 +37,54 @@ import Button from "@/components/ui/button.astro";
         class="fixed max-w-[720px] inset-0 rounded-2xl border border-zinc-700 bg-black backdrop-blur-xl space-y-6 backdrop:bg-black/50 backdrop:backdrop-blur-md backdrop:z-10">
     <div class="space-y-4 pt-8 px-8">
         <h1 class="text-white font-bold tracking-normal text-2xl">
-            Your Privacy
+            {translate["tracker.title"]}
         </h1>
         <p class="text-zinc-300 tracking-normal text-sm">
-            This site uses tracking technologies. You may opt in or opt out of the use of these technologies, by
-            clicking on the buttons below.
+            {translate["tracker.privacy.description"]}
         </p>
     </div>
 
     <div class="px-12 py-4 mt-0">
         <Tracker alwaysActive class="rounded-t-2xl">
-            <Fragment slot="title">Necessary Cookies</Fragment>
-            <Fragment slot="description">Necessary cookies help make a website usable by enabling basic functions like
-                page navigation and access to secure areas of the website. The website cannot function properly without
-                these cookies.
+            <Fragment slot="title">
+                {translate["tracker.necessary.title"]}
+            </Fragment>
+            <Fragment slot="description">
+                {translate["tracker.necessary.description"]}
             </Fragment>
         </Tracker>
         <Tracker active id="analytics">
-            <Fragment slot="title">Analytics Cookies</Fragment>
-            <Fragment slot="description">Analytical cookies help us to improve our website by collecting and reporting
-                information on its usage.
+            <Fragment slot="title">
+                {translate["tracker.analytics.title"]}
+            </Fragment>
+            <Fragment slot="description">
+                {translate["tracker.analytics.description"]}
             </Fragment>
         </Tracker>
         <Tracker active id="marketing" class="rounded-b-2xl">
-            <Fragment slot="title">Marketing Cookies</Fragment>
-            <Fragment slot="description">Marketing cookies are used to track visitors across websites. The intention is
-                to display ads that are relevant and engaging for the individual user and thereby more valuable for
-                publishers and third party advertisers.
+            <Fragment slot="title">
+                {translate["tracker.marketing.title"]}
+            </Fragment>
+            <Fragment slot="description">
+                {translate["tracker.marketing.description"]}
             </Fragment>
         </Tracker>
     </div>
 
     <div class="flex justify-between items-center flex-col s:flex-row gap-2 border-t border-zinc-800 rounded-b-2xl bg-zinc-950 p-4">
-        <Button id="consent-dialog" data-open-modal class="w-full s:w-auto" rounded="full" variant="transparent">Consent
-            Save
+        <Button id="consent-dialog" data-open-modal class="w-full s:w-auto" rounded="full" variant="transparent">
+            {translate["tracker.consent_save"]}
         </Button>
         <div class="w-full s:w-auto flex gap-2">
-            <Button id="deny-dialog" class="px-4 flex-1" rounded="full">Deny</Button>
-            <Button id="accept-dialog" class="flex-1" rounded="full">Accept</Button>
-            <Button class="flex-1" variant="link" href="/privacy">Privacy Policy</Button>
+            <Button id="deny-dialog" class="px-4 flex-1" rounded="full">
+                {translate["generic.cancel"]}
+            </Button>
+            <Button id="accept-dialog" class="flex-1" rounded="full">
+                {translate["generic.accept"]}
+            </Button>
+            <Button class="flex-1" variant="link" href="/privacy">
+                {translate["tracker.privacy"]}
+            </Button>
         </div>
     </div>
 </dialog>

@@ -1,0 +1,13 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import { cn } from "../../lib/utils";
+
+interface Props extends HTMLAttributes<"div"> {}
+
+const props = Astro.props;
+---
+
+<div {...Astro.props}
+     class={cn("w-full h-64 border-2 border-dashed flex flex-col items-center justify-between gradient-gray cursor-pointer border-t-2 border-r border-zinc-800 p-10 sm:p-16 rounded-3xl shadow-2xl shadow-black transition opacity-75 hover:opacity-100", props.class)}>
+    <slot/>
+</div>

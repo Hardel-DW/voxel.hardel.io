@@ -18,6 +18,13 @@ export default defineConfig({
         domains: ["https://voxel.hardel.io/", "https://devvoxel.hardel.io/", "https://lh3.googleusercontent.com/"]
     },
     output: "server",
+    i18n: {
+        defaultLocale: "en-us",
+        locales: ["en-us", "fr-fr"],
+        routing: {
+            prefixDefaultLocale: false
+        }
+    },
     integrations: [tailwind(), react()],
     adapter: vercel({
         webAnalytics: { enabled: true }

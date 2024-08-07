@@ -5,6 +5,7 @@ import NavigationTree from "./NavigationTree.tsx";
 
 export type Guides = {
     slug: string;
+    locked: boolean;
     image: {
         src: string;
         alt: string;
@@ -19,9 +20,10 @@ interface Props {
 
 export default function Navigation({ schema, guides, slug }: Props) {
     return (
-        <div className="flex-grow h-full relative">
+        <div className="flex flex-col overflow-hidden my-4 -mr-2 pr-2" style={{ flex: 1 }}>
             <Tabs defaultValue="chapter" asChild>
-                <div className="size-full px-2 mt-4">
+                <div className="size-full px-2">
+                    {/* Switch between chapter and guide */}
                     <TabsList className="mb-4 grid grid-cols-2 bg-transparent relative overflow-hidden">
                         <div className="absolute inset-0 -z-10 hue-rotate-45 brightness-20">
                             <img src="/images/shine.avif" alt="Shine" />
@@ -34,8 +36,10 @@ export default function Navigation({ schema, guides, slug }: Props) {
                             Guides
                         </TabsTrigger>
                     </TabsList>
-                    <TabsContent value="chapter" className="h-full overflow-y-auto pr-2 -mr-2">
-                        <div className="flex flex-col gap-y-2">
+
+                    {/* Display the content of the selected tab */}
+                    <TabsContent value="chapter" className="overflow-y-auto pr-2 -mr-2" style={{ flex: 1, height: "calc(100% - 64px)" }}>
+                        <div className="space-y-2">
                             {schema.data.sections.map((element, index) => (
                                 <NavigationTree
                                     key={element.slug}
@@ -53,13 +57,15 @@ export default function Navigation({ schema, guides, slug }: Props) {
                             ))}
                         </div>
                     </TabsContent>
-                    <TabsContent value="guide">
-                        <div className="flex flex-col gap-y-2">
+
+                    <TabsContent value="guide" className="overflow-y-auto h-[inherit] pr-2 -mr-2" style={{ flex: 1 }}>
+                        <div className="space-y-2">
                             {guides.map((element, index) => (
                                 <GuideTree
                                     key={element.slug}
                                     index={index}
                                     image={element.image}
+                                    locked={element.locked}
                                     slug={`/guides/${element.slug}`}
                                     selected={element.slug === slug.guide}
                                 />

@@ -1,37 +1,43 @@
 ---
 import NavBarItem from "@/components/layouts/compound/NavbarContent";
 import Button from "@/components/ui/button.astro";
+import { getTranslations } from "@/lib/i18n";
 import { generateAuthUrl } from "@/lib/lucia";
 import { cn } from "@/lib/utils";
 
+const { translate, lang } = await getTranslations(Astro.url);
 const links = [
-    { name: "Accueil", href: "/" },
-    { name: "Resources", href: "/resources" },
-    { name: "Contact", href: "/contact" }
+    { name: translate["navbar.item.home"], href: `/${lang}` },
+    { name: translate["navbar.item.resources"], href: `/${lang}/soon` },
+    { name: translate["navbar.item.contact"], href: `/${lang}/contact` }
 ];
 
 interface Props {
     transparent?: boolean;
+    full?: boolean;
+    className?: string;
 }
-
-const { transparent = true }: Props = Astro.props;
+const { transparent = true, full = true, className }: Props = Astro.props;
 ---
 
-<header class="mt-8 fixed left-0 right-0 z-20 group" id="header" aria-expanded="false">
+<header id="header" aria-expanded="false" class={cn("mt-8 fixed left-0 right-0 z-20 group", className)}>
     <nav id="navbar"
-         class={cn("flex group-aria-expanded:border-t group-aria-expanded:border-l group-aria-expanded:bg-header-translucent transition-colors duration-150 ease-linear border-zinc-800 justify-between items-center max-w-full h-14 mx-auto rounded-3xl backdrop-blur-md px-2 w-10/12 md:w-3/4",
-             {"bg-header-translucent border-t border-l": !transparent}
+         class={cn("flex group-aria-expanded:border-t group-aria-expanded:border-l group-aria-expanded:bg-header-translucent transition-colors duration-150 ease-linear border-zinc-800 justify-between items-center max-w-full h-14 rounded-3xl backdrop-blur-md px-2",
+             {"bg-header-translucent border-t border-l": !transparent},
+             {"mx-auto w-10/12 md:w-3/4": full}
          )}>
         <!-- Left Part -->
         <div class="flex items-center gap-4 pl-2">
-            <a href="/" class="flex items-center gap-x-4">
+            <a href=`/${lang}` class="flex items-center gap-x-4">
                 <img src="/favicon.svg" alt="Voxel" class="w-6 h-6 brightness-90 mx-2"/>
-                <span class="text-lg text-white font-bold">VOXEL</span>
+                <span class="text-lg text-white font-bold">
+                    {translate["generic.website"]}
+                </span>
             </a>
 
             <!-- Desktop -->
             <div class="hidden md:block">
-                <NavBarItem client:idle/>
+                <NavBarItem url={Astro.url} lang={lang} client:idle/>
             </div>
         </div>
 
@@ -39,9 +45,12 @@ const { transparent = true }: Props = Astro.props;
         <div>
             <!-- Desktop -->
             <div class="hidden lg:flex items-center gap-2">
-                <Button href={generateAuthUrl(Astro.url.toString())} rounded="full" variant="ghost">Connexion
+                <Button href={generateAuthUrl(Astro.url.toString())} rounded="full" variant="ghost">
+                    {translate["generic.login"]}
                 </Button>
-                <Button href="/guides" rounded="full" variant="primary" class="group">Commencer</Button>
+                <Button href=`/${lang}/soon` rounded="full" variant="primary" class="group">
+                    {translate["generic.start"]}
+                </Button>
             </div>
 
             <!-- Mobile -->
@@ -65,12 +74,14 @@ const { transparent = true }: Props = Astro.props;
                         </a>
                 )}
             </div>
-            <hr class="my-0">
             <div class="mt-2 space-y-2">
                 <Button href={generateAuthUrl(Astro.url.toString())} class="w-full mt-0" rounded="full"
-                        variant="ghost">Connexion
+                        variant="ghost">
+                    {translate["generic.login"]}
                 </Button>
-                <Button href="/guides" class="w-full mt-0" rounded="full" variant="primary">Guides</Button>
+                <Button href="/guides" class="w-full mt-0" rounded="full" variant="primary">
+                    {translate["navbar.item.guides"]}
+                </Button>
             </div>
         </div>
     </nav>

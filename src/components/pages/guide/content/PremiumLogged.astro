@@ -1,20 +1,19 @@
 ---
-import type {CollectionEntry} from "astro:content";
+import type { CollectionEntry } from "astro:content";
 import Button from "@/components/ui/button.astro";
 import Faq from "@/components/ui/faq.astro";
-import {createCheckout} from "@/lib/lemon";
-const {user} = Astro.locals;
+import { createCheckout } from "@/lib/lemon";
+const { user } = Astro.locals;
 
 interface Props {
     schema: CollectionEntry<"guide">;
 }
 
-const {schema}: Props = Astro.props;
+const { schema }: Props = Astro.props;
 if (schema.data.premium === undefined) {
     throw new Error("Missing premium data");
 }
 
-console.log(user);
 if (!user) {
     throw new Error("Missing user data");
 }

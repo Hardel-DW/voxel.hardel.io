@@ -3,8 +3,6 @@ export const createCheckout = async (userId: string, productId: string) => {
         throw new Error("Invalid user or product ID");
     }
 
-    console.log(userId, productId);
-
     const response = await fetch("https://api.lemonsqueezy.com/v1/checkouts", {
         method: "POST",
         headers: {
@@ -41,6 +39,5 @@ export const createCheckout = async (userId: string, productId: string) => {
     });
 
     const json = await response.json();
-    console.log(json);
     return json.data.attributes.url;
 };

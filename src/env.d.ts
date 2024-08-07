@@ -23,3 +23,4 @@ interface ImportMeta {
 }
 
 type WithRequired<T, K extends keyof T> = T & { [P in K]-?: T[P] };
+type SingleOrMultiple<T> = T | T[];

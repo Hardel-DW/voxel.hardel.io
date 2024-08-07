@@ -2,6 +2,7 @@
 import { getCollection } from "astro:content";
 import CompoundLayout from "@/components/layouts/CompoundLayout.astro";
 import Card from "@/components/pages/guide/overview/Card.astro";
+import ShiningStars from "@/components/ui/object/ShiningStars";
 import DashedPattern from "@/components/ui/pattern/DashedPattern.astro";
 import { cn } from "@/lib/utils";
 import type { GetStaticPaths, InferGetStaticPropsType } from "astro";
@@ -19,6 +20,10 @@ const { page }: Props = Astro.props;
 ---
 
 <CompoundLayout transparent={false} title="Voxel - Guide">
+    <div class="fixed inset-0">
+        <ShiningStars client:only="react"/>
+    </div>
+
     <section class="stack items-center">
         <div id="background"
              class="size-full -z-10 bg-cover bg-center bg-no-repeat opacity-10 blur-3xl transition-all duration-300"/>

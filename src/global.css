@@ -15,7 +15,7 @@ body {
 body {
     font-family: "Rubik", sans-serif;
     color: #e8e8e8;
-    background-color: #080507;
+    background: #000000 radial-gradient(hsl(0 0% 0% / 1), hsl(243.97deg 41% 7%));
     margin: 0;
     padding: 0;
     min-height: 100dvh;
@@ -25,6 +25,7 @@ body {
 
 ::-webkit-scrollbar {
     width: 10px;
+    height: 10px;
 }
 
 ::-webkit-scrollbar-track {
@@ -47,17 +48,80 @@ body {
     display: none;
 }
 
+input[type="number"] {
+    -webkit-appearance: textfield;
+    -moz-appearance: textfield;
+    appearance: textfield;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none; /* Supprime l'apparence par défaut */
+    appearance: none;
+    margin: 0; /* Supprime la marge */
+}
+
+/* Style de la flèche d'incrémentation */
+input[type="number"]::-webkit-inner-spin-button {
+    display: none; /* Cache la flèche d'incrémentation */
+}
+
+/* Style de la flèche de décrémentation */
+input[type="number"]::-webkit-outer-spin-button {
+    display: none; /* Cache la flèche de décrémentation */
+}
+
 label {
     @apply relative h-6;
 
     [type="checkbox"] {
         all: unset;
         @apply w-11 cursor-pointer;
-        @apply after:absolute after:top-0 after:block after:rounded-full after:w-5 after:h-5 after:mt-0.5 after:ml-0.5 after:shadow-md after:duration-200 after:bg-zinc-400 after:checked:bg-pink-900;
-        @apply before:absolute before:top-0 before:inline-block before:rounded-full before:duration-100 before:w-10 before:h-6 before:bg-zinc-200 before:checked:bg-pink-500;
+        @apply after:absolute after:top-0 after:block after:rounded-full after:w-4 after:h-4 after:mt-1 after:ml-1 after:shadow-md after:duration-200 after:bg-stone-300 after:checked:bg-neutral-300;
+        @apply before:absolute before:top-0 before:inline-block before:rounded-full before:duration-100 before:w-10 before:h-6 before:bg-neutral-600 before:checked:bg-rose-900;
         @apply checked:after:duration-300 checked:after:translate-x-4;
-        @apply disabled:after:bg-opacity-75 disabled:cursor-not-allowed disabled:checked:before:bg-opacity-40;
+        @apply disabled:cursor-not-allowed disabled:after:bg-opacity-70;
+        @apply disabled:checked:before:opacity-50;
     }
+}
+
+input[type="range"] {
+    height: 1.5rem;
+    width: 100%;
+    cursor: pointer;
+    -moz-appearance: none;
+    appearance: none;
+    -webkit-appearance: none;
+    overflow: hidden;
+    border-radius: 1rem;
+    background-color: transparent
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+    height: .5rem;
+    width: 100%;
+    border-radius: 1rem;
+    background-color: #101112
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    position: relative;
+    height: 1.5rem;
+    width: 1.5rem;
+    border-radius: 1rem;
+    border-style: none;
+    -moz-appearance: none;
+    appearance: none;
+    -webkit-appearance: none;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: #fdfdfd;
+    color: rgb(136, 19, 55);
+    box-shadow: 0 0 0 3px rgb(136, 19, 55) inset, calc(100rem * -1 - .6rem) 0 0 100rem
+}
+
+input[type="range"]:focus {
+    outline: none
 }
 
 /* Custom utilities class */
@@ -74,6 +138,13 @@ label {
     radial-gradient(circle farthest-side at 100% 0, #0c0c0c, transparent), radial-gradient(circle farthest-side at 100% 100%, #1c1b1b, transparent),
     radial-gradient(circle farthest-side at 0 0, rgba(24, 24, 24, 0.8), #100707);
 }
+
+.gradient-gray-opacity {
+    background-image: radial-gradient(circle farthest-side at 0 100%, rgba(21, 20, 20, 0.5), transparent),
+    radial-gradient(circle farthest-side at 100% 0, rgba(12, 12, 12, 0.5), transparent), radial-gradient(circle farthest-side at 100% 100%, rgba(28, 27, 27, 0.5), transparent),
+    radial-gradient(circle farthest-side at 0 0, rgba(24, 24, 24, 0.25), rgba(16, 7, 7, 0.5));
+}
+
 
 .pixelated {
     image-rendering: pixelated;

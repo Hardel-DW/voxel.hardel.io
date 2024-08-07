@@ -1,10 +1,56 @@
 ---
 import CompoundLayout from "@/components/layouts/CompoundLayout.astro";
 import Button from "@/components/ui/button.astro";
+import ShiningStars from "@/components/ui/object/ShiningStars";
 import DashedPattern from "@/components/ui/pattern/DashedPattern.astro";
-import { contact } from "@/lib/data";
+import { getTranslations, names } from "@/lib/i18n";
+
+const { translate } = await getTranslations(Astro.url);
 
 export const prerender = true;
+export async function getStaticPaths() {
+    return names.map((element) => ({
+        params: { lang: element.lang }
+    }));
+}
+
+const contact = [
+    {
+        name: translate["contact.discord.name"],
+        icon: "/icons/company/discord.svg",
+        link: "https://discord.gg/TAmVFvkHep",
+        description: translate["contact.discord.description"],
+        button: translate["generic.join_us"]
+    },
+    {
+        name: translate["contact.twitter.name"],
+        icon: "/icons/company/twitter.svg",
+        link: "https://twitter.com/Hardel7401",
+        description: translate["contact.twitter.description"],
+        button: "@Hardel7401"
+    },
+    {
+        name: translate["contact.github.name"],
+        icon: "/icons/company/github.svg",
+        link: "https://github.com/Hardel-DW",
+        description: translate["contact.github.description"],
+        button: "@Hardel-DW"
+    },
+    {
+        name: translate["contact.mail.name"],
+        icon: "/icons/mail.svg",
+        link: "mailto:hardel7401@gmaiil.com",
+        description: translate["contact.mail.description"],
+        button: translate["generic.contact_us"]
+    },
+    {
+        name: translate["contact.discord_mp.name"],
+        icon: "/icons/company/discord.svg",
+        link: "https://discord.com/users/hardel",
+        description: translate["contact.discord_mp.description"],
+        button: translate["generic.private_message"]
+    }
+];
 ---
 
 <CompoundLayout title="Contact">
@@ -14,11 +60,17 @@ export const prerender = true;
          src="/icons/circle.svg" alt="box"/>
 
     <section class="mt-32 mb-20 w-11/12 xl:w-3/4 mx-auto grid grid-cols-6 gap-10 relative">
+        <div class="fixed inset-0 -z-10">
+            <ShiningStars client:only="react"/>
+        </div>
+
         <div class="col-span-6 h-72 md:h-96 relative flex items-center justify-center border border-zinc-800 rounded-xl">
             <DashedPattern/>
 
             <div>
-                <h1 class="text-4xl md:text-7xl -tracking-wide text-center font-semibold mb-2">Contactez-nous</h1>
+                <h1 class="text-4xl md:text-7xl -tracking-wide text-center font-semibold mb-2">
+                    {translate["generic.contact_us"]}
+                </h1>
                 <div class="w-1/2 h-2 bg-white mx-auto rounded-xl"></div>
             </div>
         </div>

@@ -7,6 +7,9 @@ import PremiumLogged from "@/components/pages/guide/content/PremiumLogged.astro"
 import PremiumLogout from "@/components/pages/guide/content/PremiumLogout.astro";
 import User from "@/components/pages/guide/content/User.astro";
 import Dropdown from "@/components/ui/dropdown.astro";
+import { db } from "@/database/db";
+import { purchase } from "@/database/schema";
+import { and, eq } from "drizzle-orm";
 
 export const prerender = false;
 const { guide, section, article } = Astro.params;
@@ -24,7 +27,7 @@ const articles = guideEntry.data.sections.flatMap(({ article }) => article.map((
 const currentIndex = articles.findIndex((element) => element.redirect === article);
 const nextArticle = articles[currentIndex + 1] || articles[0];
 const previousArticle = articles[currentIndex - 1] || articles[articles.length - 1];
-const isPremium = articles[currentIndex].premium;
+const needPremiumAccess = articles[currentIndex].premium;
 const dropdowns = guideEntry.data.navigation?.map((element) => ({
     url: `/${[element.slug, section, article].join("/")}`,
     id: element.slug,
@@ -33,15 +36,27 @@ const dropdowns = guideEntry.data.navigation?.map((element) => ({
 }));
 const filteredDropdowns = dropdowns?.filter((element) => element.id !== guide);
 const currentDropdown = dropdowns?.find((element) => element.id === guide);
-const premiumLogged = isPremium && Boolean(user);
-const premiumLogout = isPremium && !user;
-const contentCondition = premiumLogged || !isPremium;
 const background = guideEntry.data.metadata.images.src;
-
 const postsParsed = posts.map((post) => ({
     slug: post.id,
-    image: post.data.metadata.images
+    image: post.data.metadata.images,
+    locked: post.data.metadata.locked
 }));
+
+let isPremiumUser = false;
+if (Boolean(user) && user?.id && guideEntry.data.premium) {
+    const payment = await db
+        .select()
+        .from(purchase)
+        .where(and(eq(purchase.userId, user?.id), eq(purchase.productId, guideEntry.data.premium.product_id)))
+        .limit(1);
+
+    isPremiumUser = payment.length > 0;
+}
+
+const payementCondition = needPremiumAccess && Boolean(user) && !isPremiumUser;
+const premiumLogout = needPremiumAccess && !user;
+const contentCondition = (Boolean(user) && isPremiumUser) || !payementCondition;
 ---
 
 <Layout>
@@ -53,28 +68,33 @@ const postsParsed = posts.map((post) => ({
         <!-- Listes des Guides -->
         <div style="width: 350px" id="collapse-menu"
              class="flex-shrink-0 overflow-hidden container-type transition-[width] ease-in-out max-md:absolute max-md:inset-0 max-md:bg-gradient-to-br max-md:from-guides-gradient-from max-md:to-guides-gradient-to max-md:z-50 max-md:py-4 max-md:rounded-r-2xl max-md:border max-md:border-zinc-700">
-            <div id="fix" class="h-full w-[350px] flex flex-col relative z-10 px-4 md:pl-0 fix">
-                <!-- Navbar -->
-                <div class="flex h-full flex-col my-4 -mr-2 pr-2 overflow-hidden">
-                    <div class="flex flex-1 flex-col">
-                        <div class="flex w-full items-center justify-between">
-                            <a href="/"
-                               class="text-lg flex items-center transition focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-indigo-500 focus-visible:outline-none focus-visible:shadow-outline-indigo rounded-full px-2 -ml-2">
-                                <img src="/favicon.svg" alt="Voxel" class="w-6 h-6 brightness-90 mx-2"/>
-                                <span class="font-bold text-primary">VOXEL</span>
-                            </a>
-                            <img id="menu-dropdown" src="/icons/menu.svg" alt="menu"
-                                 class="w-6 h-6 cursor-pointer block md:hidden invert-[75%]"/>
-                        </div>
+            <div id="fix" class="w-[350px] flex flex-col h-full relative z-10 px-4 md:pl-0 fix">
+                <!-- Top Content -->
+                <div>
+                    <!-- The Logo and Voxel Title -->
+                    <div class="flex w-full items-center justify-between">
+                        <a href="/public"
+                           class="text-lg flex items-center transition focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-indigo-500 focus-visible:outline-none focus-visible:shadow-outline-indigo rounded-full px-2 -ml-2">
+                            <img src="/favicon.svg" alt="Voxel" class="w-6 h-6 brightness-90 mx-2"/>
+                            <span class="font-bold text-primary">VOXEL</span>
+                        </a>
+                        <img id="menu-dropdown" src="/icons/menu.svg" alt="menu"
+                             class="w-6 h-6 cursor-pointer block md:hidden invert-[75%]"/>
+                    </div>
+
+                    <!-- Dropdown redirection to variants Forge/Fabric -->
+                    <div>
                         {filteredDropdowns && filteredDropdowns.length > 0 && (
                                 <Dropdown id="guides" current={currentDropdown} elements={filteredDropdowns}/>
                         )}
                     </div>
-
-                    <Navigation client:idle schema={guideEntry} guides={postsParsed} slug={{guide, section, article}}/>
                 </div>
 
-                <User/>
+                <!-- Middle Content / Chapter Sections / Switch -->
+                <Navigation client:idle schema={guideEntry} guides={postsParsed} slug={{guide, section, article}}/>
+
+                <!-- Bottom User  -->
+                <User isPremium={isPremiumUser}/>
             </div>
         </div>
 
@@ -85,14 +105,14 @@ const postsParsed = posts.map((post) => ({
 
                 <h1 class="text-sm text-zinc-400 truncate">{guideEntry.data.metadata.title}</h1>
 
-                <a href="/" class="select-none size-fit">
+                <a href="/public" class="select-none size-fit">
                     <img src="/favicon.svg" alt="Voxel" class="w-6 h-6 opacity-75"/>
                 </a>
             </div>
 
 
             <div id="content" class="px-8 lg:px-0 pt-12 transition w-full md:w-3/4 justify-self-center">
-                {premiumLogged &&
+                {payementCondition &&
                         <PremiumLogged schema={guideEntry}/>}
                 {premiumLogout &&
                         <PremiumLogout schema={guideEntry}/>}
@@ -117,6 +137,4 @@ const postsParsed = posts.map((post) => ({
     menuDropdown.addEventListener("click", () => {
         collapseMenu.style.width = "0";
     });
-
-
 </script>

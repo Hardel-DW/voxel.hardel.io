@@ -1,0 +1,17 @@
+type EnchantmentEntityEffectTypeRegistryType = (typeof EnchantmentEntityEffectTypeRegistry)[number];
+
+const EnchantmentEntityEffectTypeRegistry = [
+    "all_of",
+    "apply_mob_effect",
+    "damage_entity",
+    "damage_item",
+    "explode",
+    "ignite",
+    "play_sound",
+    "replace_block",
+    "replace_disk",
+    "run_function",
+    "set_block_properties",
+    "spawn_particles",
+    "summon_entity"
+];

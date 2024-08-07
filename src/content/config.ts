@@ -1,4 +1,5 @@
 import { defineCollection, z } from "astro:content";
+import * as translate from "@/content/i18n/en-us.json";
 
 const articleCollection = defineCollection({
     schema: z.object({
@@ -82,7 +83,37 @@ const guideCollection = defineCollection({
     })
 });
 
+const i18nCollection = defineCollection({
+    type: "data",
+    schema: z.object({
+        name: z.string(),
+        translations: z.object(
+            (() => {
+                const acc: { [key in keyof typeof translate.translations]?: z.ZodString } = {};
+                for (const key of Object.keys(translate.translations) as (keyof typeof translate.translations)[]) {
+                    acc[key] = z.string();
+                }
+                return acc;
+            })() as {
+                [key in keyof typeof translate.translations]: z.ZodString;
+            }
+        )
+    })
+});
+
+const faqCollection = defineCollection({
+    type: "data",
+    schema: z.array(
+        z.object({
+            question: z.string(),
+            answer: z.string()
+        })
+    )
+});
+
 export const collections = {
     article: articleCollection,
-    guide: guideCollection
+    guide: guideCollection,
+    i18n: i18nCollection,
+    faq: faqCollection
 };

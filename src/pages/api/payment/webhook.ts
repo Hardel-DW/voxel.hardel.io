@@ -10,7 +10,6 @@ export const POST: APIRoute = async ({ request }) => {
         const clonedReq = request.clone();
         const body = await request.json();
         const requestBody = await clonedReq.text();
-
         const hmac = crypto.createHmac("sha256", secret);
         const digest = Buffer.from(hmac.update(requestBody).digest("hex"), "utf8");
         const signature = Buffer.from(request.headers.get("X-Signature") || "", "utf8");

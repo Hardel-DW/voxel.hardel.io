@@ -1,19 +1,103 @@
 ---
-import { footer } from "@/lib/data";
+import { getTranslations } from "@/lib/i18n";
+const { translate, lang } = await getTranslations(Astro.url);
+
+const footer = {
+    social: [
+        {
+            name: translate["footer.social.github"],
+            path: "https://github.com/Hardel-DW",
+            icon: "github.svg"
+        },
+        {
+            name: translate["footer.social.twitter"],
+            path: "https://twitter.com/Hardel7401",
+            icon: "twitter.svg"
+        },
+        {
+            name: translate["footer.social.discord"],
+            path: "https://discord.gg/8z3tkQhay7",
+            icon: "discord.svg"
+        }
+    ],
+    content: [
+        {
+            name: translate["footer.content.navigation"],
+            links: [
+                {
+                    title: translate["footer.content.navigation.home"],
+                    path: `/${lang}`
+                },
+                {
+                    title: translate["footer.content.navigation.guides"],
+                    path: `/${lang}/soon`
+                },
+                {
+                    title: translate["footer.content.navigation.enchantment_tool"],
+                    path: `/${lang}/tools/enchant`
+                },
+                {
+                    title: translate["footer.content.navigation.contact"],
+                    path: `/${lang}/contact`
+                }
+            ]
+        },
+        {
+            name: translate["footer.content.other"],
+            links: [
+                {
+                    title: translate["footer.content.other.labs"],
+                    path: "https://labs.hardel.io"
+                },
+                {
+                    title: translate["footer.content.other.news"],
+                    path: `/${lang}/soon`
+                },
+                {
+                    title: translate["footer.content.other.faq"],
+                    path: `/${lang}`
+                },
+                {
+                    title: translate["footer.content.other.about"],
+                    path: `/${lang}/soon`
+                }
+            ]
+        },
+        {
+            name: translate["footer.content.support"],
+            links: [
+                {
+                    title: translate["footer.content.support.help_center"],
+                    path: `/${lang}/contact`
+                },
+                {
+                    title: translate["footer.content.support.term_of_service"],
+                    path: "/terms"
+                },
+                {
+                    title: translate["footer.content.support.legal"],
+                    path: "/legal"
+                },
+                {
+                    title: translate["footer.content.support.privacy"],
+                    path: "/privacy"
+                }
+            ]
+        }
+    ]
+};
 ---
 
 
-<footer class="max-w-screen-2xl w-full mx-auto border-t border-zinc-900 px-4 pb-4 pt-8 ">
-    <div class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 px-6 md:px-20">
+<footer class="w-full px-4 pb-4 bg-gradient-to-b from-transparent to-black/70">
+    <div class="max-w-screen-2xl mx-auto border-t border-zinc-900 pt-8 grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 px-6 md:px-20">
         <div class="sm:col-span-2 md:col-span-3 lg:col-span-2">
             <a href="/public" class="text-lg flex items-center">
                 <img loading="lazy" src="/favicon.svg" alt="Voxel" class="w-6 h-6 brightness-90 mr-2"/>
                 <span class="font-bold text-primary">Voxel</span>
             </a>
             <p class="mt-4 text-sm text-zinc-400 tracking-tight font-light max-w-xs">
-                VOXEL, qu'est-ce que c'est ? Ce sont des guides en français, du niveau débutant à avancé, pour
-                apprendre à développer
-                des mods ou enrichir ses connaissances existantes.
+                {translate["footer.description"]}
             </p>
             <div class="flex gap-3 mt-4 items-center">
                 {
@@ -51,7 +135,7 @@ import { footer } from "@/lib/data";
 
     <div class="mt-8 text-center text-zinc-400 text-sm">
         <p class="text-sm mt-2 text-zinc-400 tracking-tight">
-            Copyright © {new Date().getFullYear()} Voxel. All rights reserved.
+            {translate["footer.copyright_left"]} {new Date().getFullYear()} {translate["footer.copyright_right"]}
         </p>
     </div>
 </footer>

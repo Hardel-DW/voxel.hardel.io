@@ -27,8 +27,9 @@ if (currentElement === undefined) throw new Error("Current element not found");
         </div>
         <img src="/icons/chevron-down.svg" alt="Open" class="h-4 w-4 invert"/>
     </div>
+
     <div id={props.id + "-content"}
-         class="hidden space-y-2 p-2 absolute w-full z-10 border border-zinc-700 hover:border-zinc-600 backdrop-blur-2xl rounded-[0.5rem] shadow-lg">
+         class="hidden space-y-2 p-2 mt-2 absolute w-full z-10 border border-zinc-700 hover:border-zinc-600 backdrop-blur-2xl bg-black/50 rounded-[0.5rem] shadow-lg">
         {props.elements.map((element) => (
                 <a href={element.url} class="block rounded px-4 py-2 text-zinc-200 hover:bg-white/5">
                     <div class="flex items-center">

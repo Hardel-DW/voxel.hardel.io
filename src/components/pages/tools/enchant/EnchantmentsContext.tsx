@@ -41,6 +41,10 @@ interface EnchantmentsContextType {
     currentEnchantmentData?: EnchantmentProps;
     setCurrentEnchantmentData: (id: Identifier, data: Enchantment) => void;
 
+    // Store toggle section
+    toggleSection?: Record<string, string>;
+    setToggleSection: (id: string, name: string) => void;
+
     // Handle the change of data
     handleChangeData: (key: string, value: string | number | boolean) => void;
     handleAddLockedField: (id: string, fields: LockedTags[]) => void;
@@ -55,6 +59,8 @@ export const EnchantmentsProvider: FC<{ children: ReactNode }> = ({ children }) 
     const [enchantmentTags, setEnchantmentTags] = useState<EnchantmentTag[]>([]);
     const [currentEnchantmentId, setCurrentEnchantmentId] = useState<Identifier>();
     const [currentEnchantmentData, setInternalCurrentEnchantment] = useState<EnchantmentProps>();
+    const [toggleSection, setToggleSectionState] = useState<Record<string, string>>({ supported: "supportedItems" });
+
     const enchantmentsRef = useRef(enchantments);
     const enchantmentTagsRef = useRef(enchantmentTags);
 
@@ -102,6 +108,13 @@ export const EnchantmentsProvider: FC<{ children: ReactNode }> = ({ children }) 
                 lockedFields: (prev.lockedFields ?? []).filter((field) => field.id !== id)
             };
         });
+    };
+
+    const setToggleSection = (id: string, name: string) => {
+        setToggleSectionState((prevState) => ({
+            ...prevState,
+            [id]: name
+        }));
     };
 
     const updateEnchantments = useCallback(
@@ -172,6 +185,8 @@ export const EnchantmentsProvider: FC<{ children: ReactNode }> = ({ children }) 
                 setCurrentEnchantmentId,
                 currentEnchantmentData,
                 setCurrentEnchantmentData,
+                toggleSection,
+                setToggleSection,
                 handleChangeData,
                 handleAddLockedField,
                 handleRemoveLockedField

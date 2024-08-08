@@ -21,16 +21,14 @@ export default function DownloadButton() {
     };
 
     return (
-        <div className="mt-4">
-            <button
-                type="button"
-                className="rounded-xl bg-white text-black w-full py-2 font-medium border border-zinc-900 hover:opacity-75 transition border-t border-l"
-                onClick={handleCompile}
-                onKeyDown={handleCompile}
-            >
-                {translate["tools.download"]}
-                <span className="text-xs ml-2">(.zip)</span>
-            </button>
-        </div>
+        <button
+            type="button"
+            className="rounded-xl bg-white text-black w-full py-2 font-medium border border-zinc-900 hover:opacity-75 transition border-t border-l"
+            onClick={handleCompile}
+            onKeyDown={handleCompile}
+        >
+            {translate["tools.download"]}
+            <span className="text-xs ml-2">(.zip)</span>
+        </button>
     );
 }

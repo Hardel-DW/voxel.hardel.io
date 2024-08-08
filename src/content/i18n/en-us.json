@@ -164,6 +164,11 @@
         "tools.enchantments.section.global.components.maxCostBase.label": "Maximum base cost",
         "tools.enchantments.section.global.components.maxCostPerLevelAboveFirst.label": "Maximum cost per level above the first",
 
+        "tools.enchantments.section.toggle.supported.title": "Supported",
+        "tools.enchantments.section.toggle.primary.title": "Primary",
+        "tools.enchantments.section.toggle.supported.description": "Items on which this enchantment can be applied.",
+        "tools.enchantments.section.toggle.primary.description": "Items for which this enchantment appears in an enchanting table. If unspecified, defaults to being the same as supported items.",
+
         "tools.enchantments.section.exclusive.components.mainhand.title": "Main Hand",
         "tools.enchantments.section.exclusive.components.offhand.title": "Off Hand",
         "tools.enchantments.section.exclusive.components.head.title": "Head",
@@ -193,6 +198,7 @@
         "tools.enchantments.section.supported.components.pickaxes.title": "Pickaxes",
         "tools.enchantments.section.supported.components.durability.title": "Durability",
         "tools.enchantments.section.supported.components.mining_loot.title": "Mining loot",
+        "tools.enchantments.section.supported.components.none.title": "Default",
 
         "tools.enchantments.section.find.components.enchantingTable.title": "Enchanting Table",
         "tools.enchantments.section.find.components.enchantingTable.description": "These enchantments can be obtained from the enchanting table.",

@@ -2,6 +2,7 @@ import { useTranslate } from "@/components/TranslateContext.tsx";
 import DownloadButton from "@/components/pages/tools/enchant/DownloadButton.tsx";
 import { EnchantmentItem } from "@/components/pages/tools/enchant/EnchantmentItem.tsx";
 import { useEnchantments } from "@/components/pages/tools/enchant/EnchantmentsContext.tsx";
+import { cn } from "@/lib/utils.ts";
 import { useState } from "react";
 
 export default function EnchantmentList() {
@@ -16,16 +17,19 @@ export default function EnchantmentList() {
 
     return (
         <>
-            <div style={{ width: width }} className="flex-shrink-0 overflow-hidden container-type transition-[width] ease-in-out xl:py-4">
-                <div style={{ width: "350px" }} className="flex flex-col h-full relative z-10 px-4 md:pl-0 pt-4">
-                    <div
-                        className="border-zinc-800 border-t border-l bg-header-translucent px-4 rounded-2xl shadow-black overflow-hidden -mr-2 pr-2"
-                        style={{ flex: 1 }}
-                    >
-                        <div className="size-full px-2">
-                            <div className="overflow-y-auto pr-2 -mr-2 my-2" style={{ flex: 1, height: "calc(100% - 64px)" }}>
-                                <div className="flex gap-x-8 pt-2 justify-between items-center border-b border-zinc-700">
+            <div
+                style={{ width: width }}
+                className={cn("flex-shrink-0 overflow-hidden container-type transition-[width] ease-in-out xl:py-4", {
+                    "pl-4": width > 0
+                })}
+            >
+                <div style={{ width: "350px" }} className="flex flex-col h-full z-10 px-4 md:pl-0 md:pt-0 pt-4">
+                    <div className="overflow-hidden -mr-2 pr-2" style={{ flex: 1 }}>
+                        <div className="relative size-full px-2 border-zinc-800 border-t border-l bg-header-translucent rounded-2xl shadow-black">
+                            <div className="overflow-y-auto mt-2" style={{ flex: 1, height: "calc(100% - 56px)" }}>
+                                <div className="flex flex-col gap-x-8 px-2 justify-between">
                                     <h2 className="text-2xl font-semibold">{translate["tools.enchantments.sidebar.title"]}</h2>
+                                    <div className="h-1 w-full bg-zinc-800 rounded-full" />
                                 </div>
                                 <div className="grid gap-1 pt-4 pb-2 px-px">
                                     {enchantments
@@ -39,11 +43,10 @@ export default function EnchantmentList() {
                                         ))}
                                 </div>
                             </div>
+                            <div className="absolute bottom-0 left-0 right-0 px-2 pb-2">
+                                <DownloadButton />
+                            </div>
                         </div>
-                    </div>
-
-                    <div className="absolute bottom-0 pl-2 pr-4 pb-2 w-full">
-                        <DownloadButton />
                     </div>
                 </div>
             </div>

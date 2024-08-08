@@ -48,9 +48,15 @@ export default function EnchantmentConfig({
                                 <div className="text-xs text-zinc-400 font-light mb-4">{translate["tools.enchantments.vanilla"]}</div>
                             )}
 
-                            <ToolSection key={section.section} title={translate[section.description]}>
+                            <ToolSection
+                                toggle={section.toggle}
+                                id={section.id}
+                                key={section.section}
+                                title={translate[section.description]}
+                            >
                                 {section.components.map((component, index) => (
                                     <RenderComponent
+                                        sectionId={section.id}
                                         key={index.toString()}
                                         component={component}
                                         formValues={currentEnchantmentData}

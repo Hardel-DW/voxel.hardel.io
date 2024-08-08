@@ -10,6 +10,7 @@ import ToolSwitch from "@/components/ui/tools/ToolSwitch.tsx";
 import ToolVillager from "@/components/ui/tools/ToolVillager.tsx";
 
 type RenderComponentProps = {
+    sectionId: string;
     component: FormComponent;
     formValues: EnchantmentProps | undefined;
     handleChange: (key: string, value: string | number | boolean) => void;
@@ -21,8 +22,8 @@ export type ToolGridType = {
     children: Exclude<FormComponent, ToolGridType>[];
 };
 
-export function RenderComponent({ component, formValues, handleChange }: RenderComponentProps) {
-    const { handleRemoveLockedField, handleAddLockedField } = useEnchantments();
+export function RenderComponent({ component, formValues, handleChange, sectionId }: RenderComponentProps) {
+    const { handleRemoveLockedField, handleAddLockedField, toggleSection } = useEnchantments();
     const { translate } = useTranslate();
 
     function getValue<T>(key: keyof EnchantmentProps, defaultValue?: T): T | undefined {
@@ -89,7 +90,13 @@ export function RenderComponent({ component, formValues, handleChange }: RenderC
             return (
                 <div className="grid max-xl:grid-cols-1 gap-4" style={{ gridTemplateColumns: `repeat(${numColumns}, minmax(0, 1fr))` }}>
                     {children.map((child, index: number) => (
-                        <RenderComponent key={index.toString()} component={child} formValues={formValues} handleChange={handleChange} />
+                        <RenderComponent
+                            key={index.toString()}
+                            sectionId={sectionId}
+                            component={child}
+                            formValues={formValues}
+                            handleChange={handleChange}
+                        />
                     ))}
                 </div>
             );
@@ -111,14 +118,23 @@ export function RenderComponent({ component, formValues, handleChange }: RenderC
             );
         }
         case "Selectable": {
-            const currentValue = getValue<string>(component.name as keyof EnchantmentProps, "");
+            const componentName = typeof component.name === "string" ? component.name : toggleSection?.[sectionId] ?? component.name[0];
+            const currentValue = getValue<string>(componentName as keyof EnchantmentProps, "");
+            if (Array.isArray(component.name) && !component.name.includes(toggleSection?.[sectionId] ?? "")) {
+                return;
+            }
+
+            if (component.defaultChecked && !currentValue) {
+                handleChange(componentName, component.value);
+            }
+
             return (
                 <ToolSelectable
-                    key={component.name}
+                    key={component.name[0]}
                     title={translate[component.title]}
                     image={component.image}
                     value={component.value}
-                    onChange={(option) => handleChange(component.name, option)}
+                    onChange={(option) => handleChange(componentName, option)}
                     currentValue={currentValue}
                 />
             );

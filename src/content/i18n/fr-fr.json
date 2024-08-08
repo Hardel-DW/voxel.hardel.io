@@ -153,6 +153,11 @@
         "tools.enchantments.section.yggdrasil.description": "Contenu exclusif pour Yggdrasil.",
         "tools.enchantments.section.technical.description": "Paramètres techniques pour les enchantements.",
 
+        "tools.enchantments.section.toggle.supported.title": "Supporté",
+        "tools.enchantments.section.toggle.supported.description": "Objets sur lesquels cet enchantement peut être appliqué.",
+        "tools.enchantments.section.toggle.primary.title": "Primaire",
+        "tools.enchantments.section.toggle.primary.description": "Objets pour lesquels cet enchantement apparaît dans une table d'enchantement. Si non spécifié, ça valeur par défaut égal aux objets supportés.",
+
         "tools.enchantments.section.global.components.maxLevel.title": "Niveau maximum",
         "tools.enchantments.section.global.components.maxLevel.description": "Le niveau maximum de l'enchantement.",
         "tools.enchantments.section.global.components.weight.title": "Poids",
@@ -193,6 +198,7 @@
         "tools.enchantments.section.supported.components.pickaxes.title": "Pioches",
         "tools.enchantments.section.supported.components.durability.title": "Durabilité",
         "tools.enchantments.section.supported.components.mining_loot.title": "Loot de minage",
+        "tools.enchantments.section.supported.components.none.title": "Défaut",
 
         "tools.enchantments.section.find.components.enchantingTable.title": "Table d'enchantement",
         "tools.enchantments.section.find.components.enchantingTable.description": "Ces enchantements peuvent être obtenus à partir de la table d'enchantement.",

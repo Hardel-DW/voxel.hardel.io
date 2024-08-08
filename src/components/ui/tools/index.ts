@@ -11,10 +11,17 @@ export type LockedTags = {
     reason: string;
 };
 
+export type ToggleSection = {
+    name: string;
+    title: string;
+    description: string;
+};
+
 export type ToolConfiguration = {
     id: string;
     section: string;
     description: string;
+    toggle?: ToggleSection[];
     components: FormComponent[];
 };
 

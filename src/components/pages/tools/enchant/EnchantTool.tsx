@@ -31,10 +31,10 @@ export default function EnchantTool({
     return (
         <TranslateProvider translate={translate} lang={lang}>
             <EnchantmentsProvider>
-                <section className="flex relative h-dvh xl:pl-4 overflow-y-hidden">
+                <section className="flex relative h-dvh overflow-y-hidden">
                     <EnchantmentList />
 
-                    <div className="size-full py-4 pr-4 pl-4 xl:pl-2 overflow-y-auto">
+                    <div className="size-full p-4 overflow-y-auto">
                         <HelpGuide>{children}</HelpGuide>
                         <EnchantmentConfig>{children}</EnchantmentConfig>
                     </div>

@@ -2,18 +2,19 @@ import { cn } from "@/lib/utils.ts";
 
 export type ToolSelectableType = {
     type: "Selectable";
-    name: string;
+    name: string[] | string;
     title: string;
     image: string;
     value: string;
+    defaultChecked?: boolean;
 };
 
 interface Props {
     title: string;
     image: string;
     onChange?: (option: string) => void;
-    currentValue?: string;
-    value?: string;
+    currentValue?: string | string[];
+    value: string;
 }
 
 export default function ToolSelectable({ title, image, value, onChange, currentValue }: Props) {
@@ -30,11 +31,13 @@ export default function ToolSelectable({ title, image, value, onChange, currentV
             onClick={() => handleChange(value)}
             onKeyDown={() => handleChange(value)}
         >
-            {value === currentValue && (
-                <div className="absolute p-4 top-0 right-0">
-                    <img src="/icons/check.svg" alt="checkbox" className="w-6 h-6 invert" />
-                </div>
-            )}
+            {Array.isArray(currentValue)
+                ? currentValue.includes(value)
+                : currentValue === value && (
+                      <div className="absolute p-4 top-0 right-0">
+                          <img src="/icons/check.svg" alt="checkbox" className="w-6 h-6 invert" />
+                      </div>
+                  )}
             <div className="flex flex-col items-center justify-center">
                 <h3 className="text-lg font-semibold mb-8">{title}</h3>
                 <img src={image} alt={title} className="h-16 pixelated" />

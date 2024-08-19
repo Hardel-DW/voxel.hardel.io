@@ -1,8 +1,26 @@
-interface EnchantmentValueEffect {
-    type: EnchantmentValueEffectRegistryType;
-    "minecraft:add"?: { value: LevelBasedValue };
-    "minecraft:all_of"?: { effects: EnchantmentValueEffect[] };
-    "minecraft:multiply"?: { factor: LevelBasedValue };
-    "minecraft:remove_binomial"?: { chance: LevelBasedValue };
-    "minecraft:set"?: { value: LevelBasedValue };
+type EnchantmentValueEffect = ValueEffectAdd | ValueEffectAllOf | ValueEffectMultiply | ValueEffectRemoveBinomial | ValueEffectSet;
+
+interface ValueEffectAdd {
+    type: "minecraft:add";
+    value: LevelBasedValue;
+}
+
+interface ValueEffectAllOf {
+    type: "minecraft:all_of";
+    effects: EnchantmentValueEffect[];
+}
+
+interface ValueEffectMultiply {
+    type: "minecraft:multiply";
+    factor: LevelBasedValue;
+}
+
+interface ValueEffectRemoveBinomial {
+    type: "minecraft:remove_binomial";
+    chance: LevelBasedValue;
+}
+
+interface ValueEffectSet {
+    type: "minecraft:set";
+    value: LevelBasedValue;
 }

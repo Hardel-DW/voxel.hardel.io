@@ -1,7 +1,8 @@
-import type { LockedSlotFrom } from "@/components/pages/tools/enchant/EnchantmentsContext.tsx";
+import type { EffectEnabled, LockedSlotFrom } from "@/components/pages/tools/enchant/EnchantmentsContext.tsx";
 import type { ToolConfiguration } from "@/components/ui/tools";
 import type { VillagerStateEnum } from "@/components/ui/tools/ToolVillager.tsx";
 import { Identifier } from "@/lib/minecraft/core/Identifier.ts";
+import type { EffectComponentsRecord } from "@/lib/minecraft/schema/enchantment/EffectComponents.ts";
 import type { Enchantment } from "@/lib/minecraft/schema/enchantment/Enchantment.ts";
 
 export type EnchantmentProps = {
@@ -15,6 +16,7 @@ export type EnchantmentProps = {
     minCostPerLevelAboveFirst: number;
     maxCostBase: number;
     maxCostPerLevelAboveFirst: number;
+    effects: EffectComponentsRecord | undefined;
     enchantingTable: boolean;
     mobEquipment: boolean;
     lootInChests: boolean;
@@ -68,6 +70,7 @@ export const parseEnchantmentToProps = (enchantment: Enchantment, tags: Identifi
     const exclusiveSet = enchantment.exclusive_set;
     const supportedItems = enchantment.supported_items;
     const primaryItems = enchantment.primary_items;
+    const effects = enchantment.effects;
 
     const enchantingTable = tagsString.includes("minecraft:in_enchanting_table");
     const mobEquipment = tagsString.includes("minecraft:on_mob_spawn_equipment");
@@ -210,6 +213,7 @@ export const parseEnchantmentToProps = (enchantment: Enchantment, tags: Identifi
         minCostPerLevelAboveFirst,
         maxCostBase,
         maxCostPerLevelAboveFirst,
+        effects,
         enchantingTable,
         mobEquipment,
         lootInChests,
@@ -245,8 +249,13 @@ export const parseEnchantmentToProps = (enchantment: Enchantment, tags: Identifi
     };
 };
 
-export const compileEnchantmentDataDriven = (props: EnchantmentProps, baseEnchant: Enchantment): Enchantment => {
-    const enchantment: Enchantment = { ...baseEnchant };
+export const compileEnchantmentDataDriven = (
+    props: EnchantmentProps,
+    baseEnchant: Enchantment,
+    removedEffect: EffectEnabled,
+    original: Enchantment
+): Enchantment => {
+    const enchantment = structuredClone(baseEnchant);
     enchantment.max_level = props.maxLevel;
     enchantment.weight = props.weight;
     enchantment.anvil_cost = props.anvilCost;
@@ -255,6 +264,20 @@ export const compileEnchantmentDataDriven = (props: EnchantmentProps, baseEnchan
     enchantment.max_cost.base = props.maxCostBase;
     enchantment.max_cost.per_level_above_first = props.maxCostPerLevelAboveFirst;
     enchantment.supported_items = props.supportedItems;
+
+    if (props.effects) {
+        const effects = { ...original.effects, ...props.effects };
+
+        for (const effectType in effects) {
+            const removedEffectType = removedEffect.effects.find((effect) => effect.type === effectType);
+
+            if (removedEffectType && !removedEffectType.enabled) {
+                delete effects[effectType as keyof EffectComponentsRecord];
+            }
+        }
+
+        enchantment.effects = effects;
+    }
 
     if (props.exclusiveSet) {
         enchantment.exclusive_set = props.exclusiveSet;
@@ -341,7 +364,7 @@ export const formConfigurations: ToolConfiguration[] = [
         description: "tools.enchantments.section.global.description",
         components: [
             {
-                type: "grid",
+                type: "Grid",
                 columns: 3,
                 children: [
                     {
@@ -380,7 +403,7 @@ export const formConfigurations: ToolConfiguration[] = [
                 ]
             },
             {
-                type: "grid",
+                type: "Grid",
                 columns: 2,
                 children: [
                     {
@@ -404,7 +427,7 @@ export const formConfigurations: ToolConfiguration[] = [
                 ]
             },
             {
-                type: "grid",
+                type: "Grid",
                 columns: 2,
                 children: [
                     {
@@ -435,7 +458,7 @@ export const formConfigurations: ToolConfiguration[] = [
         description: "tools.enchantments.section.exclusive.description",
         components: [
             {
-                type: "grid",
+                type: "Grid",
                 columns: 2,
                 children: [
                     {
@@ -453,7 +476,7 @@ export const formConfigurations: ToolConfiguration[] = [
                 ]
             },
             {
-                type: "grid",
+                type: "Grid",
                 columns: 4,
                 children: [
                     {
@@ -502,7 +525,7 @@ export const formConfigurations: ToolConfiguration[] = [
         ],
         components: [
             {
-                type: "grid",
+                type: "Grid",
                 columns: 5,
                 children: [
                     {
@@ -567,6 +590,13 @@ export const formConfigurations: ToolConfiguration[] = [
                         title: "tools.enchantments.section.supported.components.weapon.title",
                         image: "/images/features/item/weapon.png",
                         value: "#minecraft:enchantable/weapon"
+                    },
+                    {
+                        type: "Selectable",
+                        name: ["supportedItems", "primaryItems"],
+                        title: "tools.enchantments.section.supported.components.melee.title",
+                        image: "/images/features/item/melee.png",
+                        value: "#voxel:enchantable/melee"
                     },
                     {
                         type: "Selectable",
@@ -677,7 +707,7 @@ export const formConfigurations: ToolConfiguration[] = [
         description: "tools.enchantments.section.find.description",
         components: [
             {
-                type: "grid",
+                type: "Grid",
                 columns: 3,
                 children: [
                     {
@@ -704,7 +734,7 @@ export const formConfigurations: ToolConfiguration[] = [
                 ]
             },
             {
-                type: "grid",
+                type: "Grid",
                 columns: 3,
                 children: [
                     {
@@ -738,7 +768,7 @@ export const formConfigurations: ToolConfiguration[] = [
         description: "tools.enchantments.section.yggdrasil.description",
         components: [
             {
-                type: "grid",
+                type: "Grid",
                 columns: 4,
                 children: [
                     {
@@ -811,7 +841,7 @@ export const formConfigurations: ToolConfiguration[] = [
                 description: "tools.enchantments.section.technical.components.smeltsLoot.description"
             },
             {
-                type: "grid",
+                type: "Grid",
                 columns: 2,
                 children: [
                     {
@@ -839,6 +869,10 @@ export const formConfigurations: ToolConfiguration[] = [
                         description: "tools.enchantments.section.technical.components.preventInfestedBlockSpawning.description"
                     }
                 ]
+            },
+            {
+                type: "Effect",
+                name: "effects"
             }
         ]
     }

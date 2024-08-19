@@ -1,5 +1,6 @@
 import type { RegistryElement } from "@/lib/minecraft/mcschema.ts";
 import type { Enchantment } from "@/lib/minecraft/schema/enchantment/Enchantment.ts";
+import { voxelDatapacks } from "@/lib/minecraft/voxel/VoxelDatapack.ts";
 import JSZip from "jszip";
 
 export async function parseZip(file: File): Promise<Record<string, Uint8Array>> {
@@ -41,6 +42,10 @@ export async function compileDataPack(
 
     for (const file of Object.keys(files)) {
         zip.file(file, files[file]);
+    }
+
+    for (const file of voxelDatapacks) {
+        zip.file(`${file.identifier.filePath()}.json`, JSON.stringify(file.data));
     }
 
     for (const file of content) {

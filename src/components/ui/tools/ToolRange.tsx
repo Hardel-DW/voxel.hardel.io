@@ -17,7 +17,7 @@ export type ToolRangeType = {
     step: number;
 };
 
-export function ToolRange({ id, label, onValueChange, ...props }: Props) {
+export default function ToolRange({ id, label, onValueChange, ...props }: Props) {
     return (
         <div className="relative w-full mt-4">
             <div className="flex justify-between items-center w-full">

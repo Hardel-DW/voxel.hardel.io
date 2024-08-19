@@ -5,6 +5,7 @@ import type { ToolSelectableType } from "@/components/ui/tools/ToolSelectable.ts
 import type { ToolSlotType } from "@/components/ui/tools/ToolSlot.tsx";
 import type { ToolSwitchType } from "@/components/ui/tools/ToolSwitch.tsx";
 import type { ToolVillagerType } from "@/components/ui/tools/ToolVillager.tsx";
+import type { ToolEffectType } from "@/components/ui/tools/schema/ToolEffect.tsx";
 
 export type LockedTags = {
     field: string;
@@ -32,4 +33,5 @@ export type FormComponent =
     | ToolGridType
     | ToolSlotType
     | ToolSelectableType
+    | ToolEffectType
     | ToolCounterType;

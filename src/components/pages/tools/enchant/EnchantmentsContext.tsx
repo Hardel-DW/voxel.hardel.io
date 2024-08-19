@@ -7,6 +7,7 @@ import {
 import type { LockedTags } from "@/components/ui/tools";
 import type { Identifier } from "@/lib/minecraft/core/Identifier.ts";
 import type { RegistryElement } from "@/lib/minecraft/mcschema.ts";
+import type { EffectComponents } from "@/lib/minecraft/schema/enchantment/EffectComponents.ts";
 import type { Enchantment } from "@/lib/minecraft/schema/enchantment/Enchantment";
 import { type FC, type ReactNode, createContext, useCallback, useContext, useEffect, useRef, useState } from "react";
 
@@ -21,6 +22,14 @@ export type LockedSlotFrom = {
     id: string;
 };
 
+export type EffectEnabled = {
+    enchant: Identifier;
+    effects: {
+        type: keyof EffectComponents;
+        enabled: boolean;
+    }[];
+};
+
 interface EnchantmentsContextType {
     files: Record<string, Uint8Array>;
     setFiles: (files: Record<string, Uint8Array>) => void;
@@ -28,6 +37,10 @@ interface EnchantmentsContextType {
     // Store the list of enchantments in DataDriven format
     enchantments: RegistryElement<Enchantment>[];
     setEnchantments: (enchantments: RegistryElement<Enchantment>[]) => void;
+
+    // Store the list of removed effects
+    removedEffects: EffectEnabled[];
+    handleUpdateEffect: (enchant: Identifier, effect: keyof EffectComponents, value: boolean) => void;
 
     // Store the list of tags
     enchantmentTags: EnchantmentTag[];
@@ -56,6 +69,7 @@ const EnchantmentsContext = createContext<EnchantmentsContextType | undefined>(u
 export const EnchantmentsProvider: FC<{ children: ReactNode }> = ({ children }) => {
     const [files, setFiles] = useState<Record<string, Uint8Array>>({});
     const [enchantments, setEnchantments] = useState<RegistryElement<Enchantment>[]>([]);
+    const [removedEffects, setRemovedEffects] = useState<EffectEnabled[]>([]);
     const [enchantmentTags, setEnchantmentTags] = useState<EnchantmentTag[]>([]);
     const [currentEnchantmentId, setCurrentEnchantmentId] = useState<Identifier>();
     const [currentEnchantmentData, setInternalCurrentEnchantment] = useState<EnchantmentProps>();
@@ -69,6 +83,15 @@ export const EnchantmentsProvider: FC<{ children: ReactNode }> = ({ children }) 
         const parsedData = parseEnchantmentToProps(data, tagsIdentifier?.tags ?? []);
         setInternalCurrentEnchantment(parsedData);
         setCurrentEnchantmentId(id);
+
+        for (const effect in parsedData.effects) {
+            const effectType = effect as keyof EffectComponents;
+            const isChecked = removedEffects
+                .find((effect) => effect.enchant.equals(id))
+                ?.effects.find((e) => e.type === effectType)?.enabled;
+
+            handleUpdateEffect(id, effectType, isChecked ?? true);
+        }
     };
 
     const handleChangeData = (key: string, value: string | number | boolean) => {
@@ -155,22 +178,55 @@ export const EnchantmentsProvider: FC<{ children: ReactNode }> = ({ children }) 
         [currentEnchantmentId]
     );
 
+    const handleUpdateEffect = (enchant: Identifier, effect: keyof EffectComponents, value: boolean) => {
+        setRemovedEffects((prev) => {
+            if (!prev) return prev;
+
+            const enchantIndex = prev.findIndex((e) => e.enchant.equals(enchant));
+            const newEffect = { type: effect, enabled: value };
+
+            if (enchantIndex === -1) {
+                return [...prev, { enchant, effects: [newEffect] }];
+            }
+
+            const updatedEnchant = { ...prev[enchantIndex] };
+            const effectIndex = updatedEnchant.effects.findIndex((e) => e.type === effect);
+
+            if (effectIndex === -1) {
+                updatedEnchant.effects.push(newEffect);
+            } else {
+                updatedEnchant.effects[effectIndex] = newEffect;
+            }
+
+            return [...prev.slice(0, enchantIndex), updatedEnchant, ...prev.slice(enchantIndex + 1)];
+        });
+    };
+
     useEffect(() => {
         enchantmentsRef.current = enchantments;
         enchantmentTagsRef.current = enchantmentTags;
     }, [enchantments, enchantmentTags]);
 
     useEffect(() => {
-        if (!currentEnchantmentData || !currentEnchantmentId) return;
+        if (!currentEnchantmentData || !currentEnchantmentId || !removedEffects) return;
         const currentEnchantment = enchantmentsRef.current.find((enchant) => enchant.identifier.equals(currentEnchantmentId));
         const currentTags = enchantmentTagsRef.current.find((tag) => tag.enchant.equals(currentEnchantmentId));
-        if (!currentEnchantment || !currentTags) return;
+        const currentEffect = removedEffects.find((effect) => effect.enchant.equals(currentEnchantmentId));
+        const originalEnchantment = files[`${currentEnchantmentId.filePath()}.json`];
+        const originalEnchantmentData: Enchantment = JSON.parse(new TextDecoder().decode(originalEnchantment));
 
-        const compiledEnchant = compileEnchantmentDataDriven(currentEnchantmentData, currentEnchantment?.data);
+        if (!currentEnchantment || !currentTags || !currentEffect) return;
+
+        const compiledEnchant = compileEnchantmentDataDriven(
+            currentEnchantmentData,
+            currentEnchantment?.data,
+            currentEffect,
+            originalEnchantmentData
+        );
         const compiledTags = compileEnchantmentTags(currentEnchantmentData);
         updateEnchantments(compiledEnchant);
         updateEnchantmentTags(compiledTags);
-    }, [currentEnchantmentData, currentEnchantmentId, updateEnchantments, updateEnchantmentTags]);
+    }, [currentEnchantmentData, files, currentEnchantmentId, removedEffects, updateEnchantments, updateEnchantmentTags]);
 
     return (
         <EnchantmentsContext.Provider
@@ -179,6 +235,8 @@ export const EnchantmentsProvider: FC<{ children: ReactNode }> = ({ children }) 
                 setFiles,
                 enchantments,
                 setEnchantments,
+                removedEffects,
+                handleUpdateEffect,
                 enchantmentTags,
                 setEnchantmentTags,
                 currentEnchantmentId,

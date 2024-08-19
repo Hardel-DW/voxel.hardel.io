@@ -1,0 +1,22 @@
+---
+import CompoundLayout from "@/components/layouts/CompoundLayout.astro";
+import ShiningStars from "@/components/ui/object/ShiningStars.astro";
+import ToolSound from "@/components/ui/tools/schema/song/ToolSound";
+import { names } from "@/lib/i18n";
+
+export const prerender = true;
+export async function getStaticPaths() {
+    return names.map((element) => ({
+        params: { lang: element.lang }
+    }));
+}
+---
+
+<CompoundLayout>
+    <div class="fixed inset-0">
+        <ShiningStars/>
+    </div>
+    <section class="w-3/4 mx-auto pt-40 relative z-50">
+        <ToolSound client:only="react"/>
+    </section>
+</CompoundLayout>

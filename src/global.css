@@ -241,11 +241,18 @@ input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-o
     background: linear-gradient(90deg, rgba(0, 0, 0, 0) 25%, rgba(0, 0, 0, 0.6) 55%);
 }
 
+/* Masque le menu déroulant par défaut */
 #langage {
     display: none;
 }
 
-/* Afficher le menu lorsque le div parent a le focus ou est survolé */
-#heading-langage:focus + #langage {
+/* Affiche le menu déroulant lorsque l'élément parent est survolé ou focus */
+#heading-langage:focus-within + #langage {
+    display: flex;
+}
+
+/* Maintient le menu ouvert lorsque le focus ou le survol est sur le menu */
+#langage:hover,
+#langage:focus-within {
     display: flex;
 }

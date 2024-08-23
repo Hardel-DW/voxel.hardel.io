@@ -7,7 +7,7 @@ const { translate } = await getTranslations(Astro.url);
 ---
 
 <div id="tracking" class="fixed bottom-0 left-0 md:bottom-2 md:left-2 p-2 w-full s:max-w-[30rem] z-10"
-     style="display: none">
+     style="display: block">
     <div class="p-4 space-y-6 rounded-2xl border border-zinc-800 bg-black/90 backdrop-blur-xl">
         <div>
             <h1 class="text-white font-bold tracking-normal text-base mb-1">
@@ -36,9 +36,14 @@ const { translate } = await getTranslations(Astro.url);
 <dialog id="dialog"
         class="fixed max-w-[720px] inset-0 rounded-2xl border border-zinc-700 bg-black backdrop-blur-xl space-y-6 backdrop:bg-black/50 backdrop:backdrop-blur-md backdrop:z-10">
     <div class="space-y-4 pt-8 px-8">
-        <h1 class="text-white font-bold tracking-normal text-2xl">
-            {translate["tracker.title"]}
-        </h1>
+        <div class="flex flex-col md:flex-row justify-between items-center">
+            <h1 class="text-white font-bold tracking-normal text-2xl">
+                {translate["tracker.title"]}
+            </h1>
+            <Button class="w-fit text-sm md:text-base" variant="link" href="/privacy">
+                {translate["tracker.privacy"]}
+            </Button>
+        </div>
         <p class="text-zinc-300 tracking-normal text-sm">
             {translate["tracker.privacy.description"]}
         </p>
@@ -72,7 +77,8 @@ const { translate } = await getTranslations(Astro.url);
     </div>
 
     <div class="flex justify-between items-center flex-col s:flex-row gap-2 border-t border-zinc-800 rounded-b-2xl bg-zinc-950 p-4">
-        <Button id="consent-dialog" data-open-modal class="w-full s:w-auto" rounded="full" variant="transparent">
+        <Button id="consent-dialog" data-open-modal class="w-full s:w-auto" rounded="full"
+                variant="transparent">
             {translate["tracker.consent_save"]}
         </Button>
         <div class="w-full s:w-auto flex gap-2">
@@ -81,9 +87,6 @@ const { translate } = await getTranslations(Astro.url);
             </Button>
             <Button id="accept-dialog" class="flex-1" rounded="full">
                 {translate["generic.accept"]}
-            </Button>
-            <Button class="flex-1" variant="link" href="/privacy">
-                {translate["tracker.privacy"]}
             </Button>
         </div>
     </div>

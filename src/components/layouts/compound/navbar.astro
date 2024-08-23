@@ -22,9 +22,9 @@ interface Props {
 const { transparent = true, full = true, className }: Props = Astro.props;
 ---
 
-<header id="header" aria-expanded="false" class={cn("mt-8 fixed left-0 right-0 z-20 group", className)}>
+<header id="header" aria-expanded="false" class={cn("mt-8 fixed left-0 right-0 z-50 group", className)}>
     <nav id="navbar"
-         class={cn("flex group-aria-expanded:border-t group-aria-expanded:border-l group-aria-expanded:bg-header-translucent transition-colors duration-150 ease-linear border-zinc-800 justify-between items-center max-w-full h-14 rounded-3xl backdrop-blur-md px-2",
+         class={cn("flex group-aria-expanded:border-t group-aria-expanded:border-l group-aria-expanded:bg-header-translucent transition-colors duration-150 ease-linear border-zinc-800 justify-between items-center max-w-full h-14 rounded-3xl px-2",
              {"bg-header-translucent border-t border-l": !transparent},
              {"mx-auto w-10/12 md:w-3/4": full}
          )}>
@@ -92,7 +92,7 @@ const { transparent = true, full = true, className }: Props = Astro.props;
 
 <script is:inline define:vars={{transparent}}>
     const classList = document.getElementById('navbar').classList;
-    const strings = ['border-t', 'border-l', 'bg-header-translucent'];
+    const strings = ['border-t', 'border-l', 'bg-header-translucent', 'backdrop-blur-md'];
     if (transparent) {
         window.addEventListener('scroll', () => window.scrollY > 0 ? classList.add(...strings) : classList.remove(...strings));
     }

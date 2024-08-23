@@ -1,3 +1,4 @@
+import useLoadedPage from "@/lib/hook/useLoadedPage.ts";
 import type { EnchantViewer, SectionViewer } from "@/lib/type/SectionViewer";
 import { cn } from "@/lib/utils.ts";
 import { useState } from "react";
@@ -9,6 +10,7 @@ export default function NeoEnchantmentViewer({
 }) {
     const [currentCategory, setCurrentCategory] = useState<SectionViewer>(enchant[0]);
     const [currentEnchantment, setCurrentEnchantment] = useState<EnchantViewer>(currentCategory.enchants[0]);
+    const isPageLoaded = useLoadedPage();
 
     const handleChangeSection = (section: SectionViewer) => {
         setCurrentCategory(section);
@@ -21,19 +23,27 @@ export default function NeoEnchantmentViewer({
                 <div className="flex flex-col gap-8 w-full md:w-1/2">
                     <div>
                         <h3 className="text-3xl font-bold text-white">{currentEnchantment.name}</h3>
-                        <small className="text-zinc-400">{currentEnchantment.item}</small>
+                        <small className="text-zinc-400">Max Level: {currentEnchantment.level}</small>
+                        {currentEnchantment.addons && (
+                            <>
+                                <span className="text-zinc-400"> - </span>
+                                <a
+                                    href="https://modrinth.com/datapack/yggdrasil-structure"
+                                    className="text-rose-400 hover:text-rose-500 transition"
+                                >
+                                    Findable in the Yggdrasil structure
+                                </a>
+                            </>
+                        )}
                         <p className="text-zinc-400 mt-4">{currentEnchantment.description}</p>
                     </div>
                     <hr className="border-t-2 border-zinc-700" />
                     <div className="grid grid-cols-items gap-8">
                         {currentCategory.enchants.map((enchantment) => (
                             <div
-                                className={cn(
-                                    "flex flex-col items-center gap-4 cursor-pointer opacity-75 hover:opacity-100 hover:scale-110 transition",
-                                    {
-                                        "opacity-100 scale-110": enchantment.id === currentEnchantment.id
-                                    }
-                                )}
+                                className={cn("flex flex-col items-center gap-4 cursor-pointer opacity-50 hover:opacity-100 transition", {
+                                    "opacity-100 scale-125": enchantment.id === currentEnchantment.id
+                                })}
                                 onClick={() => setCurrentEnchantment(enchantment)}
                                 onKeyDown={() => setCurrentEnchantment(enchantment)}
                                 key={enchantment.id}
@@ -41,15 +51,21 @@ export default function NeoEnchantmentViewer({
                                 <div className="size-24 rounded-2xl p-2">
                                     <img src={enchantment.image} alt={enchantment.name} className="size-full pixelated" />
                                 </div>
-                                <p className="text-zinc-200 font-semibold mt-2 w-3/4 text-sm text-center">{enchantment.name}</p>
+                                <p
+                                    className={cn("text-zinc-200 font-semibold mt-2 w-3/4 text-sm text-center", {
+                                        "text-rose-700": enchantment.id === currentEnchantment.id
+                                    })}
+                                >
+                                    {enchantment.name}
+                                </p>
                             </div>
                         ))}
                     </div>
                 </div>
                 <div className="flex items-center w-full md:w-1/2">
-                    <div className="aspect-video flex items-center relative" style={{ maxWidth: 725 }}>
+                    <div className="aspect-video flex items-center relative w-full">
                         <div className="absolute inset-0 translate-x-4 scale-y-110 border border-zinc-700 rounded-3xl z-20" />
-                        {currentEnchantment.video ? (
+                        {isPageLoaded && currentEnchantment.video ? (
                             <video key={`${currentEnchantment.id}-video`} className="rounded-3xl relative" autoPlay loop muted>
                                 <source src={currentEnchantment.video} type="video/webm" />
                                 Your browser does not support the video tag.
@@ -81,7 +97,7 @@ export default function NeoEnchantmentViewer({
                         onKeyDown={() => handleChangeSection(item)}
                     >
                         <div className="size-24 rounded-2xl p-4 relative z-20 flex items-center justify-center">
-                            <img src={item.image} alt={item.name} className="h-full pixelated" />
+                            <img src={item.image} alt={item.short} className="h-full pixelated" />
                         </div>
                         <p className="text-zinc-300 uppercase text-2xl font-extralight tracking-[0.2rem]">{item.short}</p>
                     </div>

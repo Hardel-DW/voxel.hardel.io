@@ -2,12 +2,14 @@ import { useTranslate } from "@/components/TranslateContext.tsx";
 import type { EnchantmentProps } from "@/components/pages/tools/enchant/Config.ts";
 import { useEnchantments } from "@/components/pages/tools/enchant/EnchantmentsContext.tsx";
 import type { FormComponent } from "@/components/ui/tools";
-import VoxelToolCounter from "@/components/ui/tools/ToolCounter.tsx";
-import { ToolRange } from "@/components/ui/tools/ToolRange.tsx";
+import ToolCounter from "@/components/ui/tools/ToolCounter.tsx";
+import ToolRange from "@/components/ui/tools/ToolRange.tsx";
 import ToolSelectable from "@/components/ui/tools/ToolSelectable.tsx";
 import ToolSlot from "@/components/ui/tools/ToolSlot.tsx";
 import ToolSwitch from "@/components/ui/tools/ToolSwitch.tsx";
 import ToolVillager from "@/components/ui/tools/ToolVillager.tsx";
+import ToolEffect from "@/components/ui/tools/schema/ToolEffect.tsx";
+import type { EffectComponentsRecord } from "@/lib/minecraft/schema/enchantment/EffectComponents.ts";
 
 type RenderComponentProps = {
     sectionId: string;
@@ -17,7 +19,7 @@ type RenderComponentProps = {
 };
 
 export type ToolGridType = {
-    type: "grid";
+    type: "Grid";
     columns: number;
     children: Exclude<FormComponent, ToolGridType>[];
 };
@@ -35,7 +37,7 @@ export function RenderComponent({ component, formValues, handleChange, sectionId
         case "Counter": {
             const value = getValue<number>(component.name as keyof EnchantmentProps, 0);
             return (
-                <VoxelToolCounter
+                <ToolCounter
                     key={component.name}
                     value={value}
                     min={component.min}
@@ -47,6 +49,12 @@ export function RenderComponent({ component, formValues, handleChange, sectionId
                     onChange={(option) => handleChange(component.name, option)}
                 />
             );
+        }
+        case "Effect": {
+            const value = getValue<EffectComponentsRecord>(component.name as keyof EnchantmentProps);
+            if (!value) return null;
+
+            return <ToolEffect />;
         }
         case "Range": {
             const value = getValue<number>(component.name as keyof EnchantmentProps, 0);
@@ -82,7 +90,7 @@ export function RenderComponent({ component, formValues, handleChange, sectionId
                 />
             );
         }
-        case "grid": {
+        case "Grid": {
             const { columns, children } = component;
             const width = window.innerWidth;
             const numColumns = Math.min(columns, Math.floor(width / 300));

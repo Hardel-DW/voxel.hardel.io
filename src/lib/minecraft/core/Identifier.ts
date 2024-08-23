@@ -9,6 +9,11 @@ export class Identifier {
         this.resource = path;
     }
 
+    public static fromString(value: string, registry: string): Identifier {
+        const [namespace, resource] = value.split(":");
+        return new Identifier(namespace, registry, resource);
+    }
+
     public getResource(): string {
         return this.resource;
     }
@@ -31,5 +36,9 @@ export class Identifier {
 
     public equals(other: Identifier): boolean {
         return this.namespace === other.getNamespace() && this.registry === other.getRegistry() && this.resource === other.getResource();
+    }
+
+    public render(): string {
+        return (this.resource.split("/")?.pop() ?? this.resource).replace(/_/g, " ").replace(/\b\w/g, (l) => l.toUpperCase());
     }
 }

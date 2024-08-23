@@ -108,6 +108,38 @@ export default function NavBarItem(props: Props) {
 */}
 
                 <NavigationMenuItem>
+                    <NavigationMenuTrigger>{translate["navbar.item.data_pack"]}</NavigationMenuTrigger>
+                    <NavigationMenuContent>
+                        <div className="p-6 md:w-[400px] lg:w-[500px]">
+                            <a
+                                href={`/${props.lang}/datapacks/neoenchant`}
+                                className="h-40 group/picture relative cursor-pointer flex flex-col justify-end select-none gap-1 p-3"
+                            >
+                                <div className="text-xl font-medium text-white leading-none relative z-10">
+                                    {translate["navbar.data_pack.neoenchant.title"]}
+                                </div>
+                                <p className="line-clamp-2 text-sm leading-snug text-zinc-400">
+                                    {translate["navbar.data_pack.neoenchant.description"]}
+                                </p>
+
+                                <span
+                                    className="absolute bg-cover rounded-2xl bg-center bg-no-repeat inset-0 size-full z-0 opacity-100 group-hover/picture:opacity-70 transition-opacity duration-200"
+                                    style={{
+                                        backgroundImage: "url('/images/background/datapacks/neoenchant.webp')",
+                                        maskImage: "linear-gradient(to top, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 1))"
+                                    }}
+                                />
+                            </a>
+                            <ul className="mt-3">
+                                <ListItem href={"https://modrinth.com/user/Hardel-DW"} title={translate["navbar.data_pack.modrinth.title"]}>
+                                    {translate["navbar.data_pack.modrinth.description"]}
+                                </ListItem>
+                            </ul>
+                        </div>
+                    </NavigationMenuContent>
+                </NavigationMenuItem>
+
+                <NavigationMenuItem>
                     <NavigationMenuTrigger>{translate["navbar.item.resources"]}</NavigationMenuTrigger>
                     <NavigationMenuContent>
                         <div className="p-6 md:w-[400px] lg:w-[500px]">

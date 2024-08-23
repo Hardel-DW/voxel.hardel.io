@@ -23,12 +23,11 @@ export default function DownloadButton() {
     return (
         <button
             type="button"
-            className="rounded-xl bg-white text-black w-full py-2 font-medium border border-zinc-900 hover:opacity-75 transition border-t border-l"
+            className="bg-white text-white p-2 size-12 rounded-xl border-zinc-950 border-t-2 border-l-2"
             onClick={handleCompile}
             onKeyDown={handleCompile}
         >
-            {translate["tools.download"]}
-            <span className="text-xs ml-2">(.zip)</span>
+            <img src="/icons/download.svg" alt={translate["tools.enchantments.download"]} className="w-auto" />
         </button>
     );
 }

@@ -38,3 +38,33 @@ export interface EffectComponents {
     "minecraft:prevent_equipment_drop"?: {};
     "minecraft:prevent_armor_change"?: {};
 }
+
+export type EffectComponentsRecord = Record<keyof EffectComponents, EffectComponents[keyof EffectComponents]>;
+
+type EnchantmentValueEffectKey = {
+    [K in keyof EffectComponents]: EffectComponents[K] extends ConditionalEffect<EnchantmentValueEffect>[] ? K : never;
+}[keyof EffectComponents] &
+    string;
+
+export function isConditionalEnchantmentValueEffectKey(key: string): key is EnchantmentValueEffectKey {
+    return [
+        "minecraft:damage_protection",
+        "minecraft:damage",
+        "minecraft:smash_damage_per_fallen_block",
+        "minecraft:knockback",
+        "minecraft:armor_effectiveness",
+        "minecraft:item_damage",
+        "minecraft:ammo_use",
+        "minecraft:projectile_piercing",
+        "minecraft:projectile_spread",
+        "minecraft:projectile_count",
+        "minecraft:crossbow_charge_time",
+        "minecraft:trident_return_acceleration",
+        "minecraft:fishing_time_reduction",
+        "minecraft:fishing_luck_bonus",
+        "minecraft:block_experience",
+        "minecraft:mob_experience",
+        "minecraft:trident_spin_attack_strength",
+        "minecraft:repair_with_xp"
+    ].includes(key);
+}

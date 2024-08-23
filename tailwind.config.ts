@@ -15,7 +15,11 @@ export default {
             boxShadow: {
                 s: "2px 2px 30px 2px #000"
             },
+            gridTemplateColumns: {
+                items: "repeat(auto-fill, minmax(90px, 1fr))"
+            },
             colors: {
+                modrinth: "#1bd96a",
                 header: {
                     translucent: "#18181dcc",
                     cloudy: "#151418"

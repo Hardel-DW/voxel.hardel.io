@@ -26,7 +26,7 @@ export default function EnchantmentList() {
                 <div style={{ width: "350px" }} className="flex flex-col h-full z-10 px-4 md:pl-0 md:pt-0 pt-4">
                     <div className="overflow-hidden -mr-2 pr-2" style={{ flex: 1 }}>
                         <div className="relative size-full px-2 border-zinc-800 border-t border-l bg-header-translucent rounded-2xl shadow-black">
-                            <div className="overflow-y-auto mt-2" style={{ flex: 1, height: "calc(100% - 56px)" }}>
+                            <div className="overflow-y-auto mt-2" style={{ flex: 1, height: "calc(100% - 12px)" }}>
                                 <div className="flex flex-col gap-x-8 px-2 justify-between">
                                     <h2 className="text-2xl font-semibold">{translate["tools.enchantments.sidebar.title"]}</h2>
                                     <div className="h-1 w-full bg-zinc-800 rounded-full" />
@@ -43,15 +43,14 @@ export default function EnchantmentList() {
                                         ))}
                                 </div>
                             </div>
-                            <div className="absolute bottom-0 left-0 right-0 px-2 pb-2">
-                                <DownloadButton />
-                            </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div className="fixed p-4 bottom-0 right-0">
+            <div className="fixed p-4 bottom-0 right-0 flex flex-col gap-4">
+                <DownloadButton />
+
                 <button
                     type="button"
                     onClick={handleWidth}

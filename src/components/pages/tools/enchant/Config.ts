@@ -1,7 +1,8 @@
-import type { LockedSlotFrom } from "@/components/pages/tools/enchant/EnchantmentsContext.tsx";
+import type { EffectEnabled, LockedSlotFrom } from "@/components/pages/tools/enchant/EnchantmentsContext.tsx";
 import type { ToolConfiguration } from "@/components/ui/tools";
 import type { VillagerStateEnum } from "@/components/ui/tools/ToolVillager.tsx";
 import { Identifier } from "@/lib/minecraft/core/Identifier.ts";
+import type { EffectComponentsRecord } from "@/lib/minecraft/schema/enchantment/EffectComponents.ts";
 import type { Enchantment } from "@/lib/minecraft/schema/enchantment/Enchantment.ts";
 
 export type EnchantmentProps = {
@@ -15,6 +16,7 @@ export type EnchantmentProps = {
     minCostPerLevelAboveFirst: number;
     maxCostBase: number;
     maxCostPerLevelAboveFirst: number;
+    effects: EffectComponentsRecord | undefined;
     enchantingTable: boolean;
     mobEquipment: boolean;
     lootInChests: boolean;
@@ -68,6 +70,7 @@ export const parseEnchantmentToProps = (enchantment: Enchantment, tags: Identifi
     const exclusiveSet = enchantment.exclusive_set;
     const supportedItems = enchantment.supported_items;
     const primaryItems = enchantment.primary_items;
+    const effects = enchantment.effects;
 
     const enchantingTable = tagsString.includes("minecraft:in_enchanting_table");
     const mobEquipment = tagsString.includes("minecraft:on_mob_spawn_equipment");
@@ -210,6 +213,7 @@ export const parseEnchantmentToProps = (enchantment: Enchantment, tags: Identifi
         minCostPerLevelAboveFirst,
         maxCostBase,
         maxCostPerLevelAboveFirst,
+        effects,
         enchantingTable,
         mobEquipment,
         lootInChests,
@@ -245,8 +249,13 @@ export const parseEnchantmentToProps = (enchantment: Enchantment, tags: Identifi
     };
 };
 
-export const compileEnchantmentDataDriven = (props: EnchantmentProps, baseEnchant: Enchantment): Enchantment => {
-    const enchantment: Enchantment = { ...baseEnchant };
+export const compileEnchantmentDataDriven = (
+    props: EnchantmentProps,
+    baseEnchant: Enchantment,
+    removedEffect: EffectEnabled,
+    original: Enchantment
+): Enchantment => {
+    const enchantment = structuredClone(baseEnchant);
     enchantment.max_level = props.maxLevel;
     enchantment.weight = props.weight;
     enchantment.anvil_cost = props.anvilCost;
@@ -255,6 +264,20 @@ export const compileEnchantmentDataDriven = (props: EnchantmentProps, baseEnchan
     enchantment.max_cost.base = props.maxCostBase;
     enchantment.max_cost.per_level_above_first = props.maxCostPerLevelAboveFirst;
     enchantment.supported_items = props.supportedItems;
+
+    if (props.effects) {
+        const effects = { ...original.effects, ...props.effects };
+
+        for (const effectType in effects) {
+            const removedEffectType = removedEffect.effects.find((effect) => effect.type === effectType);
+
+            if (removedEffectType && !removedEffectType.enabled) {
+                delete effects[effectType as keyof EffectComponentsRecord];
+            }
+        }
+
+        enchantment.effects = effects;
+    }
 
     if (props.exclusiveSet) {
         enchantment.exclusive_set = props.exclusiveSet;
@@ -341,7 +364,7 @@ export const formConfigurations: ToolConfiguration[] = [
         description: "tools.enchantments.section.global.description",
         components: [
             {
-                type: "grid",
+                type: "Grid",
                 columns: 3,
                 children: [
                     {
@@ -380,7 +403,7 @@ export const formConfigurations: ToolConfiguration[] = [
                 ]
             },
             {
-                type: "grid",
+                type: "Grid",
                 columns: 2,
                 children: [
                     {
@@ -404,7 +427,7 @@ export const formConfigurations: ToolConfiguration[] = [
                 ]
             },
             {
-                type: "grid",
+                type: "Grid",
                 columns: 2,
                 children: [
                     {
@@ -435,50 +458,50 @@ export const formConfigurations: ToolConfiguration[] = [
         description: "tools.enchantments.section.exclusive.description",
         components: [
             {
-                type: "grid",
+                type: "Grid",
                 columns: 2,
                 children: [
                     {
                         type: "Slot",
                         name: "mainhand",
                         title: "tools.enchantments.section.exclusive.components.mainhand.title",
-                        image: "/images/features/slots/mainhand.png"
+                        image: "/images/features/slots/mainhand.webp"
                     },
                     {
                         type: "Slot",
                         name: "offhand",
                         title: "tools.enchantments.section.exclusive.components.offhand.title",
-                        image: "/images/features/slots/offhand.png"
+                        image: "/images/features/slots/offhand.webp"
                     }
                 ]
             },
             {
-                type: "grid",
+                type: "Grid",
                 columns: 4,
                 children: [
                     {
                         type: "Slot",
                         name: "head",
                         title: "tools.enchantments.section.exclusive.components.head.title",
-                        image: "/images/features/slots/head.png"
+                        image: "/images/features/slots/head.webp"
                     },
                     {
                         type: "Slot",
                         name: "chest",
                         title: "tools.enchantments.section.exclusive.components.chest.title",
-                        image: "/images/features/slots/chest.png"
+                        image: "/images/features/slots/chest.webp"
                     },
                     {
                         type: "Slot",
                         name: "legs",
                         title: "tools.enchantments.section.exclusive.components.legs.title",
-                        image: "/images/features/slots/legs.png"
+                        image: "/images/features/slots/legs.webp"
                     },
                     {
                         type: "Slot",
                         name: "feet",
                         title: "tools.enchantments.section.exclusive.components.feet.title",
-                        image: "/images/features/slots/feet.png"
+                        image: "/images/features/slots/feet.webp"
                     }
                 ]
             }
@@ -502,161 +525,168 @@ export const formConfigurations: ToolConfiguration[] = [
         ],
         components: [
             {
-                type: "grid",
+                type: "Grid",
                 columns: 5,
                 children: [
                     {
                         type: "Selectable",
                         name: ["supportedItems", "primaryItems"],
                         title: "tools.enchantments.section.supported.components.sword.title",
-                        image: "/images/features/item/sword.png",
+                        image: "/images/features/item/sword.webp",
                         value: "#minecraft:enchantable/sword"
                     },
                     {
                         type: "Selectable",
                         name: ["supportedItems", "primaryItems"],
                         title: "tools.enchantments.section.supported.components.trident.title",
-                        image: "/images/features/item/trident.png",
+                        image: "/images/features/item/trident.webp",
                         value: "#minecraft:enchantable/trident"
                     },
                     {
                         type: "Selectable",
                         name: ["supportedItems", "primaryItems"],
                         title: "tools.enchantments.section.supported.components.mace.title",
-                        image: "/images/features/item/mace.png",
+                        image: "/images/features/item/mace.webp",
                         value: "#minecraft:enchantable/mace"
                     },
                     {
                         type: "Selectable",
                         name: ["supportedItems", "primaryItems"],
                         title: "tools.enchantments.section.supported.components.bow.title",
-                        image: "/images/features/item/bow.png",
+                        image: "/images/features/item/bow.webp",
                         value: "#minecraft:enchantable/bow"
                     },
                     {
                         type: "Selectable",
                         name: ["supportedItems", "primaryItems"],
                         title: "tools.enchantments.section.supported.components.crossbow.title",
-                        image: "/images/features/item/crossbow.png",
+                        image: "/images/features/item/crossbow.webp",
                         value: "#minecraft:enchantable/crossbow"
                     },
                     {
                         type: "Selectable",
                         name: ["supportedItems", "primaryItems"],
                         title: "tools.enchantments.section.supported.components.range.title",
-                        image: "/images/features/item/range.png",
+                        image: "/images/features/item/range.webp",
                         value: "#voxel:enchantable/range"
                     },
                     {
                         type: "Selectable",
                         name: ["supportedItems", "primaryItems"],
                         title: "tools.enchantments.section.supported.components.fishing.title",
-                        image: "/images/features/item/fishing_rod.png",
+                        image: "/images/features/item/fishing_rod.webp",
                         value: "#minecraft:enchantable/fishing"
                     },
                     {
                         type: "Selectable",
                         name: ["supportedItems", "primaryItems"],
                         title: "tools.enchantments.section.supported.components.shield.title",
-                        image: "/images/features/item/shield.png",
+                        image: "/images/features/item/shield.webp",
                         value: "#voxel:enchantable/shield"
                     },
                     {
                         type: "Selectable",
                         name: ["supportedItems", "primaryItems"],
                         title: "tools.enchantments.section.supported.components.weapon.title",
-                        image: "/images/features/item/weapon.png",
+                        image: "/images/features/item/weapon.webp",
                         value: "#minecraft:enchantable/weapon"
                     },
                     {
                         type: "Selectable",
                         name: ["supportedItems", "primaryItems"],
+                        title: "tools.enchantments.section.supported.components.melee.title",
+                        image: "/images/features/item/melee.webp",
+                        value: "#voxel:enchantable/melee"
+                    },
+                    {
+                        type: "Selectable",
+                        name: ["supportedItems", "primaryItems"],
                         title: "tools.enchantments.section.supported.components.head_armor.title",
-                        image: "/images/features/item/helmet.png",
+                        image: "/images/features/item/helmet.webp",
                         value: "#minecraft:enchantable/head_armor"
                     },
                     {
                         type: "Selectable",
                         name: ["supportedItems", "primaryItems"],
                         title: "tools.enchantments.section.supported.components.chest_armor.title",
-                        image: "/images/features/item/chestplate.png",
+                        image: "/images/features/item/chestplate.webp",
                         value: "#minecraft:enchantable/chest_armor"
                     },
                     {
                         type: "Selectable",
                         name: ["supportedItems", "primaryItems"],
                         title: "tools.enchantments.section.supported.components.leg_armor.title",
-                        image: "/images/features/item/leggings.png",
+                        image: "/images/features/item/leggings.webp",
                         value: "#minecraft:enchantable/leg_armor"
                     },
                     {
                         type: "Selectable",
                         name: ["supportedItems", "primaryItems"],
                         title: "tools.enchantments.section.supported.components.foot_armor.title",
-                        image: "/images/features/item/boots.png",
+                        image: "/images/features/item/boots.webp",
                         value: "#minecraft:enchantable/foot_armor"
                     },
                     {
                         type: "Selectable",
                         name: ["supportedItems", "primaryItems"],
                         title: "tools.enchantments.section.supported.components.elytra.title",
-                        image: "/images/features/item/elytra.png",
+                        image: "/images/features/item/elytra.webp",
                         value: "#voxel:enchantable/elytra"
                     },
                     {
                         type: "Selectable",
                         name: ["supportedItems", "primaryItems"],
                         title: "tools.enchantments.section.supported.components.armor.title",
-                        image: "/images/features/item/armor.png",
+                        image: "/images/features/item/armor.webp",
                         value: "#minecraft:enchantable/armor"
                     },
                     {
                         type: "Selectable",
                         name: ["supportedItems", "primaryItems"],
                         title: "tools.enchantments.section.supported.components.equippable.title",
-                        image: "/images/features/item/equipable.png",
+                        image: "/images/features/item/equipable.webp",
                         value: "#minecraft:enchantable/equippable"
                     },
                     {
                         type: "Selectable",
                         name: ["supportedItems", "primaryItems"],
                         title: "tools.enchantments.section.supported.components.axes.title",
-                        image: "/images/features/item/axe.png",
+                        image: "/images/features/item/axe.webp",
                         value: "#voxel:enchantable/axes"
                     },
                     {
                         type: "Selectable",
                         name: ["supportedItems", "primaryItems"],
                         title: "tools.enchantments.section.supported.components.shovels.title",
-                        image: "/images/features/item/shovel.png",
+                        image: "/images/features/item/shovel.webp",
                         value: "#voxel:enchantable/shovels"
                     },
                     {
                         type: "Selectable",
                         name: ["supportedItems", "primaryItems"],
                         title: "tools.enchantments.section.supported.components.hoes.title",
-                        image: "/images/features/item/hoe.png",
+                        image: "/images/features/item/hoe.webp",
                         value: "#voxel:enchantable/hoes"
                     },
                     {
                         type: "Selectable",
                         name: ["supportedItems", "primaryItems"],
                         title: "tools.enchantments.section.supported.components.pickaxes.title",
-                        image: "/images/features/item/pickaxe.png",
+                        image: "/images/features/item/pickaxe.webp",
                         value: "#voxel:enchantable/pickaxes"
                     },
                     {
                         type: "Selectable",
                         name: ["supportedItems", "primaryItems"],
                         title: "tools.enchantments.section.supported.components.durability.title",
-                        image: "/images/features/item/durability.png",
+                        image: "/images/features/item/durability.webp",
                         value: "#minecraft:enchantable/durability"
                     },
                     {
                         type: "Selectable",
                         name: ["supportedItems", "primaryItems"],
                         title: "tools.enchantments.section.supported.components.mining_loot.title",
-                        image: "/images/features/item/mining.png",
+                        image: "/images/features/item/mining.webp",
                         value: "#minecraft:enchantable/mining_loot"
                     },
                     {
@@ -677,7 +707,7 @@ export const formConfigurations: ToolConfiguration[] = [
         description: "tools.enchantments.section.find.description",
         components: [
             {
-                type: "grid",
+                type: "Grid",
                 columns: 3,
                 children: [
                     {
@@ -704,7 +734,7 @@ export const formConfigurations: ToolConfiguration[] = [
                 ]
             },
             {
-                type: "grid",
+                type: "Grid",
                 columns: 3,
                 children: [
                     {
@@ -738,34 +768,34 @@ export const formConfigurations: ToolConfiguration[] = [
         description: "tools.enchantments.section.yggdrasil.description",
         components: [
             {
-                type: "grid",
+                type: "Grid",
                 columns: 4,
                 children: [
                     {
                         type: "Slot",
                         name: "yggdrasilMobEquipment",
-                        image: "/images/features/title/yg.png",
+                        image: "/images/features/title/yg.webp",
                         title: "tools.enchantments.section.yggdrasil.components.yggdrasilMobEquipment.title",
                         description: "tools.enchantments.section.yggdrasil.components.yggdrasilMobEquipment.description"
                     },
                     {
                         type: "Slot",
                         name: "yggdrasilDropCommon",
-                        image: "/images/common.png",
+                        image: "/images/tools/rarity/common.webp",
                         title: "tools.enchantments.section.yggdrasil.components.yggdrasilDropCommon.title",
                         description: "tools.enchantments.section.yggdrasil.components.yggdrasilDropCommon.description"
                     },
                     {
                         type: "Slot",
                         name: "yggdrasilDropRare",
-                        image: "/images/rare.png",
+                        image: "/images/tools/rarity/rare.webp",
                         title: "tools.enchantments.section.yggdrasil.components.yggdrasilDropRare.title",
                         description: "tools.enchantments.section.yggdrasil.components.yggdrasilDropRare.description"
                     },
                     {
                         type: "Slot",
                         name: "yggdrasilDropUnique",
-                        image: "/images/unique.png",
+                        image: "/images/tools/rarity/unique.webp",
                         title: "tools.enchantments.section.yggdrasil.components.yggdrasilDropUnique.title",
                         description: "tools.enchantments.section.yggdrasil.components.yggdrasilDropUnique.description"
                     }
@@ -811,7 +841,7 @@ export const formConfigurations: ToolConfiguration[] = [
                 description: "tools.enchantments.section.technical.components.smeltsLoot.description"
             },
             {
-                type: "grid",
+                type: "Grid",
                 columns: 2,
                 children: [
                     {
@@ -839,6 +869,10 @@ export const formConfigurations: ToolConfiguration[] = [
                         description: "tools.enchantments.section.technical.components.preventInfestedBlockSpawning.description"
                     }
                 ]
+            },
+            {
+                type: "Effect",
+                name: "effects"
             }
         ]
     }

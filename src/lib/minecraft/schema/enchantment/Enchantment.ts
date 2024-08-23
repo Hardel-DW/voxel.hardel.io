@@ -1,4 +1,4 @@
-import type { EffectComponents } from "@/lib/minecraft/schema/enchantment/EffectComponents.ts";
+import type { EffectComponentsRecord } from "@/lib/minecraft/schema/enchantment/EffectComponents.ts";
 
 export interface Enchantment {
     description: TextComponent;
@@ -11,5 +11,5 @@ export interface Enchantment {
     max_cost: EnchantmentCost;
     anvil_cost: number;
     slots: SlotRegistryType[];
-    effects?: Record<EnchantmentEffectType, EffectComponents>;
+    effects?: EffectComponentsRecord;
 }

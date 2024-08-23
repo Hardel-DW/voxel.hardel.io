@@ -50,3 +50,10 @@ export const getFormattedDate = (date: string | number | Date, regions = "fr-fr"
               day: "numeric"
           })
         : "";
+
+/**
+ * Capitalize the first letter of a string
+ * @param s - string
+ * @returns string with the first letter capitalized
+ */
+export const capitalize = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);

@@ -1,5 +1,7 @@
 ---
 import Tracking from "@/components/layouts/compound/tracking/tracking.astro";
+import SpeedInsights from "@vercel/speed-insights/astro";
+
 import "@/global.css";
 import { type BaseLayoutProps, LayoutHelper } from "@/lib/LayoutHelper";
 
@@ -46,5 +48,6 @@ LayoutContent.setOpenGraph(Astro.props?.openGraph);
 <body>
 <slot/>
 <Tracking/>
+<SpeedInsights/>
 </body>
 </html>

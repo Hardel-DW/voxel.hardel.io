@@ -65,7 +65,9 @@ export class LayoutHelper implements BaseLayoutProps, LayoutHelperProps {
     }
 
     get shownTitle() {
-        return this.title ? `${defaultTitle} | ${this.title}` : defaultTitle;
+        const displayed = this.title ? `${this.title} - ${defaultTitle}` : defaultTitle;
+        if (displayed === "Voxel - Voxel") return defaultTitle;
+        return displayed;
     }
 
     get shownDescription() {

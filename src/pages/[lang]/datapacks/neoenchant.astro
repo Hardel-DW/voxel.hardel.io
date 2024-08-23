@@ -380,7 +380,11 @@ const sections: SectionViewer[] = [
 ];
 ---
 
-<CompoundLayout title="Neo Enchant">
+<CompoundLayout description={translate["datapacks.neoenchant.description"]} openGraph={{
+    title: translate["datapacks.neoenchant.title"],
+    description: translate["datapacks.neoenchant.description"],
+    image: "/images/background/datapacks/neoenchant.webp",
+}} title="Neo Enchant">
     <section class="min-h-[70dvh] relative z-20">
         <Image src="/images/background/datapacks/neoenchant.webp" alt="Neo Enchant" width="1920" height="1080"
                loading="eager"

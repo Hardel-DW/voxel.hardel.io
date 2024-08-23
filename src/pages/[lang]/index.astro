@@ -7,7 +7,7 @@ import Button from "@/components/ui/button.astro";
 import Faq from "@/components/ui/faq.astro";
 import ShiningStars from "@/components/ui/object/ShiningStars.astro";
 import Fog from "@/components/ui/pattern/Fog.astro";
-import Vortex from "@/components/ui/pattern/Vortex";
+import Vortex from "@/components/ui/pattern/Vortex.astro";
 import { getTranslations, names } from "@/lib/i18n";
 
 const { lang, translate } = await getTranslations(Astro.url);
@@ -33,14 +33,7 @@ export async function getStaticPaths() {
 
         <!-- Particles -->
         <div class="absolute inset-0 h-full overflow-hidden p-8 opacity-50">
-            <Vortex
-                    client:idle
-                    backgroundColor="transparent"
-                    rangeY={800}
-                    particleCount={50}
-                    baseHue={0}
-                    className="w-full h-full"
-            />
+            <Vortex/>
         </div>
 
         <!-- Main view -->

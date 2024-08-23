@@ -5,7 +5,7 @@ import NeoEnchantmentViewer from "@/components/pages/datapacks/NeoEnchantmentVie
 import Button from "@/components/ui/button.astro";
 import ShiningStars from "@/components/ui/object/ShiningStars.astro";
 import DashedPattern from "@/components/ui/pattern/DashedPattern.astro";
-import Vortex from "@/components/ui/pattern/Vortex";
+import Vortex from "@/components/ui/pattern/Vortex.astro";
 import { getTranslations, names } from "@/lib/i18n";
 import type { SectionViewer } from "@/lib/type/SectionViewer";
 
@@ -20,338 +20,360 @@ export async function getStaticPaths() {
 const sections: SectionViewer[] = [
     {
         id: "range",
-        name: translate["datapacks.neoenchant.type.range.name"],
         short: translate["datapacks.neoenchant.type.range.short"],
         image: "/images/features/item/range.webp",
         enchants: [
             {
-                id: "explosive_arrow",
-                name: translate["datapacks.neoenchant.enchant.explosive_arrow.title"],
-                item: translate["datapacks.neoenchant.type.range.name"],
-                description: translate["datapacks.neoenchant.enchant.explosive_arrow.description"],
-                image: "/images/features/item/range.webp",
-                video: "/videos/datapacks/neoenchant/explosive_arrow.webm"
-            },
-            {
-                id: "accuracy_shot",
-                item: translate["datapacks.neoenchant.type.range.name"],
-                name: translate["datapacks.neoenchant.enchant.accuracy_shot.title"],
-                description: translate["datapacks.neoenchant.enchant.accuracy_shot.description"],
-                image: "/images/features/item/range.webp",
-                video: "/videos/datapacks/neoenchant/accuracy_shot.webm"
-            },
-            {
                 id: "breezing_arrow",
-                item: translate["datapacks.neoenchant.type.range.name"],
                 name: translate["datapacks.neoenchant.enchant.breezing_arrow.title"],
                 description: translate["datapacks.neoenchant.enchant.breezing_arrow.description"],
                 image: "/images/features/item/range.webp",
-                video: "/videos/datapacks/neoenchant/breezing_arrow.webm"
+                video: "/videos/datapacks/neoenchant/breezing_arrow.webm",
+                level: 3,
+                addons: true
+            },
+            {
+                id: "explosive_arrow",
+                name: translate["datapacks.neoenchant.enchant.explosive_arrow.title"],
+                description: translate["datapacks.neoenchant.enchant.explosive_arrow.description"],
+                image: "/images/features/item/range.webp",
+                video: "/videos/datapacks/neoenchant/explosive_arrow.webm",
+                level: 3,
+                addons: true
+            },
+            {
+                id: "accuracy_shot",
+                name: translate["datapacks.neoenchant.enchant.accuracy_shot.title"],
+                description: translate["datapacks.neoenchant.enchant.accuracy_shot.description"],
+                image: "/images/features/item/range.webp",
+                video: "/videos/datapacks/neoenchant/accuracy_shot.webm",
+                level: 1
             },
             {
                 id: "echo_shot",
-                item: translate["datapacks.neoenchant.type.range.name"],
                 name: translate["datapacks.neoenchant.enchant.echo_shot.title"],
                 description:
                     "The arrow has the power of the warden, it will explode on impact, inflicting damage to entities and not destroying blocks, the shooter is immune to this explosion.",
                 image: "/images/features/item/range.webp",
-                video: "/videos/datapacks/neoenchant/echo_shot.webm"
+                video: "/videos/datapacks/neoenchant/echo_shot.webm",
+                level: 3
             },
             {
                 id: "storm_arrow",
-                item: translate["datapacks.neoenchant.type.range.name"],
                 name: translate["datapacks.neoenchant.enchant.storm_arrow.title"],
                 description: translate["datapacks.neoenchant.enchant.storm_arrow.description"],
                 image: "/images/features/item/range.webp",
-                video: "/videos/datapacks/neoenchant/storm_arrow.webm"
+                video: "/videos/datapacks/neoenchant/storm_arrow.webm",
+                level: 2,
+                addons: true
             }
         ]
     },
     {
         id: "armor",
-        name: translate["datapacks.neoenchant.type.armor.name"],
         image: "/images/features/item/armor.webp",
         short: translate["datapacks.neoenchant.type.armor.short"],
         enchants: [
             {
                 id: "lifeplus",
                 name: translate["datapacks.neoenchant.enchant.lifeplus.title"],
-                item: translate["datapacks.neoenchant.type.armor.name"],
                 description: translate["datapacks.neoenchant.enchant.lifeplus.description"],
                 image: "/images/features/item/armor.webp",
-                video: "/videos/datapacks/neoenchant/lifeplus.webm"
+                video: "/videos/datapacks/neoenchant/lifeplus.webm",
+                level: 5
             },
             {
                 id: "venom_protection",
                 name: translate["datapacks.neoenchant.enchant.venom_protection.title"],
-                item: translate["datapacks.neoenchant.type.armor.name"],
                 description: translate["datapacks.neoenchant.enchant.venom_protection.description"],
                 image: "/images/features/item/armor.webp",
-                video: "/videos/datapacks/neoenchant/venom_protection.webm"
+                video: "/videos/datapacks/neoenchant/venom_protection.webm",
+                level: 1,
+                addons: true
             },
             {
                 id: "fury",
                 name: translate["datapacks.neoenchant.enchant.fury.title"],
-                item: translate["datapacks.neoenchant.type.armor.name"],
                 description: translate["datapacks.neoenchant.enchant.fury.description"],
                 image: "/images/features/item/armor.webp",
-                thumbnail: "/videos/datapacks/neoenchant/fury.webp"
+                thumbnail: "/videos/datapacks/neoenchant/fury.webp",
+                level: 4
             }
         ]
     },
     {
         id: "head",
-        name: translate["datapacks.neoenchant.type.head.name"],
         image: "/images/features/item/helmet.webp",
         short: translate["datapacks.neoenchant.type.head.short"],
         enchants: [
             {
                 id: "voidless",
                 name: translate["datapacks.neoenchant.enchant.voidless.title"],
-                item: translate["datapacks.neoenchant.type.head.name"],
                 description: translate["datapacks.neoenchant.enchant.voidless.description"],
                 image: "/images/features/item/helmet.webp",
-                video: "/videos/datapacks/neoenchant/voidless.webm"
+                video: "/videos/datapacks/neoenchant/voidless.webm",
+                level: 1,
+                addons: true
             },
             {
                 id: "bright_vision",
                 name: translate["datapacks.neoenchant.enchant.bright_vision.title"],
-                item: translate["datapacks.neoenchant.type.head.name"],
                 description: translate["datapacks.neoenchant.enchant.bright_vision.description"],
                 image: "/images/features/item/helmet.webp",
-                video: "/videos/datapacks/neoenchant/bright_vision.webm"
+                video: "/videos/datapacks/neoenchant/bright_vision.webm",
+                level: 1
             },
             {
                 id: "auto_feed",
                 name: translate["datapacks.neoenchant.enchant.auto_feed.title"],
-                item: translate["datapacks.neoenchant.type.head.name"],
                 description: translate["datapacks.neoenchant.enchant.auto_feed.description"],
                 image: "/images/features/item/helmet.webp",
-                video: "/videos/datapacks/neoenchant/auto_feed.webm"
+                video: "/videos/datapacks/neoenchant/auto_feed.webm",
+                level: 1
             }
         ]
     },
     {
         id: "chest",
-        name: translate["datapacks.neoenchant.type.chest.name"],
         image: "/images/features/item/chestplate.webp",
         short: translate["datapacks.neoenchant.type.chest.short"],
         enchants: [
             {
                 id: "builder_arm",
                 name: translate["datapacks.neoenchant.enchant.builder_arm.title"],
-                item: translate["datapacks.neoenchant.type.chest.name"],
                 description: translate["datapacks.neoenchant.enchant.builder_arm.description"],
                 image: "/images/features/item/chestplate.webp",
-                video: "/videos/datapacks/neoenchant/arms.webm"
+                video: "/videos/datapacks/neoenchant/arms.webm",
+                level: 5
             },
             {
                 id: "armored",
                 name: translate["datapacks.neoenchant.enchant.armored.title"],
-                item: translate["datapacks.neoenchant.type.chest.name"],
                 description: translate["datapacks.neoenchant.enchant.armored.description"],
                 image: "/images/features/item/elytra.webp",
-                thumbnail: "/videos/datapacks/neoenchant/armored.webp"
+                thumbnail: "/videos/datapacks/neoenchant/armored.webp",
+                level: 4,
+                addons: true
             }
         ]
     },
     {
         id: "legs",
-        name: translate["datapacks.neoenchant.type.legs.name"],
         image: "/images/features/item/leggings.webp",
         short: translate["datapacks.neoenchant.type.legs.short"],
         enchants: [
             {
                 id: "dwarfed",
                 name: translate["datapacks.neoenchant.enchant.dwarfed.title"],
-                item: translate["datapacks.neoenchant.type.legs.name"],
                 description: translate["datapacks.neoenchant.enchant.dwarfed.description"],
                 image: "/images/features/item/leggings.webp",
-                video: "/videos/datapacks/neoenchant/dwarfed.webm"
+                video: "/videos/datapacks/neoenchant/dwarfed.webm",
+                level: 4
             },
             {
                 id: "fast_swim",
                 name: translate["datapacks.neoenchant.enchant.fast_swim.title"],
-                item: translate["datapacks.neoenchant.type.legs.name"],
                 description: translate["datapacks.neoenchant.enchant.fast_swim.description"],
                 image: "/images/features/item/leggings.webp",
-                video: "/videos/datapacks/neoenchant/fast_swim.webm"
+                video: "/videos/datapacks/neoenchant/fast_swim.webm",
+                level: 1,
+                addons: true
             },
             {
                 id: "leaping",
                 name: translate["datapacks.neoenchant.enchant.leaping.title"],
-                item: translate["datapacks.neoenchant.type.legs.name"],
                 description: translate["datapacks.neoenchant.enchant.leaping.description"],
                 image: "/images/features/item/leggings.webp",
-                video: "/videos/datapacks/neoenchant/leaping.webm"
+                video: "/videos/datapacks/neoenchant/leaping.webm",
+                level: 2
             },
             {
                 id: "oversize",
                 name: translate["datapacks.neoenchant.enchant.oversize.title"],
-                item: translate["datapacks.neoenchant.type.legs.name"],
                 description: translate["datapacks.neoenchant.enchant.oversize.description"],
                 image: "/images/features/item/leggings.webp",
-                video: "/videos/datapacks/neoenchant/oversize.webm"
+                video: "/videos/datapacks/neoenchant/oversize.webm",
+                level: 4
             }
         ]
     },
     {
         id: "foot",
-        name: translate["datapacks.neoenchant.type.feet.name"],
         image: "/images/features/item/boots.webp",
         short: translate["datapacks.neoenchant.type.feet.short"],
         enchants: [
             {
                 id: "lava_walker",
                 name: translate["datapacks.neoenchant.enchant.lava_walker.title"],
-                item: translate["datapacks.neoenchant.type.feet.name"],
                 description: translate["datapacks.neoenchant.enchant.lava_walker.description"],
                 image: "/images/features/item/boots.webp",
-                video: "/videos/datapacks/neoenchant/lava_walker.webm"
+                video: "/videos/datapacks/neoenchant/lava_walker.webm",
+                level: 3,
+                addons: true
             },
             {
                 id: "sky_walk",
                 name: translate["datapacks.neoenchant.enchant.sky_walk.title"],
-                item: translate["datapacks.neoenchant.type.feet.name"],
                 description: translate["datapacks.neoenchant.enchant.sky_walk.description"],
                 image: "/images/features/item/boots.webp",
-                video: "/videos/datapacks/neoenchant/sky_walk.webm"
+                video: "/videos/datapacks/neoenchant/sky_walk.webm",
+                level: 1
             },
             {
                 id: "step_assist",
                 name: translate["datapacks.neoenchant.enchant.step_assist.title"],
-                item: translate["datapacks.neoenchant.type.feet.name"],
                 description: translate["datapacks.neoenchant.enchant.step_assist.description"],
                 image: "/images/features/item/boots.webp",
-                video: "/videos/datapacks/neoenchant/step_assist.webm"
+                video: "/videos/datapacks/neoenchant/step_assist.webm",
+                level: 3,
+                addons: true
             },
             {
                 id: "agility",
                 name: translate["datapacks.neoenchant.enchant.agility.title"],
-                item: translate["datapacks.neoenchant.type.feet.name"],
                 description: translate["datapacks.neoenchant.enchant.agility.description"],
                 image: "/images/features/item/boots.webp",
-                video: "/videos/datapacks/neoenchant/agility.webm"
+                video: "/videos/datapacks/neoenchant/agility.webm",
+                level: 5
             }
         ]
     },
     {
         id: "sword",
-        name: translate["datapacks.neoenchant.type.weapon.name"],
         image: "/images/features/item/sword.webp",
         short: translate["datapacks.neoenchant.type.weapon.short"],
         enchants: [
             {
                 id: "fear",
                 name: translate["datapacks.neoenchant.enchant.fear.title"],
-                item: translate["datapacks.neoenchant.type.weapon.name"],
                 description: translate["datapacks.neoenchant.enchant.fear.description"],
                 image: "/images/features/item/sword.webp",
-                video: "/videos/datapacks/neoenchant/fear.webm"
+                video: "/videos/datapacks/neoenchant/fear.webm",
+                level: 1
             },
             {
                 id: "life_steal",
                 name: translate["datapacks.neoenchant.enchant.life_steal.title"],
-                item: translate["datapacks.neoenchant.type.weapon.name"],
                 description: translate["datapacks.neoenchant.enchant.life_steal.description"],
                 image: "/images/features/item/sword.webp",
-                video: "/videos/datapacks/neoenchant/life_steal.webm"
+                video: "/videos/datapacks/neoenchant/life_steal.webm",
+                level: 2
             },
             {
                 id: "pull",
                 name: translate["datapacks.neoenchant.enchant.pull.title"],
-                item: translate["datapacks.neoenchant.type.weapon.name"],
                 description: translate["datapacks.neoenchant.enchant.pull.description"],
                 image: "/images/features/item/sword.webp",
-                video: "/videos/datapacks/neoenchant/pull.webm"
+                video: "/videos/datapacks/neoenchant/pull.webm",
+                level: 1,
+                addons: true
             },
             {
                 id: "attack_speed",
                 name: translate["datapacks.neoenchant.enchant.attack_speed.title"],
-                item: translate["datapacks.neoenchant.type.weapon.name"],
                 description: translate["datapacks.neoenchant.enchant.attack_speed.description"],
                 image: "/images/features/item/sword.webp",
-                video: "/videos/datapacks/neoenchant/attack_speed.webm"
+                video: "/videos/datapacks/neoenchant/attack_speed.webm",
+                level: 2
             },
             {
                 id: "reach",
                 name: translate["datapacks.neoenchant.enchant.reach.title"],
-                item: translate["datapacks.neoenchant.type.weapon.name"],
                 description: translate["datapacks.neoenchant.enchant.reach.description"],
                 image: "/images/features/item/sword.webp",
-                video: "/videos/datapacks/neoenchant/reach.webm"
+                video: "/videos/datapacks/neoenchant/reach.webm",
+                level: 3
             },
             {
                 id: "xp_boost",
                 name: translate["datapacks.neoenchant.enchant.xp_boost.title"],
-                item: translate["datapacks.neoenchant.type.weapon.name"],
                 description: translate["datapacks.neoenchant.enchant.xp_boost.description"],
                 image: "/images/features/item/sword.webp",
-                video: "/videos/datapacks/neoenchant/xp_boost.webm"
+                video: "/videos/datapacks/neoenchant/xp_boost.webm",
+                level: 3
             },
             {
                 id: "striker",
                 name: translate["datapacks.neoenchant.enchant.striker.title"],
-                item: translate["datapacks.neoenchant.type.weapon.name"],
                 description: translate["datapacks.neoenchant.enchant.striker.description"],
                 image: "/images/features/item/mace.webp",
-                video: "/videos/datapacks/neoenchant/striker.webm"
+                video: "/videos/datapacks/neoenchant/striker.webm",
+                level: 2,
+                addons: true
             },
             {
                 id: "wind_propulsion",
                 name: translate["datapacks.neoenchant.enchant.wind_propulsion.title"],
-                item: translate["datapacks.neoenchant.type.weapon.name"],
                 description: translate["datapacks.neoenchant.enchant.wind_propulsion.description"],
                 image: "/images/features/item/mace.webp",
-                video: "/videos/datapacks/neoenchant/wind_propulsion.webm"
+                video: "/videos/datapacks/neoenchant/wind_propulsion.webm",
+                level: 3,
+                addons: true
             }
         ]
     },
     {
         id: "tools",
-        name: translate["datapacks.neoenchant.type.tool.name"],
         image: "/images/features/item/mining.webp",
         short: translate["datapacks.neoenchant.type.tool.short"],
         enchants: [
             {
                 id: "auto_smelt",
                 name: translate["datapacks.neoenchant.enchant.auto_smelt.title"],
-                item: translate["datapacks.neoenchant.type.tool.name"],
                 description: translate["datapacks.neoenchant.enchant.auto_smelt.description"],
                 image: "/images/features/item/mining.webp",
-                video: "/videos/datapacks/neoenchant/auto_smelt.webm"
+                video: "/videos/datapacks/neoenchant/auto_smelt.webm",
+                level: 1
             },
             {
                 id: "miningplus",
                 name: translate["datapacks.neoenchant.enchant.miningplus.title"],
-                item: translate["datapacks.neoenchant.type.tool.name"],
                 description: translate["datapacks.neoenchant.enchant.miningplus.description"],
                 image: "/images/features/item/mining.webp",
-                video: "/videos/datapacks/neoenchant/miningplus.webm"
+                video: "/videos/datapacks/neoenchant/miningplus.webm",
+                level: 1
             },
             {
                 id: "bedrock_breaker",
                 name: translate["datapacks.neoenchant.enchant.bedrock_breaker.title"],
-                item: translate["datapacks.neoenchant.type.tool.name"],
                 description: translate["datapacks.neoenchant.enchant.bedrock_breaker.description"],
                 image: "/images/features/item/pickaxe.webp",
-                video: "/videos/datapacks/neoenchant/bedrock_breaker.webm"
+                video: "/videos/datapacks/neoenchant/bedrock_breaker.webm",
+                level: 1,
+                addons: true
             },
             {
                 id: "vein_miner",
                 name: translate["datapacks.neoenchant.enchant.vein_miner.title"],
-                item: translate["datapacks.neoenchant.type.tool.name"],
                 description: translate["datapacks.neoenchant.enchant.vein_miner.description"],
                 image: "/images/features/item/pickaxe.webp",
-                video: "/videos/datapacks/neoenchant/vein_miner.webm"
+                video: "/videos/datapacks/neoenchant/vein_miner.webm",
+                level: 1
             },
             {
                 id: "spawner_touch",
                 name: translate["datapacks.neoenchant.enchant.spawner_touch.title"],
-                item: translate["datapacks.neoenchant.type.tool.name"],
                 description: translate["datapacks.neoenchant.enchant.spawner_touch.description"],
                 image: "/images/features/item/pickaxe.webp",
-                video: "/videos/datapacks/neoenchant/spawner_touch.webm"
+                video: "/videos/datapacks/neoenchant/spawner_touch.webm",
+                level: 1,
+                addons: true
+            },
+            {
+                id: "timber",
+                name: translate["datapacks.neoenchant.enchant.timber.title"],
+                description: translate["datapacks.neoenchant.enchant.timber.description"],
+                image: "/images/features/item/axe.webp",
+                video: "/videos/datapacks/neoenchant/timber.webm",
+                level: 1
+            },
+            {
+                id: "scyther",
+                name: translate["datapacks.neoenchant.enchant.scyther.title"],
+                description: translate["datapacks.neoenchant.enchant.scyther.description"],
+                image: "/images/features/item/hoe.webp",
+                video: "/videos/datapacks/neoenchant/scyther.webm",
+                level: 3
             }
         ]
     }
@@ -359,7 +381,7 @@ const sections: SectionViewer[] = [
 ---
 
 <CompoundLayout title="Neo Enchant">
-    <section class="min-h-[70dvh] relative">
+    <section class="min-h-[70dvh] relative z-20">
         <Image src="/images/background/datapacks/neoenchant.webp" alt="Neo Enchant" width="1920" height="1080"
                loading="eager"
                class="w-full h-full absolute object-cover object-center -z-10"/>
@@ -367,7 +389,6 @@ const sections: SectionViewer[] = [
 
         <div class="py-16 absolute inset-0 flex items-center h-full justify-start w-10/12 mx-auto">
             <div class="max-w-3xl">
-                <p class="text-rose-600 tracking-wider text-2xl pb-4">{translate["generic.datapacks"]}</p>
                 <h1 class="text-6xl xl:text-8xl tracking-wide break-words font-bold text-white">
                     {translate["datapacks.neoenchant.title"]}
                 </h1>
@@ -389,7 +410,7 @@ const sections: SectionViewer[] = [
     </section>
 
     <section class="pt-24 pb-40 relative">
-        <div class="absolute inset-0 -z-10">
+        <div class="fixed inset-0 -z-10">
             <ShiningStars/>
         </div>
 
@@ -424,7 +445,7 @@ const sections: SectionViewer[] = [
                 </div>
             </div>
         </div>
-        <div class="relative w-full justify-center items-center">
+        <div class="relative w-full flex justify-center items-center">
             <img class="absolute opacity-10 drag-none" src="/icons/circle.svg" alt="box"/>
             <Image loading="eager" width="1200" height="900" src="/images/background/tools/enchant-hero.webp" alt="404"
                    class="aspect-auto drag-none"
@@ -434,14 +455,7 @@ const sections: SectionViewer[] = [
 
     <section class="relative mt-40">
         <div class="absolute inset-0 h-full overflow-hidden p-8 opacity-50">
-            <Vortex
-                    client:idle
-                    backgroundColor="transparent"
-                    rangeY={800}
-                    particleCount={50}
-                    baseHue={0}
-                    className="w-full h-full"
-            />
+            <Vortex/>
         </div>
 
         <div class="w-3/4 mx-auto gap-8">

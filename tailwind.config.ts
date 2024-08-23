@@ -16,7 +16,7 @@ export default {
                 s: "2px 2px 30px 2px #000"
             },
             gridTemplateColumns: {
-                items: "repeat(auto-fill, minmax(90px, 1fr))"
+                items: "repeat(auto-fill, minmax(120px, 1fr))"
             },
             colors: {
                 modrinth: "#1bd96a",

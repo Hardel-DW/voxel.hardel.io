@@ -44,7 +44,7 @@ export default function ToolSlot({ title, image, checked, onChange, description,
 
             {forced && <span className="absolute p-4 bottom-0 right-0 text-xs text-zinc-400 font-light">{forced}</span>}
 
-            <div className="flex flex-col items-center justify-center">
+            <div className="flex flex-col items-center justify-between h-full">
                 <div className="mb-8 text-center">
                     <h3 className="text-lg font-semibold mb-1">{title}</h3>
                     {description && <p className="text-sm text-zinc-400">{description}</p>}

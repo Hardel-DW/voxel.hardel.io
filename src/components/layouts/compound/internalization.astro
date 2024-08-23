@@ -6,8 +6,8 @@ const { lang } = await getTranslations(Astro.url);
 
 <div class="relative">
     <div id="heading-langage"
-         class="select-none mr-4 flex items-center gap-2 cursor-pointer hover:text-zinc-400 transition">
-        {names.find((element) => element.lang === lang)?.name}
+         class="select-none mr-4 flex items-center gap-2 cursor-pointer hover:text-zinc-400 transition" tabindex="0">
+        <span data-lang={lang}>{names.find((element) => element.lang === lang)?.name}</span>
         <img src="/icons/chevron-down.svg" alt="French" class="w-4 h-4 invert"/>
     </div>
 
@@ -17,7 +17,7 @@ const { lang } = await getTranslations(Astro.url);
         {names.map((element) =>
                 <li>
                     <a href={`/${element.lang}`}
-                       class={cn("flex items-center justify-between px-4 py-2 transition hover:bg-zinc-950 rounded-md",
+                       class={cn("flex items-center justify-between px-4 py-2 transition hover:bg-zinc-900 rounded-md",
                            element.lang === lang ? "font-semibold text-rose-700" : ""
                        )}>
                         {element.name}
@@ -27,11 +27,3 @@ const { lang } = await getTranslations(Astro.url);
         )}
     </ul>
 </div>
-
-<script is:inline>
-    const langage = document.getElementById('langage');
-    document.getElementById("heading-langage").addEventListener('click', () => {
-        console.log("click");
-        langage.setAttribute("aria-expanded", langage.getAttribute("aria-expanded") === "true" ? "false" : "true");
-    });
-</script>

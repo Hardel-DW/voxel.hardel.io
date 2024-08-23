@@ -224,3 +224,28 @@ input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-o
         padding-left: 0;
     }
 }
+
+.shadow-top {
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0) 25%, rgba(0, 0, 0, 0.6) 55%);
+}
+
+.shadow-bottom {
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 25%, rgba(0, 0, 0, 0.6) 55%);
+}
+
+.shadow-left {
+    background: linear-gradient(270deg, rgba(0, 0, 0, 0) 25%, rgba(0, 0, 0, 0.6) 55%);
+}
+
+.shadow-right {
+    background: linear-gradient(90deg, rgba(0, 0, 0, 0) 25%, rgba(0, 0, 0, 0.6) 55%);
+}
+
+#langage {
+    display: none;
+}
+
+/* Afficher le menu lorsque le div parent a le focus ou est survolé */
+#heading-langage:focus + #langage {
+    display: flex;
+}

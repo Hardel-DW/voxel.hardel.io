@@ -29,9 +29,9 @@ LayoutContent.setOpenGraph(Astro.props?.openGraph);
     <meta name="viewport" content="width=device-width"/>
     <meta name="generator" content={Astro.generator}/>
     <meta name="description" content={LayoutContent.shownDescription}/>
-    <meta name="theme-color" content="#721582"/>
+    <meta name="theme-color" content="#be185d"/>
 
-    <meta property="og:title" content="Voxel"/>
+    <meta property="og:title" content={LayoutContent.openGraph.title}/>
     <meta property="og:type" content="website"/>
     <meta property="og:image" content={LayoutContent.resolvedImageWithDomain}/>
     <meta property="og:description" content={LayoutContent.shownDescription}/>
@@ -39,7 +39,7 @@ LayoutContent.setOpenGraph(Astro.props?.openGraph);
     <meta property="og:image:url" content={LayoutContent.resolvedImageWithDomain}/>
     <meta property="og:image:alt" content="Voxel"/>
 
-    <meta name="twitter:title" content="Voxel"/>
+    <meta name="twitter:title" content={LayoutContent.openGraph.title}/>
     <meta name="twitter:card" content="summary_large_image"/>
     <meta name="twitter:site" content={LayoutContent.canonicalURL}/>
     <meta name="twitter:description" content={LayoutContent.shownDescription}/>

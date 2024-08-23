@@ -1,6 +1,7 @@
 {
     "name": "Français",
     "translations": {
+        "generic.branding": "Voxel",
         "generic.website": "VOXEL",
         "generic.section": "- VOXEL",
         "generic.error": "Erreur",

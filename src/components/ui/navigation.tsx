@@ -63,7 +63,7 @@ const NavigationMenuContent = React.forwardRef<
     <NavigationMenuPrimitive.Content
         ref={ref}
         className={cn(
-            "left-0 top-2 w-full gradient-gray border-t border-zinc-800 rounded-3xl data-[motion^=from-]:animate-in data-[motion^=to-]:animate-out data-[motion^=from-]:fade-in data-[motion^=to-]:fade-out data-[motion=from-end]:slide-in-from-right-52 data-[motion=from-start]:slide-in-from-left-52 data-[motion=to-end]:slide-out-to-right-52 data-[motion=to-start]:slide-out-to-left-52 md:absolute md:w-auto",
+            "left-0 top-2 w-full bg-zinc-950 border-t border-zinc-800 rounded-3xl data-[motion^=from-]:animate-in data-[motion^=to-]:animate-out data-[motion^=from-]:fade-in data-[motion^=to-]:fade-out data-[motion=from-end]:slide-in-from-right-52 data-[motion=from-start]:slide-in-from-left-52 data-[motion=to-end]:slide-out-to-right-52 data-[motion=to-start]:slide-out-to-left-52 md:absolute md:w-auto",
             className
         )}
         {...props}
@@ -113,7 +113,7 @@ const ListItem = React.forwardRef<React.ElementRef<"a">, React.ComponentPropsWit
                     <a
                         ref={ref}
                         className={cn(
-                            "block select-none space-y-1 rounded-3xl px-6 py-4 leading-none no-underline outline-none transition-colors hover:bg-stone-900 hover:text-white focus:bg-zinc-800 focus:text-white",
+                            "block select-none space-y-1 rounded-3xl px-6 py-4 leading-none no-underline outline-none transition-colors hover:bg-zinc-900 hover:text-white focus:bg-zinc-900 focus:text-white",
                             className
                         )}
                         {...props}
@@ -127,6 +127,23 @@ const ListItem = React.forwardRef<React.ElementRef<"a">, React.ComponentPropsWit
     }
 );
 ListItem.displayName = "ListItem";
+
+export const HeroItem = (props: { image: string } & React.ComponentPropsWithoutRef<"a">) => {
+    return (
+        <a className="h-40 group/picture relative cursor-pointer flex flex-col justify-end select-none gap-1 p-3" {...props}>
+            <div className="text-xl font-medium text-white leading-none relative z-10">{props.title}</div>
+            <p className="line-clamp-2 text-sm leading-snug text-zinc-400">{props.children}</p>
+
+            <span
+                className="absolute bg-cover rounded-2xl bg-center bg-no-repeat inset-0 size-full z-0 opacity-100 group-hover/picture:opacity-70 transition-opacity duration-200"
+                style={{
+                    backgroundImage: `url(${props.image})`,
+                    maskImage: "linear-gradient(to top, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 1))"
+                }}
+            />
+        </a>
+    );
+};
 
 export {
     NavigationMenu,

@@ -1,0 +1,103 @@
+---
+import { Picture } from "astro:assets";
+import { getCollection } from "astro:content";
+import CompoundLayout from "@/components/layouts/CompoundLayout.astro";
+import Button from "@/components/ui/button.astro";
+import ShiningStars from "@/components/ui/object/ShiningStars.astro";
+import { getTranslations } from "@/lib/i18n";
+
+export const prerender = true;
+const { lang, translate } = await getTranslations(Astro.url);
+export async function getStaticPaths() {
+    const blogEntries = await getCollection("blog");
+    const teamCollection = await getCollection("team");
+
+    return blogEntries.map((element) => {
+        const lang = element.slug.split("/")[0];
+        const slug = element.slug.split("/")[1];
+
+        const members = element.data.authors.map((author) => {
+            return teamCollection.find((member) => member.id === author);
+        });
+
+        return {
+            params: { lang, slug },
+            props: {
+                entry: element,
+                members
+            }
+        };
+    });
+}
+
+const { entry, members } = Astro.props;
+const { Content } = await entry.render();
+---
+
+<CompoundLayout>
+    <div class="fixed inset-0 -z-10">
+        <ShiningStars/>
+    </div>
+
+    <section class="w-full md:w-3/4 max-w-4xl mx-auto px-8 mb-6 mt-28 md:mt-40">
+        <span class="text-blue-400 uppercase tracking-wider text-xs md:text-sm font-medium">
+                {entry.data.category}
+            </span>
+
+        <h1 class="text-4xl lg:text-6xl lg:tracking-tight mt-1 lg:leading-tight">
+            {entry.data.title}
+        </h1>
+
+        <div class="mt-8 flex items-center justify-between gap-y-4">
+            {members.map((member) => (
+                    <a class="flex items-center gap-4">
+                        <img src={member?.data.image.src} width="40" height="40" class="rounded-full"
+                             alt={member?.data.image.alt}/>
+                        <div>
+                            <p class="text-sm text-zinc-400 font-bold">{member?.data.name}</p>
+                            <p class="text-sm text-zinc-400">{member?.data.github}</p>
+                        </div>
+                    </a>
+            ))}
+
+            <small class="text-sm text-zinc-400 font-bold">
+                {Intl.DateTimeFormat(lang, {
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric"
+                }).format(entry.data.publishDate)}
+            </small>
+        </div>
+
+        <div class="h-1 w-full bg-zinc-700 rounded-full mt-2"/>
+    </section>
+
+    <section class="mx-auto w-11/12 md:w-3/4 max-w-4xl rounded-3xl mt-8">
+        <div class="relative">
+            <div class="absolute -z-10 size-full inset-0 bg-gradient-to-r from-pink-900 to-blue-900 opacity-30 rounded-full blur-[5rem]"/>
+            <div class="border-line"/>
+            <div class="border-corner"/>
+
+            <Picture
+                    formats={["avif", "webp"]}
+                    src={entry.data.image.src}
+                    alt="Feature image"
+                    width="1280"
+                    height="800"
+                    class="h-full w-full object-contain rounded-3xl"
+                    transition:name={`post-img-${entry.slug}`}
+            />
+        </div>
+    </section>
+
+    <section
+            class="mx-auto px-8 prose prose-img:rounded-3xl prose-invert mt-6 max-w-4xl prose-headings:mb-2 prose-headings:mt-8">
+        <Content/>
+    </section>
+
+    <section class="text-center mb-40 mt-12">
+        <Button href=`/${lang}/blog` size="lg" variant="primary">
+            {translate["blog.back"]}
+        </Button>
+    </section>
+</CompoundLayout>

@@ -1,0 +1,16 @@
+---
+import type { CollectionEntry } from "astro:content";
+import TimelineElement from "./TimelineElement.astro";
+
+type Props = {
+    entry: CollectionEntry<"update">;
+};
+
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+---
+
+<TimelineElement version={entry.data.version} date={entry.data.publishDate.toDateString()}
+                 type={entry.data.type}>
+    <Content/>
+</TimelineElement>

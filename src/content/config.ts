@@ -111,9 +111,58 @@ const faqCollection = defineCollection({
     )
 });
 
+const blogCollection = defineCollection({
+    type: "content",
+    schema: z.object({
+        draft: z.boolean(),
+        title: z.string(),
+        snippet: z.string(),
+        image: z.object({
+            src: z.string(),
+            alt: z.string()
+        }),
+        publishDate: z.coerce.date(),
+        authors: z.array(z.string()),
+        category: z.string()
+    })
+});
+
+const teamCollection = defineCollection({
+    type: "data",
+    schema: z.object({
+        name: z.string(),
+        github: z.string(),
+        image: z.object({
+            src: z.string(),
+            alt: z.string()
+        })
+    })
+});
+
+const timelineCollection = defineCollection({
+    type: "data",
+    schema: z.object({
+        authors: z.array(z.string()),
+        name: z.string()
+    })
+});
+
+const updateCollection = defineCollection({
+    schema: z.object({
+        draft: z.boolean().default(false),
+        publishDate: z.coerce.date(),
+        version: z.string(),
+        type: z.string()
+    })
+});
+
 export const collections = {
     article: articleCollection,
     guide: guideCollection,
     i18n: i18nCollection,
-    faq: faqCollection
+    faq: faqCollection,
+    blog: blogCollection,
+    team: teamCollection,
+    timeline: timelineCollection,
+    update: updateCollection
 };

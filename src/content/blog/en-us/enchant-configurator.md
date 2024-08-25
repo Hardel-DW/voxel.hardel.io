@@ -1,0 +1,30 @@
+---
+draft: false
+title: "Enchantment Configurator"
+snippet: "Customize and modify enchantments in any Minecraft datapack with ease. Discover the most intuitive tool for enhancing your gameplay."
+image:
+  {
+    src: "/images/background/blog/enchant-configurator.webp",
+    alt: "Enchantment Configurator"
+  }
+authors: ["hardel"]
+publishDate: "2024-08-25"
+category: "Tools"
+---
+
+# Unleash Your Creativity with the Enchantment Configurator
+The **Enchantment Configurator** is a tool that allows you to modify and customize enchantments in any Minecraft datapack, not just those in the Voxel ecosystem.  
+Whether you're using a popular third-party pack or a custom creation, this tool gives you full control over your enchantments, enabling you to tailor them to your unique gameplay style.
+
+### Designed for Everyone for Complete Customization
+With the Enchantment Configurator, you can fully customize the enchantments in a pack.
+- Adjust the effects
+- Modify the maximum enchantment levels
+- Change how enchantments are obtained
+- Specify the items to which enchantments can be applied
+
+As you can see, it’s designed for the general public, offering you the flexibility to modify enchantments in a simple, intuitive, and minimalist way—something that was previously reserved for experienced developers.
+
+### Always Up-to-Date with the Latest Features
+We are committed to continuously improving the Enchantment Configurator with more features, and regular updates ensure that you always have a tool compatible with the latest version of Minecraft.  
+To keep track of all updates, check out our [changelog](https://voxel.hadel.io/en-us/update/enchant-configurator) and discover what's new.

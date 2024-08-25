@@ -8,7 +8,7 @@ import Internalization from "./internalization.astro";
 
 const { translate, lang } = await getTranslations(Astro.url);
 const links = [
-    { name: translate["navbar.item.home"], href: `/${lang}` },
+    { name: translate["navbar.item.blog"], href: `/${lang}/blog` },
     { name: translate["navbar.item.data_pack"], href: `/${lang}/datapacks/neoenchant` },
     { name: translate["navbar.item.resources"], href: `/${lang}/soon` },
     { name: translate["navbar.item.contact"], href: `/${lang}/contact` }

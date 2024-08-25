@@ -1,0 +1,60 @@
+---
+draft: false
+title: "NeoEnchant+ V5"
+snippet: "It's a 1.21 datapack which introduces a new suite of enchantments Explore innovative ways to enhance your Minecraft experience."
+image:
+  {
+    src: "https://github.com/Hardel-DW/NeoEnchant/assets/42413417/edfa5a06-e6e2-43ba-9c5e-a7d3c16b3bf0",
+    alt: "NeoEnchant+"
+  }
+authors: ["hardel"]
+publishDate: "2024-08-24"
+category: "Datapacks"
+---
+# NeoEnchant+ V5 - Révolutionnez Votre Expérience Minecraft
+
+## Entrez dans l'Univers de NeoEnchant+
+**NeoEnchant+** n'est pas simplement un datapack – c'est un écosystème complet incluant des packs, des structures, **un configurateur**, une page de présentation dédié, une communauté, et bien plus encore. NeoEnchant+ est le successeur officiel de Technical Enchant+, introduisant une vague d'enchantements innovants qui repoussent les limites de ce qui est possible dans le jeu.
+### Découvrez les Enchantements comme Jamais Auparavant
+NeoEnchant+ propose une liste exhaustive d'enchantements conçus pour chaque type d'équipement, il en offre plus de 32 avec des effets innovants. Voici un aperçu de ce que vous pouvez attendre :
+- **Explosive Arrow** : Les fléches explosives était un objet que Notch avait prévu d'ajouter dans le jeu, malgré les années, il n'a jamais été ajouté, c'est pourquoi nous avons décidé de l'ajouter dans NeoEnchant+.
+- **Life+** : N'avez jamais rêvé d'avoir plus de cœurs pour survivre plus longtemps ? C'est désormais possible avec Life+.
+- **Mining+** : Les fameux hammer que l'on retrouve dans des mods et sur Paladium, un bon moyen de miner en zone rapidement.
+- **Auto-Smelt** : Vous en avez marre de devoir cuire vos minerais ? Avec Auto-Smelt, c'est désormais automatique.
+
+Et ce n'est que le début ! 
+Pour la liste complète des enchantements, venez sur la page de présentation [NeoEnchant+](https://voxel.hadel.io/fr-fr/datapacks/neoenchant)
+
+<video class="rounded-3xl relative" autoPlay loop muted>
+    <source src="/videos/datapacks/neoenchant/breezing_arrow.webm" type="video/webm" />
+</video>
+
+# Configurateur d'Enchantements
+Personnalisez votre aventure avec notre configurateur d'enchantements en ligne. Ajustez les enchantements selon vos préférences, créant une expérience unique qui correspond parfaitement à votre style de jeu, disponible a cette adresse [Configurateur d'Enchantements](https://voxel.hadel.io/fr-fr/tools/enchant)
+
+[![Video](/images/background/tools/enchant-hero.webp)](https://voxel.hadel.io/fr-fr/tools/enchant)
+
+# Écosystème de Datapacks - Yggdrasil & BeyondEnchant
+Avec tous ces enchantments, le jeu risque d'être trop simple non ?  
+C'est pourquoi NeoEnchant+ n'est pas simplement un pack – c'est un écosystème voici **Yggdrasil** et **BeyondEnchant**.
+
+- **Yggdrasil** est un pack rajoutant des structures gigantesques avec une difficulté jamais vu, des récompenses uniques et des enchantements exclusifs que vous ne trouverez nulle part ailleurs, ces structures exploitent parfaitement les nouveaux enchantements, les monstres ont entendu dire qu'ils pouvaient les utiliser et ils ne se gêneront pas pour vous le faire subir.  
+- **BeyondEnchant** permet quant a lui de briser les chaînes des limites vanilla. Les niveaux des enchantments sont augmentés, et sont donc plus puissants, les enchantements sont plus... bref, vous avez compris l'idée.
+
+<div class="flex flex-col md:flex-row gap-8 justify-center">
+  <div class="w-full md:w-1/2">
+        <img src="https://github.com/Hardel-DW/BeyondEnchant/assets/42413417/d107bc40-c48c-47b2-91eb-8a012a55c95c" alt="BeyondEnchant">
+    </div>
+    <div class="w-full md:w-1/2">
+        <img src="https://github.com/Hardel-DW/Yggdrasil-Structure/assets/42413417/b481d58c-a1f4-4d04-a884-6ac538c02bbd" alt="Yggdrasil">
+    </div>
+</div>
+
+# Téléchargez NeoEnchant+
+NeoEnchant+ est disponible en téléchargement sur Modrinth, vous pouvez le télécharger en cliquant sur le bouton ci-dessous, ou consulter [la page de présentation](https://voxel.hadel.io/fr-fr/datapacks/neoenchant) pour plus d'informations.
+
+[![Télécharger](/images/background/modrinth.webp)](https://modrinth.com/datapack/neoenchant)
+
+### Rejoignez l'Aventure et Soutenez le Projet
+Ce projet est une œuvre de passion, et chaque contribution nous aide à aller plus loin. Si vous aimez ce que nous créons, soutenez-nous sur Patreon pour que nous puissions continuer à repousser les limites de Minecraft.
+[Soutenez-nous sur Patreon](https://www.patreon.com/hardel)

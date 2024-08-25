@@ -1,0 +1,62 @@
+---
+draft: false
+title: "NeoEnchant+ V5"
+snippet: "A 1.21 datapack introducing a new suite of enchantments. Explore innovative ways to enhance your Minecraft experience."
+image:
+  {
+    src: "https://github.com/Hardel-DW/NeoEnchant/assets/42413417/edfa5a06-e6e2-43ba-9c5e-a7d3c16b3bf0",
+    alt: "NeoEnchant+"
+  }
+authors: ["hardel"]
+publishDate: "2024-08-24"
+category: "Datapacks"
+---
+
+# NeoEnchant+ V5 - Revolutionize Your Minecraft Experience
+
+## Step into the World of NeoEnchant+
+**NeoEnchant+** is not just a datapack—it's a complete ecosystem including packs, structures, **a configurator**, a dedicated presentation page, a community, and much more. NeoEnchant+ is the official successor to Technical Enchant+, introducing a wave of innovative enchantments that push the boundaries of what's possible in the game.
+
+### Discover Enchantments Like Never Before
+NeoEnchant+ offers an extensive list of enchantments designed for every type of equipment, with over 32 innovative effects. Here’s a glimpse of what you can expect:
+- **Explosive Arrow**: Explosive arrows were originally planned by Notch for the game, but they were never added. That's why we've decided to include them in NeoEnchant+.
+- **Life+**: Ever dreamed of having more hearts to survive longer? Now it's possible with Life+.
+- **Mining+**: The famous hammers found in mods and on Paladium, a great way to mine quickly in large areas.
+- **Auto-Smelt**: Tired of having to smelt your ores? With Auto-Smelt, it's now automatic.
+
+And this is just the beginning!  
+For the full list of enchantments, visit the [NeoEnchant+ presentation page](https://voxel.hadel.io/en-us/datapacks/neoenchant).
+
+<video class="rounded-3xl relative" autoPlay loop muted>
+    <source src="/videos/datapacks/neoenchant/breezing_arrow.webm" type="video/webm" />
+</video>
+
+# Enchantment Configurator
+Customize your adventure with our online enchantment configurator. Adjust enchantments according to your preferences, creating a unique experience that perfectly matches your playstyle, available at this address [Enchantment Configurator](https://voxel.hadel.io/en-us/tools/enchant).
+
+[![Video](/images/background/tools/enchant-hero.webp)](https://voxel.hadel.io/en-us/tools/enchant)
+
+# Datapack Ecosystem - Yggdrasil & BeyondEnchant
+With all these enchantments, the game might become too easy, right?  
+That’s why NeoEnchant+ isn’t just a pack—it’s an ecosystem introducing **Yggdrasil** and **BeyondEnchant**.
+
+- **Yggdrasil** is a pack adding gigantic structures with unprecedented difficulty, unique rewards, and exclusive enchantments that you won’t find anywhere else. These structures make perfect use of the new enchantments, and the monsters have heard about them and won’t hesitate to use them against you.
+- **BeyondEnchant**, on the other hand, breaks the chains of vanilla limits. The levels of enchantments are increased, making them more powerful—the enchantments are more... well, you get the idea.
+
+<div class="flex flex-col md:flex-row gap-8 justify-center">
+  <div class="w-full md:w-1/2">
+        <img src="https://github.com/Hardel-DW/BeyondEnchant/assets/42413417/d107bc40-c48c-47b2-91eb-8a012a55c95c" alt="BeyondEnchant">
+    </div>
+    <div class="w-full md:w-1/2">
+        <img src="https://github.com/Hardel-DW/Yggdrasil-Structure/assets/42413417/b481d58c-a1f4-4d04-a884-6ac538c02bbd" alt="Yggdrasil">
+    </div>
+</div>
+
+# Download NeoEnchant+
+NeoEnchant+ is available for download on Modrinth. You can download it by clicking the button below or visit the [presentation page](https://voxel.hadel.io/en-us/datapacks/neoenchant) for more information.
+
+[![Download](/images/background/modrinth.webp)](https://modrinth.com/datapack/neoenchant)
+
+### Join the Adventure and Support the Project
+This project is a labor of love, and every contribution helps us go further. If you enjoy what we create, support us on Patreon so we can continue pushing the limits of Minecraft.  
+[Support us on Patreon](https://www.patreon.com/hardel)

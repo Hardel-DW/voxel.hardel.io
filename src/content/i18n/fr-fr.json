@@ -40,6 +40,15 @@
         "lost.title": "T'es perdu ?",
         "lost.description": "Cette page n'existe pas, ou a été déplacée, contactez-nous si vous pensez qu'il s'agit d'une erreur.",
 
+        "timeline.updates": "Mises à jour",
+        "timeline.author": "Auteur",
+        "timeline.see_latest_updates": "Voir les dernières mises à jour",
+
+        "blog.back": "Retour aux blogs",
+        "blog.latest": "Derniers articles",
+        "blog.previous": "Précédent",
+        "blog.next": "Suivant",
+
         "soon.title": "Bientôt disponible",
         "soon.description": "Cette fonctionnalité est en cours de développement, elle sera bientôt disponible, restez à l'écoute !",
 
@@ -68,6 +77,7 @@
         "home.product.soon": "Une fonctionnalité est en cours de développement, elle sera bientôt disponible, restez à l'écoute !",
 
         "navbar.item.home": "Accueil",
+        "navbar.item.blog": "Blog",
         "navbar.item.guides": "Guides",
         "navbar.item.data_pack": "Datapacks",
         "navbar.item.resources": "Ressource",
@@ -133,6 +143,7 @@
         "footer.content.support.privacy": "Politique de confidentialité",
 
         "datapacks.back": "Retour aux data packs",
+        "datapacks.wiki": "Explorer le wiki",
         "datapacks.modrinth.download": "Télécharger sur Modrinth",
         "datapacks.neoenchant.title": "Neo Enchant+",
         "datapacks.neoenchant.short": "Neo",

@@ -21,7 +21,7 @@
         "generic.join_us": "Join us",
         "generic.private_message": "Private message",
         "generic.translation.missing": "Translation missing",
-        "generic.datapacks": "Data Packs",
+        "generic.datapacks": "Datapacks",
         "generic.unsupported.video": "Your browser does not support the video tag.",
 
         "tracker.title": "Your privacy",
@@ -39,6 +39,15 @@
 
         "lost.title": "Are you lost?",
         "lost.description": "This page does not exist, or has been moved, contact us if you think this is an error.",
+
+        "timeline.updates": "Latest updates",
+        "timeline.author": "Author",
+        "timeline.see_latest_updates": "See the latest updates",
+
+        "blog.back": "Back to the blog",
+        "blog.latest": "The latest news",
+        "blog.previous": "Previous",
+        "blog.next": "Next",
 
         "soon.title": "Coming soon",
         "soon.description": "This feature is under development, it will be available soon, stay tuned!",
@@ -68,7 +77,8 @@
         "home.product.soon": "A feature is under development, it will be available soon, stay tuned!",
 
         "navbar.item.home": "Home",
-        "navbar.item.data_pack": "Data-Packs",
+        "navbar.item.blog": "Blog",
+        "navbar.item.data_pack": "Datapacks",
         "navbar.item.guides": "Guides",
         "navbar.item.resources": "Resources",
         "navbar.item.contact": "Contact",
@@ -134,6 +144,7 @@
         "footer.content.support.privacy": "Privacy Policy",
 
         "datapacks.back": "Back to data packs",
+        "datapacks.wiki": "Check the wiki",
         "datapacks.modrinth.download": "Download on Modrinth",
         "datapacks.neoenchant.title": "Neo Enchant+",
         "datapacks.neoenchant.short": "Neo",

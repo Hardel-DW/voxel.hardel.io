@@ -256,3 +256,52 @@ input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-o
 #langage:focus-within {
     display: flex;
 }
+
+.border-corner {
+    &::after {
+        height: 4rem;
+        width: 4rem;
+        top: -16px;
+        left: -16px;
+        content: "";
+        position: absolute;
+        z-index: 50;
+        border-top-left-radius: 1.75rem;
+        border-style: solid;
+        border-width: 2px;
+        border-top-color: #3f3f46;
+        border-left-color: #3f3f46;
+        border-bottom-color: transparent;
+        border-right-color: transparent;
+    }
+
+    &::before {
+        height: 4rem;
+        width: 4rem;
+        bottom: -16px;
+        right: -16px;
+        content: "";
+        z-index: 50;
+        position: absolute;
+        border-bottom-right-radius: 1.75rem;
+        border-style: solid;
+        border-width: 2px;
+        border-top-color: transparent;
+        border-left-color: transparent;
+        border-bottom-color: #3f3f46;
+        border-right-color: #3f3f46;
+    }
+}
+
+.border-line {
+    &::after {
+        content: "";
+        @apply absolute z-50 bottom-0 inset-x-0 w-1/2 mx-auto bg-gradient-to-r from-transparent via-rose-500 to-transparent h-px;
+
+    }
+
+    &::before {
+        content: "";
+        @apply absolute z-50 top-0 inset-x-0 w-1/2 mx-auto -bottom-px bg-gradient-to-r from-transparent via-blue-300 to-transparent h-px
+    }
+}

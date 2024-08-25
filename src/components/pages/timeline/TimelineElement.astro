@@ -1,0 +1,38 @@
+---
+import { getTranslations } from "@/lib/i18n";
+import type { HTMLAttributes } from "astro/types";
+interface Props extends HTMLAttributes<"li"> {
+    version: string;
+    type: string;
+    date: string;
+}
+
+const { lang } = await getTranslations(Astro.url);
+const props = Astro.props;
+---
+
+<li class="flex items-start space-x-3">
+    <a rel="noopener noreferrer" href="#" class="flex items-center h-9 text-sm hover:underline">
+        {props.version}
+    </a>
+    <div class="flex-1 space-y-2">
+        <div class="flex items-center justify-between space-x-4 text-zinc-500">
+            <a rel="noopener noreferrer" href="#"
+               class="inline-flex items-center px-3 py-1 my-1 space-x-2 text-sm  rounded-full group">
+                <span aria-hidden="true" class="h-1.5 w-1.5 rounded-full bg-rose-700"></span>
+                <span class="group-hover:underline text-zinc-400">
+                    {props.type}
+                </span>
+            </a>
+            <span class="text-xs whitespace-nowrap">
+                {Intl.DateTimeFormat(lang, {
+                    dateStyle: "long"
+                }).format(new Date(props.date))}
+            </span>
+        </div>
+        <div class="relative prose prose-invert">
+            <div class="absolute top-0 bottom-0 border-l border-zinc-400 -translate-x-8"/>
+            <slot/>
+        </div>
+    </div>
+</li>

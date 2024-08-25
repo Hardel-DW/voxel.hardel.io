@@ -45,12 +45,13 @@ export default function HelpGuide({
                             {translate["tools.enchantments.home"]}
                         </h1>
                         <p className="text-gray-300 mt-4">{translate["tools.enchantments.home.description"]}</p>
-                        <small className="text-gray-300 mt-4 text-xs bg-header-cloudy border-zinc-800 border-t border-l px-4 py-4 rounded-xl w-fit">
-                            {translate["tools.enchantments.home.small"]}
-                            <a href="https://modrinth.com/datapack/neoenchant" className="text-blue-400 hover:underline">
-                                {translate["generic.modrinth"]}
-                            </a>
-                        </small>
+
+                        <a
+                            href={`/${lang}/update/enchant-configurator`}
+                            className="inline-flex w-fit h-12 mt-8 animate-shimmer items-center justify-center rounded-md border border-slate-800 bg-[linear-gradient(110deg,#000103,45%,#1e2631,55%,#000103)] bg-[length:200%_100%] px-6 font-medium text-slate-400 transition-colors hover:text-zinc-300 focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50"
+                        >
+                            {translate["timeline.see_latest_updates"]} &rarr;
+                        </a>
                     </div>
                 </div>
                 <div className="relative w-full flex justify-center items-center">

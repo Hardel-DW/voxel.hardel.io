@@ -44,9 +44,18 @@ export default {
                 levitate: "levitate 5000ms ease-in-out infinite",
                 fadein: "fadein 200ms ease-in",
                 open: "open 150ms ease-in-out forwards",
-                rainbow: "rainbow 10s linear infinite"
+                rainbow: "rainbow 10s linear infinite",
+                shimmer: "shimmer 2s linear infinite"
             },
             keyframes: {
+                shimmer: {
+                    from: {
+                        backgroundPosition: "0 0"
+                    },
+                    to: {
+                        backgroundPosition: "-200% 0"
+                    }
+                },
                 levitate: {
                     "0%": { transform: "translateY(-1.5rem)" },
                     "50%": { transform: "translateY(1.5rem)" },

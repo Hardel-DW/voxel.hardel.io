@@ -1,23 +1,23 @@
 import { useTranslate } from "@/components/TranslateContext.tsx";
+import { useConfigurator } from "@/components/pages/tools/ConfiguratorContext.tsx";
+import { RenderComponent } from "@/components/pages/tools/RenderComponent.tsx";
 import { formConfigurations } from "@/components/pages/tools/enchant/Config.ts";
-import { useEnchantments } from "@/components/pages/tools/enchant/EnchantmentsContext.tsx";
-import { RenderComponent } from "@/components/pages/tools/enchant/RenderComponent.tsx";
 import { TabsList, TabsTrigger } from "@/components/ui/tabs.tsx";
 import ToolSection from "@/components/ui/tools/ToolSection.tsx";
 import { cn } from "@/lib/utils.ts";
 import { Tabs, TabsContent } from "@radix-ui/react-tabs";
 import type React from "react";
 
-export default function EnchantmentConfig({
+export default function ConfiguratorPanel<T>({
     children
 }: {
     children?: React.ReactNode;
 }) {
-    const { currentEnchantmentData, handleChangeData, enchantments, currentEnchantmentId } = useEnchantments();
+    const { currentElement, elements } = useConfigurator<T>();
     const { translate } = useTranslate();
 
-    if (enchantments.length === 0) return null;
-    if (!currentEnchantmentData) return null;
+    if (elements.length === 0) return null;
+    if (!currentElement) return null;
 
     return (
         <>
@@ -31,10 +31,10 @@ export default function EnchantmentConfig({
                                 className={cn(
                                     "text-md transition-none py-2 data-[state=active]:bg-rose-900 data-[state=active]:text-white",
                                     {
-                                        "text-zinc-500": currentEnchantmentId?.getNamespace() === "minecraft" && index > 2
+                                        "text-zinc-500": currentElement?.identifier?.getNamespace() === "minecraft" && index > 2
                                     }
                                 )}
-                                disabled={currentEnchantmentId?.getNamespace() === "minecraft" && index > 2}
+                                disabled={currentElement?.identifier?.getNamespace() === "minecraft" && index > 2}
                                 value={section.id}
                             >
                                 {translate[section.section]}
@@ -44,7 +44,7 @@ export default function EnchantmentConfig({
 
                     {formConfigurations.map((section) => (
                         <TabsContent key={section.id} value={section.id}>
-                            {currentEnchantmentId?.getNamespace() === "minecraft" && (
+                            {currentElement?.identifier?.getNamespace() === "minecraft" && (
                                 <div className="text-xs text-zinc-400 font-light mb-4">{translate["tools.enchantments.vanilla"]}</div>
                             )}
 
@@ -55,13 +55,7 @@ export default function EnchantmentConfig({
                                 title={translate[section.description]}
                             >
                                 {section.components.map((component, index) => (
-                                    <RenderComponent
-                                        sectionId={section.id}
-                                        key={index.toString()}
-                                        component={component}
-                                        formValues={currentEnchantmentData}
-                                        handleChange={handleChangeData}
-                                    />
+                                    <RenderComponent sectionId={section.id} key={index.toString()} component={component} />
                                 ))}
                             </ToolSection>
                         </TabsContent>

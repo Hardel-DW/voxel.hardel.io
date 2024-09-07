@@ -1,7 +1,8 @@
 import { getEntry } from "astro:content";
 import { useTranslate } from "@/components/TranslateContext.tsx";
+import { useConfigurator } from "@/components/pages/tools/ConfiguratorContext.tsx";
 import FileUploader from "@/components/pages/tools/DatapackUploader.tsx";
-import { useEnchantments } from "@/components/pages/tools/enchant/EnchantmentsContext.tsx";
+import { type EnchantmentProps, parseDatapack } from "@/components/pages/tools/enchant/Config.ts";
 import type React from "react";
 import { useEffect, useState } from "react";
 
@@ -11,7 +12,7 @@ export default function HelpGuide({
     children?: React.ReactNode;
 }) {
     const [faq, setFAQ] = useState<{ question: string; answer: string }[] | undefined>(undefined);
-    const { enchantments } = useEnchantments();
+    const context = useConfigurator<EnchantmentProps>();
     const { lang, translate } = useTranslate();
 
     useEffect(() => {
@@ -21,7 +22,7 @@ export default function HelpGuide({
         });
     }, [lang]);
 
-    if (enchantments.length > 0) return null;
+    if (context.elements.length > 0) return null;
 
     return (
         <>
@@ -55,7 +56,7 @@ export default function HelpGuide({
                     </div>
                 </div>
                 <div className="relative w-full flex justify-center items-center">
-                    <FileUploader />
+                    <FileUploader handleParse={(file) => parseDatapack(context, file)} />
                     <img className="absolute -z-10 opacity-10 drag-none" src="/icons/circle.svg" alt="box" />
                 </div>
             </section>

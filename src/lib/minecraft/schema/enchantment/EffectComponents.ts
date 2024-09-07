@@ -39,6 +39,19 @@ export interface EffectComponents {
     "minecraft:prevent_armor_change"?: {};
 }
 
+export type AttributeEffect = {
+    type: "minecraft:attribute";
+    id: string;
+    attribute: AttributeType;
+    amount: LevelBasedValue;
+    operation: AttributeOperationRegistry;
+};
+
+export type AllOfEffect = {
+    type: "minecraft:all_of";
+    effects: EnchantmentLocationEffect[];
+};
+
 export type EffectComponentsRecord = Record<keyof EffectComponents, EffectComponents[keyof EffectComponents]>;
 
 type EnchantmentValueEffectKey = {

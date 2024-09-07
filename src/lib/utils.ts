@@ -57,3 +57,29 @@ export const getFormattedDate = (date: string | number | Date, regions = "fr-fr"
  * @returns string with the first letter capitalized
  */
 export const capitalize = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
+
+/**
+ * Get the property of an object safely with a default value. If the property is an array, return the array.
+ * @param obj
+ * @param key
+ * @param defaultValue
+ */
+export function getPropertySafely<T extends Record<string, unknown>, K>(obj: T, key: keyof T, defaultValue: K): K {
+    if (key in obj && Array.isArray(obj[key])) {
+        return obj[key] as K;
+    }
+    return defaultValue;
+}
+
+export function isStringArray(value: unknown): value is string[] {
+    return Array.isArray(value) && value.every((item) => typeof item === "string");
+}
+
+/**
+ * Adds quotes to both sides of a given string.
+ * @param str The input string to be quoted
+ * @returns The quoted string
+ */
+export function quoteString(str: string): string {
+    return `"${str}"`;
+}

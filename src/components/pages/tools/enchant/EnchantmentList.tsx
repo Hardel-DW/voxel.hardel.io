@@ -1,19 +1,19 @@
 import { useTranslate } from "@/components/TranslateContext.tsx";
-import DownloadButton from "@/components/pages/tools/enchant/DownloadButton.tsx";
+import { useConfigurator } from "@/components/pages/tools/ConfiguratorContext.tsx";
+import DebugConfigurator from "@/components/pages/tools/DebugConfigurator.tsx";
+import DownloadButton from "@/components/pages/tools/DownloadButton.tsx";
+import { type EnchantmentProps, assembleDatapack } from "@/components/pages/tools/enchant/Config.ts";
 import { EnchantmentItem } from "@/components/pages/tools/enchant/EnchantmentItem.tsx";
-import { useEnchantments } from "@/components/pages/tools/enchant/EnchantmentsContext.tsx";
+import { Identifier } from "@/lib/minecraft/core/Identifier.ts";
+import { compileDataPack } from "@/lib/minecraft/mczip.ts";
 import { cn } from "@/lib/utils.ts";
 import { useState } from "react";
 
 export default function EnchantmentList() {
     const [width, setWidth] = useState(350);
-    const { enchantments } = useEnchantments();
+    const context = useConfigurator<EnchantmentProps>();
     const { translate } = useTranslate();
-    if (enchantments.length === 0) return null;
-
-    const handleWidth = () => {
-        setWidth(width === 350 ? 0 : 350);
-    };
+    if (context.elements.length === 0) return null;
 
     return (
         <>
@@ -32,15 +32,9 @@ export default function EnchantmentList() {
                                     <div className="h-1 w-full bg-zinc-800 rounded-full" />
                                 </div>
                                 <div className="grid gap-1 pt-4 pb-2 px-px">
-                                    {enchantments
-                                        .sort((a, b) =>
-                                            (a.identifier.getResource().split("/").pop() ?? "").localeCompare(
-                                                b.identifier.getResource().split("/").pop() ?? ""
-                                            )
-                                        )
-                                        .map((element) => (
-                                            <EnchantmentItem key={element.identifier.getResource()} element={element.identifier} />
-                                        ))}
+                                    {Identifier.sortRegistry(context.elements).map((element) => (
+                                        <EnchantmentItem key={element.identifier.getResource()} element={element} />
+                                    ))}
                                 </div>
                             </div>
                         </div>
@@ -48,13 +42,13 @@ export default function EnchantmentList() {
                 </div>
             </div>
 
+            <DebugConfigurator assembly={() => assembleDatapack(context)} />
             <div className="fixed p-4 bottom-0 right-0 flex flex-col gap-4">
-                <DownloadButton />
+                <DownloadButton handleDownload={() => compileDataPack(context.files, assembleDatapack(context))} />
 
                 <button
                     type="button"
-                    onClick={handleWidth}
-                    onKeyDown={handleWidth}
+                    onClick={() => setWidth(width === 350 ? 0 : 350)}
                     className="bg-header-cloudy text-white p-2 size-12 rounded-xl border-zinc-700 border-t border-l"
                 >
                     {width === 350 ? "<<" : ">>"}

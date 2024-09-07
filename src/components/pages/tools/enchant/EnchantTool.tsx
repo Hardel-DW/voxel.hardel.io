@@ -1,7 +1,7 @@
 import { TranslateProvider } from "@/components/TranslateContext.tsx";
-import EnchantmentConfig from "@/components/pages/tools/enchant/EnchantmentConfig.tsx";
+import { ConfiguratorProvider } from "@/components/pages/tools/ConfiguratorContext.tsx";
+import ConfiguratorPanel from "@/components/pages/tools/ConfiguratorPanel.tsx";
 import EnchantmentList from "@/components/pages/tools/enchant/EnchantmentList.tsx";
-import { EnchantmentsProvider } from "@/components/pages/tools/enchant/EnchantmentsContext.tsx";
 import HelpGuide from "@/components/pages/tools/enchant/HelpGuide.tsx";
 import { getTranslations } from "@/lib/i18n.ts";
 import React from "react";
@@ -30,18 +30,18 @@ export default function EnchantTool({
 
     return (
         <TranslateProvider translate={translate} lang={lang}>
-            <EnchantmentsProvider>
+            <ConfiguratorProvider initialToggleSection={{ supported: "supportedItems" }}>
                 <section className="flex relative h-dvh overflow-y-hidden">
                     <EnchantmentList />
 
                     <div className="size-full p-4 overflow-y-auto">
                         <HelpGuide>{children}</HelpGuide>
-                        <EnchantmentConfig>{children}</EnchantmentConfig>
+                        <ConfiguratorPanel>{children}</ConfiguratorPanel>
                     </div>
                 </section>
 
                 <Toaster richColors />
-            </EnchantmentsProvider>
+            </ConfiguratorProvider>
         </TranslateProvider>
     );
 }

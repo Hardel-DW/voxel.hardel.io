@@ -1,3 +1,4 @@
+import type { Identifier } from "@/lib/minecraft/core/Identifier.ts";
 import type { RegistryElement } from "@/lib/minecraft/mcschema.ts";
 import type { Enchantment } from "@/lib/minecraft/schema/enchantment/Enchantment.ts";
 import { voxelDatapacks } from "@/lib/minecraft/voxel/VoxelDatapack.ts";
@@ -32,6 +33,12 @@ export async function parseZip(file: File): Promise<Record<string, Uint8Array>> 
         reader.onerror = reject;
         reader.readAsArrayBuffer(file);
     });
+}
+
+export function readDatapackFile<T>(datapack: Record<string, Uint8Array>, identifier: Identifier): T | undefined {
+    const file = `${identifier.filePath()}.json`;
+    if (!(file in datapack)) return undefined;
+    return JSON.parse(new TextDecoder().decode(datapack[file]));
 }
 
 export async function compileDataPack(

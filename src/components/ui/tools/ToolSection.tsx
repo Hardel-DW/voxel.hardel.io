@@ -1,6 +1,6 @@
 import { useTranslate } from "@/components/TranslateContext.tsx";
-import { useEnchantments } from "@/components/pages/tools/enchant/EnchantmentsContext.tsx";
-import type { ToggleSection } from "@/components/ui/tools/index.ts";
+import { useConfigurator } from "@/components/pages/tools/ConfiguratorContext.tsx";
+import type { ToggleSection } from "@/lib/minecraft/voxel";
 import { cn } from "@/lib/utils.ts";
 import type React from "react";
 
@@ -12,7 +12,7 @@ interface Props {
 }
 
 export default function ToolSection({ title, children, toggle, id }: Props) {
-    const { toggleSection, setToggleSection } = useEnchantments();
+    const { toggleSection, setToggleSection } = useConfigurator();
     const { translate } = useTranslate();
 
     return (

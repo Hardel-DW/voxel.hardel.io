@@ -1,20 +1,22 @@
+import type { Action } from "@/lib/minecraft/voxel/actions";
+import type { Condition } from "@/lib/minecraft/voxel/condition";
 import type { InputHTMLAttributes } from "react";
 
 interface Props extends InputHTMLAttributes<HTMLInputElement> {
-    id: string;
     label?: string;
-    onValueChange?: (value: number) => void;
+    onValueChange?: (option: number) => void;
     value?: number;
 }
 
 export type ToolRangeType = {
     type: "Range";
-    name: string;
     label: string;
     value: number;
     min: number;
     max: number;
     step: number;
+    action: Action;
+    condition: Condition[];
 };
 
 export default function ToolRange({ id, label, onValueChange, ...props }: Props) {

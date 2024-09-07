@@ -1,3 +1,4 @@
+import type { SlotRegistryType } from "@/lib/minecraft/registry/SlotRegistry.ts";
 import type { EffectComponentsRecord } from "@/lib/minecraft/schema/enchantment/EffectComponents.ts";
 
 export interface Enchantment {

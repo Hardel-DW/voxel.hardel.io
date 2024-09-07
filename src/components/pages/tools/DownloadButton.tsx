@@ -1,17 +1,15 @@
 import { useTranslate } from "@/components/TranslateContext.tsx";
-import { useEnchantments } from "@/components/pages/tools/enchant/EnchantmentsContext.tsx";
-import { compileTags } from "@/lib/minecraft/core/Tag.ts";
-import { compileDataPack } from "@/lib/minecraft/mczip.ts";
 
-export default function DownloadButton() {
-    const { files, enchantments, enchantmentTags } = useEnchantments();
+interface DownloadButtonProps {
+    handleDownload: () => Promise<Uint8Array>;
+}
+
+export default function DownloadButton({ handleDownload }: DownloadButtonProps) {
     const { translate } = useTranslate();
 
     const handleCompile = async () => {
-        const tags = compileTags(enchantmentTags);
-        const dataPack = await compileDataPack(files, [...enchantments, ...tags]);
-
-        const blob = new Blob([dataPack], { type: "application/zip" });
+        const content = await handleDownload();
+        const blob = new Blob([content], { type: "application/zip" });
         const url = URL.createObjectURL(blob);
         const a = document.createElement("a");
         a.href = url;

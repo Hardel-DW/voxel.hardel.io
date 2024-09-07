@@ -252,6 +252,7 @@
         "tools.enchantments.home": "Configure enchantments",
         "tools.enchantments.home.description": "This tool is designed to modify the enchantments of an existing pack, such as NeoEnchant+ or any other pack, with a simple and user-friendly interface that requires no development knowledge.",
         "tools.enchantments.home.small": "NeoEnchant+ is available for download on ",
+        "tools.debug.quit": "Leave debug mode",
 
         "tools.enchantments.vanilla": "You are modifying native Minecraft content, The modifications will replace the default values. The last three sections are temporarily disabled. They will be supported soon.",
         "tools.enchantments.warning.no_file": "No file found",
@@ -259,6 +260,7 @@
         "tools.enchantments.warning.mods": "Mods are not allowed, please drop a data pack",
         "tools.enchantments.warning.invalid_file": "Invalid file, please drop a .zip file",
         "tools.enchantments.warning.no_enchantments": "No enchantments found",
+        "tools.enchantments.warning.component": "An error occurred while loading the component",
 
         "tools.enchantments.sidebar.title": "Enchantments",
         "tools.enchantments.section.global": "Global Settings",
@@ -364,8 +366,10 @@
         "tools.enchantments.section.technical.components.preventInfestedBlockSpawning.title": "Prevent infested block spawning",
         "tools.enchantments.section.technical.components.preventInfestedBlockSpawning.description": "Used to prevent silverfish from spawning when breaking infested blocks.",
 
-        "tools.enchantments.section.technical.components.treasure.reason": "Enabled by \"Treasure\" in technical settings",
-        "tools.enchantments.section.technical.components.nonTreasure.reason": "Enabled by \"Non-treasure\" in technical settings",
+        "tools.enchantments.section.effects.components.title": "Enchantment effects",
+        "tools.enchantments.section.effects.components.empty": "This enchantment has no effects.",
+
+        "tools.enchantments.section.technical.components.reason": "Enabled by %s in technical settings",
 
         "tools.effects.minecraft:ammo_use": "Amount of ammunition used when firing a bow or crossbow.",
         "tools.effects.minecraft:armor_effectiveness": "Effectiveness of the target's armor during an attack. 0 means completely ineffective; 1 means fully effective.",

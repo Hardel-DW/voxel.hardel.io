@@ -248,12 +248,15 @@
         "tools.upload.start": "Cliquer pour commencer",
         "tools.upload.drop": "Ou dépose ton fichier ici",
         "tools.upload.description": "Déposez vos data packs en .zip ici pour commencer à les configurer.",
+        "tools.debug.quit": "Quitter le mode débogage",
 
         "tools.enchantments.warning.no_file": "Aucun fichier trouvé",
         "tools.enchantments.warning.multiple_files": "Merci, de ne déposer qu'un seul fichier à la fois",
         "tools.enchantments.warning.mods": "Les mods ne sont pas autorisés, veuillez déposer un data pack",
         "tools.enchantments.warning.invalid_file": "Fichier invalide, veuillez déposer un fichier .zip",
         "tools.enchantments.warning.no_enchantments": "Aucun enchantement trouvé",
+        "tools.enchantments.warning.component": "Une erreur s'est produite lors de l'affichage des composants.",
+
         "tools.enchantments.vanilla": "Vous êtes en train de modifier un contenu natif de Minecraft, Les modifications remplaceront les valeurs par défaut. Les trois dernières sections sont temporairement désactivées. Elles seront bientôt prise en charge.",
 
         "tools.enchantments.home": "Configurer les enchantements",
@@ -363,9 +366,10 @@
         "tools.enchantments.section.technical.components.preventsIceMelting.description": "Utilisé pour empêcher la glace de se transformer en eau au lieu de tomber lorsqu'elle est cassée.",
         "tools.enchantments.section.technical.components.preventInfestedBlockSpawning.title": "Empêcher l'apparition de blocs infestés",
         "tools.enchantments.section.technical.components.preventInfestedBlockSpawning.description": "Utilisé pour empêcher les poissons d'argent de spawner lors de la casse de blocs infestés.",
+        "tools.enchantments.section.technical.components.reason": "Activé par %s dans les paramètres techniques",
 
-        "tools.enchantments.section.technical.components.treasure.reason": "Activé par \"Trésor\" dans les paramètres techniques",
-        "tools.enchantments.section.technical.components.nonTreasure.reason": "Activé par \"Non trésor\" dans les paramètres techniques",
+        "tools.enchantments.section.effects.components.title": "Effets de l'enchantement",
+        "tools.enchantments.section.effects.components.empty": "Cette enchantement n'a pas d'effet.",
 
         "tools.effects.minecraft:ammo_use": "Quantité de munitions utilisées lors du tir avec un arc ou une arbalète.",
         "tools.effects.minecraft:armor_effectiveness": "Efficacité de l'armure de la cible lors d'une attaque. 0 signifie complètement inefficace ; 1 signifie pleinement efficace.",

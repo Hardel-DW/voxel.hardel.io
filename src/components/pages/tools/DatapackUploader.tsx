@@ -1,14 +1,12 @@
 import { useTranslate } from "@/components/TranslateContext.tsx";
-import { useEnchantments } from "@/components/pages/tools/enchant/EnchantmentsContext.tsx";
+import { useConfigurator } from "@/components/pages/tools/ConfiguratorContext.tsx";
 import Dropzone from "@/components/ui/dropzone";
-import { getTagsLinkedToEnchantmentRegistry } from "@/lib/minecraft/core/Tag.ts";
-import { getRegistry } from "@/lib/minecraft/mcschema";
-import { parseZip } from "@/lib/minecraft/mczip";
-import type { Enchantment } from "@/lib/minecraft/schema/enchantment/Enchantment.ts";
 import { toast } from "sonner";
 
-export default function FileUploader() {
-    const { setEnchantments, setEnchantmentTags, setCurrentEnchantmentData, setFiles, enchantments } = useEnchantments();
+export default function FileUploader<T>(props: {
+    handleParse: (file: FileList) => Promise<boolean>;
+}) {
+    const context = useConfigurator<T>();
     const { translate } = useTranslate();
 
     const handleFileUpload = async (file: FileList) => {
@@ -40,30 +38,16 @@ export default function FileUploader() {
             return;
         }
 
-        const files = await parseZip(file[0]);
-        const enchantments = getRegistry<Enchantment>(files, "enchantment");
-        const enchantmentTags = getRegistry<TagType>(files, "tags/enchantment");
-        const tags = getTagsLinkedToEnchantmentRegistry(enchantments, enchantmentTags);
-
-        setFiles(files);
-        setEnchantments(enchantments);
-        setEnchantmentTags(tags);
-
-        if (enchantments.length === 0) {
+        const isOk = await props.handleParse(file);
+        if (!isOk) {
             toast.error(translate["generic.error"], {
-                description: translate["tools.enchantments.warning.no_enchantments"]
+                description: translate["tools.enchantments.warning.invalid_file"]
             });
             return;
         }
-
-        // Set the first enchantment as the current enchantment
-        const orderListByAlphabet = enchantments.sort((a, b) =>
-            (a.identifier.getResource().split("/").pop() ?? "").localeCompare(b.identifier.getResource().split("/").pop() ?? "")
-        );
-        setCurrentEnchantmentData(orderListByAlphabet[0].identifier, orderListByAlphabet[0].data);
     };
 
-    if (enchantments.length > 0) return null;
+    if (context.elements.length > 0) return null;
 
     return (
         <>

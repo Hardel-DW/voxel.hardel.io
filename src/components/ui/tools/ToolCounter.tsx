@@ -1,4 +1,6 @@
 import Counter from "@/components/ui/Counter.tsx";
+import type { Action } from "@/lib/minecraft/voxel/actions";
+import type { Condition } from "@/lib/minecraft/voxel/condition";
 
 interface Props {
     title: string;
@@ -8,12 +10,11 @@ interface Props {
     max: number;
     step: number;
     description?: string;
-    onChange?: (option: number) => void;
+    onChange?: (value: number) => void;
 }
 
 export type ToolCounterType = {
     type: "Counter";
-    name: string;
     title: string;
     description: string;
     image: string;
@@ -21,6 +22,8 @@ export type ToolCounterType = {
     min: number;
     max: number;
     step: number;
+    action: Action;
+    condition: Condition[];
 };
 
 export default function ToolCounter(props: Props) {

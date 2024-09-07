@@ -1,3 +1,12 @@
+import type { RegistryElement } from "@/lib/minecraft/mcschema.ts";
+import { registries } from "@/lib/minecraft/registry/Registry.ts";
+import { quoteString } from "@/lib/utils.ts";
+
+export type IdentifierOneToMany = {
+    primary: Identifier;
+    related: Identifier[];
+};
+
 export class Identifier {
     private readonly namespace: string;
     private readonly registry: string;
@@ -9,9 +18,31 @@ export class Identifier {
         this.resource = path;
     }
 
-    public static fromString(value: string, registry: string): Identifier {
-        const [namespace, resource] = value.split(":");
-        return new Identifier(namespace, registry, resource);
+    public static fromString(value: string | OptionalTag, registry?: string): Identifier {
+        const parsedValue = Identifier.getValue(value);
+        const [namespace, resource] = (parsedValue.startsWith("#") ? parsedValue.slice(1) : parsedValue).split(":");
+        if (registry) {
+            return new Identifier(namespace, registry, resource);
+        }
+
+        for (const registry of registries) {
+            if (resource.startsWith(registry)) {
+                const newResource = resource.slice(registry.length + 1);
+                return new Identifier(namespace, registry, newResource);
+            }
+        }
+
+        throw new Error(`Could not find registry for ${value}`);
+    }
+
+    public static getValue(tag: string | OptionalTag): string {
+        return typeof tag === "string" ? tag : tag.id;
+    }
+
+    public static sortRegistry<T>(elements: RegistryElement<T>[]) {
+        return elements.sort((a, b) =>
+            (a.identifier.getResource().split("/").pop() ?? "").localeCompare(b.identifier.getResource().split("/").pop() ?? "")
+        );
     }
 
     public getResource(): string {
@@ -40,5 +71,26 @@ export class Identifier {
 
     public render(): string {
         return (this.resource.split("/")?.pop() ?? this.resource).replace(/_/g, " ").replace(/\b\w/g, (l) => l.toUpperCase());
+    }
+
+    public renderNamespace(): string {
+        return this.namespace.replace(/_/g, " ").replace(/\b\w/g, (l) => l.toUpperCase());
+    }
+
+    public renderResourceName(): string {
+        return quoteString(
+            this.resource
+                .split("/")
+                .reduce((_, current) => current)
+                .replace(/_/g, " ")
+                .replace(/\b\w/g, (l) => l.toUpperCase())
+        );
+    }
+
+    public renderResource(): string {
+        return this.resource
+            .replace(/\//g, " - ")
+            .replace(/_/g, " ")
+            .replace(/\b\w/g, (l) => l.toUpperCase());
     }
 }

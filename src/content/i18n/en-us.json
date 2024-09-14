@@ -256,6 +256,15 @@
         "tools.enchantments.home.small": "NeoEnchant+ is available for download on ",
         "tools.debug.quit": "Leave debug mode",
 
+        "tools.supports.title": "Supports Voxel",
+        "tools.supports.description": "These tools are free. I have tons of ideas for the Minecraft community but I lack funding to do advanced things. If you like what I do, become a Patreon and you will even get exclusive benefits.",
+        "tools.supports.advantages": "Patron Advantages",
+        "tools.supports.advantages.early_access": "Early access to Voxel updates",
+        "tools.supports.advantages.submit_ideas": "Submit ideas",
+        "tools.supports.advantages.discord_role": "Exclusive role and channel on Discord",
+        "tools.supports.advantages.live_voxel": "Make Voxel live",
+        "tools.supports.become": "Become a Patreon",
+
         "tools.enchantments.vanilla": "You are modifying native Minecraft content, The modifications will replace the default values. The last three sections are temporarily disabled. They will be supported soon.",
         "tools.enchantments.warning.no_file": "No file found",
         "tools.enchantments.warning.multiple_files": "Please only drop one file at a time",
@@ -270,6 +279,7 @@
         "tools.enchantments.section.slot": "Slots",
         "tools.enchantments.section.supported": "Supported Items",
         "tools.enchantments.section.find": "Where to Find",
+        "tools.enchantments.section.costs": "Enchantment Costs",
         "tools.enchantments.section.effects": "Effects",
         "tools.enchantments.section.addons": "Addons",
         "tools.enchantments.section.technical": "Technical Settings",

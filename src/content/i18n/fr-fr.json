@@ -252,6 +252,15 @@
         "tools.upload.description": "Déposez vos data packs en .zip ici pour commencer à les configurer.",
         "tools.debug.quit": "Quitter le mode débogage",
 
+        "tools.supports.title": "Supporte Voxel",
+        "tools.supports.description": "Ces outils sont gratuit. J'ai des tonnes d'idées pour la communauté Minecraft mais je manque de financement pour faire des choses avancés. Si tu aimes ce que je fais, deviens Patreon t'auras même droit a des avantages exclusifs.",
+        "tools.supports.advantages": "Avantages Patreon",
+        "tools.supports.advantages.early_access": "Accès anticipé aux mises à jour de Voxel",
+        "tools.supports.advantages.submit_ideas": "Soumettre des idées",
+        "tools.supports.advantages.discord_role": "Rôle et salon exclusif sur Discord",
+        "tools.supports.advantages.live_voxel": "Faire vivre Voxel",
+        "tools.supports.become": "Deviens Patreon",
+
         "tools.enchantments.warning.no_file": "Aucun fichier trouvé",
         "tools.enchantments.warning.multiple_files": "Merci, de ne déposer qu'un seul fichier à la fois",
         "tools.enchantments.warning.mods": "Les mods ne sont pas autorisés, veuillez déposer un data pack",
@@ -271,6 +280,7 @@
         "tools.enchantments.section.slot": "Emplacements",
         "tools.enchantments.section.supported": "Objets supportés",
         "tools.enchantments.section.find": "Où les trouver",
+        "tools.enchantments.section.costs": "Les coûts de l'enchantement",
         "tools.enchantments.section.effects": "Effets",
         "tools.enchantments.section.addons": "Addons",
         "tools.enchantments.section.technical": "Paramètres techniques",

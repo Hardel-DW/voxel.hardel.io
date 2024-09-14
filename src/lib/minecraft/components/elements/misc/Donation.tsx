@@ -1,3 +1,4 @@
+import { useTranslate } from "@/components/TranslateContext.tsx";
 import TriangleWave from "@/components/ui/pattern/TriangleWave.tsx";
 
 export type ToolDonationType = {
@@ -14,6 +15,8 @@ export default function Donation(props: {
     description: string;
     image: string;
 }) {
+    const { translate } = useTranslate();
+
     return (
         <div className="w-full h-96 rounded-2xl border-zinc-900 border relative overflow-hidden">
             <div className="opacity-10">
@@ -25,31 +28,28 @@ export default function Donation(props: {
 
             <div className="flex flex-col justify-between h-full p-8">
                 <div>
-                    <h1 className="text-white text-4xl tracking-wide font-semibold">Soutenez Voxel</h1>
-                    <p className="text-zinc-400 pt-2 w-3/4">
-                        Ces outils sont gratuit. J'ai des tonnes d'idées pour la communauté Minecraft mais je manque de financement pour
-                        faire des choses avancés. Si tu aimes ce que je fais, deviens Patreon t'auras même droit a des avantages exclusifs.
-                    </p>
+                    <h1 className="text-white text-4xl tracking-wide font-semibold">{translate["tools.supports.title"]}</h1>
+                    <p className="text-zinc-400 pt-2 w-3/4">{translate["tools.supports.description"]}</p>
                 </div>
                 <div className="flex justify-between gap-4">
                     <div>
-                        <h3 className="text-white font-bold text-xl pb-4">Avantages Patron</h3>
+                        <h3 className="text-white font-bold text-xl pb-4">{translate["tools.supports.advantages"]}</h3>
                         <ul className="*:flex *:items-center *:gap-2 space-y-2">
                             <li>
                                 <img src="/icons/check.svg" alt="check" className="w-4 h-4 invert" />
-                                <span className="text-zinc-300 font-semibold">Accès anticipé au mise a jour Voxel</span>
+                                <span className="text-zinc-300 font-semibold">{translate["tools.supports.advantages.early_access"]}</span>
                             </li>
                             <li>
                                 <img src="/icons/check.svg" alt="check" className="w-4 h-4 invert" />
-                                <span className="text-zinc-300 font-semibold">Soumettre des idées</span>
+                                <span className="text-zinc-300 font-semibold">{translate["tools.supports.advantages.submit_ideas"]}</span>
                             </li>
                             <li>
                                 <img src="/icons/check.svg" alt="check" className="w-4 h-4 invert" />
-                                <span className="text-zinc-300 font-semibold">Role et Salon exclusif sur Discord</span>
+                                <span className="text-zinc-300 font-semibold">{translate["tools.supports.advantages.discord_role"]}</span>
                             </li>
                             <li>
                                 <img src="/icons/check.svg" alt="check" className="w-4 h-4 invert" />
-                                <span className="text-zinc-300 font-semibold">Faire vivre Voxel</span>
+                                <span className="text-zinc-300 font-semibold">{translate["tools.supports.advantages.live_voxel"]}</span>
                             </li>
                         </ul>
                     </div>
@@ -60,7 +60,7 @@ export default function Donation(props: {
                         rel="noreferrer"
                     >
                         <img src="/icons/company/patreon.svg" alt="Patreon" className="w-4 h-4" />
-                        Become a Patreon
+                        {translate["tools.supports.become"]}
                     </a>
                 </div>
             </div>

@@ -1278,7 +1278,7 @@ export const ENCHANT_TOOL_CONFIG: ToolConfiguration = {
                 },
                 {
                     type: "Section",
-                    title: "tools.enchantments.section.find",
+                    title: "tools.enchantments.section.costs",
                     id: "costs",
                     children: [
                         {

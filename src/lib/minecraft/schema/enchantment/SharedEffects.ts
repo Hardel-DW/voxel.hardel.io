@@ -1,5 +1,3 @@
-import type { DamageType } from "@/lib/minecraft/registry/DamagaTypeRegistry.ts";
-
 type ApplyMobEffect = {
     type: "minecraft:apply_mob_effect";
     to_apply: string[];
@@ -11,7 +9,7 @@ type ApplyMobEffect = {
 
 type DamageEntity = {
     type: "minecraft:damage_entity";
-    damage_type: DamageType;
+    damage_type: string;
     min_damage: LevelBasedValue;
     max_damage: LevelBasedValue;
 };
@@ -23,12 +21,12 @@ type DamageItem = {
 
 type Explode = {
     type: "minecraft:explode";
-    damage_type?: DamageType;
+    damage_type?: string;
     radius: LevelBasedValue;
     offset: [number, number, number];
     block_interaction: "none" | "block" | "tnt" | "trigger" | "mob";
-    small_particle: ParticleRegistry;
-    large_particle: ParticleRegistry;
+    small_particle: string;
+    large_particle: string;
     sound: SoundValue;
     immune_blocks?: SingleOrMultiple<string>;
     knockback_multiplier?: LevelBasedValue;
@@ -53,7 +51,7 @@ type ReplaceBlock = {
     block_state: any;
     predicate?: any;
     offset?: [number, number, number];
-    trigger_game_event?: GameEvent;
+    trigger_game_event?: string;
 };
 
 type ReplaceDisk = {
@@ -63,7 +61,7 @@ type ReplaceDisk = {
     radius: LevelBasedValue;
     height: LevelBasedValue;
     offset?: [number, number, number];
-    trigger_game_event?: GameEvent;
+    trigger_game_event?: string;
 };
 
 type RunFunction = {
@@ -75,12 +73,12 @@ type SetBlockProperties = {
     type: "minecraft:set_block_properties";
     properties: Record<string, string>;
     offset?: [number, number, number];
-    trigger_game_event?: GameEvent;
+    trigger_game_event?: string;
 };
 
 type SpawnParticles = {
     type: "minecraft:spawn_particles";
-    particle: ParticleRegistry;
+    particle: string;
     horizontal_position: ParticlePositionSource;
     vertical_position: ParticlePositionSource;
     horizontal_velocity: ParticleVelocitySource;

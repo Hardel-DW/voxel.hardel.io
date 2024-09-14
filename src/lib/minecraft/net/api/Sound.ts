@@ -1,4 +1,4 @@
-import type { CategorySound } from "@/components/ui/tools/schema/song/ToolSound.tsx";
+import type { CategorySound } from "@/lib/minecraft/components/elements/schema/song/ToolSound.tsx";
 import { capitalize } from "@/lib/utils.ts";
 
 const owner = "misode";
@@ -55,7 +55,6 @@ export async function getCategory(): Promise<CategorySound[]> {
         }
 
         const data: Array<any> = await response.json();
-        console.log(data);
         const result: Array<CategorySound> = [];
 
         for (const element of data) {

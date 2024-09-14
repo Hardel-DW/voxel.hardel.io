@@ -1,3 +1,4 @@
+import type { AttributeEffectFields } from "@/lib/minecraft/schema/enchantment/AttributeEffectFields.ts";
 import type { EnchantmentEntityEffect } from "@/lib/minecraft/schema/enchantment/EnchantmentEntityEffect.ts";
 import type { EnchantmentLocationEffect } from "@/lib/minecraft/schema/enchantment/EnchantmentLocationEffect.ts";
 import type { TargetedConditionalEffect } from "@/lib/minecraft/schema/enchantment/TargetedConditionalEffect.ts";
@@ -42,9 +43,9 @@ export interface EffectComponents {
 export type AttributeEffect = {
     type: "minecraft:attribute";
     id: string;
-    attribute: AttributeType;
+    attribute: string;
     amount: LevelBasedValue;
-    operation: AttributeOperationRegistry;
+    operation: string;
 };
 
 export type AllOfEffect = {

@@ -33,7 +33,6 @@ export const premium: { [p: string]: CSSProperties } = {
         wordWrap: "normal",
         lineHeight: "1.5",
         MozTabSize: "4",
-        OTabSize: "4",
         tabSize: "4",
         WebkitHyphens: "none",
         MozHyphens: "none",

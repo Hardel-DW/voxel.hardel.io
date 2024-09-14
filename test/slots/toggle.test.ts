@@ -1,44 +1,64 @@
-import { toggleSlot } from "@/lib/minecraft/registry/SlotRegistry.ts";
+import { toggleSlot } from "@/lib/minecraft/core/SlotManager.ts";
 import { describe, expect, test } from "vitest";
 
-describe("Add Slot with key", () => {
-    test("Should remove the key, if it found", () => {
-        expect(toggleSlot(["mainhand"], "mainhand")).toEqual([]);
+describe("Toggle Slot with key", () => {
+    test("Should remove the key, if it is found", () => {
+        const result = toggleSlot(["mainhand"], "mainhand");
+        expect(result).toEqual([]);
+        expect(result.length).toBe(0);
     });
 
-    test("Should remove the key, if it found in group and in consequence destructing the group", () => {
-        expect(toggleSlot(["hand"], "mainhand")).toEqual(["offhand"]);
+    test("Should remove the key, if it is found in group and consequently destructuring the group", () => {
+        const result = toggleSlot(["hand"], "mainhand");
+        expect(result).toEqual(["offhand"]);
+        expect(result.length).toBe(1);
     });
 
-    test("Should add the key, if it not found", () => {
-        expect(toggleSlot([], "mainhand")).toEqual(["mainhand"]);
-    });
-
-    test("Should add the key, and group if all keys are present", () => {
-        expect(toggleSlot(["mainhand"], "offhand")).toEqual(["hand"]);
-    });
-
-    test("Should add the key, and group if all keys are present", () => {
-        expect(toggleSlot(["head", "chest", "legs"], "feet")).toEqual(["armor"]);
-    });
-
-    test("Should add the key, and group if all keys are present", () => {
-        expect(toggleSlot(["hand", "head", "chest", "legs"], "feet")).toContain("any");
+    test("Should add the key, if it is not found", () => {
+        const result = toggleSlot([], "mainhand");
+        expect(result).toEqual(["mainhand"]);
+        expect(result.length).toBe(1);
     });
 
     test("Should add the key, and group if all keys are present", () => {
-        expect(toggleSlot(["offhand", "head", "chest", "legs", "feet"], "mainhand")).toContain("any");
+        const result = toggleSlot(["mainhand"], "offhand");
+        expect(result).toEqual(["hand"]);
+        expect(result.length).toBe(1);
     });
 
-    test("Should remove the key, if it found in group and in consequence destructing the group", () => {
-        expect(toggleSlot(["any"], "mainhand")).toEqual(expect.arrayContaining(["offhand", "armor"]));
+    test("Should add the key, and group if all keys are present", () => {
+        const result = toggleSlot(["head", "chest", "legs"], "feet");
+        expect(result).toEqual(["armor"]);
+        expect(result.length).toBe(1);
     });
 
-    test("Should remove the key, if it found in group and in consequence destructing the group", () => {
-        expect(toggleSlot(["any"], "feet")).toEqual(expect.arrayContaining(["hand", "head", "chest", "legs"]));
+    test("Should add the key, and group if all keys are present", () => {
+        const result = toggleSlot(["hand", "head", "chest", "legs"], "feet");
+        expect(result).toContain("any");
+        expect(result.length).toBeGreaterThanOrEqual(1);
     });
 
-    test("Should remove the key, if it found", () => {
-        expect(toggleSlot(["mainhand", "feet", "head"], "feet")).toEqual(expect.arrayContaining(["mainhand", "head"]));
+    test("Should add the key, and group if all keys are present", () => {
+        const result = toggleSlot(["offhand", "head", "chest", "legs", "feet"], "mainhand");
+        expect(result).toContain("any");
+        expect(result.length).toBeGreaterThanOrEqual(1);
+    });
+
+    test("Should remove the key, if it is found in group and consequently destructuring the group", () => {
+        const result = toggleSlot(["any"], "mainhand");
+        expect(result).toEqual(expect.arrayContaining(["offhand", "armor"]));
+        expect(result.length).toBeGreaterThanOrEqual(2);
+    });
+
+    test("Should remove the key, if it is found in group and consequently destructuring the group", () => {
+        const result = toggleSlot(["any"], "feet");
+        expect(result).toEqual(expect.arrayContaining(["hand", "head", "chest", "legs"]));
+        expect(result.length).toBe(4);
+    });
+
+    test("Should remove the key, if it is found", () => {
+        const result = toggleSlot(["mainhand", "feet", "head"], "feet");
+        expect(result).toEqual(expect.arrayContaining(["mainhand", "head"]));
+        expect(result.length).toBe(2);
     });
 });

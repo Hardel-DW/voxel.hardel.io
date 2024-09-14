@@ -1,4 +1,5 @@
 import { cn } from "@/lib/utils.ts";
+import type React from "react";
 import { useState } from "react";
 
 interface Props {

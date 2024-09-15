@@ -1,4 +1,5 @@
 import { useTranslate } from "@/components/TranslateContext.tsx";
+import Button from "@/components/ui/react/Button.tsx";
 import type { FormComponent } from "@/lib/minecraft/core/engine";
 import { cn } from "@/lib/utils.ts";
 import { toast } from "sonner";
@@ -45,19 +46,17 @@ export default function ToolRevealElement(props: {
             className={"transition-all stack group cursor-pointer rounded-2xl border border-zinc-800"}
         >
             <div className="relative z-50 self-start justify-self-end p-4">
-                <a
-                    href="https://www.google.com"
+                <Button
+                    variant="white-shimmer"
+                    href={props.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={cn(
-                        "items-center justify-center whitespace-nowrap cursor-pointer truncate text-sm font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 animate-shimmer transition bg-white hover:bg-zinc-300 text-black border-0 h-10 px-4 py-2 rounded-xl ring-0 shadow-2xl shadow-black",
-                        {
-                            "bg-zinc-700 text-white": props.soon
-                        }
-                    )}
+                    className={cn({
+                        "opacity-50 hover:opacity-50": props.soon
+                    })}
                 >
                     {props.soon ? translate["generic.soon"] : translate["generic.more"]}
-                </a>
+                </Button>
             </div>
             <div className="shadow-bottom rounded-2xl relative z-10" />
             <div

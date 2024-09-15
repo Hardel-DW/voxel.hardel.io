@@ -252,6 +252,13 @@
         "tools.upload.description": "Déposez vos data packs en .zip ici pour commencer à les configurer.",
         "tools.debug.quit": "Quitter le mode débogage",
 
+        "dialog.success.title": "Succès",
+        "dialog.success.description": "Le datapack a été modifié avec succès. Il doit apparaître dans votre dossier de téléchargement sous le nom \"Modified-{context.name}\".",
+        "dialog.success.additional_info_title": "Informations supplémentaires",
+        "dialog.success.additional_info": "Si vous avez désactivé des enchantments, ils sont en réalité toujours présents dans le datapack, mais leurs fonctionnalités sont désactivées et ils ne peuvent plus être obtenus.",
+        "dialog.footer.donate": "Faire une donation",
+        "tooltip.safe_delete": "C'est une suppression \"sécurisée\". Cela ne supprime pas l'enchantement, mais il ne peut plus être obtenu et n'a aucun effet.",
+
         "tools.supports.title": "Supporte Voxel",
         "tools.supports.description": "Ces outils sont gratuit. J'ai des tonnes d'idées pour la communauté Minecraft mais je manque de financement pour faire des choses avancés. Si tu aimes ce que je fais, deviens Patreon t'auras même droit a des avantages exclusifs.",
         "tools.supports.advantages": "Avantages Patreon",

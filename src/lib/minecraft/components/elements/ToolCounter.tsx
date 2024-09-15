@@ -1,4 +1,4 @@
-import Counter from "@/components/ui/Counter.tsx";
+import Counter from "@/components/ui/react/Counter.tsx";
 import type { ValueParams } from "@/lib/minecraft/core/engine/value";
 import type { Action } from "src/lib/minecraft/core/engine/actions";
 

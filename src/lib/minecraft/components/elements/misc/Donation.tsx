@@ -1,5 +1,6 @@
 import { useTranslate } from "@/components/TranslateContext.tsx";
 import TriangleWave from "@/components/ui/pattern/TriangleWave.tsx";
+import Button from "@/components/ui/react/Button.tsx";
 
 export type ToolDonationType = {
     type: "Donation";
@@ -53,15 +54,10 @@ export default function Donation(props: {
                             </li>
                         </ul>
                     </div>
-                    <a
-                        className="animate-shimmer bg-[linear-gradient(110deg,#c2410c,45%,#e06040,55%,#c2410c)] bg-[length:200%_100%] hover:scale-95 transition text-white flex items-center gap-4 px-8 py-2 h-fit place-self-end rounded-xl relative z-10"
-                        href={props.link}
-                        target="_blank"
-                        rel="noreferrer"
-                    >
+                    <Button className="relative z-10 px-8" variant="patreon-shimmer" href={props.link} target="_blank" rel="noreferrer">
                         <img src="/icons/company/patreon.svg" alt="Patreon" className="w-4 h-4" />
                         {translate["tools.supports.become"]}
-                    </a>
+                    </Button>
                 </div>
             </div>
         </div>

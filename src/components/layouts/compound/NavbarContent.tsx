@@ -7,7 +7,7 @@ import {
     NavigationMenuLink,
     NavigationMenuList,
     NavigationMenuTrigger
-} from "@/components/ui/navigation.tsx";
+} from "@/components/ui/shadcn/navigation.tsx";
 import { getTranslations } from "@/lib/i18n";
 import { useEffect, useState } from "react";
 

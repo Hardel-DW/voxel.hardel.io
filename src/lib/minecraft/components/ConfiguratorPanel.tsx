@@ -1,5 +1,5 @@
 import { useTranslate } from "@/components/TranslateContext.tsx";
-import { TabsList, TabsTrigger } from "@/components/ui/tabs.tsx";
+import { TabsList, TabsTrigger } from "@/components/ui/shadcn/tabs.tsx";
 import { useConfigurator } from "@/lib/minecraft/components/ConfiguratorContext.tsx";
 import { RenderComponent } from "@/lib/minecraft/components/RenderComponent.tsx";
 import type { Analysers, GetAnalyserVoxel } from "@/lib/minecraft/core/engine/Analyser.ts";

@@ -1,5 +1,5 @@
 import { useTranslate } from "@/components/TranslateContext.tsx";
-import Dropzone from "@/components/ui/dropzone.tsx";
+import Dropzone from "@/components/ui/react/Dropzone.tsx";
 import { useConfigurator } from "@/lib/minecraft/components/ConfiguratorContext.tsx";
 import type { Analysers, GetAnalyserVoxel } from "@/lib/minecraft/core/engine/Analyser.ts";
 import { parseDatapack } from "@/lib/minecraft/core/engine/Parser.ts";

@@ -1,3 +1,5 @@
+import { useTranslate } from "@/components/TranslateContext.tsx";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/shadcn/tooltip.tsx";
 import { useConfigurator } from "@/lib/minecraft/components/ConfiguratorContext.tsx";
 import TextComponent from "@/lib/minecraft/components/elements/schema/TextComponent.tsx";
 import type { Analysers, GetAnalyserVoxel } from "@/lib/minecraft/core/engine/Analyser.ts";
@@ -12,6 +14,7 @@ export function SidebarItem<T extends keyof Analysers>(props: {
     element: RegistryElement<GetAnalyserVoxel<T>>;
 }) {
     const context = useConfigurator<GetAnalyserVoxel<T>>();
+    const { translate } = useTranslate();
     const switchRef = useRef<HTMLDivElement>(null);
     const sidebar = context.configuration?.sidebar;
     if (!sidebar) return null;
@@ -42,9 +45,16 @@ export function SidebarItem<T extends keyof Analysers>(props: {
             <div className="flex items-center justify-between" onClick={handleClick} onKeyDown={handleClick}>
                 <TextComponent data={descriptionValue as TextComponentType} />
                 <div className="flex items-center gap-8" ref={switchRef}>
-                    <label className="flex items-center justify-between gap-4">
-                        <input type="checkbox" name="enable" checked={!check} onChange={handleSoftDelete} />
-                    </label>
+                    <Tooltip>
+                        <TooltipTrigger asChild>
+                            <label className="flex items-center justify-between gap-4">
+                                <input type="checkbox" name="enable" checked={!check} onChange={handleSoftDelete} />
+                            </label>
+                        </TooltipTrigger>
+                        <TooltipContent align="end" className="w-64">
+                            <p>{translate["tooltip.safe_delete"]}</p>
+                        </TooltipContent>
+                    </Tooltip>
                 </div>
             </div>
         </div>

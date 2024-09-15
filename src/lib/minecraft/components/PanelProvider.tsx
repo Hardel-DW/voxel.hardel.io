@@ -2,10 +2,11 @@ import { TranslateProvider } from "@/components/TranslateContext.tsx";
 import { getTranslations } from "@/lib/i18n.ts";
 import { ConfiguratorProvider } from "@/lib/minecraft/components/ConfiguratorContext.tsx";
 import type { ToolConfiguration } from "@/lib/minecraft/core/engine";
+import { TooltipProvider } from "@radix-ui/react-tooltip";
 import React, { useEffect } from "react";
 import { Toaster } from "sonner";
 
-export default function ToolProvider(props: {
+export default function PanelProvider(props: {
     url: URL;
     lang: string;
     config: ToolConfiguration;
@@ -24,9 +25,11 @@ export default function ToolProvider(props: {
     return (
         <TranslateProvider translate={translate} lang={props.lang}>
             <ConfiguratorProvider config={props.config} initialToggleSection={props.initialToggleSection}>
-                <div id="portal" />
-                {props.children}
-                <Toaster richColors />
+                <TooltipProvider>
+                    <div id="portal" />
+                    {props.children}
+                    <Toaster richColors />
+                </TooltipProvider>
             </ConfiguratorProvider>
         </TranslateProvider>
     );

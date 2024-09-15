@@ -128,13 +128,6 @@ export function RenderComponent<T extends keyof Analysers>({ component }: Render
         }
         case "Effect": {
             const result = getValue<T, EffectComponentsRecord>(context, component.value, context.currentElement);
-            if (!result) {
-                toast.error(translate["generic.error"], {
-                    description: translate["tools.enchantments.warning.effect"]
-                });
-
-                return null;
-            }
 
             return (
                 <ToolEffectRecord

@@ -257,7 +257,7 @@
         "tools.debug.quit": "Leave debug mode",
 
         "dialog.success.title": "Success",
-        "dialog.success.description": "The datapack has been successfully modified. It should appear in your download folder under the name \"Modified-{context.name}\".",
+        "dialog.success.description": "The datapack has been successfully modified. It should appear in your download folder under the name.",
         "dialog.success.additional_info_title": "Additional Information",
         "dialog.success.additional_info": "If you have disabled enchantments, they are still present in the datapack, but their functionalities are disabled and they can no longer be obtained.",
         "dialog.footer.donate": "Make a donation",

@@ -253,7 +253,7 @@
         "tools.debug.quit": "Quitter le mode débogage",
 
         "dialog.success.title": "Succès",
-        "dialog.success.description": "Le datapack a été modifié avec succès. Il doit apparaître dans votre dossier de téléchargement sous le nom \"Modified-{context.name}\".",
+        "dialog.success.description": "Le datapack a été modifié avec succès. Il doit apparaître dans votre dossier de téléchargement sous le nom.",
         "dialog.success.additional_info_title": "Informations supplémentaires",
         "dialog.success.additional_info": "Si vous avez désactivé des enchantments, ils sont en réalité toujours présents dans le datapack, mais leurs fonctionnalités sont désactivées et ils ne peuvent plus être obtenus.",
         "dialog.footer.donate": "Faire une donation",

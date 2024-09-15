@@ -3,7 +3,7 @@ import { useConfigurator } from "@/lib/minecraft/components/ConfiguratorContext.
 import { ToolEffect } from "@/lib/minecraft/components/elements/schema/ToolEffect.tsx";
 import type { Analysers, GetAnalyserVoxel } from "@/lib/minecraft/core/engine/Analyser.ts";
 import { type Condition, checkCondition } from "@/lib/minecraft/core/engine/condition";
-import type { ValueParams } from "@/lib/minecraft/core/engine/value";
+import type { ReturnValue, ValueParams } from "@/lib/minecraft/core/engine/value";
 import type { EffectComponents, EffectComponentsRecord } from "@/lib/minecraft/schema/enchantment/EffectComponents.ts";
 import type { Action } from "src/lib/minecraft/core/engine/actions";
 
@@ -15,7 +15,7 @@ export type ToolEffectType = {
 };
 
 export default function ToolEffectRecord<T extends keyof Analysers>(props: {
-    value: EffectComponentsRecord;
+    value: ReturnValue<EffectComponentsRecord>;
     conditions: Condition;
     onChange: (value: string) => void;
 }) {

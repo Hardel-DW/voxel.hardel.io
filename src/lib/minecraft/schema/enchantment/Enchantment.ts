@@ -1,8 +1,9 @@
-import type { SlotRegistryType } from "@/lib/minecraft/registry/SlotRegistry.ts";
+import type { SlotRegistryType } from "@/lib/minecraft/core/SlotManager.ts";
+import type { DataDrivenElement } from "@/lib/minecraft/core/engine/Analyser.ts";
 import type { EffectComponentsRecord } from "@/lib/minecraft/schema/enchantment/EffectComponents.ts";
 
-export interface Enchantment {
-    description: TextComponent;
+export interface Enchantment extends DataDrivenElement {
+    description: TextComponentType;
     exclusive_set?: SingleOrMultiple<string>;
     supported_items: SingleOrMultiple<string>;
     primary_items?: SingleOrMultiple<string>;

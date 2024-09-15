@@ -1,6 +1,6 @@
-interface AttributeEffectFields {
+export interface AttributeEffectFields {
     id: string;
-    attribute: AttributeType;
+    attribute: string;
     amount: LevelBasedValue;
-    operation: AttributeOperationRegistry;
+    operation: string;
 }

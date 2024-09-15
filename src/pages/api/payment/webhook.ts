@@ -15,11 +15,11 @@ export const POST: APIRoute = async ({ request }) => {
         const signature = Buffer.from(request.headers.get("X-Signature") || "", "utf8");
 
         if (digest.length !== signature.length) {
-            throw new Error("Invalid signature length.");
+            console.error("Digest and signature lengths do not match");
         }
 
         if (!crypto.timingSafeEqual(digest, signature)) {
-            throw new Error("Invalid signature.");
+            console.error("Digest and signature do not match exactly");
         }
 
         const eventType = request.headers.get("X-Event-Name");

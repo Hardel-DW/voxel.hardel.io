@@ -1,19 +1,13 @@
 import { getEntry } from "astro:content";
 import { useTranslate } from "@/components/TranslateContext.tsx";
-import { useConfigurator } from "@/components/pages/tools/ConfiguratorContext.tsx";
-import FileUploader from "@/components/pages/tools/DatapackUploader.tsx";
-import { type EnchantmentProps, parseDatapack } from "@/components/pages/tools/enchant/Config.ts";
-import type React from "react";
-import { useEffect, useState } from "react";
+import { useConfigurator } from "@/lib/minecraft/components/ConfiguratorContext.tsx";
+import FileUploader from "@/lib/minecraft/components/DatapackUploader.tsx";
+import { type PropsWithChildren, useEffect, useState } from "react";
 
-export default function HelpGuide({
-    children
-}: {
-    children?: React.ReactNode;
-}) {
+export default function HelpGuide(props: PropsWithChildren) {
     const [faq, setFAQ] = useState<{ question: string; answer: string }[] | undefined>(undefined);
-    const context = useConfigurator<EnchantmentProps>();
     const { lang, translate } = useTranslate();
+    const context = useConfigurator();
 
     useEffect(() => {
         getEntry("faq", `${lang}/tool`).then((element) => {
@@ -27,7 +21,7 @@ export default function HelpGuide({
     return (
         <>
             <div className="mt-8 xl:mt-0 w-full flex justify-center">
-                <div className="mx-auto w-11/12 md:w-3/4">{children}</div>
+                <div className="mx-auto w-11/12 md:w-3/4">{props.children}</div>
             </div>
             <section
                 className="w-11/12 md:w-3/4 mx-auto flex flex-col justify-evenly xl:grid grid-cols-2 items-center relative gap-8"
@@ -56,7 +50,7 @@ export default function HelpGuide({
                     </div>
                 </div>
                 <div className="relative w-full flex justify-center items-center">
-                    <FileUploader handleParse={(file) => parseDatapack(context, file)} />
+                    <FileUploader />
                     <img className="absolute -z-10 opacity-10 drag-none" src="/icons/circle.svg" alt="box" />
                 </div>
             </section>

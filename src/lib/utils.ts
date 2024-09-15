@@ -64,7 +64,7 @@ export const capitalize = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
  * @param key
  * @param defaultValue
  */
-export function getPropertySafely<T extends Record<string, unknown>, K>(obj: T, key: keyof T, defaultValue: K): K {
+export function getPropertySafely<T extends object, K>(obj: T, key: keyof T, defaultValue: K): K {
     if (key in obj && Array.isArray(obj[key])) {
         return obj[key] as K;
     }

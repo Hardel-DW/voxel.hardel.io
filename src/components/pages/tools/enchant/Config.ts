@@ -3,7 +3,6 @@ import type { ToolConfiguration } from "@/lib/minecraft/core/engine";
 
 const dungeon: ToolRevealElementType = {
     id: "dnt",
-    soon: true,
     logo: "/images/addons/logo/dnt.webp",
     image: "/images/addons/hero/dnt.png",
     href: "https://modrinth.com/datapack/dungeons-and-taverns",

@@ -224,7 +224,7 @@ export const ENCHANT_TOOL_CONFIG: ToolConfiguration = {
                                     description: "tools.enchantments.section.global.components.maxLevel.description",
                                     image: "/icons/tools/level.svg",
                                     min: 1,
-                                    max: 10,
+                                    max: 30,
                                     step: 1,
                                     action: { type: "Dynamic", field: "maxLevel" },
                                     value: {

@@ -39,7 +39,7 @@ const { transparent = true, full = true, className }: Props = Astro.props;
 
             <!-- Desktop -->
             <div class="hidden md:block">
-                <NavBarItem url={Astro.url} lang={lang} client:idle/>
+                <NavBarItem translate={translate} lang={lang} client:idle/>
             </div>
         </div>
 

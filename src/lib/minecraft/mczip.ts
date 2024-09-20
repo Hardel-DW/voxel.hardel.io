@@ -90,8 +90,8 @@ export function readDatapackFile<T>(datapack: Record<string, Uint8Array>, identi
 export async function generateZip(files: Record<string, Uint8Array>, content: RegistryElement<VoxelElement>[]): Promise<Uint8Array> {
     const zip = new JSZip();
 
-    for (const file of Object.keys(files)) {
-        zip.file(file, files[file]);
+    for (const [path, data] of Object.entries(files)) {
+        zip.file(path, data);
     }
 
     for (const file of voxelDatapacks) {

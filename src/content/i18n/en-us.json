@@ -24,12 +24,10 @@
         "generic.datapacks": "Datapacks",
         "generic.unsupported.video": "Your browser does not support the video tag.",
         "generic.more": "More Details",
-
         "tracker.title": "Your privacy",
         "tracker.privacy": "Privacy Policy",
         "tracker.description": "This site uses tracking technologies. You may opt in or opt out of the use of these technologies,",
         "tracker.privacy.description": "This site uses tracking technologies. You may opt in or opt out of the use of these technologies, by clicking on the buttons below.",
-
         "tracker.consent_save": "Consent Save",
         "tracker.necessary.title": "Necessary Cookies",
         "tracker.necessary.description": "Necessary cookies help make a website usable by enabling basic functions like page navigation and access to secure areas of the website. The website cannot function properly without these cookies.",
@@ -37,22 +35,17 @@
         "tracker.analytics.description": "Analytical cookies help us to improve our website by collecting and reporting information on its usage.",
         "tracker.marketing.title": "Marketing Cookies",
         "tracker.marketing.description": "Marketing cookies are used to track visitors across websites. The intention is to display ads that are relevant and engaging for the individual user and thereby more valuable for publishers and third party advertisers.",
-
         "lost.title": "Are you lost?",
         "lost.description": "This page does not exist, or has been moved, contact us if you think this is an error.",
-
         "timeline.updates": "Latest updates",
         "timeline.author": "Author",
         "timeline.see_latest_updates": "See the latest updates",
-
         "blog.back": "Back to the blog",
         "blog.latest": "The latest news",
         "blog.previous": "Previous",
         "blog.next": "Next",
-
         "soon.title": "Coming soon",
         "soon.description": "This feature is under development, it will be available soon, stay tuned!",
-
         "contact.discord.name": "Discord Community",
         "contact.discord.description": "Join our Discord community to chat with us and other community members.",
         "contact.twitter.name": "Twitter",
@@ -63,7 +56,6 @@
         "contact.mail.description": "Send us an email for any request.",
         "contact.discord_mp.name": "Discord - Private Message",
         "contact.discord_mp.description": "Send me a private message on Discord",
-
         "home.main.title": "Develop the mods of your dreams",
         "home.main.description": "VOXEL, what is it? These are guides in French, from beginner to advanced level, to learn how to develop mods or enrich your existing knowledge.",
         "home.feature.title": "Made by an enthusiast for enthusiasts",
@@ -76,19 +68,16 @@
         "home.product.resource.title": "Quality Resources",
         "home.product.resource.description": "Enhance the quality of your mods by adding quality resources.",
         "home.product.soon": "A feature is under development, it will be available soon, stay tuned!",
-
         "navbar.item.home": "Home",
         "navbar.item.blog": "Blog",
         "navbar.item.data_pack": "Datapacks",
         "navbar.item.guides": "Guides",
         "navbar.item.resources": "Resources",
         "navbar.item.contact": "Contact",
-
         "navbar.home.description": "Develop the mods of your dreams",
         "navbar.home.labs": "The creator of Voxel, experimental tools for Minecraft",
         "navbar.home.changelog": "The latest news and updates from Voxel",
         "navbar.home.policy": "Legal notices, privacy policy, and terms of use",
-
         "navbar.guides.title": "Minecraft Modding - 1.20",
         "navbar.guides.description": "Learn how to make mods with Java version 1.20 under Forge or Fabric - No prior knowledge required!",
         "navbar.guides.java.title": "Java for Minecraft",
@@ -99,15 +88,12 @@
         "navbar.guides.fabric.description": "Learn how to make mods with Fabric",
         "navbar.guides.forge.title": "Forge",
         "navbar.guides.forge.description": "Learn how to make mods with Forge",
-
         "navbar.data_pack.neoenchant.title": "NeoEnchant+",
         "navbar.data_pack.neoenchant.description": "A data pack that adds 31 new original and balanced enchantments in vanilla.",
         "navbar.data_pack.modrinth.title": "Modrinth",
         "navbar.data_pack.modrinth.description": "Find all the data packs available on Modrinth",
-
         "navbar.resources.tool.enchant.title": "Enchantment Tool",
         "navbar.resources.tool.enchant.description": "Take existing data packs and modify them with a simple and user-friendly interface",
-
         "navbar.resources.code.title": "Code Example",
         "navbar.resources.code.description": "Source codes at your disposal, simple and compressible",
         "navbar.resources.textures.title": "Textures",
@@ -116,34 +102,28 @@
         "navbar.resources.model.description": "3D models to help you create content",
         "navbar.resources.sound.title": "Sounds",
         "navbar.resources.sound.description": "Royalty-free sounds to help you create content",
-
         "footer.description": "VOXEL, what is it? These are guides in French, from beginner to advanced level, to learn how to develop mods or enrich your existing knowledge.",
         "footer.copyright_left": "Copyright ©",
         "footer.copyright_right": "All rights reserved.",
-
         "footer.social.github": "Github",
         "footer.social.twitter": "Twitter",
         "footer.social.discord": "Discord",
-
         "footer.content.navigation": "Navigation",
         "footer.content.navigation.home": "Home",
         "footer.content.navigation.guides": "Guides",
         "footer.content.navigation.datapacks": "Datapacks",
         "footer.content.navigation.enchantment_tool": "Enchantments Tool",
         "footer.content.navigation.contact": "Contact",
-
         "footer.content.other": "Others",
         "footer.content.other.labs": "Hardel Labs",
         "footer.content.other.news": "News",
         "footer.content.other.faq": "FAQ",
         "footer.content.other.about": "About",
-
         "footer.content.support": "Support",
         "footer.content.support.help_center": "Help Center",
         "footer.content.support.term_of_service": "Term of Service",
         "footer.content.support.legal": "Legal",
         "footer.content.support.privacy": "Privacy Policy",
-
         "datapacks.back": "Back to data packs",
         "datapacks.wiki": "Check the wiki",
         "datapacks.modrinth.download": "Download on Modrinth",
@@ -153,7 +133,6 @@
         "datapacks.neoenchant.personalize.title": "Personalize your experience",
         "datapacks.neoenchant.personalize.description": "Discover our enchantment configurator and personalize your experience with our datapacks. Not only with NeoEnchant, but also with our other datapacks.",
         "datapacks.neoenchant.ecosystem": "Explore the ecosystem",
-
         "datapacks.neoenchant.enchant.explosive_arrow.title": "Explosive Arrow",
         "datapacks.neoenchant.enchant.explosive_arrow.description": "The arrow will explode on impact, dealing damage to entities and destroying blocks, the shooter is immune to this explosion.",
         "datapacks.neoenchant.enchant.accuracy_shot.title": "Accuracy Shot",
@@ -237,15 +216,12 @@
         "datapacks.neoenchant.type.weapon.short": "Weapon",
         "datapacks.neoenchant.type.range.short": "Range",
         "datapacks.neoenchant.type.pickaxe.short": "Pickaxe",
-
         "datapacks.beyondenchant.title": "Beyond Enchant",
         "datapacks.beyondenchant.short": "Beyond",
         "datapacks.beyondenchant.description": "Unlock the full potential of vanilla enchantments, increase the maximum level of enchantments, and try new game mechanics. Beyond is a datapack that will change the way you play Minecraft.",
-
         "datapacks.yggdrasil.title": "Yggdrasil",
         "datapacks.yggdrasil.short": "Yggdrasil",
         "datapacks.yggdrasil.description": "Explore the world to discover all the secrets of Yggdrasil, and find the exclusive new enchantments. These structures are a source of extreme difficulty, exploiting the new enchantments to the full!",
-
         "tools.toast.soon": "This feature is under development, it will be available soon, stay tuned!",
         "tools.download": "Download the data pack",
         "tools.upload.start": "Click to upload",
@@ -255,14 +231,12 @@
         "tools.enchantments.home.description": "This tool is designed to modify the enchantments of an existing pack, such as NeoEnchant+ or any other pack, with a simple and user-friendly interface that requires no development knowledge.",
         "tools.enchantments.home.small": "NeoEnchant+ is available for download on ",
         "tools.debug.quit": "Leave debug mode",
-
         "dialog.success.title": "Success",
         "dialog.success.description": "The datapack has been successfully modified. It should appear in your download folder under the name.",
         "dialog.success.additional_info_title": "Additional Information",
         "dialog.success.additional_info": "If you have disabled enchantments, they are still present in the datapack, but their functionalities are disabled and they can no longer be obtained.",
         "dialog.footer.donate": "Make a donation",
-        "tooltip.safe_delete": "This is a “safe removal”. It does not remove the enchantment, but it can no longer be obtained and has no effect.",
-
+        "tooltip.safe_delete": "This is a \"safe removal\". It does not remove the enchantment, but it can no longer be obtained and has no effect.",
         "tools.supports.title": "Supports Voxel",
         "tools.supports.description": "These tools are free. I have tons of ideas for the Minecraft community but I lack funding to do advanced things. If you like what I do, become a Patreon and you will even get exclusive benefits.",
         "tools.supports.advantages": "Patron Advantages",
@@ -271,7 +245,6 @@
         "tools.supports.advantages.discord_role": "Exclusive role and channel on Discord",
         "tools.supports.advantages.live_voxel": "Make Voxel live",
         "tools.supports.become": "Become a Patreon",
-
         "tools.enchantments.vanilla": "You are modifying native Minecraft content, The modifications will replace the default values. The last three sections are temporarily disabled. They will be supported soon.",
         "tools.enchantments.warning.no_file": "No file found",
         "tools.enchantments.warning.multiple_files": "Please only drop one file at a time",
@@ -279,7 +252,6 @@
         "tools.enchantments.warning.invalid_file": "Invalid file, please drop a .zip file",
         "tools.enchantments.warning.no_enchantments": "No enchantments found",
         "tools.enchantments.warning.component": "An error occurred while loading the component",
-
         "tools.enchantments.sidebar.title": "Enchantments",
         "tools.enchantments.section.global": "Global Settings",
         "tools.enchantments.section.exclusive": "Exclusive Set",
@@ -290,7 +262,6 @@
         "tools.enchantments.section.effects": "Effects",
         "tools.enchantments.section.addons": "Addons",
         "tools.enchantments.section.technical": "Technical Settings",
-
         "tools.enchantments.section.global.description": "General settings.",
         "tools.enchantments.section.exclusive.description": "Non-combinable enchantments.",
         "tools.enchantments.section.slot.description": "Enchantment slots.",
@@ -299,7 +270,6 @@
         "tools.enchantments.section.effects.description": "The effects of the enchantment.",
         "tools.enchantments.section.addons.description": "Config some addons for this enchantment.",
         "tools.enchantments.section.technical.description": "Technical settings for enchantments.",
-
         "tools.enchantments.section.global.components.maxLevel.title": "Maximum level",
         "tools.enchantments.section.global.components.maxLevel.description": "The maximum level of the enchantment.",
         "tools.enchantments.section.global.components.weight.title": "Weight",
@@ -310,24 +280,20 @@
         "tools.enchantments.section.global.components.minCostPerLevelAboveFirst.label": "Minimum cost per level above the first",
         "tools.enchantments.section.global.components.maxCostBase.label": "Maximum base cost",
         "tools.enchantments.section.global.components.maxCostPerLevelAboveFirst.label": "Maximum cost per level above the first",
-
         "tools.enchantments.section.toggle.supported.title": "Supported",
         "tools.enchantments.section.toggle.primary.title": "Primary",
         "tools.enchantments.section.toggle.supported.description": "Items on which this enchantment can be applied.",
         "tools.enchantments.section.toggle.primary.description": "Items for which this enchantment appears in an enchanting table. If unspecified, defaults to being the same as supported items.",
-
         "tools.enchantments.section.toggle.exclusive.group.title": "Predefined Group",
         "tools.enchantments.section.toggle.exclusive.group.description": "This enchantment cannot be combined with other enchantments from the same group.",
         "tools.enchantments.section.toggle.exclusive.individual.title": "Arbitrary Choice",
         "tools.enchantments.section.toggle.exclusive.individual.description": "Choose the enchantments that cannot be combined with this enchantment.",
-
         "tools.enchantments.section.exclusive.components.mainhand.title": "Main Hand",
         "tools.enchantments.section.exclusive.components.offhand.title": "Off Hand",
         "tools.enchantments.section.exclusive.components.head.title": "Head",
         "tools.enchantments.section.exclusive.components.chest.title": "Chest",
         "tools.enchantments.section.exclusive.components.legs.title": "Legs",
         "tools.enchantments.section.exclusive.components.feet.title": "Feet",
-
         "tools.enchantments.section.supported.components.sword.title": "Sword",
         "tools.enchantments.section.supported.components.trident.title": "Trident",
         "tools.enchantments.section.supported.components.mace.title": "Mace",
@@ -352,7 +318,6 @@
         "tools.enchantments.section.supported.components.durability.title": "Durability",
         "tools.enchantments.section.supported.components.mining_loot.title": "Mining loot",
         "tools.enchantments.section.supported.components.none.title": "Default",
-
         "tools.enchantments.section.find.components.enchantingTable.title": "Enchanting Table",
         "tools.enchantments.section.find.components.enchantingTable.description": "These enchantments can be obtained from the enchanting table.",
         "tools.enchantments.section.find.components.mobEquipment.title": "Mob Equipment",
@@ -365,7 +330,6 @@
         "tools.enchantments.section.find.components.tradeableEquipment.description": "These enchantments can be sold by villagers on equipment.",
         "tools.enchantments.section.find.components.priceDoubled.title": "The price is doubled",
         "tools.enchantments.section.find.components.priceDoubled.description": "These enchantments are charged twice as much in villager trades.",
-
         "tools.enchantments.section.addons.yggdrasil.title": "Yggdrasil",
         "tools.enchantments.section.addons.yggdrasil.description": "Content exclusive to Yggdrasil.",
         "tools.enchantments.section.yggdrasil.components.yggdrasilMobEquipment.title": "Yggdrasil Mob Equipment",
@@ -414,9 +378,13 @@
         "tools.enchantments.section.addons.dnt.piglin_outstation.title": "Piglin Outstation",
         "tools.enchantments.section.addons.dnt.remnant.title": "Remnant",
         "tools.enchantments.section.addons.dnt.ruined_towns.title": "Ruined Towns",
-
         "tools.enchantments.section.addons.dnt.title": "Dungeons and Taverns",
         "tools.enchantments.section.addons.dnt.description": "Content exclusive to Dungeons and Taverns.",
+        "tools.enchantments.section.addons.dnt.overworld.title": "Overworld Structure",
+        "tools.enchantments.section.addons.dnt.nether.title": "Nether Structure",
+        "tools.enchantments.section.addons.dnt.end.title": "End Structure",
+        "tools.enchantments.section.addons.dnt.underground.title": "Underground Structure",
+        "tools.enchantments.section.addons.dnt.underwater.title": "Underwater Structure",
 
         "tools.enchantments.section.technical.components.curse.title": "Curse",
         "tools.enchantments.section.technical.components.curse.description": "These enchantments have a red description.",
@@ -434,10 +402,8 @@
         "tools.enchantments.section.technical.components.preventsIceMelting.description": "Used to prevent ice from turning into water instead of dropping when broken.",
         "tools.enchantments.section.technical.components.preventInfestedBlockSpawning.title": "Prevent infested block spawning",
         "tools.enchantments.section.technical.components.preventInfestedBlockSpawning.description": "Used to prevent silverfish from spawning when breaking infested blocks.",
-
         "tools.enchantments.section.effects.components.title": "Enchantment effects",
         "tools.enchantments.section.effects.components.empty": "This enchantment has no effects.",
-
         "tools.enchantments.section.technical.components.reason": "Enabled by %s in technical settings",
 
         "tools.effects.minecraft:ammo_use": "Amount of ammunition used when firing a bow or crossbow.",

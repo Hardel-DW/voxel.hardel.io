@@ -1,3 +1,4 @@
+import type { ToolCategoryType } from "@/lib/minecraft/components/elements/ToolCategory.tsx";
 import type { ToolCollectionType } from "@/lib/minecraft/components/elements/ToolCollection.tsx";
 import type { ToolCounterType } from "@/lib/minecraft/components/elements/ToolCounter.tsx";
 import type { ToolInlineType } from "@/lib/minecraft/components/elements/ToolInlineSlot.tsx";
@@ -20,6 +21,7 @@ export type FormComponent =
     | ToolSlotType
     | ToolInlineType
     | ToolEffectType
+    | ToolCategoryType
     | ToolRevealType
     | ToolSectionType
     | ToolDonationType

@@ -28,6 +28,10 @@ export interface ConfiguratorContextType<T extends VoxelElement> {
 
     // Store the configuration
     configuration?: ToolConfiguration;
+
+    // Store whether the file is a JAR
+    isJar: boolean;
+    setIsJar: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 interface ConfiguratorProviderProps {
@@ -45,6 +49,7 @@ export function ConfiguratorProvider<T extends VoxelElement>({ children, initial
     const [elements, setElements] = useState<RegistryElement<T>[]>([]);
     const [currentElementId, setCurrentElementId] = useState<Identifier>();
     const [toggleSection, setToggleSectionState] = useState<Record<string, string> | undefined>(initialToggleSection);
+    const [isJar, setIsJar] = useState<boolean>(false);
     const currentElement = currentElementId && elements.find((element) => element.identifier.equals(currentElementId));
 
     const setToggleSection = (id: string, name: string) => {
@@ -65,7 +70,9 @@ export function ConfiguratorProvider<T extends VoxelElement>({ children, initial
         setCurrentElementId,
         toggleSection,
         setToggleSection,
-        configuration
+        configuration,
+        isJar,
+        setIsJar
     };
 
     return <ConfiguratorContext.Provider value={contextValue}>{children}</ConfiguratorContext.Provider>;

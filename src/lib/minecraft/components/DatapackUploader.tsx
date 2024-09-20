@@ -24,14 +24,7 @@ export default function FileUploader<T extends keyof Analysers>() {
             return;
         }
 
-        if (file[0].name.endsWith(".jar")) {
-            toast.error(translate["generic.error"], {
-                description: translate["tools.enchantments.warning.mods"]
-            });
-            return;
-        }
-
-        if (!file[0].name.endsWith(".zip")) {
+        if (!file[0].name.endsWith(".zip") && !file[0].name.endsWith(".jar")) {
             toast.error(translate["generic.error"], {
                 description: translate["tools.enchantments.warning.invalid_file"]
             });
@@ -51,7 +44,7 @@ export default function FileUploader<T extends keyof Analysers>() {
 
     return (
         <>
-            <Dropzone onFileUpload={handleFileUpload} dropzone={{ accept: ".zip", maxSize: 100000000, multiple: false }}>
+            <Dropzone onFileUpload={handleFileUpload} dropzone={{ accept: ".zip,.jar", maxSize: 100000000, multiple: false }}>
                 <div>
                     <p className="mb-2 text-sm text-gray-500">
                         <span className="font-semibold">{translate["tools.upload.start"]}</span> {translate["tools.upload.drop"]}

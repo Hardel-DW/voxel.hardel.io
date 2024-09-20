@@ -1,29 +1,20 @@
 import { TranslateProvider } from "@/components/TranslateContext.tsx";
-import { getTranslations } from "@/lib/i18n.ts";
+import type { TranslationRecord } from "@/lib/i18n.ts";
 import { ConfiguratorProvider } from "@/lib/minecraft/components/ConfiguratorContext.tsx";
 import type { ToolConfiguration } from "@/lib/minecraft/core/engine";
 import { TooltipProvider } from "@radix-ui/react-tooltip";
-import React, { useEffect } from "react";
+import type React from "react";
 import { Toaster } from "sonner";
 
 export default function PanelProvider(props: {
-    url: URL;
+    translate: TranslationRecord;
     lang: string;
     config: ToolConfiguration;
     initialToggleSection: Record<string, string>;
     children?: React.ReactNode;
 }) {
-    const [translate, setTranslate] = React.useState<any>();
-    useEffect(() => {
-        getTranslations(props.url).then((res) => setTranslate(res.translate));
-    }, [props.url]);
-
-    if (!translate) {
-        return <div className="w-96 h-6 animate-pulse bg-zinc-900/50 rounded-3xl" />;
-    }
-
     return (
-        <TranslateProvider translate={translate} lang={props.lang}>
+        <TranslateProvider translate={props.translate} lang={props.lang}>
             <ConfiguratorProvider config={props.config} initialToggleSection={props.initialToggleSection}>
                 <TooltipProvider>
                     <div id="portal" />

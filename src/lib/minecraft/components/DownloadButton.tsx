@@ -19,8 +19,10 @@ export default function DownloadButton<T extends keyof Analysers>() {
     const context = useConfigurator<GetAnalyserVoxel<T>>();
 
     const handleCompile = async () => {
-        const content = await generateZip(context.files, compileDatapack(context));
-        const blob = new Blob([content], { type: "application/zip" });
+        const content = compileDatapack(context);
+        const compiledContent = await generateZip(context.files, content);
+        const fileExtension = context.isJar ? "jar" : "zip";
+        const blob = new Blob([compiledContent], { type: `application/${fileExtension}` });
         const url = URL.createObjectURL(blob);
         const a = document.createElement("a");
         a.href = url;

@@ -29,6 +29,7 @@ export async function parseDatapack<T extends keyof Analysers>(
     context: ConfiguratorContextType<GetAnalyserVoxel<T>>,
     file: FileList
 ): Promise<string | null> {
+    const isJar = file[0].name.endsWith(".jar");
     const files = await parseZip(file[0]);
     const parserConfig = context.configuration?.parser;
     if (!parserConfig) return "No parser configuration found.";
@@ -52,5 +53,6 @@ export async function parseDatapack<T extends keyof Analysers>(
     context.setFiles(files);
     context.setElements(compiled);
     context.setCurrentElementId(Identifier.sortRegistry(compiled)[0].identifier);
+    context.setIsJar(isJar);
     return null;
 }

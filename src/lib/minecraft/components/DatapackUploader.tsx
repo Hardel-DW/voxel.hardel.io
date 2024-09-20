@@ -5,33 +5,33 @@ import type { Analysers, GetAnalyserVoxel } from "@/lib/minecraft/core/engine/An
 import { parseDatapack } from "@/lib/minecraft/core/engine/Parser.ts";
 import { toast } from "sonner";
 
-export default function FileUploader<T extends keyof Analysers>() {
+export default function DatapackUploader<T extends keyof Analysers>() {
     const context = useConfigurator<GetAnalyserVoxel<T>>();
     const { translate } = useTranslate();
 
-    const handleFileUpload = async (file: FileList) => {
-        if (file.length === 0) {
+    const handleFileUpload = async (files: FileList) => {
+        if (files.length === 0) {
             toast.error(translate["generic.error"], {
                 description: translate["tools.enchantments.warning.no_file"]
             });
             return;
         }
 
-        if (file.length > 1) {
+        if (files.length > 1) {
             toast.error(translate["generic.error"], {
                 description: translate["tools.enchantments.warning.multiple_files"]
             });
             return;
         }
 
-        if (!file[0].name.endsWith(".zip") && !file[0].name.endsWith(".jar")) {
+        if (!files[0].name.endsWith(".zip") && !files[0].name.endsWith(".jar")) {
             toast.error(translate["generic.error"], {
                 description: translate["tools.enchantments.warning.invalid_file"]
             });
             return;
         }
 
-        const isOk = await parseDatapack(context, file);
+        const isOk = await parseDatapack(context, files);
         if (typeof isOk === "string") {
             toast.error(translate["generic.error"], {
                 description: isOk

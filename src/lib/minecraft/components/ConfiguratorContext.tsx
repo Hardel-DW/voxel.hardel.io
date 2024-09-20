@@ -32,6 +32,10 @@ export interface ConfiguratorContextType<T extends VoxelElement> {
     // Store whether the file is a JAR
     isJar: boolean;
     setIsJar: React.Dispatch<React.SetStateAction<boolean>>;
+
+    // Store the version of the datapack
+    version: number | null;
+    setVersion: (version: number) => void;
 }
 
 interface ConfiguratorProviderProps {
@@ -50,6 +54,7 @@ export function ConfiguratorProvider<T extends VoxelElement>({ children, initial
     const [currentElementId, setCurrentElementId] = useState<Identifier>();
     const [toggleSection, setToggleSectionState] = useState<Record<string, string> | undefined>(initialToggleSection);
     const [isJar, setIsJar] = useState<boolean>(false);
+    const [version, setVersion] = useState<number | null>(null);
     const currentElement = currentElementId && elements.find((element) => element.identifier.equals(currentElementId));
 
     const setToggleSection = (id: string, name: string) => {
@@ -72,7 +77,9 @@ export function ConfiguratorProvider<T extends VoxelElement>({ children, initial
         setToggleSection,
         configuration,
         isJar,
-        setIsJar
+        setIsJar,
+        version,
+        setVersion
     };
 
     return <ConfiguratorContext.Provider value={contextValue}>{children}</ConfiguratorContext.Provider>;

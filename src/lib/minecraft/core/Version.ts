@@ -19,5 +19,5 @@ export function getMinecraftVersion(packFormat: number): string {
     if (!version) {
         throw new Error(`Unsupported pack_format: ${packFormat}`);
     }
-    return typeof version === 'string' ? version : version.start;
+    return typeof version === "string" ? version : version.start;
 }

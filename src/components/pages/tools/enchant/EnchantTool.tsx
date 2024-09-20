@@ -1,10 +1,10 @@
-import { ENCHANT_TOOL_CONFIG } from "@/components/pages/tools/enchant/Config.ts";
 import HelpGuide from "@/components/pages/tools/enchant/HelpGuide.tsx";
 import type { FaqType } from "@/content/config.ts";
 import type { TranslationRecord } from "@/lib/i18n.ts";
 import ConfiguratorPanel from "@/lib/minecraft/components/ConfiguratorPanel.tsx";
 import PanelProvider from "@/lib/minecraft/components/PanelProvider.tsx";
 import SidebarPanel from "@/lib/minecraft/components/SidebarPanel.tsx";
+import { ENCHANT_TOOL_CONFIG } from "@/lib/minecraft/core/schema/enchant/config";
 import type React from "react";
 
 export default function EnchantTool(props: {

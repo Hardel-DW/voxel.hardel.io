@@ -1,5 +1,6 @@
 import { ENCHANT_TOOL_CONFIG } from "@/components/pages/tools/enchant/Config.ts";
 import HelpGuide from "@/components/pages/tools/enchant/HelpGuide.tsx";
+import type { FaqType } from "@/content/config.ts";
 import type { TranslationRecord } from "@/lib/i18n.ts";
 import ConfiguratorPanel from "@/lib/minecraft/components/ConfiguratorPanel.tsx";
 import PanelProvider from "@/lib/minecraft/components/PanelProvider.tsx";
@@ -10,6 +11,7 @@ export default function EnchantTool(props: {
     children?: React.ReactNode;
     translate: TranslationRecord;
     lang: string;
+    faq?: FaqType[];
 }) {
     return (
         <PanelProvider
@@ -22,7 +24,7 @@ export default function EnchantTool(props: {
                 <SidebarPanel />
 
                 <div className="size-full p-4 overflow-y-auto">
-                    <HelpGuide>{props.children}</HelpGuide>
+                    <HelpGuide faq={props.faq}>{props.children}</HelpGuide>
                     <ConfiguratorPanel>{props.children}</ConfiguratorPanel>
                 </div>
             </section>

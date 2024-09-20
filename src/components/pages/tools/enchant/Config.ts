@@ -5,6 +5,7 @@ const dungeon: ToolRevealElementType = {
     id: "dnt",
     logo: "/images/addons/logo/dnt.webp",
     image: "/images/addons/hero/dnt.png",
+    soon: true,
     href: "https://modrinth.com/datapack/dungeons-and-taverns",
     title: "tools.enchantments.section.addons.dnt.title",
     description: "tools.enchantments.section.addons.dnt.description",

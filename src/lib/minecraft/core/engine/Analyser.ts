@@ -23,24 +23,29 @@ export interface Analyser<T extends VoxelElement, K extends DataDrivenElement, U
 
 export type VersionedAnalyser<T extends VoxelElement, K extends DataDrivenElement, UseTags extends boolean = false> = {
     analyser: Analyser<T, K, UseTags>;
+    range: VersionRange;
 };
 
 export type VersionedAnalysers = {
-    [Q in keyof Analysers]: {
-        [version: string]: VersionedAnalyser<Analysers[Q]["voxel"], Analysers[Q]["minecraft"], boolean>;
-    };
+    [Q in keyof Analysers]: Array<VersionedAnalyser<Analysers[Q]["voxel"], Analysers[Q]["minecraft"], boolean>>;
+};
+
+export type VersionRange = {
+    min: number;
+    max: number;
 };
 
 export const versionedAnalyserCollection: VersionedAnalysers = {
-    enchantment: {
-        "48": {
+    enchantment: [
+        {
             analyser: {
                 compiler: VoxelToDataDriven,
                 parser: DataDrivenToVoxelFormat,
                 useTags: true
-            }
+            },
+            range: { min: 48, max: Number.POSITIVE_INFINITY }
         }
-    }
+    ]
 };
 
 export function getAnalyserForVersion<T extends keyof Analysers>(
@@ -50,8 +55,11 @@ export function getAnalyserForVersion<T extends keyof Analysers>(
     const versionedAnalysers = versionedAnalyserCollection[type];
     if (!versionedAnalysers) return undefined;
 
-    const analyser = versionedAnalysers[version.toString()];
-    if (!analyser) return undefined;
+    for (const entry of versionedAnalysers) {
+        if (version >= entry.range.min && version <= entry.range.max) {
+            return entry.analyser;
+        }
+    }
 
-    return analyser.analyser;
+    return undefined;
 }

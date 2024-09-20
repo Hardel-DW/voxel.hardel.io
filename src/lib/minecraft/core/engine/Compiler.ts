@@ -7,7 +7,7 @@ import {
     type GetAnalyserMinecraft,
     type GetAnalyserVoxel,
     type VoxelElement,
-    analyserCollection
+    getAnalyserForVersion
 } from "@/lib/minecraft/core/engine/Analyser.ts";
 import { type RegistryElement, readDatapackFile } from "@/lib/minecraft/mczip.ts";
 import type { TagType } from "@/lib/minecraft/schema/tag/TagType.ts";
@@ -26,8 +26,13 @@ export function compileDatapack<T extends keyof Analysers>(
 ): Array<RegistryElement<GetAnalyserMinecraft<T>> | RegistryElement<TagType>> {
     const parserConfig = context.configuration?.parser;
     if (!parserConfig) return [];
-    const analyser = analyserCollection[parserConfig.id];
-    if (!analyser) return [];
+
+    if (context.version === null) {
+        throw new Error("Minecraft version not set");
+    }
+
+    const analyser = getAnalyserForVersion(parserConfig.id, context.version);
+    if (!analyser) throw new Error("No analyser found for the specified version.");
 
     const compiledElements = context.elements
         .map((element) => {

@@ -7,10 +7,17 @@ import {
     type GetAnalyserMinecraft,
     type GetAnalyserVoxel,
     type VoxelElement,
-    analyserCollection
+    getAnalyserForVersion
 } from "@/lib/minecraft/core/engine/Analyser.ts";
 import { type RegistryElement, getRegistry, parseZip } from "@/lib/minecraft/mczip.ts";
 import type { TagType } from "@/lib/minecraft/schema/tag/TagType.ts";
+
+interface PackMcmeta {
+    pack: {
+        pack_format: number;
+        description: string;
+    };
+}
 
 export type Parser<T extends VoxelElement, K extends DataDrivenElement, UseTags extends boolean = false> = UseTags extends true
     ? (element: RegistryElement<K>, tags: string[]) => RegistryElement<T>
@@ -31,11 +38,17 @@ export async function parseDatapack<T extends keyof Analysers>(
 ): Promise<string | null> {
     const isJar = file[0].name.endsWith(".jar");
     const files = await parseZip(file[0]);
-    const parserConfig = context.configuration?.parser;
-    if (!parserConfig) return "No parser configuration found.";
 
-    const analyser = analyserCollection[parserConfig.id];
-    if (!analyser) return "No analyser found.";
+    const packMcmetaFile = files["pack.mcmeta"];
+    if (!packMcmetaFile) return "Invalid datapack: pack.mcmeta not found";
+    const packMcmeta: PackMcmeta = JSON.parse(new TextDecoder().decode(packMcmetaFile));
+    const packFormat = packMcmeta.pack.pack_format;
+
+    const parserConfig = context.configuration?.parser;
+    if (!parserConfig) return "Parser configuration not found";
+
+    const analyser = getAnalyserForVersion(parserConfig.id, packFormat);
+    if (!analyser) return "No analyser found for the specified version.";
 
     const mainRegistry = parseDatapackElement<GetAnalyserMinecraft<T>>(files, parserConfig.registries.main);
     const tagsRegistry = parserConfig.registries.tags ? parseDatapackElement<TagType>(files, parserConfig.registries.tags) : [];
@@ -52,6 +65,7 @@ export async function parseDatapack<T extends keyof Analysers>(
     context.setName(file[0].name);
     context.setFiles(files);
     context.setElements(compiled);
+    context.setVersion(packFormat);
     context.setCurrentElementId(Identifier.sortRegistry(compiled)[0].identifier);
     context.setIsJar(isJar);
     return null;

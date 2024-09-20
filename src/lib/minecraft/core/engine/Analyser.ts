@@ -21,12 +21,37 @@ export interface Analyser<T extends VoxelElement, K extends DataDrivenElement, U
     useTags: UseTags;
 }
 
-export const analyserCollection: {
-    [Q in keyof Analysers]: Analyser<Analysers[Q]["voxel"], Analysers[Q]["minecraft"], boolean>;
-} = {
+export type VersionedAnalyser<T extends VoxelElement, K extends DataDrivenElement, UseTags extends boolean = false> = {
+    analyser: Analyser<T, K, UseTags>;
+};
+
+export type VersionedAnalysers = {
+    [Q in keyof Analysers]: {
+        [version: string]: VersionedAnalyser<Analysers[Q]["voxel"], Analysers[Q]["minecraft"], boolean>;
+    };
+};
+
+export const versionedAnalyserCollection: VersionedAnalysers = {
     enchantment: {
-        compiler: VoxelToDataDriven,
-        parser: DataDrivenToVoxelFormat,
-        useTags: true
+        "48": {
+            analyser: {
+                compiler: VoxelToDataDriven,
+                parser: DataDrivenToVoxelFormat,
+                useTags: true
+            }
+        }
     }
 };
+
+export function getAnalyserForVersion<T extends keyof Analysers>(
+    type: T,
+    version: number
+): Analyser<Analysers[T]["voxel"], Analysers[T]["minecraft"], boolean> | undefined {
+    const versionedAnalysers = versionedAnalyserCollection[type];
+    if (!versionedAnalysers) return undefined;
+
+    const analyser = versionedAnalysers[version.toString()];
+    if (!analyser) return undefined;
+
+    return analyser.analyser;
+}

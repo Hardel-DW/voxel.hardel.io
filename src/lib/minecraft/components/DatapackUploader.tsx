@@ -31,11 +31,12 @@ export default function DatapackUploader<T extends keyof Analysers>() {
             return;
         }
 
-        const isOk = await parseDatapack(context, files);
-        if (typeof isOk === "string") {
+        const error = await parseDatapack(context, files);
+        if (error) {
             toast.error(translate["generic.error"], {
-                description: isOk
+                description: error
             });
+
             return;
         }
     };

@@ -340,7 +340,6 @@
         "tools.enchantments.section.yggdrasil.components.yggdrasilDropRare.description": "It is harder to find enchantments in Yggdrasil.",
         "tools.enchantments.section.yggdrasil.components.yggdrasilDropUnique.title": "Yggdrasil - Unique",
         "tools.enchantments.section.yggdrasil.components.yggdrasilDropUnique.description": "The most difficult, requiring a lot of skill to find enchantments.",
-
         "tools.enchantments.section.addons.dnt.shrines.title": "Shrines",
         "tools.enchantments.section.addons.dnt.stay_fort.title": "Stay Fort",
         "tools.enchantments.section.addons.dnt.swamp_villages.title": "Swamp Villages",
@@ -385,7 +384,6 @@
         "tools.enchantments.section.addons.dnt.end.title": "End Structure",
         "tools.enchantments.section.addons.dnt.underground.title": "Underground Structure",
         "tools.enchantments.section.addons.dnt.underwater.title": "Underwater Structure",
-
         "tools.enchantments.section.technical.components.curse.title": "Curse",
         "tools.enchantments.section.technical.components.curse.description": "These enchantments have a red description.",
         "tools.enchantments.section.technical.components.nonTreasure.title": "Non-treasure",
@@ -405,7 +403,6 @@
         "tools.enchantments.section.effects.components.title": "Enchantment effects",
         "tools.enchantments.section.effects.components.empty": "This enchantment has no effects.",
         "tools.enchantments.section.technical.components.reason": "Enabled by %s in technical settings",
-
         "tools.effects.minecraft:ammo_use": "Amount of ammunition used when firing a bow or crossbow.",
         "tools.effects.minecraft:armor_effectiveness": "Effectiveness of the target's armor during an attack. 0 means completely ineffective; 1 means fully effective.",
         "tools.effects.minecraft:attributes": "Modifies player statistics when the weapon is equipped or held.",
@@ -435,6 +432,10 @@
         "tools.effects.minecraft:tick": "Triggers an action on every game tick.",
         "tools.effects.minecraft:trident_return_acceleration": "Changes the speed at which a trident returns to the player.",
         "tools.effects.minecraft:trident_sound": "Plays a sound when the trident is thrown.",
-        "tools.effects.minecraft:trident_spin_attack_strength": "Modifies the strength of the trident's spin attack."
+        "tools.effects.minecraft:trident_spin_attack_strength": "Modifies the strength of the trident's spin attack.",
+        "tools.enchantments.warning.invalid_datapack": "Invalid datapack: pack.mcmeta not found",
+        "tools.enchantments.warning.no_parser_config": "The specified version is not supported",
+        "tools.enchantments.warning.no_analyser": "The specified version is not supported",
+        "tools.enchantments.warning.no_elements": "No elements found."
     }
 }

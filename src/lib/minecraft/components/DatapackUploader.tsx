@@ -34,7 +34,7 @@ export default function DatapackUploader<T extends keyof Analysers>() {
         const error = await parseDatapack(context, files);
         if (error) {
             toast.error(translate["generic.error"], {
-                description: error
+                description: translate[error]
             });
 
             return;

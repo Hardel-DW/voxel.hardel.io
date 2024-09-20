@@ -432,6 +432,10 @@
         "tools.effects.minecraft:tick": "Déclenche une action à chaque tick du jeu.",
         "tools.effects.minecraft:trident_return_acceleration": "Modifie la vitesse à laquelle un trident revient vers le joueur.",
         "tools.effects.minecraft:trident_sound": "Joue un son lorsque le trident est lancé.",
-        "tools.effects.minecraft:trident_spin_attack_strength": "Modifie la force de l'attaque tournoyante du trident."
+        "tools.effects.minecraft:trident_spin_attack_strength": "Modifie la force de l'attaque tournoyante du trident.",
+        "tools.enchantments.warning.invalid_datapack": "Datapack ou Mods invalide - pack.mcmeta introuvable",
+        "tools.enchantments.warning.no_parser_config": "La version spécifiée n'est pas supporté.",
+        "tools.enchantments.warning.no_analyser": "La version spécifiée n'est pas supporté.",
+        "tools.enchantments.warning.no_elements": "Aucun élément trouvé."
     }
 }

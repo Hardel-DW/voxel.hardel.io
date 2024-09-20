@@ -40,15 +40,15 @@ export async function parseDatapack<T extends keyof Analysers>(
     const files = await parseZip(file[0]);
 
     const packMcmetaFile = files["pack.mcmeta"];
-    if (!packMcmetaFile) return "Invalid datapack: pack.mcmeta not found";
+    if (!packMcmetaFile) return "tools.enchantments.warning.invalid_datapack";
     const packMcmeta: PackMcmeta = JSON.parse(new TextDecoder().decode(packMcmetaFile));
     const packFormat = packMcmeta.pack.pack_format;
 
     const parserConfig = context.configuration?.parser;
-    if (!parserConfig) return "Parser configuration not found";
+    if (!parserConfig) return "tools.enchantments.warning.no_parser_config";
 
     const analyser = getAnalyserForVersion(parserConfig.id, packFormat);
-    if (!analyser) return "No analyser found for the specified version.";
+    if (!analyser) return "tools.enchantments.warning.no_analyser";
 
     const mainRegistry = parseDatapackElement<GetAnalyserMinecraft<T>>(files, parserConfig.registries.main);
     const tagsRegistry = parserConfig.registries.tags ? parseDatapackElement<TagType>(files, parserConfig.registries.tags) : [];
@@ -61,7 +61,7 @@ export async function parseDatapack<T extends keyof Analysers>(
         return analyser.parser(element, tags);
     });
 
-    if (compiled.length === 0) return "No elements found.";
+    if (compiled.length === 0) return "tools.enchantments.warning.no_elements";
     context.setName(file[0].name);
     context.setFiles(files);
     context.setElements(compiled);

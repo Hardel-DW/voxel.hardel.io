@@ -1,6 +1,6 @@
 import type { Compiler } from "@/lib/minecraft/core/engine/Compiler.ts";
 import type { Parser } from "@/lib/minecraft/core/engine/Parser.ts";
-import { DataDrivenToVoxelFormat, type EnchantmentProps, VoxelToDataDriven } from "@/lib/minecraft/core/engine/schema/EnchantmentProps.ts";
+import { DataDrivenToVoxelFormat, type EnchantmentProps, VoxelToDataDriven } from "@/lib/minecraft/core/schema/enchant/EnchantmentProps.ts";
 import type { Enchantment } from "@/lib/minecraft/schema/enchantment/Enchantment.ts";
 
 export type DataDrivenElement = {};

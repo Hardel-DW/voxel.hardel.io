@@ -59,7 +59,7 @@ type SidebarConfiguration = {
     };
 };
 
-type InterfaceConfiguration = {
+export type InterfaceConfiguration = {
     id: string;
     components: FormComponent[];
     section: string;

@@ -1,5 +1,5 @@
-import type { SlotRegistryType } from "@/lib/minecraft/core/SlotManager.ts";
 import type { DataDrivenElement } from "@/lib/minecraft/core/engine/Analyser.ts";
+import type { SlotRegistryType } from "@/lib/minecraft/core/engine/managers/SlotManager.ts";
 import type { EffectComponentsRecord } from "@/lib/minecraft/schema/enchantment/EffectComponents.ts";
 
 export interface Enchantment extends DataDrivenElement {

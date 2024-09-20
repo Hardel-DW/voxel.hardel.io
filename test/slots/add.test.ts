@@ -1,4 +1,4 @@
-import { addSlot } from "@/lib/minecraft/core/SlotManager.ts";
+import { addSlot } from "@/lib/minecraft/core/engine/managers/SlotManager.ts";
 import { describe, expect, test } from "vitest";
 
 describe("Add Slot with key", () => {

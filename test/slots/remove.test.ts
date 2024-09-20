@@ -1,4 +1,4 @@
-import { type SlotRegistryType, removeSlot } from "@/lib/minecraft/core/SlotManager.ts";
+import { type SlotRegistryType, removeSlot } from "@/lib/minecraft/core/engine/managers/SlotManager.ts";
 import { describe, expect, test } from "vitest";
 
 const singleItemTests = ["head", "chest", "legs", "feet", "mainhand", "offhand"] as SlotRegistryType[];

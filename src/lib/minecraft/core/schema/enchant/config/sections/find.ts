@@ -1,6 +1,5 @@
 import type { InterfaceConfiguration } from "@/lib/minecraft/core/engine";
-import { dungeon } from "@/lib/minecraft/core/schema/enchant/config/addons/dungeon.ts";
-import { yggdrasil } from "@/lib/minecraft/core/schema/enchant/config/addons/yggdrasil.ts";
+import { ADDONS } from "@/lib/minecraft/core/schema/enchant/config/addons";
 
 export const find: InterfaceConfiguration = {
     id: "find",
@@ -204,7 +203,7 @@ export const find: InterfaceConfiguration = {
             children: [
                 {
                     type: "Reveal",
-                    elements: [dungeon, yggdrasil]
+                    elements: ADDONS
                 }
             ]
         }

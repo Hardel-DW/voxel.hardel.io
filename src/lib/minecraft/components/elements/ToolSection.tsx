@@ -26,7 +26,7 @@ export type ToggleSection = {
 };
 
 export default function ToolSection({ title, children, toggle, id }: Props) {
-    const { toggleSection, setToggleSection } = useConfigurator();
+    const { toggleSection, changeToggleValue } = useConfigurator();
     const { translate } = useTranslate();
 
     return (
@@ -53,8 +53,8 @@ export default function ToolSection({ title, children, toggle, id }: Props) {
                                     "bg-rose-900 text-white": toggleSection?.[id] === element.name
                                 })}
                                 key={element.name}
-                                onKeyDown={() => setToggleSection(id, element.name)}
-                                onClick={() => setToggleSection(id, element.name)}
+                                onKeyDown={() => changeToggleValue(id, element.name)}
+                                onClick={() => changeToggleValue(id, element.name)}
                             >
                                 <p className="text-sm font-semibold">{translate[element.title]}</p>
                             </div>

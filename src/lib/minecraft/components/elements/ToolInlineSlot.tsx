@@ -49,7 +49,7 @@ export default function ToolInline(props: Props) {
             onKeyDown={() => handleChange(!props.checked)}
         >
             {props.checked && !props.lock && (
-                <div className="absolute z-30 top-0 right-0 p-4 bg-black/70 rounded-bl-xl rounded-tr-2xl">
+                <div className="absolute z-30 top-0 right-0 p-2 bg-zinc-950/80 rounded-bl-xl rounded-tr-2xl">
                     <img src="/icons/check.svg" alt="checkbox" className="w-6 h-6 invert" />
                 </div>
             )}
@@ -64,9 +64,11 @@ export default function ToolInline(props: Props) {
             )}
 
             <div className="stack h-full rounded-2xl overflow-hidden">
-                <div className="space-y-2 self-end px-4 relative z-20">
-                    <h3 className="text-xl font-semibold text-zinc-300 mb-1">{props.title}</h3>
-                    {props.description && <p className="text-sm text-zinc-400">{props.description}</p>}
+                <div className="pb-2 self-end px-4 relative z-20">
+                    <h3 className="text-xl font-semibold text-white">{props.title}</h3>
+                    {!props.description && (
+                        <p className="text-sm text-zinc-400">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                    )}
                 </div>
                 <div className="rounded-2xl relative shadow-bottom z-10" />
                 <div

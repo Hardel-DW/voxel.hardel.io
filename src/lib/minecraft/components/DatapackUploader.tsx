@@ -5,44 +5,38 @@ import type { Analysers, GetAnalyserVoxel } from "@/lib/minecraft/core/engine/An
 import { parseDatapack } from "@/lib/minecraft/core/engine/Parser.ts";
 import { toast } from "sonner";
 
-export default function FileUploader<T extends keyof Analysers>() {
+export default function DatapackUploader<T extends keyof Analysers>() {
     const context = useConfigurator<GetAnalyserVoxel<T>>();
     const { translate } = useTranslate();
 
-    const handleFileUpload = async (file: FileList) => {
-        if (file.length === 0) {
+    const handleFileUpload = async (files: FileList) => {
+        if (files.length === 0) {
             toast.error(translate["generic.error"], {
                 description: translate["tools.enchantments.warning.no_file"]
             });
             return;
         }
 
-        if (file.length > 1) {
+        if (files.length > 1) {
             toast.error(translate["generic.error"], {
                 description: translate["tools.enchantments.warning.multiple_files"]
             });
             return;
         }
 
-        if (file[0].name.endsWith(".jar")) {
-            toast.error(translate["generic.error"], {
-                description: translate["tools.enchantments.warning.mods"]
-            });
-            return;
-        }
-
-        if (!file[0].name.endsWith(".zip")) {
+        if (!files[0].name.endsWith(".zip") && !files[0].name.endsWith(".jar")) {
             toast.error(translate["generic.error"], {
                 description: translate["tools.enchantments.warning.invalid_file"]
             });
             return;
         }
 
-        const isOk = await parseDatapack(context, file);
-        if (typeof isOk === "string") {
+        const error = await parseDatapack(context, files);
+        if (error) {
             toast.error(translate["generic.error"], {
-                description: isOk
+                description: translate[error]
             });
+
             return;
         }
     };
@@ -51,7 +45,7 @@ export default function FileUploader<T extends keyof Analysers>() {
 
     return (
         <>
-            <Dropzone onFileUpload={handleFileUpload} dropzone={{ accept: ".zip", maxSize: 100000000, multiple: false }}>
+            <Dropzone onFileUpload={handleFileUpload} dropzone={{ accept: ".zip,.jar", maxSize: 100000000, multiple: false }}>
                 <div>
                     <p className="mb-2 text-sm text-gray-500">
                         <span className="font-semibold">{translate["tools.upload.start"]}</span> {translate["tools.upload.drop"]}

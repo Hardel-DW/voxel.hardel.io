@@ -7,10 +7,18 @@ import {
     type GetAnalyserMinecraft,
     type GetAnalyserVoxel,
     type VoxelElement,
-    analyserCollection
+    getAnalyserForVersion
 } from "@/lib/minecraft/core/engine/Analyser.ts";
+import { calculateInitialToggle } from "@/lib/minecraft/core/engine/managers/InitialToggle.ts";
 import { type RegistryElement, getRegistry, parseZip } from "@/lib/minecraft/mczip.ts";
 import type { TagType } from "@/lib/minecraft/schema/tag/TagType.ts";
+
+interface PackMcmeta {
+    pack: {
+        pack_format: number;
+        description: string;
+    };
+}
 
 export type Parser<T extends VoxelElement, K extends DataDrivenElement, UseTags extends boolean = false> = UseTags extends true
     ? (element: RegistryElement<K>, tags: string[]) => RegistryElement<T>
@@ -29,15 +37,23 @@ export async function parseDatapack<T extends keyof Analysers>(
     context: ConfiguratorContextType<GetAnalyserVoxel<T>>,
     file: FileList
 ): Promise<string | null> {
+    const isJar = file[0].name.endsWith(".jar");
     const files = await parseZip(file[0]);
-    const parserConfig = context.configuration?.parser;
-    if (!parserConfig) return "No parser configuration found.";
 
-    const analyser = analyserCollection[parserConfig.id];
-    if (!analyser) return "No analyser found.";
+    const packMcmetaFile = files["pack.mcmeta"];
+    if (!packMcmetaFile) return "tools.enchantments.warning.invalid_datapack";
+    const packMcmeta: PackMcmeta = JSON.parse(new TextDecoder().decode(packMcmetaFile));
+    const packFormat = packMcmeta.pack.pack_format;
 
-    const mainRegistry = parseDatapackElement<GetAnalyserMinecraft<T>>(files, parserConfig.registries.main);
-    const tagsRegistry = parserConfig.registries.tags ? parseDatapackElement<TagType>(files, parserConfig.registries.tags) : [];
+    const analyserResult = getAnalyserForVersion(context.tool, packFormat);
+    if (!analyserResult) return "tools.enchantments.warning.no_analyser";
+
+    const { analyser, config } = analyserResult;
+    if (!config) return "tools.enchantments.warning.no_config";
+    const initialToggle = calculateInitialToggle(config.interface);
+
+    const mainRegistry = parseDatapackElement<GetAnalyserMinecraft<T>>(files, config.parser.registries.main);
+    const tagsRegistry = config.parser.registries.tags ? parseDatapackElement<TagType>(files, config.parser.registries.tags) : [];
 
     const compiled = mainRegistry.map((element) => {
         const tags = tagsRegistry
@@ -47,10 +63,14 @@ export async function parseDatapack<T extends keyof Analysers>(
         return analyser.parser(element, tags);
     });
 
-    if (compiled.length === 0) return "No elements found.";
+    if (compiled.length === 0) return "tools.enchantments.warning.no_elements";
     context.setName(file[0].name);
     context.setFiles(files);
     context.setElements(compiled);
+    context.setVersion(packFormat);
+    context.setToggleSection(initialToggle);
     context.setCurrentElementId(Identifier.sortRegistry(compiled)[0].identifier);
+    context.setIsJar(isJar);
+    context.setConfiguration(config);
     return null;
 }

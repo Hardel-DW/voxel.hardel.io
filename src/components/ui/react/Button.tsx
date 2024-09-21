@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils.ts";
-import type React from "react";
+import React from "react";
 
 const variants = {
     variant: {
@@ -10,6 +10,8 @@ const variants = {
         ghost: "bg-transparent text-zinc-200 border-2 border-zinc-500 hover:bg-zinc-200 hover:text-zinc-800",
         transparent: "bg-transparent text-zinc-200 border-2 border-zinc-500 hover:bg-white/10",
         link: "bg-transparent hover:text-white text-zinc-400",
+        "primary-shimmer":
+            "animate-shimmer bg-[length:200%_100%] bg-[linear-gradient(110deg,#881337,45%,#a83659,55%,#881337)] transition hover:scale-95 hover:bg-pink-700 text-white border-0",
         modrinth:
             "animate-shimmer bg-[length:200%_100%] bg-[linear-gradient(110deg,#1bd96a,45%,#00ff82,55%,#1bd96a)] transition hover:scale-95 hover:bg-green-700 text-black border-0",
         shimmer:
@@ -17,7 +19,7 @@ const variants = {
         "white-shimmer":
             "animate-shimmer bg-[linear-gradient(110deg,#FFFEFC,45%,#d0d0d0,55%,#FFFEFC)] bg-[length:200%_100%] text-black font-medium border-t border-l border-zinc-900 hover:opacity-75 transition",
         "patreon-shimmer":
-            "animate-shimmer bg-[linear-gradient(110deg,#c2410c,45%,#e06040,55%,#c2410c)] bg-[length:200%_100%] hover:scale-95 transition text-white flex items-center gap-4 place-self-end rounded-xl"
+            "animate-shimmer bg-[linear-gradient(110deg,#c2410c,45%,#e06040,55%,#c2410c)] bg-[length:200%_100%] text-white hover:scale-95 transition flex items-center gap-4 place-self-end rounded-xl"
     },
     size: {
         default: "h-10 px-4 py-2",
@@ -55,30 +57,37 @@ interface Props extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
     ring?: keyof typeof variants.ring;
 }
 
-const Button: React.FC<Props> = ({
-    variant = variants.defaultVariant.variant,
-    size = variants.defaultVariant.size,
-    rounded = variants.defaultVariant.rounded,
-    ring = variants.defaultVariant.ring,
-    className,
-    children,
-    ...rest
-}) => {
-    return (
-        <a
-            className={cn([
-                "inline-flex items-center justify-center whitespace-nowrap cursor-pointer truncate text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
-                variants.variant[variant],
-                variants.size[size],
-                variants.rounded[rounded],
-                variants.ring[ring],
-                className
-            ])}
-            {...rest}
-        >
-            {children}
-        </a>
-    );
-};
+const Button = React.forwardRef<HTMLAnchorElement, Props>(
+    (
+        {
+            variant = variants.defaultVariant.variant,
+            size = variants.defaultVariant.size,
+            rounded = variants.defaultVariant.rounded,
+            ring = variants.defaultVariant.ring,
+            className,
+            children,
+            ...rest
+        },
+        ref
+    ) => {
+        return (
+            <a
+                ref={ref}
+                className={cn([
+                    "inline-flex items-center justify-center whitespace-nowrap cursor-pointer truncate text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
+                    variants.variant[variant],
+                    variants.size[size],
+                    variants.rounded[rounded],
+                    variants.ring[ring],
+                    className
+                ])}
+                {...rest}
+            >
+                {children}
+            </a>
+        );
+    }
+);
 
+Button.displayName = "Button";
 export default Button;

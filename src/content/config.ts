@@ -1,6 +1,11 @@
 import { defineCollection, z } from "astro:content";
 import * as translate from "@/content/i18n/en-us.json";
 
+export type FaqType = {
+    question: string;
+    answer: string;
+};
+
 const articleCollection = defineCollection({
     schema: z.object({
         draft: z.boolean().default(false),

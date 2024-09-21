@@ -1,5 +1,6 @@
 import { useTranslate } from "@/components/TranslateContext.tsx";
 import { useConfigurator } from "@/lib/minecraft/components/ConfiguratorContext.tsx";
+import ToolCategory from "@/lib/minecraft/components/elements/ToolCategory.tsx";
 import ToolCollection from "@/lib/minecraft/components/elements/ToolCollection.tsx";
 import ToolCounter from "@/lib/minecraft/components/elements/ToolCounter.tsx";
 import ToolInline from "@/lib/minecraft/components/elements/ToolInlineSlot.tsx";
@@ -32,7 +33,7 @@ export function RenderComponent<T extends keyof Analysers>({ component }: Render
             const result = getValue<T, number>(context, component.value, context.currentElement);
             if (typeof result !== "number") {
                 toast.error(translate["generic.error"], {
-                    description: translate["tools.enchantments.warning.effect"]
+                    description: translate["tools.enchantments.warning.component"]
                 });
 
                 return null;
@@ -56,7 +57,7 @@ export function RenderComponent<T extends keyof Analysers>({ component }: Render
             const result = getValue<T, number>(context, component.value, context.currentElement);
             if (typeof result !== "number") {
                 toast.error(translate["generic.error"], {
-                    description: translate["tools.enchantments.warning.effect"]
+                    description: translate["tools.enchantments.warning.component"]
                 });
 
                 return null;
@@ -128,13 +129,6 @@ export function RenderComponent<T extends keyof Analysers>({ component }: Render
         }
         case "Effect": {
             const result = getValue<T, EffectComponentsRecord>(context, component.value, context.currentElement);
-            if (!result) {
-                toast.error(translate["generic.error"], {
-                    description: translate["tools.enchantments.warning.effect"]
-                });
-
-                return null;
-            }
 
             return (
                 <ToolEffectRecord
@@ -152,6 +146,9 @@ export function RenderComponent<T extends keyof Analysers>({ component }: Render
         }
         case "Reveal": {
             return <ToolReveal elements={component.elements} />;
+        }
+        case "Category": {
+            return <ToolCategory title={component.title} component={component.children} />;
         }
         case "Section": {
             return (

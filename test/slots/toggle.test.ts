@@ -1,4 +1,4 @@
-import { toggleSlot } from "@/lib/minecraft/core/SlotManager.ts";
+import { toggleSlot } from "@/lib/minecraft/core/engine/managers/SlotManager.ts";
 import { describe, expect, test } from "vitest";
 
 describe("Toggle Slot with key", () => {

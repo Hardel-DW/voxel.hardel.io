@@ -1,5 +1,8 @@
 import { getCollection, getEntry } from "astro:content";
 
+type Translation = keyof typeof import("@/content/i18n/en-us.json").translations;
+export type TranslationRecord = Record<Translation, string> & { [key: string]: string };
+
 export const getTranslations = async (url: URL) => {
     const [, lang] = url.pathname.split("/");
     const verifiedLang = names.some((element) => element.lang === lang) ? lang : "en-us";

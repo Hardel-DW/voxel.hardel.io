@@ -1,7 +1,8 @@
 import type { ConfiguratorContextType } from "@/lib/minecraft/components/ConfiguratorContext.tsx";
-import { type SlotRegistryType, isArraySlotRegistryType, isSlotRegistryType, toggleSlot } from "@/lib/minecraft/core/SlotManager.ts";
 import type { Analysers, GetAnalyserVoxel } from "@/lib/minecraft/core/engine/Analyser.ts";
+import { getManager } from "@/lib/minecraft/core/engine/Manager.ts";
 import { type Field, getField } from "@/lib/minecraft/core/engine/field";
+import { type SlotRegistryType, isArraySlotRegistryType, isSlotRegistryType } from "@/lib/minecraft/core/engine/managers/SlotManager.ts";
 import type { RegistryElement } from "@/lib/minecraft/mczip.ts";
 import { isStringArray } from "@/lib/utils.ts";
 
@@ -26,6 +27,7 @@ export function SlotModifier<T extends keyof Analysers>(
     const shadowCopy = structuredClone(element);
     const field = getField<T>(action.field, context);
     const unformattedValue = shadowCopy.data[field];
+    const version = context.version;
 
     let value: SlotRegistryType;
     if (isSlotRegistryType(action.value)) {
@@ -41,11 +43,21 @@ export function SlotModifier<T extends keyof Analysers>(
         throw new Error(`Invalid SlotRegistryType array: ${shadowCopy.data[field]}`);
     }
 
+    if (version === null) {
+        throw new Error("Version is not set in the context");
+    }
+
+    // Utiliser le ManagerSelector pour obtenir le SlotManager approprié
+    const slotManager = getManager("slot", version);
+    if (!slotManager) {
+        throw new Error(`SlotManager is not available for version ${version}`);
+    }
+
     return {
         identifier: element.identifier,
         data: {
             ...element.data,
-            [field]: toggleSlot(currentValue, value)
+            [field]: slotManager.apply(currentValue, value)
         }
     };
 }

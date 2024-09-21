@@ -1,20 +1,15 @@
-import { getEntry } from "astro:content";
 import { useTranslate } from "@/components/TranslateContext.tsx";
+import type { FaqType } from "@/content/config.ts";
 import { useConfigurator } from "@/lib/minecraft/components/ConfiguratorContext.tsx";
-import FileUploader from "@/lib/minecraft/components/DatapackUploader.tsx";
-import { type PropsWithChildren, useEffect, useState } from "react";
+import DatapackUploader from "@/lib/minecraft/components/DatapackUploader.tsx";
+import type React from "react";
 
-export default function HelpGuide(props: PropsWithChildren) {
-    const [faq, setFAQ] = useState<{ question: string; answer: string }[] | undefined>(undefined);
-    const { lang, translate } = useTranslate();
+export default function HelpGuide(props: {
+    faq?: FaqType[];
+    children?: React.ReactNode;
+}) {
+    const { translate, lang } = useTranslate();
     const context = useConfigurator();
-
-    useEffect(() => {
-        getEntry("faq", `${lang}/tool`).then((element) => {
-            if (!element?.data) return;
-            setFAQ(element.data);
-        });
-    }, [lang]);
 
     if (context.elements.length > 0) return null;
 
@@ -50,7 +45,7 @@ export default function HelpGuide(props: PropsWithChildren) {
                     </div>
                 </div>
                 <div className="relative w-full flex justify-center items-center">
-                    <FileUploader />
+                    <DatapackUploader />
                     <img className="absolute -z-10 opacity-10 drag-none" src="/icons/circle.svg" alt="box" />
                 </div>
             </section>
@@ -63,12 +58,12 @@ export default function HelpGuide(props: PropsWithChildren) {
                         <div className="h-1 w-1/2 bg-gradient-to-r from-rose-900 to-fuchsia-900 rounded-full mt-4" />
                     </div>
                     <div className="grid divide-y divide-zinc-700 z-20">
-                        {!faq && (
+                        {!props.faq && (
                             <div className="flex justify-center items-center h-64">
                                 <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-pink-400" />
                             </div>
                         )}
-                        {faq?.map((item: { question: string; answer: string }) => (
+                        {props.faq?.map((item: { question: string; answer: string }) => (
                             <div className="py-5" key={item.question}>
                                 <details className="group relative">
                                     <summary className="flex justify-between items-center gap-x-10 font-medium cursor-pointer list-none group-open:before:absolute group-open:before:inset-0 group-open:before:cursor-pointer">

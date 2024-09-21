@@ -31,13 +31,13 @@ export function compileDatapack<T extends keyof Analysers>(
         throw new Error("Minecraft version not set");
     }
 
-    const analyser = getAnalyserForVersion(parserConfig.id, context.version);
-    if (!analyser) throw new Error("No analyser found for the specified version.");
+    const config = getAnalyserForVersion(parserConfig.id, context.version);
+    if (!config) throw new Error("No analyser found for the specified version.");
 
     const compiledElements = context.elements
         .map((element) => {
             const original = readDatapackFile<GetAnalyserMinecraft<T>>(context.files, element.identifier);
-            return original ? analyser.compiler(element, original) : null;
+            return original ? config.analyser.compiler(element, original) : null;
         })
         .filter((enchantment) => enchantment !== null);
 

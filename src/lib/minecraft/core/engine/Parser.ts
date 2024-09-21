@@ -9,6 +9,7 @@ import {
     type VoxelElement,
     getAnalyserForVersion
 } from "@/lib/minecraft/core/engine/Analyser.ts";
+import { calculateInitialToggleSection } from "@/lib/minecraft/core/engine/managers/InitialToggle.ts";
 import { type RegistryElement, getRegistry, parseZip } from "@/lib/minecraft/mczip.ts";
 import type { TagType } from "@/lib/minecraft/schema/tag/TagType.ts";
 
@@ -44,14 +45,15 @@ export async function parseDatapack<T extends keyof Analysers>(
     const packMcmeta: PackMcmeta = JSON.parse(new TextDecoder().decode(packMcmetaFile));
     const packFormat = packMcmeta.pack.pack_format;
 
-    const parserConfig = context.configuration?.parser;
-    if (!parserConfig) return "tools.enchantments.warning.no_parser_config";
+    const analyserResult = getAnalyserForVersion(context.tool, packFormat);
+    if (!analyserResult) return "tools.enchantments.warning.no_analyser";
 
-    const analyser = getAnalyserForVersion(parserConfig.id, packFormat);
-    if (!analyser) return "tools.enchantments.warning.no_analyser";
+    const { analyser, config } = analyserResult;
+    if (!config) return "tools.enchantments.warning.no_config";
+    const initialToggle = calculateInitialToggleSection(config);
 
-    const mainRegistry = parseDatapackElement<GetAnalyserMinecraft<T>>(files, parserConfig.registries.main);
-    const tagsRegistry = parserConfig.registries.tags ? parseDatapackElement<TagType>(files, parserConfig.registries.tags) : [];
+    const mainRegistry = parseDatapackElement<GetAnalyserMinecraft<T>>(files, config.parser.registries.main);
+    const tagsRegistry = config.parser.registries.tags ? parseDatapackElement<TagType>(files, config.parser.registries.tags) : [];
 
     const compiled = mainRegistry.map((element) => {
         const tags = tagsRegistry
@@ -66,7 +68,9 @@ export async function parseDatapack<T extends keyof Analysers>(
     context.setFiles(files);
     context.setElements(compiled);
     context.setVersion(packFormat);
+    context.setToggleSection(initialToggle);
     context.setCurrentElementId(Identifier.sortRegistry(compiled)[0].identifier);
     context.setIsJar(isJar);
+    context.setConfiguration(config);
     return null;
 }

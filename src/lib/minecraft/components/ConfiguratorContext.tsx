@@ -1,6 +1,6 @@
 import type { Identifier } from "@/lib/minecraft/core/Identifier.ts";
 import type { ToolConfiguration } from "@/lib/minecraft/core/engine";
-import type { VoxelElement } from "@/lib/minecraft/core/engine/Analyser.ts";
+import type { Analysers, VoxelElement } from "@/lib/minecraft/core/engine/Analyser.ts";
 import type { RegistryElement } from "@/lib/minecraft/mczip.ts";
 import type React from "react";
 import { type ReactNode, createContext, useContext, useState } from "react";
@@ -24,10 +24,12 @@ export interface ConfiguratorContextType<T extends VoxelElement> {
 
     // Store toggle section
     toggleSection?: Record<string, string>;
-    setToggleSection: (id: string, name: string) => void;
+    setToggleSection: React.Dispatch<React.SetStateAction<Record<string, string> | undefined>>;
+    changeToggleValue: (id: string, name: string) => void;
 
     // Store the configuration
-    configuration?: ToolConfiguration;
+    configuration: ToolConfiguration | null;
+    setConfiguration: React.Dispatch<React.SetStateAction<ToolConfiguration | null>>;
 
     // Store whether the file is a JAR
     isJar: boolean;
@@ -36,29 +38,28 @@ export interface ConfiguratorContextType<T extends VoxelElement> {
     // Store the version of the datapack
     version: number | null;
     setVersion: (version: number) => void;
-}
 
-interface ConfiguratorProviderProps {
-    children: ReactNode;
-    initialToggleSection?: Record<string, string>;
-    config: ToolConfiguration;
+    // Store the type of tool
+    tool: keyof Analysers;
 }
 
 const ConfiguratorContext = createContext<ConfiguratorContextType<any> | undefined>(undefined);
-
-export function ConfiguratorProvider<T extends VoxelElement>({ children, initialToggleSection, config }: ConfiguratorProviderProps) {
-    const configuration = config;
+export function ConfiguratorProvider<T extends VoxelElement>(props: {
+    children: ReactNode;
+    tool: keyof Analysers;
+}) {
     const [name, setName] = useState<string>("");
     const [files, setFiles] = useState<Record<string, Uint8Array>>({});
     const [elements, setElements] = useState<RegistryElement<T>[]>([]);
     const [currentElementId, setCurrentElementId] = useState<Identifier>();
-    const [toggleSection, setToggleSectionState] = useState<Record<string, string> | undefined>(initialToggleSection);
+    const [toggleSection, setToggleSection] = useState<Record<string, string>>();
     const [isJar, setIsJar] = useState<boolean>(false);
     const [version, setVersion] = useState<number | null>(null);
+    const [configuration, setConfiguration] = useState<ToolConfiguration | null>(null);
     const currentElement = currentElementId && elements.find((element) => element.identifier.equals(currentElementId));
 
-    const setToggleSection = (id: string, name: string) => {
-        setToggleSectionState((prevState) => ({
+    const changeToggleValue = (id: string, name: string) => {
+        setToggleSection((prevState) => ({
             ...prevState,
             [id]: name
         }));
@@ -75,14 +76,17 @@ export function ConfiguratorProvider<T extends VoxelElement>({ children, initial
         setCurrentElementId,
         toggleSection,
         setToggleSection,
+        changeToggleValue,
         configuration,
+        setConfiguration,
         isJar,
         setIsJar,
         version,
-        setVersion
+        setVersion,
+        tool: props.tool
     };
 
-    return <ConfiguratorContext.Provider value={contextValue}>{children}</ConfiguratorContext.Provider>;
+    return <ConfiguratorContext.Provider value={contextValue}>{props.children}</ConfiguratorContext.Provider>;
 }
 
 export function useConfigurator<T extends VoxelElement>(): ConfiguratorContextType<T> {

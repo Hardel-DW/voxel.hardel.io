@@ -1,6 +1,8 @@
 import type { Compiler } from "@/lib/minecraft/core/engine/Compiler.ts";
 import type { Parser } from "@/lib/minecraft/core/engine/Parser.ts";
+import type { ToolConfiguration } from "@/lib/minecraft/core/engine/index.ts";
 import { DataDrivenToVoxelFormat, type EnchantmentProps, VoxelToDataDriven } from "@/lib/minecraft/core/schema/enchant/EnchantmentProps.ts";
+import { ENCHANT_TOOL_CONFIG } from "@/lib/minecraft/core/schema/enchant/config";
 import type { Enchantment } from "@/lib/minecraft/schema/enchantment/Enchantment.ts";
 
 export type DataDrivenElement = {};
@@ -24,6 +26,7 @@ export interface Analyser<T extends VoxelElement, K extends DataDrivenElement, U
 export type VersionedAnalyser<T extends VoxelElement, K extends DataDrivenElement, UseTags extends boolean = false> = {
     analyser: Analyser<T, K, UseTags>;
     range: VersionRange;
+    config: ToolConfiguration;
 };
 
 export type VersionedAnalysers = {
@@ -43,7 +46,8 @@ export const versionedAnalyserCollection: VersionedAnalysers = {
                 parser: DataDrivenToVoxelFormat,
                 useTags: true
             },
-            range: { min: 48, max: Number.POSITIVE_INFINITY }
+            range: { min: 48, max: Number.POSITIVE_INFINITY },
+            config: ENCHANT_TOOL_CONFIG
         }
     ]
 };
@@ -51,13 +55,13 @@ export const versionedAnalyserCollection: VersionedAnalysers = {
 export function getAnalyserForVersion<T extends keyof Analysers>(
     type: T,
     version: number
-): Analyser<Analysers[T]["voxel"], Analysers[T]["minecraft"], boolean> | undefined {
+): { analyser: Analyser<Analysers[T]["voxel"], Analysers[T]["minecraft"], boolean>; config: ToolConfiguration } | undefined {
     const versionedAnalysers = versionedAnalyserCollection[type];
     if (!versionedAnalysers) return undefined;
 
     for (const entry of versionedAnalysers) {
         if (version >= entry.range.min && version <= entry.range.max) {
-            return entry.analyser;
+            return { analyser: entry.analyser, config: entry.config };
         }
     }
 

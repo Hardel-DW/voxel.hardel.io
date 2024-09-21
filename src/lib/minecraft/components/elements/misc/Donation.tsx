@@ -54,10 +54,15 @@ export default function Donation(props: {
                             </li>
                         </ul>
                     </div>
-                    <Button className="relative z-10 px-8" variant="patreon-shimmer" href={props.link} target="_blank" rel="noreferrer">
-                        <img src="/icons/company/patreon.svg" alt="Patreon" className="w-4 h-4" />
-                        {translate["tools.supports.become"]}
-                    </Button>
+                    <div className="grid self-end relative z-10 gap-y-4">
+                        <Button target="_blank" rel="noreferrer" href="https://streamelements.com/hardoudou/tip" variant="primary-shimmer">
+                            {translate["dialog.footer.donate"]}
+                        </Button>
+                        <Button variant="patreon-shimmer" href={props.link} target="_blank" rel="noreferrer">
+                            <img src="/icons/company/patreon.svg" alt="Patreon" className="w-4 h-4" />
+                            {translate["tools.supports.become"]}
+                        </Button>
+                    </div>
                 </div>
             </div>
         </div>

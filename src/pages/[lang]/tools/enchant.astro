@@ -1,19 +1,19 @@
 ---
-import { getEntry } from "astro:content";
+import {getEntry} from "astro:content";
 import Layout from "@/components/layouts/Layout.astro";
 import Navbar from "@/components/layouts/compound/navbar.astro";
-import EnchantTool from "@/components/pages/tools/enchant/EnchantTool";
 import ShiningStars from "@/components/ui/object/ShiningStars.astro";
-import { getTranslations, names } from "@/lib/i18n";
+import {getTranslations, names} from "@/lib/i18n";
+import EnchantTool from "@/components/pages/tools/enchant/EnchantTool";
 
-const { lang, translate } = await getTranslations(Astro.url);
+const {lang, translate} = await getTranslations(Astro.url);
 const faqEntry = await getEntry("faq", `${lang}/tool`);
 const faq = faqEntry?.data;
 
 export const prerender = true;
 export async function getStaticPaths() {
     return names.map((element) => ({
-        params: { lang: element.lang }
+        params: {lang: element.lang}
     }));
 }
 ---

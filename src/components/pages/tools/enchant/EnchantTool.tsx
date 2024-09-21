@@ -4,7 +4,6 @@ import type { TranslationRecord } from "@/lib/i18n.ts";
 import ConfiguratorPanel from "@/lib/minecraft/components/ConfiguratorPanel.tsx";
 import PanelProvider from "@/lib/minecraft/components/PanelProvider.tsx";
 import SidebarPanel from "@/lib/minecraft/components/SidebarPanel.tsx";
-import { ENCHANT_TOOL_CONFIG } from "@/lib/minecraft/core/schema/enchant/config";
 import type React from "react";
 
 export default function EnchantTool(props: {
@@ -14,12 +13,7 @@ export default function EnchantTool(props: {
     faq?: FaqType[];
 }) {
     return (
-        <PanelProvider
-            translate={props.translate}
-            lang={props.lang}
-            config={ENCHANT_TOOL_CONFIG}
-            initialToggleSection={{ items: "supportedItems" }}
-        >
+        <PanelProvider translate={props.translate} lang={props.lang} tool={"enchantment"}>
             <section className="flex relative h-dvh overflow-y-hidden">
                 <SidebarPanel />
 

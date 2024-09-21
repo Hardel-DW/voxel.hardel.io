@@ -55,7 +55,7 @@ export default function Donation(props: {
                         </ul>
                     </div>
                     <div className="grid self-end relative z-10 gap-y-4">
-                        <Button target="_blank" rel="noreferrer" href="https://streamelements.com/hardoudou/tip" variant="primary-shimmer">
+                        <Button target="_blank" rel="noreferrer" href="https://streamelements.com/hardoudou/tip" variant="white-shimmer">
                             {translate["dialog.footer.donate"]}
                         </Button>
                         <Button variant="patreon-shimmer" href={props.link} target="_blank" rel="noreferrer">

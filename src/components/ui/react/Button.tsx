@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils.ts";
-import type React from "react";
+import React from "react";
 
 const variants = {
     variant: {
@@ -57,28 +57,37 @@ interface Props extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
     ring?: keyof typeof variants.ring;
 }
 
-export default function Button({
-    variant = variants.defaultVariant.variant,
-    size = variants.defaultVariant.size,
-    rounded = variants.defaultVariant.rounded,
-    ring = variants.defaultVariant.ring,
-    className,
-    children,
-    ...rest
-}: Props) {
-    return (
-        <a
-            className={cn([
-                "inline-flex items-center justify-center whitespace-nowrap cursor-pointer truncate text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
-                variants.variant[variant],
-                variants.size[size],
-                variants.rounded[rounded],
-                variants.ring[ring],
-                className
-            ])}
-            {...rest}
-        >
-            {children}
-        </a>
-    );
-}
+const Button = React.forwardRef<HTMLAnchorElement, Props>(
+    (
+        {
+            variant = variants.defaultVariant.variant,
+            size = variants.defaultVariant.size,
+            rounded = variants.defaultVariant.rounded,
+            ring = variants.defaultVariant.ring,
+            className,
+            children,
+            ...rest
+        },
+        ref
+    ) => {
+        return (
+            <a
+                ref={ref}
+                className={cn([
+                    "inline-flex items-center justify-center whitespace-nowrap cursor-pointer truncate text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
+                    variants.variant[variant],
+                    variants.size[size],
+                    variants.rounded[rounded],
+                    variants.ring[ring],
+                    className
+                ])}
+                {...rest}
+            >
+                {children}
+            </a>
+        );
+    }
+);
+
+Button.displayName = "Button";
+export default Button;

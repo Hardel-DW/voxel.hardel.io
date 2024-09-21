@@ -9,7 +9,7 @@ import {
     type VoxelElement,
     getAnalyserForVersion
 } from "@/lib/minecraft/core/engine/Analyser.ts";
-import { calculateInitialToggleSection } from "@/lib/minecraft/core/engine/managers/InitialToggle.ts";
+import { calculateInitialToggle } from "@/lib/minecraft/core/engine/managers/InitialToggle.ts";
 import { type RegistryElement, getRegistry, parseZip } from "@/lib/minecraft/mczip.ts";
 import type { TagType } from "@/lib/minecraft/schema/tag/TagType.ts";
 
@@ -50,7 +50,7 @@ export async function parseDatapack<T extends keyof Analysers>(
 
     const { analyser, config } = analyserResult;
     if (!config) return "tools.enchantments.warning.no_config";
-    const initialToggle = calculateInitialToggleSection(config);
+    const initialToggle = calculateInitialToggle(config.interface);
 
     const mainRegistry = parseDatapackElement<GetAnalyserMinecraft<T>>(files, config.parser.registries.main);
     const tagsRegistry = config.parser.registries.tags ? parseDatapackElement<TagType>(files, config.parser.registries.tags) : [];

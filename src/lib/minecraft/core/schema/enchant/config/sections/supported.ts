@@ -170,6 +170,22 @@ export const supported: InterfaceConfiguration = {
                         },
                         {
                             type: "Slot",
+                            title: "tools.enchantments.section.supported.components.axe_sword.title",
+                            image: "/images/features/item/axe_sword.webp",
+                            action: {
+                                type: "String",
+                                field: { type: "Toggle", group: "items" },
+                                value: "#voxel:enchantable/axe_sword"
+                            },
+                            condition: {
+                                condition: "Equals",
+                                type: "String",
+                                field: { type: "Toggle", group: "items" },
+                                value: "#voxel:enchantable/axe_sword"
+                            }
+                        },
+                        {
+                            type: "Slot",
                             title: "tools.enchantments.section.supported.components.melee.title",
                             image: "/images/features/item/melee.webp",
                             action: {

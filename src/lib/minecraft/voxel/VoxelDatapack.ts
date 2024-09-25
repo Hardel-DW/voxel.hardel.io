@@ -18,6 +18,10 @@ const shovels: TagType = {
     values: ["#minecraft:shovels"]
 };
 
+const axe_sword: TagType = {
+    values: ["#minecraft:enchantable/axe", "#minecraft:enchantable/sword"]
+};
+
 const elytra: TagType = {
     values: ["minecraft:elytra"]
 };
@@ -66,5 +70,9 @@ export const voxelDatapacks: RegistryElement<TagType>[] = [
     {
         identifier: new Identifier("voxel", "tags/item", "enchantable/shield"),
         data: shield
+    },
+    {
+        identifier: new Identifier("voxel", "tags/item", "enchantable/axe_sword"),
+        data: axe_sword
     }
 ];

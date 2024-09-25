@@ -1,21 +1,21 @@
 ---
-import { Picture } from "astro:assets";
-import { getCollection } from "astro:content";
+import {Picture} from "astro:assets";
+import {getCollection} from "astro:content";
 import CompoundLayout from "@/components/layouts/CompoundLayout.astro";
 import Button from "@/components/ui/button.astro";
-import ShiningStars from "@/components/ui/object/ShiningStars.astro";
-import { getTranslations, names } from "@/lib/i18n";
-import type { PaginateFunction } from "astro";
+import ShiningStars from "../../../components/ui/pattern/ShiningStars.astro";
+import {getTranslations, names} from "@/lib/i18n";
+import type {PaginateFunction} from "astro";
 
 export const prerender = true;
-const { lang, translate } = await getTranslations(Astro.url);
+const {lang, translate} = await getTranslations(Astro.url);
 export async function getStaticPaths({
-    paginate
-}: {
+                                         paginate
+                                     }: {
     paginate: PaginateFunction;
 }) {
     const PAGE_SIZE = 9;
-    const allPosts = await getCollection("blog", ({ data }) => {
+    const allPosts = await getCollection("blog", ({data}) => {
         return !data.draft && data.publishDate < new Date();
     });
 
@@ -36,7 +36,7 @@ export async function getStaticPaths({
     });
 }
 
-const { page } = Astro.props;
+const {page} = Astro.props;
 ---
 
 <CompoundLayout title="Blog">

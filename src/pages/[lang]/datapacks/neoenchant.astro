@@ -1,19 +1,22 @@
 ---
-import { Image } from "astro:assets";
+import {Image} from "astro:assets";
 import CompoundLayout from "@/components/layouts/CompoundLayout.astro";
 import NeoEnchantmentViewer from "@/components/pages/datapacks/NeoEnchantmentViewer";
 import Button from "@/components/ui/button.astro";
-import ShiningStars from "@/components/ui/object/ShiningStars.astro";
+import ShiningStars from "../../../components/ui/pattern/ShiningStars.astro";
 import DashedPattern from "@/components/ui/pattern/DashedPattern.astro";
 import Vortex from "@/components/ui/pattern/Vortex.astro";
-import { getTranslations, names } from "@/lib/i18n";
-import type { SectionViewer } from "@/lib/type/SectionViewer";
+import {getTranslations, names} from "@/lib/i18n";
+import type {SectionViewer} from "@/lib/type/SectionViewer";
+import React from "react";
+import Adsense from "@/components/ui/adsense.astro";
+import DatapackCard from "@/components/ui/DatapackCard.astro";
 
-const { translate, lang } = await getTranslations(Astro.url);
+const {translate, lang} = await getTranslations(Astro.url);
 export const prerender = true;
 export async function getStaticPaths() {
     return names.map((element) => ({
-        params: { lang: element.lang }
+        params: {lang: element.lang}
     }));
 }
 
@@ -66,175 +69,6 @@ const sections: SectionViewer[] = [
                 video: "/videos/datapacks/neoenchant/storm_arrow.webm",
                 level: 2,
                 addons: true
-            }
-        ]
-    },
-    {
-        id: "armor",
-        image: "/images/features/item/armor.webp",
-        short: translate["datapacks.neoenchant.type.armor.short"],
-        enchants: [
-            {
-                id: "lifeplus",
-                name: translate["datapacks.neoenchant.enchant.lifeplus.title"],
-                description: translate["datapacks.neoenchant.enchant.lifeplus.description"],
-                image: "/images/features/item/armor.webp",
-                video: "/videos/datapacks/neoenchant/lifeplus.webm",
-                level: 5
-            },
-            {
-                id: "venom_protection",
-                name: translate["datapacks.neoenchant.enchant.venom_protection.title"],
-                description: translate["datapacks.neoenchant.enchant.venom_protection.description"],
-                image: "/images/features/item/armor.webp",
-                video: "/videos/datapacks/neoenchant/venom_protection.webm",
-                level: 1,
-                addons: true
-            },
-            {
-                id: "fury",
-                name: translate["datapacks.neoenchant.enchant.fury.title"],
-                description: translate["datapacks.neoenchant.enchant.fury.description"],
-                image: "/images/features/item/armor.webp",
-                thumbnail: "/videos/datapacks/neoenchant/fury.webp",
-                level: 4
-            }
-        ]
-    },
-    {
-        id: "head",
-        image: "/images/features/item/helmet.webp",
-        short: translate["datapacks.neoenchant.type.head.short"],
-        enchants: [
-            {
-                id: "voidless",
-                name: translate["datapacks.neoenchant.enchant.voidless.title"],
-                description: translate["datapacks.neoenchant.enchant.voidless.description"],
-                image: "/images/features/item/helmet.webp",
-                video: "/videos/datapacks/neoenchant/voidless.webm",
-                level: 1,
-                addons: true
-            },
-            {
-                id: "bright_vision",
-                name: translate["datapacks.neoenchant.enchant.bright_vision.title"],
-                description: translate["datapacks.neoenchant.enchant.bright_vision.description"],
-                image: "/images/features/item/helmet.webp",
-                video: "/videos/datapacks/neoenchant/bright_vision.webm",
-                level: 1
-            },
-            {
-                id: "auto_feed",
-                name: translate["datapacks.neoenchant.enchant.auto_feed.title"],
-                description: translate["datapacks.neoenchant.enchant.auto_feed.description"],
-                image: "/images/features/item/helmet.webp",
-                video: "/videos/datapacks/neoenchant/auto_feed.webm",
-                level: 1
-            }
-        ]
-    },
-    {
-        id: "chest",
-        image: "/images/features/item/chestplate.webp",
-        short: translate["datapacks.neoenchant.type.chest.short"],
-        enchants: [
-            {
-                id: "builder_arm",
-                name: translate["datapacks.neoenchant.enchant.builder_arm.title"],
-                description: translate["datapacks.neoenchant.enchant.builder_arm.description"],
-                image: "/images/features/item/chestplate.webp",
-                video: "/videos/datapacks/neoenchant/arms.webm",
-                level: 5
-            },
-            {
-                id: "armored",
-                name: translate["datapacks.neoenchant.enchant.armored.title"],
-                description: translate["datapacks.neoenchant.enchant.armored.description"],
-                image: "/images/features/item/elytra.webp",
-                thumbnail: "/videos/datapacks/neoenchant/armored.webp",
-                level: 4,
-                addons: true
-            }
-        ]
-    },
-    {
-        id: "legs",
-        image: "/images/features/item/leggings.webp",
-        short: translate["datapacks.neoenchant.type.legs.short"],
-        enchants: [
-            {
-                id: "dwarfed",
-                name: translate["datapacks.neoenchant.enchant.dwarfed.title"],
-                description: translate["datapacks.neoenchant.enchant.dwarfed.description"],
-                image: "/images/features/item/leggings.webp",
-                video: "/videos/datapacks/neoenchant/dwarfed.webm",
-                level: 4
-            },
-            {
-                id: "fast_swim",
-                name: translate["datapacks.neoenchant.enchant.fast_swim.title"],
-                description: translate["datapacks.neoenchant.enchant.fast_swim.description"],
-                image: "/images/features/item/leggings.webp",
-                video: "/videos/datapacks/neoenchant/fast_swim.webm",
-                level: 1,
-                addons: true
-            },
-            {
-                id: "leaping",
-                name: translate["datapacks.neoenchant.enchant.leaping.title"],
-                description: translate["datapacks.neoenchant.enchant.leaping.description"],
-                image: "/images/features/item/leggings.webp",
-                video: "/videos/datapacks/neoenchant/leaping.webm",
-                level: 2
-            },
-            {
-                id: "oversize",
-                name: translate["datapacks.neoenchant.enchant.oversize.title"],
-                description: translate["datapacks.neoenchant.enchant.oversize.description"],
-                image: "/images/features/item/leggings.webp",
-                video: "/videos/datapacks/neoenchant/oversize.webm",
-                level: 4
-            }
-        ]
-    },
-    {
-        id: "foot",
-        image: "/images/features/item/boots.webp",
-        short: translate["datapacks.neoenchant.type.feet.short"],
-        enchants: [
-            {
-                id: "lava_walker",
-                name: translate["datapacks.neoenchant.enchant.lava_walker.title"],
-                description: translate["datapacks.neoenchant.enchant.lava_walker.description"],
-                image: "/images/features/item/boots.webp",
-                video: "/videos/datapacks/neoenchant/lava_walker.webm",
-                level: 3,
-                addons: true
-            },
-            {
-                id: "sky_walk",
-                name: translate["datapacks.neoenchant.enchant.sky_walk.title"],
-                description: translate["datapacks.neoenchant.enchant.sky_walk.description"],
-                image: "/images/features/item/boots.webp",
-                video: "/videos/datapacks/neoenchant/sky_walk.webm",
-                level: 1
-            },
-            {
-                id: "step_assist",
-                name: translate["datapacks.neoenchant.enchant.step_assist.title"],
-                description: translate["datapacks.neoenchant.enchant.step_assist.description"],
-                image: "/images/features/item/boots.webp",
-                video: "/videos/datapacks/neoenchant/step_assist.webm",
-                level: 3,
-                addons: true
-            },
-            {
-                id: "agility",
-                name: translate["datapacks.neoenchant.enchant.agility.title"],
-                description: translate["datapacks.neoenchant.enchant.agility.description"],
-                image: "/images/features/item/boots.webp",
-                video: "/videos/datapacks/neoenchant/agility.webm",
-                level: 5
             }
         ]
     },
@@ -314,7 +148,7 @@ const sections: SectionViewer[] = [
     },
     {
         id: "tools",
-        image: "/images/features/item/mining.webp",
+        image: "/images/features/item/pickaxe.webp",
         short: translate["datapacks.neoenchant.type.tool.short"],
         enchants: [
             {
@@ -334,30 +168,12 @@ const sections: SectionViewer[] = [
                 level: 1
             },
             {
-                id: "bedrock_breaker",
-                name: translate["datapacks.neoenchant.enchant.bedrock_breaker.title"],
-                description: translate["datapacks.neoenchant.enchant.bedrock_breaker.description"],
-                image: "/images/features/item/pickaxe.webp",
-                video: "/videos/datapacks/neoenchant/bedrock_breaker.webm",
-                level: 1,
-                addons: true
-            },
-            {
                 id: "vein_miner",
                 name: translate["datapacks.neoenchant.enchant.vein_miner.title"],
                 description: translate["datapacks.neoenchant.enchant.vein_miner.description"],
                 image: "/images/features/item/pickaxe.webp",
                 video: "/videos/datapacks/neoenchant/vein_miner.webm",
                 level: 1
-            },
-            {
-                id: "spawner_touch",
-                name: translate["datapacks.neoenchant.enchant.spawner_touch.title"],
-                description: translate["datapacks.neoenchant.enchant.spawner_touch.description"],
-                image: "/images/features/item/pickaxe.webp",
-                video: "/videos/datapacks/neoenchant/spawner_touch.webm",
-                level: 1,
-                addons: true
             },
             {
                 id: "timber",
@@ -374,6 +190,165 @@ const sections: SectionViewer[] = [
                 image: "/images/features/item/hoe.webp",
                 video: "/videos/datapacks/neoenchant/scyther.webm",
                 level: 3
+            },
+            {
+                id: "bedrock_breaker",
+                name: translate["datapacks.neoenchant.enchant.bedrock_breaker.title"],
+                description: translate["datapacks.neoenchant.enchant.bedrock_breaker.description"],
+                image: "/images/features/item/pickaxe.webp",
+                video: "/videos/datapacks/neoenchant/bedrock_breaker.webm",
+                level: 1,
+                addons: true
+            },
+            {
+                id: "spawner_touch",
+                name: translate["datapacks.neoenchant.enchant.spawner_touch.title"],
+                description: translate["datapacks.neoenchant.enchant.spawner_touch.description"],
+                image: "/images/features/item/pickaxe.webp",
+                video: "/videos/datapacks/neoenchant/spawner_touch.webm",
+                level: 1,
+                addons: true
+            },
+        ]
+    },
+    {
+        id: "armor",
+        image: "/images/features/item/chestplate.webp",
+        short: translate["datapacks.neoenchant.type.armor.short"],
+        enchants: [
+            {
+                id: "lifeplus",
+                name: translate["datapacks.neoenchant.enchant.lifeplus.title"],
+                description: translate["datapacks.neoenchant.enchant.lifeplus.description"],
+                image: "/images/features/item/armor.webp",
+                video: "/videos/datapacks/neoenchant/lifeplus.webm",
+                level: 5
+            },
+            {
+                id: "venom_protection",
+                name: translate["datapacks.neoenchant.enchant.venom_protection.title"],
+                description: translate["datapacks.neoenchant.enchant.venom_protection.description"],
+                image: "/images/features/item/armor.webp",
+                video: "/videos/datapacks/neoenchant/venom_protection.webm",
+                level: 1,
+                addons: true
+            },
+            {
+                id: "fury",
+                name: translate["datapacks.neoenchant.enchant.fury.title"],
+                description: translate["datapacks.neoenchant.enchant.fury.description"],
+                image: "/images/features/item/armor.webp",
+                thumbnail: "/videos/datapacks/neoenchant/fury.webp",
+                level: 4
+            },
+            {
+                id: "voidless",
+                name: translate["datapacks.neoenchant.enchant.voidless.title"],
+                description: translate["datapacks.neoenchant.enchant.voidless.description"],
+                image: "/images/features/item/helmet.webp",
+                video: "/videos/datapacks/neoenchant/voidless.webm",
+                level: 1,
+                addons: true
+            },
+            {
+                id: "bright_vision",
+                name: translate["datapacks.neoenchant.enchant.bright_vision.title"],
+                description: translate["datapacks.neoenchant.enchant.bright_vision.description"],
+                image: "/images/features/item/helmet.webp",
+                video: "/videos/datapacks/neoenchant/bright_vision.webm",
+                level: 1
+            },
+            {
+                id: "auto_feed",
+                name: translate["datapacks.neoenchant.enchant.auto_feed.title"],
+                description: translate["datapacks.neoenchant.enchant.auto_feed.description"],
+                image: "/images/features/item/helmet.webp",
+                video: "/videos/datapacks/neoenchant/auto_feed.webm",
+                level: 1
+            },
+            {
+                id: "builder_arm",
+                name: translate["datapacks.neoenchant.enchant.builder_arm.title"],
+                description: translate["datapacks.neoenchant.enchant.builder_arm.description"],
+                image: "/images/features/item/chestplate.webp",
+                video: "/videos/datapacks/neoenchant/arms.webm",
+                level: 5
+            },
+            {
+                id: "armored",
+                name: translate["datapacks.neoenchant.enchant.armored.title"],
+                description: translate["datapacks.neoenchant.enchant.armored.description"],
+                image: "/images/features/item/elytra.webp",
+                thumbnail: "/videos/datapacks/neoenchant/armored.webp",
+                level: 4,
+                addons: true
+            },
+            {
+                id: "dwarfed",
+                name: translate["datapacks.neoenchant.enchant.dwarfed.title"],
+                description: translate["datapacks.neoenchant.enchant.dwarfed.description"],
+                image: "/images/features/item/leggings.webp",
+                video: "/videos/datapacks/neoenchant/dwarfed.webm",
+                level: 4
+            },
+            {
+                id: "fast_swim",
+                name: translate["datapacks.neoenchant.enchant.fast_swim.title"],
+                description: translate["datapacks.neoenchant.enchant.fast_swim.description"],
+                image: "/images/features/item/leggings.webp",
+                video: "/videos/datapacks/neoenchant/fast_swim.webm",
+                level: 1,
+                addons: true
+            },
+            {
+                id: "leaping",
+                name: translate["datapacks.neoenchant.enchant.leaping.title"],
+                description: translate["datapacks.neoenchant.enchant.leaping.description"],
+                image: "/images/features/item/leggings.webp",
+                video: "/videos/datapacks/neoenchant/leaping.webm",
+                level: 2
+            },
+            {
+                id: "oversize",
+                name: translate["datapacks.neoenchant.enchant.oversize.title"],
+                description: translate["datapacks.neoenchant.enchant.oversize.description"],
+                image: "/images/features/item/leggings.webp",
+                video: "/videos/datapacks/neoenchant/oversize.webm",
+                level: 4
+            },
+            {
+                id: "lava_walker",
+                name: translate["datapacks.neoenchant.enchant.lava_walker.title"],
+                description: translate["datapacks.neoenchant.enchant.lava_walker.description"],
+                image: "/images/features/item/boots.webp",
+                video: "/videos/datapacks/neoenchant/lava_walker.webm",
+                level: 3,
+                addons: true
+            },
+            {
+                id: "sky_walk",
+                name: translate["datapacks.neoenchant.enchant.sky_walk.title"],
+                description: translate["datapacks.neoenchant.enchant.sky_walk.description"],
+                image: "/images/features/item/boots.webp",
+                video: "/videos/datapacks/neoenchant/sky_walk.webm",
+                level: 1
+            },
+            {
+                id: "step_assist",
+                name: translate["datapacks.neoenchant.enchant.step_assist.title"],
+                description: translate["datapacks.neoenchant.enchant.step_assist.description"],
+                image: "/images/features/item/boots.webp",
+                video: "/videos/datapacks/neoenchant/step_assist.webm",
+                level: 3,
+                addons: true
+            },
+            {
+                id: "agility",
+                name: translate["datapacks.neoenchant.enchant.agility.title"],
+                description: translate["datapacks.neoenchant.enchant.agility.description"],
+                image: "/images/features/item/boots.webp",
+                video: "/videos/datapacks/neoenchant/agility.webm",
+                level: 5
             }
         ]
     }
@@ -385,13 +360,12 @@ const sections: SectionViewer[] = [
     description: translate["datapacks.neoenchant.description"],
     image: "/images/background/datapacks/neoenchant.webp",
 }} title="Neo Enchant">
-    <section class="min-h-[70dvh] relative z-20">
+    <section class="max-h-dvh relative z-20 border-b border-pink-300/50">
         <Image src="/images/background/datapacks/neoenchant.webp" alt="Neo Enchant" width="1920" height="1080"
                loading="eager"
                class="w-full h-full absolute object-cover object-center -z-10"/>
-        <div class="absolute inset-0 shadow-box"/>
 
-        <div class="py-16 absolute inset-0 flex items-center h-full justify-start w-10/12 mx-auto">
+        <div class="py-80 gap-8 flex flex-col md:flex-row items-center h-full justify-start w-10/12 mx-auto">
             <div class="max-w-3xl">
                 <h1 class="text-6xl xl:text-8xl tracking-wide break-words font-bold text-white">
                     {translate["datapacks.neoenchant.title"]}
@@ -415,16 +389,22 @@ const sections: SectionViewer[] = [
                     </Button>
                 </div>
             </div>
+            <div class="flex-1 hidden md:block">
+                <Adsense slot="2018282613"/>
+            </div>
         </div>
     </section>
 
-    <section class="pt-24 pb-40 relative">
+    <section class="mt-40 mb-20 relative">
         <div class="fixed inset-0 -z-10">
             <ShiningStars/>
         </div>
 
-        <div class="w-10/12 mx-auto">
+        <div class="w-5/6 mx-auto">
             <NeoEnchantmentViewer enchant={sections} client:only="react"/>
+            <div class="pt-8">
+                <Adsense class="flex justify-center" slot="4898864304"/>
+            </div>
         </div>
     </section>
 
@@ -475,42 +455,34 @@ const sections: SectionViewer[] = [
                 <hr class="border-t-4 mt-4 rounded-full border-rose-700 w-1/4 mx-auto"/>
             </div>
             <div class="grid md:grid-cols-2 items-center w-full gap-y-36 gap-x-16 min-h-[568px] py-24 mb-24">
-                <div class="relative w-full aspect-video group border flex flex-col justify-between border-zinc-700 rounded-3xl p-4 bg-cover bg-center bg-[url('/images/background/datapacks/beyond.webp')]">
-                    <h2 class="absolute -z-10 -top-20 right-0 text-4xl md:text-6xl tracking-wider uppercase font-thin text-zinc-600">
-                        {translate["datapacks.beyondenchant.short"]}
-                    </h2>
-                    <div class="absolute -z-20 inset-0 translate-x-4 scale-y-110 border border-zinc-700 rounded-3xl"/>
-                    <div class="absolute z-10 inset-0 shadow-bottom"/>
+                <DatapackCard
+                        href="https://modrinth.com/datapack/beyondenchant"
+                        asset="/images/background/datapacks/beyond.webp"
+                        title={translate["datapacks.beyondenchant.short"]}
+                        description={translate["datapacks.beyondenchant.description"]}
+                        buttonText={translate["datapacks.modrinth.download"]}
+                        buttonTextMobile={translate["generic.more"]}
+                />
 
-                    <div class="self-end relative z-20">
-                        <Button href="https://modrinth.com/datapack/beyondenchant"
-                                variant="modrinth"
-                                class="shadow-2xl shadow-black">
-                            <img src="/icons/company/modrinth.svg" alt="Modrinth" class="w-6 h-6 mr-4"/>
-                            {translate["datapacks.modrinth.download"]}
-                        </Button>
-                    </div>
-                    <p class="text-white z-20 p-4 mt-4 hidden sm:block">
-                        {translate["datapacks.beyondenchant.description"]}
-                </div>
-                <div class="relative w-full aspect-video group border flex flex-col justify-between border-zinc-700 rounded-3xl p-4 bg-cover bg-center bg-[url('/images/background/datapacks/yggdrasil.webp')]">
-                    <h2 class="absolute -z-10 -top-20 right-0 text-4xl md:text-6xl tracking-wider uppercase font-thin text-zinc-600">
-                        {translate["datapacks.yggdrasil.short"]}
-                    </h2>
-                    <div class="absolute -z-20 inset-0 translate-x-4 scale-y-110 border border-zinc-700 rounded-3xl"/>
-                    <div class="absolute z-10 inset-0  shadow-bottom"/>
+                <DatapackCard
+                        href="https://modrinth.com/datapack/yggdrasil-structure"
+                        asset="/images/background/datapacks/yggdrasil.webp"
+                        title={translate["datapacks.yggdrasil.short"]}
+                        description={translate["datapacks.yggdrasil.description"]}
+                        buttonText={translate["datapacks.modrinth.download"]}
+                        buttonTextMobile={translate["generic.more"]}
+                />
 
-                    <div class="self-end relative z-20">
-                        <Button href="https://modrinth.com/datapack/yggdrasil-structure" variant="modrinth"
-                                class="shadow-2xl shadow-black">
-                            <img src="/icons/company/modrinth.svg" alt="Modrinth" class="w-6 h-6 mr-4"/>
-                            {translate["datapacks.modrinth.download"]}
-                        </Button>
-                    </div>
-                    <p class="text-white z-50 p-4 mt-4 hidden sm:block">
-                        {translate["datapacks.yggdrasil.description"]}
-                    </p>
-                </div>
+                <DatapackCard
+                        href="https://modrinth.com/datapack/better-furnace"
+                        asset="/images/background/datapacks/better_furnace.webp"
+                        title={translate["datapacks.better_furnace.short"]}
+                        description={translate["datapacks.better_furnace.description"]}
+                        buttonText={translate["datapacks.modrinth.download"]}
+                        buttonTextMobile={translate["generic.more"]}
+                />
+
+                <Adsense slot="8340982538"/>
             </div>
         </div>
     </section>

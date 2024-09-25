@@ -1,13 +1,14 @@
 ---
-import { Picture } from "astro:assets";
-import { getCollection } from "astro:content";
+import {Picture} from "astro:assets";
+import {getCollection} from "astro:content";
 import CompoundLayout from "@/components/layouts/CompoundLayout.astro";
 import Button from "@/components/ui/button.astro";
-import ShiningStars from "@/components/ui/object/ShiningStars.astro";
-import { getTranslations } from "@/lib/i18n";
+import ShiningStars from "../../../components/ui/pattern/ShiningStars.astro";
+import {getTranslations} from "@/lib/i18n";
+import Adsense from "../../../components/ui/adsense.astro";
 
 export const prerender = true;
-const { lang, translate } = await getTranslations(Astro.url);
+const {lang, translate} = await getTranslations(Astro.url);
 export async function getStaticPaths() {
     const blogEntries = await getCollection("blog");
     const teamCollection = await getCollection("team");
@@ -21,7 +22,7 @@ export async function getStaticPaths() {
         });
 
         return {
-            params: { lang, slug },
+            params: {lang, slug},
             props: {
                 entry: element,
                 members
@@ -30,8 +31,8 @@ export async function getStaticPaths() {
     });
 }
 
-const { entry, members } = Astro.props;
-const { Content } = await entry.render();
+const {entry, members} = Astro.props;
+const {Content} = await entry.render();
 ---
 
 <CompoundLayout>
@@ -39,12 +40,12 @@ const { Content } = await entry.render();
         <ShiningStars/>
     </div>
 
-    <section class="w-full md:w-3/4 max-w-4xl mx-auto px-8 mb-6 mt-28 md:mt-40">
+    <section class="w-full md:w-3/4 max-w-4xl mx-auto px-8 mb-4 mt-28 md:mt-40">
         <span class="text-blue-400 uppercase tracking-wider text-xs md:text-sm font-medium">
                 {entry.data.category}
             </span>
 
-        <h1 class="text-4xl lg:text-6xl lg:tracking-tight mt-1 lg:leading-tight">
+        <h1 class="text-4xl lg:text-4xl bold lg:tracking-tight mt-1 lg:leading-tight">
             {entry.data.title}
         </h1>
 
@@ -72,7 +73,13 @@ const { Content } = await entry.render();
         <div class="h-1 w-full bg-zinc-700 rounded-full mt-2"/>
     </section>
 
-    <section class="mx-auto w-11/12 md:w-3/4 max-w-4xl rounded-3xl mt-8">
+    <section class="mx-auto w-11/12 md:w-3/4 max-w-4xl rounded-3xl">
+        <div class="w-full mb-4">
+            <div class="flex justify-center items-center">
+                <Adsense slot="4898864304"/>
+            </div>
+        </div>
+
         <div class="relative">
             <div class="absolute -z-10 size-full inset-0 bg-gradient-to-r from-pink-900 to-blue-900 opacity-30 rounded-full blur-[5rem]"/>
             <div class="border-line"/>

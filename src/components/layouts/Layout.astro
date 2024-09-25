@@ -3,9 +3,10 @@ import Tracking from "@/components/layouts/compound/tracking/tracking.astro";
 import SpeedInsights from "@vercel/speed-insights/astro";
 
 import "@/global.css";
-import { type BaseLayoutProps, LayoutHelper } from "@/lib/LayoutHelper";
+import {type BaseLayoutProps, LayoutHelper} from "@/lib/LayoutHelper";
 
-export interface Props extends BaseLayoutProps {}
+export interface Props extends BaseLayoutProps {
+}
 
 if (!Astro?.url || !Astro?.site) {
     throw new Error("Astro.url and Astro.site must be defined in your astro config");
@@ -45,6 +46,9 @@ LayoutContent.setOpenGraph(Astro.props?.openGraph);
     <meta name="twitter:site" content={LayoutContent.canonicalURL}/>
     <meta name="twitter:description" content={LayoutContent.shownDescription}/>
     <meta name="twitter:creator" content="@Hardel-DW"/>
+    <script is:inline async
+            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7277204161121479"
+            crossorigin="anonymous"></script>
 </head>
 <body>
 <slot/>

@@ -1,16 +1,16 @@
 ---
-import { getCollection } from "astro:content";
+import {getCollection} from "astro:content";
 import CompoundLayout from "@/components/layouts/CompoundLayout.astro";
 import TimelineContent from "@/components/pages/timeline/TimelineContent.astro";
-import ShiningStars from "@/components/ui/object/ShiningStars.astro";
-import { getTranslations, names } from "@/lib/i18n";
+import ShiningStars from "../../../components/ui/pattern/ShiningStars.astro";
+import {getTranslations, names} from "@/lib/i18n";
 
 export const prerender = true;
-const { translate } = await getTranslations(Astro.url);
+const {translate} = await getTranslations(Astro.url);
 export async function getStaticPaths() {
     const timelines = await getCollection("timeline");
     const teamCollection = await getCollection("team");
-    const updates = await getCollection("update", ({ data }) => {
+    const updates = await getCollection("update", ({data}) => {
         return !data.draft && data.publishDate < new Date();
     });
 
@@ -29,7 +29,7 @@ export async function getStaticPaths() {
             );
 
             return {
-                params: { lang: i18n.lang, timeline: timeline.id },
+                params: {lang: i18n.lang, timeline: timeline.id},
                 props: {
                     updates: updateTimeline,
                     members,
@@ -40,7 +40,7 @@ export async function getStaticPaths() {
     });
 }
 
-const { updates, members, timeline } = Astro.props;
+const {updates, members, timeline} = Astro.props;
 ---
 
 <CompoundLayout title="Enchant Configurator">

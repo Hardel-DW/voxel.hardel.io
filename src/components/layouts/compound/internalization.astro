@@ -1,7 +1,7 @@
 ---
-import { getTranslations, names } from "@/lib/i18n";
-import { cn } from "@/lib/utils";
-const { lang } = await getTranslations(Astro.url);
+import {getTranslations, names} from "@/lib/i18n";
+import {cn} from "@/lib/utils";
+const {lang} = await getTranslations(Astro.url);
 ---
 
 <div class="relative">
@@ -12,7 +12,7 @@ const { lang } = await getTranslations(Astro.url);
     </div>
 
     <ul id="langage"
-        class="absolute top-8 right-0 w-44 bg-black p-2 flex-col gap-2 rounded-xl hidden aria-expanded:flex border border-zinc-900"
+        class="absolute top-8 right-0 w-44 bg-black p-2 flex-col gap-2 rounded-xl hidden aria-expanded:flex border border-zinc-800"
         aria-expanded="false">
         {names.map((element) =>
                 <li>

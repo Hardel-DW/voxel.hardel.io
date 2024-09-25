@@ -1,4 +1,4 @@
-import Triangle from "@/components/ui/object/Triangle.tsx";
+import Triangle from "@/components/ui/pattern/Triangle.tsx";
 import type React from "react";
 
 const TriangleWave: React.FC = () => {

@@ -304,6 +304,7 @@
         "tools.enchantments.section.supported.components.shield.title": "Bouclier",
         "tools.enchantments.section.supported.components.weapon.title": "Arme",
         "tools.enchantments.section.supported.components.melee.title": "Arme + Trident",
+        "tools.enchantments.section.supported.components.axe_sword.title": "Hache + Épée",
         "tools.enchantments.section.supported.components.head_armor.title": "Casque",
         "tools.enchantments.section.supported.components.chest_armor.title": "Plastron",
         "tools.enchantments.section.supported.components.leg_armor.title": "Jambières",

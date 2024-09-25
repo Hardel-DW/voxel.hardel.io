@@ -304,6 +304,7 @@
         "tools.enchantments.section.supported.components.shield.title": "Shield",
         "tools.enchantments.section.supported.components.weapon.title": "Weapon",
         "tools.enchantments.section.supported.components.melee.title": "Weapon + Trident",
+        "tools.enchantments.section.supported.components.axe_sword.title": "Axe + Sword",
         "tools.enchantments.section.supported.components.head_armor.title": "Helmet",
         "tools.enchantments.section.supported.components.chest_armor.title": "Chestplate",
         "tools.enchantments.section.supported.components.leg_armor.title": "Leggings",

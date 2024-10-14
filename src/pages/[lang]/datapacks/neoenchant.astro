@@ -1,22 +1,21 @@
 ---
-import {Image} from "astro:assets";
+import { Image } from "astro:assets";
 import CompoundLayout from "@/components/layouts/CompoundLayout.astro";
 import NeoEnchantmentViewer from "@/components/pages/datapacks/NeoEnchantmentViewer";
-import Button from "@/components/ui/button.astro";
-import ShiningStars from "../../../components/ui/pattern/ShiningStars.astro";
-import DashedPattern from "@/components/ui/pattern/DashedPattern.astro";
-import Vortex from "@/components/ui/pattern/Vortex.astro";
-import {getTranslations, names} from "@/lib/i18n";
-import type {SectionViewer} from "@/lib/type/SectionViewer";
-import React from "react";
-import Adsense from "@/components/ui/adsense.astro";
 import DatapackCard from "@/components/ui/DatapackCard.astro";
+import Adsense from "@/components/ui/adsense.astro";
+import Button from "@/components/ui/button.astro";
+import DashedPattern from "@/components/ui/pattern/DashedPattern.astro";
+import ShiningStars from "@/components/ui/pattern/ShiningStars.astro";
+import Vortex from "@/components/ui/pattern/Vortex.astro";
+import { getTranslations, names } from "@/lib/i18n";
+import type { SectionViewer } from "@/lib/type/SectionViewer";
 
-const {translate, lang} = await getTranslations(Astro.url);
+const { translate, lang } = await getTranslations(Astro.url);
 export const prerender = true;
 export async function getStaticPaths() {
     return names.map((element) => ({
-        params: {lang: element.lang}
+        params: { lang: element.lang }
     }));
 }
 
@@ -208,7 +207,7 @@ const sections: SectionViewer[] = [
                 video: "/videos/datapacks/neoenchant/spawner_touch.webm",
                 level: 1,
                 addons: true
-            },
+            }
         ]
     },
     {

@@ -1,16 +1,16 @@
 ---
 export interface Props {
-    data: Array<{
+    values: Array<{
         question: string;
         answer: string;
     }>;
 }
 
-const { data } = Astro.props;
+const { values } = Astro.props;
 ---
 
 <section class="grid divide-y divide-zinc-700 max-w-5xl mx-auto">
-    {data.map((item: { question: string; answer: string }) => (
+    {values.map((item: { question: string; answer: string }) => (
             <div class="py-5">
                 <details class="group relative">
                     <summary

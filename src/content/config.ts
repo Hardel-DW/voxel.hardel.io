@@ -1,5 +1,6 @@
 import { defineCollection, z } from "astro:content";
 import * as translate from "@/content/i18n/en-us.json";
+import { glob } from "astro/loaders";
 
 export type FaqType = {
     question: string;
@@ -7,6 +8,7 @@ export type FaqType = {
 };
 
 const articleCollection = defineCollection({
+    loader: glob({ pattern: "**/[^_]*.md", base: "./src/content/article" }),
     schema: z.object({
         draft: z.boolean().default(false),
         author: z.string().default("Hardel")
@@ -14,7 +16,7 @@ const articleCollection = defineCollection({
 });
 
 const guideCollection = defineCollection({
-    type: "data",
+    loader: glob({ pattern: "**/[^_]*.json", base: "./src/content/guide" }),
     schema: z.object({
         metadata: z.object({
             draft: z.boolean(),
@@ -89,7 +91,7 @@ const guideCollection = defineCollection({
 });
 
 const i18nCollection = defineCollection({
-    type: "data",
+    loader: glob({ pattern: "**/[^_]*.json", base: "./src/content/i18n" }),
     schema: z.object({
         name: z.string(),
         translations: z.object(
@@ -107,17 +109,19 @@ const i18nCollection = defineCollection({
 });
 
 const faqCollection = defineCollection({
-    type: "data",
-    schema: z.array(
-        z.object({
-            question: z.string(),
-            answer: z.string()
-        })
-    )
+    loader: glob({ pattern: "**/[^_]*.json", base: "./src/content/faq" }),
+    schema: z.object({
+        values: z.array(
+            z.object({
+                question: z.string(),
+                answer: z.string()
+            })
+        )
+    })
 });
 
 const blogCollection = defineCollection({
-    type: "content",
+    loader: glob({ pattern: "**/[^_]*.json", base: "./src/content/article" }),
     schema: z.object({
         draft: z.boolean(),
         title: z.string(),
@@ -133,7 +137,7 @@ const blogCollection = defineCollection({
 });
 
 const teamCollection = defineCollection({
-    type: "data",
+    loader: glob({ pattern: "**/[^_]*.json", base: "./src/content/team" }),
     schema: z.object({
         name: z.string(),
         github: z.string(),
@@ -145,7 +149,7 @@ const teamCollection = defineCollection({
 });
 
 const timelineCollection = defineCollection({
-    type: "data",
+    loader: glob({ pattern: "**/[^_]*.json", base: "./src/content/timeline" }),
     schema: z.object({
         authors: z.array(z.string()),
         name: z.string()
@@ -153,6 +157,7 @@ const timelineCollection = defineCollection({
 });
 
 const updateCollection = defineCollection({
+    loader: glob({ pattern: "**/[^_]*.md", base: "./src/content/update" }),
     schema: z.object({
         draft: z.boolean().default(false),
         publishDate: z.coerce.date(),

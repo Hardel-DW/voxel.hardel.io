@@ -3,10 +3,9 @@ import Tracking from "@/components/layouts/compound/tracking/tracking.astro";
 import SpeedInsights from "@vercel/speed-insights/astro";
 
 import "@/global.css";
-import {type BaseLayoutProps, LayoutHelper} from "@/lib/LayoutHelper";
+import { type BaseLayoutProps, LayoutHelper } from "@/lib/LayoutHelper";
 
-export interface Props extends BaseLayoutProps {
-}
+export interface Props extends BaseLayoutProps {}
 
 if (!Astro?.url || !Astro?.site) {
     throw new Error("Astro.url and Astro.site must be defined in your astro config");

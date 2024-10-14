@@ -18,7 +18,10 @@ export const POST: APIRoute = async ({ request }) => {
             console.error("Digest and signature lengths do not match");
         }
 
-        if (!crypto.timingSafeEqual(digest, signature)) {
+        const digestUint8 = new Uint8Array(digest);
+        const signatureUint8 = new Uint8Array(signature);
+
+        if (!crypto.timingSafeEqual(digestUint8, signatureUint8)) {
             console.error("Digest and signature do not match exactly");
         }
 

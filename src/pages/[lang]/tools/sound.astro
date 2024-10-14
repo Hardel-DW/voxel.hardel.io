@@ -1,13 +1,13 @@
 ---
 import CompoundLayout from "@/components/layouts/CompoundLayout.astro";
-import ShiningStars from "../../../components/ui/pattern/ShiningStars.astro";
-import {names} from "@/lib/i18n";
+import { names } from "@/lib/i18n";
 import ToolSound from "@/lib/minecraft/components/elements/schema/song/ToolSound";
+import ShiningStars from "../../../components/ui/pattern/ShiningStars.astro";
 
 export const prerender = true;
 export async function getStaticPaths() {
     return names.map((element) => ({
-        params: {lang: element.lang}
+        params: { lang: element.lang }
     }));
 }
 ---

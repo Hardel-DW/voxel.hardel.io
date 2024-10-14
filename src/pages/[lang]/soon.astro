@@ -3,14 +3,14 @@ import CompoundLayout from "@/components/layouts/CompoundLayout.astro";
 import Button from "@/components/ui/button.astro";
 import DashedPattern from "@/components/ui/pattern/DashedPattern.astro";
 import TriangleWave from "@/components/ui/pattern/TriangleWave";
-import {getTranslations, names} from "@/lib/i18n";
+import { getTranslations, names } from "@/lib/i18n";
 import Adsense from "../../components/ui/adsense.astro";
 
-const {translate} = await getTranslations(Astro.url);
+const { translate } = await getTranslations(Astro.url);
 export const prerender = true;
 export async function getStaticPaths() {
     return names.map((element) => ({
-        params: {lang: element.lang}
+        params: { lang: element.lang }
     }));
 }
 ---

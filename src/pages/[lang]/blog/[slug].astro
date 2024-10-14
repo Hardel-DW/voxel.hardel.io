@@ -1,14 +1,14 @@
 ---
-import {Picture} from "astro:assets";
-import {getCollection} from "astro:content";
+import { Picture } from "astro:assets";
+import { getCollection, render } from "astro:content";
 import CompoundLayout from "@/components/layouts/CompoundLayout.astro";
+import Adsense from "@/components/ui/adsense.astro";
 import Button from "@/components/ui/button.astro";
-import ShiningStars from "../../../components/ui/pattern/ShiningStars.astro";
-import {getTranslations} from "@/lib/i18n";
-import Adsense from "../../../components/ui/adsense.astro";
+import ShiningStars from "@/components/ui/pattern/ShiningStars.astro";
+import { getTranslations } from "@/lib/i18n";
 
 export const prerender = true;
-const {lang, translate} = await getTranslations(Astro.url);
+const { lang, translate } = await getTranslations(Astro.url);
 export async function getStaticPaths() {
     const blogEntries = await getCollection("blog");
     const teamCollection = await getCollection("team");
@@ -22,7 +22,7 @@ export async function getStaticPaths() {
         });
 
         return {
-            params: {lang, slug},
+            params: { lang, slug },
             props: {
                 entry: element,
                 members
@@ -31,8 +31,8 @@ export async function getStaticPaths() {
     });
 }
 
-const {entry, members} = Astro.props;
-const {Content} = await entry.render();
+const { entry, members } = Astro.props;
+const { Content } = await render(entry);
 ---
 
 <CompoundLayout>

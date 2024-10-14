@@ -1,5 +1,5 @@
 ---
-import { getEntry } from "astro:content";
+import { getEntry, render } from "astro:content";
 import Button from "@/components/ui/button.astro";
 
 interface Article {
@@ -19,7 +19,7 @@ if (!entry) {
     throw new Error(`No entry found for slug: ${slug}`);
 }
 
-const { Content } = await entry.render();
+const { Content } = await render(entry);
 ---
 
 <div class="max-w-full prose prose-invert prose-a:text-pink-200 prose-a:decoration-0 prose-p:text-zinc-300 prose-headings:text-zinc-200 prose-headings:mb-2 prose-headings:mt-8">

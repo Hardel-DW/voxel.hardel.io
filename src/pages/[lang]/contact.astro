@@ -1,16 +1,16 @@
 ---
 import CompoundLayout from "@/components/layouts/CompoundLayout.astro";
 import Button from "@/components/ui/button.astro";
-import ShiningStars from "../../components/ui/pattern/ShiningStars.astro";
 import DashedPattern from "@/components/ui/pattern/DashedPattern.astro";
-import {getTranslations, names} from "@/lib/i18n";
+import { getTranslations, names } from "@/lib/i18n";
+import ShiningStars from "../../components/ui/pattern/ShiningStars.astro";
 
-const {translate} = await getTranslations(Astro.url);
+const { translate } = await getTranslations(Astro.url);
 
 export const prerender = true;
 export async function getStaticPaths() {
     return names.map((element) => ({
-        params: {lang: element.lang}
+        params: { lang: element.lang }
     }));
 }
 
@@ -76,22 +76,22 @@ const contact = [
         </div>
 
         {contact.map((item) => (
-                <div class="col-span-6 sm:col-span-3 xl:col-span-2 relative border overflow-hidden border-zinc-800 rounded-xl">
-                    <DashedPattern/>
+            <div class="col-span-6 sm:col-span-3 xl:col-span-2 relative border overflow-hidden border-zinc-800 rounded-xl">
+                <DashedPattern/>
 
-                    <div class="p-8 h-full flex flex-col justify-between">
-                        <div>
-                            <img src={item.icon} alt="Discord" class="w-12 h-12 invert opacity-90"/>
+                <div class="p-8 h-full flex flex-col justify-between">
+                    <div>
+                        <img src={item.icon} alt="Discord" class="w-12 h-12 invert opacity-90"/>
 
-                            <h2 class="text-2xl font-semibold mt-4">{item.name}</h2>
-                            <p class="mt-2 text-zinc-400">{item.description}</p>
-                        </div>
-
-                        <Button href={item.link} size="sm" class="mt-8  w-full md:w-fit">
-                            {item.button}
-                        </Button>
+                        <h2 class="text-2xl font-semibold mt-4">{item.name}</h2>
+                        <p class="mt-2 text-zinc-400">{item.description}</p>
                     </div>
+
+                    <Button href={item.link} size="sm" class="mt-8  w-full md:w-fit">
+                        {item.button}
+                    </Button>
                 </div>
+            </div>
         ))}
     </section>
 </CompoundLayout>

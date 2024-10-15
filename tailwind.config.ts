@@ -21,7 +21,7 @@ export default {
             colors: {
                 modrinth: "#1bd96a",
                 header: {
-                    translucent: "#18181dcc",
+                    translucent: "#18181d6b",
                     cloudy: "#151418"
                 },
                 guides: {

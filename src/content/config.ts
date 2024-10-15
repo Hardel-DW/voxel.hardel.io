@@ -121,10 +121,11 @@ const faqCollection = defineCollection({
 });
 
 const blogCollection = defineCollection({
-    loader: glob({ pattern: "**/[^_]*.json", base: "./src/content/article" }),
+    loader: glob({ pattern: "**/[^_]*.(md|mdx)", base: "./src/content/blog" }),
     schema: z.object({
         draft: z.boolean(),
         title: z.string(),
+        video: z.string().optional(),
         snippet: z.string(),
         image: z.object({
             src: z.string(),

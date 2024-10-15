@@ -14,8 +14,8 @@ export async function getStaticPaths() {
     const teamCollection = await getCollection("team");
 
     return blogEntries.map((element) => {
-        const lang = element.slug.split("/")[0];
-        const slug = element.slug.split("/")[1];
+        const lang = element.id.split("/")[0];
+        const slug = element.id.split("/")[1];
 
         const members = element.data.authors.map((author) => {
             return teamCollection.find((member) => member.id === author);
@@ -37,69 +37,105 @@ const { Content } = await render(entry);
 
 <CompoundLayout>
     <div class="fixed inset-0 -z-10">
-        <ShiningStars/>
+        <ShiningStars />
     </div>
 
-    <section class="w-full md:w-3/4 max-w-4xl mx-auto px-8 mb-4 mt-28 md:mt-40">
-        <span class="text-blue-400 uppercase tracking-wider text-xs md:text-sm font-medium">
-                {entry.data.category}
-            </span>
-
-        <h1 class="text-4xl lg:text-4xl bold lg:tracking-tight mt-1 lg:leading-tight">
-            {entry.data.title}
-        </h1>
-
-        <div class="mt-8 flex items-center justify-between gap-y-4">
-            {members.map((member) => (
+    <section class="w-full md:w-3/4 max-w-4xl mx-auto px-8 mt-16 md:mt-40">
+        <div class="mt-4 flex items-center justify-between gap-y-4">
+            {
+                members.map((member) => (
                     <a class="flex items-center gap-4">
-                        <img src={member?.data.image.src} width="40" height="40" class="rounded-full"
-                             alt={member?.data.image.alt}/>
+                        <img
+                            src={member?.data.image.src}
+                            width="40"
+                            height="40"
+                            class="rounded-full"
+                            alt={member?.data.image.alt}
+                        />
                         <div>
-                            <p class="text-sm text-zinc-400 font-bold">{member?.data.name}</p>
-                            <p class="text-sm text-zinc-400">{member?.data.github}</p>
+                            <p class="text-sm text-zinc-400 font-bold">
+                                {member?.data.name}
+                            </p>
+                            <p class="text-sm text-zinc-400">
+                                {member?.data.github}
+                            </p>
                         </div>
                     </a>
-            ))}
+                ))
+            }
 
-            <small class="text-sm text-zinc-400 font-bold">
-                {Intl.DateTimeFormat(lang, {
-                    year: "numeric",
-                    month: "long",
-                    day: "numeric"
-                }).format(entry.data.publishDate)}
-            </small>
+            <div class="text-right">
+                <h1
+                    class="text-xl lg:tracking-tight font-semibold mt-4 lg:leading-tight"
+                >
+                    {entry.data.title}
+                </h1>
+
+                <span
+                    class="text-zinc-500 tracking-wider font-medium text-xs md:text-sm"
+                >
+                    {entry.data.category}
+                </span>
+                {" - "}
+                <small class="text-zinc-500 text-xs md:text-sm">
+                    {
+                        Intl.DateTimeFormat(lang, {
+                            year: "numeric",
+                            month: "long",
+                            day: "numeric",
+                        }).format(entry.data.publishDate)
+                    }
+                </small>
+            </div>
         </div>
 
-        <div class="h-1 w-full bg-zinc-700 rounded-full mt-2"/>
+        <div class="h-1 w-full bg-zinc-700 rounded-full mt-2"></div>
     </section>
 
     <section class="mx-auto w-11/12 md:w-3/4 max-w-4xl rounded-3xl">
-        <div class="w-full mb-4">
+        <div class="w-full min-h-16">
             <div class="flex justify-center items-center">
-                <Adsense slot="4898864304"/>
+                <Adsense slot="4898864304" />
             </div>
         </div>
 
         <div class="relative">
-            <div class="absolute -z-10 size-full inset-0 bg-gradient-to-r from-pink-900 to-blue-900 opacity-30 rounded-full blur-[5rem]"/>
-            <div class="border-line"/>
-            <div class="border-corner"/>
+            <div
+                class="absolute -z-10 size-full inset-0 bg-gradient-to-r from-pink-900 to-blue-900 opacity-50 rounded-full blur-[10rem]"
+            >
+            </div>
+            <div class="border-line"></div>
+            <div class="border-corner"></div>
 
-            <Picture
-                    formats={["avif", "webp"]}
-                    src={entry.data.image.src}
-                    alt="Feature image"
-                    width="1280"
-                    height="800"
-                    class="h-full w-full object-contain rounded-3xl"
-                    transition:name={`post-img-${entry.slug}`}
-            />
+            {
+                entry.data.video ? (
+                    <iframe
+                        class="w-full aspect-video rounded-3xl"
+                        src={entry.data.video}
+                        title="YouTube video player"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        referrerpolicy="strict-origin-when-cross-origin"
+                        allowfullscreen
+                    />
+                ) : (
+                    <Picture
+                        formats={["avif", "webp"]}
+                        src={entry.data.image.src}
+                        alt="Feature image"
+                        width="1280"
+                        height="800"
+                        class="h-full w-full object-contain rounded-3xl"
+                        transition:name={`post-img-${entry.slug}`}
+                    />
+                )
+            }
         </div>
     </section>
 
     <section
-            class="mx-auto px-8 prose prose-img:rounded-3xl prose-invert mt-6 max-w-4xl prose-headings:mb-2 prose-headings:mt-8">
-        <Content/>
+        class="mx-auto px-8 mt-8 prose prose-img:rounded-3xl prose-invert max-w-4xl prose-headings:mb-2 prose-headings:font-medium prose-headings:text-zinc-200 prose-h1:mt-16 prose-h1:font-bold prose-h1:text-white"
+    >
+        <Content />
     </section>
 
     <section class="text-center mb-40 mt-12">

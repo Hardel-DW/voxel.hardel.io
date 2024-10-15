@@ -1,0 +1,296 @@
+---
+draft: false
+title: "NeoEnchant Pack - Version 5.7.0 for Minecraft 1.21.2"
+snippet: "A new update for NeoEnchant is now available, introducing new enchantments, reworked enchantments, and performance improvements."
+image:
+  {
+    src: "/images/background/blog/hero-ne.webp",
+    alt: "NeoEnchant"
+  }
+authors: ["hardel"]
+publishDate: "2024-10-14"
+category: "Datapacks"
+---
+
+
+import ChangelogContainer from "@/components/ui/note/ChangelogContainer.astro";
+import ChangelogSection from "@/components/ui/note/ChangelogSection.astro";
+import ChangelogItem from "@/components/ui/note/ChangelogItem.astro";
+import Changelog from "@/components/ui/note/Changelog.astro";
+import Star from "@/components/ui/Star.astro";
+import DownloadModrinth from "@/components/ui/note/DonwloadModrinth.astro";
+
+# Overview
+**NeoEnchant 5.7.0** introduces 7 new enchantments, including Teluric Wave, Eternal Frost, and more. Also some adjustments to existing enchantments, **performance improvements** by eliminating repeating commands, and adds **French** translations.
+
+## How to get translations
+- Place the **NeoEnchant** pack in your resource packs folder.
+- Alternatively, you can use the **Voxel Translation** pack, which includes translations for all **Voxel** content (NeoEnchant, Yggdrasil, and future packs).
+
+## Performance Improvements
+In the previous version, certain enchantments required commands to be repeated 20 times a second, especially for detection.
+These commands have been completely removed, so performance is identical to that of the modded version.
+
+<DownloadModrinth asset="/images/addons/picture/ne.webp" name="NeoEnchant" version="5.7.0" link="https://modrinth.com/datapack/neoenchant" />  
+<DownloadModrinth soon asset="/images/addons/picture/voxel.webp" name="Voxel Translation Pack" version="0.1.0" link="https://modrinth.com/datapack/neoenchant" />
+
+<Star />
+
+# New Enchantments
+<Changelog>
+    <ChangelogContainer
+        title="Curse of Breaking"
+        citation="A new enchantment was implemented to add more variety and balance to the game. This counterbalances the fact that some enchanted people find the structures too enchanting."
+        stats={{
+            maxLevel: 5,
+            anvilCost: 1,
+            weight: 3
+        }}
+        applicable={{ name: "Durability", asset: "durability" }}
+    >
+        <ChangelogSection>
+            <ChangelogItem title="Passive Effect">
+                The item lost (1 x level) durability on each use with (15% x level) chance
+            </ChangelogItem>
+        </ChangelogSection>
+    </ChangelogContainer>
+
+    <ChangelogContainer
+        title="Eternal Frost"
+        citation="I'm excited for the players to take this enchantment into their own hands. It's not powerful, but it's visually stunning and can probably do some pretty amazing things."
+        stats={{
+            maxLevel: 2,
+            anvilCost: 6,
+            weight: 2
+        }}
+        applicable={{ name: "Bows and Crossbows", asset: "bow" }}
+    >
+        <ChangelogSection>
+            <ChangelogItem title="On Impact">
+                Transforms ground to ice and plays ice spike animation
+            </ChangelogItem>
+            <ChangelogItem title="On Attack">
+                Slows targets and plays ice spike animation on hit
+            </ChangelogItem>
+        </ChangelogSection>
+
+        <ChangelogSection>
+            ![Image](/images/background/blog/eternal_frost.jpg)
+        </ChangelogSection>
+    </ChangelogContainer>
+
+    <ChangelogContainer
+        title="Rebound (Experimental)"
+        citation="For this one, the overall idea was to create an enchantment that bounces off nearby entities, inflicting these effects on impact, like Explosive Arrow, Storm Arrow. But it doesn't work very well yet, and it's still under development, so you can try it out now, but it does contain some bugs."
+        stats={{
+            maxLevel: 3,
+            anvilCost: 2,
+            weight: 4
+        }}
+        applicable={{ name: "Bows and Crossbows", asset: "bow" }}
+    >
+        <ChangelogSection>
+            <ChangelogItem title="Bounce">
+                Arrows bounce to nearby targets after hitting an entity
+            </ChangelogItem>
+            <ChangelogItem title="Bounce Count">
+                Increases possible bounces: 3 + (1 per level)
+            </ChangelogItem>
+        </ChangelogSection>
+    </ChangelogContainer>
+
+    <ChangelogContainer
+        title="Tears of Asflors - (Yggdrasil Exclusive)"
+        citation="Tears of Aslors is the exclusive enchantment linked to the legendary weapon in the new Yggdrasil content. Its effects are relatively simple, converting your experience into attack damage for an end-of-game weapon."
+        stats={{
+            maxLevel: 3,
+            anvilCost: 2,
+            weight: 4
+        }}
+        applicable={{ name: "Swords", asset: "sword" }}
+    >
+        <ChangelogSection>
+            <ChangelogItem title="Damage Conversion">
+                Converts player experience into damage
+            </ChangelogItem>
+        </ChangelogSection>
+    </ChangelogContainer>
+
+    <ChangelogContainer
+        title="Teluric Wave"
+        citation="The one I'm most proud of, and the one that will add so much interest to the mace. This one creates a seismic wave that sends targets into the air. I'm going to take a close look to see if this enchantment is too strong or not. I hope it doesn't break the balance of the game."
+        stats={{
+            maxLevel: 1,
+            anvilCost: 6,
+            weight: 2
+        }}
+        applicable={{ name: "Maces", asset: "mace" }}
+    >
+        <ChangelogSection>
+            <ChangelogItem title="On Impact">
+                By crouching, you create a seismic wave that propels targets into the air. Gives the caster a slowing effect. The wave can only be used if you don't have a slowing effect.
+            </ChangelogItem>
+            <ChangelogItem title="On Attack">
+                Launches nearby targets into the air after a 5-block fall
+            </ChangelogItem>
+        </ChangelogSection>
+    </ChangelogContainer>
+
+    <ChangelogContainer
+        title="Gungnir Breath"
+        citation="This enchantment is essentially the same as Eternal Frost, but for the trident. I'll wait for player feedback to see if the enchantment is better suited for the bow or the trident"
+        stats={{
+            maxLevel: 1,
+            anvilCost: 6,
+            weight: 2
+        }}
+        applicable={{ name: "Tridents", asset: "trident" }}
+    >
+        <ChangelogSection>
+            <ChangelogItem title="On Impact">
+                Transforms ground to ice and plays ice spike animation
+            </ChangelogItem>
+            <ChangelogItem title="On Attack">
+                Slows targets and plays ice spike animation on hit
+            </ChangelogItem>
+        </ChangelogSection>
+    </ChangelogContainer>
+
+    <ChangelogContainer
+        title="Last Hope - (Yggdrasil Exclusive)"
+        citation="This enchantment is a last resort for players who are about to die. It's a guaranteed kill, but it consumes the item used and can only be obtained in Asflors villages on a mythical weapon."
+        applicable={{ name: "Sword", asset: "sword" }}
+        stats={{
+            maxLevel: 1,
+            anvilCost: 6,
+            weight: 0
+        }}
+    >
+        <ChangelogSection>
+            <ChangelogItem title="On Attack">
+                Consume the item to inflict infinite damage to the target
+            </ChangelogItem>
+        </ChangelogSection>
+        <ChangelogSection>
+            ![Image](/images/background/blog/tears_of_aslfors.jpg)
+        </ChangelogSection>
+    </ChangelogContainer>
+
+    <ChangelogContainer
+        title="Sky Walk"
+        citation="Sky Walk has existed for a long time, but it has been TOTALLY redesigned since zero, the old one has been removed."
+        stats={{
+            maxLevel: {
+                currentValue: 1,
+                newValue: 3,
+                type: "Buff"
+            },
+            anvilCost: {
+                currentValue: 3,
+                newValue: 2,
+                type: "Nerf"
+            },
+            weight: 2
+        }}
+        applicable={{ name: "Boots", asset: "boots" }}
+    >
+        <ChangelogSection>
+            <ChangelogItem title="Passive Effect">
+                The number of blocks required to get damage by fall is increased by 1 + (1 * level)
+            </ChangelogItem>
+            <ChangelogItem title="Active Effect">
+                Create Repulsion Effect under feet while sneaking with following speed values:
+            </ChangelogItem>
+
+            | Level | Speed |
+            | ----- | ----- |
+            | 1 | 0.185 |
+            | 2 | 0.215 |
+            | 3 | 0.265 |
+            | 4+ | 0.185 + (0.03 per level) |
+        </ChangelogSection>
+    </ChangelogContainer>
+</Changelog>
+
+<Star />
+
+# Modified Enchantments
+
+<Changelog>
+    <ChangelogContainer
+        title="Bedrock Breaker"
+        citation="Bedrock Breaker is loved by many, it loses its experimental stage, and receives a balancing because it was too expensive."
+        applicable={{ name: "Pickaxe", asset: "pickaxe" }}
+    >
+        <ChangelogSection>
+            <ChangelogItem title="Availability">
+                Now obtainable
+            </ChangelogItem>
+            <ChangelogItem title="Damage">
+                Reduced from 200 to 150
+            </ChangelogItem>
+            <ChangelogItem title="Particle effect">
+                Changed
+            </ChangelogItem>
+            <ChangelogItem title="After the patch">
+                Bedrock Breaker will be removed from existing tools and must be re-obtained
+            </ChangelogItem>
+        </ChangelogSection>
+    </ChangelogContainer>
+
+    <ChangelogContainer
+        title="Dwarfed"
+        citation="Players tended to use it as a beneficial effect to make it harder to hit in combat, but it remains a malecdiction. For this reason, additional negative effects have been added."
+        applicable={{ name: "Leggings", asset: "leggings" }}
+    >
+        <ChangelogSection>
+            * **Added attributes :**
+                * Step assist attribute (+0.5 per level)
+                * Attack speed reduction attribute (-0.15 per level)
+                * Movement speed reduction attribute (-0.125 per level)
+            <ChangelogItem title="Extension">
+                Effect now extendable beyond level 4 with commands
+            </ChangelogItem>
+            <ChangelogItem title="Technical">
+                Changed attribute "scale" identifier to minecraft:enchantment.dwarfed.scale
+            </ChangelogItem>
+        </ChangelogSection>
+    </ChangelogContainer>
+
+    <ChangelogContainer
+        title="Oversize"
+        citation="These changes are made to be consistent with Dwarfed."
+        applicable={{ name: "Leggings", asset: "leggings" }}
+    >
+        <ChangelogSection>
+            * **Added attributes :**
+                * Damage reduction -2 and additional -1 per level
+                * Attack reach reduction -0.15 per level
+                * Movement speed reduction -0.125 per level
+
+            <ChangelogItem title="Extension">
+                Effect now extendable beyond level 4 with commands
+            </ChangelogItem>
+            <ChangelogItem title="Technical">
+                Changed attribute "scale" identifier to minecraft:enchantment.oversize.scale
+            </ChangelogItem>
+        </ChangelogSection>
+    </ChangelogContainer>
+
+    <ChangelogContainer
+        title="Auto Feed"
+        citation="This enchantment was too strong, and was also too easy to obtain, and the food system was totally useless."
+        applicable={{ name: "Helmet", asset: "helmet" }}
+    >
+        <ChangelogSection>
+            <ChangelogItem title="Saturation effect">
+                Now applies every 3 minutes instead of 30 seconds
+            </ChangelogItem>
+        </ChangelogSection>
+    </ChangelogContainer>
+</Changelog>
+
+<Star />
+
+# Technical Changes
+- Soon

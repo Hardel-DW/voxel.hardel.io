@@ -1,0 +1,33 @@
+---
+interface Props {
+    isNew?: boolean;
+    isDeleted?: boolean;
+    title: string;
+    description: string;
+}
+
+const { isNew, isDeleted, title } = Astro.props;
+---
+
+<li class="ruby">
+    {
+        isNew && (
+            <span class="rounded-full bg-zinc-700 px-2 py-1 text-xs text-green-500">
+                New!
+            </span>
+        )
+    }
+    {
+        isDeleted && (
+            <span class="rounded-full bg-zinc-700 px-2 py-1 text-xs text-red-500">
+                Deleted!
+            </span>
+        )
+    }
+    <strong>
+        {title} :
+    </strong>
+    <span class="*:inline text-zinc-400">
+        <slot />
+    </span>
+</li>

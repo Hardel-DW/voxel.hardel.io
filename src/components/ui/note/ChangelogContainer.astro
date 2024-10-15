@@ -1,0 +1,114 @@
+---
+import ChangelogValue from "./ChangelogValue.astro";
+
+type ApplicableEnum =
+    | "armor"
+    | "axe"
+    | "boots"
+    | "bow"
+    | "chestplate"
+    | "crossbow"
+    | "fishing_rod"
+    | "helmet"
+    | "hoe"
+    | "leggings"
+    | "pickaxe"
+    | "shovel"
+    | "sword"
+    | "trident"
+    | "weapon"
+    | "durability"
+    | "mace"
+    | "melee"
+    | "equippable"
+    | "shield"
+    | "range"
+    | "enchanted_book"
+    | "mining";
+
+type ChangelogValueType =
+    | number
+    | {
+          currentValue: number;
+          newValue: number;
+          type: "Nerf" | "Buff";
+      };
+
+interface EnchantmentStats {
+    maxLevel: ChangelogValueType;
+    anvilCost: ChangelogValueType;
+    weight: ChangelogValueType;
+}
+
+interface Props {
+    title: string;
+    citation: string;
+    stats?: EnchantmentStats;
+    applicable: {
+        name: string;
+        asset: ApplicableEnum;
+    };
+}
+
+const { title, citation, stats, applicable } = Astro.props;
+---
+
+<div class="border border-zinc-700 px-8 bg-header-translucent rounded-xl">
+    <div class="flex justify-between gap-4">
+        <div class="flex flex-col w-5/6">
+            <h2 class="text-lg font-semibold">
+                {title}
+            </h2>
+            <small class="text-zinc-400 text-sm">
+                {citation}
+            </small>
+        </div>
+
+        <img
+            src={`/images/features/item/${applicable.asset}.webp`}
+            alt={applicable.name}
+            class="size-12"
+        />
+    </div>
+
+    {
+        stats && (
+            <div class="flex justify-evenly gap-4 pt-4 pb-8 items-center">
+                <div class="flex flex-col items-center">
+                    <img
+                        src="/icons/tools/level.svg"
+                        alt="level"
+                        class="size-12 invert"
+                    />
+                    <span class="text-zinc-400 font-bold text-xl">
+                        <ChangelogValue value={stats.maxLevel} />
+                    </span>
+                </div>
+
+                <div class="flex flex-col items-center">
+                    <img
+                        src="/icons/tools/anvil.svg"
+                        alt="anvil"
+                        class="size-12 invert"
+                    />
+                    <span class="text-zinc-400 font-bold text-xl">
+                        <ChangelogValue value={stats.anvilCost} />
+                    </span>
+                </div>
+
+                <div class="flex flex-col items-center">
+                    <img
+                        src="/icons/tools/weight.svg"
+                        alt="weight"
+                        class="size-12 invert"
+                    />
+                    <span class="text-zinc-400 font-bold text-xl">
+                        <ChangelogValue value={stats.weight} />
+                    </span>
+                </div>
+            </div>
+        )
+    }
+
+    <slot />
+</div>

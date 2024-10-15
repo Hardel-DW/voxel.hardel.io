@@ -1,3 +1,4 @@
+import mdx from "@astrojs/mdx";
 import react from "@astrojs/react";
 import tailwind from "@astrojs/tailwind";
 import vercel from "@astrojs/vercel/serverless";
@@ -25,7 +26,7 @@ export default defineConfig({
             prefixDefaultLocale: false
         }
     },
-    integrations: [tailwind(), react()],
+    integrations: [tailwind(), react(), mdx()],
     adapter: vercel({
         webAnalytics: { enabled: true }
     })

@@ -1,0 +1,35 @@
+---
+type ChangelogValue =
+    | number
+    | {
+          currentValue: number;
+          newValue: number;
+          type: "Nerf" | "Buff";
+      };
+
+interface Props {
+    value: ChangelogValue;
+}
+
+const { value } = Astro.props;
+---
+
+{
+    typeof value === "number" ? (
+        <span>{value}</span>
+    ) : (
+        <span>
+            <span>
+                <s>{value.currentValue}</s>
+            </span>
+            <span class="mx-1">→</span>
+            <span
+                class={
+                    value.type === "Nerf" ? "text-red-500" : "text-green-500"
+                }
+            >
+                {value.newValue}
+            </span>
+        </span>
+    )
+}

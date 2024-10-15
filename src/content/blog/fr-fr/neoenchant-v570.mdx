@@ -1,0 +1,299 @@
+---
+draft: false
+title: "Pack NeoEnchant - Version 5.7.0 pour Minecraft 1.21.2"
+snippet: "Une nouvelle mise à jour pour NeoEnchant est maintenant disponible, introduisant de nouveaux enchantements, des enchantements retravaillés et des améliorations de performances."
+image:
+  {
+    src: "/images/background/blog/hero-ne.webp",
+    alt: "NeoEnchant"
+  }
+authors: ["hardel"]
+publishDate: "2024-10-14"
+category: "Datapacks"
+---
+
+
+import ChangelogContainer from "@/components/ui/note/ChangelogContainer.astro";
+import ChangelogSection from "@/components/ui/note/ChangelogSection.astro";
+import ChangelogItem from "@/components/ui/note/ChangelogItem.astro";
+import Changelog from "@/components/ui/note/Changelog.astro";
+import Star from "@/components/ui/Star.astro";
+import DownloadModrinth from "@/components/ui/note/DonwloadModrinth.astro";
+
+# Aperçu
+**NeoEnchant 5.7.0** introduit 7 nouveaux enchantements, dont Vague Tellurique, Gel Éternel, et plus encore. Il apporte également des ajustements aux enchantements existants, des **améliorations de performances** en éliminant les commandes répétitives, et ajoute des traductions en **français**.
+
+## Comment obtenir les traductions
+- Placez le pack **NeoEnchant** dans votre dossier de packs de ressources.
+- Alternativement, vous pouvez utiliser le pack **Voxel Translation**, qui inclut des traductions pour tout le contenu **Voxel** (NeoEnchant, Yggdrasil, et les futurs packs).
+
+## Améliorations de performances
+Dans la version précédente, certains enchantements nécessitaient que des commandes soient répétées 20 fois par seconde, notamment pour la détection.
+Ces commandes ont été complètement supprimées, les performances sont au maximum possible.
+
+<DownloadModrinth asset="/images/addons/picture/ne.webp" name="NeoEnchant" version="5.7.0" link="https://modrinth.com/datapack/neoenchant" />  
+<DownloadModrinth soon asset="/images/addons/picture/voxel.webp" name="Pack de traduction Voxel" version="0.1.0" link="https://modrinth.com/datapack/neoenchant" />
+
+<Star />
+
+# Nouveaux enchantements
+<Changelog>
+    <ChangelogContainer
+        title="Malédiction de la Rupture"
+        citation="Un nouvel enchantement a été implémenté pour ajouter plus de variété et d'équilibre au jeu. Cela contrebalance avec certains objets dans les structures qui étaient trop puissants."
+        stats={{
+            maxLevel: 5,
+            anvilCost: 1,
+            weight: 3
+        }}
+        applicable={{ name: "Durabilité", asset: "durability" }}
+    >
+        <ChangelogSection>
+            <ChangelogItem title="Effet passif">
+                L'objet perd (1 x niveau) de durabilité à chaque utilisation avec (15% x niveau) de chance
+            </ChangelogItem>
+        </ChangelogSection>
+    </ChangelogContainer>
+
+    <ChangelogContainer
+        title="Gel Éternel"
+        citation="Je suis impatient que les joueurs prennent cet enchantement en main. Ce n'est pas le plus puissant, mais c'est visuellement magnifique et peut probablement faire des choses assez incroyables."
+        stats={{
+            maxLevel: 2,
+            anvilCost: 6,
+            weight: 2
+        }}
+        applicable={{ name: "Arcs et Arbalètes", asset: "bow" }}
+    >
+        <ChangelogSection>
+            <ChangelogItem title="À l'impact">
+                Transforme le sol en glace et joue une animation de pics de glace
+            </ChangelogItem>
+            <ChangelogItem title="Contre une cible">
+                Ralentit les cibles et joue une animation de pics de glace lors de l'impact
+            </ChangelogItem>
+        </ChangelogSection>
+
+        <ChangelogSection>
+            ![Image](/images/background/blog/eternal_frost.jpg)
+        </ChangelogSection>
+    </ChangelogContainer>
+
+    <ChangelogContainer
+        title="Rebond (Expérimental)"
+        citation="Pour celui-ci, l'idée générale était de créer un enchantement qui rebondit sur les entités proches, infligeant ces effets à l'impact, comme Flèche Explosive, Flèche de Tempête. Mais ça ne fonctionne pas encore très bien, et c'est toujours en développement, donc vous pouvez l'essayer maintenant, mais il contient quelques bugs."
+        stats={{
+            maxLevel: 3,
+            anvilCost: 2,
+            weight: 4
+        }}
+        applicable={{ name: "Arcs et Arbalètes", asset: "bow" }}
+    >
+        <ChangelogSection>
+            <ChangelogItem title="Rebond">
+                Les flèches rebondissent vers les cibles proches après avoir touché une entité
+            </ChangelogItem>
+            <ChangelogItem title="Nombre de rebonds">
+                Augmente les rebonds possibles : 3 + (1 par niveau)
+            </ChangelogItem>
+        </ChangelogSection>
+    </ChangelogContainer>
+
+    <ChangelogContainer
+        title="Larmes d'Asflors - (Exclusif à Yggdrasil)"
+        citation="La Larme d'Asflors est un enchantement exclusif lié à l'arme légendaire dans le nouveau contenu d'Yggdrasil. Ses effets sont relativement simples, convertissant votre expérience en dégâts d'attaque, fort pour une arme de fin de partie."
+        stats={{
+            maxLevel: 3,
+            anvilCost: 2,
+            weight: 4
+        }}
+        applicable={{ name: "Épées", asset: "sword" }}
+    >
+        <ChangelogSection>
+            <ChangelogItem title="Contre une cible">
+                Convertit l'expérience du joueur en dégâts
+            </ChangelogItem>
+        </ChangelogSection>
+    </ChangelogContainer>
+
+    <ChangelogContainer
+        title="Vague Tellurique"
+        citation="Celui dont je suis le plus fier, et celui qui ajoutera tant d'intérêt à la masse. Celui-ci crée une onde sismique qui envoie les cibles dans les airs. Je vais regarder de près pour voir si cet enchantement n'est pas trop fort. J'espère qu'il ne brisera pas l'équilibre du jeu."
+        stats={{
+            maxLevel: 1,
+            anvilCost: 6,
+            weight: 2
+        }}
+        applicable={{ name: "Masses", asset: "mace" }}
+    >
+        <ChangelogSection>
+            <ChangelogItem title="Contre un bloc">
+                En s'accroupissant, vous créez une onde sismique qui propulse les cibles dans les airs. Donne au lanceur un effets de ralentissement. L'onde peut être utilisé que si vous n'avez pas d'effet de ralentissement.
+            </ChangelogItem>
+            <ChangelogItem title="Contre une cible">
+                Propulse les cibles proches dans les airs après une chute de 5 blocs
+            </ChangelogItem>
+        </ChangelogSection>
+    </ChangelogContainer>
+
+    <ChangelogContainer
+        title="Souffle de Gungnir"
+        citation="Cette enchantment est sensiblement le même que Gel Éternel, mais pour le trident. J'attend les retours des joueurs pour voir si l'enchantement convient mieux à l'arc ou au trident"
+        stats={{
+            maxLevel: 1,
+            anvilCost: 6,
+            weight: 2
+        }}
+        applicable={{ name: "Tridents", asset: "trident" }}
+    >
+        <ChangelogSection>
+            <ChangelogItem title="À l'impact">
+                Transforme le sol en glace et joue une animation de pics de glace
+            </ChangelogItem>
+            <ChangelogItem title="Contre une cible">
+                Ralentit les cibles et joue une animation de pics de glace lors de l'impact
+            </ChangelogItem>
+        </ChangelogSection>
+    </ChangelogContainer>
+
+    <ChangelogContainer
+        title="Dernier Espoir - (Exclusif à Yggdrasil)"
+        citation="Cet enchantement est un dernier recours pour les joueurs sur le point de mourir. C'est un coup fatal garanti, mais il consomme l'objet utilisé et ne peut être obtenu que dans les villages d'Asflors sur une arme mythique."
+        applicable={{ name: "Épée", asset: "sword" }}
+        stats={{
+            maxLevel: 1,
+            anvilCost: 6,
+            weight: 0
+        }}
+    >
+        <ChangelogSection>
+            <ChangelogItem title="Contre une cible">
+                Consomme l'objet pour infliger des dégâts infinis à la cible
+            </ChangelogItem>
+        </ChangelogSection>
+        <ChangelogSection>
+            ![Image](/images/background/blog/tears_of_aslfors.jpg)
+        </ChangelogSection>
+    </ChangelogContainer>
+
+    <ChangelogContainer
+        title="Marche Céleste"
+        citation="Marche Céleste existe depuis longtemps, mais il a été TOTALEMENT repensé depuis zéro, l'ancien a été supprimé. Il n'était pas trés pratique, celui là se contrôle plus facilement."
+        stats={{
+            maxLevel: {
+                currentValue: 1,
+                newValue: 3,
+                type: "Buff"
+            },
+            anvilCost: {
+                currentValue: 3,
+                newValue: 2,
+                type: "Nerf"
+            },
+            weight: 2
+        }}
+        applicable={{ name: "Bottes", asset: "boots" }}
+    >
+        <ChangelogSection>
+            <ChangelogItem title="Effet passif">
+                Le nombre de blocs nécessaires pour subir des dégâts de chute est augmenté de 1 + (1 * niveau)
+            </ChangelogItem>
+            <ChangelogItem title="Effet actif">
+                Crée un effet de répulsion sous les pieds en s'accroupissant avec les valeurs de vitesse suivantes, pour la faire simple, plus le niveau est élevé, plus vous vous envoler vite.
+            </ChangelogItem>
+
+            | Niveau | Vitesse |
+            | ------ | ------- |
+            | 1 | 0,185 |
+            | 2 | 0,215 |
+            | 3 | 0,265 |
+            | 4+ | 0,185 + (0,03 par niveau) |
+        </ChangelogSection>
+    </ChangelogContainer>
+</Changelog>
+
+<Star />
+
+# Enchantements modifiés
+
+<Changelog>
+    <ChangelogContainer
+        title="Briseur de Bedrock"
+        citation="Briseur de Bedrock est aimé par beaucoup, il perd son stade expérimental et reçoit un équilibrage car il était trop cher."
+        applicable={{ name: "Pioche", asset: "pickaxe" }}
+    >
+        <ChangelogSection>
+            <ChangelogItem title="Stable">
+                L'enchantement est maintenant stable, est peut être trouvé.
+            </ChangelogItem>
+            <ChangelogItem title="Durabilité">
+                Réduites de ~200~ -> 150
+            </ChangelogItem>
+            <ChangelogItem title="Effet de particules">
+                Changement de l'effet de particules pour qu'il soit plus beau et plus visible.
+            </ChangelogItem>
+            <ChangelogItem title="Son">
+                Un son a était ajouté
+            </ChangelogItem>
+            <ChangelogItem title="Après le patch">
+                Briseur de Bedrock sera retiré des outils existants et devra être ré-obtenu
+            </ChangelogItem>
+        </ChangelogSection>
+    </ChangelogContainer>
+
+    <ChangelogContainer
+        title="Rapetissé"
+        citation="Les joueurs avaient tendance à l'utiliser comme un effet bénéfique pour être plus difficile à toucher au combat, mais il reste une malédiction. Pour cette raison, des effets négatifs supplémentaires ont été ajoutés."
+        applicable={{ name: "Jambières", asset: "leggings" }}
+    >
+        <ChangelogSection>
+            * **Attributs ajoutés :**
+                * Attribut d'assistance de marche (+0,5 par niveau)
+                * Attribut de réduction de vitesse d'attaque (-0,15 par niveau)
+                * Attribut de réduction de vitesse de mouvement (-0,125 par niveau)
+            <ChangelogItem title="Extension">
+                Effet maintenant extensible au-delà du niveau 4 avec des commandes ou le configurateur.
+            </ChangelogItem>
+            <ChangelogItem title="Technique">
+                L'identifiant de l'attribut "scale" a été changé en "minecraft:enchantment.dwarfed.scale"
+            </ChangelogItem>
+        </ChangelogSection>
+    </ChangelogContainer>
+
+    <ChangelogContainer
+        title="Surdimensionné"
+        citation="Ces changements sont effectués pour être cohérents avec Rapetissé."
+        applicable={{ name: "Jambières", asset: "leggings" }}
+    >
+        <ChangelogSection>
+            * **Attributs ajoutés :**
+                * Réduction des dégâts -2 et -1 supplémentaire par niveau
+                * Réduction de la portée d'attaque -0,15 par niveau
+                * Réduction de la vitesse de mouvement -0,125 par niveau
+
+            <ChangelogItem title="Extension">
+                Effet maintenant extensible au-delà du niveau 4 avec des commandes
+            </ChangelogItem>
+            <ChangelogItem title="Technique">
+                L'identifiant de l'attribut "scale" a été changé en "minecraft:enchantment.oversize.scale"
+            </ChangelogItem>
+        </ChangelogSection>
+    </ChangelogContainer>
+
+    <ChangelogContainer
+        title="Auto-Alimentation"
+        citation="Cet enchantement était trop fort, et était aussi trop facile à obtenir, et le système de nourriture était totalement inutile."
+        applicable={{ name: "Casque", asset: "helmet" }}
+    >
+        <ChangelogSection>
+            <ChangelogItem title="Effet de saturation">
+                S'applique maintenant toutes les 3 minutes au lieu de 30 secondes
+            </ChangelogItem>
+        </ChangelogSection>
+    </ChangelogContainer>
+</Changelog>
+
+<Star />
+
+# Changements techniques
+- Bientôt

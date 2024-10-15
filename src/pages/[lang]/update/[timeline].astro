@@ -25,7 +25,7 @@ export async function getStaticPaths() {
 
         return names.map((i18n) => {
             const updateTimeline = allSortedPosts.filter(
-                (update) => update.slug.split("/")[1] === timeline.id && update.slug.split("/")[0] === i18n.lang
+                (update) => update.id.split("/")[1] === timeline.id && update.id.split("/")[0] === i18n.lang
             );
 
             return {

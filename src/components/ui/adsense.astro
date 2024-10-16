@@ -1,0 +1,24 @@
+---
+import type { HTMLAttributes } from "astro/types";
+interface Props extends HTMLAttributes<"ins"> {
+    slot: string;
+    format?: string;
+}
+
+const props = Astro.props;
+---
+
+<ins
+        class:list={[props.class, "adsbygoogle inline-block rounded-md size-full"]}
+        data-ad-client="ca-pub-7277204161121479"
+        data-ad-slot={props.slot}
+        data-full-width-responsive="true"
+        data-ad-format={props.format ? props.format : ""}
+        style="min-height:90px; max-height:250px; width:250px;max-width:1280px;"
+        {...props}
+>
+</ins>
+
+<script is:inline>
+    (adsbygoogle = window.adsbygoogle || []).push({});
+</script>

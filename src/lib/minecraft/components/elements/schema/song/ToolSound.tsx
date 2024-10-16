@@ -145,15 +145,15 @@ export default function ToolSound() {
                                             <p className="text-sm text-gray-400">{name.replace("/sounds/", ":").replace(".ogg", "")}</p>
                                         </div>
                                     </div>
-                                    <div
+                                    <button
                                         className="size-12 rounded-full bg-white hover:bg-gray-200 cursor-pointer"
                                         onClick={() => handlePlaySound(song)}
                                         onKeyUp={() => handlePlaySound(song)}
-                                        role="button"
+                                        type="button"
                                         tabIndex={0}
                                     >
                                         <img src="/icons/play.svg" alt="Play" className="p-3" />
-                                    </div>
+                                    </button>
                                 </li>
                             ))}
                     </ul>

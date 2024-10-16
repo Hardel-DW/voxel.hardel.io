@@ -2,8 +2,8 @@
 import { getCollection } from "astro:content";
 import CompoundLayout from "@/components/layouts/CompoundLayout.astro";
 import TimelineContent from "@/components/pages/timeline/TimelineContent.astro";
-import ShiningStars from "@/components/ui/object/ShiningStars.astro";
 import { getTranslations, names } from "@/lib/i18n";
+import ShiningStars from "../../../components/ui/pattern/ShiningStars.astro";
 
 export const prerender = true;
 const { translate } = await getTranslations(Astro.url);
@@ -25,7 +25,7 @@ export async function getStaticPaths() {
 
         return names.map((i18n) => {
             const updateTimeline = allSortedPosts.filter(
-                (update) => update.slug.split("/")[1] === timeline.id && update.slug.split("/")[0] === i18n.lang
+                (update) => update.id.split("/")[1] === timeline.id && update.id.split("/")[0] === i18n.lang
             );
 
             return {

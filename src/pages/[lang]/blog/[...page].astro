@@ -3,7 +3,7 @@ import { Picture } from "astro:assets";
 import { getCollection } from "astro:content";
 import CompoundLayout from "@/components/layouts/CompoundLayout.astro";
 import Button from "@/components/ui/button.astro";
-import ShiningStars from "@/components/ui/object/ShiningStars.astro";
+import ShiningStars from "@/components/ui/pattern/ShiningStars.astro";
 import { getTranslations, names } from "@/lib/i18n";
 import type { PaginateFunction } from "astro";
 
@@ -25,7 +25,7 @@ export async function getStaticPaths({
 
     return names.flatMap((i18n) => {
         return paginate(
-            allSortedPosts.filter((post) => post.slug.split("/")[0] === i18n.lang),
+            allSortedPosts.filter((post) => post.id.split("/")[0] === i18n.lang),
             {
                 pageSize: PAGE_SIZE,
                 params: {
@@ -59,7 +59,7 @@ const { page } = Astro.props;
                         <li class="relative group">
                             <div class="absolute -z-10 size-full inset-0 bg-gradient-to-r from-pink-900 to-blue-900 opacity-30 rounded-full blur-[5rem]"/>
 
-                            <a href={`/${lang}/blog/${post.slug.split("/")[1]}`}>
+                            <a href={`/${lang}/blog/${post.id.split("/")[1]}`}>
                                 <div class="relative">
                                     <div class="relative overflow-hidden rounded-md"
                                          style={{width: 800, height: 600}}>

@@ -10,6 +10,10 @@
         "attributePosition": "auto"
     },
     "organizeImports": { "enabled": true },
+    "css": {
+        "formatter": { "enabled": false },
+        "linter": { "enabled": false }
+    },
     "linter": {
         "enabled": true,
         "rules": {

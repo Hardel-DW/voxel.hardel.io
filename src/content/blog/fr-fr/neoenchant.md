@@ -4,7 +4,7 @@ title: "NeoEnchant+ V5"
 snippet: "It's a 1.21 datapack which introduces a new suite of enchantments Explore innovative ways to enhance your Minecraft experience."
 image:
   {
-    src: "https://github.com/Hardel-DW/NeoEnchant/assets/42413417/edfa5a06-e6e2-43ba-9c5e-a7d3c16b3bf0",
+    src: "/images/background/datapacks/neoenchant.webp",
     alt: "NeoEnchant+"
   }
 authors: ["hardel"]

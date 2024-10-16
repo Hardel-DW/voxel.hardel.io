@@ -2,10 +2,10 @@
 import { getCollection } from "astro:content";
 import CompoundLayout from "@/components/layouts/CompoundLayout.astro";
 import Card from "@/components/pages/guide/overview/Card.astro";
-import ShiningStars from "@/components/ui/object/ShiningStars.astro";
 import DashedPattern from "@/components/ui/pattern/DashedPattern.astro";
 import { cn } from "@/lib/utils";
 import type { GetStaticPaths, InferGetStaticPropsType } from "astro";
+import ShiningStars from "../../components/ui/pattern/ShiningStars.astro";
 
 export const prerender = true;
 export const getStaticPaths = (async ({ paginate }) => {

@@ -1,26 +1,28 @@
-[
-    {
-        "question": "What is this tool for?",
-        "answer": "This tool is designed to modify the enchantments of an existing pack, such as NeoEnchant+ or any other pack, with a simple and user-friendly interface that requires no development knowledge."
-    },
-    {
-        "question": "Is this tool designed for Minecraft PC Java, or Minecraft Bedrock?",
-        "answer": "This tool is designed for Minecraft Java Edition only. It doesn't support Bedrock Edition."
-    },
-    {
-        "question": "How do I get started?",
-        "answer": "To get started, simply upload your existing pack to the tool. Once uploaded, you can configure the enchantments to your liking and download the modified pack."
-    },
-    {
-        "question": "What format is supported for the tool?",
-        "answer": "The tool accepts datapacks only in .zip format. This is the format you download from platforms like Modrinth. The tool analyzes whether it's a valid datapack, and whether enchantments exist in it."
-    },
-    {
-        "question": "Mods (.jar) file is supported?",
-        "answer": "No, the tool only supports .zip files. The site will soon support it."
-    },
-    {
-        "question": "How do I download the modified pack?",
-        "answer": "When you're in the configuration interface, on the bottom left, you'll see a white button that says 'Download Pack'. Click on it and your browser will start downloading the modified pack."
-    }
-]
+{
+    "values": [
+        {
+            "question": "What is this tool for?",
+            "answer": "This tool is designed to modify the enchantments of an existing pack, such as NeoEnchant+ or any other pack, with a simple and user-friendly interface that requires no development knowledge."
+        },
+        {
+            "question": "Is this tool designed for Minecraft PC Java, or Minecraft Bedrock?",
+            "answer": "This tool is designed for Minecraft Java Edition only. It doesn't support Bedrock Edition."
+        },
+        {
+            "question": "How do I get started?",
+            "answer": "To get started, simply upload your existing pack to the tool. Once uploaded, you can configure the enchantments to your liking and download the modified pack."
+        },
+        {
+            "question": "What format is supported for the tool?",
+            "answer": "The tool accepts datapacks only in .zip format. This is the format you download from platforms like Modrinth. The tool analyzes whether it's a valid datapack, and whether enchantments exist in it."
+        },
+        {
+            "question": "Mods (.jar) file is supported?",
+            "answer": "No, the tool only supports .zip files. The site will soon support it."
+        },
+        {
+            "question": "How do I download the modified pack?",
+            "answer": "When you're in the configuration interface, on the bottom left, you'll see a white button that says 'Download Pack'. Click on it and your browser will start downloading the modified pack."
+        }
+    ]
+}

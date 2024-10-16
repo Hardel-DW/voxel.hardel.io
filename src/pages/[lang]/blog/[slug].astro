@@ -44,11 +44,37 @@ const { Content } = await render(entry);
         <ShiningStars />
     </div>
 
-    <section class="w-full md:w-3/4 max-w-4xl mx-auto px-8 mt-16 md:mt-40">
+    <section class="w-full md:w-3/4 max-w-4xl mx-auto px-8 mt-24 md:mt-40">
         <div class="mt-4 flex items-center justify-between gap-y-4">
+            <div class="flex-1">
+                <h1
+                    class="text-xl lg:tracking-tight font-semibold mt-4 lg:leading-tight"
+                >
+                    {entry.data.title}
+                </h1>
+
+                <div class="flex items-center text-zinc-500 gap-2">
+                    <span
+                        class="tracking-wider font-medium text-xs md:text-sm"
+                    >
+                        {entry.data.category}
+                    </span>
+                    {" - "}
+                    <small class="text-xs md:text-sm">
+                        {
+                            Intl.DateTimeFormat(lang, {
+                                year: "numeric",
+                                month: "long",
+                                day: "numeric",
+                            }).format(entry.data.publishDate)
+                        }
+                    </small>
+                </div>
+            </div>
+
             {
                 members.map((member) => (
-                    <a class="flex items-center gap-4">
+                    <a class="items-center gap-4 hidden md:flex">
                         <img
                             src={member?.data.image.src}
                             width="40"
@@ -67,43 +93,13 @@ const { Content } = await render(entry);
                     </a>
                 ))
             }
-
-            <div class="text-right">
-                <h1
-                    class="text-xl lg:tracking-tight font-semibold mt-4 lg:leading-tight"
-                >
-                    {entry.data.title}
-                </h1>
-
-                <span
-                    class="text-zinc-500 tracking-wider font-medium text-xs md:text-sm"
-                >
-                    {entry.data.category}
-                </span>
-                {" - "}
-                <small class="text-zinc-500 text-xs md:text-sm">
-                    {
-                        Intl.DateTimeFormat(lang, {
-                            year: "numeric",
-                            month: "long",
-                            day: "numeric",
-                        }).format(entry.data.publishDate)
-                    }
-                </small>
-            </div>
         </div>
 
         <div class="h-1 w-full bg-zinc-700 rounded-full mt-2"></div>
     </section>
 
     <section class="mx-auto w-11/12 md:w-3/4 max-w-4xl rounded-3xl">
-        <div class="w-full min-h-16">
-            <div class="flex justify-center items-center">
-                <Adsense slot="4898864304" />
-            </div>
-        </div>
-
-        <div class="relative">
+        <div class="relative mt-20">
             <div
                 class="absolute -z-10 size-full inset-0 bg-gradient-to-r from-pink-900 to-blue-900 opacity-50 rounded-full blur-[10rem]"
             >

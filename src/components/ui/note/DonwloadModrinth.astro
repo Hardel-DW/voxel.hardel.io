@@ -22,16 +22,25 @@ const { asset, name, version, link, soon } = Astro.props;
             class="aspect-square w-14 !my-0 !rounded-xl"
         />
         <div class="flex flex-col">
-            <span class="text-lg font-bold">{name}</span>
+            <span class="text-lg font-bold line-clamp-1">{name}</span>
             <span class="text-sm text-gray-400">Version - {version}</span>
         </div>
     </div>
     <Button
-        class="!no-underline"
+        class="!no-underline hidden md:flex"
         variant={soon ? "link" : "modrinth"}
         href={soon ? "#" : link}
         target="_blank"
     >
         {soon ? "Coming Soon" : "Download On Modrinth"}
+    </Button>
+
+    <Button
+        class="!no-underline flex md:hidden"
+        variant={soon ? "link" : "modrinth"}
+        href={soon ? "#" : link}
+        target="_blank"
+    >
+        {soon ? "Coming Soon" : "Download"}
     </Button>
 </div>

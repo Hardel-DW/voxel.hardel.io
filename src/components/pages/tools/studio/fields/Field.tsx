@@ -1,8 +1,13 @@
-import type { BlueprintField } from "@/components/pages/tools/studio/elements/Blueprint";
-import InputField from "@/components/pages/tools/studio/elements/fields/InputField.tsx";
-import NumberField from "@/components/pages/tools/studio/elements/fields/NumberField.tsx";
-import OutputField from "@/components/pages/tools/studio/elements/fields/OutputField.tsx";
+import InputField, { type InputFieldType } from "@/components/pages/tools/studio/fields/InputField.tsx";
+import NumberField, { type NumberFieldType } from "@/components/pages/tools/studio/fields/NumberField.tsx";
+import OutputField, { type OutputFieldType } from "@/components/pages/tools/studio/fields/OutputField.tsx";
 import type React from "react";
+
+export type BlueprintFieldType = InputFieldType | NumberFieldType | OutputFieldType;
+export interface BaseBlueprintField {
+    id: string;
+    name: string;
+}
 
 export default function Field({
     field,
@@ -11,7 +16,7 @@ export default function Field({
     handleConnectorMouseUp,
     updateFieldValue
 }: {
-    field: BlueprintField;
+    field: BlueprintFieldType;
     blueprintId: string;
     handleConnectorMouseDown: (e: React.MouseEvent, fieldId: string) => void;
     handleConnectorMouseUp: (fieldId: string) => void;
@@ -27,13 +32,7 @@ export default function Field({
                 />
             );
         case "number":
-            return (
-                <NumberField
-                    field={field}
-                    updateFieldValue={updateFieldValue}
-                    blueprintId={blueprintId}
-                />
-            );
+            return <NumberField field={field} updateFieldValue={updateFieldValue} blueprintId={blueprintId} />;
         case "output":
             return (
                 <OutputField

@@ -1,11 +1,12 @@
-import type React from "react";
+import type { BaseBlueprintField } from "./Field";
+
+export interface NumberFieldType extends BaseBlueprintField {
+    type: "number";
+    value: number;
+}
 
 export default function NumberField({ field, updateFieldValue, blueprintId }: {
-    field: {
-        id: string;
-        name: string;
-        value: number;
-    };
+    field: NumberFieldType;
     updateFieldValue: (blueprintId: string, fieldId: string, value: number) => void;
     blueprintId: string;
 }) {

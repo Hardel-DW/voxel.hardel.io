@@ -18,6 +18,9 @@ export default {
             gridTemplateColumns: {
                 items: "repeat(auto-fill, minmax(120px, 1fr))"
             },
+            backgroundImage: {
+                grid: "linear-gradient(to right, #272727 1px, transparent 1px), linear-gradient(to bottom, #272727 1px, transparent 1px)"
+            },
             colors: {
                 modrinth: "#1bd96a",
                 header: {

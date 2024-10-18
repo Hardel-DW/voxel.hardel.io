@@ -1,6 +1,5 @@
-import type { BlueprintField } from "@/components/pages/tools/studio/elements/Blueprint";
-import Field from "@/components/pages/tools/studio/elements/fields/Field";
-import { cn } from "@/lib/utils";
+import Field, { type BlueprintFieldType } from "@/components/pages/tools/studio/fields/Field.tsx";
+import { cn } from "@/lib/utils.ts";
 import type React from "react";
 
 export default function FieldManager({
@@ -10,7 +9,7 @@ export default function FieldManager({
     handleConnectorMouseUp,
     updateFieldValue
 }: {
-    fields: BlueprintField[];
+    fields: BlueprintFieldType[];
     blueprintId: string;
     handleConnectorMouseDown: (e: React.MouseEvent, fieldId: string) => void;
     handleConnectorMouseUp: (fieldId: string) => void;

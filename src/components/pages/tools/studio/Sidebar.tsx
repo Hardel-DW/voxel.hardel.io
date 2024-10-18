@@ -1,6 +1,6 @@
+import { useStudioContext } from "@/components/pages/tools/studio/StudioContext.tsx";
 import { cn } from "@/lib/utils.ts";
 import { useState } from "react";
-import { useStudioContext } from "./StudioContext";
 
 export default function Sidebar() {
     const [width, setWidth] = useState(350);

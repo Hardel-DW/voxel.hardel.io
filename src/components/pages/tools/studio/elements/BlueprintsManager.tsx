@@ -1,9 +1,8 @@
-import React from "react";
-import { useStudioContext } from "./StudioContext";
-import { Blueprint } from "./Blueprint";
+import { useStudioContext } from "@/components/pages/tools/studio/StudioContext.tsx";
+import Blueprint from "@/components/pages/tools/studio/elements/Blueprint.tsx";
 
-const BlueprintsManager: React.FC = () => {
-    const { blueprints, zoom, position, setDraggingBlueprintId } = useStudioContext();
+export default function BlueprintsManager() {
+    const { blueprints, zoom, position, setDraggingBlueprintId, setBlueprintOffset } = useStudioContext();
 
     return (
         <>
@@ -17,14 +16,12 @@ const BlueprintsManager: React.FC = () => {
                     position={position}
                     title={blueprint.title}
                     fields={blueprint.fields}
-                    onDragStart={(offsetX, offsetY) => {
+                    onDragStart={(offsetX: number, offsetY: number) => {
                         setDraggingBlueprintId(blueprint.id);
-                        // Note: blueprintOffset.current doit être géré dans le contexte ou dans le composant parent
+                        setBlueprintOffset({ x: offsetX, y: offsetY });
                     }}
                 />
             ))}
         </>
     );
-};
-
-export default BlueprintsManager;
+}

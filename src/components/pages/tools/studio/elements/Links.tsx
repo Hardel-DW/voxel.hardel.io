@@ -1,8 +1,8 @@
+import { useStudioContext } from "@/components/pages/tools/studio/StudioContext.tsx";
+import { generatePath } from "@/components/pages/tools/studio/utils.ts";
 import type React from "react";
-import { useStudioContext } from "./StudioContext";
-import { generatePath } from "./utils";
 
-const Links: React.FC = () => {
+export default function Links(): React.ReactElement {
     const { visualLinks, zoom, position, blueprints } = useStudioContext();
 
     const getFieldPosition = (blueprintId: string, fieldId: string, isOutput: boolean) => {
@@ -19,7 +19,7 @@ const Links: React.FC = () => {
         if (isOutput) {
             return { x: blueprintX + 200 * zoom, y: fieldY + 10 * zoom }; // 200px largeur du blueprint, 10px pour centrer sur le rond
         }
-        
+
         return { x: blueprintX, y: fieldY + 10 * zoom }; // 10 px pour centrer sur le rond
     };
 
@@ -41,6 +41,4 @@ const Links: React.FC = () => {
             })}
         </svg>
     );
-};
-
-export default Links;
+}

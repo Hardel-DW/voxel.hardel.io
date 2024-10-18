@@ -1,26 +1,27 @@
+import { useStudioContext } from "@/components/pages/tools/studio/StudioContext.tsx";
+import BlueprintsManager from "@/components/pages/tools/studio/elements/BlueprintsManager.tsx";
+import Links from "@/components/pages/tools/studio/elements/Links.tsx";
+import TemporaryLinkManager from "@/components/pages/tools/studio/elements/TemporaryLinkManager.tsx";
 import type React from "react";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { Blueprint } from "./Blueprint";
-import { useStudioContext } from "./StudioContext";
-import Links from "./Links";
 
 export default function Studio() {
     const canvasRef = useRef<HTMLDivElement>(null);
     const [isDragging, setIsDragging] = useState(false);
-    const [draggingBlueprintId, setDraggingBlueprintId] = useState<string | null>(null);
     const startDragPosition = useRef({ x: 0, y: 0 });
     const startPosition = useRef({ x: 0, y: 0 });
-    const blueprintOffset = useRef({ x: 0, y: 0 });
     const { 
         setCursorPosition, 
         position, 
         setPosition, 
         zoom, 
         setZoom, 
-        blueprints, 
         setBlueprints, 
         temporaryLink, 
-        setTemporaryLink 
+        setTemporaryLink,
+        draggingBlueprintId,
+        setDraggingBlueprintId,
+        blueprintOffset
     } = useStudioContext();
 
     const handleMouseDown = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
@@ -32,7 +33,7 @@ export default function Studio() {
             };
             startPosition.current = { ...position };
         }
-        event.preventDefault();
+        event.preventDefault(); 
     };
 
     const handleMouseMove = useCallback(
@@ -48,13 +49,17 @@ export default function Studio() {
                 const rect = canvasRef.current.getBoundingClientRect();
                 const x = (event.clientX - rect.left - position.x) / zoom;
                 const y = (event.clientY - rect.top - position.y) / zoom;
-                setBlueprints(prev => prev.map(bp => 
-                    bp.id === draggingBlueprintId ? { 
-                        ...bp, 
-                        x: x - blueprintOffset.current.x, 
-                        y: y - blueprintOffset.current.y 
-                    } : bp
-                ));
+                setBlueprints((prev) =>
+                    prev.map((bp) =>
+                        bp.id === draggingBlueprintId
+                            ? {
+                                  ...bp,
+                                  x: x - blueprintOffset.x,
+                                  y: y - blueprintOffset.y
+                              }
+                            : bp
+                    )
+                );
             }
 
             if (canvasRef.current) {
@@ -64,21 +69,25 @@ export default function Studio() {
                 setCursorPosition({ x: xOnCanvas, y: yOnCanvas });
 
                 if (temporaryLink) {
-                    setTemporaryLink(prev => prev ? { 
-                        ...prev, 
-                        endX: xOnCanvas, 
-                        endY: yOnCanvas 
-                    } : null);
+                    setTemporaryLink((prev) =>
+                        prev
+                            ? {
+                                  ...prev,
+                                  endX: xOnCanvas,
+                                  endY: yOnCanvas
+                              }
+                            : null
+                    );
                 }
             }
         },
-        [isDragging, draggingBlueprintId, position, zoom, setCursorPosition, setPosition, setBlueprints, temporaryLink, setTemporaryLink]
+        [isDragging, draggingBlueprintId, position, zoom, setCursorPosition, setPosition, setBlueprints, temporaryLink, setTemporaryLink, blueprintOffset]
     );
 
     const handleMouseUp = useCallback(() => {
         setIsDragging(false);
         setDraggingBlueprintId(null);
-    }, []);
+    }, [setDraggingBlueprintId]);
 
     const handleWheel = useCallback(
         (event: WheelEvent) => {
@@ -121,48 +130,18 @@ export default function Studio() {
         <div className="relative w-full h-full overflow-hidden">
             <div
                 ref={canvasRef}
-                className={`absolute w-[10000px] h-[10000px] ${isDragging ? 'cursor-grabbing' : 'cursor-grab'}`}
+                className={`absolute w-dvw h-dvh ${isDragging ? "cursor-grabbing" : "cursor-grab"}`}
                 style={{
                     backgroundSize: `${50 * zoom}px ${50 * zoom}px`,
                     backgroundImage:
                         "linear-gradient(to right, #272727 1px, transparent 1px), linear-gradient(to bottom, #272727 1px, transparent 1px)",
-                    backgroundPosition: `${position.x}px ${position.y}px`,
+                    backgroundPosition: `${position.x}px ${position.y}px`
                 }}
                 onMouseDown={handleMouseDown}
             >
-                {blueprints.map((blueprint) => (
-                    <Blueprint
-                        key={blueprint.id}
-                        id={blueprint.id}
-                        x={blueprint.x}
-                        y={blueprint.y}
-                        zoom={zoom}
-                        position={position}
-                        title={blueprint.title}
-                        fields={blueprint.fields}
-                        onDragStart={(offsetX, offsetY) => {
-                            setDraggingBlueprintId(blueprint.id);
-                            blueprintOffset.current = { x: offsetX, y: offsetY };
-                        }}
-                    />
-                ))}
+                <BlueprintsManager />
                 <Links />
-                {temporaryLink && (
-                    <svg
-                        role="presentation"
-                        className="absolute top-0 left-0 w-full h-full pointer-events-none"
-                        style={{ zIndex: 1001 }}
-                    >
-                        <line
-                            x1={temporaryLink.startX * zoom + position.x}
-                            y1={temporaryLink.startY * zoom + position.y}
-                            x2={temporaryLink.endX * zoom + position.x}
-                            y2={temporaryLink.endY * zoom + position.y}
-                            stroke="#66c0f4"
-                            strokeWidth={2 / zoom}
-                        />
-                    </svg>
-                )}
+                <TemporaryLinkManager />
             </div>
         </div>
     );

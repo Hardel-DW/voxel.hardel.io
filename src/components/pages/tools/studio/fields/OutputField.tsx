@@ -1,10 +1,13 @@
 import type React from "react";
+import type { BaseBlueprintField } from "./Field";
+
+export interface OutputFieldType extends BaseBlueprintField {
+    type: "output";
+    value: string;
+}
 
 export default function OutputField({ field, handleConnectorMouseDown, handleConnectorMouseUp }: {
-    field: {
-        id: string;
-        name: string;
-    };
+    field: OutputFieldType;
     handleConnectorMouseDown: (e: React.MouseEvent, fieldId: string) => void;
     handleConnectorMouseUp: (fieldId: string) => void;
 }) {

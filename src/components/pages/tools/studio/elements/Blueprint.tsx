@@ -25,13 +25,9 @@ export const Blueprint: React.FC<BlueprintProps> = ({ id, x, y, zoom, position, 
     const blueprintRef = useRef<HTMLDivElement>(null);
 
     const style: React.CSSProperties = {
-        position: 'absolute',
         left: `${x * zoom + position.x}px`,
         top: `${y * zoom + position.y}px`,
-        transform: `scale(${zoom})`,
-        transformOrigin: 'top left',
-        width: '200px',  // Fixed width
-        minHeight: '150px',  // Minimum height
+        transform: `scale(${zoom})`
     };
 
     const handleMouseDown = (e: React.MouseEvent) => {
@@ -63,21 +59,21 @@ export const Blueprint: React.FC<BlueprintProps> = ({ id, x, y, zoom, position, 
     return (
         <div 
             ref={blueprintRef} 
-            className="select-none bg-opacity-90 bg-gray-900 border border-gray-700 rounded-lg shadow-md overflow-visible font-sans text-gray-200 text-sm"
+            className="absolute origin-top-left min-w-64 min-h-48 text select-none bg-opacity-90 bg-zinc-900 rounded-2xl shadow-md overflow-visible font-sans text-gray-200"
             style={style}
             onMouseDown={handleMouseDown}
         >
-            <div className="bg-gray-800 p-3 font-bold cursor-move relative overflow-hidden">
+            <div className="bg-zinc-950 p-3 font-bold cursor-move relative overflow-hidden rounded-t-2xl">
                 <div className="relative z-10 text-base">
                     {title}
                 </div>
-                <div className="absolute inset-0 -left-1/2 w-full h-full bg-radial-gradient from-black via-black to-transparent rounded-full filter blur-2xl pointer-events-none" />
+                <div className="absolute inset-0 -left-1/2 size-full bg-gradient-to-tr from-pink-950 from-70% to-transparent rounded-full filter blur-2xl pointer-events-none" />
             </div>
-            <div className="p-3">
+            <div className="p-4 grid grid-cols-1 auto-rows-fr gap-2">
                 {fields.map((field) => (
                     <div
                         key={field.id}
-                        className={`flex items-center mb-1 ${field.type === "output" ? "justify-end" : "justify-start"}`}
+                        className={`flex items-center mb-1 ${field.type === "output" ? "justify-end" : "justify-between"}`}
                     >
                         {field.type !== "output" && (
                             <div className="flex items-center">
@@ -94,7 +90,7 @@ export const Blueprint: React.FC<BlueprintProps> = ({ id, x, y, zoom, position, 
                                 type="number"
                                 value={field.value as number}
                                 onChange={(e) => updateFieldValue(id, field.id, +e.target.value)}
-                                className="w-16 text-sm p-1 bg-gray-700 bg-opacity-60 border-none rounded text-blue-400 text-right"
+                                className="!w-24 text-sm bg-opacity-60 rounded text-right"
                             />
                         )}
                         {field.type === "output" && (

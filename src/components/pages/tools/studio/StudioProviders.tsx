@@ -4,7 +4,7 @@ import { TooltipProvider } from "@radix-ui/react-tooltip";
 import type React from "react";
 import { Toaster } from "sonner";
 
-export default function PanelProvider(props: {
+export default function StudioProviders(props: {
     translate: TranslationRecord;
     lang: string;
     children?: React.ReactNode;

@@ -1,16 +1,11 @@
 ---
-import { getEntry } from "astro:content";
 import Layout from "@/components/layouts/Layout.astro";
-import Navbar from "@/components/layouts/compound/navbar.astro";
-import EnchantTool from "@/components/pages/tools/enchant/EnchantTool";
+import StudioTool from "@/components/pages/tools/studio/StudioTool";
 import ShiningStars from "@/components/ui/pattern/ShiningStars.astro";
 import { getTranslations, names } from "@/lib/i18n";
 
-const { lang, translate } = await getTranslations(Astro.url);
-const faqEntry = await getEntry("faq", `${lang}/tool`);
-const values = faqEntry.data.values;
-
 export const prerender = true;
+const { lang, translate } = await getTranslations(Astro.url);
 export async function getStaticPaths() {
     return names.map((element) => ({
         params: { lang: element.lang }
@@ -24,7 +19,5 @@ export async function getStaticPaths() {
     </div>
     <div class="absolute rounded-full w-3/4 h-1/2 bg-gradient-to-r from-[#830335] to-[#311e7696] opacity-20 blur-[10rem] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"/>
 
-    <EnchantTool client:only="react" translate={translate} lang={lang} faq={values}>
-        <Navbar transparent={false} full={false} className="relative mt-0 mb-8 w-full"/>
-    </EnchantTool>
+    <StudioTool client:only="react" translate={translate} lang={lang} />
 </Layout>

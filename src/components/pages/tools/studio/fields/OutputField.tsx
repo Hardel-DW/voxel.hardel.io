@@ -6,18 +6,18 @@ export interface OutputFieldType extends BaseBlueprintField {
     value: string;
 }
 
-export default function OutputField({ field, handleConnectorMouseDown, handleConnectorMouseUp }: {
+export default function OutputField(props: {
     field: OutputFieldType;
     handleConnectorMouseDown: (e: React.MouseEvent, fieldId: string) => void;
     handleConnectorMouseUp: (fieldId: string) => void;
 }) {
     return (
         <div className="flex items-center justify-end">
-            <span>{field.name}</span>
+            <span>{props.field.name}</span>
             <div
                 className="w-3 h-3 rounded-full ml-2 bg-red-400 cursor-pointer"
-                onMouseDown={(e) => handleConnectorMouseDown(e, field.id)}
-                onMouseUp={() => handleConnectorMouseUp(field.id)}
+                onMouseDown={(e) => props.handleConnectorMouseDown(e, props.field.id)}
+                onMouseUp={() => props.handleConnectorMouseUp(props.field.id)}
             />
         </div>
     );

@@ -9,36 +9,30 @@ export interface BaseBlueprintField {
     name: string;
 }
 
-export default function Field({
-    field,
-    blueprintId,
-    handleConnectorMouseDown,
-    handleConnectorMouseUp,
-    updateFieldValue
-}: {
+export default function Field(props: {
     field: BlueprintFieldType;
     blueprintId: string;
     handleConnectorMouseDown: (e: React.MouseEvent, fieldId: string) => void;
     handleConnectorMouseUp: (fieldId: string) => void;
     updateFieldValue: (blueprintId: string, fieldId: string, value: number) => void;
 }) {
-    switch (field.type) {
+    switch (props.field.type) {
         case "input":
             return (
                 <InputField
-                    field={field}
-                    handleConnectorMouseDown={handleConnectorMouseDown}
-                    handleConnectorMouseUp={handleConnectorMouseUp}
+                    field={props.field}
+                    handleConnectorMouseDown={props.handleConnectorMouseDown}
+                    handleConnectorMouseUp={props.handleConnectorMouseUp}
                 />
             );
         case "number":
-            return <NumberField field={field} updateFieldValue={updateFieldValue} blueprintId={blueprintId} />;
+            return <NumberField field={props.field} updateFieldValue={props.updateFieldValue} blueprintId={props.blueprintId} />;
         case "output":
             return (
                 <OutputField
-                    field={field}
-                    handleConnectorMouseDown={handleConnectorMouseDown}
-                    handleConnectorMouseUp={handleConnectorMouseUp}
+                    field={props.field}
+                    handleConnectorMouseDown={props.handleConnectorMouseDown}
+                    handleConnectorMouseUp={props.handleConnectorMouseUp}
                 />
             );
         default:

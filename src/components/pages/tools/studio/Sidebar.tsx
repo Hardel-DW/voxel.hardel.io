@@ -1,10 +1,12 @@
 import { useStudioContext } from "@/components/pages/tools/studio/StudioContext.tsx";
 import { cn } from "@/lib/utils.ts";
 import { useState } from "react";
+import type { Blueprint } from "./types";
 
 export default function Sidebar() {
     const [width, setWidth] = useState(350);
-    const { position, blueprints } = useStudioContext();
+    const { position, gridObjects } = useStudioContext();
+    const blueprints = gridObjects.filter((obj): obj is Blueprint => 'title' in obj);
 
     return (
         <>
@@ -28,7 +30,7 @@ export default function Sidebar() {
                                     <ul>
                                         {blueprints.map((bp) => (
                                             <li key={bp.id}>
-                                                Blueprint {bp.id}: X: {Math.round(bp.x)}, Y: {Math.round(bp.y)}
+                                                Blueprint {bp.id}: X: {Math.round(bp.position.x)}, Y: {Math.round(bp.position.y)}
                                             </li>
                                         ))}
                                     </ul>

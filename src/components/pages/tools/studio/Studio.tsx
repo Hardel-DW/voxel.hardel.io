@@ -2,6 +2,7 @@ import { useStudioContext } from "@/components/pages/tools/studio/StudioContext.
 import BlueprintsManager from "@/components/pages/tools/studio/elements/BlueprintsManager.tsx";
 import Links from "@/components/pages/tools/studio/elements/Links.tsx";
 import TemporaryLinkManager from "@/components/pages/tools/studio/elements/TemporaryLinkManager.tsx";
+import { cn } from "@/lib/utils.ts";
 import type React from "react";
 import { useCallback, useEffect, useRef, useState } from "react";
 
@@ -10,18 +11,18 @@ export default function Studio() {
     const [isDragging, setIsDragging] = useState(false);
     const startDragPosition = useRef({ x: 0, y: 0 });
     const startPosition = useRef({ x: 0, y: 0 });
-    const { 
-        setCursorPosition, 
-        position, 
-        setPosition, 
-        zoom, 
-        setZoom, 
-        setBlueprints, 
-        temporaryLink, 
-        setTemporaryLink,
-        draggingBlueprintId,
-        setDraggingBlueprintId,
-        blueprintOffset
+    const {
+        setCursorPosition,
+        position,
+        setPosition,
+        zoom,
+        setZoom,
+        updateGridObject,
+        draggingObjectId,
+        setDraggingObjectId,
+        objectOffset,
+        isLinking,
+        cancelLinking
     } = useStudioContext();
 
     const handleMouseDown = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
@@ -33,7 +34,7 @@ export default function Studio() {
             };
             startPosition.current = { ...position };
         }
-        event.preventDefault(); 
+        event.preventDefault();
     };
 
     const handleMouseMove = useCallback(
@@ -45,21 +46,16 @@ export default function Studio() {
                     x: startPosition.current.x + dx,
                     y: startPosition.current.y + dy
                 });
-            } else if (draggingBlueprintId !== null && canvasRef.current) {
+            } else if (draggingObjectId !== null && canvasRef.current) {
                 const rect = canvasRef.current.getBoundingClientRect();
                 const x = (event.clientX - rect.left - position.x) / zoom;
                 const y = (event.clientY - rect.top - position.y) / zoom;
-                setBlueprints((prev) =>
-                    prev.map((bp) =>
-                        bp.id === draggingBlueprintId
-                            ? {
-                                  ...bp,
-                                  x: x - blueprintOffset.x,
-                                  y: y - blueprintOffset.y
-                              }
-                            : bp
-                    )
-                );
+                updateGridObject(draggingObjectId, {
+                    position: {
+                        x: x - objectOffset.x,
+                        y: y - objectOffset.y
+                    }
+                });
             }
 
             if (canvasRef.current) {
@@ -67,27 +63,18 @@ export default function Studio() {
                 const xOnCanvas = (event.clientX - rect.left - position.x) / zoom;
                 const yOnCanvas = (event.clientY - rect.top - position.y) / zoom;
                 setCursorPosition({ x: xOnCanvas, y: yOnCanvas });
-
-                if (temporaryLink) {
-                    setTemporaryLink((prev) =>
-                        prev
-                            ? {
-                                  ...prev,
-                                  endX: xOnCanvas,
-                                  endY: yOnCanvas
-                              }
-                            : null
-                    );
-                }
             }
         },
-        [isDragging, draggingBlueprintId, position, zoom, setCursorPosition, setPosition, setBlueprints, temporaryLink, setTemporaryLink, blueprintOffset]
+        [isDragging, draggingObjectId, position, zoom, setCursorPosition, setPosition, updateGridObject, objectOffset]
     );
 
-    const handleMouseUp = useCallback(() => {
+    const handleMouseUp = useCallback((event: MouseEvent) => {
         setIsDragging(false);
-        setDraggingBlueprintId(null);
-    }, [setDraggingBlueprintId]);
+        setDraggingObjectId(null);
+        if (isLinking && event.target === canvasRef.current) {
+            cancelLinking();
+        }
+    }, [setDraggingObjectId, isLinking, cancelLinking]);
 
     const handleWheel = useCallback(
         (event: WheelEvent) => {
@@ -130,14 +117,16 @@ export default function Studio() {
         <div className="relative w-full h-full overflow-hidden">
             <div
                 ref={canvasRef}
-                className={`absolute w-dvw h-dvh ${isDragging ? "cursor-grabbing" : "cursor-grab"}`}
+                className={cn("absolute w-dvw h-dvh bg-grid", {
+                    "cursor-grabbing": isDragging,
+                    "cursor-grab": !isDragging
+                })}
                 style={{
                     backgroundSize: `${50 * zoom}px ${50 * zoom}px`,
-                    backgroundImage:
-                        "linear-gradient(to right, #272727 1px, transparent 1px), linear-gradient(to bottom, #272727 1px, transparent 1px)",
                     backgroundPosition: `${position.x}px ${position.y}px`
                 }}
                 onMouseDown={handleMouseDown}
+                onMouseUp={handleMouseUp}
             >
                 <BlueprintsManager />
                 <Links />

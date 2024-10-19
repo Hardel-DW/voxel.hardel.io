@@ -2,13 +2,7 @@ import Field, { type BlueprintFieldType } from "@/components/pages/tools/studio/
 import { cn } from "@/lib/utils.ts";
 import type React from "react";
 
-export default function FieldManager({
-    fields,
-    blueprintId,
-    handleConnectorMouseDown,
-    handleConnectorMouseUp,
-    updateFieldValue
-}: {
+export default function FieldManager(props: {
     fields: BlueprintFieldType[];
     blueprintId: string;
     handleConnectorMouseDown: (e: React.MouseEvent, fieldId: string) => void;
@@ -17,7 +11,7 @@ export default function FieldManager({
 }) {
     return (
         <div className="p-4 grid grid-cols-1 auto-rows-fr gap-2">
-            {fields.map((field) => (
+            {props.fields.map((field) => (
                 <div
                     key={field.id}
                     className={cn("flex items-center mb-1", {
@@ -27,10 +21,10 @@ export default function FieldManager({
                 >
                     <Field
                         field={field}
-                        blueprintId={blueprintId}
-                        handleConnectorMouseDown={handleConnectorMouseDown}
-                        handleConnectorMouseUp={handleConnectorMouseUp}
-                        updateFieldValue={updateFieldValue}
+                        blueprintId={props.blueprintId}
+                        handleConnectorMouseDown={props.handleConnectorMouseDown}
+                        handleConnectorMouseUp={props.handleConnectorMouseUp}
+                        updateFieldValue={props.updateFieldValue}
                     />
                 </div>
             ))}

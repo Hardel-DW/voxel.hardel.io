@@ -6,7 +6,7 @@ export interface InputFieldType extends BaseBlueprintField {
     value: string;
 }
 
-export default function InputField({ field, handleConnectorMouseDown, handleConnectorMouseUp }: {
+export default function InputField(props: {
     field: InputFieldType;
     handleConnectorMouseDown: (e: React.MouseEvent, fieldId: string) => void;
     handleConnectorMouseUp: (fieldId: string) => void;
@@ -15,10 +15,10 @@ export default function InputField({ field, handleConnectorMouseDown, handleConn
         <div className="flex items-center justify-start">
             <div
                 className="w-3 h-3 rounded-full mr-2 cursor-pointer bg-blue-400"
-                onMouseDown={(e) => handleConnectorMouseDown(e, field.id)}
-                onMouseUp={() => handleConnectorMouseUp(field.id)}
+                onMouseDown={(e) => props.handleConnectorMouseDown(e, props.field.id)}
+                onMouseUp={() => props.handleConnectorMouseUp(props.field.id)}
             />
-            <span>{field.name}</span>
+            <span>{props.field.name}</span>
         </div>
     );
 }

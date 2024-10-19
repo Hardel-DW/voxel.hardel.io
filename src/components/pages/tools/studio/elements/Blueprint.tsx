@@ -1,8 +1,9 @@
 import { useStudioContext } from "@/components/pages/tools/studio/StudioContext.tsx";
 import type { BlueprintFieldType } from "@/components/pages/tools/studio/fields/Field.tsx";
 import FieldManager from "@/components/pages/tools/studio/fields/FieldManager.tsx";
+import type { Blueprint as BlueprintType } from "@/components/pages/tools/studio/types";
 import type React from "react";
-import { useRef } from "react";
+import { useCallback, useEffect, useRef } from "react";
 
 export default function Blueprint(props: {
     id: string;
@@ -14,7 +15,7 @@ export default function Blueprint(props: {
     fields: BlueprintFieldType[];
     onDragStart: (offsetX: number, offsetY: number) => void;
 }) {
-    const { startLinking, finishLinking, isLinking, setTemporaryLink, updateFieldValue } = useStudioContext();
+    const { startLinking, finishLinking, isLinking, updateGridObject, updateTemporaryLink } = useStudioContext();
     const blueprintRef = useRef<HTMLDivElement>(null);
 
     const handleMouseDown = (e: React.MouseEvent) => {
@@ -30,18 +31,48 @@ export default function Blueprint(props: {
         const rect = blueprintRef.current?.getBoundingClientRect();
         if (!rect) return;
 
-        const startX = props.x + (e.clientX - rect.left) / props.zoom;
-        const startY = props.y + (e.clientY - rect.top) / props.zoom;
-        setTemporaryLink({ startX, startY, endX: startX, endY: startY });
-        startLinking(props.id, fieldId);
+        const startX = e.clientX;
+        const startY = e.clientY;
+        startLinking(props.id, fieldId, startX, startY);
     };
 
-    const handleConnectorMouseUp = (fieldId: string) => {
-        if (isLinking) {
-            finishLinking(props.id, fieldId);
-        }
-        setTemporaryLink(null);
+    const handleConnectorMouseUp = useCallback(
+        (fieldId: string) => {
+            if (isLinking) {
+                finishLinking(props.id, fieldId);
+            }
+        },
+        [isLinking, finishLinking, props.id]
+    );
+
+    const handleFieldValueChange = (fieldId: string, newValue: string | number) => {
+        updateGridObject(props.id, {
+            fields: props.fields.map((f) =>
+                f.id === fieldId
+                    ? {
+                          ...f,
+                          value: f.type === "number" ? Number(newValue) : String(newValue)
+                      }
+                    : f
+            )
+        } as Partial<BlueprintType>);
     };
+
+    const handleConnectorMouseMove = useCallback(
+        (e: MouseEvent) => {
+            if (isLinking) {
+                updateTemporaryLink({ x: e.clientX, y: e.clientY });
+            }
+        },
+        [isLinking, updateTemporaryLink]
+    );
+
+    useEffect(() => {
+        window.addEventListener("mousemove", handleConnectorMouseMove);
+        return () => {
+            window.removeEventListener("mousemove", handleConnectorMouseMove);
+        };
+    }, [handleConnectorMouseMove]);
 
     return (
         <div
@@ -63,7 +94,7 @@ export default function Blueprint(props: {
                 blueprintId={props.id}
                 handleConnectorMouseDown={handleConnectorMouseDown}
                 handleConnectorMouseUp={handleConnectorMouseUp}
-                updateFieldValue={updateFieldValue}
+                updateFieldValue={handleFieldValueChange}
             />
         </div>
     );

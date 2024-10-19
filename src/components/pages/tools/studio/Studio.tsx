@@ -68,10 +68,10 @@ export default function Studio() {
         [isDragging, draggingObjectId, position, zoom, setCursorPosition, setPosition, updateGridObject, objectOffset]
     );
 
-    const handleMouseUp = useCallback((event: MouseEvent) => {
+    const handleMouseUp = useCallback((event: MouseEvent | React.MouseEvent<HTMLDivElement>) => {
         setIsDragging(false);
         setDraggingObjectId(null);
-        if (isLinking && event.target === canvasRef.current) {
+        if (isLinking && (event.target as Node).isEqualNode(canvasRef.current)) {
             cancelLinking();
         }
     }, [setDraggingObjectId, isLinking, cancelLinking]);

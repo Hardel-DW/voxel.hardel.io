@@ -28,7 +28,7 @@ type StudioContextType = {
     isLinking: boolean;
     updateTemporaryLink: (endPosition: Position) => void;
     cancelLinking: () => void;
-    isValidLinkTarget: (targetId: string, targetFieldId: string) => boolean;
+    isValidLinkTarget: (sourceId: string, sourceFieldId: string, targetId: string, targetFieldId: string) => boolean;
 };
 
 const StudioContext = createContext<StudioContextType | undefined>(undefined);
@@ -92,12 +92,20 @@ export function StudioProvider({ children }: { children: React.ReactNode }) {
         setGridObjects((prev) => prev.filter((obj) => obj.id !== id));
     }, []);
 
-    const isValidLinkTarget = useCallback((targetId: string, targetFieldId: string) => {
+    const isValidLinkTarget = useCallback((sourceId: string, sourceFieldId: string, targetId: string, targetFieldId: string) => {
+        const sourceBlueprint = gridObjects.find(obj => obj.id === sourceId && obj.type === "blueprint") as Blueprint | undefined;
         const targetBlueprint = gridObjects.find(obj => obj.id === targetId && obj.type === "blueprint") as Blueprint | undefined;
-        if (!targetBlueprint) return false;
+        
+        if (!sourceBlueprint || !targetBlueprint) return false;
 
+        const sourceField = sourceBlueprint.fields.find(f => f.id === sourceFieldId);
         const targetField = targetBlueprint.fields.find(f => f.id === targetFieldId);
-        return targetField?.type === "input";
+        
+        if (!sourceField || !targetField) return false;
+
+        // Permettre la connexion entre un output et un input, dans n'importe quel ordre
+        return (sourceField.type === "output" && targetField.type === "input") ||
+               (sourceField.type === "input" && targetField.type === "output");
     }, [gridObjects]);
 
     const startLinking = useCallback((sourceId: string, sourceFieldId: string, startX: number, startY: number) => {
@@ -146,45 +154,40 @@ export function StudioProvider({ children }: { children: React.ReactNode }) {
     }, []);
 
     const finishLinking = useCallback((targetId: string, targetFieldId: string) => {
-        if (!isValidLinkTarget(targetId, targetFieldId)) {
-            cancelLinking();
-            return;
-        }
-
         setGridObjects(prev => {
             const tempLink = prev.find(obj => obj.type === "tmp_link") as TemporaryLink | undefined;
-            const sourceBlueprint = prev.find(obj => obj.id === tempLink?.sourceId && obj.type === "blueprint") as Blueprint | undefined;
+            if (!tempLink) return prev;
+
+            const sourceBlueprint = prev.find(obj => obj.id === tempLink.sourceId && obj.type === "blueprint") as Blueprint | undefined;
             const targetBlueprint = prev.find(obj => obj.id === targetId && obj.type === "blueprint") as Blueprint | undefined;
             
-            if (tempLink && sourceBlueprint && targetBlueprint) {
+            if (sourceBlueprint && targetBlueprint) {
                 const sourceField = sourceBlueprint.fields.find(f => f.id === tempLink.sourceFieldId);
                 const targetField = targetBlueprint.fields.find(f => f.id === targetFieldId);
                 
-                // Vérifier que nous ne connectons pas deux outputs
-                if (sourceField?.type === "output" && targetField?.type === "output") {
-                    console.warn("Cannot connect two outputs");
-                    return prev.filter(obj => obj.id !== "temp-link");
+                if (sourceField && targetField) {
+                    if (isValidLinkTarget(tempLink.sourceId, tempLink.sourceFieldId, targetId, targetFieldId)) {
+                        const newLink: Link = {
+                            type: "link",
+                            id: `link-${Date.now()}`,
+                            position: tempLink.position,
+                            sourceId: sourceField.type === "output" ? tempLink.sourceId : targetId,
+                            targetId: sourceField.type === "output" ? targetId : tempLink.sourceId,
+                            sourceFieldId: sourceField.type === "output" ? tempLink.sourceFieldId : targetFieldId,
+                            targetFieldId: sourceField.type === "output" ? targetFieldId : tempLink.sourceFieldId,
+                            endPosition: tempLink.endPosition
+                        };
+                        
+                        return prev
+                            .filter(obj => obj.id !== "temp-link" && (obj.type !== "blueprint" || obj.id !== sourceBlueprint.id))
+                            .concat([{ ...sourceBlueprint, linkingFieldId: undefined }, newLink]);
+                    }
                 }
-                
-                const newLink: Link = {
-                    type: "link",
-                    id: `link-${Date.now()}`,
-                    position: tempLink.position,
-                    sourceId: tempLink.sourceId,
-                    targetId: targetId,
-                    sourceFieldId: tempLink.sourceFieldId,
-                    targetFieldId: targetFieldId,
-                    endPosition: tempLink.endPosition
-                };
-                
-                return prev
-                    .filter(obj => obj.id !== "temp-link" && (obj.type !== "blueprint" || obj.id !== sourceBlueprint.id))
-                    .concat([{ ...sourceBlueprint, linkingFieldId: undefined }, newLink]);
             }
             
-            return prev;
+            return prev.filter(obj => obj.id !== "temp-link");
         });
-    }, [isValidLinkTarget, cancelLinking]);
+    }, [isValidLinkTarget]);
 
     const isLinking = useMemo(() => gridObjects.some(obj => 
         (obj.type === "blueprint" && obj.linkingFieldId !== undefined) || obj.type === "tmp_link"

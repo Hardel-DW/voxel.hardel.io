@@ -15,7 +15,7 @@ export default function Blueprint(props: {
     fields: BlueprintFieldType[];
     onDragStart: (offsetX: number, offsetY: number) => void;
 }) {
-    const { startLinking, finishLinking, isLinking, updateGridObject, updateTemporaryLink } = useStudioContext();
+    const { startLinking, finishLinking, isLinking, updateGridObject, updateTemporaryLink, isValidLinkTarget, cancelLinking } = useStudioContext();
     const blueprintRef = useRef<HTMLDivElement>(null);
 
     const handleMouseDown = (e: React.MouseEvent) => {

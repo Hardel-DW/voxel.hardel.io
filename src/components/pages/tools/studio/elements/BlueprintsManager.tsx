@@ -1,10 +1,11 @@
 import { useStudioContext } from "@/components/pages/tools/studio/StudioContext.tsx";
 import Blueprint from "@/components/pages/tools/studio/elements/Blueprint.tsx";
-import type { Blueprint as BlueprintType } from "@/components/pages/tools/studio/types";
+import type { BlueprintObject } from "@/components/pages/tools/studio/types";
+import React from "react";
 
 export default function BlueprintsManager() {
     const { gridObjects, zoom, position, setDraggingObjectId, setObjectOffset } = useStudioContext();
-    const blueprints = gridObjects.filter((obj): obj is BlueprintType => obj.type === "blueprint");
+    const blueprints = gridObjects.filter((obj): obj is BlueprintObject => obj.type === "blueprint");
 
     return (
         <>
@@ -18,6 +19,7 @@ export default function BlueprintsManager() {
                     position={position}
                     title={blueprint.title}
                     fields={blueprint.fields}
+                    ref={blueprint.ref}
                     onDragStart={(offsetX: number, offsetY: number) => {
                         setDraggingObjectId(blueprint.id);
                         setObjectOffset({ x: offsetX, y: offsetY });

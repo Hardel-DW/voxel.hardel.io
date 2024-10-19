@@ -1,4 +1,5 @@
-import type { BlueprintFieldType } from "./fields/Field";
+import type { BlueprintFieldType } from "@/components/pages/tools/studio/fields/Field.tsx";
+import type React from "react";
 
 export interface Position {
     x: number;
@@ -10,14 +11,15 @@ export interface GridObject {
     position: Position;
 }
 
-export interface Blueprint extends GridObject {
+export interface BlueprintObject extends GridObject {
     type: "blueprint";
     title: string;
     fields: BlueprintFieldType[];
     linkingFieldId?: string;
+    ref: React.RefObject<HTMLDivElement>;
 }
 
-export interface Link extends GridObject {
+export interface LinkObject extends GridObject {
     type: "link";
     sourceId: string;
     targetId: string;
@@ -26,11 +28,11 @@ export interface Link extends GridObject {
     endPosition: Position;
 }
 
-export interface TemporaryLink extends GridObject {
+export interface TemporaryLinkObject extends GridObject {
     type: "tmp_link";
     endPosition: Position;
     sourceId: string;
     sourceFieldId: string;
 }
 
-export type AnyGridObject = Blueprint | Link | TemporaryLink;
+export type AnyGridObject = BlueprintObject | LinkObject | TemporaryLinkObject;

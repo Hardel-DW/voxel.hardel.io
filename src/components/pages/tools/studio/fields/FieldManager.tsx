@@ -14,7 +14,7 @@ export default function FieldManager(props: {
             {props.fields.map((field) => (
                 <div
                     key={field.id}
-                    className={cn("flex items-center mb-1", {
+                    className={cn("flex items-center mb-1 h-10", {
                         "justify-end": field.type === "output",
                         "justify-between": field.type !== "output"
                     })}

@@ -1,6 +1,6 @@
 import { useStudioContext } from "@/components/pages/tools/studio/StudioContext.tsx";
 import BlueprintsManager from "@/components/pages/tools/studio/elements/BlueprintsManager.tsx";
-import Links from "@/components/pages/tools/studio/elements/Links.tsx";
+import LinkManager from "@/components/pages/tools/studio/elements/LinkManager.tsx";
 import TemporaryLinkManager from "@/components/pages/tools/studio/elements/TemporaryLinkManager.tsx";
 import { cn } from "@/lib/utils.ts";
 import type React from "react";
@@ -129,7 +129,7 @@ export default function Studio() {
                 onMouseUp={handleMouseUp}
             >
                 <BlueprintsManager />
-                <Links />
+                <LinkManager />
                 <TemporaryLinkManager />
             </div>
         </div>

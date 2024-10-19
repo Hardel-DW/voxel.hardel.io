@@ -1,6 +1,5 @@
-import type React from "react";
-import { createContext, useCallback, useContext, useState, useMemo } from "react";
-import type { AnyGridObject, Blueprint, Link, Position, TemporaryLink } from "./types";
+import React, { createContext, useCallback, useContext, useMemo, useState } from "react";
+import type { AnyGridObject, BlueprintObject, LinkObject, Position, TemporaryLinkObject } from "./types";
 
 type StudioContextType = {
     gridObjects: AnyGridObject[];
@@ -33,7 +32,7 @@ type StudioContextType = {
 
 const StudioContext = createContext<StudioContextType | undefined>(undefined);
 
-const defaultBlueprints: Blueprint[] = [
+const defaultBlueprints: BlueprintObject[] = [
     {
         type: "blueprint",
         id: "blueprint-1",
@@ -43,7 +42,8 @@ const defaultBlueprints: Blueprint[] = [
             { id: "output", name: "Output", value: "", type: "output" },
             { id: "foo", name: "Foo", value: 0, type: "number" },
             { id: "bar", name: "Bar", value: 0, type: "number" }
-        ]
+        ],
+        ref: React.createRef<HTMLDivElement>()
     },
     {
         type: "blueprint",
@@ -54,7 +54,8 @@ const defaultBlueprints: Blueprint[] = [
             { id: "input", name: "Input", value: "", type: "input" },
             { id: "foo", name: "Foo", value: 0, type: "number" },
             { id: "bar", name: "Bar", value: 0, type: "number" }
-        ]
+        ],
+        ref: React.createRef<HTMLDivElement>()
     }
 ];
 
@@ -65,133 +66,160 @@ export function StudioProvider({ children }: { children: React.ReactNode }) {
     const [cursorPosition, setCursorPosition] = useState<Position>({ x: 0, y: 0 });
     const [draggingObjectId, setDraggingObjectId] = useState<string | null>(null);
     const [objectOffset, setObjectOffset] = useState<Position>({ x: 0, y: 0 });
-    
+
     const addGridObject = useCallback((object: AnyGridObject) => {
+        if (object.type === "blueprint") {
+            object.ref = React.createRef<HTMLDivElement>();
+        }
         setGridObjects((prev) => [...prev, object]);
     }, []);
 
     const updateGridObject = useCallback((id: string, updates: Partial<AnyGridObject>) => {
-        setGridObjects((prev) => prev.map((obj) => {
-            if (obj.id === id) {
-                switch (obj.type) {
-                    case "blueprint":
-                        return { ...obj, ...updates } as Blueprint;
-                    case "link":
-                        return { ...obj, ...updates } as Link;
-                    case "tmp_link":
-                        return { ...obj, ...updates } as TemporaryLink;
-                    default:
-                        return obj;
+        setGridObjects((prev) =>
+            prev.map((obj) => {
+                if (obj.id === id) {
+                    const { type, ...safeUpdates } = updates;
+                    return { ...obj, ...safeUpdates };
                 }
-            }
-            return obj;
-        }));
+
+                return obj;
+            })
+        );
     }, []);
 
     const removeGridObject = useCallback((id: string) => {
         setGridObjects((prev) => prev.filter((obj) => obj.id !== id));
     }, []);
 
-    const isValidLinkTarget = useCallback((sourceId: string, sourceFieldId: string, targetId: string, targetFieldId: string) => {
-        const sourceBlueprint = gridObjects.find(obj => obj.id === sourceId && obj.type === "blueprint") as Blueprint | undefined;
-        const targetBlueprint = gridObjects.find(obj => obj.id === targetId && obj.type === "blueprint") as Blueprint | undefined;
-        
-        if (!sourceBlueprint || !targetBlueprint) return false;
+    const isValidLinkTarget = useCallback(
+        (sourceId: string, sourceFieldId: string, targetId: string, targetFieldId: string) => {
+            const sourceBlueprint = gridObjects.find((obj) => obj.id === sourceId && obj.type === "blueprint") as
+                | BlueprintObject
+                | undefined;
+            const targetBlueprint = gridObjects.find((obj) => obj.id === targetId && obj.type === "blueprint") as
+                | BlueprintObject
+                | undefined;
 
-        const sourceField = sourceBlueprint.fields.find(f => f.id === sourceFieldId);
-        const targetField = targetBlueprint.fields.find(f => f.id === targetFieldId);
-        
-        if (!sourceField || !targetField) return false;
+            if (!sourceBlueprint || !targetBlueprint) return false;
 
-        // Permettre la connexion entre un output et un input, dans n'importe quel ordre
-        return (sourceField.type === "output" && targetField.type === "input") ||
-               (sourceField.type === "input" && targetField.type === "output");
-    }, [gridObjects]);
+            const sourceField = sourceBlueprint.fields.find((f) => f.id === sourceFieldId);
+            const targetField = targetBlueprint.fields.find((f) => f.id === targetFieldId);
 
-    const startLinking = useCallback((sourceId: string, sourceFieldId: string, startX: number, startY: number) => {
-        setGridObjects(prev => {
-            // Supprimer tout lien temporaire existant
-            const filteredObjects = prev.filter(obj => obj.type !== "tmp_link");
-            
-            const updatedObjects = filteredObjects.map(obj => {
-                if (obj.id === sourceId && obj.type === "blueprint") {
-                    return { ...obj, linkingFieldId: sourceFieldId };
-                }
-                return obj;
+            if (!sourceField || !targetField) return false;
+
+            // Permettre la connexion entre un output et un input, dans n'importe quel ordre
+            return (
+                (sourceField.type === "output" && targetField.type === "input") ||
+                (sourceField.type === "input" && targetField.type === "output")
+            );
+        },
+        [gridObjects]
+    );
+
+    const startLinking = useCallback(
+        (sourceId: string, sourceFieldId: string, startX: number, startY: number) => {
+            setGridObjects((prev) => {
+                // Supprimer tout lien temporaire existant
+                const filteredObjects = prev.filter((obj) => obj.type !== "tmp_link");
+
+                const updatedObjects = filteredObjects.map((obj) => {
+                    if (obj.id === sourceId && obj.type === "blueprint") {
+                        return { ...obj, linkingFieldId: sourceFieldId };
+                    }
+                    return obj;
+                });
+
+                const newTemporaryLink: TemporaryLinkObject = {
+                    id: "temp-link",
+                    type: "tmp_link",
+                    position: { x: (startX - position.x) / zoom, y: (startY - position.y) / zoom },
+                    endPosition: { x: (startX - position.x) / zoom, y: (startY - position.y) / zoom },
+                    sourceId,
+                    sourceFieldId
+                };
+                return [...updatedObjects, newTemporaryLink];
             });
-            
-            const newTemporaryLink: TemporaryLink = {
-                id: "temp-link",
-                type: "tmp_link",
-                position: { x: (startX - position.x) / zoom, y: (startY - position.y) / zoom },
-                endPosition: { x: (startX - position.x) / zoom, y: (startY - position.y) / zoom },
-                sourceId,
-                sourceFieldId
-            };
-            return [...updatedObjects, newTemporaryLink];
-        });
-    }, [position, zoom]);
+        },
+        [position, zoom]
+    );
 
-    const updateTemporaryLink = useCallback((endPosition: Position) => {
-        setGridObjects(prev => prev.map(obj => 
-            obj.type === "tmp_link" ? { 
-                ...obj, 
-                endPosition: { 
-                    x: (endPosition.x - position.x) / zoom, 
-                    y: (endPosition.y - position.y) / zoom 
-                } 
-            } : obj
-        ));
-    }, [position, zoom]);
+    const updateTemporaryLink = useCallback(
+        (endPosition: Position) => {
+            setGridObjects((prev) =>
+                prev.map((obj) =>
+                    obj.type === "tmp_link"
+                        ? {
+                              ...obj,
+                              endPosition: {
+                                  x: (endPosition.x - position.x) / zoom,
+                                  y: (endPosition.y - position.y) / zoom
+                              }
+                          }
+                        : obj
+                )
+            );
+        },
+        [position, zoom]
+    );
 
     const cancelLinking = useCallback(() => {
-        setGridObjects(prev => prev.filter(obj => obj.type !== "tmp_link").map(obj => {
-            if (obj.type === "blueprint") {
-                return { ...obj, linkingFieldId: undefined };
-            }
-            return obj;
-        }));
+        setGridObjects((prev) =>
+            prev
+                .filter((obj) => obj.type !== "tmp_link")
+                .map((obj) => {
+                    if (obj.type === "blueprint") {
+                        return { ...obj, linkingFieldId: undefined };
+                    }
+                    return obj;
+                })
+        );
     }, []);
 
-    const finishLinking = useCallback((targetId: string, targetFieldId: string) => {
-        setGridObjects(prev => {
-            const tempLink = prev.find(obj => obj.type === "tmp_link") as TemporaryLink | undefined;
-            if (!tempLink) return prev;
+    const finishLinking = useCallback(
+        (targetId: string, targetFieldId: string) => {
+            setGridObjects((prev) => {
+                const tempLink = prev.find((obj) => obj.type === "tmp_link") as TemporaryLinkObject | undefined;
+                if (!tempLink) return prev;
 
-            const sourceBlueprint = prev.find(obj => obj.id === tempLink.sourceId && obj.type === "blueprint") as Blueprint | undefined;
-            const targetBlueprint = prev.find(obj => obj.id === targetId && obj.type === "blueprint") as Blueprint | undefined;
-            
-            if (sourceBlueprint && targetBlueprint) {
-                const sourceField = sourceBlueprint.fields.find(f => f.id === tempLink.sourceFieldId);
-                const targetField = targetBlueprint.fields.find(f => f.id === targetFieldId);
-                
-                if (sourceField && targetField) {
-                    if (isValidLinkTarget(tempLink.sourceId, tempLink.sourceFieldId, targetId, targetFieldId)) {
-                        const newLink: Link = {
-                            type: "link",
-                            id: `link-${Date.now()}`,
-                            position: tempLink.position,
-                            sourceId: sourceField.type === "output" ? tempLink.sourceId : targetId,
-                            targetId: sourceField.type === "output" ? targetId : tempLink.sourceId,
-                            sourceFieldId: sourceField.type === "output" ? tempLink.sourceFieldId : targetFieldId,
-                            targetFieldId: sourceField.type === "output" ? targetFieldId : tempLink.sourceFieldId,
-                            endPosition: tempLink.endPosition
-                        };
-                        
-                        return prev
-                            .filter(obj => obj.id !== "temp-link" && (obj.type !== "blueprint" || obj.id !== sourceBlueprint.id))
-                            .concat([{ ...sourceBlueprint, linkingFieldId: undefined }, newLink]);
+                const sourceBlueprint = prev.find((obj) => obj.id === tempLink.sourceId && obj.type === "blueprint") as
+                    | BlueprintObject
+                    | undefined;
+                const targetBlueprint = prev.find((obj) => obj.id === targetId && obj.type === "blueprint") as BlueprintObject | undefined;
+
+                if (sourceBlueprint && targetBlueprint) {
+                    const sourceField = sourceBlueprint.fields.find((f) => f.id === tempLink.sourceFieldId);
+                    const targetField = targetBlueprint.fields.find((f) => f.id === targetFieldId);
+
+                    if (sourceField && targetField) {
+                        if (isValidLinkTarget(tempLink.sourceId, tempLink.sourceFieldId, targetId, targetFieldId)) {
+                            const newLink: LinkObject = {
+                                type: "link",
+                                id: `link-${Date.now()}`,
+                                position: tempLink.position,
+                                sourceId: sourceField.type === "output" ? tempLink.sourceId : targetId,
+                                targetId: sourceField.type === "output" ? targetId : tempLink.sourceId,
+                                sourceFieldId: sourceField.type === "output" ? tempLink.sourceFieldId : targetFieldId,
+                                targetFieldId: sourceField.type === "output" ? targetFieldId : tempLink.sourceFieldId,
+                                endPosition: tempLink.endPosition
+                            };
+
+                            return prev
+                                .filter((obj) => obj.id !== "temp-link" && (obj.type !== "blueprint" || obj.id !== sourceBlueprint.id))
+                                .concat([{ ...sourceBlueprint, linkingFieldId: undefined }, newLink]);
+                        }
                     }
                 }
-            }
-            
-            return prev.filter(obj => obj.id !== "temp-link");
-        });
-    }, [isValidLinkTarget]);
 
-    const isLinking = useMemo(() => gridObjects.some(obj => 
-        (obj.type === "blueprint" && obj.linkingFieldId !== undefined) || obj.type === "tmp_link"
-    ), [gridObjects]);
+                return prev.filter((obj) => obj.id !== "temp-link");
+            });
+        },
+        [isValidLinkTarget]
+    );
+
+    const isLinking = useMemo(
+        () => gridObjects.some((obj) => (obj.type === "blueprint" && obj.linkingFieldId !== undefined) || obj.type === "tmp_link"),
+        [gridObjects]
+    );
 
     return (
         <StudioContext.Provider

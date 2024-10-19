@@ -1,11 +1,11 @@
 import { useStudioContext } from "@/components/pages/tools/studio/StudioContext.tsx";
 import type { BlueprintFieldType } from "@/components/pages/tools/studio/fields/Field.tsx";
 import FieldManager from "@/components/pages/tools/studio/fields/FieldManager.tsx";
-import type { Blueprint as BlueprintType } from "@/components/pages/tools/studio/types";
+import type { BlueprintObject } from "@/components/pages/tools/studio/types.ts";
 import type React from "react";
-import { useCallback, useEffect, useRef } from "react";
+import { forwardRef, useCallback, useEffect } from "react";
 
-export default function Blueprint(props: {
+interface BlueprintProps {
     id: string;
     x: number;
     y: number;
@@ -14,9 +14,10 @@ export default function Blueprint(props: {
     title: string;
     fields: BlueprintFieldType[];
     onDragStart: (offsetX: number, offsetY: number) => void;
-}) {
-    const { startLinking, finishLinking, isLinking, updateGridObject, updateTemporaryLink, isValidLinkTarget, cancelLinking } = useStudioContext();
-    const blueprintRef = useRef<HTMLDivElement>(null);
+}
+
+const Blueprint = forwardRef<HTMLDivElement, BlueprintProps>((props, ref) => {
+    const { startLinking, finishLinking, isLinking, updateGridObject, updateTemporaryLink } = useStudioContext();
 
     const handleMouseDown = (e: React.MouseEvent) => {
         e.stopPropagation();
@@ -28,12 +29,11 @@ export default function Blueprint(props: {
 
     const handleConnectorMouseDown = (e: React.MouseEvent, fieldId: string) => {
         e.stopPropagation();
-        const rect = blueprintRef.current?.getBoundingClientRect();
-        if (!rect) return;
-
-        const startX = e.clientX;
-        const startY = e.clientY;
-        startLinking(props.id, fieldId, startX, startY);
+        if (ref && "current" in ref && ref.current) {
+            const startX = e.clientX;
+            const startY = e.clientY;
+            startLinking(props.id, fieldId, startX, startY);
+        }
     };
 
     const handleConnectorMouseUp = useCallback(
@@ -47,15 +47,13 @@ export default function Blueprint(props: {
 
     const handleFieldValueChange = (fieldId: string, newValue: string | number) => {
         updateGridObject(props.id, {
-            fields: props.fields.map((f) =>
-                f.id === fieldId
-                    ? {
-                          ...f,
-                          value: f.type === "number" ? Number(newValue) : String(newValue)
-                      }
-                    : f
-            )
-        } as Partial<BlueprintType>);
+            fields: props.fields.map((field) => {
+                if (field.id !== fieldId) return field;
+
+                const updatedValue = field.type === "number" ? Number(newValue) : String(newValue);
+                return { ...field, value: updatedValue };
+            })
+        } as Partial<BlueprintObject>);
     };
 
     const handleConnectorMouseMove = useCallback(
@@ -76,7 +74,7 @@ export default function Blueprint(props: {
 
     return (
         <div
-            ref={blueprintRef}
+            ref={ref}
             className="absolute origin-top-left min-w-64 min-h-48 text select-none bg-opacity-90 bg-zinc-900 rounded-2xl shadow-md overflow-visible font-sans text-gray-200"
             onMouseDown={handleMouseDown}
             style={{
@@ -98,4 +96,7 @@ export default function Blueprint(props: {
             />
         </div>
     );
-}
+});
+
+Blueprint.displayName = "Blueprint";
+export default Blueprint;

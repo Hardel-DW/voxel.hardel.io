@@ -1,12 +1,12 @@
 import { useStudioContext } from "@/components/pages/tools/studio/StudioContext.tsx";
 import { cn } from "@/lib/utils.ts";
 import { useState } from "react";
-import type { Blueprint } from "./types";
+import type { BlueprintObject } from "./types";
 
 export default function Sidebar() {
     const [width, setWidth] = useState(350);
     const { position, gridObjects } = useStudioContext();
-    const blueprints = gridObjects.filter((obj): obj is Blueprint => 'title' in obj);
+    const blueprints = gridObjects.filter((obj): obj is BlueprintObject => "title" in obj);
 
     return (
         <>

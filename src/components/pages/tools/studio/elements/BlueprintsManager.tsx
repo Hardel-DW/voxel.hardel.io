@@ -2,8 +2,11 @@ import { useStudioContext } from "@/components/pages/tools/studio/StudioContext.
 import Blueprint from "@/components/pages/tools/studio/elements/Blueprint.tsx";
 import type { BlueprintObject } from "@/components/pages/tools/studio/types";
 
-export default function BlueprintsManager() {
-    const { gridObjects, setDraggingObjectId, setObjectOffset } = useStudioContext();
+export default function BlueprintsManager(props: {
+    setDraggingObjectId: (id: string | null) => void;
+    setObjectOffset: (offset: { x: number; y: number }) => void;
+}) {
+    const { gridObjects } = useStudioContext();
     const blueprints = gridObjects.filter((obj): obj is BlueprintObject => obj.type === "blueprint");
 
     return (
@@ -18,8 +21,8 @@ export default function BlueprintsManager() {
                     fields={blueprint.fields}
                     ref={blueprint.ref}
                     onDragStart={(offsetX: number, offsetY: number) => {
-                        setDraggingObjectId(blueprint.id);
-                        setObjectOffset({ x: offsetX, y: offsetY });
+                        props.setDraggingObjectId(blueprint.id);
+                        props.setObjectOffset({ x: offsetX, y: offsetY });
                     }}
                 />
             ))}

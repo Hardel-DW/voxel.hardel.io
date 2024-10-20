@@ -7,12 +7,6 @@ type StudioContextType = {
     updateGridObject: (id: string, updates: Partial<AnyGridObject>) => void;
     removeGridObject: (id: string) => void;
 
-    draggingObjectId: string | null;
-    setDraggingObjectId: React.Dispatch<React.SetStateAction<string | null>>;
-
-    objectOffset: Position;
-    setObjectOffset: React.Dispatch<React.SetStateAction<Position>>;
-
     startLinking: (sourceId: string, sourceFieldId: string, startX: number, startY: number) => void;
     finishLinking: (targetId: string, targetFieldId: string) => void;
     isLinking: boolean;
@@ -53,8 +47,6 @@ const defaultBlueprints: BlueprintObject[] = [
 
 export function StudioProvider({ children }: { children: React.ReactNode }) {
     const [gridObjects, setGridObjects] = useState<AnyGridObject[]>(defaultBlueprints);
-    const [draggingObjectId, setDraggingObjectId] = useState<string | null>(null);
-    const [objectOffset, setObjectOffset] = useState<Position>({ x: 0, y: 0 });
 
     const addGridObject = useCallback((object: AnyGridObject) => {
         if (object.type === "blueprint") {
@@ -231,10 +223,6 @@ export function StudioProvider({ children }: { children: React.ReactNode }) {
                 addGridObject,
                 updateGridObject,
                 removeGridObject,
-                draggingObjectId,
-                setDraggingObjectId,
-                objectOffset,
-                setObjectOffset,
                 startLinking,
                 finishLinking,
                 isLinking,

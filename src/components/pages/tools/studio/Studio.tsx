@@ -12,10 +12,11 @@ export default function Studio() {
     const [isDragging, setIsDragging] = useState(false);
     const [position, setPosition] = useState<Position>({ x: 0, y: 0 });
     const [zoom, setZoom] = useState(1);
+    const [draggingObjectId, setDraggingObjectId] = useState<string | null>(null);
+    const [objectOffset, setObjectOffset] = useState<Position>({ x: 0, y: 0 });
     const startDragPosition = useRef({ x: 0, y: 0 });
     const startPosition = useRef({ x: 0, y: 0 });
-    const { updateGridObject, draggingObjectId, setDraggingObjectId, objectOffset, isLinking, cancelLinking, updateTemporaryLink } =
-        useStudioContext();
+    const { updateGridObject, isLinking, cancelLinking, updateTemporaryLink } = useStudioContext();
 
     const handleMouseDown = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
         if (event.target === canvasRef.current) {
@@ -65,7 +66,7 @@ export default function Studio() {
                 cancelLinking();
             }
         },
-        [setDraggingObjectId, isLinking, cancelLinking]
+        [isLinking, cancelLinking]
     );
 
     const handleWheel = (event: React.WheelEvent<HTMLDivElement>) => {
@@ -125,7 +126,7 @@ export default function Studio() {
                         transformOrigin: "top left"
                     }}
                 >
-                    <BlueprintsManager />
+                    <BlueprintsManager setDraggingObjectId={setDraggingObjectId} setObjectOffset={setObjectOffset} />
                     <LinkManager />
                     <TemporaryLinkManager />
                 </div>

@@ -17,12 +17,11 @@ export function getFieldPosition(gridObjects: AnyGridObject[], blueprintId: stri
     const field = blueprint.fields.find((f) => f.id === fieldId);
     if (!field) return { x: 0, y: 0 };
 
-    const blueprintRect = blueprint.ref.current.getBoundingClientRect();
-    console.log("Blueprint rect", blueprintRect.width, blueprintRect.height);
+    const offsetWidth = blueprint.ref.current.offsetWidth;
     const fieldIndex = blueprint.fields.findIndex((f) => f.id === fieldId);
     const isOutput = field.type === "output";
 
-    const x = blueprint.position.x + (isOutput ? blueprintRect.width - 22 : 22);
+    const x = blueprint.position.x + (isOutput ? offsetWidth - 22 : 22);
     const y = blueprint.position.y + 64 + fieldIndex * 40 + 20;
 
     return { x, y };

@@ -36,13 +36,12 @@ export default function ConnectorField(props: {
             })}
         >
             <div
-                className={cn("w-3 h-3 rounded-full cursor-pointer", {
-                    "bg-blue-400": props.field.type === "input",
-                    "bg-red-400": props.field.type === "output"
-                })}
+                className="w-3 h-3 select-none rounded-full cursor-pointer"
                 onMouseDown={(e) => handleConnectorMouseDown(e, props.field.id)}
                 onMouseUp={() => handleConnectorMouseUp(props.field.id)}
-            />
+            >
+                <img draggable="false" src="/icons/tools/studio/connector.svg" alt="connector" />
+            </div>
             <span>{props.field.name}</span>
         </div>
     );

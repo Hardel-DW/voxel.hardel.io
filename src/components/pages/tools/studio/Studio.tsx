@@ -21,13 +21,13 @@ export default function Studio() {
     const handleMouseDown = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
         if (event.target === canvasRef.current) {
             setIsDragging(true);
+            event.preventDefault();
             startDragPosition.current = {
                 x: event.clientX,
                 y: event.clientY
             };
             startPosition.current = { ...position };
         }
-        event.preventDefault();
     };
 
     const handleMouseMove = useCallback(

@@ -14,6 +14,7 @@ interface BlueprintProps {
 
 const Blueprint = forwardRef<HTMLDivElement, BlueprintProps>((props, ref) => {
     const handleMouseDown = (e: React.MouseEvent) => {
+        console.log("move");
         e.stopPropagation();
         const rect = e.currentTarget.getBoundingClientRect();
         const offsetX = e.clientX - rect.left;
@@ -24,14 +25,13 @@ const Blueprint = forwardRef<HTMLDivElement, BlueprintProps>((props, ref) => {
     return (
         <div
             ref={ref}
-            className="absolute origin-top-left min-w-64 min-h-48 text select-none bg-opacity-90 bg-zinc-900 rounded-2xl shadow-md overflow-visible font-sans text-gray-200"
-            onMouseDown={handleMouseDown}
+            className="absolute z-20 origin-top-left min-w-64 min-h-48 cursor-default bg-opacity-90 bg-zinc-900 rounded-2xl shadow-md overflow-visible font-sans text-gray-200"
             style={{
                 left: `${props.x}px`,
-                top: `${props.y}px`,
+                top: `${props.y}px`
             }}
         >
-            <div className="bg-zinc-950 p-3 font-bold cursor-move relative overflow-hidden rounded-t-2xl">
+            <div onMouseDown={handleMouseDown} className="bg-zinc-950 p-3 font-bold cursor-move relative overflow-hidden rounded-t-2xl">
                 <div className="relative z-10 text-base">{props.title}</div>
                 <div className="absolute inset-0 -left-1/2 size-full bg-gradient-to-tr from-pink-950 from-70% to-transparent rounded-full filter blur-2xl pointer-events-none" />
             </div>

@@ -8,7 +8,5 @@ interface LinkProps {
 }
 
 export default function Link({ startX, startY, endX, endY }: LinkProps) {
-    return (
-        <path d={generatePath(startX, startY, endX, endY)} className="fill-none stroke-[#66c0f4]" strokeWidth={2} strokeLinecap="round" />
-    );
+    return <path d={generatePath(startX, startY, endX, endY)} className="fill-none stroke-[#aaa]" strokeWidth={2} strokeLinecap="round" />;
 }

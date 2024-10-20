@@ -7,12 +7,6 @@ type StudioContextType = {
     updateGridObject: (id: string, updates: Partial<AnyGridObject>) => void;
     removeGridObject: (id: string) => void;
 
-    position: Position;
-    setPosition: React.Dispatch<React.SetStateAction<Position>>;
-
-    zoom: number;
-    setZoom: React.Dispatch<React.SetStateAction<number>>;
-
     draggingObjectId: string | null;
     setDraggingObjectId: React.Dispatch<React.SetStateAction<string | null>>;
 
@@ -59,8 +53,6 @@ const defaultBlueprints: BlueprintObject[] = [
 
 export function StudioProvider({ children }: { children: React.ReactNode }) {
     const [gridObjects, setGridObjects] = useState<AnyGridObject[]>(defaultBlueprints);
-    const [position, setPosition] = useState<Position>({ x: 0, y: 0 });
-    const [zoom, setZoom] = useState(1);
     const [draggingObjectId, setDraggingObjectId] = useState<string | null>(null);
     const [objectOffset, setObjectOffset] = useState<Position>({ x: 0, y: 0 });
 
@@ -122,51 +114,45 @@ export function StudioProvider({ children }: { children: React.ReactNode }) {
         [gridObjects]
     );
 
-    const startLinking = useCallback(
-        (sourceId: string, sourceFieldId: string, startX: number, startY: number) => {
-            setGridObjects((prev) => {
-                // Supprimer tout lien temporaire existant
-                const filteredObjects = prev.filter((obj) => obj.type !== "tmp_link");
+    const startLinking = useCallback((sourceId: string, sourceFieldId: string, startX: number, startY: number) => {
+        setGridObjects((prev) => {
+            // Supprimer tout lien temporaire existant
+            const filteredObjects = prev.filter((obj) => obj.type !== "tmp_link");
 
-                const updatedObjects = filteredObjects.map((obj) => {
-                    if (obj.id === sourceId && obj.type === "blueprint") {
-                        return { ...obj, linkingFieldId: sourceFieldId };
-                    }
-                    return obj;
-                });
-
-                const newTemporaryLink: TemporaryLinkObject = {
-                    id: "temp-link",
-                    type: "tmp_link",
-                    position: { x: (startX - position.x) / zoom, y: (startY - position.y) / zoom },
-                    endPosition: { x: (startX - position.x) / zoom, y: (startY - position.y) / zoom },
-                    sourceId,
-                    sourceFieldId
-                };
-                return [...updatedObjects, newTemporaryLink];
+            const updatedObjects = filteredObjects.map((obj) => {
+                if (obj.id === sourceId && obj.type === "blueprint") {
+                    return { ...obj, linkingFieldId: sourceFieldId };
+                }
+                return obj;
             });
-        },
-        [position, zoom]
-    );
 
-    const updateTemporaryLink = useCallback(
-        (endPosition: Position) => {
-            setGridObjects((prev) =>
-                prev.map((obj) =>
-                    obj.type === "tmp_link"
-                        ? {
-                              ...obj,
-                              endPosition: {
-                                  x: (endPosition.x - position.x) / zoom,
-                                  y: (endPosition.y - position.y) / zoom
-                              }
+            const newTemporaryLink: TemporaryLinkObject = {
+                id: "temp-link",
+                type: "tmp_link",
+                position: { x: startX, y: startY },
+                endPosition: { x: startX, y: startY },
+                sourceId,
+                sourceFieldId
+            };
+            return [...updatedObjects, newTemporaryLink];
+        });
+    }, []);
+
+    const updateTemporaryLink = useCallback((endPosition: Position) => {
+        setGridObjects((prev) =>
+            prev.map((obj) =>
+                obj.type === "tmp_link"
+                    ? {
+                          ...obj,
+                          endPosition: {
+                              x: endPosition.x,
+                              y: endPosition.y
                           }
-                        : obj
-                )
-            );
-        },
-        [position, zoom]
-    );
+                      }
+                    : obj
+            )
+        );
+    }, []);
 
     const cancelLinking = useCallback(() => {
         setGridObjects((prev) =>
@@ -245,10 +231,6 @@ export function StudioProvider({ children }: { children: React.ReactNode }) {
                 addGridObject,
                 updateGridObject,
                 removeGridObject,
-                position,
-                setPosition,
-                zoom,
-                setZoom,
                 draggingObjectId,
                 setDraggingObjectId,
                 objectOffset,

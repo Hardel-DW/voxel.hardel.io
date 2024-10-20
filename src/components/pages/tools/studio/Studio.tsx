@@ -2,6 +2,7 @@ import { useStudioContext } from "@/components/pages/tools/studio/StudioContext.
 import BlueprintsManager from "@/components/pages/tools/studio/elements/BlueprintsManager.tsx";
 import LinkManager from "@/components/pages/tools/studio/elements/LinkManager.tsx";
 import TemporaryLinkManager from "@/components/pages/tools/studio/elements/TemporaryLinkManager.tsx";
+import type { Position } from "@/components/pages/tools/studio/types.ts";
 import { cn } from "@/lib/utils.ts";
 import type React from "react";
 import { useCallback, useEffect, useRef, useState } from "react";
@@ -9,21 +10,12 @@ import { useCallback, useEffect, useRef, useState } from "react";
 export default function Studio() {
     const canvasRef = useRef<HTMLDivElement>(null);
     const [isDragging, setIsDragging] = useState(false);
+    const [position, setPosition] = useState<Position>({ x: 0, y: 0 });
+    const [zoom, setZoom] = useState(1);
     const startDragPosition = useRef({ x: 0, y: 0 });
     const startPosition = useRef({ x: 0, y: 0 });
-    const {
-        position,
-        setPosition,
-        zoom,
-        setZoom,
-        updateGridObject,
-        draggingObjectId,
-        setDraggingObjectId,
-        objectOffset,
-        isLinking,
-        cancelLinking,
-        updateTemporaryLink
-    } = useStudioContext();
+    const { updateGridObject, draggingObjectId, setDraggingObjectId, objectOffset, isLinking, cancelLinking, updateTemporaryLink } =
+        useStudioContext();
 
     const handleMouseDown = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
         if (event.target === canvasRef.current) {
@@ -62,7 +54,7 @@ export default function Studio() {
                 updateTemporaryLink({ x: event.clientX, y: event.clientY });
             }
         },
-        [isDragging, draggingObjectId, position, zoom, isLinking, setPosition, updateGridObject, updateTemporaryLink, objectOffset]
+        [isDragging, draggingObjectId, isLinking, position, zoom, updateGridObject, updateTemporaryLink, objectOffset]
     );
 
     const handleMouseUp = useCallback(

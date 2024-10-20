@@ -5,7 +5,7 @@ import type { BlueprintObject, LinkObject, TemporaryLinkObject } from "./types";
 
 export default function Sidebar() {
     const [width, setWidth] = useState(350);
-    const { position, gridObjects, zoom } = useStudioContext();
+    const { gridObjects } = useStudioContext();
     const blueprints = gridObjects.filter((obj): obj is BlueprintObject => obj.type === "blueprint");
     const links = gridObjects.filter((obj): obj is LinkObject => obj.type === "link");
     const tmpLinks = gridObjects.filter((obj): obj is TemporaryLinkObject => obj.type === "tmp_link");
@@ -25,10 +25,6 @@ export default function Sidebar() {
                                 <div className="flex flex-col gap-x-8 px-2 justify-between">
                                     <h2 className="text-2xl py-2 font-semibold text-center">Voxel Studio</h2>
                                     <div className="h-1 w-full bg-zinc-800 rounded-full" />
-                                    <p className="mt-4">
-                                        Canvas Position: X: {Math.round(position.x)}, Y: {Math.round(position.y)}
-                                    </p>
-                                    <p>Zoom: {zoom}</p>
                                     <h3 className="mt-4 text-lg font-semibold">Blueprints:</h3>
                                     <ul>
                                         {blueprints.map((bp) => (

@@ -24,7 +24,7 @@ const defaultBlueprints: BlueprintObject[] = [
         position: { x: 600, y: 300 },
         title: "Blueprint 1",
         fields: [
-            { id: "output", name: "Output", value: "", type: "output" },
+            { id: "output", name: "Output", type: "output" },
             { id: "foo", name: "Foo", value: 0, type: "number" },
             { id: "bar", name: "Bar", value: 0, type: "number" }
         ],
@@ -36,7 +36,7 @@ const defaultBlueprints: BlueprintObject[] = [
         position: { x: 1000, y: 450 },
         title: "Blueprint 2",
         fields: [
-            { id: "input", name: "Input", value: "", type: "input" },
+            { id: "input", name: "Input", type: "input" },
             { id: "foo", name: "Foo", value: 0, type: "number" },
             { id: "bar", name: "Bar", value: 0, type: "number" }
         ],
@@ -46,6 +46,7 @@ const defaultBlueprints: BlueprintObject[] = [
 
 export function StudioProvider({ children }: { children: React.ReactNode }) {
     const [gridObjects, setGridObjects] = useState<AnyGridObject[]>(defaultBlueprints);
+    const isLinking = useMemo(() => gridObjects.some((obj) => obj.type === "tmp_link"), [gridObjects]);
 
     const addGridObject = useCallback((object: AnyGridObject) => {
         if (object.type === "blueprint") {
@@ -75,7 +76,6 @@ export function StudioProvider({ children }: { children: React.ReactNode }) {
 
     const startLinking = useCallback((sourceId: string, sourceFieldId: string, startX: number, startY: number) => {
         setGridObjects((prev) => {
-            // Supprimer tout lien temporaire existant
             const filteredObjects = prev.filter((obj) => obj.type !== "tmp_link");
 
             const updatedObjects = filteredObjects.map((obj) => {
@@ -172,8 +172,6 @@ export function StudioProvider({ children }: { children: React.ReactNode }) {
         []
     );
 
-    const isLinking = useMemo(() => gridObjects.some((obj) => obj.type === "tmp_link"), [gridObjects]);
-
     const updateFieldValue = useCallback((objectId: string, fieldId: string, value: any) => {
         setGridObjects((prev) =>
             prev.map((obj) => {
@@ -192,12 +190,12 @@ export function StudioProvider({ children }: { children: React.ReactNode }) {
         <StudioContext.Provider
             value={{
                 gridObjects,
+                isLinking,
                 addGridObject,
                 updateGridObject,
                 removeGridObject,
                 startLinking,
                 finishLinking,
-                isLinking,
                 updateTemporaryLink,
                 cancelLinking,
                 updateFieldValue

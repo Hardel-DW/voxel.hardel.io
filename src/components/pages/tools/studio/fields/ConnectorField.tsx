@@ -6,7 +6,6 @@ import type { BaseBlueprintField } from "./Field";
 
 export interface ConnectorFieldType extends BaseBlueprintField {
     type: "input" | "output";
-    value: string;
 }
 
 export default function ConnectorField(props: {

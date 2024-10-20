@@ -4,7 +4,7 @@ import type { TemporaryLinkObject } from "@/components/pages/tools/studio/types"
 import { getFieldPosition } from "@/components/pages/tools/studio/utils.ts";
 
 export default function TemporaryLinkManager() {
-    const { gridObjects, zoom, position } = useStudioContext();
+    const { gridObjects } = useStudioContext();
     const temporaryLinks = gridObjects.filter((obj): obj is TemporaryLinkObject => obj.type === "tmp_link");
 
     if (temporaryLinks.length === 0) return null;
@@ -12,17 +12,17 @@ export default function TemporaryLinkManager() {
     return (
         <svg 
             role="presentation" 
-            className="absolute top-0 left-0 w-full h-full pointer-events-none" 
+            className="absolute origin-top-left overflow-visible pointer-events-none" 
             style={{ zIndex: 1001 }}
         >
             {temporaryLinks.map((link) => {
-                const startPos = getFieldPosition(gridObjects, link.sourceId, link.sourceFieldId, zoom, position);
+                const startPos = getFieldPosition(gridObjects, link.sourceId, link.sourceFieldId);
                 return <Link 
                     key={link.id} 
-                    startX={startPos.x * zoom + position.x} 
-                    startY={startPos.y * zoom + position.y} 
-                    endX={link.endPosition.x * zoom + position.x} 
-                    endY={link.endPosition.y * zoom + position.y} 
+                    startX={startPos.x} 
+                    startY={startPos.y} 
+                    endX={link.endPosition.x} 
+                    endY={link.endPosition.y} 
                 />;
             })}
         </svg>

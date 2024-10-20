@@ -10,14 +10,7 @@ export const generatePath = (startX: number, startY: number, endX: number, endY:
     return `M ${startX} ${startY} C ${controlPoint1X} ${controlPoint1Y}, ${controlPoint2X} ${endY}, ${endX} ${endY}`;
 };
 
-export function getFieldPosition(
-    gridObjects: AnyGridObject[],
-    blueprintId: string,
-    fieldId: string,
-    zoom: number,
-    canvasPosition: Position
-): Position {
-    console.log("Hello");
+export function getFieldPosition(gridObjects: AnyGridObject[], blueprintId: string, fieldId: string): Position {
     const blueprint = gridObjects.find((obj): obj is BlueprintObject => obj.type === "blueprint" && obj.id === blueprintId);
     if (!blueprint || !blueprint.ref.current) return { x: 0, y: 0 };
 
@@ -25,15 +18,29 @@ export function getFieldPosition(
     if (!field) return { x: 0, y: 0 };
 
     const blueprintRect = blueprint.ref.current.getBoundingClientRect();
+    console.log("Blueprint rect", blueprintRect.width, blueprintRect.height);
     const fieldIndex = blueprint.fields.findIndex((f) => f.id === fieldId);
     const isOutput = field.type === "output";
 
-    const blueprintX = (blueprintRect.left - canvasPosition.x) / zoom;
-    const blueprintY = (blueprintRect.top - canvasPosition.y) / zoom;
-    const blueprintWidth = blueprintRect.width / zoom;
-
-    const x = blueprintX + (isOutput ? blueprintWidth - 22 : 22);
-    const y = blueprintY + 64 + fieldIndex * 40 + 20;
+    const x = blueprint.position.x + (isOutput ? blueprintRect.width - 22 : 22);
+    const y = blueprint.position.y + 64 + fieldIndex * 40 + 20;
 
     return { x, y };
+}
+
+export function cleanForJSON(obj: any): any {
+    if (Array.isArray(obj)) {
+        return obj.map(cleanForJSON);
+    }
+
+    if (obj && typeof obj === "object") {
+        const cleaned: any = {};
+        for (const [key, value] of Object.entries(obj)) {
+            if (key !== "ref" && value !== undefined) {
+                cleaned[key] = cleanForJSON(value);
+            }
+        }
+        return cleaned;
+    }
+    return obj;
 }

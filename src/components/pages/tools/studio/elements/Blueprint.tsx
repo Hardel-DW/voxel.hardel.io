@@ -1,6 +1,5 @@
 import type { BlueprintFieldType } from "@/components/pages/tools/studio/fields/Field.tsx";
 import FieldManager from "@/components/pages/tools/studio/fields/FieldManager.tsx";
-import type { Position } from "@/components/pages/tools/studio/types";
 import type React from "react";
 import { forwardRef } from "react";
 
@@ -8,8 +7,6 @@ interface BlueprintProps {
     id: string;
     x: number;
     y: number;
-    zoom: number;
-    position: Position;
     title: string;
     fields: BlueprintFieldType[];
     onDragStart: (offsetX: number, offsetY: number) => void;
@@ -19,8 +16,8 @@ const Blueprint = forwardRef<HTMLDivElement, BlueprintProps>((props, ref) => {
     const handleMouseDown = (e: React.MouseEvent) => {
         e.stopPropagation();
         const rect = e.currentTarget.getBoundingClientRect();
-        const offsetX = (e.clientX - rect.left) / props.zoom;
-        const offsetY = (e.clientY - rect.top) / props.zoom;
+        const offsetX = e.clientX - rect.left;
+        const offsetY = e.clientY - rect.top;
         props.onDragStart(offsetX, offsetY);
     };
 
@@ -30,9 +27,8 @@ const Blueprint = forwardRef<HTMLDivElement, BlueprintProps>((props, ref) => {
             className="absolute origin-top-left min-w-64 min-h-48 text select-none bg-opacity-90 bg-zinc-900 rounded-2xl shadow-md overflow-visible font-sans text-gray-200"
             onMouseDown={handleMouseDown}
             style={{
-                left: `${props.x * props.zoom + props.position.x}px`,
-                top: `${props.y * props.zoom + props.position.y}px`,
-                transform: `scale(${props.zoom})`
+                left: `${props.x}px`,
+                top: `${props.y}px`,
             }}
         >
             <div className="bg-zinc-950 p-3 font-bold cursor-move relative overflow-hidden rounded-t-2xl">

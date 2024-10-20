@@ -1,14 +1,16 @@
 import ButtonCopy from "@/components/ui/codeblock/ButtonCopy.tsx";
 import ButtonDownload from "@/components/ui/codeblock/ButtonDownload.tsx";
 import HighlightSection from "@/components/ui/codeblock/HighlightSection.tsx";
+import { cn } from "@/lib/utils.ts";
 
 export default function CodeBlock(props: {
     children: string;
     language: string;
     title?: string;
+    className?: string;
 }) {
     return (
-        <div className="relative w-full h-full py-4 pl-4 pr-px bg-zinc-950/20 rounded-2xl border-zinc-800 border">
+        <div className={cn("relative w-full h-full py-4 pl-4 pr-px bg-zinc-950/20 rounded-2xl border-zinc-800 border", props.className)}>
             <div className="absolute z-10 top-0 right-0 m-4">
                 <div className="flex flex-col gap-y-4">
                     <ButtonCopy snippet={props.children} />

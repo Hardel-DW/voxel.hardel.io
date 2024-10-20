@@ -13,9 +13,6 @@ type StudioContextType = {
     zoom: number;
     setZoom: React.Dispatch<React.SetStateAction<number>>;
 
-    cursorPosition: Position;
-    setCursorPosition: React.Dispatch<React.SetStateAction<Position>>;
-
     draggingObjectId: string | null;
     setDraggingObjectId: React.Dispatch<React.SetStateAction<string | null>>;
 
@@ -64,7 +61,6 @@ export function StudioProvider({ children }: { children: React.ReactNode }) {
     const [gridObjects, setGridObjects] = useState<AnyGridObject[]>(defaultBlueprints);
     const [position, setPosition] = useState<Position>({ x: 0, y: 0 });
     const [zoom, setZoom] = useState(1);
-    const [cursorPosition, setCursorPosition] = useState<Position>({ x: 0, y: 0 });
     const [draggingObjectId, setDraggingObjectId] = useState<string | null>(null);
     const [objectOffset, setObjectOffset] = useState<Position>({ x: 0, y: 0 });
 
@@ -80,9 +76,18 @@ export function StudioProvider({ children }: { children: React.ReactNode }) {
             prev.map((obj) => {
                 if (obj.id === id) {
                     const { type, ...safeUpdates } = updates;
+                    if (obj.type === "blueprint" && "position" in safeUpdates && safeUpdates.position) {
+                        return {
+                            ...obj,
+                            ...safeUpdates,
+                            position: {
+                                x: safeUpdates.position.x,
+                                y: safeUpdates.position.y
+                            }
+                        };
+                    }
                     return { ...obj, ...safeUpdates };
                 }
-
                 return obj;
             })
         );
@@ -244,8 +249,6 @@ export function StudioProvider({ children }: { children: React.ReactNode }) {
                 setPosition,
                 zoom,
                 setZoom,
-                cursorPosition,
-                setCursorPosition,
                 draggingObjectId,
                 setDraggingObjectId,
                 objectOffset,

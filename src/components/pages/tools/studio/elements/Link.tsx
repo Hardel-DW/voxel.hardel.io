@@ -1,5 +1,4 @@
 import { generatePath } from "@/components/pages/tools/studio/utils.ts";
-import React from "react";
 
 interface LinkProps {
     startX: number;

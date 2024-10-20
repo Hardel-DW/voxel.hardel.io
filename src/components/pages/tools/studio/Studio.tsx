@@ -12,7 +12,6 @@ export default function Studio() {
     const startDragPosition = useRef({ x: 0, y: 0 });
     const startPosition = useRef({ x: 0, y: 0 });
     const {
-        setCursorPosition,
         position,
         setPosition,
         zoom,
@@ -49,39 +48,21 @@ export default function Studio() {
                 });
             } else if (draggingObjectId !== null && canvasRef.current) {
                 const rect = canvasRef.current.getBoundingClientRect();
-                const x = (event.clientX - rect.left - position.x) / zoom;
-                const y = (event.clientY - rect.top - position.y) / zoom;
+                const x = event.clientX - rect.left;
+                const y = event.clientY - rect.top;
                 updateGridObject(draggingObjectId, {
                     position: {
-                        x: x - objectOffset.x,
-                        y: y - objectOffset.y
+                        x: (x - position.x) / zoom - objectOffset.x,
+                        y: (y - position.y) / zoom - objectOffset.y
                     }
                 });
-            }
-
-            if (canvasRef.current) {
-                const rect = canvasRef.current.getBoundingClientRect();
-                const xOnCanvas = (event.clientX - rect.left - position.x) / zoom;
-                const yOnCanvas = (event.clientY - rect.top - position.y) / zoom;
-                setCursorPosition({ x: xOnCanvas, y: yOnCanvas });
             }
 
             if (isLinking) {
                 updateTemporaryLink({ x: event.clientX, y: event.clientY });
             }
         },
-        [
-            isDragging,
-            draggingObjectId,
-            position,
-            zoom,
-            isLinking,
-            setCursorPosition,
-            setPosition,
-            updateGridObject,
-            updateTemporaryLink,
-            objectOffset
-        ]
+        [isDragging, draggingObjectId, position, zoom, isLinking, setPosition, updateGridObject, updateTemporaryLink, objectOffset]
     );
 
     const handleMouseUp = useCallback(
@@ -95,42 +76,37 @@ export default function Studio() {
         [setDraggingObjectId, isLinking, cancelLinking]
     );
 
-    const handleWheel = useCallback(
-        (event: WheelEvent) => {
-            if (canvasRef.current) {
-                event.preventDefault();
-                const scale = 0.001;
-                const rect = canvasRef.current.getBoundingClientRect();
-                const cursorX = event.clientX - rect.left;
-                const cursorY = event.clientY - rect.top;
+    const handleWheel = (event: React.WheelEvent<HTMLDivElement>) => {
+        if (canvasRef.current) {
+            event.preventDefault();
+            const scale = 0.001;
+            const rect = canvasRef.current.getBoundingClientRect();
+            const cursorX = event.clientX - rect.left;
+            const cursorY = event.clientY - rect.top;
 
-                const delta = event.deltaY * -scale;
-                const newZoom = Math.exp(Math.log(zoom) + delta);
-                const clampedZoom = Math.min(Math.max(newZoom, 0.1), 5);
+            const delta = event.deltaY * -scale;
+            const newZoom = Math.exp(Math.log(zoom) + delta);
+            const clampedZoom = Math.min(Math.max(newZoom, 0.1), 5);
 
-                const scaleFactor = clampedZoom / zoom;
+            const scaleFactor = clampedZoom / zoom;
 
-                const newX = cursorX - (cursorX - position.x) * scaleFactor;
-                const newY = cursorY - (cursorY - position.y) * scaleFactor;
+            const newX = cursorX - (cursorX - position.x) * scaleFactor;
+            const newY = cursorY - (cursorY - position.y) * scaleFactor;
 
-                setZoom(clampedZoom);
-                setPosition({ x: newX, y: newY });
-            }
-        },
-        [zoom, position, setPosition, setZoom]
-    );
+            setZoom(clampedZoom);
+            setPosition({ x: newX, y: newY });
+        }
+    };
 
     useEffect(() => {
         window.addEventListener("mousemove", handleMouseMove);
         window.addEventListener("mouseup", handleMouseUp);
-        window.addEventListener("wheel", handleWheel, { passive: false });
 
         return () => {
             window.removeEventListener("mousemove", handleMouseMove);
             window.removeEventListener("mouseup", handleMouseUp);
-            window.removeEventListener("wheel", handleWheel);
         };
-    }, [handleMouseMove, handleMouseUp, handleWheel]);
+    }, [handleMouseMove, handleMouseUp]);
 
     return (
         <div className="relative w-full h-full overflow-hidden">
@@ -146,10 +122,21 @@ export default function Studio() {
                 }}
                 onMouseDown={handleMouseDown}
                 onMouseUp={handleMouseUp}
+                onWheel={handleWheel}
             >
-                <BlueprintsManager />
-                <LinkManager />
-                <TemporaryLinkManager />
+                <div
+                    style={{
+                        position: "absolute",
+                        top: `${position.y}px`,
+                        left: `${position.x}px`,
+                        transform: `scale(${zoom})`,
+                        transformOrigin: "top left"
+                    }}
+                >
+                    <BlueprintsManager />
+                    <LinkManager />
+                    <TemporaryLinkManager />
+                </div>
             </div>
         </div>
     );

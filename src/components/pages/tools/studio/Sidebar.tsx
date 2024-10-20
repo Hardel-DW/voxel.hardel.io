@@ -1,12 +1,14 @@
 import { useStudioContext } from "@/components/pages/tools/studio/StudioContext.tsx";
 import { cn } from "@/lib/utils.ts";
 import { useState } from "react";
-import type { BlueprintObject } from "./types";
+import type { BlueprintObject, LinkObject, TemporaryLinkObject } from "./types";
 
 export default function Sidebar() {
     const [width, setWidth] = useState(350);
     const { position, gridObjects } = useStudioContext();
-    const blueprints = gridObjects.filter((obj): obj is BlueprintObject => "title" in obj);
+    const blueprints = gridObjects.filter((obj): obj is BlueprintObject => obj.type === "blueprint");
+    const links = gridObjects.filter((obj): obj is LinkObject => obj.type === "link");
+    const tmpLinks = gridObjects.filter((obj): obj is TemporaryLinkObject => obj.type === "tmp_link");
 
     return (
         <>
@@ -32,6 +34,22 @@ export default function Sidebar() {
                                             <li key={bp.id}>
                                                 Blueprint {bp.id}: X: {Math.round(bp.position.x)}, Y: {Math.round(bp.position.y)}
                                             </li>
+                                        ))}
+                                    </ul>
+
+                                    <h3 className="mt-4 text-lg font-semibold">Links:</h3>
+                                    <ul>
+                                        {links.map((link) => (
+                                            <li key={link.id}>
+                                                {link.sourceId} - {link.targetId} With Positions: {link.position.x}, {link.position.y} - {link.endPosition.x}, {link.endPosition.y}
+                                            </li>
+                                        ))}
+                                    </ul>
+
+                                    <h3 className="mt-4 text-lg font-semibold">Temporary Links:</h3>
+                                    <ul>
+                                        {tmpLinks.map((link) => (
+                                            <li key={link.id}>Temporary Link {link.sourceId} - {link.position.x}, {link.position.y}</li>
                                         ))}
                                     </ul>
                                 </div>

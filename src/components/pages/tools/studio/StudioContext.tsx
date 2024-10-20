@@ -12,7 +12,6 @@ type StudioContextType = {
     isLinking: boolean;
     updateTemporaryLink: (endPosition: Position) => void;
     cancelLinking: () => void;
-    isValidLinkTarget: (sourceId: string, sourceFieldId: string, targetId: string, targetFieldId: string) => boolean;
     updateFieldValue: (objectId: string, fieldId: string, value: any) => void;
 };
 
@@ -60,17 +59,10 @@ export function StudioProvider({ children }: { children: React.ReactNode }) {
             prev.map((obj) => {
                 if (obj.id === id) {
                     const { type, ...safeUpdates } = updates;
-                    if (obj.type === "blueprint" && "position" in safeUpdates && safeUpdates.position) {
-                        return {
-                            ...obj,
-                            ...safeUpdates,
-                            position: {
-                                x: safeUpdates.position.x,
-                                y: safeUpdates.position.y
-                            }
-                        };
-                    }
-                    return { ...obj, ...safeUpdates };
+                    return {
+                        ...obj,
+                        ...safeUpdates
+                    };
                 }
                 return obj;
             })
@@ -80,31 +72,6 @@ export function StudioProvider({ children }: { children: React.ReactNode }) {
     const removeGridObject = useCallback((id: string) => {
         setGridObjects((prev) => prev.filter((obj) => obj.id !== id));
     }, []);
-
-    const isValidLinkTarget = useCallback(
-        (sourceId: string, sourceFieldId: string, targetId: string, targetFieldId: string) => {
-            const sourceBlueprint = gridObjects.find((obj) => obj.id === sourceId && obj.type === "blueprint") as
-                | BlueprintObject
-                | undefined;
-            const targetBlueprint = gridObjects.find((obj) => obj.id === targetId && obj.type === "blueprint") as
-                | BlueprintObject
-                | undefined;
-
-            if (!sourceBlueprint || !targetBlueprint) return false;
-
-            const sourceField = sourceBlueprint.fields.find((f) => f.id === sourceFieldId);
-            const targetField = targetBlueprint.fields.find((f) => f.id === targetFieldId);
-
-            if (!sourceField || !targetField) return false;
-
-            // Permettre la connexion entre un output et un input, dans n'importe quel ordre
-            return (
-                (sourceField.type === "output" && targetField.type === "input") ||
-                (sourceField.type === "input" && targetField.type === "output")
-            );
-        },
-        [gridObjects]
-    );
 
     const startLinking = useCallback((sourceId: string, sourceFieldId: string, startX: number, startY: number) => {
         setGridObjects((prev) => {
@@ -159,6 +126,7 @@ export function StudioProvider({ children }: { children: React.ReactNode }) {
         );
     }, []);
 
+    
     const finishLinking = useCallback(
         (targetId: string, targetFieldId: string) => {
             setGridObjects((prev) => {
@@ -175,7 +143,11 @@ export function StudioProvider({ children }: { children: React.ReactNode }) {
                     const targetField = targetBlueprint.fields.find((f) => f.id === targetFieldId);
 
                     if (sourceField && targetField) {
-                        if (isValidLinkTarget(tempLink.sourceId, tempLink.sourceFieldId, targetId, targetFieldId)) {
+                        const isValid =
+                            (sourceField.type === "output" && targetField.type === "input") ||
+                            (sourceField.type === "input" && targetField.type === "output");
+
+                        if (isValid) {
                             const newLink: LinkObject = {
                                 type: "link",
                                 id: `link-${Date.now()}`,
@@ -197,7 +169,7 @@ export function StudioProvider({ children }: { children: React.ReactNode }) {
                 return prev.filter((obj) => obj.id !== "temp-link");
             });
         },
-        [isValidLinkTarget]
+        []
     );
 
     const isLinking = useMemo(() => gridObjects.some((obj) => obj.type === "tmp_link"), [gridObjects]);
@@ -228,7 +200,6 @@ export function StudioProvider({ children }: { children: React.ReactNode }) {
                 isLinking,
                 updateTemporaryLink,
                 cancelLinking,
-                isValidLinkTarget,
                 updateFieldValue
             }}
         >

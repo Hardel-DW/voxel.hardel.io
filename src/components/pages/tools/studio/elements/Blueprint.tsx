@@ -7,6 +7,7 @@ interface BlueprintProps {
     id: string;
     x: number;
     y: number;
+    zoom: number;
     title: string;
     fields: BlueprintFieldType[];
     onDragStart: (offsetX: number, offsetY: number) => void;
@@ -17,15 +18,15 @@ const Blueprint = forwardRef<HTMLDivElement, BlueprintProps>((props, ref) => {
         console.log("move");
         e.stopPropagation();
         const rect = e.currentTarget.getBoundingClientRect();
-        const offsetX = e.clientX - rect.left;
-        const offsetY = e.clientY - rect.top;
+        const offsetX = (e.clientX - rect.left) / props.zoom;
+        const offsetY = (e.clientY - rect.top) / props.zoom;
         props.onDragStart(offsetX, offsetY);
     };
 
     return (
         <div
             ref={ref}
-            className="absolute z-20 origin-top-left min-w-64 min-h-48 cursor-default bg-opacity-90 bg-zinc-900 rounded-2xl shadow-md overflow-visible font-sans text-gray-200"
+            className="absolute z-20 origin-top-left min-w-64 min-h-48 cursor-default select-none bg-opacity-90 bg-zinc-900 rounded-2xl shadow-md overflow-visible font-sans text-gray-200"
             style={{
                 left: `${props.x}px`,
                 top: `${props.y}px`

@@ -3,6 +3,7 @@ import Blueprint from "@/components/pages/tools/studio/elements/Blueprint.tsx";
 import type { BlueprintObject } from "@/components/pages/tools/studio/types";
 
 export default function BlueprintsManager(props: {
+    zoom: number;
     setDraggingObjectId: (id: string | null) => void;
     setObjectOffset: (offset: { x: number; y: number }) => void;
 }) {
@@ -15,6 +16,7 @@ export default function BlueprintsManager(props: {
                 <Blueprint
                     key={blueprint.id}
                     id={blueprint.id}
+                    zoom={props.zoom}
                     x={blueprint.position.x}
                     y={blueprint.position.y}
                     title={blueprint.title}

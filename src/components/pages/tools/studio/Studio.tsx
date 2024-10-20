@@ -52,7 +52,7 @@ export default function Studio() {
             }
 
             if (isLinking) {
-                updateTemporaryLink({ x: event.clientX, y: event.clientY });
+                updateTemporaryLink({ x: (event.clientX - position.x) / zoom, y: (event.clientY - position.y) / zoom });
             }
         },
         [isDragging, draggingObjectId, isLinking, position, zoom, updateGridObject, updateTemporaryLink, objectOffset]
@@ -70,6 +70,10 @@ export default function Studio() {
     );
 
     const handleWheel = (event: React.WheelEvent<HTMLDivElement>) => {
+        if (event.ctrlKey) {
+            event.preventDefault();
+        }
+        
         if (canvasRef.current) {
             event.preventDefault();
             const scale = 0.001;
@@ -91,15 +95,23 @@ export default function Studio() {
         }
     };
 
+    const handleAvoidWheel = useCallback((event: WheelEvent) => {
+        if (event.ctrlKey) {
+            event.preventDefault();
+        }
+    }, []);
+
     useEffect(() => {
         window.addEventListener("mousemove", handleMouseMove);
         window.addEventListener("mouseup", handleMouseUp);
+        window.addEventListener("wheel", handleAvoidWheel, { passive: false });
 
         return () => {
             window.removeEventListener("mousemove", handleMouseMove);
             window.removeEventListener("mouseup", handleMouseUp);
+            window.removeEventListener("wheel", handleAvoidWheel); 
         };
-    }, [handleMouseMove, handleMouseUp]);
+    }, [handleMouseMove, handleMouseUp, handleAvoidWheel]);
 
     return (
         <div className="relative w-full h-full overflow-hidden">
@@ -126,7 +138,7 @@ export default function Studio() {
                         transformOrigin: "top left"
                     }}
                 >
-                    <BlueprintsManager setDraggingObjectId={setDraggingObjectId} setObjectOffset={setObjectOffset} />
+                    <BlueprintsManager zoom={zoom} setDraggingObjectId={setDraggingObjectId} setObjectOffset={setObjectOffset} />
                     <LinkManager />
                     <TemporaryLinkManager />
                 </div>

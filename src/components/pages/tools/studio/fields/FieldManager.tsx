@@ -5,9 +5,6 @@ import type React from "react";
 export default function FieldManager(props: {
     fields: BlueprintFieldType[];
     blueprintId: string;
-    handleConnectorMouseDown: (e: React.MouseEvent, fieldId: string) => void;
-    handleConnectorMouseUp: (fieldId: string) => void;
-    updateFieldValue: (blueprintId: string, fieldId: string, value: number) => void;
 }) {
     return (
         <div className="p-4 grid grid-cols-1 auto-rows-fr gap-2">
@@ -19,13 +16,7 @@ export default function FieldManager(props: {
                         "justify-between": field.type !== "output"
                     })}
                 >
-                    <Field
-                        field={field}
-                        blueprintId={props.blueprintId}
-                        handleConnectorMouseDown={props.handleConnectorMouseDown}
-                        handleConnectorMouseUp={props.handleConnectorMouseUp}
-                        updateFieldValue={props.updateFieldValue}
-                    />
+                    <Field field={field} blueprintId={props.blueprintId} />
                 </div>
             ))}
         </div>

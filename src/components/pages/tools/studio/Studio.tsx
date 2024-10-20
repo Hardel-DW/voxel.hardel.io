@@ -22,7 +22,8 @@ export default function Studio() {
         setDraggingObjectId,
         objectOffset,
         isLinking,
-        cancelLinking
+        cancelLinking,
+        updateTemporaryLink
     } = useStudioContext();
 
     const handleMouseDown = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
@@ -64,17 +65,35 @@ export default function Studio() {
                 const yOnCanvas = (event.clientY - rect.top - position.y) / zoom;
                 setCursorPosition({ x: xOnCanvas, y: yOnCanvas });
             }
+
+            if (isLinking) {
+                updateTemporaryLink({ x: event.clientX, y: event.clientY });
+            }
         },
-        [isDragging, draggingObjectId, position, zoom, setCursorPosition, setPosition, updateGridObject, objectOffset]
+        [
+            isDragging,
+            draggingObjectId,
+            position,
+            zoom,
+            isLinking,
+            setCursorPosition,
+            setPosition,
+            updateGridObject,
+            updateTemporaryLink,
+            objectOffset
+        ]
     );
 
-    const handleMouseUp = useCallback((event: MouseEvent | React.MouseEvent<HTMLDivElement>) => {
-        setIsDragging(false);
-        setDraggingObjectId(null);
-        if (isLinking && (event.target as Node).isEqualNode(canvasRef.current)) {
-            cancelLinking();
-        }
-    }, [setDraggingObjectId, isLinking, cancelLinking]);
+    const handleMouseUp = useCallback(
+        (event: MouseEvent | React.MouseEvent<HTMLDivElement>) => {
+            setIsDragging(false);
+            setDraggingObjectId(null);
+            if (isLinking && (event.target as Node).isEqualNode(canvasRef.current)) {
+                cancelLinking();
+            }
+        },
+        [setDraggingObjectId, isLinking, cancelLinking]
+    );
 
     const handleWheel = useCallback(
         (event: WheelEvent) => {

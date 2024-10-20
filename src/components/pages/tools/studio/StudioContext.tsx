@@ -28,6 +28,7 @@ type StudioContextType = {
     updateTemporaryLink: (endPosition: Position) => void;
     cancelLinking: () => void;
     isValidLinkTarget: (sourceId: string, sourceFieldId: string, targetId: string, targetFieldId: string) => boolean;
+    updateFieldValue: (objectId: string, fieldId: string, value: any) => void;
 };
 
 const StudioContext = createContext<StudioContextType | undefined>(undefined);
@@ -216,10 +217,21 @@ export function StudioProvider({ children }: { children: React.ReactNode }) {
         [isValidLinkTarget]
     );
 
-    const isLinking = useMemo(
-        () => gridObjects.some((obj) => (obj.type === "blueprint" && obj.linkingFieldId !== undefined) || obj.type === "tmp_link"),
-        [gridObjects]
-    );
+    const isLinking = useMemo(() => gridObjects.some((obj) => obj.type === "tmp_link"), [gridObjects]);
+
+    const updateFieldValue = useCallback((objectId: string, fieldId: string, value: any) => {
+        setGridObjects((prev) =>
+            prev.map((obj) => {
+                if (obj.id === objectId && obj.type === "blueprint") {
+                    return {
+                        ...obj,
+                        fields: obj.fields.map((field) => (field.id === fieldId ? { ...field, value } : field))
+                    };
+                }
+                return obj;
+            })
+        );
+    }, []);
 
     return (
         <StudioContext.Provider
@@ -243,7 +255,8 @@ export function StudioProvider({ children }: { children: React.ReactNode }) {
                 isLinking,
                 updateTemporaryLink,
                 cancelLinking,
-                isValidLinkTarget
+                isValidLinkTarget,
+                updateFieldValue
             }}
         >
             {children}

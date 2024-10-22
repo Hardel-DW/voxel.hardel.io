@@ -1,6 +1,5 @@
-import Debug from "@/components/pages/tools/studio/Debug.tsx";
-import Sidebar from "@/components/pages/tools/studio/Sidebar.tsx";
 import Studio from "@/components/pages/tools/studio/Studio.tsx";
+import Sidebar from "@/components/pages/tools/studio/Component.tsx";
 import { StudioProvider } from "@/components/pages/tools/studio/StudioContext.tsx";
 import StudioProviders from "@/components/pages/tools/studio/StudioProviders.tsx";
 import type { TranslationRecord } from "@/lib/i18n.ts";
@@ -17,7 +16,6 @@ export default function StudioTool(props: {
                 <section className="flex z-0 relative h-dvh w-dvw overflow-y-hidden">
                     <div className="pointer-events-auto">
                         <Sidebar />
-                        <Debug />
                     </div>
                     <div className="absolute inset-0 z-0">
                         <Studio />

@@ -9,59 +9,74 @@ import { useCallback, useEffect, useRef, useState } from "react";
 
 export default function Studio() {
     const canvasRef = useRef<HTMLDivElement>(null);
-    const [isDragging, setIsDragging] = useState(false);
-    const [position, setPosition] = useState<Position>({ x: 0, y: 0 });
+    const isDraggingRef = useRef(false);
+    const positionRef = useRef<Position>({ x: 0, y: 0 });
+    const startDragPosition = useRef({ x: 0, y: 0 });
+    const startPosition = useRef({ x: 0, y: 0 });
     const [zoom, setZoom] = useState(1);
     const [draggingObjectId, setDraggingObjectId] = useState<string | null>(null);
     const [objectOffset, setObjectOffset] = useState<Position>({ x: 0, y: 0 });
-    const startDragPosition = useRef({ x: 0, y: 0 });
-    const startPosition = useRef({ x: 0, y: 0 });
     const { updateGridObject, isLinking, cancelLinking, updateTemporaryLink } = useStudioContext();
+
+    const updateCanvasPosition = useCallback(() => {
+        if (canvasRef.current) {
+            canvasRef.current.style.backgroundPosition = `${positionRef.current.x}px ${positionRef.current.y}px`;
+            const innerDiv = canvasRef.current.querySelector('div');
+            if (innerDiv) {
+                innerDiv.style.transform = `translate(${positionRef.current.x}px, ${positionRef.current.y}px) scale(${zoom})`;
+            }
+        }
+    }, [zoom]);
 
     const handleMouseDown = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
         if (event.target === canvasRef.current) {
-            setIsDragging(true);
+            isDraggingRef.current = true;
             event.preventDefault();
             startDragPosition.current = {
                 x: event.clientX,
                 y: event.clientY
             };
-            startPosition.current = { ...position };
+            startPosition.current = { ...positionRef.current };
         }
     };
 
     const handleMouseMove = useCallback(
         (event: MouseEvent) => {
-            if (isDragging) {
+            if (isDraggingRef.current) {
                 const dx = event.clientX - startDragPosition.current.x;
                 const dy = event.clientY - startDragPosition.current.y;
-                setPosition({
+                positionRef.current = {
                     x: startPosition.current.x + dx,
                     y: startPosition.current.y + dy
-                });
+                };
+                updateCanvasPosition();
             } else if (draggingObjectId !== null && canvasRef.current) {
                 const rect = canvasRef.current.getBoundingClientRect();
                 const x = event.clientX - rect.left;
                 const y = event.clientY - rect.top;
                 updateGridObject(draggingObjectId, {
                     position: {
-                        x: (x - position.x) / zoom - objectOffset.x,
-                        y: (y - position.y) / zoom - objectOffset.y
+                        x: (x - positionRef.current.x) / zoom - objectOffset.x,
+                        y: (y - positionRef.current.y) / zoom - objectOffset.y
                     }
                 });
             }
 
             if (isLinking) {
-                updateTemporaryLink({ x: (event.clientX - position.x) / zoom, y: (event.clientY - position.y) / zoom });
+                updateTemporaryLink({
+                    x: (event.clientX - positionRef.current.x) / zoom,
+                    y: (event.clientY - positionRef.current.y) / zoom
+                });
             }
         },
-        [isDragging, draggingObjectId, isLinking, position, zoom, updateGridObject, updateTemporaryLink, objectOffset]
+        [draggingObjectId, isLinking, zoom, updateGridObject, updateTemporaryLink, objectOffset, updateCanvasPosition]
     );
 
     const handleMouseUp = useCallback(
         (event: MouseEvent | React.MouseEvent<HTMLDivElement>) => {
-            setIsDragging(false);
+            isDraggingRef.current = false;
             setDraggingObjectId(null);
+
             if (isLinking && (event.target as Node).isEqualNode(canvasRef.current)) {
                 cancelLinking();
             }
@@ -73,7 +88,7 @@ export default function Studio() {
         if (event.ctrlKey) {
             event.preventDefault();
         }
-        
+
         if (canvasRef.current) {
             event.preventDefault();
             const scale = 0.001;
@@ -87,11 +102,11 @@ export default function Studio() {
 
             const scaleFactor = clampedZoom / zoom;
 
-            const newX = cursorX - (cursorX - position.x) * scaleFactor;
-            const newY = cursorY - (cursorY - position.y) * scaleFactor;
+            const newX = cursorX - (cursorX - positionRef.current.x) * scaleFactor;
+            const newY = cursorY - (cursorY - positionRef.current.y) * scaleFactor;
 
             setZoom(clampedZoom);
-            setPosition({ x: newX, y: newY });
+            positionRef.current = { x: newX, y: newY };
         }
     };
 
@@ -109,7 +124,7 @@ export default function Studio() {
         return () => {
             window.removeEventListener("mousemove", handleMouseMove);
             window.removeEventListener("mouseup", handleMouseUp);
-            window.removeEventListener("wheel", handleAvoidWheel); 
+            window.removeEventListener("wheel", handleAvoidWheel);
         };
     }, [handleMouseMove, handleMouseUp, handleAvoidWheel]);
 
@@ -118,13 +133,15 @@ export default function Studio() {
             <div
                 ref={canvasRef}
                 className={cn("absolute w-dvw h-dvh bg-grid", {
-                    "cursor-grabbing": isDragging,
-                    "cursor-grab": !isDragging
+                    "cursor-grabbing": isDraggingRef.current,
+                    "cursor-grab": !isDraggingRef.current
                 })}
-                style={{
-                    backgroundSize: `${50 * zoom}px ${50 * zoom}px`,
-                    backgroundPosition: `${position.x}px ${position.y}px`
-                }}
+                style={
+                    {
+                        backgroundSize: `${50 * zoom}px ${50 * zoom}px`,
+                        backgroundPosition: `${positionRef.current.x}px ${positionRef.current.y}px`
+                    } as React.CSSProperties
+                }
                 onMouseDown={handleMouseDown}
                 onMouseUp={handleMouseUp}
                 onWheel={handleWheel}
@@ -132,9 +149,7 @@ export default function Studio() {
                 <div
                     style={{
                         position: "absolute",
-                        top: `${position.y}px`,
-                        left: `${position.x}px`,
-                        transform: `scale(${zoom})`,
+                        transform: `translate(${positionRef.current.x}px, ${positionRef.current.y}px) scale(${zoom})`,
                         transformOrigin: "top left"
                     }}
                 >

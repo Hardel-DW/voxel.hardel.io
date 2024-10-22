@@ -3,7 +3,7 @@ import type { AnyGridObject, BlueprintObject, LinkObject, Position, TemporaryLin
 
 type StudioContextType = {
     gridObjects: AnyGridObject[];
-    addGridObject: (object: AnyGridObject) => void;
+    createBlueprint: () => void;
     updateGridObject: (id: string, updates: Partial<AnyGridObject>) => void;
     removeGridObject: (id: string) => void;
 
@@ -48,10 +48,20 @@ export function StudioProvider({ children }: { children: React.ReactNode }) {
     const [gridObjects, setGridObjects] = useState<AnyGridObject[]>(defaultBlueprints);
     const isLinking = useMemo(() => gridObjects.some((obj) => obj.type === "tmp_link"), [gridObjects]);
 
-    const addGridObject = useCallback((object: AnyGridObject) => {
-        if (object.type === "blueprint") {
-            object.ref = React.createRef<HTMLDivElement>();
-        }
+    const createBlueprint = useCallback(() => {
+        const object: BlueprintObject = {
+            type: "blueprint",
+            id: `blueprint-${Date.now()}`,
+            position: { x: 600, y: 650 },
+            title: "New Blueprint",
+            fields: [
+                { id: "output", name: "Condition", type: "output" },
+                { id: "foo", name: "Foo", value: 0, type: "number" },
+                { id: "bar", name: "Bar", value: 0, type: "number" }
+            ],
+            ref: React.createRef<HTMLDivElement>()
+        };
+
         setGridObjects((prev) => [...prev, object]);
     }, []);
 
@@ -170,7 +180,7 @@ export function StudioProvider({ children }: { children: React.ReactNode }) {
             value={{
                 gridObjects,
                 isLinking,
-                addGridObject,
+                createBlueprint,
                 updateGridObject,
                 removeGridObject,
                 startLinking,

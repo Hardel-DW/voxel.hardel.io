@@ -1,5 +1,6 @@
 import type { Config } from "tailwindcss";
 import defaultTheme from "tailwindcss/defaultTheme";
+import type { PluginAPI } from "tailwindcss/types/config";
 
 export default {
     content: ["./src/**/*.{astro,md,mdx,ts,tsx}"],
@@ -89,5 +90,11 @@ export default {
             }
         }
     },
-    plugins: [require("@tailwindcss/typography"), require("tailwindcss-animate")]
+    plugins: [
+        require("@tailwindcss/typography"),
+        require("tailwindcss-animate"),
+        ({ addVariant }: PluginAPI) => {
+            addVariant("starting", "@starting-style");
+        }
+    ]
 } satisfies Config;

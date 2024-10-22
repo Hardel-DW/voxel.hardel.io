@@ -26,7 +26,7 @@ function toVal(mix: ClassValue): string {
  * A utility function to merge classnames
  * @param args
  */
-function clsx(...args: ClassValue[]): string {
+export function clsx(...args: ClassValue[]): string {
     return args
         .map((arg) => toVal(arg))
         .filter(Boolean)

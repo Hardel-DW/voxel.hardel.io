@@ -1,7 +1,7 @@
 import type { LevelBasedValue as LevelBasedValueType } from "@voxel/definitions";
 
 interface Props {
-    element: LevelBasedValueType;
+    element: LevelBasedValueType | number;
     title: string;
 }
 

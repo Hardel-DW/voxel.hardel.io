@@ -8,7 +8,8 @@ const baseComponentVariants = cva(
         variants: {
             variant: {
                 default: "px-8",
-                dropdown: "p-4 gap-1 grid starting:translate-y-6 starting:opacity-0 translate-y-0 opacity-100 transition duration-500"
+                dropdown:
+                    "p-4 gap-1 grid starting:translate-y-6 starting:opacity-0 translate-y-0 opacity-100 transition duration-500 max-h-96 overflow-y-auto"
             },
             hover: {
                 true: "cursor-pointer hover:border-zinc-700 transition"

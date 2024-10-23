@@ -5,12 +5,15 @@ export interface DropdownContextType {
     openDropdowns: Set<string>;
     toggleDropdown: (id: string) => void;
     closeDropdown: (id: string) => void;
+    isOpen: (id: string) => boolean;
 }
 
 const DropdownContext = createContext<DropdownContextType | undefined>(undefined);
 
 export function DropdownProvider({ children }: { children: React.ReactNode }) {
     const [openDropdowns, setOpenDropdowns] = useState<Set<string>>(new Set());
+
+    const isOpen = (id: string) => openDropdowns.has(id);
 
     const closeDropdown = (id: string) => {
         setOpenDropdowns((prev) => {
@@ -28,16 +31,13 @@ export function DropdownProvider({ children }: { children: React.ReactNode }) {
         setOpenDropdowns((prev) => {
             const newSet = new Set(prev);
 
-            // Si le dropdown est déjà ouvert, on le ferme simplement
             if (newSet.has(id)) {
                 closeDropdown(id);
                 return newSet;
             }
 
-            // On récupère le parent du dropdown actuel (tout ce qui est avant le dernier point)
             const parentId = id.split(".").slice(0, -1).join(".");
 
-            // Si on a un parent, on ferme tous les autres sous-menus de ce parent
             if (parentId) {
                 for (const dropdownId of newSet) {
                     if (dropdownId.startsWith(`${parentId}.`) && dropdownId !== id) {
@@ -51,7 +51,7 @@ export function DropdownProvider({ children }: { children: React.ReactNode }) {
         });
     };
 
-    return <DropdownContext.Provider value={{ openDropdowns, toggleDropdown, closeDropdown }}>{children}</DropdownContext.Provider>;
+    return <DropdownContext.Provider value={{ openDropdowns, toggleDropdown, closeDropdown, isOpen }}>{children}</DropdownContext.Provider>;
 }
 
 export function useDropdown() {

@@ -4,6 +4,8 @@ import DropdownContent from "@/components/pages/tools/studio/hud/DropdownContent
 import { DropdownProvider } from "@/components/pages/tools/studio/hud/DropdownContext.tsx";
 import DropdownElement from "@/components/pages/tools/studio/hud/DropdownElement";
 import DropdownTrigger from "@/components/pages/tools/studio/hud/DropdownTrigger.tsx";
+import { DynamicDropdown } from "./hud/DynamicDropdown";
+import { snakeToTitleCase } from "@/lib/utils";
 
 export default function Sidebar() {
     const { createBlueprint } = useStudioContext();
@@ -32,14 +34,13 @@ export default function Sidebar() {
                     </BaseComponent>
                 </DropdownContent>
 
-                <DropdownContent dropdownId="main.effects">
-                    <BaseComponent variant="dropdown">
-                        <DropdownElement onClick={createBlueprint} icons="/icons/star.svg">
-                            Simple Effect
-                        </DropdownElement>
-                        <DropdownElement icons="/icons/star.svg">Foo Bar Effect</DropdownElement>
-                    </BaseComponent>
-                </DropdownContent>
+                <DynamicDropdown
+                    dropdownId="main.effects"
+                    registryType="enchantment_effect_component_type"
+                    onItemClick={createBlueprint}
+                    itemIcon="/icons/star.svg"
+                    formatLabel={(item) => snakeToTitleCase(item)}
+                />
 
                 <DropdownContent dropdownId="main.conditions">
                     <BaseComponent variant="dropdown">

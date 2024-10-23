@@ -83,3 +83,18 @@ export function isStringArray(value: unknown): value is string[] {
 export function quoteString(str: string): string {
     return `"${str}"`;
 }
+
+/**
+ * Converts a snake_case string to Title Case
+ * @param str The input string in snake_case
+ * @returns The string in Title Case with spaces
+ * @example
+ * snakeToTitleCase("hello_world") // returns "Hello World"
+ * snakeToTitleCase("my_cool_string") // returns "My Cool String"
+ */
+export function snakeToTitleCase(str: string): string {
+    return str
+        .split("_")
+        .map((word) => capitalize(word))
+        .join(" ");
+}

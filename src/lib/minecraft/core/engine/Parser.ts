@@ -11,7 +11,7 @@ import {
 } from "@/lib/minecraft/core/engine/Analyser.ts";
 import { calculateInitialToggle } from "@/lib/minecraft/core/engine/managers/InitialToggle.ts";
 import { type RegistryElement, getRegistry, parseZip } from "@/lib/minecraft/mczip.ts";
-import type { TagType } from "@/lib/minecraft/schema/tag/TagType.ts";
+import type { TagType } from "@voxel/definitions";
 
 interface PackMcmeta {
     pack: {

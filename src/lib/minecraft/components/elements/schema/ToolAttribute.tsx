@@ -1,5 +1,5 @@
 import LevelBasedValue from "@/lib/minecraft/components/elements/schema/ToolLevelBasedValue.tsx";
-import type { AttributeEffectFields } from "@/lib/minecraft/schema/enchantment/AttributeEffectFields.ts";
+import type { AttributeEffectFields } from "@voxel/definitions";
 
 export default function ToolAttribute({
     effect

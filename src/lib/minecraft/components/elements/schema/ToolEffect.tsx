@@ -1,6 +1,6 @@
 import { useTranslate } from "@/components/TranslateContext.tsx";
 import { Identifier } from "@/lib/minecraft/core/Identifier.ts";
-import type { EffectComponentsRecord } from "@/lib/minecraft/schema/enchantment/EffectComponents.ts";
+import type { EffectComponentsRecord } from "@voxel/definitions";
 import type React from "react";
 
 export function ToolEffect({

@@ -1,11 +1,6 @@
-import { getCategory, searchSound } from "@/lib/minecraft/net/api/Sound.ts";
+import { getCategory, searchSound, type CategorySound } from "@/lib/minecraft/net/api/Sound.ts";
 import { cn } from "@/lib/utils.ts";
 import { useEffect, useMemo, useRef, useState } from "react";
-
-export type CategorySound = {
-    name: string;
-    category: string;
-};
 
 export default function ToolSound() {
     const [search, setSearch] = useState<string>("");

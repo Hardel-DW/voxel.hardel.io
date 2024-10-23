@@ -1,4 +1,3 @@
-import type { CategorySound } from "@/lib/minecraft/components/elements/schema/song/ToolSound.tsx";
 import { capitalize } from "@/lib/utils.ts";
 
 const owner = "misode";
@@ -19,6 +18,12 @@ export type SoundTest = {
         url: string;
     };
 };
+
+export type CategorySound = {
+    name: string;
+    category: string;
+};
+
 
 /**
  * Search all elements in the sound directory, using GitHub API

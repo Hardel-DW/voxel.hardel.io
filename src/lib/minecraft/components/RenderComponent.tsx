@@ -14,7 +14,7 @@ import ToolEffectRecord from "@/lib/minecraft/components/elements/schema/ToolEff
 import type { FormComponent } from "@/lib/minecraft/core/engine";
 import type { Analysers, GetAnalyserVoxel } from "@/lib/minecraft/core/engine/Analyser.ts";
 import { getValue } from "@/lib/minecraft/core/engine/value";
-import type { EffectComponentsRecord } from "@/lib/minecraft/schema/enchantment/EffectComponents.ts";
+import type { EffectComponentsRecord } from "@voxel/definitions";
 import { toast } from "sonner";
 import { handleChange } from "src/lib/minecraft/core/engine/actions";
 import { checkCondition } from "src/lib/minecraft/core/engine/condition";

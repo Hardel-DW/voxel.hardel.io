@@ -1,4 +1,5 @@
 import LevelBasedValue from "@/lib/minecraft/components/elements/schema/ToolLevelBasedValue.tsx";
+import type { EnchantmentValueEffect } from "@voxel/definitions";
 
 export default function ToolEnchantmentValueEffect({
     effect

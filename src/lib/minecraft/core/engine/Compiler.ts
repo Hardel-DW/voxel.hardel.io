@@ -10,7 +10,7 @@ import {
     getAnalyserForVersion
 } from "@/lib/minecraft/core/engine/Analyser.ts";
 import { type RegistryElement, readDatapackFile } from "@/lib/minecraft/mczip.ts";
-import type { TagType } from "@/lib/minecraft/schema/tag/TagType.ts";
+import type { TagType } from "@voxel/definitions";
 
 export type Compiler<T extends VoxelElement, K extends DataDrivenElement> = (
     element: RegistryElement<T>,

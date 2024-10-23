@@ -1,3 +1,5 @@
+import type { TextComponentType } from "@voxel/definitions";
+
 export default function TextComponent({ data }: { data: TextComponentType }) {
     if (typeof data === "string") {
         return <div className="rounded-2xl break-words">{data}</div>;

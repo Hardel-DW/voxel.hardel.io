@@ -1,6 +1,5 @@
 import Field, { type BlueprintFieldType } from "@/components/pages/tools/studio/fields/Field.tsx";
 import { cn } from "@/lib/utils.ts";
-import type React from "react";
 
 export default function FieldManager(props: {
     fields: BlueprintFieldType[];

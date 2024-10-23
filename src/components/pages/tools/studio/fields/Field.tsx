@@ -1,4 +1,3 @@
-import type React from "react";
 import ConnectorField, { type ConnectorFieldType } from "./ConnectorField";
 import NumberField, { type NumberFieldType } from "./NumberField";
 

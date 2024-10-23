@@ -1,3 +1,4 @@
+import type { ConditionalEffect } from "@voxel/definitions";
 import type React from "react";
 
 export default function ToolConditionalEffect<T>({

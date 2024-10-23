@@ -3,8 +3,7 @@ import type { Compiler } from "@/lib/minecraft/core/engine/Compiler.ts";
 import type { Parser } from "@/lib/minecraft/core/engine/Parser.ts";
 import type { SlotRegistryType } from "@/lib/minecraft/core/engine/managers/SlotManager.ts";
 import type { RegistryElement } from "@/lib/minecraft/mczip.ts";
-import type { EffectComponentsRecord } from "@/lib/minecraft/schema/enchantment/EffectComponents.ts";
-import type { Enchantment } from "@/lib/minecraft/schema/enchantment/Enchantment.ts";
+import type { EffectComponentsRecord, TextComponentType, Enchantment } from "@voxel/definitions";
 
 export interface EnchantmentProps extends VoxelElement {
     description: TextComponentType;

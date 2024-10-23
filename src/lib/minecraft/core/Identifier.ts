@@ -1,6 +1,6 @@
-import { REGISTRIES } from "@/lib/minecraft/core/Registries.ts";
 import type { RegistryElement } from "@/lib/minecraft/mczip.ts";
-import type { OptionalTag } from "@/lib/minecraft/schema/tag/TagType.ts";
+import type { OptionalTag } from "@voxel/definitions";
+import { REGISTRY_NAME } from "@voxel/registry";
 
 export type IdentifierOneToMany = {
     primary: Identifier;
@@ -31,7 +31,7 @@ export class Identifier {
             return new Identifier(namespace, registry, resource, isTag, isRequired);
         }
 
-        for (const registry of REGISTRIES) {
+        for (const registry of REGISTRY_NAME) {
             if (resource.startsWith(registry)) {
                 const newResource = resource.slice(registry.length + 1);
                 return new Identifier(namespace, registry, newResource, isTag, isRequired);

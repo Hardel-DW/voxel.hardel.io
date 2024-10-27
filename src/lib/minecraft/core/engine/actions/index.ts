@@ -65,19 +65,14 @@ export const handleChange = <T extends keyof Analysers>(
     context: ConfiguratorContextType<GetAnalyserVoxel<T>>,
     identifier?: Identifier
 ) => {
-    console.log("handleChange", action, value, context, identifier);
     const elementToUpdate = identifier ? context.elements.find((elem) => elem.identifier.equals(identifier)) : context.currentElement;
     if (!elementToUpdate) {
         console.error("Element not found");
         return;
     }
 
-    console.log("elementToUpdate", elementToUpdate);
-
     const updatedElement = updateData<T>(action, value, context, elementToUpdate);
     if (!updatedElement) return;
-
-    console.log("updatedElement", updatedElement);
 
     context.setElements((prev) => {
         const index = prev.findIndex((item) => item.identifier.equals(updatedElement.identifier));

@@ -5,17 +5,6 @@ import { cn, quoteString } from "@/lib/utils.ts";
 import type { Action } from "src/lib/minecraft/core/engine/actions";
 import type { Condition } from "src/lib/minecraft/core/engine/condition";
 
-interface Props {
-    title: string;
-    image: string;
-    description?: string;
-    value?: boolean | string | number;
-    hide?: boolean | unknown;
-    lock?: string;
-    onChange?: (value: boolean | string | number) => void;
-    checked?: boolean;
-}
-
 export type ToolInlineType = {
     type: "InlineSlot";
     description?: string;
@@ -27,7 +16,16 @@ export type ToolInlineType = {
     hide?: Condition;
 };
 
-export default function ToolInline(props: Props) {
+export default function ToolInline(props: {
+    title: string;
+    image: string;
+    description?: string;
+    value?: boolean | string | number;
+    hide?: boolean | unknown;
+    lock?: string;
+    onChange?: (value: boolean | string | number) => void;
+    checked?: boolean;
+}) {
     const { translate } = useTranslate();
     const handleChange = (option: boolean) => {
         if (props.lock) return;
@@ -66,9 +64,7 @@ export default function ToolInline(props: Props) {
             <div className="stack h-full rounded-2xl overflow-hidden">
                 <div className="pb-2 self-end px-4 relative z-20">
                     <h3 className="text-xl font-semibold text-white">{props.title}</h3>
-                    {!props.description && (
-                        <p className="text-sm text-zinc-400">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                    )}
+                    {props.description && <p className="text-sm text-zinc-400">{props.description}</p>}
                 </div>
                 <div className="rounded-2xl relative shadow-bottom z-10" />
                 <div

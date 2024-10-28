@@ -117,11 +117,11 @@ export function RenderComponent<T extends keyof Analysers>({ component }: Render
                 <ToolInline
                     key={component.title}
                     title={translate[component.title]}
+                    description={component.description ? translate[component.description] : undefined}
                     checked={result}
                     value={result}
                     hide={hide}
                     lock={lock ? lock : undefined}
-                    description={component.description ? translate[component.description] : undefined}
                     image={component.image}
                     onChange={(value) => component.action && handleChange(component.action, value, context)}
                 />

@@ -18,10 +18,11 @@ export const dungeon: ToolRevealElementType = {
                     size: "250px",
                     children: [
                         {
-                            type: "InlineSlot",
+                            type: "Slot",
                             title: "tools.enchantments.section.addons.dnt.overworld.title",
                             description: "tools.enchantments.section.addons.dnt.overworld.description",
-                            image: "/images/addons/card/dnt/wells.webp",
+                            image: "/images/features/structure/overworld.webp",
+                            size: 128,
                             action: {
                                 type: "List",
                                 field: "tags",
@@ -35,10 +36,11 @@ export const dungeon: ToolRevealElementType = {
                             }
                         },
                         {
-                            type: "InlineSlot",
+                            type: "Slot",
                             title: "tools.enchantments.section.addons.dnt.underwater.title",
                             description: "tools.enchantments.section.addons.dnt.underwater.description",
-                            image: "/images/addons/card/dnt/trident_trail.webp",
+                            image: "/images/features/structure/underwater.webp",
+                            size: 128,
                             action: {
                                 type: "List",
                                 field: "tags",
@@ -52,10 +54,11 @@ export const dungeon: ToolRevealElementType = {
                             }
                         },
                         {
-                            type: "InlineSlot",
+                            type: "Slot",
                             title: "tools.enchantments.section.addons.dnt.nether.title",
                             description: "tools.enchantments.section.addons.dnt.nether.description",
-                            image: "/images/addons/card/dnt/hamlet.webp",
+                            image: "/images/features/structure/nether.webp",
+                            size: 128,
                             action: {
                                 type: "List",
                                 field: "tags",
@@ -69,10 +72,11 @@ export const dungeon: ToolRevealElementType = {
                             }
                         },
                         {
-                            type: "InlineSlot",
+                            type: "Slot",
                             title: "tools.enchantments.section.addons.dnt.end.title",
                             description: "tools.enchantments.section.addons.dnt.end.description",
-                            image: "/images/addons/card/dnt/end_castle.webp",
+                            image: "/images/features/structure/end.webp",
+                            size: 128,
                             action: {
                                 type: "List",
                                 field: "tags",
@@ -203,7 +207,7 @@ export const dungeon: ToolRevealElementType = {
                             type: "InlineSlot",
                             title: "tools.enchantments.section.addons.dnt.shrine_ominous.title",
                             description: "tools.enchantments.section.addons.dnt.shrine_ominous.description",
-                            image: "/images/addons/card/dnt/shrine.webp",
+                            image: "/images/addons/card/dnt/shrine_ominous.webp",
                             action: {
                                 type: "List",
                                 field: "tags",

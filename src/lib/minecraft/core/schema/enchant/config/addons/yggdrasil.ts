@@ -55,13 +55,13 @@ export const yggdrasil: ToolRevealElementType = {
                             action: {
                                 type: "List",
                                 field: "tags",
-                                value: "#nova_structures:random_chest"
+                                value: "#yggdrasil:alfheim/random_chest"
                             },
                             condition: {
                                 condition: "Contains",
                                 type: "Tags",
                                 field: "tags",
-                                values: ["#nova_structures:random_chest"]
+                                values: ["#yggdrasil:alfheim/random_chest"]
                             }
                         },
                         {
@@ -72,13 +72,13 @@ export const yggdrasil: ToolRevealElementType = {
                             action: {
                                 type: "List",
                                 field: "tags",
-                                value: "#nova_structures:vault"
+                                value: "#yggdrasil:alfheim/vault"
                             },
                             condition: {
                                 condition: "Contains",
                                 type: "Tags",
                                 field: "tags",
-                                values: ["#nova_structures:vault"]
+                                values: ["#yggdrasil:alfheim/vault"]
                             }
                         },
                         {
@@ -89,13 +89,13 @@ export const yggdrasil: ToolRevealElementType = {
                             action: {
                                 type: "List",
                                 field: "tags",
-                                value: "#nova_structures:ominous_vault"
+                                value: "#yggdrasil:alfheim/ominous_vault"
                             },
                             condition: {
                                 condition: "Contains",
                                 type: "Tags",
                                 field: "tags",
-                                values: ["#nova_structures:ominous_vault"]
+                                values: ["#yggdrasil:alfheim/ominous_vault"]
                             }
                         },
                         {
@@ -106,13 +106,13 @@ export const yggdrasil: ToolRevealElementType = {
                             action: {
                                 type: "List",
                                 field: "tags",
-                                value: "#nova_structures:trial_spawner"
+                                value: "#yggdrasil:alfheim/trial_spawner"
                             },
                             condition: {
                                 condition: "Contains",
                                 type: "Tags",
                                 field: "tags",
-                                values: ["#nova_structures:trial_spawner"]
+                                values: ["#yggdrasil:alfheim/trial_spawner"]
                             }
                         },
                         {
@@ -123,13 +123,13 @@ export const yggdrasil: ToolRevealElementType = {
                             action: {
                                 type: "List",
                                 field: "tags",
-                                value: "#nova_structures:ominous_trial_spawner"
+                                value: "#yggdrasil:alfheim/ominous_trial_spawner"
                             },
                             condition: {
                                 condition: "Contains",
                                 type: "Tags",
                                 field: "tags",
-                                values: ["#nova_structures:ominous_trial_spawner"]
+                                values: ["#yggdrasil:alfheim/ominous_trial_spawner"]
                             }
                         }
                     ]
@@ -152,13 +152,13 @@ export const yggdrasil: ToolRevealElementType = {
                             action: {
                                 type: "List",
                                 field: "tags",
-                                value: "#nova_structures:common_chest"
+                                value: "#yggdrasil:asflors/common_chest"
                             },
                             condition: {
                                 condition: "Contains",
                                 type: "Tags",
                                 field: "tags",
-                                values: ["#nova_structures:common_chest"]
+                                values: ["#yggdrasil:asflors/common_chest"]
                             }
                         },
                         {
@@ -169,13 +169,13 @@ export const yggdrasil: ToolRevealElementType = {
                             action: {
                                 type: "List",
                                 field: "tags",
-                                value: "#nova_structures:structure_vault"
+                                value: "#yggdrasil:asflors/structure_vault"
                             },
                             condition: {
                                 condition: "Contains",
                                 type: "Tags",
                                 field: "tags",
-                                values: ["#nova_structures:structure_vault"]
+                                values: ["#yggdrasil:asflors/structure_vault"]
                             }
                         },
                         {
@@ -186,13 +186,13 @@ export const yggdrasil: ToolRevealElementType = {
                             action: {
                                 type: "List",
                                 field: "tags",
-                                value: "#nova_structures:structure_ominous_vault"
+                                value: "#yggdrasil:asflors/structure_ominous_vault"
                             },
                             condition: {
                                 condition: "Contains",
                                 type: "Tags",
                                 field: "tags",
-                                values: ["#nova_structures:structure_ominous_vault"]
+                                values: ["#yggdrasil:asflors/structure_ominous_vault"]
                             }
                         },
                         {
@@ -203,13 +203,13 @@ export const yggdrasil: ToolRevealElementType = {
                             action: {
                                 type: "List",
                                 field: "tags",
-                                value: "#nova_structures:asflors_sword"
+                                value: "#yggdrasil:asflors/asflors_sword"
                             },
                             condition: {
                                 condition: "Contains",
                                 type: "Tags",
                                 field: "tags",
-                                values: ["#nova_structures:asflors_sword"]
+                                values: ["#yggdrasil:asflors/asflors_sword"]
                             }
                         }
                     ]
@@ -232,13 +232,13 @@ export const yggdrasil: ToolRevealElementType = {
                             action: {
                                 type: "List",
                                 field: "tags",
-                                value: "#nova_structures:reward_after_fight"
+                                value: "#yggdrasil:runic_fracture/reward_after_fight"
                             },
                             condition: {
                                 condition: "Contains",
                                 type: "Tags",
                                 field: "tags",
-                                values: ["#nova_structures:reward_after_fight"]
+                                values: ["#yggdrasil:runic_fracture/reward_after_fight"]
                             }
                         }
                     ]

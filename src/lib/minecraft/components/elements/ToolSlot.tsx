@@ -5,29 +5,29 @@ import { cn, quoteString } from "@/lib/utils.ts";
 import type { Action } from "src/lib/minecraft/core/engine/actions";
 import type { Condition } from "src/lib/minecraft/core/engine/condition";
 
-interface Props {
-    title: string;
-    image: string;
-    description?: string;
-    value?: boolean | string | number;
-    hide?: boolean | unknown;
-    lock?: string;
-    onChange?: (value: boolean | string | number) => void;
-    checked?: boolean;
-}
-
 export type ToolSlotType = {
     type: "Slot";
     description?: string;
     title: string;
     image: string;
     action: Action;
+    size?: number;
     condition?: Condition;
     lock?: ValueParams<string>;
     hide?: Condition;
 };
 
-export default function ToolSlot(props: Props) {
+export default function ToolSlot(props: {
+    title: string;
+    image: string;
+    description?: string;
+    value?: boolean | string | number;
+    size?: number;
+    hide?: boolean | unknown;
+    lock?: string;
+    onChange?: (value: boolean | string | number) => void;
+    checked?: boolean;
+}) {
     const { translate } = useTranslate();
     const handleChange = (option: boolean) => {
         if (props.lock) return;
@@ -70,7 +70,14 @@ export default function ToolSlot(props: Props) {
                     {props.description && <p className="text-sm text-zinc-400">{props.description}</p>}
                 </div>
 
-                <img src={props.image} alt={props.title} className="h-16 mb-8 pixelated" />
+                <img
+                    src={props.image}
+                    alt={props.title}
+                    className="mb-8 pixelated"
+                    style={{
+                        height: props.size ? props.size : "64px"
+                    }}
+                />
             </div>
         </div>
     );

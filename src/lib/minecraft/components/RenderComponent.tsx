@@ -101,6 +101,7 @@ export function RenderComponent<T extends keyof Analysers>({ component }: Render
                     checked={result}
                     value={result}
                     hide={hide}
+                    size={component.size}
                     lock={lock ? lock : undefined}
                     description={component.description ? translate[component.description] : undefined}
                     image={component.image}

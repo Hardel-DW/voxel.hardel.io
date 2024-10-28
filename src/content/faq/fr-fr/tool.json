@@ -10,15 +10,15 @@
         },
         {
             "question": "Comment commencer?",
-            "answer": "Pour commencer, il vous suffit de télécharger votre pack existant dans l'outil. Une fois téléchargé, vous pouvez configurer les enchantements à votre guise et télécharger le pack modifié."
+            "answer": "Pour commencer, il vous suffit de déposer votre pack existant dans l'outil. Une fois déposé, vous pouvez configurer les enchantements à votre guise et télécharger le pack modifié."
         },
         {
             "question": "Quel format est pris en charge pour l'outil?",
-            "answer": "L'outil n'accepte que les datapacks au format .zip. C'est le format que vous téléchargez depuis des plateformes comme Modrinth. L'outil analyse s'il s'agit d'un datapack valide, et si des enchantements y existent."
+            "answer": "L'outil accepte les datapacks et les mods au format .zip et .jar. C'est le format que vous téléchargez depuis des plateformes comme Modrinth. L'outil analyse s'il s'agit d'un contenu valide, et si des enchantements y existent."
         },
         {
             "question": "Les fichiers Mods (.jar) sont-ils pris en charge?",
-            "answer": "Non, l'outil ne prend en charge que les fichiers .zip. Le site le prendra bientôt en charge."
+            "answer": "Oui, l'outil prend en charge les fichiers .jar que ce soit Forge/Fabric/NeoForge/Quilt."
         },
         {
             "question": "Comment télécharger le pack modifié?",

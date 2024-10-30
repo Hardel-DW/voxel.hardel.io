@@ -13,7 +13,11 @@ type InternalFileName = {
     identifier: string;
 };
 
-export type InternalIterationResult = InternalCurrentIteration | InternalFileName;
+type InternalObjectData = {
+    object_data: Record<string, any>;
+};
+
+export type InternalIterationResult = InternalCurrentIteration | InternalFileName | InternalObjectData;
 
 export type IterationResult = {
     key: string;
@@ -25,7 +29,7 @@ export default function ToolIteration(props: IterationType) {
 
     const iterations: IterationResult[] = props.values.flatMap<IterationResult>((valueSet) => {
         if (valueSet.type === "collect_from_path") {
-            const files = collectFromPath(valueSet.registry, context, valueSet.path);
+            const files = collectFromPath(valueSet.registry, context, valueSet.path, valueSet.exclude_namespace);
             return files.map((file) => ({
                 key: file.identifier.toString(),
                 context: {
@@ -41,6 +45,15 @@ export default function ToolIteration(props: IterationType) {
                 key: value,
                 context: {
                     current_iteration: value
+                }
+            }));
+        }
+
+        if (valueSet.type === "object") {
+            return valueSet.values.map((objectData, index) => ({
+                key: `object_${index}`,
+                context: {
+                    object_data: objectData
                 }
             }));
         }

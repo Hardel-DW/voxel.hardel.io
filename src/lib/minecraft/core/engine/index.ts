@@ -37,12 +37,10 @@ export type FormComponent =
     | TextRenderType
     | IterationType;
 
-export type GetValueFromContext<T> =
-    | {
-          type: "get_value_from_context";
-          key: string;
-      }
-    | T;
+export type GetValueFromContext = {
+    type: "get_value_from_context";
+    key: string;
+};
 
 export type ToolGridType = {
     type: "Grid";

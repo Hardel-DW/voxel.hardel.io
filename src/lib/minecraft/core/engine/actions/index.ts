@@ -15,7 +15,6 @@ import {
 import { type SlotAction, SlotModifier } from "@/lib/minecraft/core/engine/actions/SlotModifier.ts";
 import { type UndefinedAction, UndefinedModifier } from "@/lib/minecraft/core/engine/actions/UndefinedModifier.ts";
 import type { RegistryElement } from "@/lib/minecraft/mczip.ts";
-import type { GetValueFromContext } from "@/lib/minecraft/core/engine";
 
 export type Action =
     | RemoveKeyAction
@@ -32,7 +31,7 @@ export type Action =
 export type ActionValue = string | number | boolean | Identifier;
 function updateData<T extends keyof Analysers>(
     action: Action,
-    value: GetValueFromContext<ActionValue>,
+    value: ActionValue,
     context: ConfiguratorContextType<GetAnalyserVoxel<T>>,
     element: RegistryElement<GetAnalyserVoxel<T>>
 ): RegistryElement<GetAnalyserVoxel<T>> | undefined {

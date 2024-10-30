@@ -5,11 +5,10 @@ import { type Field, getField } from "@/lib/minecraft/core/engine/field";
 import { type SlotRegistryType, isArraySlotRegistryType, isSlotRegistryType } from "@/lib/minecraft/core/engine/managers/SlotManager.ts";
 import type { RegistryElement } from "@/lib/minecraft/mczip.ts";
 import { isStringArray } from "@/lib/utils.ts";
-import type { GetValueFromContext } from "@/lib/minecraft/core/engine";
 export type SlotAction = {
     type: "Slot";
     field: Field;
-    value: GetValueFromContext<string>;
+    value: string;
 };
 
 /**

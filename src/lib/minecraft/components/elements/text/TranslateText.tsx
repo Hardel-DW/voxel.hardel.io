@@ -1,12 +1,11 @@
 import { useTranslate } from "@/components/TranslateContext.tsx";
-import type { GetValueFromContext } from "@/lib/minecraft/core/engine";
 
 type InternalTranslateType = {
     type: "translate";
     value: string;
 };
 
-export type TranslateTextType = GetValueFromContext<string | InternalTranslateType>;
+export type TranslateTextType = string | InternalTranslateType;
 
 export default function TranslateText(props: {
     content: TranslateTextType | undefined;
@@ -18,7 +17,7 @@ export default function TranslateText(props: {
     }
 
     if (typeof props.content === "object" && props.content !== null) {
-        if ("type" in props.content && props.content.type === "translate") {
+        if ("type" in props.content && props.content.type === "translate" && typeof props.content.value === "string") {
             return translate[props.content.value] || props.content.value;
         }
     }
@@ -30,12 +29,16 @@ export default function TranslateText(props: {
     return props.content.toString();
 }
 
-export function getKey(content: TranslateTextType) {
+export function getKey(content: TranslateTextType | undefined): string {
+    if (!content) {
+        return "";
+    }
+
     if (typeof content === "string") {
         return content;
     }
 
-    if (typeof content === "object" && content !== null) {
+    if (typeof content === "object") {
         if ("type" in content && content.type === "translate") {
             return content.value;
         }

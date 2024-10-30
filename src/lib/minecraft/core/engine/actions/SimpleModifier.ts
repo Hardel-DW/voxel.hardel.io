@@ -2,24 +2,23 @@ import type { ConfiguratorContextType } from "@/lib/minecraft/components/Configu
 import type { Analysers, GetAnalyserVoxel } from "@/lib/minecraft/core/engine/Analyser.ts";
 import { type Field, getField } from "@/lib/minecraft/core/engine/field";
 import type { RegistryElement } from "@/lib/minecraft/mczip.ts";
-import type { GetValueFromContext } from "@/lib/minecraft/core/engine";
 
 export type BooleanAction = {
     type: "Boolean";
     field: Field;
-    value: GetValueFromContext<boolean>;
+    value: boolean;
 };
 
 export type StringAction = {
     type: "String";
     field: Field;
-    value: GetValueFromContext<string>;
+    value: string;
 };
 
 export type NumberAction = {
     type: "Number";
     field: Field;
-    value: GetValueFromContext<number>;
+    value: number;
 };
 
 /**

@@ -1,7 +1,6 @@
 import { useTranslate } from "@/components/TranslateContext.tsx";
 import { useConfigurator } from "@/lib/minecraft/components/ConfiguratorContext.tsx";
 import ToolCategory from "@/lib/minecraft/components/elements/ToolCategory.tsx";
-import ToolCollection from "@/lib/minecraft/components/elements/ToolCollection.tsx";
 import ToolCounter from "@/lib/minecraft/components/elements/ToolCounter.tsx";
 import ToolInline from "@/lib/minecraft/components/elements/ToolInlineSlot.tsx";
 import ToolRange from "@/lib/minecraft/components/elements/ToolRange.tsx";
@@ -144,9 +143,6 @@ export function RenderComponent<T extends keyof Analysers>({
                     onChange={(value) => handleChange(component.action, value, context)}
                 />
             );
-        }
-        case "Collection": {
-            return <ToolCollection action={component.action} field={component.field} includes={component.includes} />;
         }
         case "Donation": {
             return <Donation title={component.title} link={component.link} description={component.description} image={component.image} />;

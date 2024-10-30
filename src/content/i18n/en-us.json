@@ -12,6 +12,7 @@
         "generic.accept": "Accept",
         "generic.settings": "Settings",
         "generic.learn_more": "Learn more",
+        "generic.documentation": "Documentation",
         "generic.take_a_look": "Take a look",
         "generic.soon": "Soon",
         "generic.no_results": "No results",
@@ -256,23 +257,26 @@
         "tools.enchantments.warning.no_enchantments": "No enchantments found",
         "tools.enchantments.warning.component": "An error occurred while loading the component",
         "tools.enchantments.sidebar.title": "Enchantments",
+
         "tools.enchantments.section.global": "Global Settings",
         "tools.enchantments.section.exclusive": "Exclusive Set",
-        "tools.enchantments.section.slot": "Slots",
+        "tools.enchantments.section.slots": "When Effect Activates",
         "tools.enchantments.section.supported": "Supported Items",
         "tools.enchantments.section.find": "Where to Find",
         "tools.enchantments.section.costs": "Enchantment Costs",
         "tools.enchantments.section.effects": "Effects",
         "tools.enchantments.section.addons": "Addons",
+
         "tools.enchantments.section.technical": "Technical Settings",
         "tools.enchantments.section.global.description": "General settings.",
         "tools.enchantments.section.exclusive.description": "Non-combinable enchantments.",
-        "tools.enchantments.section.slot.description": "Enchantment slots.",
+        "tools.enchantments.section.slots.description": "When the enchantment effect should be activated.",
         "tools.enchantments.section.supported.description": "Which items are compatible with this enchantment.",
         "tools.enchantments.section.find.description": "Where to find this enchantment.",
         "tools.enchantments.section.effects.description": "The effects of the enchantment.",
         "tools.enchantments.section.addons.description": "Config some addons for this enchantment.",
         "tools.enchantments.section.technical.description": "Technical settings for enchantments.",
+
         "tools.enchantments.section.global.components.maxLevel.title": "Maximum level",
         "tools.enchantments.section.global.components.maxLevel.description": "The maximum level of the enchantment.",
         "tools.enchantments.section.global.components.weight.title": "Weight",
@@ -283,6 +287,12 @@
         "tools.enchantments.section.global.components.minCostPerLevelAboveFirst.label": "Minimum cost per level above the first",
         "tools.enchantments.section.global.components.maxCostBase.label": "Maximum base cost",
         "tools.enchantments.section.global.components.maxCostPerLevelAboveFirst.label": "Maximum cost per level above the first",
+
+        "tools.enchantments.section.global.explanation.title": "Detailed explanations of the different components",
+        "tools.enchantments.section.global.explanation.list.1": "Sets the maximum level of the enchantment, the effect values automatically adapt to the levels.",
+        "tools.enchantments.section.global.explanation.list.2": "The higher this value is, the more often the enchantment will appear in the enchanting table.",
+        "tools.enchantments.section.global.explanation.list.3": "The cost to apply this enchantment to another item using an anvil. Divided by two if using a book, multiplied by the enchantment level.",
+
         "tools.enchantments.section.toggle.supported.title": "Supported",
         "tools.enchantments.section.toggle.primary.title": "Primary",
         "tools.enchantments.section.toggle.supported.description": "Items on which this enchantment can be applied.",
@@ -291,12 +301,17 @@
         "tools.enchantments.section.toggle.exclusive.group.description": "This enchantment cannot be combined with other enchantments from the same group.",
         "tools.enchantments.section.toggle.exclusive.individual.title": "Arbitrary Choice",
         "tools.enchantments.section.toggle.exclusive.individual.description": "Choose the enchantments that cannot be combined with this enchantment.",
-        "tools.enchantments.section.exclusive.components.mainhand.title": "Main Hand",
-        "tools.enchantments.section.exclusive.components.offhand.title": "Off Hand",
-        "tools.enchantments.section.exclusive.components.head.title": "Head",
-        "tools.enchantments.section.exclusive.components.chest.title": "Chest",
-        "tools.enchantments.section.exclusive.components.legs.title": "Legs",
-        "tools.enchantments.section.exclusive.components.feet.title": "Feet",
+
+        "tools.enchantments.section.slots.mainhand.title": "Main Hand",
+        "tools.enchantments.section.slots.offhand.title": "Off Hand",
+        "tools.enchantments.section.slots.head.title": "Head",
+        "tools.enchantments.section.slots.chest.title": "Chest",
+        "tools.enchantments.section.slots.legs.title": "Legs",
+        "tools.enchantments.section.slots.feet.title": "Feet",
+        "tools.enchantments.section.slots.explanation.title": "Here's how enchantment slots work and when their effects kick in:",
+        "tools.enchantments.section.slots.explanation.list.1": "Take Fire Aspect for example - if you put it on your main hand or offhand weapon, it'll set enemies on fire when you hit them.",
+        "tools.enchantments.section.slots.explanation.list.2": "And if you put Fire Aspect on any armor piece (head, chest, legs or feet) and you equip it, it'll light up enemies every time you attack.",
+
         "tools.enchantments.section.supported.components.sword.title": "Sword",
         "tools.enchantments.section.supported.components.trident.title": "Trident",
         "tools.enchantments.section.supported.components.mace.title": "Mace",
@@ -321,6 +336,7 @@
         "tools.enchantments.section.supported.components.durability.title": "Durability",
         "tools.enchantments.section.supported.components.mining_loot.title": "Mining loot",
         "tools.enchantments.section.supported.components.none.title": "Default",
+
         "tools.enchantments.section.find.components.enchantingTable.title": "Enchanting Table",
         "tools.enchantments.section.find.components.enchantingTable.description": "These enchantments can be obtained from the enchanting table.",
         "tools.enchantments.section.find.components.mobEquipment.title": "Mob Equipment",
@@ -365,6 +381,8 @@
         "tools.enchantments.section.addons.yggdrasil.reward_after_fight.description": "Configure enchantments found in rewards after completing runic fracture fights",
 
         "tools.enchantments.section.addons.dnt.global.title": "Global",
+        "tools.enchantments.section.addons.dnt.description": "Defines in which Dungeons and Taverns structures the enchantments can be found.",
+
         "tools.enchantments.section.addons.dnt.title": "Dungeons and Taverns",
         "tools.enchantments.section.addons.dnt.structures.title": "Structures",
         "tools.enchantments.section.addons.dnt.all.title": "All Structures",
@@ -450,6 +468,21 @@
         "tools.enchantments.warning.invalid_datapack": "Invalid datapack: pack.mcmeta not found",
         "tools.enchantments.warning.no_parser_config": "The specified version is not supported",
         "tools.enchantments.warning.no_analyser": "The specified version is not supported",
-        "tools.enchantments.warning.no_elements": "No elements found."
+        "tools.enchantments.warning.no_elements": "No elements found.",
+
+        "tools.enchantments.section.exclusive.set.armor.title": "Armor Set",
+        "tools.enchantments.section.exclusive.set.armor.description": "Contains all exclusive enchantments for armor.",
+        "tools.enchantments.section.exclusive.set.bow.title": "Bow Set",
+        "tools.enchantments.section.exclusive.set.bow.description": "Contains all exclusive enchantments for bows.",
+        "tools.enchantments.section.exclusive.set.crossbow.title": "Crossbow Set",
+        "tools.enchantments.section.exclusive.set.crossbow.description": "Contains all exclusive enchantments for crossbows.",
+        "tools.enchantments.section.exclusive.set.damage.title": "Damage Set",
+        "tools.enchantments.section.exclusive.set.damage.description": "Contains all exclusive enchantments for damage.",
+        "tools.enchantments.section.exclusive.set.mining.title": "Mining Set",
+        "tools.enchantments.section.exclusive.set.mining.description": "Contains all exclusive enchantments for mining.",
+        "tools.enchantments.section.exclusive.set.riptide.title": "Riptide Set",
+        "tools.enchantments.section.exclusive.set.riptide.description": "Contains all exclusive enchantments for Riptide.",
+        "tools.enchantments.section.exclusive.set.boots.title": "Boots Set",
+        "tools.enchantments.section.exclusive.set.boots.description": "Contains all exclusive enchantments for boots."
     }
 }

@@ -64,7 +64,7 @@ export async function parseDatapack<T extends keyof Analysers>(
     });
 
     if (compiled.length === 0) return "tools.enchantments.warning.no_elements";
-    context.setName(file[0].name);
+    context.setName(`Modified-${file[0].name.replace(/\.(zip|jar)$/, "")}`);
     context.setFiles(files);
     context.setElements(compiled);
     context.setVersion(packFormat);

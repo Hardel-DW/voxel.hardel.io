@@ -12,25 +12,38 @@ import type { ToolEffectType } from "@/lib/minecraft/components/elements/schema/
 import type { Analysers } from "@/lib/minecraft/core/engine/Analyser.ts";
 import type { Field } from "@/lib/minecraft/core/engine/field";
 import type { Action } from "src/lib/minecraft/core/engine/actions";
+import type { TextRenderType } from "@/lib/minecraft/components/elements/text/TextRender.tsx";
+import type { ToolScrollableType } from "@/lib/minecraft/components/elements/ToolScrollable.tsx";
+import type { ToolSwitchSlotType } from "@/lib/minecraft/components/elements/ToolSwitchSlot.tsx";
+import type { TranslateTextType } from "@/lib/minecraft/components/elements/text/TranslateText.tsx";
 
 export type FormComponent =
     | ToolCollectionType
     | ToolRangeType
     | ToolSwitchType
     | ToolGridType
+    | ToolListType
     | ToolSlotType
     | ToolInlineType
     | ToolEffectType
     | ToolCategoryType
     | ToolRevealType
+    | ToolScrollableType
+    | ToolSwitchSlotType
     | ToolSectionType
     | ToolDonationType
-    | ToolCounterType;
+    | ToolCounterType
+    | TextRenderType;
 
 export type ToolGridType = {
     type: "Grid";
     size?: string;
     children: Exclude<FormComponent, ToolGridType>[];
+};
+
+export type ToolListType = {
+    type: "List";
+    children: Exclude<FormComponent, ToolListType>[];
 };
 
 export type ToolConfiguration = {
@@ -62,6 +75,6 @@ type SidebarConfiguration = {
 export type InterfaceConfiguration = {
     id: string;
     components: FormComponent[];
-    section: string;
+    section: TranslateTextType;
     soon?: boolean;
 };

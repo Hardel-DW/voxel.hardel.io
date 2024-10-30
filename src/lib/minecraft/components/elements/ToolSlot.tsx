@@ -4,11 +4,12 @@ import type { ValueParams } from "@/lib/minecraft/core/engine/value";
 import { cn, quoteString } from "@/lib/utils.ts";
 import type { Action } from "src/lib/minecraft/core/engine/actions";
 import type { Condition } from "src/lib/minecraft/core/engine/condition";
+import TranslateText, { type TranslateTextType } from "@/lib/minecraft/components/elements/text/TranslateText.tsx";
 
 export type ToolSlotType = {
     type: "Slot";
-    description?: string;
-    title: string;
+    description?: TranslateTextType;
+    title: TranslateTextType;
     image: string;
     action: Action;
     size?: number;
@@ -18,9 +19,9 @@ export type ToolSlotType = {
 };
 
 export default function ToolSlot(props: {
-    title: string;
+    title: TranslateTextType | string;
     image: string;
-    description?: string;
+    description?: TranslateTextType | string;
     value?: boolean | string | number;
     size?: number;
     hide?: boolean | unknown;
@@ -66,13 +67,19 @@ export default function ToolSlot(props: {
 
             <div className="flex flex-col items-center justify-between h-full">
                 <div className="mb-8 text-center">
-                    <h3 className="text-lg font-semibold mb-1">{props.title}</h3>
-                    {props.description && <p className="text-sm text-zinc-400">{props.description}</p>}
+                    <h3 className="text-lg font-semibold mb-1">
+                        <TranslateText content={props.title} />
+                    </h3>
+                    {props.description && (
+                        <p className="text-sm text-zinc-400">
+                            <TranslateText content={props.description} />
+                        </p>
+                    )}
                 </div>
 
                 <img
                     src={props.image}
-                    alt={props.title}
+                    alt="Images"
                     className="mb-8 pixelated"
                     style={{
                         height: props.size ? props.size : "64px"

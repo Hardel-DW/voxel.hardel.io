@@ -3,7 +3,7 @@ import { ADDONS } from "@/lib/minecraft/core/schema/enchant/config/addons";
 
 export const find: InterfaceConfiguration = {
     id: "find",
-    section: "tools.enchantments.section.find",
+    section: { type: "translate", value: "tools.enchantments.section.find" },
     components: [
         {
             type: "Section",
@@ -16,8 +16,11 @@ export const find: InterfaceConfiguration = {
                         {
                             type: "Slot",
                             image: "/images/features/block/enchanting_table.webp",
-                            title: "tools.enchantments.section.find.components.enchantingTable.title",
-                            description: "tools.enchantments.section.find.components.enchantingTable.description",
+                            title: { type: "translate", value: "tools.enchantments.section.find.components.enchantingTable.title" },
+                            description: {
+                                type: "translate",
+                                value: "tools.enchantments.section.find.components.enchantingTable.description"
+                            },
                             action: {
                                 type: "List",
                                 field: "tags",
@@ -45,8 +48,11 @@ export const find: InterfaceConfiguration = {
                         {
                             type: "Slot",
                             image: "/images/features/entity/zombie.webp",
-                            title: "tools.enchantments.section.find.components.mobEquipment.title",
-                            description: "tools.enchantments.section.find.components.mobEquipment.description",
+                            title: { type: "translate", value: "tools.enchantments.section.find.components.mobEquipment.title" },
+                            description: {
+                                type: "translate",
+                                value: "tools.enchantments.section.find.components.mobEquipment.description"
+                            },
                             action: {
                                 type: "List",
                                 field: "tags",
@@ -74,8 +80,11 @@ export const find: InterfaceConfiguration = {
                         {
                             type: "Slot",
                             image: "/images/features/block/chest.webp",
-                            title: "tools.enchantments.section.find.components.lootInChests.title",
-                            description: "tools.enchantments.section.find.components.lootInChests.description",
+                            title: { type: "translate", value: "tools.enchantments.section.find.components.lootInChests.title" },
+                            description: {
+                                type: "translate",
+                                value: "tools.enchantments.section.find.components.lootInChests.description"
+                            },
                             action: {
                                 type: "List",
                                 field: "tags",
@@ -107,9 +116,9 @@ export const find: InterfaceConfiguration = {
                     children: [
                         {
                             type: "Slot",
-                            title: "tools.enchantments.section.find.components.tradeable.title",
+                            title: { type: "translate", value: "tools.enchantments.section.find.components.tradeable.title" },
                             image: "/images/features/item/enchanted_book.webp",
-                            description: "tools.enchantments.section.find.components.tradeable.description",
+                            description: { type: "translate", value: "tools.enchantments.section.find.components.tradeable.description" },
                             action: {
                                 type: "List",
                                 field: "tags",
@@ -136,9 +145,12 @@ export const find: InterfaceConfiguration = {
                         },
                         {
                             type: "Slot",
-                            title: "tools.enchantments.section.find.components.tradeableEquipment.title",
+                            title: { type: "translate", value: "tools.enchantments.section.find.components.tradeableEquipment.title" },
                             image: "/images/features/item/enchanted_item.webp",
-                            description: "tools.enchantments.section.find.components.tradeableEquipment.description",
+                            description: {
+                                type: "translate",
+                                value: "tools.enchantments.section.find.components.tradeableEquipment.description"
+                            },
                             action: {
                                 type: "List",
                                 field: "tags",
@@ -165,9 +177,12 @@ export const find: InterfaceConfiguration = {
                         },
                         {
                             type: "Slot",
-                            title: "tools.enchantments.section.find.components.priceDoubled.title",
+                            title: { type: "translate", value: "tools.enchantments.section.find.components.priceDoubled.title" },
                             image: "/images/features/title/doubled.webp",
-                            description: "tools.enchantments.section.find.components.priceDoubled.description",
+                            description: {
+                                type: "translate",
+                                value: "tools.enchantments.section.find.components.priceDoubled.description"
+                            },
                             action: {
                                 type: "List",
                                 field: "tags",
@@ -198,7 +213,7 @@ export const find: InterfaceConfiguration = {
         },
         {
             type: "Section",
-            title: "tools.enchantments.section.addons.description",
+            title: { type: "translate", value: "tools.enchantments.section.addons.description" },
             id: "addons",
             children: [
                 {

@@ -5,6 +5,7 @@ import type { Analysers, GetAnalyserVoxel } from "@/lib/minecraft/core/engine/An
 import type { ValueParams } from "@/lib/minecraft/core/engine/value";
 import { useMemo } from "react";
 import { type Action, handleChange } from "src/lib/minecraft/core/engine/actions";
+import type { TranslateTextType } from "@/lib/minecraft/components/elements/text/TranslateText.tsx";
 
 type Props = {
     action: Action;
@@ -18,6 +19,8 @@ export type ToolCollectionType = {
     includes: string[];
     value: ValueParams<string[]>;
     action: Action;
+    title?: TranslateTextType;
+    description?: TranslateTextType;
 };
 
 export default function ToolCollection<T extends keyof Analysers>(props: Props) {
@@ -44,14 +47,24 @@ export default function ToolCollection<T extends keyof Analysers>(props: Props) 
     return (
         <>
             {items.map((element) => {
+                const title = {
+                    type: "translate" as const,
+                    value: element.renderResourceName()
+                };
+
+                const description = {
+                    type: "translate" as const,
+                    value: element.renderNamespace()
+                };
+
                 return (
                     <div key={element.toString()}>
                         <ToolSlot
-                            title={element.renderResourceName()}
+                            title={title}
                             image="/images/features/item/enchanted_book.webp"
                             checked={typeof data === "string" && data === element.toString()}
                             onChange={() => handleChange(props.action, element.toString(), context)}
-                            description={element.renderNamespace()}
+                            description={description}
                             value={element.toString()}
                         />
                     </div>

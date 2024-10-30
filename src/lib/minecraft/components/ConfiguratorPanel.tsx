@@ -1,4 +1,3 @@
-import { useTranslate } from "@/components/TranslateContext.tsx";
 import { TabsList, TabsTrigger } from "@/components/ui/shadcn/tabs.tsx";
 import { useConfigurator } from "@/lib/minecraft/components/ConfiguratorContext.tsx";
 import { RenderComponent } from "@/lib/minecraft/components/RenderComponent.tsx";
@@ -6,6 +5,7 @@ import type { Analysers, GetAnalyserVoxel } from "@/lib/minecraft/core/engine/An
 import { cn } from "@/lib/utils.ts";
 import { Tabs, TabsContent } from "@radix-ui/react-tabs";
 import type React from "react";
+import TranslateText from "./elements/text/TranslateText";
 
 export default function ConfiguratorPanel<T extends keyof Analysers>({
     children
@@ -13,8 +13,6 @@ export default function ConfiguratorPanel<T extends keyof Analysers>({
     children?: React.ReactNode;
 }) {
     const { currentElement, elements, configuration } = useConfigurator<GetAnalyserVoxel<T>>();
-    const { translate } = useTranslate();
-
     if (elements.length === 0) return null;
     if (!currentElement || !configuration) return null;
 
@@ -37,7 +35,7 @@ export default function ConfiguratorPanel<T extends keyof Analysers>({
                                 disabled={section.soon}
                                 value={section.id}
                             >
-                                {translate[section.section]}
+                                <TranslateText content={section.section} />
                                 {section.soon && <span className="text-xs text-zinc-400 font-light ml-1">(soon)</span>}
                             </TabsTrigger>
                         ))}
@@ -46,7 +44,14 @@ export default function ConfiguratorPanel<T extends keyof Analysers>({
                     {configuration.interface.map((section) => (
                         <TabsContent key={section.id} value={section.id}>
                             {currentElement?.identifier?.getNamespace() === "minecraft" && (
-                                <div className="text-xs text-zinc-400 font-light mb-4">{translate["tools.enchantments.vanilla"]}</div>
+                                <div className="text-xs text-zinc-400 font-light mb-4">
+                                    <TranslateText
+                                        content={{
+                                            type: "translate",
+                                            value: "tools.enchantments.vanilla"
+                                        }}
+                                    />
+                                </div>
                             )}
 
                             <div className="flex items flex-col gap-4">

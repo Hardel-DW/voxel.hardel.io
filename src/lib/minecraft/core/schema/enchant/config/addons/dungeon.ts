@@ -4,14 +4,22 @@ export const dungeon: ToolRevealElementType = {
     id: "dnt",
     logo: "/images/addons/logo/dnt.webp",
     image: "/images/addons/hero/dnt.png",
-    soon: false,
     href: "https://modrinth.com/datapack/dungeons-and-taverns",
-    title: "tools.enchantments.section.addons.dnt.title",
-    description: "tools.enchantments.section.addons.dnt.description",
+    title: {
+        type: "translate",
+        value: "tools.enchantments.section.addons.dnt.title"
+    },
+    description: {
+        type: "translate",
+        value: "tools.enchantments.section.addons.dnt.description"
+    },
     children: [
         {
             type: "Category",
-            title: "tools.enchantments.section.addons.dnt.global.title",
+            title: {
+                type: "translate",
+                value: "tools.enchantments.section.addons.dnt.global.title"
+            },
             children: [
                 {
                     type: "Grid",
@@ -19,8 +27,14 @@ export const dungeon: ToolRevealElementType = {
                     children: [
                         {
                             type: "Slot",
-                            title: "tools.enchantments.section.addons.dnt.overworld.title",
-                            description: "tools.enchantments.section.addons.dnt.overworld.description",
+                            title: {
+                                type: "translate",
+                                value: "tools.enchantments.section.addons.dnt.overworld.title"
+                            },
+                            description: {
+                                type: "translate",
+                                value: "tools.enchantments.section.addons.dnt.overworld.description"
+                            },
                             image: "/images/features/structure/overworld.webp",
                             size: 128,
                             action: {
@@ -37,8 +51,14 @@ export const dungeon: ToolRevealElementType = {
                         },
                         {
                             type: "Slot",
-                            title: "tools.enchantments.section.addons.dnt.underwater.title",
-                            description: "tools.enchantments.section.addons.dnt.underwater.description",
+                            title: {
+                                type: "translate",
+                                value: "tools.enchantments.section.addons.dnt.underwater.title"
+                            },
+                            description: {
+                                type: "translate",
+                                value: "tools.enchantments.section.addons.dnt.underwater.description"
+                            },
                             image: "/images/features/structure/underwater.webp",
                             size: 128,
                             action: {
@@ -55,8 +75,14 @@ export const dungeon: ToolRevealElementType = {
                         },
                         {
                             type: "Slot",
-                            title: "tools.enchantments.section.addons.dnt.nether.title",
-                            description: "tools.enchantments.section.addons.dnt.nether.description",
+                            title: {
+                                type: "translate",
+                                value: "tools.enchantments.section.addons.dnt.nether.title"
+                            },
+                            description: {
+                                type: "translate",
+                                value: "tools.enchantments.section.addons.dnt.nether.description"
+                            },
                             image: "/images/features/structure/nether.webp",
                             size: 128,
                             action: {
@@ -73,8 +99,14 @@ export const dungeon: ToolRevealElementType = {
                         },
                         {
                             type: "Slot",
-                            title: "tools.enchantments.section.addons.dnt.end.title",
-                            description: "tools.enchantments.section.addons.dnt.end.description",
+                            title: {
+                                type: "translate",
+                                value: "tools.enchantments.section.addons.dnt.end.title"
+                            },
+                            description: {
+                                type: "translate",
+                                value: "tools.enchantments.section.addons.dnt.end.description"
+                            },
                             image: "/images/features/structure/end.webp",
                             size: 128,
                             action: {
@@ -95,7 +127,10 @@ export const dungeon: ToolRevealElementType = {
         },
         {
             type: "Category",
-            title: "tools.enchantments.section.addons.dnt.structures.title",
+            title: {
+                type: "translate",
+                value: "tools.enchantments.section.addons.dnt.structures.title"
+            },
             children: [
                 {
                     type: "Grid",
@@ -103,8 +138,14 @@ export const dungeon: ToolRevealElementType = {
                     children: [
                         {
                             type: "InlineSlot",
-                            title: "tools.enchantments.section.addons.dnt.creeping_crypt.title",
-                            description: "tools.enchantments.section.addons.dnt.creeping_crypt.description",
+                            title: {
+                                type: "translate",
+                                value: "tools.enchantments.section.addons.dnt.creeping_crypt.title"
+                            },
+                            description: {
+                                type: "translate",
+                                value: "tools.enchantments.section.addons.dnt.creeping_crypt.description"
+                            },
                             image: "/images/addons/card/dnt/creeping_crypt.webp",
                             action: {
                                 type: "List",
@@ -120,8 +161,14 @@ export const dungeon: ToolRevealElementType = {
                         },
                         {
                             type: "InlineSlot",
-                            title: "tools.enchantments.section.addons.dnt.nether_keep.title",
-                            description: "tools.enchantments.section.addons.dnt.nether_keep.description",
+                            title: {
+                                type: "translate",
+                                value: "tools.enchantments.section.addons.dnt.nether_keep.title"
+                            },
+                            description: {
+                                type: "translate",
+                                value: "tools.enchantments.section.addons.dnt.nether_keep.description"
+                            },
                             image: "/images/addons/card/dnt/piglin_outstation.webp",
                             action: {
                                 type: "List",
@@ -137,8 +184,14 @@ export const dungeon: ToolRevealElementType = {
                         },
                         {
                             type: "InlineSlot",
-                            title: "tools.enchantments.section.addons.dnt.illager.title",
-                            description: "tools.enchantments.section.addons.dnt.illager.description",
+                            title: {
+                                type: "translate",
+                                value: "tools.enchantments.section.addons.dnt.illager.title"
+                            },
+                            description: {
+                                type: "translate",
+                                value: "tools.enchantments.section.addons.dnt.illager.description"
+                            },
                             image: "/images/addons/card/dnt/illager_manor.webp",
                             action: {
                                 type: "List",
@@ -154,8 +207,14 @@ export const dungeon: ToolRevealElementType = {
                         },
                         {
                             type: "InlineSlot",
-                            title: "tools.enchantments.section.addons.dnt.illager_outpost.title",
-                            description: "tools.enchantments.section.addons.dnt.illager_outpost.description",
+                            title: {
+                                type: "translate",
+                                value: "tools.enchantments.section.addons.dnt.illager_outpost.title"
+                            },
+                            description: {
+                                type: "translate",
+                                value: "tools.enchantments.section.addons.dnt.illager_outpost.description"
+                            },
                             image: "/images/addons/card/dnt/illager_hideout.webp",
                             action: {
                                 type: "List",
@@ -171,8 +230,14 @@ export const dungeon: ToolRevealElementType = {
                         },
                         {
                             type: "InlineSlot",
-                            title: "tools.enchantments.section.addons.dnt.pale_residence.title",
-                            description: "tools.enchantments.section.addons.dnt.pale_residence.description",
+                            title: {
+                                type: "translate",
+                                value: "tools.enchantments.section.addons.dnt.pale_residence.title"
+                            },
+                            description: {
+                                type: "translate",
+                                value: "tools.enchantments.section.addons.dnt.pale_residence.description"
+                            },
                             image: "/images/addons/card/dnt/pale_residence.webp",
                             action: {
                                 type: "List",
@@ -188,8 +253,14 @@ export const dungeon: ToolRevealElementType = {
                         },
                         {
                             type: "InlineSlot",
-                            title: "tools.enchantments.section.addons.dnt.shrine.title",
-                            description: "tools.enchantments.section.addons.dnt.shrine.description",
+                            title: {
+                                type: "translate",
+                                value: "tools.enchantments.section.addons.dnt.shrine.title"
+                            },
+                            description: {
+                                type: "translate",
+                                value: "tools.enchantments.section.addons.dnt.shrine.description"
+                            },
                             image: "/images/addons/card/dnt/shrine.webp",
                             action: {
                                 type: "List",
@@ -205,8 +276,14 @@ export const dungeon: ToolRevealElementType = {
                         },
                         {
                             type: "InlineSlot",
-                            title: "tools.enchantments.section.addons.dnt.shrine_ominous.title",
-                            description: "tools.enchantments.section.addons.dnt.shrine_ominous.description",
+                            title: {
+                                type: "translate",
+                                value: "tools.enchantments.section.addons.dnt.shrine_ominous.title"
+                            },
+                            description: {
+                                type: "translate",
+                                value: "tools.enchantments.section.addons.dnt.shrine_ominous.description"
+                            },
                             image: "/images/addons/card/dnt/shrine_ominous.webp",
                             action: {
                                 type: "List",
@@ -222,8 +299,14 @@ export const dungeon: ToolRevealElementType = {
                         },
                         {
                             type: "InlineSlot",
-                            title: "tools.enchantments.section.addons.dnt.snowy.title",
-                            description: "tools.enchantments.section.addons.dnt.snowy.description",
+                            title: {
+                                type: "translate",
+                                value: "tools.enchantments.section.addons.dnt.snowy.title"
+                            },
+                            description: {
+                                type: "translate",
+                                value: "tools.enchantments.section.addons.dnt.snowy.description"
+                            },
                             image: "/images/addons/card/dnt/stay_fort.webp",
                             action: {
                                 type: "List",
@@ -239,8 +322,14 @@ export const dungeon: ToolRevealElementType = {
                         },
                         {
                             type: "InlineSlot",
-                            title: "tools.enchantments.section.addons.dnt.toxic_lair.title",
-                            description: "tools.enchantments.section.addons.dnt.toxic_lair.description",
+                            title: {
+                                type: "translate",
+                                value: "tools.enchantments.section.addons.dnt.toxic_lair.title"
+                            },
+                            description: {
+                                type: "translate",
+                                value: "tools.enchantments.section.addons.dnt.toxic_lair.description"
+                            },
                             image: "/images/addons/card/dnt/toxic_lair.webp",
                             action: {
                                 type: "List",

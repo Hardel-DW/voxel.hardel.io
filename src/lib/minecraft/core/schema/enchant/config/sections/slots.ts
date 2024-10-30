@@ -2,11 +2,11 @@ import type { InterfaceConfiguration } from "@/lib/minecraft/core/engine";
 
 export const slots: InterfaceConfiguration = {
     id: "slots",
-    section: "tools.enchantments.section.slot",
+    section: { type: "translate", value: "tools.enchantments.section.slots" },
     components: [
         {
             type: "Section",
-            title: "tools.enchantments.section.slot.description",
+            title: { type: "translate", value: "tools.enchantments.section.slots.description" },
             id: "slots",
             children: [
                 {
@@ -14,7 +14,7 @@ export const slots: InterfaceConfiguration = {
                     children: [
                         {
                             type: "Slot",
-                            title: "tools.enchantments.section.exclusive.components.mainhand.title",
+                            title: { type: "translate", value: "tools.enchantments.section.slots.mainhand.title" },
                             image: "/images/features/slots/mainhand.webp",
                             action: {
                                 type: "Slot",
@@ -30,7 +30,7 @@ export const slots: InterfaceConfiguration = {
                         },
                         {
                             type: "Slot",
-                            title: "tools.enchantments.section.exclusive.components.offhand.title",
+                            title: "tools.enchantments.section.slots.offhand.title",
                             image: "/images/features/slots/offhand.webp",
                             action: {
                                 type: "Slot",
@@ -51,7 +51,7 @@ export const slots: InterfaceConfiguration = {
                     children: [
                         {
                             type: "Slot",
-                            title: "tools.enchantments.section.exclusive.components.head.title",
+                            title: "tools.enchantments.section.slots.head.title",
                             image: "/images/features/slots/head.webp",
                             action: {
                                 type: "Slot",
@@ -67,7 +67,7 @@ export const slots: InterfaceConfiguration = {
                         },
                         {
                             type: "Slot",
-                            title: "tools.enchantments.section.exclusive.components.chest.title",
+                            title: "tools.enchantments.section.slots.chest.title",
                             image: "/images/features/slots/chest.webp",
                             action: {
                                 type: "Slot",
@@ -83,7 +83,7 @@ export const slots: InterfaceConfiguration = {
                         },
                         {
                             type: "Slot",
-                            title: "tools.enchantments.section.exclusive.components.legs.title",
+                            title: "tools.enchantments.section.slots.legs.title",
                             image: "/images/features/slots/legs.webp",
                             action: {
                                 type: "Slot",
@@ -99,7 +99,7 @@ export const slots: InterfaceConfiguration = {
                         },
                         {
                             type: "Slot",
-                            title: "tools.enchantments.section.exclusive.components.feet.title",
+                            title: "tools.enchantments.section.slots.feet.title",
                             image: "/images/features/slots/feet.webp",
                             action: {
                                 type: "Slot",
@@ -112,6 +112,28 @@ export const slots: InterfaceConfiguration = {
                                 field: "slots",
                                 values: ["feet", "any", "armor"]
                             }
+                        }
+                    ]
+                },
+                {
+                    type: "Text",
+                    content: [
+                        {
+                            type: "Paragraph",
+                            content: { type: "translate", value: "tools.enchantments.section.slots.explanation.title" }
+                        },
+                        {
+                            type: "UnorderedList",
+                            sublist: [
+                                {
+                                    type: "ListItem",
+                                    content: { type: "translate", value: "tools.enchantments.section.slots.explanation.list.1" }
+                                },
+                                {
+                                    type: "ListItem",
+                                    content: { type: "translate", value: "tools.enchantments.section.slots.explanation.list.2" }
+                                }
+                            ]
                         }
                     ]
                 }

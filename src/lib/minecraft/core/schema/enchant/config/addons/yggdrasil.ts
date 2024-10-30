@@ -5,12 +5,21 @@ export const yggdrasil: ToolRevealElementType = {
     logo: "/images/addons/logo/yggdrasil.webp",
     image: "/images/addons/hero/yggdrasil.png",
     href: "https://modrinth.com/datapack/yggdrasil-structure",
-    title: "tools.enchantments.section.addons.yggdrasil.title",
-    description: "tools.enchantments.section.addons.yggdrasil.description",
+    title: {
+        type: "translate",
+        value: "tools.enchantments.section.addons.yggdrasil.title"
+    },
+    description: {
+        type: "translate",
+        value: "tools.enchantments.section.addons.yggdrasil.description"
+    },
     children: [
         {
             type: "Category",
-            title: "tools.enchantments.section.addons.yggdrasil.alfheim.title",
+            title: {
+                type: "translate",
+                value: "tools.enchantments.section.addons.yggdrasil.alfheim.title"
+            },
             children: [
                 {
                     type: "Grid",
@@ -19,8 +28,14 @@ export const yggdrasil: ToolRevealElementType = {
                         {
                             type: "Slot",
                             image: "/images/features/title/yg.webp",
-                            title: "tools.enchantments.section.yggdrasil.components.yggdrasilMobEquipment.title",
-                            description: "tools.enchantments.section.yggdrasil.components.yggdrasilMobEquipment.description",
+                            title: {
+                                type: "translate",
+                                value: "tools.enchantments.section.yggdrasil.components.yggdrasilMobEquipment.title"
+                            },
+                            description: {
+                                type: "translate",
+                                value: "tools.enchantments.section.yggdrasil.components.yggdrasilMobEquipment.description"
+                            },
                             action: {
                                 type: "Multiple",
                                 field: "tags",
@@ -49,8 +64,14 @@ export const yggdrasil: ToolRevealElementType = {
                         },
                         {
                             type: "Slot",
-                            title: "tools.enchantments.section.addons.yggdrasil.random_chest.title",
-                            description: "tools.enchantments.section.addons.yggdrasil.random_chest.description",
+                            title: {
+                                type: "translate",
+                                value: "tools.enchantments.section.addons.yggdrasil.random_chest.title"
+                            },
+                            description: {
+                                type: "translate",
+                                value: "tools.enchantments.section.addons.yggdrasil.random_chest.description"
+                            },
                             image: "/images/features/block/chest.webp",
                             action: {
                                 type: "List",
@@ -66,8 +87,14 @@ export const yggdrasil: ToolRevealElementType = {
                         },
                         {
                             type: "Slot",
-                            title: "tools.enchantments.section.addons.yggdrasil.vault.title",
-                            description: "tools.enchantments.section.addons.yggdrasil.vault.description",
+                            title: {
+                                type: "translate",
+                                value: "tools.enchantments.section.addons.yggdrasil.vault.title"
+                            },
+                            description: {
+                                type: "translate",
+                                value: "tools.enchantments.section.addons.yggdrasil.vault.description"
+                            },
                             image: "/images/features/block/vault.webp",
                             action: {
                                 type: "List",
@@ -83,8 +110,14 @@ export const yggdrasil: ToolRevealElementType = {
                         },
                         {
                             type: "Slot",
-                            title: "tools.enchantments.section.addons.yggdrasil.ominous_vault.title",
-                            description: "tools.enchantments.section.addons.yggdrasil.ominous_vault.description",
+                            title: {
+                                type: "translate",
+                                value: "tools.enchantments.section.addons.yggdrasil.ominous_vault.title"
+                            },
+                            description: {
+                                type: "translate",
+                                value: "tools.enchantments.section.addons.yggdrasil.ominous_vault.description"
+                            },
                             image: "/images/features/block/ominous_vault.webp",
                             action: {
                                 type: "List",
@@ -100,8 +133,14 @@ export const yggdrasil: ToolRevealElementType = {
                         },
                         {
                             type: "Slot",
-                            title: "tools.enchantments.section.addons.yggdrasil.trial_spawner.title",
-                            description: "tools.enchantments.section.addons.yggdrasil.trial_spawner.description",
+                            title: {
+                                type: "translate",
+                                value: "tools.enchantments.section.addons.yggdrasil.trial_spawner.title"
+                            },
+                            description: {
+                                type: "translate",
+                                value: "tools.enchantments.section.addons.yggdrasil.trial_spawner.description"
+                            },
                             image: "/images/features/block/trial_spawner.webp",
                             action: {
                                 type: "List",
@@ -117,8 +156,14 @@ export const yggdrasil: ToolRevealElementType = {
                         },
                         {
                             type: "Slot",
-                            title: "tools.enchantments.section.addons.yggdrasil.ominous_trial_spawner.title",
-                            description: "tools.enchantments.section.addons.yggdrasil.ominous_trial_spawner.description",
+                            title: {
+                                type: "translate",
+                                value: "tools.enchantments.section.addons.yggdrasil.ominous_trial_spawner.title"
+                            },
+                            description: {
+                                type: "translate",
+                                value: "tools.enchantments.section.addons.yggdrasil.ominous_trial_spawner.description"
+                            },
                             image: "/images/features/block/ominous_trial_spawner.webp",
                             action: {
                                 type: "List",
@@ -138,16 +183,25 @@ export const yggdrasil: ToolRevealElementType = {
         },
         {
             type: "Category",
-            title: "tools.enchantments.section.addons.yggdrasil.asflors.title",
+            title: {
+                type: "translate",
+                value: "tools.enchantments.section.addons.yggdrasil.asflors.title"
+            },
             children: [
                 {
                     type: "Grid",
-                    size: "400px",
+                    size: "300px",
                     children: [
                         {
                             type: "Slot",
-                            title: "tools.enchantments.section.addons.yggdrasil.common_chest.title",
-                            description: "tools.enchantments.section.addons.yggdrasil.common_chest.description",
+                            title: {
+                                type: "translate",
+                                value: "tools.enchantments.section.addons.yggdrasil.common_chest.title"
+                            },
+                            description: {
+                                type: "translate",
+                                value: "tools.enchantments.section.addons.yggdrasil.common_chest.description"
+                            },
                             image: "/images/features/block/chest.webp",
                             action: {
                                 type: "List",
@@ -163,8 +217,14 @@ export const yggdrasil: ToolRevealElementType = {
                         },
                         {
                             type: "Slot",
-                            title: "tools.enchantments.section.addons.yggdrasil.structure_vault.title",
-                            description: "tools.enchantments.section.addons.yggdrasil.structure_vault.description",
+                            title: {
+                                type: "translate",
+                                value: "tools.enchantments.section.addons.yggdrasil.structure_vault.title"
+                            },
+                            description: {
+                                type: "translate",
+                                value: "tools.enchantments.section.addons.yggdrasil.structure_vault.description"
+                            },
                             image: "/images/features/block/vault.webp",
                             action: {
                                 type: "List",
@@ -180,8 +240,14 @@ export const yggdrasil: ToolRevealElementType = {
                         },
                         {
                             type: "Slot",
-                            title: "tools.enchantments.section.addons.yggdrasil.structure_ominous_vault.title",
-                            description: "tools.enchantments.section.addons.yggdrasil.structure_ominous_vault.description",
+                            title: {
+                                type: "translate",
+                                value: "tools.enchantments.section.addons.yggdrasil.structure_ominous_vault.title"
+                            },
+                            description: {
+                                type: "translate",
+                                value: "tools.enchantments.section.addons.yggdrasil.structure_ominous_vault.description"
+                            },
                             image: "/images/features/block/ominous_vault.webp",
                             action: {
                                 type: "List",
@@ -197,8 +263,14 @@ export const yggdrasil: ToolRevealElementType = {
                         },
                         {
                             type: "Slot",
-                            title: "tools.enchantments.section.addons.yggdrasil.asflors_sword.title",
-                            description: "tools.enchantments.section.addons.yggdrasil.asflors_sword.description",
+                            title: {
+                                type: "translate",
+                                value: "tools.enchantments.section.addons.yggdrasil.asflors_sword.title"
+                            },
+                            description: {
+                                type: "translate",
+                                value: "tools.enchantments.section.addons.yggdrasil.asflors_sword.description"
+                            },
                             image: "/images/features/item/sword.webp",
                             action: {
                                 type: "List",
@@ -218,7 +290,10 @@ export const yggdrasil: ToolRevealElementType = {
         },
         {
             type: "Category",
-            title: "tools.enchantments.section.addons.yggdrasil.runic_fracture.title",
+            title: {
+                type: "translate",
+                value: "tools.enchantments.section.addons.yggdrasil.runic_fracture.title"
+            },
             children: [
                 {
                     type: "Grid",
@@ -226,8 +301,14 @@ export const yggdrasil: ToolRevealElementType = {
                     children: [
                         {
                             type: "Slot",
-                            title: "tools.enchantments.section.addons.yggdrasil.reward_after_fight.title",
-                            description: "tools.enchantments.section.addons.yggdrasil.reward_after_fight.description",
+                            title: {
+                                type: "translate",
+                                value: "tools.enchantments.section.addons.yggdrasil.reward_after_fight.title"
+                            },
+                            description: {
+                                type: "translate",
+                                value: "tools.enchantments.section.addons.yggdrasil.reward_after_fight.description"
+                            },
                             image: "/images/features/block/ominous_trial_spawner.webp",
                             action: {
                                 type: "List",

@@ -14,6 +14,10 @@ export interface ConfiguratorContextType<T extends VoxelElement> {
     files: Record<string, Uint8Array>;
     setFiles: (files: Record<string, Uint8Array>) => void;
 
+    // Store the minify state
+    minify: boolean;
+    setMinify: (minify: boolean) => void;
+
     // Store the list of elements
     elements: RegistryElement<T>[];
     setElements: React.Dispatch<React.SetStateAction<RegistryElement<T>[]>>;
@@ -49,6 +53,7 @@ export function ConfiguratorProvider<T extends VoxelElement>(props: {
     tool: keyof Analysers;
 }) {
     const [name, setName] = useState<string>("");
+    const [minify, setMinify] = useState<boolean>(true);
     const [files, setFiles] = useState<Record<string, Uint8Array>>({});
     const [elements, setElements] = useState<RegistryElement<T>[]>([]);
     const [currentElementId, setCurrentElementId] = useState<Identifier>();
@@ -68,6 +73,8 @@ export function ConfiguratorProvider<T extends VoxelElement>(props: {
     const contextValue: ConfiguratorContextType<T> = {
         name,
         setName,
+        minify,
+        setMinify,
         files,
         setFiles,
         elements,

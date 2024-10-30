@@ -2,22 +2,22 @@ import type { InterfaceConfiguration } from "@/lib/minecraft/core/engine";
 
 export const supported: InterfaceConfiguration = {
     id: "supported",
-    section: "tools.enchantments.section.supported",
+    section: { type: "translate", value: "tools.enchantments.section.supported" },
     components: [
         {
             type: "Section",
-            title: "tools.enchantments.section.supported.description",
+            title: { type: "translate", value: "tools.enchantments.section.supported.description" },
             id: "items",
             toggle: [
                 {
                     name: "supportedItems",
-                    title: "tools.enchantments.section.toggle.supported.title",
-                    description: "tools.enchantments.section.toggle.supported.description"
+                    title: { type: "translate", value: "tools.enchantments.section.toggle.supported.title" },
+                    description: { type: "translate", value: "tools.enchantments.section.toggle.supported.description" }
                 },
                 {
                     name: "primaryItems",
-                    title: "tools.enchantments.section.toggle.primary.title",
-                    description: "tools.enchantments.section.toggle.primary.description"
+                    title: { type: "translate", value: "tools.enchantments.section.toggle.primary.title" },
+                    description: { type: "translate", value: "tools.enchantments.section.toggle.primary.description" }
                 }
             ],
             children: [
@@ -26,7 +26,7 @@ export const supported: InterfaceConfiguration = {
                     children: [
                         {
                             type: "Slot",
-                            title: "tools.enchantments.section.supported.components.sword.title",
+                            title: { type: "translate", value: "tools.enchantments.section.supported.components.sword.title" },
                             image: "/images/features/item/sword.webp",
                             action: {
                                 type: "String",
@@ -42,7 +42,7 @@ export const supported: InterfaceConfiguration = {
                         },
                         {
                             type: "Slot",
-                            title: "tools.enchantments.section.supported.components.trident.title",
+                            title: { type: "translate", value: "tools.enchantments.section.supported.components.trident.title" },
                             image: "/images/features/item/trident.webp",
                             action: {
                                 type: "String",
@@ -58,7 +58,7 @@ export const supported: InterfaceConfiguration = {
                         },
                         {
                             type: "Slot",
-                            title: "tools.enchantments.section.supported.components.mace.title",
+                            title: { type: "translate", value: "tools.enchantments.section.supported.components.mace.title" },
                             image: "/images/features/item/mace.webp",
                             action: {
                                 type: "String",
@@ -74,7 +74,7 @@ export const supported: InterfaceConfiguration = {
                         },
                         {
                             type: "Slot",
-                            title: "tools.enchantments.section.supported.components.bow.title",
+                            title: { type: "translate", value: "tools.enchantments.section.supported.components.bow.title" },
                             image: "/images/features/item/bow.webp",
                             action: {
                                 type: "String",
@@ -90,7 +90,7 @@ export const supported: InterfaceConfiguration = {
                         },
                         {
                             type: "Slot",
-                            title: "tools.enchantments.section.supported.components.crossbow.title",
+                            title: { type: "translate", value: "tools.enchantments.section.supported.components.crossbow.title" },
                             image: "/images/features/item/crossbow.webp",
                             action: {
                                 type: "String",
@@ -106,7 +106,7 @@ export const supported: InterfaceConfiguration = {
                         },
                         {
                             type: "Slot",
-                            title: "tools.enchantments.section.supported.components.range.title",
+                            title: { type: "translate", value: "tools.enchantments.section.supported.components.range.title" },
                             image: "/images/features/item/range.webp",
                             action: {
                                 type: "String",
@@ -122,7 +122,7 @@ export const supported: InterfaceConfiguration = {
                         },
                         {
                             type: "Slot",
-                            title: "tools.enchantments.section.supported.components.fishing.title",
+                            title: { type: "translate", value: "tools.enchantments.section.supported.components.fishing.title" },
                             image: "/images/features/item/fishing_rod.webp",
                             action: {
                                 type: "String",
@@ -138,7 +138,7 @@ export const supported: InterfaceConfiguration = {
                         },
                         {
                             type: "Slot",
-                            title: "tools.enchantments.section.supported.components.shield.title",
+                            title: { type: "translate", value: "tools.enchantments.section.supported.components.shield.title" },
                             image: "/images/features/item/shield.webp",
                             action: {
                                 type: "String",
@@ -154,7 +154,7 @@ export const supported: InterfaceConfiguration = {
                         },
                         {
                             type: "Slot",
-                            title: "tools.enchantments.section.supported.components.weapon.title",
+                            title: { type: "translate", value: "tools.enchantments.section.supported.components.weapon.title" },
                             image: "/images/features/item/weapon.webp",
                             action: {
                                 type: "String",
@@ -170,7 +170,7 @@ export const supported: InterfaceConfiguration = {
                         },
                         {
                             type: "Slot",
-                            title: "tools.enchantments.section.supported.components.melee.title",
+                            title: { type: "translate", value: "tools.enchantments.section.supported.components.melee.title" },
                             image: "/images/features/item/melee.webp",
                             action: {
                                 type: "String",
@@ -186,7 +186,7 @@ export const supported: InterfaceConfiguration = {
                         },
                         {
                             type: "Slot",
-                            title: "tools.enchantments.section.supported.components.head_armor.title",
+                            title: { type: "translate", value: "tools.enchantments.section.supported.components.head_armor.title" },
                             image: "/images/features/item/helmet.webp",
                             action: {
                                 type: "String",
@@ -202,7 +202,7 @@ export const supported: InterfaceConfiguration = {
                         },
                         {
                             type: "Slot",
-                            title: "tools.enchantments.section.supported.components.chest_armor.title",
+                            title: { type: "translate", value: "tools.enchantments.section.supported.components.chest_armor.title" },
                             image: "/images/features/item/chestplate.webp",
                             action: {
                                 type: "String",
@@ -218,7 +218,7 @@ export const supported: InterfaceConfiguration = {
                         },
                         {
                             type: "Slot",
-                            title: "tools.enchantments.section.supported.components.leg_armor.title",
+                            title: { type: "translate", value: "tools.enchantments.section.supported.components.leg_armor.title" },
                             image: "/images/features/item/leggings.webp",
                             action: {
                                 type: "String",
@@ -234,7 +234,7 @@ export const supported: InterfaceConfiguration = {
                         },
                         {
                             type: "Slot",
-                            title: "tools.enchantments.section.supported.components.foot_armor.title",
+                            title: { type: "translate", value: "tools.enchantments.section.supported.components.foot_armor.title" },
                             image: "/images/features/item/boots.webp",
                             action: {
                                 type: "String",
@@ -250,7 +250,7 @@ export const supported: InterfaceConfiguration = {
                         },
                         {
                             type: "Slot",
-                            title: "tools.enchantments.section.supported.components.elytra.title",
+                            title: { type: "translate", value: "tools.enchantments.section.supported.components.elytra.title" },
                             image: "/images/features/item/elytra.webp",
                             action: {
                                 type: "String",
@@ -266,7 +266,7 @@ export const supported: InterfaceConfiguration = {
                         },
                         {
                             type: "Slot",
-                            title: "tools.enchantments.section.supported.components.armor.title",
+                            title: { type: "translate", value: "tools.enchantments.section.supported.components.armor.title" },
                             image: "/images/features/item/armor.webp",
                             action: {
                                 type: "String",
@@ -282,7 +282,7 @@ export const supported: InterfaceConfiguration = {
                         },
                         {
                             type: "Slot",
-                            title: "tools.enchantments.section.supported.components.equippable.title",
+                            title: { type: "translate", value: "tools.enchantments.section.supported.components.equippable.title" },
                             image: "/images/features/item/equipable.webp",
                             action: {
                                 type: "String",
@@ -298,7 +298,7 @@ export const supported: InterfaceConfiguration = {
                         },
                         {
                             type: "Slot",
-                            title: "tools.enchantments.section.supported.components.axes.title",
+                            title: { type: "translate", value: "tools.enchantments.section.supported.components.axes.title" },
                             image: "/images/features/item/axe.webp",
                             action: {
                                 type: "String",
@@ -314,7 +314,7 @@ export const supported: InterfaceConfiguration = {
                         },
                         {
                             type: "Slot",
-                            title: "tools.enchantments.section.supported.components.shovels.title",
+                            title: { type: "translate", value: "tools.enchantments.section.supported.components.shovels.title" },
                             image: "/images/features/item/shovel.webp",
                             action: {
                                 type: "String",
@@ -330,7 +330,7 @@ export const supported: InterfaceConfiguration = {
                         },
                         {
                             type: "Slot",
-                            title: "tools.enchantments.section.supported.components.hoes.title",
+                            title: { type: "translate", value: "tools.enchantments.section.supported.components.hoes.title" },
                             image: "/images/features/item/hoe.webp",
                             action: {
                                 type: "String",
@@ -346,7 +346,7 @@ export const supported: InterfaceConfiguration = {
                         },
                         {
                             type: "Slot",
-                            title: "tools.enchantments.section.supported.components.pickaxes.title",
+                            title: { type: "translate", value: "tools.enchantments.section.supported.components.pickaxes.title" },
                             image: "/images/features/item/pickaxe.webp",
                             action: {
                                 type: "String",
@@ -362,7 +362,7 @@ export const supported: InterfaceConfiguration = {
                         },
                         {
                             type: "Slot",
-                            title: "tools.enchantments.section.supported.components.durability.title",
+                            title: { type: "translate", value: "tools.enchantments.section.supported.components.durability.title" },
                             image: "/images/features/item/durability.webp",
                             action: {
                                 type: "String",
@@ -378,7 +378,7 @@ export const supported: InterfaceConfiguration = {
                         },
                         {
                             type: "Slot",
-                            title: "tools.enchantments.section.supported.components.mining_loot.title",
+                            title: { type: "translate", value: "tools.enchantments.section.supported.components.mining_loot.title" },
                             image: "/images/features/item/mining.webp",
                             action: {
                                 type: "String",
@@ -394,7 +394,7 @@ export const supported: InterfaceConfiguration = {
                         },
                         {
                             type: "Slot",
-                            title: "tools.enchantments.section.supported.components.none.title",
+                            title: { type: "translate", value: "tools.enchantments.section.supported.components.none.title" },
                             image: "/images/tools/cross.webp",
                             action: {
                                 type: "Undefined",

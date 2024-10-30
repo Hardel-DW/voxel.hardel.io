@@ -13,7 +13,7 @@ export default function DownloadButton<T extends keyof Analysers>() {
 
     const handleCompile = async () => {
         const content = compileDatapack(context);
-        const compiledContent = await generateZip(context.files, content);
+        const compiledContent = await generateZip(context.files, content, context.minify);
         const fileExtension = context.isJar ? "jar" : "zip";
         const blob = new Blob([compiledContent], {
             type: `application/${fileExtension}`
@@ -21,7 +21,7 @@ export default function DownloadButton<T extends keyof Analysers>() {
         const url = URL.createObjectURL(blob);
         const a = document.createElement("a");
         a.href = url;
-        a.download = `Modified-${context.name}`;
+        a.download = `${context.name}.${context.isJar ? "jar" : "zip"}`;
         a.click();
         URL.revokeObjectURL(url);
     };
@@ -42,7 +42,7 @@ export default function DownloadButton<T extends keyof Analysers>() {
                     </DialogTitle>
                     <DialogDescription>{translate["dialog.success.description"]}</DialogDescription>
                     <div className="py-2">
-                        <span className="font-semibold text-zinc-400">"Modified-{context.name}"</span>
+                        <span className="font-semibold text-zinc-400">{`${context.name}.${context.isJar ? "jar" : "zip"}`}</span>
                     </div>
                     <div className="h-1 w-full bg-zinc-700 rounded-full" />
                     <div className="pt-8">

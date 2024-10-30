@@ -1,6 +1,7 @@
 import { getCategory, searchSound, type CategorySound } from "@/lib/minecraft/net/api/Sound.ts";
 import { cn } from "@/lib/utils.ts";
 import { useEffect, useMemo, useRef, useState } from "react";
+import TranslateText from "../../text/TranslateText";
 
 export default function ToolSound() {
     const [search, setSearch] = useState<string>("");
@@ -78,8 +79,15 @@ export default function ToolSound() {
 
     return (
         <div>
-            <h1 className="text-xl font-semibold pb-4">Search a sound</h1>
-            <input type="text" value={search} onChange={(e) => setSearch(e.target.value)} placeholder={"Search a sound"} />
+            <h1 className="text-xl font-semibold pb-4">
+                <TranslateText
+                    content={{
+                        type: "translate",
+                        value: "tools.sound.search"
+                    }}
+                />
+            </h1>
+            <input type="text" value={search} onChange={(e) => setSearch(e.target.value)} />
 
             {loading ? (
                 <div className="flex justify-center items-center h-64">
@@ -119,7 +127,7 @@ export default function ToolSound() {
                                     onClick={() => handleCategory(sound)}
                                     onKeyUp={() => handleCategory(sound)}
                                 >
-                                    {sound.name}
+                                    <TranslateText content={sound.name} />
                                 </li>
                             ))}
                         </div>

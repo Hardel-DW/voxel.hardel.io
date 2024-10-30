@@ -87,7 +87,11 @@ export function readDatapackFile<T>(datapack: Record<string, Uint8Array>, identi
     return JSON.parse(new TextDecoder().decode(datapack[file]));
 }
 
-export async function generateZip(files: Record<string, Uint8Array>, content: RegistryElement<VoxelElement>[]): Promise<Uint8Array> {
+export async function generateZip(
+    files: Record<string, Uint8Array>,
+    content: RegistryElement<VoxelElement>[],
+    minify: boolean
+): Promise<Uint8Array> {
     const zip = new JSZip();
 
     for (const [path, data] of Object.entries(files)) {
@@ -95,11 +99,11 @@ export async function generateZip(files: Record<string, Uint8Array>, content: Re
     }
 
     for (const file of voxelDatapacks) {
-        zip.file(`${file.identifier.filePath()}.json`, JSON.stringify(file.data));
+        zip.file(`${file.identifier.filePath()}.json`, JSON.stringify(file.data, null, minify ? 0 : 4));
     }
 
     for (const file of content) {
-        zip.file(`${file.identifier.filePath()}.json`, JSON.stringify(file.data));
+        zip.file(`${file.identifier.filePath()}.json`, JSON.stringify(file.data, null, minify ? 0 : 4));
     }
 
     return zip.generateAsync({ type: "uint8array" });

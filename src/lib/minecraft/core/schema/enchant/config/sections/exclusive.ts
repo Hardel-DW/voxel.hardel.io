@@ -3,7 +3,6 @@ import type { InterfaceConfiguration } from "@/lib/minecraft/core/engine";
 export const exclusive: InterfaceConfiguration = {
     id: "exclusive",
     section: { type: "translate", value: "tools.enchantments.section.exclusive" },
-    soon: false,
     components: [
         {
             type: "Section",
@@ -45,135 +44,83 @@ export const exclusive: InterfaceConfiguration = {
                             type: "List",
                             children: [
                                 {
-                                    type: "SwitchSlot",
-                                    title: {
-                                        type: "translate",
-                                        value: "tools.enchantments.section.exclusive.set.armor.title"
-                                    },
-                                    description: {
-                                        type: "translate",
-                                        value: "tools.enchantments.section.exclusive.set.armor.description"
-                                    },
-                                    action: {
-                                        type: "String",
-                                        value: "#minecraft:exclusive_set/armor",
-                                        field: { type: "Toggle", group: "set_exclusive" }
-                                    },
-                                    condition: {
-                                        condition: "Equals",
-                                        type: "String",
-                                        field: { type: "Toggle", group: "set_exclusive" },
-                                        value: "#minecraft:exclusive_set/armor"
-                                    }
-                                },
-                                {
-                                    type: "SwitchSlot",
-                                    title: {
-                                        type: "translate",
-                                        value: "tools.enchantments.section.exclusive.set.bow.title"
-                                    },
-                                    description: {
-                                        type: "translate",
-                                        value: "tools.enchantments.section.exclusive.set.bow.description"
-                                    },
-                                    action: {
-                                        type: "String",
-                                        value: "#minecraft:exclusive_set/bow",
-                                        field: { type: "Toggle", group: "set_exclusive" }
-                                    },
-                                    condition: {
-                                        condition: "Equals",
-                                        type: "String",
-                                        field: { type: "Toggle", group: "set_exclusive" },
-                                        value: "#minecraft:exclusive_set/bow"
-                                    }
-                                },
-                                {
-                                    type: "SwitchSlot",
-                                    title: {
-                                        type: "translate",
-                                        value: "tools.enchantments.section.exclusive.set.crossbow.title"
-                                    },
-                                    description: {
-                                        type: "translate",
-                                        value: "tools.enchantments.section.exclusive.set.crossbow.description"
-                                    },
-                                    action: {
-                                        type: "String",
-                                        value: "#minecraft:exclusive_set/crossbow",
-                                        field: { type: "Toggle", group: "set_exclusive" }
-                                    },
-                                    condition: {
-                                        condition: "Equals",
-                                        type: "String",
-                                        field: { type: "Toggle", group: "set_exclusive" },
-                                        value: "#minecraft:exclusive_set/crossbow"
-                                    }
-                                },
-                                {
-                                    type: "SwitchSlot",
-                                    title: {
-                                        type: "translate",
-                                        value: "tools.enchantments.section.exclusive.set.damage.title"
-                                    },
-                                    description: {
-                                        type: "translate",
-                                        value: "tools.enchantments.section.exclusive.set.damage.description"
-                                    },
-                                    action: {
-                                        type: "String",
-                                        value: "#minecraft:exclusive_set/damage",
-                                        field: { type: "Toggle", group: "set_exclusive" }
-                                    },
-                                    condition: {
-                                        condition: "Equals",
-                                        type: "String",
-                                        field: { type: "Toggle", group: "set_exclusive" },
-                                        value: "#minecraft:exclusive_set/damage"
-                                    }
-                                },
-                                {
-                                    type: "SwitchSlot",
-                                    title: {
-                                        type: "translate",
-                                        value: "tools.enchantments.section.exclusive.set.riptide.title"
-                                    },
-                                    description: {
-                                        type: "translate",
-                                        value: "tools.enchantments.section.exclusive.set.riptide.description"
-                                    },
-                                    action: {
-                                        type: "String",
-                                        value: "#minecraft:exclusive_set/riptide",
-                                        field: { type: "Toggle", group: "set_exclusive" }
-                                    },
-                                    condition: {
-                                        condition: "Equals",
-                                        type: "String",
-                                        field: { type: "Toggle", group: "set_exclusive" },
-                                        value: "#minecraft:exclusive_set/riptide"
-                                    }
-                                },
-                                {
-                                    type: "SwitchSlot",
-                                    title: {
-                                        type: "translate",
-                                        value: "tools.enchantments.section.exclusive.set.boots.title"
-                                    },
-                                    description: {
-                                        type: "translate",
-                                        value: "tools.enchantments.section.exclusive.set.boots.description"
-                                    },
-                                    action: {
-                                        type: "String",
-                                        value: "#minecraft:exclusive_set/boots",
-                                        field: { type: "Toggle", group: "set_exclusive" }
-                                    },
-                                    condition: {
-                                        condition: "Equals",
-                                        type: "String",
-                                        field: { type: "Toggle", group: "set_exclusive" },
-                                        value: "#minecraft:exclusive_set/boots"
+                                    type: "Iteration",
+                                    values: [
+                                        {
+                                            type: "object",
+                                            values: [
+                                                {
+                                                    id: "armor",
+                                                    title: "tools.enchantments.section.exclusive.set.armor.title",
+                                                    description: "tools.enchantments.section.exclusive.set.armor.description",
+                                                    value: "#minecraft:exclusive_set/armor"
+                                                },
+                                                {
+                                                    id: "bow",
+                                                    title: "tools.enchantments.section.exclusive.set.bow.title",
+                                                    description: "tools.enchantments.section.exclusive.set.bow.description",
+                                                    value: "#minecraft:exclusive_set/bow"
+                                                },
+                                                {
+                                                    id: "crossbow",
+                                                    title: "tools.enchantments.section.exclusive.set.crossbow.title",
+                                                    description: "tools.enchantments.section.exclusive.set.crossbow.description",
+                                                    value: "#minecraft:exclusive_set/crossbow"
+                                                },
+                                                {
+                                                    id: "damage",
+                                                    title: "tools.enchantments.section.exclusive.set.damage.title",
+                                                    description: "tools.enchantments.section.exclusive.set.damage.description",
+                                                    value: "#minecraft:exclusive_set/damage"
+                                                },
+                                                {
+                                                    id: "riptide",
+                                                    title: "tools.enchantments.section.exclusive.set.riptide.title",
+                                                    description: "tools.enchantments.section.exclusive.set.riptide.description",
+                                                    value: "#minecraft:exclusive_set/riptide"
+                                                },
+                                                {
+                                                    id: "boots",
+                                                    title: "tools.enchantments.section.exclusive.set.boots.title",
+                                                    description: "tools.enchantments.section.exclusive.set.boots.description",
+                                                    value: "#minecraft:exclusive_set/boots"
+                                                }
+                                            ]
+                                        }
+                                    ],
+                                    template: {
+                                        type: "SwitchSlot",
+                                        title: {
+                                            type: "translate",
+                                            value: {
+                                                type: "get_value_from_context",
+                                                key: "title"
+                                            }
+                                        },
+                                        description: {
+                                            type: "translate",
+                                            value: {
+                                                type: "get_value_from_context",
+                                                key: "description"
+                                            }
+                                        },
+                                        action: {
+                                            type: "String",
+                                            value: {
+                                                type: "get_value_from_context",
+                                                key: "value"
+                                            },
+                                            field: { type: "Toggle", group: "set_exclusive" }
+                                        },
+                                        condition: {
+                                            condition: "Equals",
+                                            type: "String",
+                                            field: { type: "Toggle", group: "set_exclusive" },
+                                            value: {
+                                                type: "get_value_from_context",
+                                                key: "value"
+                                            }
+                                        }
                                     }
                                 },
                                 {
@@ -182,7 +129,8 @@ export const exclusive: InterfaceConfiguration = {
                                         {
                                             type: "collect_from_path",
                                             registry: "tags/enchantment",
-                                            path: "exclusive_set"
+                                            path: "exclusive_set",
+                                            exclude_namespace: ["minecraft"]
                                         }
                                     ],
                                     template: {
@@ -216,29 +164,6 @@ export const exclusive: InterfaceConfiguration = {
                                 }
                             ]
                         }
-
-                        // {
-                        //     type: "Grid",
-                        //     children: [
-                        //         {
-                        //             type: "Collection",
-                        //             field: "exclusiveSet",
-                        //             includes: [
-                        //                 "#minecraft:exclusive_set/armor",
-                        //                 "#minecraft:exclusive_set/bow",
-                        //                 "#minecraft:exclusive_set/crossbow",
-                        //                 "#minecraft:exclusive_set/damage",
-                        //                 "#minecraft:exclusive_set/mining",
-                        //                 "#minecraft:exclusive_set/riptide",
-                        //                 "#minecraft:exclusive_set/boots"
-                        //             ],
-                        //             value: {
-                        //                 params: { type: "Field", field: "exclusiveSet" }
-                        //             },
-                        //             action: { type: "Dynamic", field: "exclusiveSet" }
-                        //         }
-                        //     ]
-                        // },
                     ]
                 }
             ]

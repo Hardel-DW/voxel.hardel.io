@@ -25,371 +25,159 @@ export const supported: InterfaceConfiguration = {
                     type: "Grid",
                     children: [
                         {
-                            type: "Slot",
-                            title: { type: "translate", value: "tools.enchantments.section.supported.components.sword.title" },
-                            image: "/images/features/item/sword.webp",
-                            action: {
-                                type: "String",
-                                value: "#minecraft:enchantable/sword",
-                                field: { type: "Toggle", group: "items" }
-                            },
-                            condition: {
-                                condition: "Equals",
-                                type: "String",
-                                field: { type: "Toggle", group: "items" },
-                                value: "#minecraft:enchantable/sword"
-                            }
-                        },
-                        {
-                            type: "Slot",
-                            title: { type: "translate", value: "tools.enchantments.section.supported.components.trident.title" },
-                            image: "/images/features/item/trident.webp",
-                            action: {
-                                type: "String",
-                                field: { type: "Toggle", group: "items" },
-                                value: "#minecraft:enchantable/trident"
-                            },
-                            condition: {
-                                condition: "Equals",
-                                type: "String",
-                                field: { type: "Toggle", group: "items" },
-                                value: "#minecraft:enchantable/trident"
-                            }
-                        },
-                        {
-                            type: "Slot",
-                            title: { type: "translate", value: "tools.enchantments.section.supported.components.mace.title" },
-                            image: "/images/features/item/mace.webp",
-                            action: {
-                                type: "String",
-                                field: { type: "Toggle", group: "items" },
-                                value: "#minecraft:enchantable/mace"
-                            },
-                            condition: {
-                                condition: "Equals",
-                                type: "String",
-                                field: { type: "Toggle", group: "items" },
-                                value: "#minecraft:enchantable/mace"
-                            }
-                        },
-                        {
-                            type: "Slot",
-                            title: { type: "translate", value: "tools.enchantments.section.supported.components.bow.title" },
-                            image: "/images/features/item/bow.webp",
-                            action: {
-                                type: "String",
-                                field: { type: "Toggle", group: "items" },
-                                value: "#minecraft:enchantable/bow"
-                            },
-                            condition: {
-                                condition: "Equals",
-                                type: "String",
-                                field: { type: "Toggle", group: "items" },
-                                value: "#minecraft:enchantable/bow"
-                            }
-                        },
-                        {
-                            type: "Slot",
-                            title: { type: "translate", value: "tools.enchantments.section.supported.components.crossbow.title" },
-                            image: "/images/features/item/crossbow.webp",
-                            action: {
-                                type: "String",
-                                field: { type: "Toggle", group: "items" },
-                                value: "#minecraft:enchantable/crossbow"
-                            },
-                            condition: {
-                                condition: "Equals",
-                                type: "String",
-                                field: { type: "Toggle", group: "items" },
-                                value: "#minecraft:enchantable/crossbow"
-                            }
-                        },
-                        {
-                            type: "Slot",
-                            title: { type: "translate", value: "tools.enchantments.section.supported.components.range.title" },
-                            image: "/images/features/item/range.webp",
-                            action: {
-                                type: "String",
-                                field: { type: "Toggle", group: "items" },
-                                value: "#voxel:enchantable/range"
-                            },
-                            condition: {
-                                condition: "Equals",
-                                type: "String",
-                                field: { type: "Toggle", group: "items" },
-                                value: "#voxel:enchantable/range"
-                            }
-                        },
-                        {
-                            type: "Slot",
-                            title: { type: "translate", value: "tools.enchantments.section.supported.components.fishing.title" },
-                            image: "/images/features/item/fishing_rod.webp",
-                            action: {
-                                type: "String",
-                                field: { type: "Toggle", group: "items" },
-                                value: "#minecraft:enchantable/fishing"
-                            },
-                            condition: {
-                                condition: "Equals",
-                                type: "String",
-                                field: { type: "Toggle", group: "items" },
-                                value: "#minecraft:enchantable/fishing"
-                            }
-                        },
-                        {
-                            type: "Slot",
-                            title: { type: "translate", value: "tools.enchantments.section.supported.components.shield.title" },
-                            image: "/images/features/item/shield.webp",
-                            action: {
-                                type: "String",
-                                field: { type: "Toggle", group: "items" },
-                                value: "#voxel:enchantable/shield"
-                            },
-                            condition: {
-                                condition: "Equals",
-                                type: "String",
-                                field: { type: "Toggle", group: "items" },
-                                value: "#voxel:enchantable/shield"
-                            }
-                        },
-                        {
-                            type: "Slot",
-                            title: { type: "translate", value: "tools.enchantments.section.supported.components.weapon.title" },
-                            image: "/images/features/item/weapon.webp",
-                            action: {
-                                type: "String",
-                                field: { type: "Toggle", group: "items" },
-                                value: "#minecraft:enchantable/weapon"
-                            },
-                            condition: {
-                                condition: "Equals",
-                                type: "String",
-                                field: { type: "Toggle", group: "items" },
-                                value: "#minecraft:enchantable/weapon"
-                            }
-                        },
-                        {
-                            type: "Slot",
-                            title: { type: "translate", value: "tools.enchantments.section.supported.components.melee.title" },
-                            image: "/images/features/item/melee.webp",
-                            action: {
-                                type: "String",
-                                field: { type: "Toggle", group: "items" },
-                                value: "#voxel:enchantable/melee"
-                            },
-                            condition: {
-                                condition: "Equals",
-                                type: "String",
-                                field: { type: "Toggle", group: "items" },
-                                value: "#voxel:enchantable/melee"
-                            }
-                        },
-                        {
-                            type: "Slot",
-                            title: { type: "translate", value: "tools.enchantments.section.supported.components.head_armor.title" },
-                            image: "/images/features/item/helmet.webp",
-                            action: {
-                                type: "String",
-                                field: { type: "Toggle", group: "items" },
-                                value: "#minecraft:enchantable/head_armor"
-                            },
-                            condition: {
-                                condition: "Equals",
-                                type: "String",
-                                field: { type: "Toggle", group: "items" },
-                                value: "#minecraft:enchantable/head_armor"
-                            }
-                        },
-                        {
-                            type: "Slot",
-                            title: { type: "translate", value: "tools.enchantments.section.supported.components.chest_armor.title" },
-                            image: "/images/features/item/chestplate.webp",
-                            action: {
-                                type: "String",
-                                field: { type: "Toggle", group: "items" },
-                                value: "#minecraft:enchantable/chest_armor"
-                            },
-                            condition: {
-                                condition: "Equals",
-                                type: "String",
-                                field: { type: "Toggle", group: "items" },
-                                value: "#minecraft:enchantable/chest_armor"
-                            }
-                        },
-                        {
-                            type: "Slot",
-                            title: { type: "translate", value: "tools.enchantments.section.supported.components.leg_armor.title" },
-                            image: "/images/features/item/leggings.webp",
-                            action: {
-                                type: "String",
-                                field: { type: "Toggle", group: "items" },
-                                value: "#minecraft:enchantable/leg_armor"
-                            },
-                            condition: {
-                                condition: "Equals",
-                                type: "String",
-                                field: { type: "Toggle", group: "items" },
-                                value: "#minecraft:enchantable/leg_armor"
-                            }
-                        },
-                        {
-                            type: "Slot",
-                            title: { type: "translate", value: "tools.enchantments.section.supported.components.foot_armor.title" },
-                            image: "/images/features/item/boots.webp",
-                            action: {
-                                type: "String",
-                                field: { type: "Toggle", group: "items" },
-                                value: "#minecraft:enchantable/foot_armor"
-                            },
-                            condition: {
-                                condition: "Equals",
-                                type: "String",
-                                field: { type: "Toggle", group: "items" },
-                                value: "#minecraft:enchantable/foot_armor"
-                            }
-                        },
-                        {
-                            type: "Slot",
-                            title: { type: "translate", value: "tools.enchantments.section.supported.components.elytra.title" },
-                            image: "/images/features/item/elytra.webp",
-                            action: {
-                                type: "String",
-                                field: { type: "Toggle", group: "items" },
-                                value: "#voxel:enchantable/elytra"
-                            },
-                            condition: {
-                                condition: "Equals",
-                                type: "String",
-                                field: { type: "Toggle", group: "items" },
-                                value: "#voxel:enchantable/elytra"
-                            }
-                        },
-                        {
-                            type: "Slot",
-                            title: { type: "translate", value: "tools.enchantments.section.supported.components.armor.title" },
-                            image: "/images/features/item/armor.webp",
-                            action: {
-                                type: "String",
-                                field: { type: "Toggle", group: "items" },
-                                value: "#minecraft:enchantable/armor"
-                            },
-                            condition: {
-                                condition: "Equals",
-                                type: "String",
-                                field: { type: "Toggle", group: "items" },
-                                value: "#minecraft:enchantable/armor"
-                            }
-                        },
-                        {
-                            type: "Slot",
-                            title: { type: "translate", value: "tools.enchantments.section.supported.components.equippable.title" },
-                            image: "/images/features/item/equipable.webp",
-                            action: {
-                                type: "String",
-                                field: { type: "Toggle", group: "items" },
-                                value: "#minecraft:enchantable/equippable"
-                            },
-                            condition: {
-                                condition: "Equals",
-                                type: "String",
-                                field: { type: "Toggle", group: "items" },
-                                value: "#minecraft:enchantable/equippable"
-                            }
-                        },
-                        {
-                            type: "Slot",
-                            title: { type: "translate", value: "tools.enchantments.section.supported.components.axes.title" },
-                            image: "/images/features/item/axe.webp",
-                            action: {
-                                type: "String",
-                                field: { type: "Toggle", group: "items" },
-                                value: "#voxel:enchantable/axes"
-                            },
-                            condition: {
-                                condition: "Equals",
-                                type: "String",
-                                field: { type: "Toggle", group: "items" },
-                                value: "#voxel:enchantable/axes"
-                            }
-                        },
-                        {
-                            type: "Slot",
-                            title: { type: "translate", value: "tools.enchantments.section.supported.components.shovels.title" },
-                            image: "/images/features/item/shovel.webp",
-                            action: {
-                                type: "String",
-                                field: { type: "Toggle", group: "items" },
-                                value: "#voxel:enchantable/shovels"
-                            },
-                            condition: {
-                                condition: "Equals",
-                                type: "String",
-                                field: { type: "Toggle", group: "items" },
-                                value: "#voxel:enchantable/shovels"
-                            }
-                        },
-                        {
-                            type: "Slot",
-                            title: { type: "translate", value: "tools.enchantments.section.supported.components.hoes.title" },
-                            image: "/images/features/item/hoe.webp",
-                            action: {
-                                type: "String",
-                                field: { type: "Toggle", group: "items" },
-                                value: "#voxel:enchantable/hoes"
-                            },
-                            condition: {
-                                condition: "Equals",
-                                type: "String",
-                                field: { type: "Toggle", group: "items" },
-                                value: "#voxel:enchantable/hoes"
-                            }
-                        },
-                        {
-                            type: "Slot",
-                            title: { type: "translate", value: "tools.enchantments.section.supported.components.pickaxes.title" },
-                            image: "/images/features/item/pickaxe.webp",
-                            action: {
-                                type: "String",
-                                field: { type: "Toggle", group: "items" },
-                                value: "#voxel:enchantable/pickaxes"
-                            },
-                            condition: {
-                                condition: "Equals",
-                                type: "String",
-                                field: { type: "Toggle", group: "items" },
-                                value: "#voxel:enchantable/pickaxes"
-                            }
-                        },
-                        {
-                            type: "Slot",
-                            title: { type: "translate", value: "tools.enchantments.section.supported.components.durability.title" },
-                            image: "/images/features/item/durability.webp",
-                            action: {
-                                type: "String",
-                                field: { type: "Toggle", group: "items" },
-                                value: "#minecraft:enchantable/durability"
-                            },
-                            condition: {
-                                condition: "Equals",
-                                type: "String",
-                                field: { type: "Toggle", group: "items" },
-                                value: "#minecraft:enchantable/durability"
-                            }
-                        },
-                        {
-                            type: "Slot",
-                            title: { type: "translate", value: "tools.enchantments.section.supported.components.mining_loot.title" },
-                            image: "/images/features/item/mining.webp",
-                            action: {
-                                type: "String",
-                                field: { type: "Toggle", group: "items" },
-                                value: "#minecraft:enchantable/mining_loot"
-                            },
-                            condition: {
-                                condition: "Equals",
-                                type: "String",
-                                field: { type: "Toggle", group: "items" },
-                                value: "#minecraft:enchantable/mining_loot"
+                            type: "Iteration",
+                            values: [
+                                {
+                                    type: "object",
+                                    values: [
+                                        {
+                                            title: "tools.enchantments.section.supported.components.sword.title",
+                                            image: "/images/features/item/sword.webp",
+                                            value: "#minecraft:enchantable/sword"
+                                        },
+                                        {
+                                            title: "tools.enchantments.section.supported.components.trident.title",
+                                            image: "/images/features/item/trident.webp",
+                                            value: "#minecraft:enchantable/trident"
+                                        },
+                                        {
+                                            title: "tools.enchantments.section.supported.components.mace.title",
+                                            image: "/images/features/item/mace.webp",
+                                            value: "#minecraft:enchantable/mace"
+                                        },
+                                        {
+                                            title: "tools.enchantments.section.supported.components.bow.title",
+                                            image: "/images/features/item/bow.webp",
+                                            value: "#minecraft:enchantable/bow"
+                                        },
+                                        {
+                                            title: "tools.enchantments.section.supported.components.crossbow.title",
+                                            image: "/images/features/item/crossbow.webp",
+                                            value: "#minecraft:enchantable/crossbow"
+                                        },
+                                        {
+                                            title: "tools.enchantments.section.supported.components.range.title",
+                                            image: "/images/features/item/range.webp",
+                                            value: "#voxel:enchantable/range"
+                                        },
+                                        {
+                                            title: "tools.enchantments.section.supported.components.fishing.title",
+                                            image: "/images/features/item/fishing_rod.webp",
+                                            value: "#minecraft:enchantable/fishing"
+                                        },
+                                        {
+                                            title: "tools.enchantments.section.supported.components.shield.title",
+                                            image: "/images/features/item/shield.webp",
+                                            value: "#voxel:enchantable/shield"
+                                        },
+                                        {
+                                            title: "tools.enchantments.section.supported.components.weapon.title",
+                                            image: "/images/features/item/weapon.webp",
+                                            value: "#minecraft:enchantable/weapon"
+                                        },
+                                        {
+                                            title: "tools.enchantments.section.supported.components.melee.title",
+                                            image: "/images/features/item/melee.webp",
+                                            value: "#voxel:enchantable/melee"
+                                        },
+                                        {
+                                            title: "tools.enchantments.section.supported.components.head_armor.title",
+                                            image: "/images/features/item/helmet.webp",
+                                            value: "#minecraft:enchantable/head_armor"
+                                        },
+                                        {
+                                            title: "tools.enchantments.section.supported.components.chest_armor.title",
+                                            image: "/images/features/item/chestplate.webp",
+                                            value: "#minecraft:enchantable/chest_armor"
+                                        },
+                                        {
+                                            title: "tools.enchantments.section.supported.components.leg_armor.title",
+                                            image: "/images/features/item/leggings.webp",
+                                            value: "#minecraft:enchantable/leg_armor"
+                                        },
+                                        {
+                                            title: "tools.enchantments.section.supported.components.foot_armor.title",
+                                            image: "/images/features/item/boots.webp",
+                                            value: "#minecraft:enchantable/foot_armor"
+                                        },
+                                        {
+                                            title: "tools.enchantments.section.supported.components.elytra.title",
+                                            image: "/images/features/item/elytra.webp",
+                                            value: "#voxel:enchantable/elytra"
+                                        },
+                                        {
+                                            title: "tools.enchantments.section.supported.components.armor.title",
+                                            image: "/images/features/item/armor.webp",
+                                            value: "#minecraft:enchantable/armor"
+                                        },
+                                        {
+                                            title: "tools.enchantments.section.supported.components.equippable.title",
+                                            image: "/images/features/item/equipable.webp",
+                                            value: "#minecraft:enchantable/equippable"
+                                        },
+                                        {
+                                            title: "tools.enchantments.section.supported.components.axes.title",
+                                            image: "/images/features/item/axe.webp",
+                                            value: "#voxel:enchantable/axes"
+                                        },
+                                        {
+                                            title: "tools.enchantments.section.supported.components.shovels.title",
+                                            image: "/images/features/item/shovel.webp",
+                                            value: "#voxel:enchantable/shovels"
+                                        },
+                                        {
+                                            title: "tools.enchantments.section.supported.components.hoes.title",
+                                            image: "/images/features/item/hoe.webp",
+                                            value: "#voxel:enchantable/hoes"
+                                        },
+                                        {
+                                            title: "tools.enchantments.section.supported.components.pickaxes.title",
+                                            image: "/images/features/item/pickaxe.webp",
+                                            value: "#voxel:enchantable/pickaxes"
+                                        },
+                                        {
+                                            title: "tools.enchantments.section.supported.components.durability.title",
+                                            image: "/images/features/item/durability.webp",
+                                            value: "#minecraft:enchantable/durability"
+                                        },
+                                        {
+                                            title: "tools.enchantments.section.supported.components.mining_loot.title",
+                                            image: "/images/features/item/mining.webp",
+                                            value: "#minecraft:enchantable/mining_loot"
+                                        }
+                                    ]
+                                }
+                            ],
+                            template: {
+                                type: "Slot",
+                                title: {
+                                    type: "translate",
+                                    value: {
+                                        type: "get_value_from_context",
+                                        key: "title"
+                                    }
+                                },
+                                image: {
+                                    type: "get_value_from_context",
+                                    key: "image"
+                                },
+                                action: {
+                                    type: "String",
+                                    value: {
+                                        type: "get_value_from_context",
+                                        key: "value"
+                                    },
+                                    field: { type: "Toggle", group: "items" }
+                                },
+                                condition: {
+                                    condition: "Equals",
+                                    type: "String",
+                                    field: { type: "Toggle", group: "items" },
+                                    value: {
+                                        type: "get_value_from_context",
+                                        key: "value"
+                                    }
+                                }
                             }
                         },
                         {

@@ -63,118 +63,83 @@ export const yggdrasil: ToolRevealElementType = {
                             }
                         },
                         {
-                            type: "Slot",
-                            title: {
-                                type: "translate",
-                                value: "tools.enchantments.section.addons.yggdrasil.random_chest.title"
-                            },
-                            description: {
-                                type: "translate",
-                                value: "tools.enchantments.section.addons.yggdrasil.random_chest.description"
-                            },
-                            image: "/images/features/block/chest.webp",
-                            action: {
-                                type: "List",
-                                field: "tags",
-                                value: "#yggdrasil:alfheim/random_chest"
-                            },
-                            condition: {
-                                condition: "Contains",
-                                type: "Tags",
-                                field: "tags",
-                                values: ["#yggdrasil:alfheim/random_chest"]
-                            }
-                        },
-                        {
-                            type: "Slot",
-                            title: {
-                                type: "translate",
-                                value: "tools.enchantments.section.addons.yggdrasil.vault.title"
-                            },
-                            description: {
-                                type: "translate",
-                                value: "tools.enchantments.section.addons.yggdrasil.vault.description"
-                            },
-                            image: "/images/features/block/vault.webp",
-                            action: {
-                                type: "List",
-                                field: "tags",
-                                value: "#yggdrasil:alfheim/vault"
-                            },
-                            condition: {
-                                condition: "Contains",
-                                type: "Tags",
-                                field: "tags",
-                                values: ["#yggdrasil:alfheim/vault"]
-                            }
-                        },
-                        {
-                            type: "Slot",
-                            title: {
-                                type: "translate",
-                                value: "tools.enchantments.section.addons.yggdrasil.ominous_vault.title"
-                            },
-                            description: {
-                                type: "translate",
-                                value: "tools.enchantments.section.addons.yggdrasil.ominous_vault.description"
-                            },
-                            image: "/images/features/block/ominous_vault.webp",
-                            action: {
-                                type: "List",
-                                field: "tags",
-                                value: "#yggdrasil:alfheim/ominous_vault"
-                            },
-                            condition: {
-                                condition: "Contains",
-                                type: "Tags",
-                                field: "tags",
-                                values: ["#yggdrasil:alfheim/ominous_vault"]
-                            }
-                        },
-                        {
-                            type: "Slot",
-                            title: {
-                                type: "translate",
-                                value: "tools.enchantments.section.addons.yggdrasil.trial_spawner.title"
-                            },
-                            description: {
-                                type: "translate",
-                                value: "tools.enchantments.section.addons.yggdrasil.trial_spawner.description"
-                            },
-                            image: "/images/features/block/trial_spawner.webp",
-                            action: {
-                                type: "List",
-                                field: "tags",
-                                value: "#yggdrasil:alfheim/trial_spawner"
-                            },
-                            condition: {
-                                condition: "Contains",
-                                type: "Tags",
-                                field: "tags",
-                                values: ["#yggdrasil:alfheim/trial_spawner"]
-                            }
-                        },
-                        {
-                            type: "Slot",
-                            title: {
-                                type: "translate",
-                                value: "tools.enchantments.section.addons.yggdrasil.ominous_trial_spawner.title"
-                            },
-                            description: {
-                                type: "translate",
-                                value: "tools.enchantments.section.addons.yggdrasil.ominous_trial_spawner.description"
-                            },
-                            image: "/images/features/block/ominous_trial_spawner.webp",
-                            action: {
-                                type: "List",
-                                field: "tags",
-                                value: "#yggdrasil:alfheim/ominous_trial_spawner"
-                            },
-                            condition: {
-                                condition: "Contains",
-                                type: "Tags",
-                                field: "tags",
-                                values: ["#yggdrasil:alfheim/ominous_trial_spawner"]
+                            type: "Iteration",
+                            values: [
+                                {
+                                    type: "object",
+                                    values: [
+                                        {
+                                            title: "tools.enchantments.section.addons.yggdrasil.random_chest.title",
+                                            description: "tools.enchantments.section.addons.yggdrasil.random_chest.description",
+                                            image: "/images/features/block/chest.webp",
+                                            tag: "#yggdrasil:alfheim/random_chest"
+                                        },
+                                        {
+                                            title: "tools.enchantments.section.addons.yggdrasil.vault.title",
+                                            description: "tools.enchantments.section.addons.yggdrasil.vault.description",
+                                            image: "/images/features/block/vault.webp",
+                                            tag: "#yggdrasil:alfheim/vault"
+                                        },
+                                        {
+                                            title: "tools.enchantments.section.addons.yggdrasil.ominous_vault.title",
+                                            description: "tools.enchantments.section.addons.yggdrasil.ominous_vault.description",
+                                            image: "/images/features/block/ominous_vault.webp",
+                                            tag: "#yggdrasil:alfheim/ominous_vault"
+                                        },
+                                        {
+                                            title: "tools.enchantments.section.addons.yggdrasil.trial_spawner.title",
+                                            description: "tools.enchantments.section.addons.yggdrasil.trial_spawner.description",
+                                            image: "/images/features/block/trial_spawner.webp",
+                                            tag: "#yggdrasil:alfheim/trial_spawner"
+                                        },
+                                        {
+                                            title: "tools.enchantments.section.addons.yggdrasil.ominous_trial_spawner.title",
+                                            description: "tools.enchantments.section.addons.yggdrasil.ominous_trial_spawner.description",
+                                            image: "/images/features/block/ominous_trial_spawner.webp",
+                                            tag: "#yggdrasil:alfheim/ominous_trial_spawner"
+                                        }
+                                    ]
+                                }
+                            ],
+                            template: {
+                                type: "Slot",
+                                title: {
+                                    type: "translate",
+                                    value: {
+                                        type: "get_value_from_context",
+                                        key: "title"
+                                    }
+                                },
+                                description: {
+                                    type: "translate",
+                                    value: {
+                                        type: "get_value_from_context",
+                                        key: "description"
+                                    }
+                                },
+                                image: {
+                                    type: "get_value_from_context",
+                                    key: "image"
+                                },
+                                action: {
+                                    type: "List",
+                                    field: "tags",
+                                    value: {
+                                        type: "get_value_from_context",
+                                        key: "tag"
+                                    }
+                                },
+                                condition: {
+                                    condition: "Contains",
+                                    type: "Tags",
+                                    field: "tags",
+                                    values: [
+                                        {
+                                            type: "get_value_from_context",
+                                            key: "tag"
+                                        }
+                                    ]
+                                }
                             }
                         }
                     ]
@@ -193,95 +158,77 @@ export const yggdrasil: ToolRevealElementType = {
                     size: "300px",
                     children: [
                         {
-                            type: "Slot",
-                            title: {
-                                type: "translate",
-                                value: "tools.enchantments.section.addons.yggdrasil.common_chest.title"
-                            },
-                            description: {
-                                type: "translate",
-                                value: "tools.enchantments.section.addons.yggdrasil.common_chest.description"
-                            },
-                            image: "/images/features/block/chest.webp",
-                            action: {
-                                type: "List",
-                                field: "tags",
-                                value: "#yggdrasil:asflors/common_chest"
-                            },
-                            condition: {
-                                condition: "Contains",
-                                type: "Tags",
-                                field: "tags",
-                                values: ["#yggdrasil:asflors/common_chest"]
-                            }
-                        },
-                        {
-                            type: "Slot",
-                            title: {
-                                type: "translate",
-                                value: "tools.enchantments.section.addons.yggdrasil.structure_vault.title"
-                            },
-                            description: {
-                                type: "translate",
-                                value: "tools.enchantments.section.addons.yggdrasil.structure_vault.description"
-                            },
-                            image: "/images/features/block/vault.webp",
-                            action: {
-                                type: "List",
-                                field: "tags",
-                                value: "#yggdrasil:asflors/structure_vault"
-                            },
-                            condition: {
-                                condition: "Contains",
-                                type: "Tags",
-                                field: "tags",
-                                values: ["#yggdrasil:asflors/structure_vault"]
-                            }
-                        },
-                        {
-                            type: "Slot",
-                            title: {
-                                type: "translate",
-                                value: "tools.enchantments.section.addons.yggdrasil.structure_ominous_vault.title"
-                            },
-                            description: {
-                                type: "translate",
-                                value: "tools.enchantments.section.addons.yggdrasil.structure_ominous_vault.description"
-                            },
-                            image: "/images/features/block/ominous_vault.webp",
-                            action: {
-                                type: "List",
-                                field: "tags",
-                                value: "#yggdrasil:asflors/structure_ominous_vault"
-                            },
-                            condition: {
-                                condition: "Contains",
-                                type: "Tags",
-                                field: "tags",
-                                values: ["#yggdrasil:asflors/structure_ominous_vault"]
-                            }
-                        },
-                        {
-                            type: "Slot",
-                            title: {
-                                type: "translate",
-                                value: "tools.enchantments.section.addons.yggdrasil.asflors_sword.title"
-                            },
-                            description: {
-                                type: "translate",
-                                value: "tools.enchantments.section.addons.yggdrasil.asflors_sword.description"
-                            },
-                            image: "/images/features/item/sword.webp",
-                            action: {
-                                type: "List",
-                                field: "tags",
-                                value: "#yggdrasil:asflors/asflors_sword"
-                            },
-                            condition: {
-                                condition: "Contains",
-                                type: "Tags",
-                                field: "tags",
-                                values: ["#yggdrasil:asflors/asflors_sword"]
+                            type: "Iteration",
+                            values: [
+                                {
+                                    type: "object",
+                                    values: [
+                                        {
+                                            title: "tools.enchantments.section.addons.yggdrasil.common_chest.title",
+                                            description: "tools.enchantments.section.addons.yggdrasil.common_chest.description",
+                                            image: "/images/features/block/chest.webp",
+                                            tag: "#yggdrasil:asflors/common_chest"
+                                        },
+                                        {
+                                            title: "tools.enchantments.section.addons.yggdrasil.structure_vault.title",
+                                            description: "tools.enchantments.section.addons.yggdrasil.structure_vault.description",
+                                            image: "/images/features/block/vault.webp",
+                                            tag: "#yggdrasil:asflors/structure_vault"
+                                        },
+                                        {
+                                            title: "tools.enchantments.section.addons.yggdrasil.structure_ominous_vault.title",
+                                            description: "tools.enchantments.section.addons.yggdrasil.structure_ominous_vault.description",
+                                            image: "/images/features/block/ominous_vault.webp",
+                                            tag: "#yggdrasil:asflors/structure_ominous_vault"
+                                        },
+                                        {
+                                            title: "tools.enchantments.section.addons.yggdrasil.asflors_sword.title",
+                                            description: "tools.enchantments.section.addons.yggdrasil.asflors_sword.description",
+                                            image: "/images/features/item/sword.webp",
+                                            tag: "#yggdrasil:asflors/asflors_sword"
+                                        }
+                                    ]
+                                }
+                            ],
+                            template: {
+                                type: "Slot",
+                                title: {
+                                    type: "translate",
+                                    value: {
+                                        type: "get_value_from_context",
+                                        key: "title"
+                                    }
+                                },
+                                description: {
+                                    type: "translate",
+                                    value: {
+                                        type: "get_value_from_context",
+                                        key: "description"
+                                    }
+                                },
+                                image: {
+                                    type: "get_value_from_context",
+                                    key: "image"
+                                },
+                                action: {
+                                    type: "List",
+                                    field: "tags",
+                                    value: {
+                                        type: "get_value_from_context",
+                                        key: "tag"
+                                    }
+                                },
+                                condition: {
+                                    condition: "Contains",
+                                    type: "Tags",
+                                    field: "tags",
+                                    values: [
+                                        {
+                                            type: "get_value_from_context",
+                                            key: "tag"
+                                        }
+                                    ]
+                                }
                             }
                         }
                     ]

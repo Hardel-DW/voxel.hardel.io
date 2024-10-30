@@ -4,11 +4,12 @@ import type { ActionValue } from "@/lib/minecraft/core/engine/actions/index.ts";
 import { type Field, getField } from "@/lib/minecraft/core/engine/field";
 import type { RegistryElement } from "@/lib/minecraft/mczip.ts";
 import { getPropertySafely } from "@/lib/utils.ts";
+import type { GetValueFromContext } from "@/lib/minecraft/core/engine";
 
 export type ListAction = {
     type: "List";
     field: Field;
-    value: string;
+    value: GetValueFromContext<string>;
 };
 
 /**
@@ -21,7 +22,7 @@ export type ListAction = {
  */
 export default function ListModifier<T extends keyof Analysers>(
     action: ListAction,
-    value: ActionValue,
+    value: GetValueFromContext<ActionValue>,
     context: ConfiguratorContextType<GetAnalyserVoxel<T>>,
     element: RegistryElement<GetAnalyserVoxel<T>>
 ): RegistryElement<GetAnalyserVoxel<T>> | undefined {

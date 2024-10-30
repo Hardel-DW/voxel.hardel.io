@@ -7,15 +7,20 @@ import { type AllOfCondition, checkAllOfCondition } from "@/lib/minecraft/core/e
 import { type AnyOfCondition, checkAnyOfCondition } from "@/lib/minecraft/core/engine/condition/generic/AnyOfCondition.ts";
 import { type InvertedCondition, checkInvertedCondition } from "@/lib/minecraft/core/engine/condition/generic/InvertedCondition.ts";
 import type { RegistryElement } from "@/lib/minecraft/mczip.ts";
+import type { GetValueFromContext } from "@/lib/minecraft/core/engine";
 
 export type Condition = ContainCondition | EqualCondition | AllOfCondition | AnyOfCondition | InvertedCondition;
 
 export function checkCondition<T extends keyof Analysers>(
-    condition: Condition | undefined,
+    condition: GetValueFromContext<Condition> | undefined,
     context: ConfiguratorContextType<GetAnalyserVoxel<T>>,
     element: RegistryElement<GetAnalyserVoxel<T>>,
     value?: ActionValue
 ): boolean {
+    if (typeof condition === "object" && "type" in condition && condition.type === "get_value_from_context") {
+        return false;
+    }
+
     if (!condition) return true;
 
     switch (condition.condition) {

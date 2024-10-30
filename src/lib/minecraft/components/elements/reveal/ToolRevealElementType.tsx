@@ -73,7 +73,7 @@ export default function ToolRevealElement(props: {
                 style={{ backgroundImage: `url(${props.image})` }}
             />
             <div className="self-end justify-self-end pb-4 pr-4 w-16 z-20">
-                <img className="self-center" src={props.logo} alt={typeof props.title === "string" ? props.title : props.title.value} />
+                <img className="self-center" src={props.logo} alt={typeof props.title === "string" ? props.title : "TranslateText"} />
             </div>
             <div
                 className={cn("p-4 self-end relative z-20", {

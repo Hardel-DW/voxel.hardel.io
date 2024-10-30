@@ -5,11 +5,11 @@ import { type Field, getField } from "@/lib/minecraft/core/engine/field";
 import { type SlotRegistryType, isArraySlotRegistryType, isSlotRegistryType } from "@/lib/minecraft/core/engine/managers/SlotManager.ts";
 import type { RegistryElement } from "@/lib/minecraft/mczip.ts";
 import { isStringArray } from "@/lib/utils.ts";
-
+import type { GetValueFromContext } from "@/lib/minecraft/core/engine";
 export type SlotAction = {
     type: "Slot";
     field: Field;
-    value: string;
+    value: GetValueFromContext<string>;
 };
 
 /**
@@ -30,7 +30,7 @@ export function SlotModifier<T extends keyof Analysers>(
     const version = context.version;
 
     let value: SlotRegistryType;
-    if (isSlotRegistryType(action.value)) {
+    if (typeof action.value === "string" && isSlotRegistryType(action.value)) {
         value = action.value;
     } else {
         throw new Error(`Invalid SlotRegistryType: ${action.value}`);

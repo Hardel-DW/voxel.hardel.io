@@ -3,19 +3,20 @@ import type { ToolCollectionType } from "@/lib/minecraft/components/elements/Too
 import type { ToolCounterType } from "@/lib/minecraft/components/elements/ToolCounter.tsx";
 import type { ToolInlineType } from "@/lib/minecraft/components/elements/ToolInlineSlot.tsx";
 import type { ToolRangeType } from "@/lib/minecraft/components/elements/ToolRange.tsx";
+import type { ToolScrollableType } from "@/lib/minecraft/components/elements/ToolScrollable.tsx";
 import type { ToolSectionType } from "@/lib/minecraft/components/elements/ToolSection.tsx";
 import type { ToolSlotType } from "@/lib/minecraft/components/elements/ToolSlot.tsx";
 import type { ToolSwitchType } from "@/lib/minecraft/components/elements/ToolSwitch.tsx";
+import type { ToolSwitchSlotType } from "@/lib/minecraft/components/elements/ToolSwitchSlot.tsx";
 import type { ToolDonationType } from "@/lib/minecraft/components/elements/misc/Donation.tsx";
 import type { ToolRevealType } from "@/lib/minecraft/components/elements/reveal/ToolReveal.tsx";
 import type { ToolEffectType } from "@/lib/minecraft/components/elements/schema/ToolEffectRecord.tsx";
+import type { TextRenderType } from "@/lib/minecraft/components/elements/text/TextRender.tsx";
+import type { TranslateTextType } from "@/lib/minecraft/components/elements/text/TranslateText.tsx";
 import type { Analysers } from "@/lib/minecraft/core/engine/Analyser.ts";
 import type { Field } from "@/lib/minecraft/core/engine/field";
 import type { Action } from "src/lib/minecraft/core/engine/actions";
-import type { TextRenderType } from "@/lib/minecraft/components/elements/text/TextRender.tsx";
-import type { ToolScrollableType } from "@/lib/minecraft/components/elements/ToolScrollable.tsx";
-import type { ToolSwitchSlotType } from "@/lib/minecraft/components/elements/ToolSwitchSlot.tsx";
-import type { TranslateTextType } from "@/lib/minecraft/components/elements/text/TranslateText.tsx";
+import type { IterationType } from "./iteration";
 
 export type FormComponent =
     | ToolCollectionType
@@ -33,7 +34,15 @@ export type FormComponent =
     | ToolSectionType
     | ToolDonationType
     | ToolCounterType
-    | TextRenderType;
+    | TextRenderType
+    | IterationType;
+
+export type GetValueFromContext<T> =
+    | {
+          type: "get_value_from_context";
+          key: string;
+      }
+    | T;
 
 export type ToolGridType = {
     type: "Grid";

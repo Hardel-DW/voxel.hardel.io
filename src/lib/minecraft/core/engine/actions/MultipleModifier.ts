@@ -4,12 +4,13 @@ import type { Analysers, GetAnalyserVoxel } from "@/lib/minecraft/core/engine/An
 import { type Field, getField } from "@/lib/minecraft/core/engine/field";
 import type { RegistryElement } from "@/lib/minecraft/mczip.ts";
 import { getPropertySafely } from "@/lib/utils.ts";
-
+import type { GetValueFromContext } from "@/lib/minecraft/core/engine";
 type ValidType = string | number | Identifier;
+
 export type MultipleAction = {
     type: "Multiple";
     field: Field;
-    values: unknown[];
+    values: GetValueFromContext<ValidType>[];
 };
 
 /**

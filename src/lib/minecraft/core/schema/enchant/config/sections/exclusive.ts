@@ -7,17 +7,32 @@ export const exclusive: InterfaceConfiguration = {
     components: [
         {
             type: "Section",
-            title: { type: "translate", value: "tools.enchantments.section.exclusive.description" },
+            title: {
+                type: "translate",
+                value: "tools.enchantments.section.exclusive.description"
+            },
             id: "set_exclusive",
             toggle: [
                 {
-                    title: { type: "translate", value: "tools.enchantments.section.toggle.exclusive.group.title" },
-                    description: { type: "translate", value: "tools.enchantments.section.toggle.exclusive.group.description" },
+                    title: {
+                        type: "translate",
+                        value: "tools.enchantments.section.toggle.exclusive.group.title"
+                    },
+                    description: {
+                        type: "translate",
+                        value: "tools.enchantments.section.toggle.exclusive.group.description"
+                    },
                     name: "exclusiveSet"
                 },
                 {
-                    title: { type: "translate", value: "tools.enchantments.section.toggle.exclusive.individual.title" },
-                    description: { type: "translate", value: "tools.enchantments.section.toggle.exclusive.individual.description" },
+                    title: {
+                        type: "translate",
+                        value: "tools.enchantments.section.toggle.exclusive.individual.title"
+                    },
+                    description: {
+                        type: "translate",
+                        value: "tools.enchantments.section.toggle.exclusive.individual.description"
+                    },
                     name: "test"
                 }
             ],
@@ -31,8 +46,14 @@ export const exclusive: InterfaceConfiguration = {
                             children: [
                                 {
                                     type: "SwitchSlot",
-                                    title: { type: "translate", value: "tools.enchantments.section.exclusive.set.armor.title" },
-                                    description: { type: "translate", value: "tools.enchantments.section.exclusive.set.armor.description" },
+                                    title: {
+                                        type: "translate",
+                                        value: "tools.enchantments.section.exclusive.set.armor.title"
+                                    },
+                                    description: {
+                                        type: "translate",
+                                        value: "tools.enchantments.section.exclusive.set.armor.description"
+                                    },
                                     action: {
                                         type: "String",
                                         value: "#minecraft:exclusive_set/armor",
@@ -47,8 +68,14 @@ export const exclusive: InterfaceConfiguration = {
                                 },
                                 {
                                     type: "SwitchSlot",
-                                    title: { type: "translate", value: "tools.enchantments.section.exclusive.set.bow.title" },
-                                    description: { type: "translate", value: "tools.enchantments.section.exclusive.set.bow.description" },
+                                    title: {
+                                        type: "translate",
+                                        value: "tools.enchantments.section.exclusive.set.bow.title"
+                                    },
+                                    description: {
+                                        type: "translate",
+                                        value: "tools.enchantments.section.exclusive.set.bow.description"
+                                    },
                                     action: {
                                         type: "String",
                                         value: "#minecraft:exclusive_set/bow",
@@ -63,7 +90,10 @@ export const exclusive: InterfaceConfiguration = {
                                 },
                                 {
                                     type: "SwitchSlot",
-                                    title: { type: "translate", value: "tools.enchantments.section.exclusive.set.crossbow.title" },
+                                    title: {
+                                        type: "translate",
+                                        value: "tools.enchantments.section.exclusive.set.crossbow.title"
+                                    },
                                     description: {
                                         type: "translate",
                                         value: "tools.enchantments.section.exclusive.set.crossbow.description"
@@ -82,7 +112,10 @@ export const exclusive: InterfaceConfiguration = {
                                 },
                                 {
                                     type: "SwitchSlot",
-                                    title: { type: "translate", value: "tools.enchantments.section.exclusive.set.damage.title" },
+                                    title: {
+                                        type: "translate",
+                                        value: "tools.enchantments.section.exclusive.set.damage.title"
+                                    },
                                     description: {
                                         type: "translate",
                                         value: "tools.enchantments.section.exclusive.set.damage.description"
@@ -101,7 +134,10 @@ export const exclusive: InterfaceConfiguration = {
                                 },
                                 {
                                     type: "SwitchSlot",
-                                    title: { type: "translate", value: "tools.enchantments.section.exclusive.set.riptide.title" },
+                                    title: {
+                                        type: "translate",
+                                        value: "tools.enchantments.section.exclusive.set.riptide.title"
+                                    },
                                     description: {
                                         type: "translate",
                                         value: "tools.enchantments.section.exclusive.set.riptide.description"
@@ -120,8 +156,14 @@ export const exclusive: InterfaceConfiguration = {
                                 },
                                 {
                                     type: "SwitchSlot",
-                                    title: { type: "translate", value: "tools.enchantments.section.exclusive.set.boots.title" },
-                                    description: { type: "translate", value: "tools.enchantments.section.exclusive.set.boots.description" },
+                                    title: {
+                                        type: "translate",
+                                        value: "tools.enchantments.section.exclusive.set.boots.title"
+                                    },
+                                    description: {
+                                        type: "translate",
+                                        value: "tools.enchantments.section.exclusive.set.boots.description"
+                                    },
                                     action: {
                                         type: "String",
                                         value: "#minecraft:exclusive_set/boots",
@@ -133,12 +175,12 @@ export const exclusive: InterfaceConfiguration = {
                                         field: { type: "Toggle", group: "set_exclusive" },
                                         value: "#minecraft:exclusive_set/boots"
                                     }
-                                }
-                                /*                                {
+                                },
+                                {
                                     type: "Iteration",
                                     values: [
                                         {
-                                            type: "CollectFromPath",
+                                            type: "collect_from_path",
                                             registry: "tags/enchantment",
                                             path: "exclusive_set"
                                         }
@@ -146,17 +188,17 @@ export const exclusive: InterfaceConfiguration = {
                                     template: {
                                         type: "SwitchSlot",
                                         title: {
-                                            type: "Context",
+                                            type: "get_value_from_context",
                                             key: "file_name"
                                         },
                                         description: {
-                                            type: "Context",
+                                            type: "get_value_from_context",
                                             key: "namespace"
                                         },
                                         action: {
                                             type: "String",
                                             value: {
-                                                type: "Context",
+                                                type: "get_value_from_context",
                                                 key: "identifier"
                                             },
                                             field: { type: "Toggle", group: "set_exclusive" }
@@ -166,12 +208,12 @@ export const exclusive: InterfaceConfiguration = {
                                             type: "String",
                                             field: { type: "Toggle", group: "set_exclusive" },
                                             value: {
-                                                type: "Context",
+                                                type: "get_value_from_context",
                                                 key: "identifier"
                                             }
                                         }
                                     }
-                                }*/
+                                }
                             ]
                         }
 

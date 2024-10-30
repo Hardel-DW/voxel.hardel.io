@@ -1,3 +1,4 @@
+import { useTranslate } from "@/components/TranslateContext.tsx";
 import { useConfigurator } from "@/lib/minecraft/components/ConfiguratorContext.tsx";
 import ToolCategory from "@/lib/minecraft/components/elements/ToolCategory.tsx";
 import ToolCollection from "@/lib/minecraft/components/elements/ToolCollection.tsx";
@@ -18,15 +19,16 @@ import type { Analysers, GetAnalyserVoxel } from "@/lib/minecraft/core/engine/An
 import { getValue } from "@/lib/minecraft/core/engine/value";
 import type { EffectComponentsRecord } from "@voxel/definitions";
 import { toast } from "sonner";
-import { handleChange } from "src/lib/minecraft/core/engine/actions";
-import { checkCondition } from "src/lib/minecraft/core/engine/condition";
-import { useTranslate } from "@/components/TranslateContext.tsx";
+import { handleChange } from "@/lib/minecraft/core/engine/actions";
+import { checkCondition } from "@/lib/minecraft/core/engine/condition";
+import ToolIteration from "@/lib/minecraft/components/elements/ToolIteration";
+import { getKey } from "@/lib/minecraft/components/elements/text/TranslateText";
 
-type RenderComponentProps = {
+export function RenderComponent<T extends keyof Analysers>({
+    component
+}: {
     component: FormComponent;
-};
-
-export function RenderComponent<T extends keyof Analysers>({ component }: RenderComponentProps) {
+}) {
     const context = useConfigurator<GetAnalyserVoxel<T>>();
     const { translate } = useTranslate();
     if (!context.currentElement) return null;
@@ -44,7 +46,7 @@ export function RenderComponent<T extends keyof Analysers>({ component }: Render
 
             return (
                 <ToolCounter
-                    key={typeof component.title === "string" ? component.title : component.title.value}
+                    key={getKey(component.title)}
                     value={result}
                     min={component.min}
                     max={component.max}
@@ -69,8 +71,8 @@ export function RenderComponent<T extends keyof Analysers>({ component }: Render
 
             return (
                 <ToolRange
-                    key={typeof component.label === "string" ? component.label : component.label.value}
-                    id={typeof component.label === "string" ? component.label : component.label.value}
+                    key={getKey(component.label)}
+                    id={getKey(component.label)}
                     value={result}
                     label={component.label}
                     onValueChange={(option) => handleChange(component.action, option, context)}
@@ -83,12 +85,12 @@ export function RenderComponent<T extends keyof Analysers>({ component }: Render
 
             return (
                 <ToolSwitch
-                    key={typeof component.title === "string" ? component.title : component.title.value}
+                    key={getKey(component.title)}
                     title={component.title}
                     checked={result}
                     lock={lock ? lock : undefined}
                     description={component.description}
-                    name={typeof component.title === "string" ? component.title : component.title.value}
+                    name={getKey(component.title)}
                     onChange={(value) => handleChange(component.action, value, context)}
                 />
             );
@@ -100,7 +102,7 @@ export function RenderComponent<T extends keyof Analysers>({ component }: Render
 
             return (
                 <ToolSlot
-                    key={typeof component.title === "string" ? component.title : component.title.value}
+                    key={getKey(component.title)}
                     title={component.title}
                     checked={result}
                     value={result}
@@ -120,7 +122,7 @@ export function RenderComponent<T extends keyof Analysers>({ component }: Render
 
             return (
                 <ToolInline
-                    key={typeof component.title === "string" ? component.title : component.title.value}
+                    key={getKey(component.title)}
                     title={component.title}
                     description={component.description}
                     checked={result}
@@ -159,7 +161,7 @@ export function RenderComponent<T extends keyof Analysers>({ component }: Render
             return (
                 <div className="[&:not(:first-child)]:mt-8">
                     <ToolSection title={component.title} id={component.id} toggle={component.toggle} button={component.button}>
-                        {component.children.map((child, index: number) => (
+                        {component.children.map((child: FormComponent, index: number) => (
                             <RenderComponent key={component.id + index.toString()} component={child} />
                         ))}
                     </ToolSection>
@@ -170,8 +172,13 @@ export function RenderComponent<T extends keyof Analysers>({ component }: Render
             const size = component.size ? component.size : "255px";
 
             return (
-                <div className="grid max-xl:grid-cols-1 gap-4" style={{ gridTemplateColumns: `repeat(auto-fit, minmax(${size}, 1fr))` }}>
-                    {component.children.map((child, index: number) => (
+                <div
+                    className="grid max-xl:grid-cols-1 gap-4"
+                    style={{
+                        gridTemplateColumns: `repeat(auto-fit, minmax(${size}, 1fr))`
+                    }}
+                >
+                    {component.children.map((child: FormComponent, index: number) => (
                         <RenderComponent key={index.toString()} component={child} />
                     ))}
                 </div>
@@ -183,7 +190,7 @@ export function RenderComponent<T extends keyof Analysers>({ component }: Render
         case "Scrollable": {
             return (
                 <ToolScrollable height={component.height}>
-                    {component.children.map((child, index) => (
+                    {component.children.map((child: FormComponent, index: number) => (
                         <RenderComponent key={index.toString()} component={child} />
                     ))}
                 </ToolScrollable>
@@ -196,7 +203,7 @@ export function RenderComponent<T extends keyof Analysers>({ component }: Render
 
             return (
                 <ToolSwitchSlot
-                    key={typeof component.title === "string" ? component.title : component.title.value}
+                    key={getKey(component.title)}
                     title={component.title}
                     description={component.description}
                     checked={result}
@@ -209,12 +216,14 @@ export function RenderComponent<T extends keyof Analysers>({ component }: Render
         case "List": {
             return (
                 <div className="flex flex-col gap-4">
-                    {component.children.map((child, index: number) => (
+                    {component.children.map((child: FormComponent, index: number) => (
                         <RenderComponent key={index.toString()} component={child} />
                     ))}
                 </div>
             );
         }
+        case "Iteration":
+            return <ToolIteration {...component} />;
         default:
             return null;
     }

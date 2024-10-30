@@ -3,6 +3,7 @@ import type { Analysers, GetAnalyserVoxel } from "@/lib/minecraft/core/engine/An
 import type { ActionValue } from "@/lib/minecraft/core/engine/actions/index.ts";
 import { type Field, getField } from "@/lib/minecraft/core/engine/field";
 import type { RegistryElement } from "@/lib/minecraft/mczip.ts";
+import type { GetValueFromContext } from "@/lib/minecraft/core/engine";
 
 export type DynamicAction = {
     type: "Dynamic";
@@ -19,7 +20,7 @@ export type DynamicAction = {
  */
 export function DynamicModifier<T extends keyof Analysers>(
     action: DynamicAction,
-    value: ActionValue,
+    value: GetValueFromContext<ActionValue>,
     context: ConfiguratorContextType<GetAnalyserVoxel<T>>,
     element: RegistryElement<GetAnalyserVoxel<T>>
 ): RegistryElement<GetAnalyserVoxel<T>> | undefined {

@@ -1,5 +1,6 @@
-import ToolListItem from "./ToolListItem";
+import { getKey } from "@/lib/minecraft/components/elements/text/TranslateText.tsx";
 import type { ToolListItemType } from "./ToolListItem";
+import ToolListItem from "./ToolListItem";
 
 export type ToolUnorderedListType = {
     type: "UnorderedList";
@@ -12,7 +13,7 @@ export default function ToolUnorderedList({ sublist }: { sublist: UnorderedListC
     const renderChild = (child: UnorderedListChildren) => {
         switch (child.type) {
             case "ListItem":
-                return <ToolListItem key={child.content.toString()} content={child.content} />;
+                return <ToolListItem key={getKey(child.content)} content={child.content} />;
             case "UnorderedList":
                 return <ToolUnorderedList key={`list-${Math.random()}`} sublist={child.sublist} />;
             default:

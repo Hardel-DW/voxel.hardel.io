@@ -2,9 +2,9 @@ import { useTranslate } from "@/components/TranslateContext.tsx";
 import { Identifier } from "@/lib/minecraft/core/Identifier.ts";
 import type { ValueParams } from "@/lib/minecraft/core/engine/value";
 import { cn, quoteString } from "@/lib/utils.ts";
-import type { Action } from "src/lib/minecraft/core/engine/actions";
-import type { Condition } from "src/lib/minecraft/core/engine/condition";
-import TranslateText, { type TranslateTextType } from "@/lib/minecraft/components/elements/text/TranslateText.tsx";
+import type { Action } from "@/lib/minecraft/core/engine/actions";
+import type { Condition } from "@/lib/minecraft/core/engine/condition";
+import TranslateText, { getKey, type TranslateTextType } from "@/lib/minecraft/components/elements/text/TranslateText.tsx";
 
 export type ToolSlotType = {
     type: "Slot";
@@ -79,7 +79,7 @@ export default function ToolSlot(props: {
 
                 <img
                     src={props.image}
-                    alt="Images"
+                    alt={getKey(props.title)}
                     className="mb-8 pixelated"
                     style={{
                         height: props.size ? props.size : "64px"

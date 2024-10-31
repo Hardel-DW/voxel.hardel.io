@@ -12,14 +12,12 @@ export type ToolSwitchSlotType = {
     action: Action;
     condition?: Condition;
     lock?: ValueParams<string>;
-    hide?: Condition;
 };
 
 export default function ToolSwitchSlot(props: {
     title: TranslateTextType | string;
     description: TranslateTextType | string;
     checked?: boolean;
-    hide?: boolean | unknown;
     lock?: string;
     onChange?: (value: boolean) => void;
 }) {
@@ -28,14 +26,10 @@ export default function ToolSwitchSlot(props: {
         props.onChange?.(!props.checked);
     };
 
-    if (props.hide) {
-        return null;
-    }
-
     return (
         <div
             className={cn(
-                "bg-blue-50/5 ring-0 ring-zinc-700 transition-all hover:ring-1 p-6 rounded-xl cursor-pointer",
+                "bg-blue-50/5 ring-0 ring-zinc-700 transition-all hover:ring-1 px-6 py-4 rounded-xl cursor-pointer",
                 { "ring-1 ring-rose-900": props.checked },
                 { "opacity-50 ring-1 ring-rose-950": !!props.lock }
             )}

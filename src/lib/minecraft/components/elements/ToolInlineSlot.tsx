@@ -13,7 +13,6 @@ export type ToolInlineType = {
     action?: Action;
     condition?: Condition;
     lock?: ValueParams<string>;
-    hide?: Condition;
 };
 
 export default function ToolInline(props: {
@@ -21,7 +20,6 @@ export default function ToolInline(props: {
     image: string;
     description?: TranslateTextType | string;
     value?: boolean | string | number;
-    hide?: boolean | unknown;
     lock?: string;
     onChange?: (value: boolean | string | number) => void;
     checked?: boolean;
@@ -30,10 +28,6 @@ export default function ToolInline(props: {
         if (props.lock) return;
         props.onChange?.(option);
     };
-
-    if (props.hide) {
-        return null;
-    }
 
     return (
         <div

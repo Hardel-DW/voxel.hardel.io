@@ -16,24 +16,31 @@ import type { Analysers } from "@/lib/minecraft/core/engine/Analyser.ts";
 import type { Field } from "@/lib/minecraft/core/engine/field";
 import type { Action } from "src/lib/minecraft/core/engine/actions";
 import type { IterationType } from "./iteration";
+import type { Condition } from "./condition";
 
-export type FormComponent =
-    | ToolRangeType
-    | ToolSwitchType
-    | ToolGridType
-    | ToolListType
-    | ToolSlotType
-    | ToolInlineType
-    | ToolEffectType
-    | ToolCategoryType
-    | ToolRevealType
-    | ToolScrollableType
-    | ToolSwitchSlotType
-    | ToolSectionType
-    | ToolDonationType
-    | ToolCounterType
-    | TextRenderType
-    | IterationType;
+type BaseComponentProps = {
+    hide?: Condition;
+};
+
+export type FormComponent = BaseComponentProps &
+    (
+        | ToolRangeType
+        | ToolSwitchType
+        | ToolGridType
+        | ToolListType
+        | ToolSlotType
+        | ToolInlineType
+        | ToolEffectType
+        | ToolCategoryType
+        | ToolRevealType
+        | ToolScrollableType
+        | ToolSwitchSlotType
+        | ToolSectionType
+        | ToolDonationType
+        | ToolCounterType
+        | TextRenderType
+        | IterationType
+    );
 
 export type GetValueFromContext = {
     type: "get_value_from_context";

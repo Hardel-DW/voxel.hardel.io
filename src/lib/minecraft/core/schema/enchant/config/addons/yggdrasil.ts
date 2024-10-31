@@ -1,7 +1,7 @@
 import type { ToolRevealElementType } from "@/lib/minecraft/components/elements/reveal/ToolRevealElementType.tsx";
 
 export const yggdrasil: ToolRevealElementType = {
-    id: "yggdrasil",
+    id: "enchant.addons.yggdrasil",
     logo: "/images/addons/logo/yggdrasil.webp",
     image: "/images/addons/hero/yggdrasil.png",
     href: "https://modrinth.com/datapack/yggdrasil-structure",

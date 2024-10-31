@@ -1,7 +1,7 @@
 import type { InterfaceConfiguration } from "@/lib/minecraft/core/engine";
 
 export const slots: InterfaceConfiguration = {
-    id: "slots",
+    id: "enchant.slots",
     section: { type: "translate", value: "tools.enchantments.section.slots" },
     components: [
         {

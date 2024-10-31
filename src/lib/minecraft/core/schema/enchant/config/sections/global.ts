@@ -1,7 +1,7 @@
 import type { InterfaceConfiguration } from "@/lib/minecraft/core/engine";
 
 export const global: InterfaceConfiguration = {
-    id: "global",
+    id: "enchant.global",
     section: { type: "translate", value: "tools.enchantments.section.global" },
     components: [
         {

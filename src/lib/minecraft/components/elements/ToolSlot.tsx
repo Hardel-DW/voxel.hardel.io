@@ -15,7 +15,6 @@ export type ToolSlotType = {
     size?: number;
     condition?: Condition;
     lock?: ValueParams<string>;
-    hide?: Condition;
 };
 
 export default function ToolSlot(props: {
@@ -24,7 +23,6 @@ export default function ToolSlot(props: {
     description?: TranslateTextType | string;
     value?: boolean | string | number;
     size?: number;
-    hide?: boolean | unknown;
     lock?: string;
     onChange?: (value: boolean | string | number) => void;
     checked?: boolean;
@@ -35,10 +33,6 @@ export default function ToolSlot(props: {
 
         props.onChange?.(option);
     };
-
-    if (props.hide) {
-        return null;
-    }
 
     return (
         <div

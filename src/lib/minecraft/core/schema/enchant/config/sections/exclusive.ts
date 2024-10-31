@@ -1,7 +1,7 @@
 import type { InterfaceConfiguration } from "@/lib/minecraft/core/engine";
 
 export const exclusive: InterfaceConfiguration = {
-    id: "exclusive",
+    id: "enchant.exclusive",
     section: { type: "translate", value: "tools.enchantments.section.exclusive" },
     components: [
         {
@@ -10,35 +10,31 @@ export const exclusive: InterfaceConfiguration = {
                 type: "translate",
                 value: "tools.enchantments.section.exclusive.description"
             },
-            id: "set_exclusive",
+            id: "main.exclusive",
             toggle: [
                 {
-                    title: {
-                        type: "translate",
-                        value: "tools.enchantments.section.toggle.exclusive.group.title"
-                    },
-                    description: {
-                        type: "translate",
-                        value: "tools.enchantments.section.toggle.exclusive.group.description"
-                    },
-                    name: "exclusiveSet"
+                    title: { type: "translate", value: "tools.enchantments.section.toggle.exclusive.group.title" },
+                    description: { type: "translate", value: "tools.enchantments.section.toggle.exclusive.group.description" },
+                    name: "main.exclusive.group",
+                    field: "exclusiveSet"
                 },
                 {
-                    title: {
-                        type: "translate",
-                        value: "tools.enchantments.section.toggle.exclusive.individual.title"
-                    },
-                    description: {
-                        type: "translate",
-                        value: "tools.enchantments.section.toggle.exclusive.individual.description"
-                    },
-                    name: "test"
+                    title: { type: "translate", value: "tools.enchantments.section.toggle.exclusive.individual.title" },
+                    description: { type: "translate", value: "tools.enchantments.section.toggle.exclusive.individual.description" },
+                    name: "main.exclusive.individual",
+                    field: "exclusiveSet"
                 }
             ],
             children: [
                 {
                     type: "Scrollable",
                     height: 620,
+                    hide: {
+                        condition: "Equals",
+                        type: "compare_to_toggle_name",
+                        group: "main.exclusive",
+                        value: "main.exclusive.individual"
+                    },
                     children: [
                         {
                             type: "List",

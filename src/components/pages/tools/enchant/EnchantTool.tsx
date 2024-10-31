@@ -19,7 +19,7 @@ export default function EnchantTool(props: {
 
                 <div className="size-full p-4 overflow-y-auto">
                     <HelpGuide faq={props.faq}>{props.children}</HelpGuide>
-                    <ConfiguratorPanel>{props.children}</ConfiguratorPanel>
+                    <ConfiguratorPanel defaultTab="enchant.global">{props.children}</ConfiguratorPanel>
                 </div>
             </section>
         </PanelProvider>

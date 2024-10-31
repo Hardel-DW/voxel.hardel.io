@@ -15,12 +15,12 @@ export default function ToolScrollable(props: {
 }) {
     return (
         <div
-            className={cn("overflow-y-auto ring-0 ring-zinc-700 transition-all hover:ring-1 rounded-xl", props.className)}
+            className={cn("overflow-y-auto p-px", props.className)}
             style={{
                 height: props.height ? `${props.height}px` : "300px"
             }}
         >
-            <div className="p-4">{props.children}</div>
+            <div>{props.children}</div>
         </div>
     );
 }

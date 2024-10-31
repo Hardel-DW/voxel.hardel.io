@@ -2,7 +2,7 @@ import type { InterfaceConfiguration } from "@/lib/minecraft/core/engine";
 import { ADDONS } from "@/lib/minecraft/core/schema/enchant/config/addons";
 
 export const find: InterfaceConfiguration = {
-    id: "find",
+    id: "enchant.find",
     section: { type: "translate", value: "tools.enchantments.section.find" },
     components: [
         {

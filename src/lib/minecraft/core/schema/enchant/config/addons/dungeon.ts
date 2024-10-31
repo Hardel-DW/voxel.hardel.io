@@ -1,7 +1,7 @@
 import type { ToolRevealElementType } from "@/lib/minecraft/components/elements/reveal/ToolRevealElementType.tsx";
 
 export const dungeon: ToolRevealElementType = {
-    id: "dnt",
+    id: "enchant.addons.dnt",
     logo: "/images/addons/logo/dnt.webp",
     image: "/images/addons/hero/dnt.png",
     href: "https://modrinth.com/datapack/dungeons-and-taverns",

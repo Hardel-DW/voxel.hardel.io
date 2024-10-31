@@ -1,13 +1,17 @@
 import type { ConfiguratorContextType } from "@/lib/minecraft/components/ConfiguratorContext.tsx";
 import type { Analysers, GetAnalyserVoxel } from "@/lib/minecraft/core/engine/Analyser.ts";
 import {
+    CheckEqualConditionToggleField,
+    type ConditionEqualsToggleField
+} from "@/lib/minecraft/core/engine/condition/equals/CheckEqualConditionToggleField.ts";
+import {
+    CheckEqualConditionToggleName,
+    type ConditionEqualsToggleName
+} from "@/lib/minecraft/core/engine/condition/equals/CheckEqualConditionToggleName.ts";
+import {
     CheckEqualConditionString,
     type ConditionEqualsString
 } from "@/lib/minecraft/core/engine/condition/equals/EqualConditionString.ts";
-import {
-    CheckEqualConditionToggle,
-    type ConditionEqualsToggle
-} from "@/lib/minecraft/core/engine/condition/equals/EqualConditionToggle.ts";
 import {
     CheckEqualConditionUndefined,
     type ConditionEqualsUndefined
@@ -18,7 +22,7 @@ export type EqualCondition = {
     condition: "Equals";
 } & EqualConditionType;
 
-type EqualConditionType = ConditionEqualsString | ConditionEqualsToggle | ConditionEqualsUndefined;
+type EqualConditionType = ConditionEqualsString | ConditionEqualsToggleName | ConditionEqualsToggleField | ConditionEqualsUndefined;
 
 export function CheckEqualsCondition<T extends keyof Analysers>(
     condition: EqualCondition,
@@ -30,8 +34,12 @@ export function CheckEqualsCondition<T extends keyof Analysers>(
             return CheckEqualConditionString<T>(condition, context, element);
         }
 
-        case "Toggle": {
-            return CheckEqualConditionToggle<T>(condition, context);
+        case "compare_to_toggle_name": {
+            return CheckEqualConditionToggleName<T>(condition, context);
+        }
+
+        case "compare_to_toggle_field": {
+            return CheckEqualConditionToggleField<T>(condition, context);
         }
 
         case "Undefined": {

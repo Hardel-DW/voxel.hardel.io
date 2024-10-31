@@ -1,23 +1,40 @@
 import type { InterfaceConfiguration } from "@/lib/minecraft/core/engine";
 
 export const supported: InterfaceConfiguration = {
-    id: "supported",
+    id: "enchant.supported",
     section: { type: "translate", value: "tools.enchantments.section.supported" },
     components: [
         {
             type: "Section",
-            title: { type: "translate", value: "tools.enchantments.section.supported.description" },
-            id: "items",
+            title: {
+                type: "translate",
+                value: "tools.enchantments.section.supported.description"
+            },
+            id: "main.supported",
             toggle: [
                 {
-                    name: "supportedItems",
-                    title: { type: "translate", value: "tools.enchantments.section.toggle.supported.title" },
-                    description: { type: "translate", value: "tools.enchantments.section.toggle.supported.description" }
+                    name: "main.supported.items",
+                    field: "supportedItems",
+                    title: {
+                        type: "translate",
+                        value: "tools.enchantments.section.toggle.supported.title"
+                    },
+                    description: {
+                        type: "translate",
+                        value: "tools.enchantments.section.toggle.supported.description"
+                    }
                 },
                 {
-                    name: "primaryItems",
-                    title: { type: "translate", value: "tools.enchantments.section.toggle.primary.title" },
-                    description: { type: "translate", value: "tools.enchantments.section.toggle.primary.description" }
+                    name: "main.primary.items",
+                    field: "primaryItems",
+                    title: {
+                        type: "translate",
+                        value: "tools.enchantments.section.toggle.primary.title"
+                    },
+                    description: {
+                        type: "translate",
+                        value: "tools.enchantments.section.toggle.primary.description"
+                    }
                 }
             ],
             children: [
@@ -167,12 +184,15 @@ export const supported: InterfaceConfiguration = {
                                         type: "get_value_from_context",
                                         key: "value"
                                     },
-                                    field: { type: "Toggle", group: "items" }
+                                    field: {
+                                        type: "get_toggle_field",
+                                        group: "main.supported"
+                                    }
                                 },
                                 condition: {
                                     condition: "Equals",
                                     type: "String",
-                                    field: { type: "Toggle", group: "items" },
+                                    field: { type: "get_toggle_field", group: "main.supported" },
                                     value: {
                                         type: "get_value_from_context",
                                         key: "value"
@@ -182,22 +202,31 @@ export const supported: InterfaceConfiguration = {
                         },
                         {
                             type: "Slot",
-                            title: { type: "translate", value: "tools.enchantments.section.supported.components.none.title" },
+                            title: {
+                                type: "translate",
+                                value: "tools.enchantments.section.supported.components.none.title"
+                            },
                             image: "/images/tools/cross.webp",
                             action: {
                                 type: "Undefined",
-                                field: { type: "Toggle", group: "items" }
+                                field: {
+                                    type: "get_toggle_field",
+                                    group: "main.supported"
+                                }
                             },
                             hide: {
                                 condition: "Equals",
-                                type: "Toggle",
-                                group: "items",
-                                value: "supportedItems"
+                                type: "compare_to_toggle_name",
+                                group: "main.supported",
+                                value: "main.supported.items"
                             },
                             condition: {
                                 condition: "Equals",
                                 type: "Undefined",
-                                field: { type: "Toggle", group: "items" }
+                                field: {
+                                    type: "get_toggle_field",
+                                    group: "main.supported"
+                                }
                             }
                         }
                     ]

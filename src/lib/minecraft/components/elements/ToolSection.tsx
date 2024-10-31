@@ -16,6 +16,7 @@ export type ToolSectionType = {
 
 export type ToggleSection = {
     name: string;
+    field?: string;
     title: TranslateTextType;
     description: TranslateTextType;
 };
@@ -36,10 +37,10 @@ export default function ToolSection(props: {
                     <h2 className="text-2xl font-semibold">
                         <TranslateText content={props.title} />
                     </h2>
-                    {props.toggle?.some((toggle) => toggle.name === toggleSection?.[props.id]) && (
+                    {props.toggle?.some((toggle) => toggle.name === toggleSection?.[props.id]?.name) && (
                         <div className="text-xs text-zinc-400 font-light">
                             <TranslateText
-                                content={props.toggle?.find((toggle) => toggle.name === toggleSection?.[props.id])?.description}
+                                content={props.toggle?.find((toggle) => toggle.name === toggleSection?.[props.id]?.name)?.description}
                             />
                         </div>
                     )}
@@ -54,11 +55,11 @@ export default function ToolSection(props: {
                         {props.toggle?.map((element) => (
                             <div
                                 className={cn("px-4 py-2 rounded-xl", {
-                                    "bg-rose-900 text-white": toggleSection?.[props.id] === element.name
+                                    "bg-rose-900 text-white": toggleSection?.[props.id]?.name === element.name
                                 })}
                                 key={element.name}
-                                onKeyDown={() => changeToggleValue(props.id, element.name)}
-                                onClick={() => changeToggleValue(props.id, element.name)}
+                                onKeyDown={() => changeToggleValue(props.id, element)}
+                                onClick={() => changeToggleValue(props.id, element)}
                             >
                                 <p className="text-sm font-semibold">
                                     <TranslateText content={element.title} />

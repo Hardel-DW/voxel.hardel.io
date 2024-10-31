@@ -3,11 +3,7 @@ import { Identifier } from "@/lib/minecraft/core/Identifier.ts";
 import type { EffectComponentsRecord } from "@voxel/definitions";
 import type React from "react";
 
-export function ToolEffect({
-    name,
-    isChecked,
-    onChange
-}: {
+export function ToolEffect(props: {
     name: keyof EffectComponentsRecord;
     isChecked: boolean;
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -16,17 +12,15 @@ export function ToolEffect({
 
     return (
         <div className="bg-blue-50/5 ring-0 ring-zinc-700 transition-all hover:ring-1 p-6 rounded-xl">
-            <div className="flex items-center justify-between w-full h-auto">
+            <label htmlFor={props.name} className="flex items-center justify-between w-full">
                 <div className="flex flex-col w-3/4">
                     <span className="text-white line-clamp-1">
-                        {Identifier.fromString(name, "enchantment_effect_type").renderResource()}
+                        {Identifier.fromString(props.name, "enchantment_effect_type").renderResource()}
                     </span>
-                    <span className="text-xs text-zinc-400 font-light line-clamp-2">{translate[`tools.effects.${name}`]}</span>
+                    <span className="text-xs text-zinc-400 font-light line-clamp-2">{translate[`tools.effects.${props.name}`]}</span>
                 </div>
-                <label htmlFor="">
-                    <input type="checkbox" checked={isChecked} onChange={onChange} />
-                </label>
-            </div>
+                <input id={props.name} name={props.name} type="checkbox" checked={props.isChecked} onChange={props.onChange} />
+            </label>
         </div>
     );
 }

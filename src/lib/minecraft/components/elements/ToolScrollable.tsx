@@ -15,7 +15,7 @@ export default function ToolScrollable(props: {
 }) {
     return (
         <div
-            className={cn("overflow-y-auto p-px", props.className)}
+            className={cn("overflow-y-auto flex-1 p-px", props.className)}
             style={{
                 height: props.height ? `${props.height}px` : "300px"
             }}

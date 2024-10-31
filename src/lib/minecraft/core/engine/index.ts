@@ -9,6 +9,7 @@ import type { ToolSwitchType } from "@/lib/minecraft/components/elements/ToolSwi
 import type { ToolSwitchSlotType } from "@/lib/minecraft/components/elements/ToolSwitchSlot.tsx";
 import type { ToolDonationType } from "@/lib/minecraft/components/elements/misc/Donation.tsx";
 import type { ToolRevealType } from "@/lib/minecraft/components/elements/reveal/ToolReveal.tsx";
+import type { ToolTagViewerType } from "@/lib/minecraft/components/elements/TagViewer.tsx";
 import type { ToolEffectType } from "@/lib/minecraft/components/elements/schema/ToolEffectRecord.tsx";
 import type { TextRenderType } from "@/lib/minecraft/components/elements/text/TextRender.tsx";
 import type { TranslateTextType } from "@/lib/minecraft/components/elements/text/TranslateText.tsx";
@@ -40,6 +41,7 @@ export type FormComponent = BaseComponentProps &
         | ToolCounterType
         | TextRenderType
         | IterationType
+        | ToolTagViewerType
     );
 
 export type GetValueFromContext = {
@@ -54,7 +56,8 @@ export type ToolGridType = {
 };
 
 export type ToolListType = {
-    type: "List";
+    type: "Flexible";
+    direction: "horizontal" | "vertical";
     children: Exclude<FormComponent, ToolListType>[];
 };
 

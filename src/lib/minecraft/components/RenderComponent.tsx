@@ -1,5 +1,6 @@
 import { useTranslate } from "@/components/TranslateContext.tsx";
 import { useConfigurator } from "@/lib/minecraft/components/ConfiguratorContext.tsx";
+import TagViewer from "@/lib/minecraft/components/elements/TagViewer";
 import ToolCategory from "@/lib/minecraft/components/elements/ToolCategory.tsx";
 import ToolCounter from "@/lib/minecraft/components/elements/ToolCounter.tsx";
 import ToolInline from "@/lib/minecraft/components/elements/ToolInlineSlot.tsx";
@@ -20,6 +21,7 @@ import type { Analysers, GetAnalyserVoxel } from "@/lib/minecraft/core/engine/An
 import { handleChange } from "@/lib/minecraft/core/engine/actions";
 import { checkCondition } from "@/lib/minecraft/core/engine/condition";
 import { getValue } from "@/lib/minecraft/core/engine/value";
+import { cn } from "@/lib/utils";
 import type { EffectComponentsRecord } from "@voxel/definitions";
 import { toast } from "sonner";
 
@@ -206,9 +208,14 @@ export function RenderComponent<T extends keyof Analysers>({
                 />
             );
         }
-        case "List": {
+        case "Flexible": {
             return (
-                <div className="flex flex-col gap-4">
+                <div
+                    className={cn("flex gap-4", {
+                        "flex-row": component.direction === "horizontal",
+                        "flex-col": component.direction === "vertical"
+                    })}
+                >
                     {component.children.map((child: FormComponent, index: number) => (
                         <RenderComponent key={index.toString()} component={child} />
                     ))}
@@ -217,6 +224,9 @@ export function RenderComponent<T extends keyof Analysers>({
         }
         case "Iteration":
             return <ToolIteration {...component} />;
+        case "TagViewer": {
+            return <TagViewer field={component.field} additional={component.additional} />;
+        }
         default:
             return null;
     }

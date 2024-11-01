@@ -65,6 +65,9 @@ export type ToolConfiguration = {
     interface: InterfaceConfiguration[];
     sidebar: SidebarConfiguration;
     parser: ParserConfiguration;
+    compiler?: {
+        merge_field_to_tags: string[];
+    };
 };
 
 export type ParserConfiguration = {

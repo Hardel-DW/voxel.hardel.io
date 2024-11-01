@@ -25,6 +25,7 @@ export function compileDatapack<T extends keyof Analysers>(
     context: ConfiguratorContextType<GetAnalyserVoxel<T>>
 ): Array<RegistryElement<GetAnalyserMinecraft<T>> | RegistryElement<TagType>> {
     const parserConfig = context.configuration?.parser;
+    const compilerConfig = context.configuration?.compiler;
     if (!parserConfig) return [];
 
     if (context.version === null) {
@@ -44,9 +45,17 @@ export function compileDatapack<T extends keyof Analysers>(
     const identifiers: IdentifierOneToMany[] = context.elements.map((element) => {
         if (element.data.softDelete) return { primary: element.identifier, related: [] };
 
+        const related = element.data.tags.map((tag) => Identifier.fromString(tag, parserConfig.registries.tags));
+
+        const mergedTags =
+            compilerConfig?.merge_field_to_tags.flatMap((field) => {
+                const value = element.data[field as keyof GetAnalyserVoxel<T>] as string | undefined;
+                return value ? [Identifier.fromString(value, parserConfig.registries.tags)] : [];
+            }) ?? [];
+
         return {
             primary: element.identifier,
-            related: element.data.tags.map((tag) => Identifier.fromString(tag, parserConfig.registries.tags))
+            related: [...mergedTags, ...related]
         };
     });
 
@@ -55,7 +64,8 @@ export function compileDatapack<T extends keyof Analysers>(
             const original = readDatapackFile<TagType>(context.files, tag.identifier);
             const valueToAdd = original ? original.values.map(Identifier.getValue).filter((resource) => resource.startsWith("#")) : [];
 
-            tag.data.values = [...tag.data.values, ...valueToAdd];
+            const uniqueValues = new Set([...tag.data.values, ...valueToAdd]);
+            tag.data.values = Array.from(uniqueValues);
             return tag;
         })
         .filter((tag) => tag !== null);

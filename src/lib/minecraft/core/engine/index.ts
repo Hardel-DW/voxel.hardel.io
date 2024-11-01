@@ -81,7 +81,10 @@ type ParserRegistry = {
 };
 
 type SidebarConfiguration = {
-    toggle: Action;
+    toggle: {
+        field: Field;
+        action: Action;
+    };
     description: {
         field: Field;
     };

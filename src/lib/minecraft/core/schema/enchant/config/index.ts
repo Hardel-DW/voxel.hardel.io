@@ -5,8 +5,11 @@ export const ENCHANT_TOOL_CONFIG: ToolConfiguration = {
     interface: SECTIONS,
     sidebar: {
         toggle: {
-            type: "Dynamic",
-            field: "softDelete"
+            field: "softDelete",
+            action: {
+                type: "Dynamic",
+                field: "softDelete"
+            }
         },
         value: {
             field: "softDelete"

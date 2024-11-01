@@ -34,7 +34,7 @@ export function SidebarItem<T extends keyof Analysers>(props: {
 
     const handleSoftDelete = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (!context.configuration?.sidebar.toggle) return;
-        handleChange(context.configuration.sidebar.toggle, !e.target.checked, context, props.element.identifier);
+        handleChange(context.configuration.sidebar.toggle.action, !e.target.checked, context, props.element.identifier);
     };
 
     return (

@@ -202,6 +202,7 @@ export function RenderComponent<T extends keyof Analysers>({
                     key={getKey(component.title)}
                     title={component.title}
                     description={component.description}
+                    image={component.image}
                     checked={checked}
                     lock={lock ? lock : undefined}
                     onChange={(value) => handleChange(component.action, value, context)}

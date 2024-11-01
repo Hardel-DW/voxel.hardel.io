@@ -12,6 +12,7 @@ export type ToolSwitchSlotType = {
     action: Action;
     condition?: Condition;
     lock?: ValueParams<string>;
+    image?: string;
 };
 
 export default function ToolSwitchSlot(props: {
@@ -19,6 +20,7 @@ export default function ToolSwitchSlot(props: {
     description: TranslateTextType | string;
     checked?: boolean;
     lock?: string;
+    image?: string;
     onChange?: (value: boolean) => void;
 }) {
     const handleChange = () => {
@@ -37,13 +39,20 @@ export default function ToolSwitchSlot(props: {
             onKeyDown={handleChange}
         >
             <div className="flex items-center justify-between w-full">
-                <div className="flex flex-col w-3/4">
-                    <span className="text-white line-clamp-1">
-                        <TranslateText content={props.title} />
-                    </span>
-                    <span className="text-xs text-zinc-400 font-light line-clamp-2">
-                        <TranslateText content={props.description} />
-                    </span>
+                <div className="flex items-center gap-4">
+                    {props.image && (
+                        <div className="flex-shrink-0">
+                            <img src={props.image} alt="" className="w-8 h-8 object-contain pixelated" />
+                        </div>
+                    )}
+                    <div className="flex flex-col">
+                        <span className="text-white line-clamp-1">
+                            <TranslateText content={props.title} />
+                        </span>
+                        <span className="text-xs text-zinc-400 font-light line-clamp-2">
+                            <TranslateText content={props.description} />
+                        </span>
+                    </div>
                 </div>
                 <div className="flex gap-4">
                     {props.lock && (

@@ -150,7 +150,8 @@ export const exclusive: InterfaceConfiguration = {
                                                         action: {
                                                             type: "String",
                                                             value: { type: "get_value_from_context", key: "value" },
-                                                            field: "exclusiveSet"
+                                                            field: "exclusiveSet",
+                                                            mode: "toggle"
                                                         },
                                                         condition: {
                                                             condition: "Equals",
@@ -199,7 +200,8 @@ export const exclusive: InterfaceConfiguration = {
                                                                 type: "get_value_from_context",
                                                                 key: "identifier"
                                                             },
-                                                            field: "exclusiveSet"
+                                                            field: "exclusiveSet",
+                                                            mode: "toggle"
                                                         },
                                                         condition: {
                                                             condition: "Equals",

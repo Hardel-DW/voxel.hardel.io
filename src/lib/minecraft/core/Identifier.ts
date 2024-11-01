@@ -129,4 +129,8 @@ export class Identifier {
             .replace(/_/g, " ")
             .replace(/\b\w/g, (l) => l.toUpperCase());
     }
+
+    public renderFilename(): string {
+        return (this.resource.split("/").pop() ?? this.resource).replace(/_/g, " ").replace(/\b\w/g, (l) => l.toUpperCase());
+    }
 }

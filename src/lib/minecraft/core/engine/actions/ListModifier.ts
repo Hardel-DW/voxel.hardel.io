@@ -9,6 +9,7 @@ export type ListAction = {
     type: "List";
     field: Field;
     value: string;
+    mode?: "remove_if_empty";
 };
 
 /**
@@ -38,7 +39,7 @@ export default function ListModifier<T extends keyof Analysers>(
         identifier: element.identifier,
         data: {
             ...element.data,
-            [field]: newList
+            [field]: action.mode === "remove_if_empty" && newList.length === 0 ? undefined : newList
         }
     };
 }

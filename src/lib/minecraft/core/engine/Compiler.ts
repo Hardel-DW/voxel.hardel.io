@@ -49,8 +49,12 @@ export function compileDatapack<T extends keyof Analysers>(
 
         const mergedTags =
             compilerConfig?.merge_field_to_tags.flatMap((field) => {
-                const value = element.data[field as keyof GetAnalyserVoxel<T>] as string | undefined;
-                return value ? [Identifier.fromString(value, parserConfig.registries.tags)] : [];
+                const value = element.data[field as keyof GetAnalyserVoxel<T>];
+                if (typeof value === "string") {
+                    return [Identifier.fromString(value, parserConfig.registries.tags)];
+                }
+
+                return [];
             }) ?? [];
 
         return {

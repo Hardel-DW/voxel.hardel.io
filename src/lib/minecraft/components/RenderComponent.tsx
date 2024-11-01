@@ -226,7 +226,7 @@ export function RenderComponent<T extends keyof Analysers>({
         case "Iteration":
             return <ToolIteration {...component} />;
         case "TagViewer": {
-            return <TagViewer field={component.field} additional={component.additional} />;
+            return <TagViewer field={component.field} registry={component.registry} additional={component.additional} />;
         }
         default:
             return null;

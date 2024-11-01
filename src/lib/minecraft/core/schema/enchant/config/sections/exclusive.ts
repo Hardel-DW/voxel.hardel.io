@@ -57,114 +57,99 @@ export const exclusive: InterfaceConfiguration = {
                                     direction: "vertical",
                                     children: [
                                         {
-                                            type: "Category",
-                                            title: {
-                                                type: "translate",
-                                                value: "tools.enchantments.section.exclusive.vanilla.title"
-                                            },
-                                            children: [
+                                            type: "Iteration",
+                                            values: [
                                                 {
-                                                    type: "Iteration",
+                                                    type: "object",
                                                     values: [
                                                         {
-                                                            type: "object",
-                                                            values: [
-                                                                {
-                                                                    id: "armor",
-                                                                    title: "tools.enchantments.section.exclusive.set.armor.title",
-                                                                    description:
-                                                                        "tools.enchantments.section.exclusive.set.armor.description",
-                                                                    value: "#minecraft:exclusive_set/armor",
-                                                                    image: "/images/features/item/armor.webp"
-                                                                },
-                                                                {
-                                                                    id: "bow",
-                                                                    title: "tools.enchantments.section.exclusive.set.bow.title",
-                                                                    description: "tools.enchantments.section.exclusive.set.bow.description",
-                                                                    value: "#minecraft:exclusive_set/bow",
-                                                                    image: "/images/features/item/bow.webp"
-                                                                },
-                                                                {
-                                                                    id: "crossbow",
-                                                                    title: "tools.enchantments.section.exclusive.set.crossbow.title",
-                                                                    description:
-                                                                        "tools.enchantments.section.exclusive.set.crossbow.description",
-                                                                    value: "#minecraft:exclusive_set/crossbow",
-                                                                    image: "/images/features/item/crossbow.webp"
-                                                                },
-                                                                {
-                                                                    id: "damage",
-                                                                    title: "tools.enchantments.section.exclusive.set.damage.title",
-                                                                    description:
-                                                                        "tools.enchantments.section.exclusive.set.damage.description",
-                                                                    value: "#minecraft:exclusive_set/damage",
-                                                                    image: "/images/features/item/sword.webp"
-                                                                },
-                                                                {
-                                                                    id: "riptide",
-                                                                    title: "tools.enchantments.section.exclusive.set.riptide.title",
-                                                                    description:
-                                                                        "tools.enchantments.section.exclusive.set.riptide.description",
-                                                                    value: "#minecraft:exclusive_set/riptide",
-                                                                    image: "/images/features/item/trident.webp"
-                                                                },
-                                                                {
-                                                                    id: "mining",
-                                                                    title: "tools.enchantments.section.exclusive.set.mining.title",
-                                                                    description:
-                                                                        "tools.enchantments.section.exclusive.set.mining.description",
-                                                                    value: "#minecraft:mining",
-                                                                    image: "/images/features/item/mining.webp"
-                                                                },
-                                                                {
-                                                                    id: "boots",
-                                                                    title: "tools.enchantments.section.exclusive.set.boots.title",
-                                                                    description:
-                                                                        "tools.enchantments.section.exclusive.set.boots.description",
-                                                                    value: "#minecraft:exclusive_set/boots",
-                                                                    image: "/images/features/item/boots.webp"
-                                                                }
-                                                            ]
+                                                            id: "armor",
+                                                            title: "tools.enchantments.section.exclusive.set.armor.title",
+                                                            description: "tools.enchantments.section.exclusive.set.armor.description",
+                                                            value: "#minecraft:exclusive_set/armor",
+                                                            image: "/images/features/item/armor.webp"
+                                                        },
+                                                        {
+                                                            id: "bow",
+                                                            title: "tools.enchantments.section.exclusive.set.bow.title",
+                                                            description: "tools.enchantments.section.exclusive.set.bow.description",
+                                                            value: "#minecraft:exclusive_set/bow",
+                                                            image: "/images/features/item/bow.webp"
+                                                        },
+                                                        {
+                                                            id: "crossbow",
+                                                            title: "tools.enchantments.section.exclusive.set.crossbow.title",
+                                                            description: "tools.enchantments.section.exclusive.set.crossbow.description",
+                                                            value: "#minecraft:exclusive_set/crossbow",
+                                                            image: "/images/features/item/crossbow.webp"
+                                                        },
+                                                        {
+                                                            id: "damage",
+                                                            title: "tools.enchantments.section.exclusive.set.damage.title",
+                                                            description: "tools.enchantments.section.exclusive.set.damage.description",
+                                                            value: "#minecraft:exclusive_set/damage",
+                                                            image: "/images/features/item/sword.webp"
+                                                        },
+                                                        {
+                                                            id: "riptide",
+                                                            title: "tools.enchantments.section.exclusive.set.riptide.title",
+                                                            description: "tools.enchantments.section.exclusive.set.riptide.description",
+                                                            value: "#minecraft:exclusive_set/riptide",
+                                                            image: "/images/features/item/trident.webp"
+                                                        },
+                                                        {
+                                                            id: "mining",
+                                                            title: "tools.enchantments.section.exclusive.set.mining.title",
+                                                            description: "tools.enchantments.section.exclusive.set.mining.description",
+                                                            value: "#minecraft:mining",
+                                                            image: "/images/features/item/mining.webp"
+                                                        },
+                                                        {
+                                                            id: "boots",
+                                                            title: "tools.enchantments.section.exclusive.set.boots.title",
+                                                            description: "tools.enchantments.section.exclusive.set.boots.description",
+                                                            value: "#minecraft:exclusive_set/boots",
+                                                            image: "/images/features/item/boots.webp"
                                                         }
-                                                    ],
-                                                    template: {
-                                                        type: "SwitchSlot",
-                                                        title: {
-                                                            type: "translate",
-                                                            value: {
-                                                                type: "get_value_from_context",
-                                                                key: "title"
-                                                            }
-                                                        },
-                                                        description: {
-                                                            type: "translate",
-                                                            value: {
-                                                                type: "get_value_from_context",
-                                                                key: "description"
-                                                            }
-                                                        },
-                                                        image: {
-                                                            type: "get_value_from_context",
-                                                            key: "image"
-                                                        },
-                                                        action: {
-                                                            type: "String",
-                                                            value: { type: "get_value_from_context", key: "value" },
-                                                            field: "exclusiveSet",
-                                                            mode: "toggle"
-                                                        },
-                                                        condition: {
-                                                            condition: "Equals",
-                                                            type: "String",
-                                                            field: "exclusiveSet",
-                                                            value: {
-                                                                type: "get_value_from_context",
-                                                                key: "value"
-                                                            }
-                                                        }
+                                                    ]
+                                                }
+                                            ],
+                                            template: {
+                                                type: "SwitchSlot",
+                                                title: {
+                                                    type: "translate",
+                                                    value: {
+                                                        type: "get_value_from_context",
+                                                        key: "title"
+                                                    }
+                                                },
+                                                description: {
+                                                    type: "translate",
+                                                    value: {
+                                                        type: "get_value_from_context",
+                                                        key: "description"
+                                                    }
+                                                },
+                                                image: {
+                                                    type: "get_value_from_context",
+                                                    key: "image"
+                                                },
+                                                action: {
+                                                    type: "String",
+                                                    value: { type: "get_value_from_context", key: "value" },
+                                                    field: "exclusiveSet",
+                                                    mode: "toggle"
+                                                },
+                                                condition: {
+                                                    condition: "Equals",
+                                                    type: "String",
+                                                    field: "exclusiveSet",
+                                                    value: {
+                                                        type: "get_value_from_context",
+                                                        key: "value"
                                                     }
                                                 }
-                                            ]
+                                            }
                                         },
                                         {
                                             type: "Category",
@@ -187,7 +172,7 @@ export const exclusive: InterfaceConfiguration = {
                                                         type: "SwitchSlot",
                                                         title: {
                                                             type: "get_value_from_context",
-                                                            key: "file_name"
+                                                            key: "resource"
                                                         },
                                                         description: {
                                                             type: "get_value_from_context",
@@ -222,6 +207,7 @@ export const exclusive: InterfaceConfiguration = {
                         },
                         {
                             type: "TagViewer",
+                            registry: "tags/enchantment",
                             field: "exclusiveSet",
                             additional: {
                                 "#minecraft:exclusive_set/armor": [
@@ -243,6 +229,57 @@ export const exclusive: InterfaceConfiguration = {
                                 ],
                                 "#minecraft:mining": ["minecraft:fortune", "minecraft:silk_touch"],
                                 "#minecraft:exclusive_set/riptide": ["minecraft:loyalty", "minecraft:channeling"]
+                            }
+                        }
+                    ]
+                },
+                {
+                    type: "Grid",
+                    children: [
+                        {
+                            type: "Iteration",
+                            values: [
+                                {
+                                    type: "get_registry_elements",
+                                    registry: "enchantment"
+                                }
+                            ],
+                            hide: {
+                                condition: "Equals",
+                                type: "compare_to_toggle_name",
+                                group: "main.exclusive",
+                                value: "main.exclusive.group"
+                            },
+                            template: {
+                                type: "SwitchSlot",
+                                title: {
+                                    type: "get_value_from_context",
+                                    key: "filename"
+                                },
+                                description: {
+                                    type: "get_value_from_context",
+                                    key: "namespace"
+                                },
+                                action: {
+                                    type: "List",
+                                    field: "exclusiveSet",
+                                    mode: "remove_if_empty",
+                                    value: {
+                                        type: "get_value_from_context",
+                                        key: "identifier"
+                                    }
+                                },
+                                condition: {
+                                    condition: "Contains",
+                                    type: "String",
+                                    field: "exclusiveSet",
+                                    values: [
+                                        {
+                                            type: "get_value_from_context",
+                                            key: "identifier"
+                                        }
+                                    ]
+                                }
                             }
                         }
                     ]

@@ -1,6 +1,8 @@
+import type { ToolTagViewerType } from "@/lib/minecraft/components/elements/TagViewer.tsx";
 import type { ToolCategoryType } from "@/lib/minecraft/components/elements/ToolCategory.tsx";
 import type { ToolCounterType } from "@/lib/minecraft/components/elements/ToolCounter.tsx";
 import type { ToolInlineType } from "@/lib/minecraft/components/elements/ToolInlineSlot.tsx";
+import type { IterationType } from "@/lib/minecraft/components/elements/ToolIteration.tsx";
 import type { ToolRangeType } from "@/lib/minecraft/components/elements/ToolRange.tsx";
 import type { ToolScrollableType } from "@/lib/minecraft/components/elements/ToolScrollable.tsx";
 import type { ToolSectionType } from "@/lib/minecraft/components/elements/ToolSection.tsx";
@@ -9,14 +11,12 @@ import type { ToolSwitchType } from "@/lib/minecraft/components/elements/ToolSwi
 import type { ToolSwitchSlotType } from "@/lib/minecraft/components/elements/ToolSwitchSlot.tsx";
 import type { ToolDonationType } from "@/lib/minecraft/components/elements/misc/Donation.tsx";
 import type { ToolRevealType } from "@/lib/minecraft/components/elements/reveal/ToolReveal.tsx";
-import type { ToolTagViewerType } from "@/lib/minecraft/components/elements/TagViewer.tsx";
 import type { ToolEffectType } from "@/lib/minecraft/components/elements/schema/ToolEffectRecord.tsx";
 import type { TextRenderType } from "@/lib/minecraft/components/elements/text/TextRender.tsx";
 import type { TranslateTextType } from "@/lib/minecraft/components/elements/text/TranslateText.tsx";
 import type { Analysers } from "@/lib/minecraft/core/engine/Analyser.ts";
+import type { Action } from "@/lib/minecraft/core/engine/actions";
 import type { Field } from "@/lib/minecraft/core/engine/field";
-import type { Action } from "src/lib/minecraft/core/engine/actions";
-import type { IterationType } from "./iteration";
 import type { Condition } from "./condition";
 
 type BaseComponentProps = {

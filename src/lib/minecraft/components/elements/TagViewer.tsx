@@ -8,23 +8,27 @@ import { compileDatapack } from "../../core/engine/Compiler";
 export type ToolTagViewerType = {
     type: "TagViewer";
     field?: string;
+    registry: string;
     additional?: Record<string, string[]>;
 };
 
 export default function TagViewer<T extends keyof Analysers>(props: {
     field?: string;
+    registry: string;
     additional?: Record<string, string[]>;
 }) {
     const context = useConfigurator<GetAnalyserVoxel<T>>();
     const values: string[] = [];
 
     // Get the field value from the given field
-    const fieldValue = context.currentElement?.data?.[props.field as keyof typeof context.currentElement.data] as string | undefined;
+    const fieldValue = context.currentElement?.data?.[props.field as keyof typeof context.currentElement.data];
     if (!fieldValue) return null;
 
     // Compile the datapack and get the tag by its identifier
     const assembleDatapack = compileDatapack(context);
-    const tagIdentifier = Identifier.fromString(fieldValue, "tags/enchantment");
+    if (typeof fieldValue !== "string") return null;
+
+    const tagIdentifier = Identifier.fromString(fieldValue, props.registry);
     const tagData = assembleDatapack.find((element) => element.identifier.equals(tagIdentifier)) as RegistryElement<TagType> | undefined;
     if (tagData) values.push(...tagData.data.values.map((value) => (typeof value === "string" ? value : value.id)));
 

@@ -484,6 +484,9 @@
         "tools.enchantments.section.exclusive.set.riptide.title": "Set de Riptide",
         "tools.enchantments.section.exclusive.set.riptide.description": "Contiens tous les enchantements exclusifs pour le Riptide.",
         "tools.enchantments.section.exclusive.set.boots.title": "Set de bottes",
-        "tools.enchantments.section.exclusive.set.boots.description": "Contiens tous les enchantements exclusifs pour les bottes."
+        "tools.enchantments.section.exclusive.set.boots.description": "Contiens tous les enchantements exclusifs pour les bottes.",
+
+        "tools.enchantments.section.exclusive.vanilla.title": "Vanilla",
+        "tools.enchantments.section.exclusive.custom.title": "Custom"
     }
 }

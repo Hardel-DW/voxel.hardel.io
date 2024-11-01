@@ -259,7 +259,7 @@
         "tools.enchantments.sidebar.title": "Enchantements",
 
         "tools.enchantments.section.global": "Paramètres globaux",
-        "tools.enchantments.section.exclusive": "Set d'enchantement",
+        "tools.enchantments.section.exclusive": "Non Combinable",
         "tools.enchantments.section.slots": "Activation de l'effet",
         "tools.enchantments.section.supported": "Objets supportés",
         "tools.enchantments.section.find": "Où les trouver",
@@ -287,9 +287,9 @@
         "tools.enchantments.section.toggle.primary.title": "Primaire",
         "tools.enchantments.section.toggle.primary.description": "Objets pour lesquels cet enchantement apparaît dans une table d'enchantement. Si non spécifié, ça valeur par défaut égal aux objets supportés.",
         "tools.enchantments.section.toggle.exclusive.group.title": "Groupe Prédéfini",
-        "tools.enchantments.section.toggle.exclusive.group.description": "Cet enchantement ne peut pas être combiné avec d'autres enchantements du même groupe.",
+        "tools.enchantments.section.toggle.exclusive.group.description": "Les 'Groupes Prédéfinis' sont des listes d'enchantements non combinables. Recommandés pour la compatibilité avec d'autres packs qui peuvent eux aussi ajouter des élements à ces listes.",
         "tools.enchantments.section.toggle.exclusive.individual.title": "Choix Arbitraire",
-        "tools.enchantments.section.toggle.exclusive.individual.description": "Choisissez les enchantements qui ne peuvent pas être combinés avec cet enchantement.",
+        "tools.enchantments.section.toggle.exclusive.individual.description": "Le 'Choix Arbitraires' permettent de choisir les enchantements non combinables au cas par cas.",
 
         "tools.enchantments.section.global.components.maxLevel.title": "Niveau maximum",
         "tools.enchantments.section.global.components.maxLevel.description": "Le niveau maximum de l'enchantement.",

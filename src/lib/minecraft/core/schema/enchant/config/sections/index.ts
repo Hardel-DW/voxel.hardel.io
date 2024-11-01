@@ -5,4 +5,4 @@ import { slots } from "@/lib/minecraft/core/schema/enchant/config/sections/slots
 import { supported } from "@/lib/minecraft/core/schema/enchant/config/sections/supported.ts";
 import { technical } from "@/lib/minecraft/core/schema/enchant/config/sections/technical.ts";
 
-export const SECTIONS = [global, find, slots, supported, technical, exclusive];
+export const SECTIONS = [global, find, slots, supported, exclusive, technical];

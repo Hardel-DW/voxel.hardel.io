@@ -136,7 +136,10 @@ export const exclusive: InterfaceConfiguration = {
                                                 },
                                                 action: {
                                                     type: "String",
-                                                    value: { type: "get_value_from_context", key: "value" },
+                                                    value: {
+                                                        type: "get_value_from_context",
+                                                        key: "value"
+                                                    },
                                                     field: "exclusiveSet",
                                                     mode: "toggle"
                                                 },
@@ -235,6 +238,12 @@ export const exclusive: InterfaceConfiguration = {
                 },
                 {
                     type: "Grid",
+                    hide: {
+                        condition: "Equals",
+                        type: "compare_to_toggle_name",
+                        group: "main.exclusive",
+                        value: "main.exclusive.group"
+                    },
                     children: [
                         {
                             type: "Iteration",
@@ -244,12 +253,6 @@ export const exclusive: InterfaceConfiguration = {
                                     registry: "enchantment"
                                 }
                             ],
-                            hide: {
-                                condition: "Equals",
-                                type: "compare_to_toggle_name",
-                                group: "main.exclusive",
-                                value: "main.exclusive.group"
-                            },
                             template: {
                                 type: "SwitchSlot",
                                 title: {

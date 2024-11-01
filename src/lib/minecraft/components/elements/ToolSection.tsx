@@ -1,9 +1,9 @@
 import Button from "@/components/ui/react/Button.tsx";
 import { useConfigurator } from "@/lib/minecraft/components/ConfiguratorContext.tsx";
+import TranslateText, { type TranslateTextType } from "@/lib/minecraft/components/elements/text/TranslateText.tsx";
 import type { FormComponent } from "@/lib/minecraft/core/engine";
 import { cn } from "@/lib/utils.ts";
 import type React from "react";
-import TranslateText, { type TranslateTextType } from "@/lib/minecraft/components/elements/text/TranslateText.tsx";
 
 export type ToolSectionType = {
     type: "Section";
@@ -51,7 +51,7 @@ export default function ToolSection(props: {
                     </Button>
                 )}
                 {props.toggle && (
-                    <div className="flex gap-x-2 py-2 px-2 items-center rounded-2xl p-1 bg-header-cloudy">
+                    <div className="flex gap-x-2 py-2 px-2 items-center rounded-2xl p-1 bg-header-cloudy flex-shrink-0">
                         {props.toggle?.map((element) => (
                             <div
                                 className={cn("px-4 py-2 rounded-xl", {

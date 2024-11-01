@@ -259,7 +259,7 @@
         "tools.enchantments.sidebar.title": "Enchantments",
 
         "tools.enchantments.section.global": "Global Settings",
-        "tools.enchantments.section.exclusive": "Exclusive Set",
+        "tools.enchantments.section.exclusive": "Non Combinable",
         "tools.enchantments.section.slots": "When Effect Activates",
         "tools.enchantments.section.supported": "Supported Items",
         "tools.enchantments.section.find": "Where to Find",
@@ -298,9 +298,9 @@
         "tools.enchantments.section.toggle.supported.description": "Items on which this enchantment can be applied.",
         "tools.enchantments.section.toggle.primary.description": "Items for which this enchantment appears in an enchanting table. If unspecified, defaults to being the same as supported items.",
         "tools.enchantments.section.toggle.exclusive.group.title": "Predefined Group",
-        "tools.enchantments.section.toggle.exclusive.group.description": "This enchantment cannot be combined with other enchantments from the same group.",
+        "tools.enchantments.section.toggle.exclusive.group.description": "'Predefined Groups' are lists of enchantments that don't combine together. These are great if you're using other mods or datapacks since they can add their own enchantments to these lists too.",
         "tools.enchantments.section.toggle.exclusive.individual.title": "Arbitrary Choice",
-        "tools.enchantments.section.toggle.exclusive.individual.description": "Choose the enchantments that cannot be combined with this enchantment.",
+        "tools.enchantments.section.toggle.exclusive.individual.description": "'Arbitrary Choice' lets you choose exactly which enchantments shouldn't combine together, one by one.",
 
         "tools.enchantments.section.slots.mainhand.title": "Main Hand",
         "tools.enchantments.section.slots.offhand.title": "Off Hand",

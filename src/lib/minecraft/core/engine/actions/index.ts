@@ -15,6 +15,7 @@ import {
 import { type SlotAction, SlotModifier } from "@/lib/minecraft/core/engine/actions/SlotModifier.ts";
 import { type UndefinedAction, UndefinedModifier } from "@/lib/minecraft/core/engine/actions/UndefinedModifier.ts";
 import type { RegistryElement } from "@/lib/minecraft/mczip.ts";
+import SequentialModifier, { type SequentialAction } from "@/lib/minecraft/core/engine/actions/SequentialModifier.ts";
 
 export type Action =
     | RemoveKeyAction
@@ -26,10 +27,12 @@ export type Action =
     | DynamicAction
     | SlotAction
     | ListAction
-    | MultipleAction;
+    | MultipleAction
+    | SequentialAction;
 
 export type ActionValue = string | number | boolean | Identifier;
-function updateData<T extends keyof Analysers>(
+
+export function updateData<T extends keyof Analysers>(
     action: Action,
     value: ActionValue,
     context: ConfiguratorContextType<GetAnalyserVoxel<T>>,
@@ -56,6 +59,8 @@ function updateData<T extends keyof Analysers>(
             return DynamicListModifier(action, value, context, element);
         case "RemoveKey":
             return RemoveKeyModifier(action, value, context, element);
+        case "Sequential":
+            return SequentialModifier(action, value, context, element);
     }
 }
 

@@ -72,31 +72,31 @@ export const yggdrasil: ToolRevealElementType = {
                                             title: "tools.enchantments.section.addons.yggdrasil.random_chest.title",
                                             description: "tools.enchantments.section.addons.yggdrasil.random_chest.description",
                                             image: "/images/features/block/chest.webp",
-                                            tag: "#yggdrasil:alfheim/random_chest"
+                                            tag: "#yggdrasil:structure/alfheim_tree/random_loot"
                                         },
                                         {
                                             title: "tools.enchantments.section.addons.yggdrasil.vault.title",
                                             description: "tools.enchantments.section.addons.yggdrasil.vault.description",
                                             image: "/images/features/block/vault.webp",
-                                            tag: "#yggdrasil:alfheim/vault"
+                                            tag: "#yggdrasil:structure/alfheim_tree/vault"
                                         },
                                         {
                                             title: "tools.enchantments.section.addons.yggdrasil.ominous_vault.title",
                                             description: "tools.enchantments.section.addons.yggdrasil.ominous_vault.description",
                                             image: "/images/features/block/ominous_vault.webp",
-                                            tag: "#yggdrasil:alfheim/ominous_vault"
+                                            tag: "#yggdrasil:structure/alfheim_tree/ominous_vault"
                                         },
                                         {
                                             title: "tools.enchantments.section.addons.yggdrasil.trial_spawner.title",
                                             description: "tools.enchantments.section.addons.yggdrasil.trial_spawner.description",
                                             image: "/images/features/block/trial_spawner.webp",
-                                            tag: "#yggdrasil:alfheim/trial_spawner"
+                                            tag: "#yggdrasil:structure/alfheim_tree/trial_spawner"
                                         },
                                         {
                                             title: "tools.enchantments.section.addons.yggdrasil.ominous_trial_spawner.title",
                                             description: "tools.enchantments.section.addons.yggdrasil.ominous_trial_spawner.description",
                                             image: "/images/features/block/ominous_trial_spawner.webp",
-                                            tag: "#yggdrasil:alfheim/ominous_trial_spawner"
+                                            tag: "#yggdrasil:structure/alfheim_tree/ominous_trial_spawner"
                                         }
                                     ]
                                 }
@@ -167,25 +167,25 @@ export const yggdrasil: ToolRevealElementType = {
                                             title: "tools.enchantments.section.addons.yggdrasil.common_chest.title",
                                             description: "tools.enchantments.section.addons.yggdrasil.common_chest.description",
                                             image: "/images/features/block/chest.webp",
-                                            tag: "#yggdrasil:asflors/common_chest"
+                                            tag: "#yggdrasil:structure/asflors/common"
                                         },
                                         {
                                             title: "tools.enchantments.section.addons.yggdrasil.structure_vault.title",
                                             description: "tools.enchantments.section.addons.yggdrasil.structure_vault.description",
                                             image: "/images/features/block/vault.webp",
-                                            tag: "#yggdrasil:asflors/structure_vault"
+                                            tag: "#yggdrasil:structure/asflors/vault"
                                         },
                                         {
                                             title: "tools.enchantments.section.addons.yggdrasil.structure_ominous_vault.title",
                                             description: "tools.enchantments.section.addons.yggdrasil.structure_ominous_vault.description",
                                             image: "/images/features/block/ominous_vault.webp",
-                                            tag: "#yggdrasil:asflors/structure_ominous_vault"
+                                            tag: "#yggdrasil:structure/asflors/ominous_vault"
                                         },
                                         {
                                             title: "tools.enchantments.section.addons.yggdrasil.asflors_sword.title",
                                             description: "tools.enchantments.section.addons.yggdrasil.asflors_sword.description",
                                             image: "/images/features/item/sword.webp",
-                                            tag: "#yggdrasil:asflors/asflors_sword"
+                                            tag: "#yggdrasil:structure/asflors/asflors_sword"
                                         }
                                     ]
                                 }
@@ -250,23 +250,46 @@ export const yggdrasil: ToolRevealElementType = {
                             type: "Slot",
                             title: {
                                 type: "translate",
-                                value: "tools.enchantments.section.addons.yggdrasil.reward_after_fight.title"
+                                value: "tools.enchantments.section.addons.yggdrasil.boss_trial_spawner.title"
                             },
                             description: {
                                 type: "translate",
-                                value: "tools.enchantments.section.addons.yggdrasil.reward_after_fight.description"
+                                value: "tools.enchantments.section.addons.yggdrasil.boss_trial_spawner.description"
                             },
                             image: "/images/features/block/ominous_trial_spawner.webp",
                             action: {
                                 type: "List",
                                 field: "tags",
-                                value: "#yggdrasil:runic_fracture/reward_after_fight"
+                                value: "#yggdrasil:structure/runic_fracture/boss_trial_spawner"
                             },
                             condition: {
                                 condition: "Contains",
                                 type: "Tags",
                                 field: "tags",
-                                values: ["#yggdrasil:runic_fracture/reward_after_fight"]
+                                values: ["#yggdrasil:structure/runic_fracture/boss_trial_spawner"]
+                            }
+                        },
+                        {
+                            type: "Slot",
+                            title: {
+                                type: "translate",
+                                value: "tools.enchantments.section.addons.yggdrasil.monster_trial_spawner.title"
+                            },
+                            description: {
+                                type: "translate",
+                                value: "tools.enchantments.section.addons.yggdrasil.monster_trial_spawner.description"
+                            },
+                            image: "/images/features/block/ominous_trial_spawner.webp",
+                            action: {
+                                type: "List",
+                                field: "tags",
+                                value: "#yggdrasil:structure/runic_fracture/monster_trial_spawner"
+                            },
+                            condition: {
+                                condition: "Contains",
+                                type: "Tags",
+                                field: "tags",
+                                values: ["#yggdrasil:structure/runic_fracture/monster_trial_spawner"]
                             }
                         }
                     ]

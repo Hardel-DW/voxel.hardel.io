@@ -205,6 +205,7 @@ export const supported: InterfaceConfiguration = {
                             title: {
                                 type: "translate",
                                 value: "tools.enchantments.section.supported.components.none.title"
+
                             },
                             image: "/images/tools/cross.webp",
                             action: {

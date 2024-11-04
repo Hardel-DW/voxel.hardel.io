@@ -1,18 +1,18 @@
 import type { InterfaceConfiguration } from "@/lib/minecraft/core/engine";
 
 export const technical: InterfaceConfiguration = {
-    id: "technical",
-    section: "tools.enchantments.section.technical",
+    id: "enchant.technical",
+    section: { type: "translate", value: "tools.enchantments.section.technical" },
     components: [
         {
             type: "Section",
-            title: "tools.enchantments.section.technical.description",
+            title: { type: "translate", value: "tools.enchantments.section.technical.description" },
             id: "technical_behaviour",
             children: [
                 {
                     type: "Switch",
-                    title: "tools.enchantments.section.technical.components.curse.title",
-                    description: "tools.enchantments.section.technical.components.curse.description",
+                    title: { type: "translate", value: "tools.enchantments.section.technical.components.curse.title" },
+                    description: { type: "translate", value: "tools.enchantments.section.technical.components.curse.description" },
                     action: {
                         type: "List",
                         field: "tags",
@@ -27,8 +27,8 @@ export const technical: InterfaceConfiguration = {
                 },
                 {
                     type: "Switch",
-                    title: "tools.enchantments.section.technical.components.nonTreasure.title",
-                    description: "tools.enchantments.section.technical.components.nonTreasure.description",
+                    title: { type: "translate", value: "tools.enchantments.section.technical.components.nonTreasure.title" },
+                    description: { type: "translate", value: "tools.enchantments.section.technical.components.nonTreasure.description" },
                     action: {
                         type: "List",
                         field: "tags",
@@ -43,8 +43,8 @@ export const technical: InterfaceConfiguration = {
                 },
                 {
                     type: "Switch",
-                    title: "tools.enchantments.section.technical.components.treasure.title",
-                    description: "tools.enchantments.section.technical.components.treasure.description",
+                    title: { type: "translate", value: "tools.enchantments.section.technical.components.treasure.title" },
+                    description: { type: "translate", value: "tools.enchantments.section.technical.components.treasure.description" },
                     action: {
                         type: "List",
                         field: "tags",
@@ -59,8 +59,8 @@ export const technical: InterfaceConfiguration = {
                 },
                 {
                     type: "Switch",
-                    title: "tools.enchantments.section.technical.components.smeltsLoot.title",
-                    description: "tools.enchantments.section.technical.components.smeltsLoot.description",
+                    title: { type: "translate", value: "tools.enchantments.section.technical.components.smeltsLoot.title" },
+                    description: { type: "translate", value: "tools.enchantments.section.technical.components.smeltsLoot.description" },
                     action: {
                         type: "List",
                         field: "tags",
@@ -78,8 +78,11 @@ export const technical: InterfaceConfiguration = {
                     children: [
                         {
                             type: "Switch",
-                            title: "tools.enchantments.section.technical.components.preventsIceMelting.title",
-                            description: "tools.enchantments.section.technical.components.preventsIceMelting.description",
+                            title: { type: "translate", value: "tools.enchantments.section.technical.components.preventsIceMelting.title" },
+                            description: {
+                                type: "translate",
+                                value: "tools.enchantments.section.technical.components.preventsIceMelting.description"
+                            },
                             action: {
                                 type: "List",
                                 field: "tags",
@@ -94,8 +97,14 @@ export const technical: InterfaceConfiguration = {
                         },
                         {
                             type: "Switch",
-                            title: "tools.enchantments.section.technical.components.preventInfestedBlockSpawning.title",
-                            description: "tools.enchantments.section.technical.components.preventInfestedBlockSpawning.description",
+                            title: {
+                                type: "translate",
+                                value: "tools.enchantments.section.technical.components.preventInfestedBlockSpawning.title"
+                            },
+                            description: {
+                                type: "translate",
+                                value: "tools.enchantments.section.technical.components.preventInfestedBlockSpawning.description"
+                            },
                             action: {
                                 type: "List",
                                 field: "tags",
@@ -115,8 +124,11 @@ export const technical: InterfaceConfiguration = {
                     children: [
                         {
                             type: "Switch",
-                            title: "tools.enchantments.section.technical.components.preventBeeSpawning.title",
-                            description: "tools.enchantments.section.technical.components.preventBeeSpawning.description",
+                            title: { type: "translate", value: "tools.enchantments.section.technical.components.preventBeeSpawning.title" },
+                            description: {
+                                type: "translate",
+                                value: "tools.enchantments.section.technical.components.preventBeeSpawning.description"
+                            },
                             action: {
                                 type: "List",
                                 field: "tags",
@@ -131,8 +143,14 @@ export const technical: InterfaceConfiguration = {
                         },
                         {
                             type: "Switch",
-                            title: "tools.enchantments.section.technical.components.preventPotShattering.title",
-                            description: "tools.enchantments.section.technical.components.preventPotShattering.description",
+                            title: {
+                                type: "translate",
+                                value: "tools.enchantments.section.technical.components.preventPotShattering.title"
+                            },
+                            description: {
+                                type: "translate",
+                                value: "tools.enchantments.section.technical.components.preventPotShattering.description"
+                            },
                             action: {
                                 type: "List",
                                 field: "tags",
@@ -151,7 +169,11 @@ export const technical: InterfaceConfiguration = {
         },
         {
             type: "Section",
-            title: "tools.enchantments.section.costs",
+            title: { type: "translate", value: "tools.enchantments.section.costs" },
+            button: {
+                text: { type: "translate", value: "generic.documentation" },
+                url: "https://minecraft.wiki/w/Enchanting_mechanics"
+            },
             id: "costs",
             children: [
                 {
@@ -159,7 +181,7 @@ export const technical: InterfaceConfiguration = {
                     children: [
                         {
                             type: "Range",
-                            label: "tools.enchantments.section.global.components.minCostBase.label",
+                            label: { type: "translate", value: "tools.enchantments.section.global.components.minCostBase.label" },
                             min: 0,
                             max: 100,
                             step: 1,
@@ -173,7 +195,10 @@ export const technical: InterfaceConfiguration = {
                         },
                         {
                             type: "Range",
-                            label: "tools.enchantments.section.global.components.minCostPerLevelAboveFirst.label",
+                            label: {
+                                type: "translate",
+                                value: "tools.enchantments.section.global.components.minCostPerLevelAboveFirst.label"
+                            },
                             min: 0,
                             max: 100,
                             step: 1,
@@ -195,7 +220,7 @@ export const technical: InterfaceConfiguration = {
                     children: [
                         {
                             type: "Range",
-                            label: "tools.enchantments.section.global.components.maxCostBase.label",
+                            label: { type: "translate", value: "tools.enchantments.section.global.components.maxCostBase.label" },
                             min: 0,
                             max: 100,
                             step: 1,
@@ -209,7 +234,10 @@ export const technical: InterfaceConfiguration = {
                         },
                         {
                             type: "Range",
-                            label: "tools.enchantments.section.global.components.maxCostPerLevelAboveFirst.label",
+                            label: {
+                                type: "translate",
+                                value: "tools.enchantments.section.global.components.maxCostPerLevelAboveFirst.label"
+                            },
                             min: 0,
                             max: 100,
                             step: 1,
@@ -230,7 +258,7 @@ export const technical: InterfaceConfiguration = {
         },
         {
             type: "Section",
-            title: "tools.enchantments.section.effects.components.title",
+            title: { type: "translate", value: "tools.enchantments.section.effects.components.title" },
             id: "effects",
             children: [
                 {

@@ -2,42 +2,37 @@ import { useTranslate } from "@/components/TranslateContext.tsx";
 import { Identifier } from "@/lib/minecraft/core/Identifier.ts";
 import type { ValueParams } from "@/lib/minecraft/core/engine/value";
 import { cn, quoteString } from "@/lib/utils.ts";
-import type { Action } from "src/lib/minecraft/core/engine/actions";
-import type { Condition } from "src/lib/minecraft/core/engine/condition";
-
-interface Props {
-    title: string;
-    image: string;
-    description?: string;
-    value?: boolean | string | number;
-    hide?: boolean | unknown;
-    lock?: string;
-    onChange?: (value: boolean | string | number) => void;
-    checked?: boolean;
-}
+import type { Action } from "@/lib/minecraft/core/engine/actions";
+import type { Condition } from "@/lib/minecraft/core/engine/condition";
+import TranslateText, { getKey, type TranslateTextType } from "@/lib/minecraft/components/elements/text/TranslateText.tsx";
 
 export type ToolSlotType = {
     type: "Slot";
-    description?: string;
-    title: string;
+    description?: TranslateTextType;
+    title: TranslateTextType;
     image: string;
     action: Action;
+    size?: number;
     condition?: Condition;
     lock?: ValueParams<string>;
-    hide?: Condition;
 };
 
-export default function ToolSlot(props: Props) {
+export default function ToolSlot(props: {
+    title: TranslateTextType | string;
+    image: string;
+    description?: TranslateTextType | string;
+    value?: boolean | string | number;
+    size?: number;
+    lock?: string;
+    onChange?: (value: boolean | string | number) => void;
+    checked?: boolean;
+}) {
     const { translate } = useTranslate();
     const handleChange = (option: boolean) => {
         if (props.lock) return;
 
         props.onChange?.(option);
     };
-
-    if (props.hide) {
-        return null;
-    }
 
     return (
         <div
@@ -66,11 +61,24 @@ export default function ToolSlot(props: Props) {
 
             <div className="flex flex-col items-center justify-between h-full">
                 <div className="mb-8 text-center">
-                    <h3 className="text-lg font-semibold mb-1">{props.title}</h3>
-                    {props.description && <p className="text-sm text-zinc-400">{props.description}</p>}
+                    <h3 className="text-lg font-semibold mb-1">
+                        <TranslateText content={props.title} />
+                    </h3>
+                    {props.description && (
+                        <p className="text-sm text-zinc-400">
+                            <TranslateText content={props.description} />
+                        </p>
+                    )}
                 </div>
 
-                <img src={props.image} alt={props.title} className="h-16 mb-8 pixelated" />
+                <img
+                    src={props.image}
+                    alt={getKey(props.title)}
+                    className="mb-8 pixelated"
+                    style={{
+                        height: props.size ? props.size : "64px"
+                    }}
+                />
             </div>
         </div>
     );

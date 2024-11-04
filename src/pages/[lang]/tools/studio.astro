@@ -1,0 +1,23 @@
+---
+import Layout from "@/components/layouts/Layout.astro";
+import StudioTool from "@/components/pages/tools/studio/StudioTool";
+import ShiningStars from "@/components/ui/pattern/ShiningStars.astro";
+import { getTranslations, names } from "@/lib/i18n";
+
+export const prerender = true;
+const { lang, translate } = await getTranslations(Astro.url);
+export async function getStaticPaths() {
+    return names.map((element) => ({
+        params: { lang: element.lang }
+    }));
+}
+---
+
+<Layout title="Enchant Configurator">
+    <div class="fixed inset-0">
+        <ShiningStars/>
+    </div>
+    <div class="absolute rounded-full w-3/4 h-1/2 bg-gradient-to-r from-[#830335] to-[#311e7696] opacity-20 blur-[10rem] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"/>
+
+    <StudioTool client:only="react" translate={translate} lang={lang} />
+</Layout>

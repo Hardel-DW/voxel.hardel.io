@@ -4,7 +4,7 @@ import { ToolEffect } from "@/lib/minecraft/components/elements/schema/ToolEffec
 import type { Analysers, GetAnalyserVoxel } from "@/lib/minecraft/core/engine/Analyser.ts";
 import { type Condition, checkCondition } from "@/lib/minecraft/core/engine/condition";
 import type { ReturnValue, ValueParams } from "@/lib/minecraft/core/engine/value";
-import type { EffectComponents, EffectComponentsRecord } from "@/lib/minecraft/schema/enchantment/EffectComponents.ts";
+import type { EffectComponents, EffectComponentsRecord } from "@voxel/definitions";
 import type { Action } from "src/lib/minecraft/core/engine/actions";
 
 export type ToolEffectType = {

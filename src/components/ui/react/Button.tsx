@@ -22,6 +22,7 @@ const variants = {
             "animate-shimmer bg-[linear-gradient(110deg,#c2410c,45%,#e06040,55%,#c2410c)] bg-[length:200%_100%] text-white hover:scale-95 transition flex items-center gap-4 place-self-end rounded-xl"
     },
     size: {
+        square: "h-10 p-2",
         default: "h-10 px-4 py-2",
         sm: "h-9 rounded-md px-3",
         md: "h-10 rounded-md px-4",

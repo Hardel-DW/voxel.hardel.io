@@ -2,6 +2,7 @@ import { useTranslate } from "@/components/TranslateContext.tsx";
 import { useConfigurator } from "@/lib/minecraft/components/ConfiguratorContext.tsx";
 import DebugConfigurator from "@/lib/minecraft/components/DebugConfigurator.tsx";
 import DownloadButton from "@/lib/minecraft/components/DownloadButton.tsx";
+import SettingsButton from "@/lib/minecraft/components/elements/SettingsButton.tsx";
 import { SidebarItem } from "@/lib/minecraft/components/SidebarItem.tsx";
 import { Identifier } from "@/lib/minecraft/core/Identifier.ts";
 import type { Analysers, GetAnalyserVoxel } from "@/lib/minecraft/core/engine/Analyser.ts";
@@ -40,8 +41,9 @@ export default function SidebarPanel<T extends keyof Analysers>() {
                                     ))}
                                 </div>
                             </div>
-                            <div className="absolute bottom-0 left-0 right-0 px-2 pb-2">
+                            <div className="absolute bottom-0 left-0 right-0 px-2 pb-2 flex items-center gap-2">
                                 <DownloadButton />
+                                <SettingsButton />
                             </div>
                         </div>
                     </div>

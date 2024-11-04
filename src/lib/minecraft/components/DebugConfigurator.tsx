@@ -64,7 +64,7 @@ export default function DebugConfigurator<T extends keyof Analysers>() {
                                         <div key={namespace} className="grid grid-cols-2 gap-4 pr-4 bg-black/30 rounded-2xl p-4 my-4">
                                             <div className="py-4 col-span-2">
                                                 <h4 className="w-fit px-2 text-lg font-semibold rounded-2xl bg-zinc-700/50 text-zinc-500">
-                                                    {namespace.replace(/\//g, " ").replace(/\b\w/g, (l) => l.toUpperCase())}
+                                                    {namespace.replace(/_/g, " ").replace(/\b\w/g, (l) => l.toUpperCase())}
                                                 </h4>
                                             </div>
 

@@ -6,6 +6,7 @@ import type { Analysers, GetAnalyserVoxel } from "@/lib/minecraft/core/engine/An
 import { getField } from "@/lib/minecraft/core/engine/field";
 import type { RegistryElement } from "@/lib/minecraft/mczip.ts";
 import { cn } from "@/lib/utils.ts";
+import type { TextComponentType } from "@voxel/definitions";
 import type React from "react";
 import { useRef } from "react";
 import { handleChange } from "src/lib/minecraft/core/engine/actions";
@@ -33,7 +34,7 @@ export function SidebarItem<T extends keyof Analysers>(props: {
 
     const handleSoftDelete = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (!context.configuration?.sidebar.toggle) return;
-        handleChange(context.configuration.sidebar.toggle, !e.target.checked, context, props.element.identifier);
+        handleChange(context.configuration.sidebar.toggle.action, !e.target.checked, context, props.element.identifier);
     };
 
     return (

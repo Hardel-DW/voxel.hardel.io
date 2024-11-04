@@ -10,15 +10,15 @@
         },
         {
             "question": "How do I get started?",
-            "answer": "To get started, simply upload your existing pack to the tool. Once uploaded, you can configure the enchantments to your liking and download the modified pack."
+            "answer": "To get started, simply drop your existing pack into the tool. Once dropped, you can configure the enchantments to your liking and download the modified pack."
         },
         {
             "question": "What format is supported for the tool?",
-            "answer": "The tool accepts datapacks only in .zip format. This is the format you download from platforms like Modrinth. The tool analyzes whether it's a valid datapack, and whether enchantments exist in it."
+            "answer": "The tool accepts datapacks and mods in .zip and .jar format. This is the format you download from platforms like Modrinth. The tool analyzes whether it's valid content, and whether enchantments exist in it."
         },
         {
-            "question": "Mods (.jar) file is supported?",
-            "answer": "No, the tool only supports .zip files. The site will soon support it."
+            "question": "Are Mods (.jar) files supported?",
+            "answer": "Yes, the tool supports .jar files whether it's Forge/Fabric/NeoForge/Quilt."
         },
         {
             "question": "How do I download the modified pack?",

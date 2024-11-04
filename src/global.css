@@ -77,8 +77,8 @@ label {
     [type="checkbox"] {
         all: unset;
         @apply w-11 cursor-pointer;
-        @apply after:absolute after:top-0 after:block after:rounded-full after:w-4 after:h-4 after:mt-1 after:ml-1 after:shadow-md after:duration-200 after:bg-stone-300 after:checked:bg-neutral-300;
-        @apply before:absolute before:top-0 before:inline-block before:rounded-full before:duration-100 before:w-10 before:h-6 before:bg-neutral-600 before:checked:bg-rose-900;
+        @apply after:absolute after:-translate-y-1/2 after:block after:rounded-full after:w-4 after:h-4 after:ml-1 after:shadow-md after:duration-200 after:bg-stone-300 after:checked:bg-neutral-300;
+        @apply before:absolute before:-translate-y-1/2 before:inline-block before:rounded-full before:duration-100 before:w-10 before:h-6 before:bg-neutral-600 before:checked:bg-rose-900;
         @apply checked:after:duration-300 checked:after:translate-x-4;
         @apply disabled:cursor-not-allowed disabled:after:bg-opacity-70;
         @apply disabled:checked:before:opacity-50;

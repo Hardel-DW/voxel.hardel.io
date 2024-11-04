@@ -1,28 +1,29 @@
-import { useTranslate } from "@/components/TranslateContext.tsx";
 import Button from "@/components/ui/react/Button.tsx";
-import type { FormComponent } from "@/lib/minecraft/core/engine";
 import { cn } from "@/lib/utils.ts";
+import type { FormComponent } from "@/lib/minecraft/core/engine";
+import TranslateText, { type TranslateTextType } from "@/lib/minecraft/components/elements/text/TranslateText.tsx";
 import { toast } from "sonner";
+import { useTranslate } from "@/components/TranslateContext";
 
 export type ToolRevealElementType = {
     id: string;
-    title: string;
+    title: TranslateTextType;
     soon?: boolean;
     image: string;
     logo: string;
     href: string;
-    description: string;
+    description: TranslateTextType;
     children: FormComponent[];
 };
 
 export default function ToolRevealElement(props: {
     isSelect: boolean;
-    title: string;
+    title: TranslateTextType | string;
     soon?: boolean;
     image: string;
     href: string;
     logo: string;
-    description: string;
+    description: TranslateTextType | string;
     onClick: () => void;
 }) {
     const { translate } = useTranslate();
@@ -55,7 +56,12 @@ export default function ToolRevealElement(props: {
                         "opacity-50 hover:opacity-50": props.soon
                     })}
                 >
-                    {props.soon ? translate["generic.soon"] : translate["generic.more"]}
+                    <TranslateText
+                        content={{
+                            type: "translate",
+                            value: props.soon ? "generic.soon" : "generic.more"
+                        }}
+                    />
                 </Button>
             </div>
             <div className="shadow-bottom rounded-2xl relative z-10" />
@@ -67,7 +73,7 @@ export default function ToolRevealElement(props: {
                 style={{ backgroundImage: `url(${props.image})` }}
             />
             <div className="self-end justify-self-end pb-4 pr-4 w-16 z-20">
-                <img className="self-center" src={props.logo} alt={props.title} />
+                <img className="self-center" src={props.logo} alt={typeof props.title === "string" ? props.title : "TranslateText"} />
             </div>
             <div
                 className={cn("p-4 self-end relative z-20", {
@@ -75,8 +81,12 @@ export default function ToolRevealElement(props: {
                 })}
             >
                 <div className="flex flex-col gap-2">
-                    <h1 className="text-3xl font-semibold uppercase tracking-wider">{translate[props.title]}</h1>
-                    <p className="text-zinc-400 font-semibold text-xs">{translate[props.description]}</p>
+                    <h1 className="text-3xl font-semibold uppercase tracking-wider">
+                        <TranslateText content={props.title} />
+                    </h1>
+                    <p className="text-zinc-400 font-semibold text-xs">
+                        <TranslateText content={props.description} />
+                    </p>
                 </div>
             </div>
         </div>

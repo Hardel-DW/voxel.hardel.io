@@ -1,42 +1,33 @@
-import { useTranslate } from "@/components/TranslateContext.tsx";
 import { Identifier } from "@/lib/minecraft/core/Identifier.ts";
 import type { ValueParams } from "@/lib/minecraft/core/engine/value";
 import { cn, quoteString } from "@/lib/utils.ts";
 import type { Action } from "src/lib/minecraft/core/engine/actions";
 import type { Condition } from "src/lib/minecraft/core/engine/condition";
-
-interface Props {
-    title: string;
-    image: string;
-    description?: string;
-    value?: boolean | string | number;
-    hide?: boolean | unknown;
-    lock?: string;
-    onChange?: (value: boolean | string | number) => void;
-    checked?: boolean;
-}
+import TranslateText, { type TranslateTextType } from "@/lib/minecraft/components/elements/text/TranslateText.tsx";
 
 export type ToolInlineType = {
     type: "InlineSlot";
-    description?: string;
-    title: string;
+    description?: TranslateTextType;
+    title: TranslateTextType;
     image: string;
     action?: Action;
     condition?: Condition;
     lock?: ValueParams<string>;
-    hide?: Condition;
 };
 
-export default function ToolInline(props: Props) {
-    const { translate } = useTranslate();
+export default function ToolInline(props: {
+    title: TranslateTextType | string;
+    image: string;
+    description?: TranslateTextType | string;
+    value?: boolean | string | number;
+    lock?: string;
+    onChange?: (value: boolean | string | number) => void;
+    checked?: boolean;
+}) {
     const handleChange = (option: boolean) => {
         if (props.lock) return;
         props.onChange?.(option);
     };
-
-    if (props.hide) {
-        return null;
-    }
 
     return (
         <div
@@ -56,18 +47,25 @@ export default function ToolInline(props: Props) {
 
             {props.lock && (
                 <span className="absolute top-0 p-4 text-xs text-zinc-400 font-light">
-                    {translate["tools.enchantments.section.technical.components.reason"].replace(
-                        "%s",
-                        quoteString(Identifier.fromString(props.lock).renderResourceName())
-                    )}
+                    <TranslateText
+                        content={{
+                            type: "translate",
+                            value: "tools.enchantments.section.technical.components.reason"
+                        }}
+                    />
+                    {quoteString(Identifier.fromString(props.lock).renderResourceName())}
                 </span>
             )}
 
             <div className="stack h-full rounded-2xl overflow-hidden">
                 <div className="pb-2 self-end px-4 relative z-20">
-                    <h3 className="text-xl font-semibold text-white">{props.title}</h3>
-                    {!props.description && (
-                        <p className="text-sm text-zinc-400">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                    <h3 className="text-xl font-semibold text-white">
+                        <TranslateText content={props.title} />
+                    </h3>
+                    {props.description && (
+                        <p className="text-sm text-zinc-400">
+                            <TranslateText content={props.description} />
+                        </p>
                     )}
                 </div>
                 <div className="rounded-2xl relative shadow-bottom z-10" />

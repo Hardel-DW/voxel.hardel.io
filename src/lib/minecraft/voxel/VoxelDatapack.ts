@@ -1,6 +1,6 @@
 import { Identifier } from "@/lib/minecraft/core/Identifier.ts";
 import type { RegistryElement } from "@/lib/minecraft/mczip.ts";
-import type { TagType } from "@/lib/minecraft/schema/tag/TagType.ts";
+import type { TagType } from "@voxel/definitions";
 
 const axes: TagType = {
     values: ["#minecraft:axes"]

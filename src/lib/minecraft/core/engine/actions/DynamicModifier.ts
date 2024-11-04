@@ -24,7 +24,6 @@ export function DynamicModifier<T extends keyof Analysers>(
     element: RegistryElement<GetAnalyserVoxel<T>>
 ): RegistryElement<GetAnalyserVoxel<T>> | undefined {
     const field = getField<T>(action.field, context);
-    console.log("DynamicModifier", value, field, element.identifier);
 
     return {
         identifier: element.identifier,

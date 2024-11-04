@@ -1,69 +1,76 @@
-import { useTranslate } from "@/components/TranslateContext.tsx";
+import Button from "@/components/ui/react/Button.tsx";
 import { useConfigurator } from "@/lib/minecraft/components/ConfiguratorContext.tsx";
+import TranslateText, { type TranslateTextType } from "@/lib/minecraft/components/elements/text/TranslateText.tsx";
 import type { FormComponent } from "@/lib/minecraft/core/engine";
 import { cn } from "@/lib/utils.ts";
 import type React from "react";
 
-interface Props {
-    title: string;
-    id: string;
-    toggle?: ToggleSection[];
-    children?: React.ReactNode;
-}
-
 export type ToolSectionType = {
     type: "Section";
     id: string;
-    title: string;
+    title: TranslateTextType;
     children: FormComponent[];
     toggle?: ToggleSection[];
+    button?: { text: TranslateTextType; url: string };
 };
 
 export type ToggleSection = {
     name: string;
-    title: string;
-    description: string;
+    field?: string;
+    title: TranslateTextType;
+    description: TranslateTextType;
 };
 
-export default function ToolSection({ title, children, toggle, id }: Props) {
+export default function ToolSection(props: {
+    title: TranslateTextType | string;
+    id: string;
+    toggle?: ToggleSection[];
+    children?: React.ReactNode;
+    button?: { text: TranslateTextType | string; url: string };
+}) {
     const { toggleSection, changeToggleValue } = useConfigurator();
-    const { translate } = useTranslate();
 
     return (
         <div className="bg-black/50 p-4 flex flex-col ring-0 transition-all rounded-xl">
             <div className="py-2 px-2 flex justify-between items-center cursor-pointer">
                 <div>
-                    <h2 className="text-2xl font-semibold">{translate[title]}</h2>
-                    {toggle?.some((toggle) => toggle.name === toggleSection?.[id]) && (
+                    <h2 className="text-2xl font-semibold">
+                        <TranslateText content={props.title} />
+                    </h2>
+                    {props.toggle?.some((toggle) => toggle.name === toggleSection?.[props.id]?.name) && (
                         <div className="text-xs text-zinc-400 font-light">
-                            {
-                                translate[
-                                    toggle?.find((toggle) => toggle.name === toggleSection?.[id])?.description ??
-                                        "generic.translation.missing"
-                                ]
-                            }
+                            <TranslateText
+                                content={props.toggle?.find((toggle) => toggle.name === toggleSection?.[props.id]?.name)?.description}
+                            />
                         </div>
                     )}
                 </div>
-                {toggle && (
-                    <div className="flex gap-x-2 py-2 px-2 items-center rounded-2xl p-1 bg-header-cloudy">
-                        {toggle?.map((element) => (
+                {props.button && (
+                    <Button href={props.button.url} variant="ghost">
+                        <TranslateText content={props.button.text} />
+                    </Button>
+                )}
+                {props.toggle && (
+                    <div className="flex gap-x-2 py-2 px-2 items-center rounded-2xl p-1 bg-header-cloudy flex-shrink-0">
+                        {props.toggle?.map((element) => (
                             <div
                                 className={cn("px-4 py-2 rounded-xl", {
-                                    "bg-rose-900 text-white": toggleSection?.[id] === element.name
+                                    "bg-rose-900 text-white": toggleSection?.[props.id]?.name === element.name
                                 })}
                                 key={element.name}
-                                onKeyDown={() => changeToggleValue(id, element.name)}
-                                onClick={() => changeToggleValue(id, element.name)}
+                                onKeyDown={() => changeToggleValue(props.id, element)}
+                                onClick={() => changeToggleValue(props.id, element)}
                             >
-                                <p className="text-sm font-semibold">{translate[element.title]}</p>
+                                <p className="text-sm font-semibold">
+                                    <TranslateText content={element.title} />
+                                </p>
                             </div>
                         ))}
                     </div>
                 )}
             </div>
             <div className="transition-height duration-100 ease-in-out overflow-hidden pb-1 px-1">
-                <div className="pt-4 gap-4 flex items flex-col">{children}</div>
+                <div className="pt-4 gap-4 flex items flex-col">{props.children}</div>
             </div>
         </div>
     );

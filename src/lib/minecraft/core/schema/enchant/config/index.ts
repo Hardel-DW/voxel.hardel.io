@@ -5,8 +5,11 @@ export const ENCHANT_TOOL_CONFIG: ToolConfiguration = {
     interface: SECTIONS,
     sidebar: {
         toggle: {
-            type: "Dynamic",
-            field: "softDelete"
+            field: "softDelete",
+            action: {
+                type: "Dynamic",
+                field: "softDelete"
+            }
         },
         value: {
             field: "softDelete"
@@ -21,5 +24,8 @@ export const ENCHANT_TOOL_CONFIG: ToolConfiguration = {
             main: "enchantment",
             tags: "tags/enchantment"
         }
+    },
+    compiler: {
+        merge_field_to_tags: ["exclusiveSet"]
     }
 };

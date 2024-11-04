@@ -2,8 +2,8 @@ import type { InterfaceConfiguration } from "@/lib/minecraft/core/engine";
 import { ADDONS } from "@/lib/minecraft/core/schema/enchant/config/addons";
 
 export const find: InterfaceConfiguration = {
-    id: "find",
-    section: "tools.enchantments.section.find",
+    id: "enchant.find",
+    section: { type: "translate", value: "tools.enchantments.section.find" },
     components: [
         {
             type: "Section",
@@ -12,184 +12,93 @@ export const find: InterfaceConfiguration = {
             children: [
                 {
                     type: "Grid",
+                    size: "350px",
                     children: [
                         {
-                            type: "Slot",
-                            image: "/images/features/block/enchanting_table.webp",
-                            title: "tools.enchantments.section.find.components.enchantingTable.title",
-                            description: "tools.enchantments.section.find.components.enchantingTable.description",
-                            action: {
-                                type: "List",
-                                field: "tags",
-                                value: "#minecraft:in_enchanting_table"
-                            },
-                            lock: {
-                                params: {
-                                    type: "Value",
-                                    value: "#minecraft:non_treasure"
+                            type: "Iteration",
+                            values: [
+                                {
+                                    type: "object",
+                                    values: [
+                                        {
+                                            title: "tools.enchantments.section.find.components.enchantingTable.title",
+                                            description: "tools.enchantments.section.find.components.enchantingTable.description",
+                                            image: "/images/features/block/enchanting_table.webp",
+                                            tag: "#minecraft:in_enchanting_table",
+                                            lock_value: "#minecraft:non_treasure"
+                                        },
+                                        {
+                                            title: "tools.enchantments.section.find.components.mobEquipment.title",
+                                            description: "tools.enchantments.section.find.components.mobEquipment.description",
+                                            image: "/images/features/entity/zombie.webp",
+                                            tag: "#minecraft:on_mob_spawn_equipment",
+                                            lock_value: "#minecraft:non_treasure"
+                                        },
+                                        {
+                                            title: "tools.enchantments.section.find.components.lootInChests.title",
+                                            description: "tools.enchantments.section.find.components.lootInChests.description",
+                                            image: "/images/features/block/chest.webp",
+                                            tag: "#minecraft:on_random_loot",
+                                            lock_value: "#minecraft:non_treasure"
+                                        },
+                                        {
+                                            title: "tools.enchantments.section.find.components.tradeable.title",
+                                            description: "tools.enchantments.section.find.components.tradeable.description",
+                                            image: "/images/features/item/enchanted_book.webp",
+                                            tag: "#minecraft:on_traded_equipment",
+                                            lock_value: "#minecraft:non_treasure"
+                                        },
+                                        {
+                                            title: "tools.enchantments.section.find.components.tradeableEquipment.title",
+                                            description: "tools.enchantments.section.find.components.tradeableEquipment.description",
+                                            image: "/images/features/item/enchanted_item.webp",
+                                            tag: "#minecraft:tradeable",
+                                            lock_value: "#minecraft:non_treasure"
+                                        },
+                                        {
+                                            title: "tools.enchantments.section.find.components.priceDoubled.title",
+                                            description: "tools.enchantments.section.find.components.priceDoubled.description",
+                                            image: "/images/features/title/doubled.webp",
+                                            tag: "#minecraft:double_trade_price",
+                                            lock_value: "#minecraft:treasure"
+                                        }
+                                    ]
+                                }
+                            ],
+                            template: {
+                                type: "Slot",
+                                title: {
+                                    type: "translate",
+                                    value: { type: "get_value_from_context", key: "title" }
+                                },
+                                description: {
+                                    type: "translate",
+                                    value: { type: "get_value_from_context", key: "description" }
+                                },
+                                image: { type: "get_value_from_context", key: "image" },
+                                action: {
+                                    type: "List",
+                                    field: "tags",
+                                    value: { type: "get_value_from_context", key: "tag" }
+                                },
+                                lock: {
+                                    params: {
+                                        type: "Value",
+                                        value: { type: "get_value_from_context", key: "lock_value" }
+                                    },
+                                    condition: {
+                                        condition: "Contains",
+                                        type: "Tags",
+                                        field: "tags",
+                                        values: [{ type: "get_value_from_context", key: "lock_value" }]
+                                    }
                                 },
                                 condition: {
-                                    condition: "Contains",
                                     type: "Tags",
-                                    field: "tags",
-                                    values: ["#minecraft:non_treasure"]
-                                }
-                            },
-                            condition: {
-                                type: "Tags",
-                                condition: "Contains",
-                                field: "tags",
-                                values: ["#minecraft:in_enchanting_table"]
-                            }
-                        },
-                        {
-                            type: "Slot",
-                            image: "/images/features/entity/zombie.webp",
-                            title: "tools.enchantments.section.find.components.mobEquipment.title",
-                            description: "tools.enchantments.section.find.components.mobEquipment.description",
-                            action: {
-                                type: "List",
-                                field: "tags",
-                                value: "#minecraft:on_mob_spawn_equipment"
-                            },
-                            lock: {
-                                params: {
-                                    type: "Value",
-                                    value: "#minecraft:non_treasure"
-                                },
-                                condition: {
                                     condition: "Contains",
-                                    type: "Tags",
                                     field: "tags",
-                                    values: ["#minecraft:non_treasure"]
+                                    values: [{ type: "get_value_from_context", key: "tag" }]
                                 }
-                            },
-                            condition: {
-                                type: "Tags",
-                                condition: "Contains",
-                                field: "tags",
-                                values: ["#minecraft:on_mob_spawn_equipment"]
-                            }
-                        },
-                        {
-                            type: "Slot",
-                            image: "/images/features/block/chest.webp",
-                            title: "tools.enchantments.section.find.components.lootInChests.title",
-                            description: "tools.enchantments.section.find.components.lootInChests.description",
-                            action: {
-                                type: "List",
-                                field: "tags",
-                                value: "#minecraft:on_random_loot"
-                            },
-                            lock: {
-                                params: {
-                                    type: "Value",
-                                    value: "#minecraft:non_treasure"
-                                },
-                                condition: {
-                                    condition: "Contains",
-                                    type: "Tags",
-                                    field: "tags",
-                                    values: ["#minecraft:non_treasure"]
-                                }
-                            },
-                            condition: {
-                                type: "Tags",
-                                condition: "Contains",
-                                field: "tags",
-                                values: ["#minecraft:on_random_loot"]
-                            }
-                        }
-                    ]
-                },
-                {
-                    type: "Grid",
-                    children: [
-                        {
-                            type: "Slot",
-                            title: "tools.enchantments.section.find.components.tradeable.title",
-                            image: "/images/features/item/enchanted_book.webp",
-                            description: "tools.enchantments.section.find.components.tradeable.description",
-                            action: {
-                                type: "List",
-                                field: "tags",
-                                value: "#minecraft:on_traded_equipment"
-                            },
-                            lock: {
-                                params: {
-                                    type: "Value",
-                                    value: "#minecraft:non_treasure"
-                                },
-                                condition: {
-                                    condition: "Contains",
-                                    type: "Tags",
-                                    field: "tags",
-                                    values: ["#minecraft:non_treasure"]
-                                }
-                            },
-                            condition: {
-                                type: "Tags",
-                                condition: "Contains",
-                                field: "tags",
-                                values: ["#minecraft:on_traded_equipment"]
-                            }
-                        },
-                        {
-                            type: "Slot",
-                            title: "tools.enchantments.section.find.components.tradeableEquipment.title",
-                            image: "/images/features/item/enchanted_item.webp",
-                            description: "tools.enchantments.section.find.components.tradeableEquipment.description",
-                            action: {
-                                type: "List",
-                                field: "tags",
-                                value: "#minecraft:tradeable"
-                            },
-                            lock: {
-                                params: {
-                                    type: "Value",
-                                    value: "#minecraft:non_treasure"
-                                },
-                                condition: {
-                                    condition: "Contains",
-                                    type: "Tags",
-                                    field: "tags",
-                                    values: ["#minecraft:non_treasure"]
-                                }
-                            },
-                            condition: {
-                                type: "Tags",
-                                condition: "Contains",
-                                field: "tags",
-                                values: ["#minecraft:tradeable"]
-                            }
-                        },
-                        {
-                            type: "Slot",
-                            title: "tools.enchantments.section.find.components.priceDoubled.title",
-                            image: "/images/features/title/doubled.webp",
-                            description: "tools.enchantments.section.find.components.priceDoubled.description",
-                            action: {
-                                type: "List",
-                                field: "tags",
-                                value: "#minecraft:double_trade_price"
-                            },
-                            lock: {
-                                params: {
-                                    type: "Value",
-                                    value: "#minecraft:treasure"
-                                },
-                                condition: {
-                                    condition: "Contains",
-                                    type: "Tags",
-                                    field: "tags",
-                                    values: ["#minecraft:treasure"]
-                                }
-                            },
-                            condition: {
-                                type: "Tags",
-                                condition: "Contains",
-                                field: "tags",
-                                values: ["#minecraft:double_trade_price"]
                             }
                         }
                     ]
@@ -198,7 +107,7 @@ export const find: InterfaceConfiguration = {
         },
         {
             type: "Section",
-            title: "tools.enchantments.section.addons.description",
+            title: { type: "translate", value: "tools.enchantments.section.addons.description" },
             id: "addons",
             children: [
                 {

@@ -3,7 +3,7 @@ import type { Parser } from "@/lib/minecraft/core/engine/Parser.ts";
 import type { ToolConfiguration } from "@/lib/minecraft/core/engine/index.ts";
 import { DataDrivenToVoxelFormat, type EnchantmentProps, VoxelToDataDriven } from "@/lib/minecraft/core/schema/enchant/EnchantmentProps.ts";
 import { ENCHANT_TOOL_CONFIG } from "@/lib/minecraft/core/schema/enchant/config";
-import type { Enchantment } from "@/lib/minecraft/schema/enchantment/Enchantment.ts";
+import type { Enchantment } from "@voxel/definitions";
 
 export type DataDrivenElement = {};
 export type VoxelElement = {};

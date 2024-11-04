@@ -1,116 +1,105 @@
 import type { ToolRevealElementType } from "@/lib/minecraft/components/elements/reveal/ToolRevealElementType.tsx";
 
 export const dungeon: ToolRevealElementType = {
-    id: "dnt",
+    id: "enchant.addons.dnt",
+    soon: true,
     logo: "/images/addons/logo/dnt.webp",
     image: "/images/addons/hero/dnt.png",
-    soon: true,
     href: "https://modrinth.com/datapack/dungeons-and-taverns",
-    title: "tools.enchantments.section.addons.dnt.title",
-    description: "tools.enchantments.section.addons.dnt.description",
+    title: {
+        type: "translate",
+        value: "tools.enchantments.section.addons.dnt.title"
+    },
+    description: {
+        type: "translate",
+        value: "tools.enchantments.section.addons.dnt.description"
+    },
     children: [
         {
             type: "Category",
-            title: "tools.enchantments.section.addons.dnt.overworld.title",
+            title: {
+                type: "translate",
+                value: "tools.enchantments.section.addons.dnt.global.title"
+            },
             children: [
                 {
                     type: "Grid",
-                    size: "400px",
+                    size: "250px",
                     children: [
                         {
-                            type: "InlineSlot",
-                            title: "tools.enchantments.section.addons.dnt.stay_fort.title",
-                            image: "/images/addons/card/dnt/stay_fort.webp"
-                        },
-                        {
-                            type: "InlineSlot",
-                            title: "tools.enchantments.section.addons.dnt.swamp_villages.title",
-                            image: "/images/addons/card/dnt/swamp_villages.webp"
-                        },
-                        {
-                            type: "InlineSlot",
-                            title: "tools.enchantments.section.addons.dnt.remnant.title",
-                            image: "/images/addons/card/dnt/remnant.webp"
-                        },
-                        {
-                            type: "InlineSlot",
-                            title: "tools.enchantments.section.addons.dnt.taverns.title",
-                            image: "/images/addons/card/dnt/taverns.webp"
-                        },
-                        {
-                            type: "InlineSlot",
-                            title: "tools.enchantments.section.addons.dnt.toxic_lair.title",
-                            image: "/images/addons/card/dnt/toxic_lair.webp"
-                        },
-                        {
-                            type: "InlineSlot",
-                            title: "tools.enchantments.section.addons.dnt.wells.title",
-                            image: "/images/addons/card/dnt/wells.webp"
-                        },
-                        {
-                            type: "InlineSlot",
-                            title: "tools.enchantments.section.addons.dnt.wild_ruins.title",
-                            image: "/images/addons/card/dnt/wild_ruins.webp"
-                        },
-                        {
-                            type: "InlineSlot",
-                            title: "tools.enchantments.section.addons.dnt.badlands_miner.title",
-                            image: "/images/addons/card/dnt/badlands_miner.webp"
-                        },
-                        {
-                            type: "InlineSlot",
-                            title: "tools.enchantments.section.addons.dnt.desert_ruins.title",
-                            image: "/images/addons/card/dnt/desert_ruins.webp"
-                        },
-                        {
-                            type: "InlineSlot",
-                            title: "tools.enchantments.section.addons.dnt.firewatch_towers.title",
-                            image: "/images/addons/card/dnt/firewatch_towers.webp"
-                        },
-                        {
-                            type: "InlineSlot",
-                            title: "tools.enchantments.section.addons.dnt.illager_camp.title",
-                            image: "/images/addons/card/dnt/illager_camp.webp"
-                        },
-                        {
-                            type: "InlineSlot",
-                            title: "tools.enchantments.section.addons.dnt.illager_hideout.title",
-                            image: "/images/addons/card/dnt/illager_hideout.webp"
-                        },
-                        {
-                            type: "InlineSlot",
-                            title: "tools.enchantments.section.addons.dnt.illager_manor.title",
-                            image: "/images/addons/card/dnt/illager_manor.webp"
-                        },
-                        {
-                            type: "InlineSlot",
-                            title: "tools.enchantments.section.addons.dnt.jungle_ruins.title",
-                            image: "/images/addons/card/dnt/jungle_ruins.webp"
-                        },
-                        {
-                            type: "InlineSlot",
-                            title: "tools.enchantments.section.addons.dnt.jungle_village.title",
-                            image: "/images/addons/card/dnt/jungle_village.webp"
-                        },
-                        {
-                            type: "InlineSlot",
-                            title: "tools.enchantments.section.addons.dnt.witch_villa.title",
-                            image: "/images/addons/card/dnt/witch_villa.webp"
-                        },
-                        {
-                            type: "InlineSlot",
-                            title: "tools.enchantments.section.addons.dnt.lone_citadel.title",
-                            image: "/images/addons/card/dnt/lone_citadel.webp"
-                        },
-                        {
-                            type: "InlineSlot",
-                            title: "tools.enchantments.section.addons.dnt.mangrove_swamp_hut.title",
-                            image: "/images/addons/card/dnt/mangrove_swamp_hut.webp"
-                        },
-                        {
-                            type: "InlineSlot",
-                            title: "tools.enchantments.section.addons.dnt.ruined_towns.title",
-                            image: "/images/addons/card/dnt/ruined_towns.webp"
+                            type: "Iteration",
+                            values: [
+                                {
+                                    type: "object",
+                                    values: [
+                                        {
+                                            title: "tools.enchantments.section.addons.dnt.overworld.title",
+                                            description: "tools.enchantments.section.addons.dnt.overworld.description",
+                                            image: "/images/features/structure/overworld.webp",
+                                            tag: "#nova_structures:overworld"
+                                        },
+                                        {
+                                            title: "tools.enchantments.section.addons.dnt.underwater.title",
+                                            description: "tools.enchantments.section.addons.dnt.underwater.description",
+                                            image: "/images/features/structure/underwater.webp",
+                                            tag: "#nova_structures:underwater"
+                                        },
+                                        {
+                                            title: "tools.enchantments.section.addons.dnt.nether.title",
+                                            description: "tools.enchantments.section.addons.dnt.nether.description",
+                                            image: "/images/features/structure/nether.webp",
+                                            tag: "#nova_structures:nether"
+                                        },
+                                        {
+                                            title: "tools.enchantments.section.addons.dnt.end.title",
+                                            description: "tools.enchantments.section.addons.dnt.end.description",
+                                            image: "/images/features/structure/end.webp",
+                                            tag: "#nova_structures:end"
+                                        }
+                                    ]
+                                }
+                            ],
+                            template: {
+                                type: "Slot",
+                                title: {
+                                    type: "translate",
+                                    value: {
+                                        type: "get_value_from_context",
+                                        key: "title"
+                                    }
+                                },
+                                description: {
+                                    type: "translate",
+                                    value: {
+                                        type: "get_value_from_context",
+                                        key: "description"
+                                    }
+                                },
+                                image: {
+                                    type: "get_value_from_context",
+                                    key: "image"
+                                },
+                                size: 128,
+                                action: {
+                                    type: "List",
+                                    field: "tags",
+                                    value: {
+                                        type: "get_value_from_context",
+                                        key: "tag"
+                                    }
+                                },
+                                condition: {
+                                    condition: "Contains",
+                                    type: "Tags",
+                                    field: "tags",
+                                    values: [
+                                        {
+                                            type: "get_value_from_context",
+                                            key: "tag"
+                                        }
+                                    ]
+                                }
+                            }
                         }
                     ]
                 }
@@ -118,137 +107,118 @@ export const dungeon: ToolRevealElementType = {
         },
         {
             type: "Category",
-            title: "tools.enchantments.section.addons.dnt.nether.title",
+            title: {
+                type: "translate",
+                value: "tools.enchantments.section.addons.dnt.structures.title"
+            },
             children: [
                 {
                     type: "Grid",
                     size: "400px",
                     children: [
                         {
-                            type: "InlineSlot",
-                            title: "tools.enchantments.section.addons.dnt.hamlet.title",
-                            image: "/images/addons/card/dnt/hamlet.webp"
-                        },
-                        {
-                            type: "InlineSlot",
-                            title: "tools.enchantments.section.addons.dnt.nether_keeps.title",
-                            image: "/images/addons/card/dnt/nether_keeps.webp"
-                        },
-                        {
-                            type: "InlineSlot",
-                            title: "tools.enchantments.section.addons.dnt.nether_port.title",
-                            image: "/images/addons/card/dnt/nether_port.webp"
-                        },
-                        {
-                            type: "InlineSlot",
-                            title: "tools.enchantments.section.addons.dnt.nether_skeleton.title",
-                            image: "/images/addons/card/dnt/nether_skeleton.webp"
-                        },
-                        {
-                            type: "InlineSlot",
-                            title: "tools.enchantments.section.addons.dnt.nether_skeleton_tower.title",
-                            image: "/images/addons/card/dnt/nether_skeleton_tower.webp"
-                        },
-                        {
-                            type: "InlineSlot",
-                            title: "tools.enchantments.section.addons.dnt.piglin_camps.title",
-                            image: "/images/addons/card/dnt/piglin_camps.webp"
-                        },
-                        {
-                            type: "InlineSlot",
-                            title: "tools.enchantments.section.addons.dnt.piglin_donjon.title",
-                            image: "/images/addons/card/dnt/piglin_donjon.webp"
-                        },
-                        {
-                            type: "InlineSlot",
-                            title: "tools.enchantments.section.addons.dnt.piglin_outstation.title",
-                            image: "/images/addons/card/dnt/piglin_outstation.webp"
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            type: "Category",
-            title: "tools.enchantments.section.addons.dnt.end.title",
-            children: [
-                {
-                    type: "Grid",
-                    size: "400px",
-                    children: [
-                        {
-                            type: "InlineSlot",
-                            title: "tools.enchantments.section.addons.dnt.end_castle.title",
-                            image: "/images/addons/card/dnt/end_castle.webp"
-                        },
-                        {
-                            type: "InlineSlot",
-                            title: "tools.enchantments.section.addons.dnt.end_lighthouse.title",
-                            image: "/images/addons/card/dnt/end_lighthouse.webp"
-                        },
-                        {
-                            type: "InlineSlot",
-                            title: "tools.enchantments.section.addons.dnt.end_ships.title",
-                            image: "/images/addons/card/dnt/end_ships.webp"
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            type: "Category",
-            title: "tools.enchantments.section.addons.dnt.underground.title",
-            children: [
-                {
-                    type: "Grid",
-                    size: "400px",
-                    children: [
-                        {
-                            type: "InlineSlot",
-                            title: "tools.enchantments.section.addons.dnt.shrines.title",
-                            image: "/images/addons/card/dnt/shrines.webp"
-                        },
-                        {
-                            type: "InlineSlot",
-                            title: "tools.enchantments.section.addons.dnt.undead_crypt.title",
-                            image: "/images/addons/card/dnt/undead_crypt.webp"
-                        },
-                        {
-                            type: "InlineSlot",
-                            title: "tools.enchantments.section.addons.dnt.underground_house.title",
-                            image: "/images/addons/card/dnt/underground_house.webp"
-                        },
-                        {
-                            type: "InlineSlot",
-                            title: "tools.enchantments.section.addons.dnt.bunker.title",
-                            image: "/images/addons/card/dnt/bunker.webp"
-                        },
-                        {
-                            type: "InlineSlot",
-                            title: "tools.enchantments.section.addons.dnt.creeping_crypt.title",
-                            image: "/images/addons/card/dnt/creeping_crypt.webp"
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            type: "Category",
-            title: "tools.enchantments.section.addons.dnt.underwater.title",
-            children: [
-                {
-                    type: "Grid",
-                    size: "400px",
-                    children: [
-                        {
-                            type: "InlineSlot",
-                            title: "tools.enchantments.section.addons.dnt.conduit_ruin.title",
-                            image: "/images/addons/card/dnt/conduit_ruin.webp"
-                        },
-                        {
-                            type: "InlineSlot",
-                            title: "tools.enchantments.section.addons.dnt.trident-trail",
-                            image: "/images/addons/card/dnt/trident_trail.webp"
+                            type: "Iteration",
+                            values: [
+                                {
+                                    type: "object",
+                                    values: [
+                                        {
+                                            title: "tools.enchantments.section.addons.dnt.creeping_crypt.title",
+                                            description: "tools.enchantments.section.addons.dnt.creeping_crypt.description",
+                                            image: "/images/addons/card/dnt/creeping_crypt.webp",
+                                            tag: "#nova_structures:creeping_crypt"
+                                        },
+                                        {
+                                            title: "tools.enchantments.section.addons.dnt.nether_keep.title",
+                                            description: "tools.enchantments.section.addons.dnt.nether_keep.description",
+                                            image: "/images/addons/card/dnt/piglin_outstation.webp",
+                                            tag: "#nova_structures:nether_keep"
+                                        },
+                                        {
+                                            title: "tools.enchantments.section.addons.dnt.illager.title",
+                                            description: "tools.enchantments.section.addons.dnt.illager.description",
+                                            image: "/images/addons/card/dnt/illager_manor.webp",
+                                            tag: "#nova_structures:illager"
+                                        },
+                                        {
+                                            title: "tools.enchantments.section.addons.dnt.illager_outpost.title",
+                                            description: "tools.enchantments.section.addons.dnt.illager_outpost.description",
+                                            image: "/images/addons/card/dnt/illager_hideout.webp",
+                                            tag: "#nova_structures:illager_outpost"
+                                        },
+                                        {
+                                            title: "tools.enchantments.section.addons.dnt.pale_residence.title",
+                                            description: "tools.enchantments.section.addons.dnt.pale_residence.description",
+                                            image: "/images/addons/card/dnt/pale_residence.webp",
+                                            tag: "#nova_structures:pale_residence"
+                                        },
+                                        {
+                                            title: "tools.enchantments.section.addons.dnt.shrine.title",
+                                            description: "tools.enchantments.section.addons.dnt.shrine.description",
+                                            image: "/images/addons/card/dnt/shrine.webp",
+                                            tag: "#nova_structures:shrine"
+                                        },
+                                        {
+                                            title: "tools.enchantments.section.addons.dnt.shrine_ominous.title",
+                                            description: "tools.enchantments.section.addons.dnt.shrine_ominous.description",
+                                            image: "/images/addons/card/dnt/shrine_ominous.webp",
+                                            tag: "#nova_structures:shrine_ominous"
+                                        },
+                                        {
+                                            title: "tools.enchantments.section.addons.dnt.snowy.title",
+                                            description: "tools.enchantments.section.addons.dnt.snowy.description",
+                                            image: "/images/addons/card/dnt/stay_fort.webp",
+                                            tag: "#nova_structures:snowy"
+                                        },
+                                        {
+                                            title: "tools.enchantments.section.addons.dnt.toxic_lair.title",
+                                            description: "tools.enchantments.section.addons.dnt.toxic_lair.description",
+                                            image: "/images/addons/card/dnt/toxic_lair.webp",
+                                            tag: "#nova_structures:toxic_lair"
+                                        }
+                                    ]
+                                }
+                            ],
+                            template: {
+                                type: "InlineSlot",
+                                title: {
+                                    type: "translate",
+                                    value: {
+                                        type: "get_value_from_context",
+                                        key: "title"
+                                    }
+                                },
+                                description: {
+                                    type: "translate",
+                                    value: {
+                                        type: "get_value_from_context",
+                                        key: "description"
+                                    }
+                                },
+                                image: {
+                                    type: "get_value_from_context",
+                                    key: "image"
+                                },
+                                action: {
+                                    type: "List",
+                                    field: "tags",
+                                    value: {
+                                        type: "get_value_from_context",
+                                        key: "tag"
+                                    }
+                                },
+                                condition: {
+                                    condition: "Contains",
+                                    type: "Tags",
+                                    field: "tags",
+                                    values: [
+                                        {
+                                            type: "get_value_from_context",
+                                            key: "tag"
+                                        }
+                                    ]
+                                }
+                            }
                         }
                     ]
                 }

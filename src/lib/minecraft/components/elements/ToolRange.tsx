@@ -1,16 +1,17 @@
 import type { ValueParams } from "@/lib/minecraft/core/engine/value";
 import type { InputHTMLAttributes } from "react";
 import type { Action } from "src/lib/minecraft/core/engine/actions";
+import TranslateText, { type TranslateTextType } from "@/lib/minecraft/components/elements/text/TranslateText.tsx";
 
 interface Props extends InputHTMLAttributes<HTMLInputElement> {
-    label?: string;
+    label?: TranslateTextType | string;
     onValueChange?: (option: number) => void;
     value?: number;
 }
 
 export type ToolRangeType = {
     type: "Range";
-    label: string;
+    label: TranslateTextType;
     min: number;
     max: number;
     step: number;
@@ -24,7 +25,7 @@ export default function ToolRange({ id, label, onValueChange, ...props }: Props)
             <div className="flex justify-between items-center w-full">
                 {label && (
                     <label htmlFor={id} className="block line-clamp-1 text-sm font-medium text-zinc-400 mb-1">
-                        {label}
+                        <TranslateText content={label} />
                     </label>
                 )}
 

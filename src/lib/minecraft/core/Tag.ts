@@ -1,6 +1,6 @@
 import type { Identifier, IdentifierOneToMany } from "@/lib/minecraft/core/Identifier.ts";
 import type { RegistryElement } from "@/lib/minecraft/mczip.ts";
-import type { TagType } from "@/lib/minecraft/schema/tag/TagType.ts";
+import type { TagType } from "@voxel/definitions";
 
 /**
  * Searches for a tag in a list of tags.

@@ -135,13 +135,30 @@ export const exclusive: InterfaceConfiguration = {
                                                     key: "image"
                                                 },
                                                 action: {
-                                                    type: "String",
-                                                    value: {
-                                                        type: "get_value_from_context",
-                                                        key: "value"
-                                                    },
-                                                    field: "exclusiveSet",
-                                                    mode: "toggle"
+                                                    type: "Sequential",
+                                                    actions: [
+                                                        {
+                                                            action: {
+                                                                type: "String",
+                                                                value: {
+                                                                    type: "get_value_from_context",
+                                                                    key: "value"
+                                                                },
+                                                                field: "exclusiveSet",
+                                                                mode: "toggle"
+                                                            }
+                                                        },
+                                                        {
+                                                            action: {
+                                                                type: "List",
+                                                                field: "tags",
+                                                                value: {
+                                                                    type: "get_value_from_context",
+                                                                    key: "value"
+                                                                }
+                                                            }
+                                                        }
+                                                    ]
                                                 },
                                                 condition: {
                                                     condition: "Equals",
@@ -183,13 +200,30 @@ export const exclusive: InterfaceConfiguration = {
                                                         },
                                                         image: "/favicon.svg",
                                                         action: {
-                                                            type: "String",
-                                                            value: {
-                                                                type: "get_value_from_context",
-                                                                key: "identifier"
-                                                            },
-                                                            field: "exclusiveSet",
-                                                            mode: "toggle"
+                                                            type: "Sequential",
+                                                            actions: [
+                                                                {
+                                                                    action: {
+                                                                        type: "String",
+                                                                        value: {
+                                                                            type: "get_value_from_context",
+                                                                            key: "identifier"
+                                                                        },
+                                                                        field: "exclusiveSet",
+                                                                        mode: "toggle"
+                                                                    }
+                                                                },
+                                                                {
+                                                                    action: {
+                                                                        type: "List",
+                                                                        field: "tags",
+                                                                        value: {
+                                                                            type: "get_value_from_context",
+                                                                            key: "identifier"
+                                                                        }
+                                                                    }
+                                                                }
+                                                            ]
                                                         },
                                                         condition: {
                                                             condition: "Equals",

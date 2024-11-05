@@ -66,7 +66,7 @@ export function compileDatapack<T extends keyof Analysers>(
     const compiledTags = compileTags(identifiers)
         .map((tag) => {
             const original = readDatapackFile<TagType>(context.files, tag.identifier);
-            const valueToAdd = original ? original.values.map(Identifier.getValue).filter((resource) => resource.startsWith("#")) : [];
+            const valueToAdd = original ? original.values.map(Identifier.getValue).filter((resource) => resource.startsWith("#") || resource.startsWith("minecraft")) : [];
 
             const uniqueValues = new Set([...tag.data.values, ...valueToAdd]);
             tag.data.values = Array.from(uniqueValues);

@@ -39,7 +39,7 @@ export default function TagViewer<T extends keyof Analysers>(props: {
     return (
         <div className="border-zinc-800 border bg-header-cloudy rounded-2xl shadow-black p-4 w-96">
             <div className="space-y-2">
-                {values.map((value) => {
+                {Array.from(new Set(values)).map((value) => {
                     const identifier = Identifier.fromString(value);
 
                     return (

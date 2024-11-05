@@ -10,7 +10,7 @@ import {
     getAnalyserForVersion
 } from "@/lib/minecraft/core/engine/Analyser.ts";
 import { type RegistryElement, readDatapackFile } from "@/lib/minecraft/mczip.ts";
-import type { TagType } from "@voxel/definitions";
+import type { OptionalTag, TagType } from "@voxel/definitions";
 
 export type Compiler<T extends VoxelElement, K extends DataDrivenElement> = (
     element: RegistryElement<T>,
@@ -66,10 +66,27 @@ export function compileDatapack<T extends keyof Analysers>(
     const compiledTags = compileTags(identifiers)
         .map((tag) => {
             const original = readDatapackFile<TagType>(context.files, tag.identifier);
-            const valueToAdd = original ? original.values.map(Identifier.getValue).filter((resource) => resource.startsWith("#") || resource.startsWith("minecraft")) : [];
+            const valueToAdd = original
+                ? original.values
+                      .map(Identifier.getValue)
+                      .filter((resource) => resource.startsWith("#") || resource.startsWith("minecraft"))
+                : [];
 
-            const uniqueValues = new Set([...tag.data.values, ...valueToAdd]);
-            tag.data.values = Array.from(uniqueValues);
+            const uniqueValuesMap = new Map<string, string | OptionalTag>();
+            for (const value of tag.data.values) {
+                const key = typeof value === "string" ? value : value.id;
+                uniqueValuesMap.set(key, value);
+            }
+
+            for (const value of valueToAdd) {
+                if (!uniqueValuesMap.has(value)) {
+                    uniqueValuesMap.set(value, value);
+                }
+            }
+
+            console.log(tag.identifier, uniqueValuesMap);
+
+            tag.data.values = Array.from(uniqueValuesMap.values());
             return tag;
         })
         .filter((tag) => tag !== null);

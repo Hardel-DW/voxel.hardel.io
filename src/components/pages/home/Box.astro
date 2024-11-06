@@ -1,7 +1,7 @@
 ---
-import { Image } from "astro:assets";
-import { cn } from "@/lib/utils";
-import type { HTMLAttributes } from "astro/types";
+import {Image} from "astro:assets";
+import {cn} from "@/lib/utils";
+import type {HTMLAttributes} from "astro/types";
 
 interface Props extends HTMLAttributes<"div"> {
     image: string;
@@ -10,15 +10,17 @@ interface Props extends HTMLAttributes<"div"> {
 ---
 
 <div class={cn(
-    "flex flex-col items-center justify-between gap-y-4 gradient-gray cursor-pointer border-t-2 border-r border-zinc-800 p-8 rounded-3xl shadow-2xl shadow-black transition opacity-75 hover:opacity-100",
+    "group relative z-10 flex flex-col items-center justify-between gap-y-4 gradient-gray cursor-pointer border-t-2 border-r border-zinc-800 p-8 rounded-3xl shadow-2xl shadow-black transition opacity-75 hover:opacity-100 hover:ring-zinc-800 hover:ring-2",
     Astro.props.class)}
      {...Astro.props}>
+
     <div class="flex justify-center h-full">
         <Image loading={Astro.props.loading} width="500" height="500" src={Astro.props.image} alt="404"
-               class="w-3/4 drag-none self-center"/>
+               class="w-3/4 drag-none self-center group-hover:animate-levitate duration-[10s]"/>
     </div>
 
-    <div class="place-items-end">
+    <div>
+        <div class="hidden group-hover:block absolute -z-10 top-0 left-0 w-full h-full bg-gradient-to-r from-pink-900 to-blue-900 opacity-30 rounded-full blur-[5rem]"/>
         <slot/>
     </div>
 </div>

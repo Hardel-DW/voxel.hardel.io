@@ -33,19 +33,28 @@ export default function NavBarItem({ translate, lang }: Props) {
                     <NavigationMenuContent>
                         <div className="p-6 space-y-6 md:w-[400px] lg:w-[500px]">
                             <HeroItem
-                                image={"/images/background/modrinth.webp"}
+                                image={"/images/background/blog/runic_fracture.jpg"}
                                 href={"https://modrinth.com/user/Hardel-DW"}
-                                title={translate["navbar.data_pack.modrinth.title"]}
+                                title={translate["navbar.datapack.modrinth.title"]}
                             >
-                                {translate["navbar.data_pack.modrinth.description"]}
+                                {translate["navbar.datapack.modrinth.description"]}
                             </HeroItem>
-                            <HeroItem
-                                href={`/${lang}/datapacks/neoenchant`}
-                                image={"/images/background/datapacks/neoenchant.webp"}
-                                title={translate["navbar.data_pack.neoenchant.title"]}
-                            >
-                                {translate["navbar.data_pack.neoenchant.description"]}
-                            </HeroItem>
+                            <ul className="grid gap-3 mt-3 ">
+                                <ListItem
+                                    image={"/images/features/title/ne.png"}
+                                    href={`/${lang}/datapacks/neoenchant`}
+                                    title={translate["navbar.datapack.neoenchant.title"]}
+                                >
+                                    {translate["navbar.datapack.neoenchant.description"]}
+                                </ListItem>
+                                <ListItem
+                                    image={"/images/features/title/yg.webp"}
+                                    href={`/${lang}/datapacks/yggdrasil`}
+                                    title={translate["navbar.datapack.yggdrasil.title"]}
+                                >
+                                    {translate["navbar.datapack.yggdrasil.description"]}
+                                </ListItem>
+                            </ul>
                         </div>
                     </NavigationMenuContent>
                 </NavigationMenuItem>
@@ -65,7 +74,7 @@ export default function NavBarItem({ translate, lang }: Props) {
                                 <ListItem href={`/${lang}/soon`} title={translate["navbar.resources.code.title"]}>
                                     {translate["navbar.resources.code.description"]}
                                 </ListItem>
-                                <ListItem href={`/${lang}/soon`} title={translate["navbar.resources.textures.title"]}>
+                                <ListItem href={`/${lang}/resources/asset`} title={translate["navbar.resources.textures.title"]}>
                                     {translate["navbar.resources.textures.description"]}
                                 </ListItem>
                                 <ListItem href={`/${lang}/soon`} title={translate["navbar.resources.model.title"]}>

@@ -6,7 +6,6 @@ import Box from "@/components/pages/home/Box.astro";
 import Adsense from "@/components/ui/adsense.astro";
 import Button from "@/components/ui/button.astro";
 import Faq from "@/components/ui/faq.astro";
-import DashedPattern from "@/components/ui/pattern/DashedPattern.astro";
 import Fog from "@/components/ui/pattern/Fog.astro";
 import ShiningStars from "@/components/ui/pattern/ShiningStars.astro";
 import Vortex from "@/components/ui/pattern/Vortex.astro";
@@ -18,7 +17,7 @@ const faq = await getEntry("faq", `${lang}/home`);
 export const prerender = true;
 export async function getStaticPaths() {
     return names.map((element) => ({
-        params: { lang: element.lang }
+        params: { lang: element.lang },
     }));
 }
 
@@ -54,27 +53,28 @@ const values = faq.data.values;
                         {translate["generic.section"]}
                     </small>
                     <h1 class="text-white text-4xl md:text-6xl font-bold mt-4 text-balance">
-                        {translate["home.main.title"]}
+                        {translate["datapacks.neoenchant.personalize.title"]}
                     </h1>
                     <p class="text-gray-300 mt-4">
-                        {translate["home.main.description"]}
+                        {translate["datapacks.neoenchant.personalize.description"]}
                     </p>
 
                     <div class="mt-8 flex gap-4">
-                        <Button href="/guides" size="xl" variant="primary">
+                        <Button href={`/${lang}/tools/enchant`} size="xl" variant="primary">
                             {translate["generic.start"]}
                         </Button>
-                        <Button href="/guides/basic_concept_forge" size="xl" variant="ghost">
+                        <Button href={`/${lang}/blog/enchant-configurator`} size="xl" variant="ghost">
                             {translate["generic.learn_more"]}
                         </Button>
                     </div>
                 </div>
             </div>
             <div class="relative w-full hidden xl:flex justify-center items-center">
-                <Image loading="eager" width="500" height="500" src="/images/features/dev.webp" alt="404"
-                       class="w-1/2 aspect-auto animate-levitate drag-none"
-                />
                 <img class="absolute opacity-10 drag-none" src="/icons/circle.svg" alt="box"/>
+                <Image loading="eager" width="1200" height="900" src="/images/background/tools/enchant-hero.webp"
+                       alt="404"
+                       class="aspect-auto drag-none"
+                />
             </div>
         </section>
 
@@ -126,56 +126,23 @@ const values = faq.data.values;
             </div>
         </section>
 
-        <!-- Configurator -->
-        <section
-                class="mb-32 md:mb-52 md:mt-20 pb-52 w-3/4 mx-auto relative grid md:grid-cols-2 items-center gap-x-8 gap-y-24">
-            <div class="absolute w-full inset-0 shadow-2xl bg-gradient-to-r from-[#401727] to-[#311e7696] opacity-20 rounded-full blur-[10rem]"/>
-            <DashedPattern class="[mask-image:radial-gradient(white,transparent_60%)]"/>
-
-            <div class="h-full w-full mx-auto relative">
-                <div class="size-full flex flex-col justify-center">
-                    <small class="text-pink-700 font-bold tracking-wide text-[16px]">
-                        {translate["generic.section"]}
-                    </small>
-                    <h1 class="text-white text-4xl md:text-6xl font-bold mt-4 text-balance">
-                        {translate["datapacks.neoenchant.personalize.title"]}
-                    </h1>
-                    <p class="text-gray-300 mt-4">
-                        {translate["datapacks.neoenchant.personalize.description"]}
-                    </p>
-
-                    <div class="mt-8 flex flex-col md:flex-row gap-4">
-                        <Button href={`/${lang}/tools/enchant`} size="xl" variant="ghost" class="w-full md:w-3/4">
-                            {translate["generic.start"]}
-                        </Button>
-                    </div>
-                </div>
-            </div>
-            <div class="relative w-full flex justify-center items-center">
-                <img class="absolute opacity-10 drag-none" src="/icons/circle.svg" alt="box"/>
-                <Image loading="eager" width="1200" height="900" src="/images/background/tools/enchant-hero.webp"
-                       alt="404"
-                       class="aspect-auto drag-none"
-                />
-            </div>
-        </section>
-
         <!-- Product -->
         <section class="my-32 md:my-52 px-8 w-full md:w-3/4 xl:w-1/2 mx-auto grid md:grid-cols-2 gap-8">
             <Box loading="eager" image="/images/features/structure/tree.webp"
                  class="border-zinc-800 border-2 relative z-10">
                 <div class="absolute -z-10 top-0 left-0 w-full h-full bg-gradient-to-r from-pink-900 to-blue-900 opacity-30 rounded-full blur-[5rem]"/>
-                <h2 class="text-white text-xl md:text-2xl font-bold text-left line-clamp-1">
-                    {translate["home.product.modding.title"]}
+                <h2 class="text-white text-xl md:text-2xl font-bold line-clamp-1">
+                    {translate["home.product.tools.title"]}
                 </h2>
                 <p class="text-zinc-400 text-sm md:text-base mt-2 line-clamp-3">
-                    {translate["home.product.modding.description"]}
+                    {translate["home.product.tools.description"]}
                 </p>
                 <div class="flex flex-wrap gap-2 mt-6">
-                    <Button class="w-full xl:w-fit" href="/guides" size="sm" variant="primary">
+                    <Button class="w-full xl:w-fit" href={`/${lang}/tools/enchant`} size="sm" variant="primary">
                         {translate["generic.start"]}
                     </Button>
-                    <Button class="w-full xl:w-fit" href="/guides" size="sm" variant="transparent">
+                    <Button class="w-full xl:w-fit" href={`/${lang}/blog/enchant-configurator`} size="sm"
+                            variant="transparent">
                         {translate["generic.learn_more"]}
                     </Button>
                 </div>
@@ -193,10 +160,10 @@ const values = faq.data.values;
             </Box>
             <Box loading="lazy" image="/images/features/title/question_mark.webp">
                 <h2 class="text-white text-xl md:text-2xl font-bold text-left line-clamp-1">
-                    {translate["generic.soon"]}
+                    {translate["home.studio.soon.title"]}
                 </h2>
                 <p class="text-zinc-400 text-sm md:text-base mt-2 line-clamp-3">
-                    {translate["home.product.soon"]}
+                    {translate["home.studio.soon.description"]}
                 </p>
             </Box>
 

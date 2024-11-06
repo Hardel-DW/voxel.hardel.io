@@ -61,9 +61,9 @@ export default {
                     }
                 },
                 levitate: {
-                    "0%": { transform: "translateY(-1.5rem)" },
+                    "0%": { transform: "translateY(0)" },
                     "50%": { transform: "translateY(1.5rem)" },
-                    "100%": { transform: "translateY(-1.5rem)" }
+                    "100%": { transform: "translateY(0)" }
                 },
                 open: {
                     from: {

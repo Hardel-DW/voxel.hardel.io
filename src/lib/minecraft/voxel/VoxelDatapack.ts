@@ -19,7 +19,7 @@ const shovels: TagType = {
 };
 
 const axe_sword: TagType = {
-    values: ["#minecraft:enchantable/axe", "#minecraft:enchantable/sword"]
+    values: ["#minecraft:axes", "#minecraft:enchantable/sword"]
 };
 
 const elytra: TagType = {

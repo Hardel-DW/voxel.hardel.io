@@ -1,6 +1,6 @@
-import CodeBlock from "@/components/ui/codeblock/CodeBlock";
-import RewardLine from "@/components/ui/RewardLine";
 import type { CollectionEntry } from "astro:content";
+import RewardLine from "@/components/ui/RewardLine";
+import CodeBlock from "@/components/ui/codeblock/CodeBlock";
 import useSWR from "swr";
 export default function RewardCollection(props: {
     rewardId: string;

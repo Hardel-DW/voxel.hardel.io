@@ -1,6 +1,6 @@
 import { getCollection } from "astro:content";
-import type { APIContext } from "astro";
 import type { CollectionEntry } from "astro:content";
+import type { APIContext } from "astro";
 
 export const prerender = true;
 export async function getStaticPaths() {

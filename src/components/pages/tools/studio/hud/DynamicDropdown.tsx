@@ -1,9 +1,9 @@
-import { useDropdown } from "./DropdownContext";
+import Loader from "@/components/ui/react/Loader";
 import { useRegistry } from "../hooks/useRegistry";
 import BaseComponent from "./BaseComponent";
 import DropdownContent from "./DropdownContent";
+import { useDropdown } from "./DropdownContext";
 import DropdownElement from "./DropdownElement";
-import Loader from "@/components/ui/react/Loader";
 
 interface DynamicDropdownProps {
     dropdownId: string;

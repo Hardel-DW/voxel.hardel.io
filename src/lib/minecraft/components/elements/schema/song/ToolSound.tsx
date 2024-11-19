@@ -1,4 +1,4 @@
-import { getCategory, searchSound, type CategorySound } from "@/lib/minecraft/net/api/Sound.ts";
+import { type CategorySound, getCategory, searchSound } from "@/lib/minecraft/net/api/Sound.ts";
 import { cn } from "@/lib/utils.ts";
 import { useEffect, useMemo, useRef, useState } from "react";
 import TranslateText from "../../text/TranslateText";

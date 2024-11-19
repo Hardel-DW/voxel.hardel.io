@@ -1,6 +1,6 @@
-import { useContext, useEffect, useRef, useState } from "react";
 import { TooltipContext } from "@/components/minecraft/tooltip/TooltipContext";
 import { clsx } from "@/lib/utils";
+import { useContext, useEffect, useRef, useState } from "react";
 
 export default function ItemTooltip(props: {
     categories?: string[];

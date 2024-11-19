@@ -24,7 +24,6 @@ export type CategorySound = {
     category: string;
 };
 
-
 /**
  * Search all elements in the sound directory, using GitHub API
  */

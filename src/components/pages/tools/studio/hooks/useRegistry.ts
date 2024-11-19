@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
 import { getRegistry } from "@voxel/registry";
+import { useEffect, useState } from "react";
 
 export function useRegistry(registryType: string, isOpen: boolean) {
     const [items, setItems] = useState<string[]>([]);

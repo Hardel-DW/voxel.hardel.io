@@ -1,5 +1,5 @@
-import Arrow from "public/images/design/minecraft/arrow.webp";
 import LoadingSlot from "@/components/minecraft/slot/LoadingSlot";
+import Arrow from "public/images/design/minecraft/arrow.webp";
 
 export default function SkeletonCraftingTableGUI() {
     return (

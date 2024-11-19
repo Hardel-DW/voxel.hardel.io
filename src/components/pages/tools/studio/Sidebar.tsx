@@ -4,8 +4,8 @@ import DropdownContent from "@/components/pages/tools/studio/hud/DropdownContent
 import { DropdownProvider } from "@/components/pages/tools/studio/hud/DropdownContext.tsx";
 import DropdownElement from "@/components/pages/tools/studio/hud/DropdownElement";
 import DropdownTrigger from "@/components/pages/tools/studio/hud/DropdownTrigger.tsx";
-import { DynamicDropdown } from "./hud/DynamicDropdown";
 import { snakeToTitleCase } from "@/lib/utils";
+import { DynamicDropdown } from "./hud/DynamicDropdown";
 
 export default function Sidebar() {
     const { createBlueprint } = useStudioContext();

@@ -1,16 +1,16 @@
 ---
+import { getCollection } from "astro:content";
 import CompoundLayout from "@/components/layouts/CompoundLayout.astro";
+import YggdrasilLootViewer from "@/components/pages/datapacks/yggdrasil/YggdrasilLootViewer";
 import DatapackCard from "@/components/ui/DatapackCard.astro";
+import GallerySection, { type ImageItem } from "@/components/ui/GallerySection.astro";
+import Lightbox from "@/components/ui/Lightbox.astro";
+import VideoSection from "@/components/ui/VideoSection.astro";
 import Adsense from "@/components/ui/adsense.astro";
+import Button from "@/components/ui/button.astro";
 import ShiningStars from "@/components/ui/pattern/ShiningStars.astro";
 import Vortex from "@/components/ui/pattern/Vortex.astro";
 import { getTranslations, names } from "@/lib/i18n";
-import Lightbox from "@/components/ui/Lightbox.astro";
-import VideoSection from "@/components/ui/VideoSection.astro";
-import GallerySection, { type ImageItem } from "@/components/ui/GallerySection.astro";
-import { getCollection } from "astro:content";
-import Button from "@/components/ui/button.astro";
-import YggdrasilLootViewer from "@/components/pages/datapacks/yggdrasil/YggdrasilLootViewer";
 
 const { translate, lang } = await getTranslations(Astro.url);
 export const prerender = true;

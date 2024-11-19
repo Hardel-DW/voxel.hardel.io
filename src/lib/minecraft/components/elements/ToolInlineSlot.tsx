@@ -1,9 +1,9 @@
+import TranslateText, { type TranslateTextType } from "@/lib/minecraft/components/elements/text/TranslateText.tsx";
 import { Identifier } from "@/lib/minecraft/core/Identifier.ts";
 import type { ValueParams } from "@/lib/minecraft/core/engine/value";
 import { cn, quoteString } from "@/lib/utils.ts";
 import type { Action } from "src/lib/minecraft/core/engine/actions";
 import type { Condition } from "src/lib/minecraft/core/engine/condition";
-import TranslateText, { type TranslateTextType } from "@/lib/minecraft/components/elements/text/TranslateText.tsx";
 
 export type ToolInlineType = {
     type: "InlineSlot";

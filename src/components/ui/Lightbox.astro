@@ -1,0 +1,141 @@
+
+<div id="lightbox" class="fixed inset-0 z-50 items-center justify-center hidden backdrop-blur-md">
+    <div class="absolute inset-0 bg-black/80" />
+    
+    <div class="relative w-full h-full flex items-center justify-center p-8 select-none" id="lightbox-overlay">
+        <button id="close-lightbox" class="absolute top-8 right-8 z-10 p-2 rounded-full bg-black/50 hover:bg-black/80 transition-colors">
+            <svg xmlns="http://www.w3.org/2000/svg" class="size-8 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M6 18L18 6M6 6l12 12"/>
+            </svg>
+        </button>
+        
+        <button id="prev-image" class="absolute left-8 z-30 p-4 rounded-2x">
+            <img src="/icons/chevron-left.svg" alt="Previous" class="size-24 invert">
+        </button>
+        
+        <button id="next-image" class="absolute right-8 z-30 p-4 rounded-2xl">
+            <img src="/icons/chevron-right.svg" alt="Next" class="size-24 invert">
+        </button>
+
+        <!-- Image -->
+        <img 
+            id="lightbox-img" 
+            alt="Lightbox image" 
+            class="w-[95vw] aspect-auto rounded-2xl object-contain shadow-2xl transition-transform duration-200 z-20"
+        >
+    </div>
+</div>
+
+
+<script>
+    const lightbox = document.getElementById('lightbox') as HTMLDivElement;
+    const lightboxImg = document.getElementById('lightbox-img') as HTMLImageElement;
+    const closeBtn = document.getElementById('close-lightbox') as HTMLButtonElement;
+    const prevBtn = document.getElementById('prev-image') as HTMLButtonElement;
+    const nextBtn = document.getElementById('next-image') as HTMLButtonElement;
+    const galleryItems = document.querySelectorAll<HTMLDivElement>('.gallery-item');
+    
+    let currentIndex = 0;
+    const imagePaths: string[] = Array.from(galleryItems).map(item => {
+        const img = item.querySelector('img');
+        return img?.src ?? '';
+    });
+
+    function showImage(index: number): void {
+        if (!lightbox || !lightboxImg) return;
+        currentIndex = index;
+        
+        // Ajouter une petite animation de fade-in
+        lightboxImg.style.opacity = '0';
+        lightboxImg.style.transform = 'scale(0.95)';
+        
+        lightbox.classList.remove('hidden');
+        lightbox.classList.add('flex');
+        
+        // Charger la nouvelle image
+        lightboxImg.src = imagePaths[index];
+        
+        // Animation une fois l'image chargée
+        lightboxImg.onload = () => {
+            lightboxImg.style.opacity = '1';
+            lightboxImg.style.transform = 'scale(1)';
+        };
+    }
+
+    function closeImage(): void {
+        if (!lightbox) return;
+        lightbox.classList.add('hidden');
+        lightbox.classList.remove('flex');
+    }
+
+    function showNext(): void {
+        if (!lightboxImg) return;
+        lightboxImg.style.opacity = '0';
+        lightboxImg.style.transform = 'scale(0.95)';
+        
+        setTimeout(() => {
+            currentIndex = (currentIndex + 1) % imagePaths.length;
+            lightboxImg.src = imagePaths[currentIndex];
+            
+            lightboxImg.onload = () => {
+                lightboxImg.style.opacity = '1';
+                lightboxImg.style.transform = 'scale(1)';
+            };
+        }, 200);
+    }
+
+    function showPrev(): void {
+        if (!lightboxImg) return;
+        lightboxImg.style.opacity = '0';
+        lightboxImg.style.transform = 'scale(0.95)';
+        
+        setTimeout(() => {
+            currentIndex = (currentIndex - 1 + imagePaths.length) % imagePaths.length;
+            lightboxImg.src = imagePaths[currentIndex];
+            
+            lightboxImg.onload = () => {
+                lightboxImg.style.opacity = '1';
+                lightboxImg.style.transform = 'scale(1)';
+            };
+        }, 200);
+    }
+
+    // Event Listeners
+    galleryItems.forEach((item) => {
+        item.addEventListener('click', () => {
+            const index = parseInt(item.getAttribute('data-index') || '0');
+            showImage(index);
+        });
+    });
+
+    if (closeBtn) closeBtn.addEventListener('click', closeImage);
+    if (nextBtn) nextBtn.addEventListener('click', showNext);
+    if (prevBtn) prevBtn.addEventListener('click', showPrev);
+
+    // Keyboard navigation
+    document.addEventListener('keydown', (e: KeyboardEvent) => {
+        if (!lightbox) return;
+        if (!lightbox.classList.contains('hidden')) {
+            if (e.key === 'Escape') closeImage();
+            if (e.key === 'ArrowRight') showNext();
+            if (e.key === 'ArrowLeft') showPrev();
+        }
+    });
+
+    // Modifier la gestion du clic pour fermer
+    const overlay = document.getElementById('lightbox-overlay');
+    
+    if (overlay) {
+        overlay.addEventListener('click', (e: MouseEvent) => {
+            console.log(e.target);
+            
+            if (e.target === overlay) {
+                closeImage();
+            }
+        });
+    }
+
+    if (lightboxImg) {
+        lightboxImg.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+    }
+</script>

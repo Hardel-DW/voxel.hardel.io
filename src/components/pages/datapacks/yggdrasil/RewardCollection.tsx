@@ -1,10 +1,8 @@
 import type { CollectionEntry } from "astro:content";
 import RewardLine from "@/components/ui/RewardLine";
-import CodeBlock from "@/components/ui/codeblock/CodeBlock";
 import useSWR from "swr";
-export default function RewardCollection(props: {
-    rewardId: string;
-}) {
+
+export default function RewardCollection(props: { rewardId: string }) {
     const { data, isLoading, error } = useSWR<NonNullable<CollectionEntry<"loot">["data"]["items"]>>(
         `/api/loot/${props.rewardId}.json`,
         (url: string) => fetch(url).then((res) => res.json())

@@ -1,10 +1,8 @@
 ---
 import PageLayout from "@/components/layouts/PageLayout.astro";
 import Box from "@/components/pages/home/Box.astro";
-import Bundle from "@/components/ui/Bundle.astro";
 import Button from "@/components/ui/button.astro";
-import { Select } from "../../../components/ui/react/Select";
-import Star from "../../../components/ui/star.astro";
+import Star from "@/components/ui/star.astro";
 
 // I want to make a "Resources" page with sidebar on the left and a main content on the right
 // The sidebar contains the categories of resources and a search bar
@@ -52,17 +50,17 @@ import Star from "../../../components/ui/star.astro";
 
 
         <div class="grid grid-cols-5 gap-4">
-            {Array.from({ length: 10 }).map((_, index) => (
-                <Box loading="lazy" image="/images/features/structure/tree.webp">
-                    <h2 class="text-white text-xl md:text-2xl font-bold text-left line-clamp-1">
-                        Sword Packs
-                    </h2>
-                    <div class="flex flex-wrap gap-2 mt-6">
-                        <Button class="w-full" size="sm" variant="ghost">
-                            Download
-                        </Button>
-                    </div>
-                </Box>
+            {Array.from({length: 10}).map(() => (
+                    <Box loading="lazy" image="/images/features/structure/tree.webp">
+                        <h2 class="text-white text-xl md:text-2xl font-bold text-left line-clamp-1">
+                            Sword Packs
+                        </h2>
+                        <div class="flex flex-wrap gap-2 mt-6">
+                            <Button class="w-full" size="sm" variant="ghost">
+                                Download
+                            </Button>
+                        </div>
+                    </Box>
             ))}
         </div>
     </section>

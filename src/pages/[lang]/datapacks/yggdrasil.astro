@@ -1,42 +1,41 @@
 ---
-import { getCollection } from "astro:content";
+import {getCollection} from "astro:content";
 import CompoundLayout from "@/components/layouts/CompoundLayout.astro";
 import YggdrasilLootViewer from "@/components/pages/datapacks/yggdrasil/YggdrasilLootViewer";
 import DatapackCard from "@/components/ui/DatapackCard.astro";
-import GallerySection, { type ImageItem } from "@/components/ui/GallerySection.astro";
+import GallerySection, {type ImageItem} from "@/components/ui/GallerySection.astro";
 import Lightbox from "@/components/ui/Lightbox.astro";
 import VideoSection from "@/components/ui/VideoSection.astro";
 import Adsense from "@/components/ui/adsense.astro";
-import Button from "@/components/ui/button.astro";
 import ShiningStars from "@/components/ui/pattern/ShiningStars.astro";
 import Vortex from "@/components/ui/pattern/Vortex.astro";
-import { getTranslations, names } from "@/lib/i18n";
+import {getTranslations, names} from "@/lib/i18n";
 
-const { translate, lang } = await getTranslations(Astro.url);
+const {translate} = await getTranslations(Astro.url);
 export const prerender = true;
 export async function getStaticPaths() {
     return names.map((element) => ({
-        params: { lang: element.lang }
+        params: {lang: element.lang}
     }));
 }
 
 const images: ImageItem[] = [
-    { rows: 2, cols: 2, path: "/images/addons/card/yggdrasil/alfheim.webp" },
-    { rows: 1, cols: 2, path: "/images/addons/card/yggdrasil/another_street.webp" },
-    { rows: 1, cols: 2, path: "/images/addons/card/yggdrasil/elf_house.webp" },
-    { rows: 2, cols: 2, path: "/images/addons/card/yggdrasil/fight.webp" },
-    { rows: 2, cols: 2, path: "/images/addons/card/yggdrasil/fountain.webp" },
-    { rows: 1, cols: 2, path: "/images/addons/card/yggdrasil/house.webp" },
-    { rows: 1, cols: 1, path: "/images/addons/card/yggdrasil/lac.webp" },
-    { rows: 1, cols: 1, path: "/images/addons/card/yggdrasil/lock.webp" },
-    { rows: 1, cols: 1, path: "/images/addons/card/yggdrasil/mystic_house.webp" },
-    { rows: 2, cols: 1, path: "/images/addons/card/yggdrasil/quest.webp" },
-    { rows: 1, cols: 2, path: "/images/addons/card/yggdrasil/runic_fracture.webp" },
-    { rows: 1, cols: 1, path: "/images/addons/card/yggdrasil/street.webp" },
-    { rows: 2, cols: 1, path: "/images/addons/card/yggdrasil/sword.webp" },
-    { rows: 1, cols: 1, path: "/images/addons/card/yggdrasil/village.webp" },
-    { rows: 1, cols: 2, path: "/images/addons/card/yggdrasil/table.webp" },
-    { rows: 1, cols: 1, path: "/images/addons/card/yggdrasil/underground.webp" }
+    {rows: 2, cols: 2, path: "/images/addons/card/yggdrasil/alfheim.webp"},
+    {rows: 1, cols: 2, path: "/images/addons/card/yggdrasil/another_street.webp"},
+    {rows: 1, cols: 2, path: "/images/addons/card/yggdrasil/elf_house.webp"},
+    {rows: 2, cols: 2, path: "/images/addons/card/yggdrasil/fight.webp"},
+    {rows: 2, cols: 2, path: "/images/addons/card/yggdrasil/fountain.webp"},
+    {rows: 1, cols: 2, path: "/images/addons/card/yggdrasil/house.webp"},
+    {rows: 1, cols: 1, path: "/images/addons/card/yggdrasil/lac.webp"},
+    {rows: 1, cols: 1, path: "/images/addons/card/yggdrasil/lock.webp"},
+    {rows: 1, cols: 1, path: "/images/addons/card/yggdrasil/mystic_house.webp"},
+    {rows: 2, cols: 1, path: "/images/addons/card/yggdrasil/quest.webp"},
+    {rows: 1, cols: 2, path: "/images/addons/card/yggdrasil/runic_fracture.webp"},
+    {rows: 1, cols: 1, path: "/images/addons/card/yggdrasil/street.webp"},
+    {rows: 2, cols: 1, path: "/images/addons/card/yggdrasil/sword.webp"},
+    {rows: 1, cols: 1, path: "/images/addons/card/yggdrasil/village.webp"},
+    {rows: 1, cols: 2, path: "/images/addons/card/yggdrasil/table.webp"},
+    {rows: 1, cols: 1, path: "/images/addons/card/yggdrasil/underground.webp"}
 ];
 
 // Récupération des structures
@@ -56,48 +55,49 @@ const yggdrasil = structures.filter((s) => s.id.startsWith("yggdrasil"));
 
     <section class="h-[90vh] relative z-20 flex flex-col items-center justify-end">
         {/* Gradients */}
-        <div class="absolute inset-0 bg-gradient-to-b from-black/50 from-5% to-transparent" />
-        <div class="absolute bottom-0 h-1/2 w-full bg-gradient-to-t from-black to-transparent" />
+        <div class="absolute inset-0 bg-gradient-to-b from-black/50 from-5% to-transparent"/>
+        <div class="absolute bottom-0 h-1/2 w-full bg-gradient-to-t from-black to-transparent"/>
 
         {/* Background Image */}
         <img
-            src={yggdrasil[0].data.image}
-            alt={yggdrasil[0].data.id}
-            id="main-background"
-            width="1920"
-            height="1080"
-            loading="eager"
-            class="absolute inset-0 size-full object-cover object-center -z-10 transition-all duration-500"
+                src={yggdrasil[0].data.image}
+                alt={yggdrasil[0].data.id}
+                id="main-background"
+                width="1920"
+                height="1080"
+                loading="eager"
+                class="absolute inset-0 size-full object-cover object-center -z-10 transition-all duration-500"
         />
 
         {/* Content */}
         <div class="relative flex flex-col items-center gap-y-4 pb-24 select-none">
-            <YggdrasilLootViewer client:only="react" structures={yggdrasil} />
+            <YggdrasilLootViewer client:only="react" structures={yggdrasil}/>
 
-            <span style={{ fontFamily: "fantasy" }} id="title" class="text-4xl md:text-6xl uppercase tracking-widest text-white">
+            <span style={{fontFamily: "fantasy"}} id="title"
+                  class="text-4xl md:text-6xl uppercase tracking-widest text-white">
                 {yggdrasil[0].data.name}
             </span>
 
             <div class="w-full flex items-center gap-x-4">
-                <div class="h-px flex-1 bg-gradient-to-l from-zinc-700 to-transparent" />
-                <img src="/icons/star.svg" alt="star" class="size-6 invert" />
-                <div class="h-px flex-1 bg-gradient-to-r from-zinc-700 to-transparent" />
+                <div class="h-px flex-1 bg-gradient-to-l from-zinc-700 to-transparent"/>
+                <img src="/icons/star.svg" alt="star" class="size-6 invert"/>
+                <div class="h-px flex-1 bg-gradient-to-r from-zinc-700 to-transparent"/>
             </div>
 
             {/* Structure Buttons */}
             <div class="flex items-center gap-x-4">
                 {yggdrasil.map((structure, index) => (
-                    <button
-                        type="button"
-                        data-index={index}
-                        class="structure-btn relative size-24 rounded-full overflow-hidden transition-transform duration-300 hover:scale-110"
-                    >
-                        <img
-                            src={structure.data.image}
-                            alt={structure.data.id}
-                            class="w-full h-full object-cover p-1 rounded-full"
-                        />
-                    </button>
+                        <button
+                                type="button"
+                                data-index={index}
+                                class="structure-btn relative size-24 rounded-full overflow-hidden transition-transform duration-300 hover:scale-110"
+                        >
+                            <img
+                                    src={structure.data.image}
+                                    alt={structure.data.id}
+                                    class="w-full h-full object-cover p-1 rounded-full"
+                            />
+                        </button>
                 ))}
             </div>
         </div>
@@ -166,19 +166,19 @@ const yggdrasil = structures.filter((s) => s.id.startsWith("yggdrasil"));
     </section>
 </CompoundLayout>
 
-<script is:inline define:vars={{ yggdrasil }}>
+<script is:inline define:vars={{yggdrasil}}>
     // Gestion du background et du titre
     function updateSelectedStructure(index) {
         const structure = yggdrasil[index];
         const background = document.getElementById('main-background');
         const title = document.getElementById('title');
-        
-        if (background && title) { 
+
+        if (background && title) {
             background.src = structure.data.image;
             background.alt = structure.data.id;
             title.textContent = structure.data.name;
         }
-        
+
         // Mise à jour des boutons
         for (const [i, btn] of document.querySelectorAll('.structure-btn').entries()) {
             if (i === index) {
@@ -188,13 +188,13 @@ const yggdrasil = structures.filter((s) => s.id.startsWith("yggdrasil"));
             }
         }
     }
-    
+
     // Event listeners
     document.querySelectorAll('.structure-btn').forEach((btn, index) => {
         btn.addEventListener('click', () => {
             if (yggdrasil[index]) {
                 selectedIndex = index;
-                updateSelectedStructure(index); 
+                updateSelectedStructure(index);
             }
         });
     });

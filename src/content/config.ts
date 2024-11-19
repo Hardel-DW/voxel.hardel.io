@@ -1,4 +1,4 @@
-import { defineCollection, z } from "astro:content";
+import { defineCollection, reference, z } from "astro:content";
 import * as translate from "@/content/i18n/en-us.json";
 import { glob } from "astro/loaders";
 
@@ -167,6 +167,39 @@ const updateCollection = defineCollection({
     })
 });
 
+const structureCollection = defineCollection({
+    loader: glob({ pattern: "**/[^_]*.json", base: "./src/content/structure" }),
+    schema: z.object({
+        id: z.string(),
+        disabled: z.boolean().default(false),
+        name: z.string(),
+        image: z.string(),
+        rewards: z.array(
+            z.object({
+                id: z.string(),
+                description: z.string(),
+                content: reference("loot")
+            })
+        )
+    })
+});
+
+const lootCollection = defineCollection({
+    loader: glob({ pattern: "**/[^_]*.json", base: "./src/content/loot" }),
+    schema: z.object({
+        items: z
+            .array(
+                z.object({
+                    id: z.string(),
+                    description: z.string().optional(),
+                    count: z.union([z.object({ min: z.number(), max: z.number() }), z.number()]).optional()
+                })
+            )
+            .optional(),
+        reference: z.array(reference("loot")).optional()
+    })
+});
+
 export const collections = {
     article: articleCollection,
     guide: guideCollection,
@@ -175,5 +208,7 @@ export const collections = {
     blog: blogCollection,
     team: teamCollection,
     timeline: timelineCollection,
-    update: updateCollection
+    update: updateCollection,
+    structure: structureCollection,
+    loot: lootCollection
 };

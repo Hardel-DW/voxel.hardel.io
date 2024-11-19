@@ -1,0 +1,43 @@
+{
+    "items": [
+        {
+            "id": "minecraft:black_dye",
+            "count": {
+                "min": 2,
+                "max": 7
+            }
+        },
+        {
+            "id": "minecraft:red_dye",
+            "count": {
+                "min": 2,
+                "max": 7
+            }
+        },
+        {
+            "id": "minecraft:blue_dye",
+            "count": 1
+        },
+        {
+            "id": "minecraft:green_dye",
+            "count": {
+                "min": 2,
+                "max": 3
+            }
+        },
+        {
+            "id": "minecraft:yellow_dye",
+            "count": {
+                "min": 2,
+                "max": 3
+            }
+        },
+        {
+            "id": "minecraft:white_dye",
+            "count": {
+                "min": 2,
+                "max": 3
+            }
+        }
+    ]
+}

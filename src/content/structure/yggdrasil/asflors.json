@@ -1,0 +1,52 @@
+{
+    "id": "asflors",
+    "name": "Asflors",
+    "image": "/images/addons/card/yggdrasil/village.webp",
+    "rewards": [
+        {
+            "id": "minecraft:vault",
+            "description": "La clef est trouvable dans la fontaine du village ou aléatoirement dans des coffres",
+            "content": "yggdrasil/asflors/vault"
+        },
+        {
+            "id": "minecraft:ominous_vault",
+            "description": "Vous devez faire la quête du donjon runique pour obtenir la clef",
+            "content": "yggdrasil/asflors/ominous_vault"
+        },
+        {
+            "id": "minecraft:barrel",
+            "description": "Les récompenses diverses du village",
+            "content": "yggdrasil/asflors/barrel"
+        },
+        {
+            "id": "minecraft:chest",
+            "description": "Le coffre de la fontaine",
+            "content": "yggdrasil/asflors/fountain"
+        },
+        {
+            "id": "minecraft:chest",
+            "description": "Le coffre du fond du lac",
+            "content": "yggdrasil/asflors/lake"
+        },
+        {
+            "id": "minecraft:chest",
+            "description": "Le coffre de la maison du voyageur",
+            "content": "yggdrasil/asflors/traveler"
+        },
+        {
+            "id": "minecraft:chest",
+            "description": "Les coffres trouvable dans les maisons",
+            "content": "yggdrasil/asflors/house"
+        },
+        {
+            "id": "minecraft:decorated_pot",
+            "description": "Les récompenses lorsque vous cassez un pot décoratif",
+            "content": "yggdrasil/asflors/decorated_pot"
+        },
+        {
+            "id": "minecraft:diamond_sword",
+            "description": "Le trésor du village, trouvable en fouillant le village",
+            "content": "yggdrasil/asflors/asflors_sword"
+        }
+    ]
+}

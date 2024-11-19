@@ -1,0 +1,16 @@
+{
+    "items": [
+        {
+            "id": "minecraft:enchanted_book",
+            "description": "Tears of Asflors"
+        },
+        {
+            "id": "minecraft:amethyst_shard",
+            "description": "Authentic Rune of Rupture"
+        },
+        {
+            "id": "minecraft:written_book",
+            "description": "Secret Journal - Chapter 8"
+        }
+    ]
+}

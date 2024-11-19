@@ -1,0 +1,73 @@
+{
+    "items": [
+        {
+            "id": "minecraft:arrow",
+            "count": {
+                "min": 2,
+                "max": 8
+            }
+        },
+        {
+            "id": "minecraft:tipped_arrow",
+            "description": "poison",
+            "count": {
+                "min": 2,
+                "max": 8
+            }
+        },
+        {
+            "id": "minecraft:emerald",
+            "count": {
+                "min": 2,
+                "max": 4
+            }
+        },
+        {
+            "id": "minecraft:iron_ingot",
+            "count": {
+                "min": 1,
+                "max": 4
+            }
+        },
+        {
+            "id": "minecraft:ominous_bottle",
+            "description": "Amplificateur (0-1)",
+            "count": 1
+        },
+        {
+            "id": "minecraft:wind_charge",
+            "count": {
+                "min": 4,
+                "max": 12
+            }
+        },
+        {
+            "id": "minecraft:lapis_lazuli",
+            "count": {
+                "min": 4,
+                "max": 18
+            }
+        },
+        {
+            "id": "minecraft:glow_ink_sac",
+            "count": {
+                "min": 2,
+                "max": 5
+            }
+        },
+        {
+            "id": "minecraft:golden_apple",
+            "count": {
+                "min": 1,
+                "max": 2
+            }
+        },
+        {
+            "id": "minecraft:torch",
+            "count": {
+                "min": 6,
+                "max": 12
+            }
+        }
+    ]
+}

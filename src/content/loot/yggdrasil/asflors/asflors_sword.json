@@ -1,0 +1,20 @@
+{
+    "items": [
+        {
+            "id": "minecraft:diamond_sword",
+            "description": "Has some modified attributes"
+        },
+        {
+            "id": "minecraft:enchanted_book",
+            "description": "Tears of Asflors"
+        },
+        {
+            "id": "minecraft:enchanted_book",
+            "description": "Sharpness IV"
+        },
+        {
+            "id": "minecraft:enchanted_book",
+            "description": "Mending"
+        }
+    ]
+}

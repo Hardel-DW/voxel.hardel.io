@@ -1,4 +1,8 @@
-<div class="w-full flex items-center gap-x-4">
+---
+const { className } = Astro.props;
+---
+
+<div class:list={[className, "w-full flex items-center gap-x-4"]}>
     <div class="h-px flex-1 bg-gradient-to-l from-zinc-700 to-transparent"/>
     <img src="/icons/star.svg" alt="star" class="size-6 invert"/>
     <div class="h-px flex-1 bg-gradient-to-r from-zinc-700 to-transparent"/>

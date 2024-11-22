@@ -1,7 +1,7 @@
 import mdx from "@astrojs/mdx";
 import react from "@astrojs/react";
-import tailwind from "@astrojs/tailwind";
 import vercel from "@astrojs/vercel";
+import tailwindcss from "@tailwindcss/vite";
 import { defineConfig } from "astro/config";
 
 const uris = {
@@ -26,7 +26,7 @@ export default defineConfig({
             prefixDefaultLocale: false
         }
     },
-    integrations: [tailwind(), react(), mdx()],
+    integrations: [tailwindcss(), react(), mdx()],
     adapter: vercel({
         webAnalytics: { enabled: true }
     })

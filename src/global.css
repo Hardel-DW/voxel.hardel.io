@@ -1,3 +1,5 @@
+@import "tailwindcss";
+
 @font-face {
     font-family: 'Rubik';
     font-style: normal;
@@ -92,7 +94,7 @@ label {
 
 select {
     @apply w-full h-10 rounded-md text-zinc-200 p-2 border border-zinc-700;
-    background-color: transparent !important; 
+    background-color: transparent !important;
     appearance: none;
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -101,7 +103,7 @@ select {
 select:focus {
     outline: none;
 }
- 
+
 select:focus-visible {
     border-color: #881337;
     box-shadow: 0 0 0 1px #881337;
@@ -116,7 +118,7 @@ option {
 }
 
 option:focus-visible {
-    border-color: #881337; 
+    border-color: #881337;
     box-shadow: 0 0 0 1px #881337;
 }
 

@@ -230,6 +230,15 @@
         "datapacks.better_furnace.title": "Better Furnace",
         "datapacks.better_furnace.short": "Furnace+",
         "datapacks.better_furnace.description": "Rajoute de nouveaux types de fourneaux, plus rapide, plus efficace, et plus dur à obtenir.",
+
+        "tools.harmonization.title": "Harmonisation",
+        "tools.harmonization.description": "Cet outil permet d'harmoniser une texture en extrayant ses couleurs et en quantifiant l'image pour réduire la palette.",
+        "tools.harmonization.small": "Par exemple, vous pouvez utiliser cet outil pour améliorer le résultat d'une texture générée par un modèle génératif.",
+        "tools.harmonization.no_images": "Aucune image téléchargée pour le moment",
+        "tools.harmonization.drop": "Déposez votre image ici ou cliquez pour sélectionner",
+        "tools.harmonization.similarity": "Seuil de similarité :",
+        "tools.harmonization.colors": "Couleurs extraites :",
+
         "tools.toast.soon": "Cette fonctionnalité est en cours de développement, elle sera bientôt disponible, restez à l'écoute !",
         "tools.download": "Télécharger le data pack",
         "tools.upload.start": "Cliquer pour commencer",

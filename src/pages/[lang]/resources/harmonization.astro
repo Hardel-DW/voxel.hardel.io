@@ -1,0 +1,317 @@
+---
+import PageLayout from "@/components/layouts/PageLayout.astro";
+import Star from "@/components/ui/star.astro";
+import Dropzone from "@/components/ui/Dropzone.astro";
+import { getTranslations, names } from "@/lib/i18n";
+
+const { translate } = await getTranslations(Astro.url);
+export const prerender = true;
+export async function getStaticPaths() {
+    return names.map((element) => ({
+        params: { lang: element.lang }
+    }));
+}
+---
+
+<PageLayout>
+    <section class="mt-32 mb-20 relative w-3/4 mx-auto">
+        <div class="w-full text-center mt-12 mb-24">
+            <h2 class="text-5xl font-bold mb-4">Harmonization</h2>
+            <Star />
+        </div>
+
+        <!-- Gallery -->
+        <div class="mb-8 w-full">
+            <div
+                id="imageGallery"
+                class="flex gap-4 overflow-x-auto pb-4 min-h-[100px] items-center"
+            >
+                <p id="noImagesText" class="text-zinc-400 text-center w-full">
+                    No images uploaded yet
+                </p>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-x-16">
+            <!-- Input -->
+            <div class="flex flex-col gap-4">
+                <Dropzone
+                    accept="image/*"
+                    maxSize={5242880}
+                    multiple={false}
+                    class="w-full"
+                >
+                    <p class="text-center text-zinc-400">
+                        Drop your image here or click to select
+                    </p>
+                </Dropzone>
+
+                <div class="flex flex-col items-start gap-4 mt-6">
+                    <div class="flex justify-between items-center gap-4 w-full">
+                        <label
+                            for="similarityThreshold"
+                            class="text-zinc-400 text-semibold"
+                            >Similarity Threshold :</label
+                        >
+                        <span
+                            id="similarityThresholdValue"
+                            class="text-zinc-400 text-semibold">30</span
+                        >
+                    </div>
+
+                    <input
+                        type="range"
+                        id="similarityThreshold"
+                        min="0"
+                        max="150"
+                        value="30"
+                        class="w-full"
+                    />
+
+                    <!-- Palette Display -->
+                    <div class="w-full mt-4">
+                        <p class="text-zinc-400 text-semibold mb-2">
+                            Extracted Colors:
+                        </p>
+                        <div
+                            id="paletteDisplay"
+                            class="flex flex-wrap gap-2 *:transition-transform *:duration-200 *:ease-in-out [&>*:hover]:scale-125"
+                        >
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Output -->
+            <div
+                class="border-2 border-zinc-700 border-dashed rounded-3xl p-16 aspect-square relative"
+            >
+                <!-- Download Button -->
+                <div class="absolute top-4 right-4 z-10">
+                    <div
+                        id="downloadBtn"
+                        class="w-12 h-12 p-2 hover:bg-zinc-800/50 cursor-pointer transition bg-black/10 border border-white/10 rounded-md flex justify-center items-center"
+                    >
+                        <img
+                            alt="download"
+                            src="/icons/download.svg"
+                            width="24"
+                            height="24"
+                            class="invert"
+                        />
+                    </div>
+                </div>
+                <canvas
+                    id="output"
+                    width="16"
+                    height="16"
+                    class="pixelated size-full"></canvas>
+            </div>
+        </div>
+    </section>
+</PageLayout>
+
+<script>
+    import {
+        extractPalette,
+        loadImage,
+        quantizeImage,
+        type RGB,
+        cleanPalette,
+    } from "@/lib/image/harmonization";
+
+    const dropzoneInput = document.getElementById("dropzone-file");
+    const outputCanvas = document.getElementById("output") as HTMLCanvasElement;
+    const paletteDisplay = document.getElementById("paletteDisplay");
+    const downloadBtn = document.getElementById("downloadBtn");
+    const imageGallery = document.getElementById("imageGallery");
+    const noImagesText = document.getElementById("noImagesText");
+    const similarityThreshold = document.getElementById(
+        "similarityThreshold",
+    ) as HTMLInputElement;
+
+    let uploadedFiles: File[] = [];
+    let currentFileIndex = -1;
+    let originalPalette: RGB[] = [];
+
+    // Fonction pour afficher la palette de couleurs
+    const displayPalette = (colors: RGB[]) => {
+        if (!paletteDisplay) return;
+
+        paletteDisplay.innerHTML = "";
+
+        colors.forEach((color, index) => {
+            const colorBox = document.createElement("div");
+            colorBox.className = "size-8 rounded border border-zinc-700 relative group cursor-pointer transition-transform duration-200 ease-in-out hover:scale-125 hover:z-10";
+            colorBox.style.backgroundColor = `rgb(${color[0]}, ${color[1]}, ${color[2]})`;
+
+            // Ajouter un tooltip avec les valeurs RGB
+            colorBox.title = `RGB(${color[0]}, ${color[1]}, ${color[2]}) - Click to remove`;
+
+            // Ajouter un X en hover
+            const deleteIcon = document.createElement("div");
+            deleteIcon.className = "absolute inset-0 hidden group-hover:flex items-center justify-center bg-black/50 rounded";
+            deleteIcon.innerHTML = '<img src="/icons/close.svg" class="w-4 h-4 invert opacity-0 group-hover:opacity-100" />';
+
+            colorBox.onclick = async () => {
+                // Supprimer la couleur de la palette originale
+                originalPalette = originalPalette.filter((_, i) => i !== index);
+
+                // Appliquer le nettoyage avec le seuil actuel
+                const threshold = parseInt(similarityThreshold?.value || "30");
+                const cleanedPalette = cleanPalette(originalPalette, threshold);
+
+                // Mettre à jour l'affichage de la palette
+                displayPalette(cleanedPalette);
+
+                // Retraiter l'image avec la nouvelle palette nettoyée
+                if (currentFileIndex !== -1 && uploadedFiles[currentFileIndex]) {
+                    const image = await loadImage(uploadedFiles[currentFileIndex]);
+                    const quantizedImageData = await quantizeImage(image, cleanedPalette);
+                    const ctx = outputCanvas.getContext("2d");
+                    if (ctx) {
+                        ctx.putImageData(quantizedImageData, 0, 0);
+                    }
+                }
+            };
+
+            colorBox.appendChild(deleteIcon);
+            paletteDisplay.appendChild(colorBox);
+        });
+    };
+
+    // Fonction pour créer une miniature
+    const createThumbnail = async (file: File, index: number) => {
+        const thumbnail = document.createElement("div");
+        thumbnail.className = "relative group shrink-0";
+
+        const img = document.createElement("img");
+        img.src = URL.createObjectURL(file);
+        img.className =
+            "w-24 h-24 p-2 object-cover rounded-lg border-2 border-zinc-700 cursor-pointer transition-all duration-200 pixelated";
+        img.style.borderColor =
+            index === currentFileIndex ? "rgb(190, 24, 93)" : "";
+
+        // Bouton de suppression
+        const deleteBtn = document.createElement("button");
+        deleteBtn.className =
+            "absolute top-2 right-2 bg-red-500 rounded-full p-1 hidden group-hover:block";
+        deleteBtn.innerHTML =
+            '<img src="/icons/close.svg" class="w-4 h-4 invert" />';
+
+        deleteBtn.onclick = (e) => {
+            e.stopPropagation();
+            uploadedFiles = uploadedFiles.filter((_, i) => i !== index);
+            updateGallery();
+            if (currentFileIndex === index) {
+                currentFileIndex = uploadedFiles.length > 0 ? 0 : -1;
+                processCurrentImage();
+            }
+        };
+
+        thumbnail.onclick = () => {
+            currentFileIndex = index;
+            updateGallery();
+            processCurrentImage();
+        };
+
+        thumbnail.appendChild(img);
+        thumbnail.appendChild(deleteBtn);
+        return thumbnail;
+    };
+
+    // Fonction pour mettre à jour la galerie
+    const updateGallery = async () => {
+        if (!imageGallery || !noImagesText) return;
+
+        imageGallery.innerHTML = "";
+
+        if (uploadedFiles.length === 0) {
+            imageGallery.appendChild(noImagesText);
+            return;
+        }
+
+        for (let i = 0; i < uploadedFiles.length; i++) {
+            const thumbnail = await createThumbnail(uploadedFiles[i], i);
+            imageGallery.appendChild(thumbnail);
+        }
+    };
+
+    // Fonction pour traiter l'image actuelle
+    const processCurrentImage = async () => {
+        if (currentFileIndex === -1 || !uploadedFiles[currentFileIndex]) return;
+
+        const currentFile = uploadedFiles[currentFileIndex];
+        const image = await loadImage(currentFile);
+        
+        // Utiliser une valeur fixe plus élevée pour capturer plus de couleurs initialement
+        originalPalette = await extractPalette(image, 128); // Augmenter à 128 pour avoir plus de couleurs de base
+        
+        const threshold = parseInt(similarityThreshold?.value || "30");
+        const cleanedPalette = cleanPalette(originalPalette, threshold);
+        displayPalette(cleanedPalette);
+
+        const quantizedImageData = await quantizeImage(image, cleanedPalette);
+        const ctx = outputCanvas.getContext("2d");
+        if (ctx) {
+            ctx.putImageData(quantizedImageData, 0, 0);
+        }
+    };
+
+    // Gérer le téléchargement et le traitement de l'image
+    dropzoneInput?.addEventListener("fileUpload", async (e: Event) => {
+        const files = (e as CustomEvent).detail.files;
+        if (!files.length) return;
+
+        // Ajouter les nouveaux fichiers
+        uploadedFiles = [...uploadedFiles, ...Array.from(files as FileList)];
+        currentFileIndex = uploadedFiles.length - 1;
+
+        // Mettre à jour la galerie et traiter l'image
+        await updateGallery();
+        await processCurrentImage();
+    });
+
+    // Fonction de téléchargement
+    const downloadImage = () => {
+        if (!outputCanvas) return;
+
+        const link = document.createElement("a");
+        const fileName =
+            uploadedFiles[currentFileIndex]?.name || "harmonized-image";
+        link.download = `harmonized-${fileName}`;
+        link.href = outputCanvas.toDataURL("image/png");
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    };
+
+    downloadBtn?.addEventListener("click", downloadImage);
+
+    // Ajouter un event listener pour le seuil de similarité
+    similarityThreshold?.addEventListener("input", async () => {
+        if (originalPalette.length === 0) return;
+
+        // Mettre à jour l'affichage de la valeur
+        const similarityThresholdValue = document.getElementById("similarityThresholdValue");
+        if (similarityThresholdValue) {
+            similarityThresholdValue.textContent = similarityThreshold.value;
+        }
+
+        const threshold = parseInt(similarityThreshold.value);
+        const cleanedPalette = cleanPalette(originalPalette, threshold);
+
+        // Mettre à jour l'affichage de la palette
+        displayPalette(cleanedPalette);
+
+        // Retraiter l'image avec la nouvelle palette
+        if (currentFileIndex !== -1 && uploadedFiles[currentFileIndex]) {
+            const image = await loadImage(uploadedFiles[currentFileIndex]);
+            const quantizedImageData = await quantizeImage(image, cleanedPalette);
+            const ctx = outputCanvas.getContext("2d");
+            if (ctx) {
+                ctx.putImageData(quantizedImageData, 0, 0);
+            }
+        }
+    });
+</script>

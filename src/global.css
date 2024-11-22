@@ -1,5 +1,8 @@
 @import 'tailwindcss';
 
+@plugin "@tailwindcss/typography";
+
+
 @theme {
     --shadow-s: 2px 2px 30px 2px #000;
     --breakpoint-s: 420px;

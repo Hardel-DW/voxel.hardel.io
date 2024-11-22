@@ -52,13 +52,13 @@
         "swr": "^2.2.5",
         "tailwind-merge": "^2.4.0",
         "tailwindcss-animate": "^1.0.7",
-        "typescript": "^5.5.4"
+        "typescript": "^5.5.4",
+        "@tailwindcss/vite": "4.0.0-beta.1",
+        "@tailwindcss/typography": "^0.5.13",
+        "tailwindcss": "4.0.0-beta.1"
     },
     "devDependencies": {
         "@biomejs/biome": "1.9.3",
-        "@tailwindcss/vite": "4.0.0-beta.1",
-        "@tailwindcss/typography": "^0.5.13",
-        "tailwindcss": "4.0.0-beta.1",
         "autoprefixer": "^10.4.20",
         "drizzle-kit": "^0.25.0",
         "postcss": "^8.4.49",

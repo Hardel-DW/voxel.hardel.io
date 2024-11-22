@@ -1,13 +1,13 @@
 ---
-import { Picture } from "astro:assets";
-import { getCollection, render } from "astro:content";
+import {Picture} from "astro:assets";
+import {getCollection, render} from "astro:content";
 import CompoundLayout from "@/components/layouts/CompoundLayout.astro";
 import Button from "@/components/ui/button.astro";
 import ShiningStars from "@/components/ui/pattern/ShiningStars.astro";
-import { getTranslations } from "@/lib/i18n";
+import {getTranslations} from "@/lib/i18n";
 
 export const prerender = true;
-const { lang, translate } = await getTranslations(Astro.url);
+const {lang, translate} = await getTranslations(Astro.url);
 export async function getStaticPaths() {
     const blogEntries = await getCollection("blog");
     const teamCollection = await getCollection("team");
@@ -21,7 +21,7 @@ export async function getStaticPaths() {
         });
 
         return {
-            params: { lang, slug },
+            params: {lang, slug},
             props: {
                 entry: element,
                 members
@@ -30,8 +30,8 @@ export async function getStaticPaths() {
     });
 }
 
-const { entry, members } = Astro.props;
-const { Content } = await render(entry);
+const {entry, members} = Astro.props;
+const {Content} = await render(entry);
 ---
 
 <CompoundLayout title={entry.data.title} description={entry.data.snippet} openGraph={{
@@ -40,21 +40,21 @@ const { Content } = await render(entry);
     image: entry.data.image.src
 }}>
     <div class="fixed inset-0 -z-10">
-        <ShiningStars />
+        <ShiningStars/>
     </div>
 
     <section class="w-full md:w-3/4 max-w-4xl mx-auto px-8 mt-24 md:mt-40">
         <div class="mt-4 flex items-center justify-between gap-y-4">
             <div class="flex-1">
                 <h1
-                    class="text-xl lg:tracking-tight font-semibold mt-4 lg:leading-tight"
+                        class="text-xl lg:tracking-tight font-semibold mt-4 lg:leading-tight"
                 >
                     {entry.data.title}
                 </h1>
 
                 <div class="flex items-center text-zinc-500 gap-2">
                     <span
-                        class="tracking-wider font-medium text-xs md:text-sm"
+                            class="tracking-wider font-medium text-xs md:text-sm"
                     >
                         {entry.data.category}
                     </span>
@@ -73,23 +73,23 @@ const { Content } = await render(entry);
 
             {
                 members.map((member) => (
-                    <a class="items-center gap-4 hidden md:flex">
-                        <img
-                            src={member?.data.image.src}
-                            width="40"
-                            height="40"
-                            class="rounded-full"
-                            alt={member?.data.image.alt}
-                        />
-                        <div>
-                            <p class="text-sm text-zinc-400 font-bold">
-                                {member?.data.name}
-                            </p>
-                            <p class="text-sm text-zinc-400">
-                                {member?.data.github}
-                            </p>
-                        </div>
-                    </a>
+                        <a class="items-center gap-4 hidden md:flex">
+                            <img
+                                    src={member?.data.image.src}
+                                    width="40"
+                                    height="40"
+                                    class="rounded-full"
+                                    alt={member?.data.image.alt}
+                            />
+                            <div>
+                                <p class="text-sm text-zinc-400 font-bold">
+                                    {member?.data.name}
+                                </p>
+                                <p class="text-sm text-zinc-400">
+                                    {member?.data.github}
+                                </p>
+                            </div>
+                        </a>
                 ))
             }
         </div>
@@ -100,7 +100,7 @@ const { Content } = await render(entry);
     <section class="mx-auto w-11/12 md:w-3/4 max-w-4xl rounded-3xl">
         <div class="relative mt-20">
             <div
-                class="absolute -z-10 size-full inset-0 bg-linear-to-r from-pink-900 to-blue-900 opacity-50 rounded-full blur-[10rem]"
+                    class="absolute -z-10 size-full inset-0 bg-linear-to-r from-pink-900 to-blue-900 opacity-50 rounded-full blur-[10rem]"
             >
             </div>
             <div class="border-line"></div>
@@ -108,33 +108,33 @@ const { Content } = await render(entry);
 
             {
                 entry.data.video ? (
-                    <iframe
-                        class="w-full aspect-video rounded-3xl"
-                        src={entry.data.video}
-                        title="YouTube video player"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                        referrerpolicy="strict-origin-when-cross-origin"
-                        allowfullscreen
-                    />
+                        <iframe
+                                class="w-full aspect-video rounded-3xl"
+                                src={entry.data.video}
+                                title="YouTube video player"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                referrerpolicy="strict-origin-when-cross-origin"
+                                allowfullscreen
+                        />
                 ) : (
-                    <Picture
-                        formats={["avif", "webp"]}
-                        src={entry.data.image.src}
-                        alt="Feature image"
-                        width="1280"
-                        height="800"
-                        class="h-full w-full object-contain rounded-3xl"
-                        transition:name={`post-img-${entry.slug}`}
-                    />
+                        <Picture
+                                formats={["avif", "webp"]}
+                                src={entry.data.image.src}
+                                alt="Feature image"
+                                width="1280"
+                                height="800"
+                                class="h-full w-full object-contain rounded-3xl"
+                                transition:name={`post-img-${entry.id}`}
+                        />
                 )
             }
         </div>
     </section>
 
     <section
-        class="mx-auto px-8 mt-8 prose prose-img:rounded-3xl prose-invert max-w-4xl prose-headings:mb-2 prose-headings:font-medium prose-headings:text-zinc-200 prose-h1:mt-16 prose-h1:font-bold prose-h1:text-white prose-h2:text-white prose-h3:text-zinc-100"
+            class="mx-auto px-8 mt-8 prose prose-img:rounded-3xl prose-invert max-w-4xl prose-headings:mb-2 prose-headings:font-medium prose-headings:text-zinc-200 prose-h1:mt-16 prose-h1:font-bold prose-h1:text-white prose-h2:text-white prose-h3:text-zinc-100"
     >
-        <Content />
+        <Content/>
     </section>
 
     <section class="text-center mb-40 mt-12">

@@ -121,7 +121,7 @@ const ListItem = React.forwardRef<React.ElementRef<"a">, React.ComponentPropsWit
                         <div className="flex justify-between items-center gap-x-8">
                             <div>
                                 <div className="text-sm font-medium leading-none">{title}</div>
-                                <p className="line-clamp-2 text-sm leading-snug text-zinc-400">{children}</p>
+                                <p className="line-clamp-2 mt-1 text-xs leading-snug text-zinc-400">{children}</p>
                             </div>
                             {image && <img src={image} alt="Logo" className="w-12" />}
                         </div>

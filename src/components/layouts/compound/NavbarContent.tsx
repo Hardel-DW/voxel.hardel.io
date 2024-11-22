@@ -71,8 +71,8 @@ export default function NavBarItem({ translate, lang }: Props) {
                                 {translate["navbar.resources.tool.enchant.description"]}
                             </HeroItem>
                             <ul className="grid gap-3 mt-3 lg:grid-cols-[.75fr_1fr]">
-                                <ListItem href={`/${lang}/soon`} title={translate["navbar.resources.code.title"]}>
-                                    {translate["navbar.resources.code.description"]}
+                                <ListItem href={`/${lang}/tools/harmonization`} title={translate["navbar.resources.harmonization.title"]}>
+                                    {translate["navbar.resources.harmonization.description"]}
                                 </ListItem>
                                 <ListItem href={`/${lang}/resources/asset`} title={translate["navbar.resources.textures.title"]}>
                                     {translate["navbar.resources.textures.description"]}

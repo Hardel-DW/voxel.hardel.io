@@ -105,8 +105,8 @@ const NavigationMenuIndicator = React.forwardRef<
 ));
 NavigationMenuIndicator.displayName = NavigationMenuPrimitive.Indicator.displayName;
 
-const ListItem = React.forwardRef<React.ElementRef<"a">, React.ComponentPropsWithoutRef<"a">>(
-    ({ className, title, children, ...props }, ref) => {
+const ListItem = React.forwardRef<React.ElementRef<"a">, React.ComponentPropsWithoutRef<"a"> & { image?: string }>(
+    ({ className, image, title, children, ...props }, ref) => {
         return (
             <li>
                 <NavigationMenuLink asChild>
@@ -118,8 +118,13 @@ const ListItem = React.forwardRef<React.ElementRef<"a">, React.ComponentPropsWit
                         )}
                         {...props}
                     >
-                        <div className="text-sm font-medium leading-none">{title}</div>
-                        <p className="line-clamp-2 text-sm leading-snug text-zinc-400">{children}</p>
+                        <div className="flex justify-between items-center gap-x-8">
+                            <div>
+                                <div className="text-sm font-medium leading-none">{title}</div>
+                                <p className="line-clamp-2 text-sm leading-snug text-zinc-400">{children}</p>
+                            </div>
+                            {image && <img src={image} alt="Logo" className="w-12" />}
+                        </div>
                     </a>
                 </NavigationMenuLink>
             </li>
@@ -130,7 +135,10 @@ ListItem.displayName = "ListItem";
 
 export const HeroItem = (props: { image: string } & React.ComponentPropsWithoutRef<"a">) => {
     return (
-        <a className="h-40 group/picture relative cursor-pointer flex flex-col justify-end select-none gap-1 p-3" {...props}>
+        <a
+            {...props}
+            className={cn("h-40 group/picture relative cursor-pointer flex flex-col justify-end select-none gap-1 p-3", props.className)}
+        >
             <div className="text-xl font-medium text-white leading-none relative z-10">{props.title}</div>
             <p className="line-clamp-2 text-sm leading-snug text-zinc-400">{props.children}</p>
 

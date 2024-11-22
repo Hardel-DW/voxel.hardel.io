@@ -1,0 +1,125 @@
+{
+    "reference": ["yggdrasil/alfheim/reward/rare", "yggdrasil/alfheim/reward/common"],
+    "items": [
+        {
+            "id": "minecraft:enchanted_book",
+            "description": "Vein Miner"
+        },
+        {
+            "id": "minecraft:enchanted_book",
+            "description": "Auto Smelt"
+        },
+        {
+            "id": "minecraft:enchanted_book",
+            "description": "Mining Plus"
+        },
+        {
+            "id": "minecraft:enchanted_book",
+            "description": "Reach"
+        },
+        {
+            "id": "minecraft:enchanted_book",
+            "description": "XP Boost"
+        },
+        {
+            "id": "minecraft:enchanted_book",
+            "description": "Builder Arm"
+        },
+        {
+            "id": "minecraft:enchanted_book",
+            "description": "Sky Walk"
+        },
+        {
+            "id": "minecraft:enchanted_book",
+            "description": "Timber"
+        },
+        {
+            "id": "minecraft:enchanted_book",
+            "description": "Scyther"
+        },
+        {
+            "id": "minecraft:enchanted_book",
+            "description": "Auto Feed"
+        },
+        {
+            "id": "minecraft:enchanted_book",
+            "description": "Eternal Frost"
+        },
+        {
+            "id": "minecraft:enchanted_book",
+            "description": "Oversize"
+        },
+        {
+            "id": "minecraft:enchanted_book",
+            "description": "Striker"
+        },
+        {
+            "id": "minecraft:enchanted_book",
+            "description": "Wind Propulsion"
+        },
+        {
+            "id": "minecraft:experience_bottle",
+            "count": {
+                "min": 2,
+                "max": 5
+            }
+        },
+        {
+            "id": "minecraft:wind_charge",
+            "count": {
+                "min": 1,
+                "max": 3
+            }
+        },
+        {
+            "id": "minecraft:iron_ingot",
+            "count": {
+                "min": 1,
+                "max": 2
+            }
+        },
+        {
+            "id": "minecraft:golden_apple",
+            "count": {
+                "min": 1,
+                "max": 2
+            }
+        },
+        {
+            "id": "minecraft:diamond",
+            "count": {
+                "min": 1,
+                "max": 2
+            }
+        },
+        {
+            "id": "minecraft:bread",
+            "count": {
+                "min": 1,
+                "max": 3
+            }
+        },
+        {
+            "id": "minecraft:baked_potato",
+            "count": {
+                "min": 1,
+                "max": 3
+            }
+        },
+        {
+            "id": "minecraft:potion",
+            "description": "Regeneration",
+            "count": 1
+        },
+        {
+            "id": "minecraft:potion",
+            "description": "Swiftness",
+            "count": 1
+        },
+        {
+            "id": "minecraft:trial_key",
+            "description": "Clef de l'Alfheim",
+            "count": 1
+        }
+    ]
+}

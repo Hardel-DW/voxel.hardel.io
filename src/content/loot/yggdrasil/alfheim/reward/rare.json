@@ -1,0 +1,77 @@
+{
+    "items": [
+        {
+            "id": "minecraft:emerald",
+            "count": {
+                "min": 2,
+                "max": 4
+            }
+        },
+        {
+            "id": "minecraft:bow",
+            "description": "Enchanté (15-75)",
+            "count": 1
+        },
+        {
+            "id": "minecraft:crossbow",
+            "description": "Enchanté (5-20)",
+            "count": 1
+        },
+        {
+            "id": "minecraft:book",
+            "description": "Enchanté aléatoirement",
+            "count": 1
+        },
+        {
+            "id": "minecraft:diamond_chestplate",
+            "description": "Enchanté (15-75)",
+            "count": 1
+        },
+        {
+            "id": "minecraft:diamond_axe",
+            "description": "Enchanté (15-75)",
+            "count": 1
+        },
+        {
+            "id": "minecraft:diamond_pickaxe",
+            "description": "Enchanté (15-75)",
+            "count": 1
+        },
+        {
+            "id": "minecraft:enchanting_table",
+            "count": 1
+        },
+        {
+            "id": "minecraft:end_crystal",
+            "count": 1
+        },
+        {
+            "id": "minecraft:heart_of_the_sea",
+            "count": 1
+        },
+        {
+            "id": "minecraft:ender_eye",
+            "count": 1
+        },
+        {
+            "id": "minecraft:diamond_sword",
+            "description": "Enchanté (15-75)",
+            "count": 1
+        },
+        {
+            "id": "minecraft:diamond_helmet",
+            "description": "Enchanté (15-75)",
+            "count": 1
+        },
+        {
+            "id": "minecraft:diamond_leggings",
+            "description": "Enchanté (15-75)",
+            "count": 1
+        },
+        {
+            "id": "minecraft:diamond_boots",
+            "description": "Enchanté (15-75)",
+            "count": 1
+        }
+    ]
+}

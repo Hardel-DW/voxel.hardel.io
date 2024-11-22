@@ -1,7 +1,7 @@
+import TranslateText, { type TranslateTextType } from "@/lib/minecraft/components/elements/text/TranslateText.tsx";
 import type { ValueParams } from "@/lib/minecraft/core/engine/value";
 import type { InputHTMLAttributes } from "react";
 import type { Action } from "src/lib/minecraft/core/engine/actions";
-import TranslateText, { type TranslateTextType } from "@/lib/minecraft/components/elements/text/TranslateText.tsx";
 
 interface Props extends InputHTMLAttributes<HTMLInputElement> {
     label?: TranslateTextType | string;

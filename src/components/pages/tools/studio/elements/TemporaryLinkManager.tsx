@@ -10,20 +10,10 @@ export default function TemporaryLinkManager() {
     if (temporaryLinks.length === 0) return null;
 
     return (
-        <svg 
-            role="presentation" 
-            className="absolute origin-top-left overflow-visible pointer-events-none" 
-            style={{ zIndex: 1001 }}
-        >
+        <svg role="presentation" className="absolute origin-top-left overflow-visible pointer-events-none" style={{ zIndex: 1001 }}>
             {temporaryLinks.map((link) => {
                 const startPos = getFieldPosition(gridObjects, link.sourceId, link.sourceFieldId);
-                return <Link 
-                    key={link.id} 
-                    startX={startPos.x} 
-                    startY={startPos.y} 
-                    endX={link.endPosition.x} 
-                    endY={link.endPosition.y} 
-                />;
+                return <Link key={link.id} startX={startPos.x} startY={startPos.y} endX={link.endPosition.x} endY={link.endPosition.y} />;
             })}
         </svg>
     );

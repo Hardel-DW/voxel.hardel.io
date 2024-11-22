@@ -1,9 +1,9 @@
-import Button from "@/components/ui/react/Button.tsx";
-import { cn } from "@/lib/utils.ts";
-import type { FormComponent } from "@/lib/minecraft/core/engine";
-import TranslateText, { type TranslateTextType } from "@/lib/minecraft/components/elements/text/TranslateText.tsx";
-import { toast } from "sonner";
 import { useTranslate } from "@/components/TranslateContext";
+import Button from "@/components/ui/react/Button.tsx";
+import TranslateText, { type TranslateTextType } from "@/lib/minecraft/components/elements/text/TranslateText.tsx";
+import type { FormComponent } from "@/lib/minecraft/core/engine";
+import { cn } from "@/lib/utils.ts";
+import { toast } from "sonner";
 
 export type ToolRevealElementType = {
     id: string;

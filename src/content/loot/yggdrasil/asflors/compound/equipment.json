@@ -1,0 +1,54 @@
+{
+    "items": [
+        {
+            "id": "minecraft:emerald",
+            "count": {
+                "min": 2,
+                "max": 4
+            }
+        },
+        {
+            "id": "minecraft:bow",
+            "description": "Enchanté (10-20)",
+            "count": 1
+        },
+        {
+            "id": "minecraft:crossbow",
+            "description": "Enchanté (5-22)",
+            "count": 1
+        },
+        {
+            "id": "minecraft:iron_chestplate",
+            "description": "Enchanté (10-20)",
+            "count": 1
+        },
+        {
+            "id": "minecraft:diamond_axe",
+            "description": "Enchanté (10-20)",
+            "count": 1
+        },
+        {
+            "id": "minecraft:iron_pickaxe",
+            "description": "Enchanté (10-20)",
+            "count": 1
+        },
+        {
+            "id": "minecraft:heart_of_the_sea",
+            "count": 1
+        },
+        {
+            "id": "minecraft:ender_eye",
+            "count": 1
+        },
+        {
+            "id": "minecraft:iron_sword",
+            "description": "Enchanté (10-20)",
+            "count": 1
+        },
+        {
+            "id": "minecraft:iron_helmet",
+            "description": "Enchanté (10-20)",
+            "count": 1
+        }
+    ]
+}

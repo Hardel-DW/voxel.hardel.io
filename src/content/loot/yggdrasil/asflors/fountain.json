@@ -1,0 +1,54 @@
+{
+    "items": [
+        {
+            "id": "minecraft:trial_key",
+            "description": "Clé du Vault",
+            "count": 1
+        },
+        {
+            "id": "minecraft:cherry_sapling",
+            "count": {
+                "min": 1,
+                "max": 8
+            }
+        },
+        {
+            "id": "minecraft:experience_bottle",
+            "count": {
+                "min": 1,
+                "max": 4
+            }
+        },
+        {
+            "id": "minecraft:golden_carrot",
+            "count": {
+                "min": 2,
+                "max": 4
+            }
+        },
+        {
+            "id": "minecraft:iron_ingot",
+            "count": {
+                "min": 1,
+                "max": 2
+            }
+        },
+        {
+            "id": "minecraft:axolotl_bucket",
+            "count": 1
+        },
+        {
+            "id": "minecraft:firework_rocket",
+            "description": "Durée de vol: 3",
+            "count": 1
+        },
+        {
+            "id": "minecraft:cherry_boat",
+            "count": 1
+        },
+        {
+            "id": "minecraft:map",
+            "count": 1
+        }
+    ]
+}

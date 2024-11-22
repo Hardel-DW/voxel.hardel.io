@@ -1,0 +1,53 @@
+---
+import { Image } from "astro:assets";
+import { cn } from "@/lib/utils";
+
+export interface ImageItem {
+    rows: number;
+    cols: number;
+    path: string;
+}
+
+interface Props {
+    title?: string;
+    images: ImageItem[];
+}
+
+const { title, images } = Astro.props;
+---
+
+<section class="w-3/4 mx-auto my-40">
+    <div class="flex gap-8 px-8">
+        <p class="text-zinc-100 text-2xl uppercase font-semibold shrink-0 tracking-wider">
+            {title}
+        </p>
+
+        <div class="flex items-center w-full">
+            <img src="/icons/star.svg" alt="star" class="size-6 invert"/>
+            <div class="w-full h-px bg-gradient-to-r from-white to-transparent"/>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-4 auto-rows-[20rem] gap-4 pt-16">
+        {images.map((image, index) => (
+            <div 
+                class={cn(
+                    "relative overflow-hidden rounded-3xl transition-transform hover:scale-[1.02] cursor-pointer gallery-item",
+                    image.cols === 2 ? "md:col-span-2" : "md:col-span-1",
+                    image.rows === 2 ? "md:row-span-2" : "md:row-span-1"
+                )}
+                data-index={index}
+            >
+                <Image 
+                    src={image.path}
+                    alt="Gallery image"
+                    width="768"
+                    height="560"
+                    loading="eager"
+                    class="absolute inset-0 w-full h-full object-cover object-center hover:scale-110 transition-transform duration-500"
+                />
+                <div class="absolute inset-0 bg-gradient-to-b from-transparent to-black/50 opacity-0 hover:opacity-100 transition-opacity duration-300"/>
+            </div>
+        ))}
+    </div>
+</section> 

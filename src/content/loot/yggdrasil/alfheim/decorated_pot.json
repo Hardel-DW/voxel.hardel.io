@@ -1,0 +1,39 @@
+{
+    "reference": ["yggdrasil/alfheim/enchanted_book/random_loot"],
+    "items": [
+        {
+            "id": "minecraft:trial_key",
+            "count": 1,
+            "description": "Clef du Vault de l'Alfheim"
+        },
+        {
+            "id": "minecraft:arrow",
+            "count": {
+                "min": 4,
+                "max": 8
+            }
+        },
+        {
+            "id": "minecraft:potion",
+            "description": "Strong Healing"
+        },
+        {
+            "id": "minecraft:golden_carrot",
+            "count": {
+                "min": 2,
+                "max": 4
+            }
+        },
+        {
+            "id": "minecraft:spectral_arrow",
+            "count": {
+                "min": 2,
+                "max": 6
+            }
+        },
+        {
+            "id": "minecraft:diamond",
+            "count": 1
+        }
+    ]
+}

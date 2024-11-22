@@ -1,21 +1,21 @@
 ---
-import { Picture } from "astro:assets";
-import { getCollection } from "astro:content";
+import {getCollection} from "astro:content";
 import CompoundLayout from "@/components/layouts/CompoundLayout.astro";
 import Button from "@/components/ui/button.astro";
 import ShiningStars from "@/components/ui/pattern/ShiningStars.astro";
-import { getTranslations, names } from "@/lib/i18n";
-import type { PaginateFunction } from "astro";
+import {getTranslations, names} from "@/lib/i18n";
+import type {PaginateFunction} from "astro";
+import BlogCard from "@/components/ui/BlogCard.astro";
 
 export const prerender = true;
-const { lang, translate } = await getTranslations(Astro.url);
+const {lang, translate} = await getTranslations(Astro.url);
 export async function getStaticPaths({
-    paginate
-}: {
+                                         paginate
+                                     }: {
     paginate: PaginateFunction;
 }) {
     const PAGE_SIZE = 9;
-    const allPosts = await getCollection("blog", ({ data }) => {
+    const allPosts = await getCollection("blog", ({data}) => {
         return !data.draft && data.publishDate < new Date();
     });
 
@@ -36,7 +36,7 @@ export async function getStaticPaths({
     });
 }
 
-const { page } = Astro.props;
+const {page} = Astro.props;
 ---
 
 <CompoundLayout title="Blog">
@@ -56,51 +56,17 @@ const { page } = Astro.props;
         <section class="max-w-screen-xl mx-auto px-8 mt-16">
             <ul class="grid sm:grid-cols-2 md:grid-cols-3 gap-10 lg:gap-16">
                 {page.data.map((post, index) => (
-                        <li class="relative group">
-                            <div class="absolute -z-10 size-full inset-0 bg-gradient-to-r from-pink-900 to-blue-900 opacity-30 rounded-full blur-[5rem]"/>
-
-                            <a href={`/${lang}/blog/${post.id.split("/")[1]}`}>
-                                <div class="relative">
-                                    <div class="relative overflow-hidden rounded-md"
-                                         style={{width: 800, height: 600}}>
-                                        <div class="border-line"/>
-
-                                        <Picture
-                                                formats={["avif", "webp"]}
-                                                src={post.data.image.src}
-                                                alt={post.data.image.alt}
-                                                sizes="(max-width: 800px) 100vw, 800px"
-                                                width={800}
-                                                height={600}
-                                                loading={index <= 2 ? "eager" : "lazy"}
-                                                decoding={index <= 2 ? "sync" : "async"}
-                                                class="w-full rounded-md object-cover group-hover:scale-125 transition duration-500"
-                                                transition:name={`post-img-${post.slug}`}
-                                        />
-                                    </div>
-
-                                    <div class="mt-4">
-                                        <span class="text-blue-400 uppercase tracking-wider text-xs font-medium">
-                                          {post.data.category}
-                                        </span>
-
-                                        <h2 class="text-xl font-semibold leading-snug tracking-tight mt-1">
-                                            {post.data.title}
-                                        </h2>
-
-                                        <div class="flex gap-2 mt-3 text-sm">
-                                            <time class="text-gray-400" datetime={post.data.publishDate.toISOString()}>
-                                                {Intl.DateTimeFormat(lang, {
-                                                    year: "numeric",
-                                                    month: "long",
-                                                    day: "numeric"
-                                                }).format(post.data.publishDate)}
-                                            </time>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
+                        <BlogCard
+                                href={`/${lang}/blog/${post.id.split("/")[1]}`}
+                                src={post.data.image.src}
+                                alt={post.data.image.alt}
+                                slug={post.slug}
+                                date={post.data.publishDate}
+                                lang={lang}
+                                category={post.data.category}
+                                title={post.data.title}
+                                index={index}
+                        />
                 ))}
             </ul>
         </section>

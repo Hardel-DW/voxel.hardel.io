@@ -1,0 +1,29 @@
+{
+    "reference": ["yggdrasil/alfheim/reward/rare", "yggdrasil/alfheim/reward/unique", "yggdrasil/alfheim/reward/common"],
+    "items": [
+        {
+            "id": "minecraft:enchanted_book",
+            "description": "Armored"
+        },
+        {
+            "id": "minecraft:enchanted_book",
+            "description": "Lava Walker"
+        },
+        {
+            "id": "minecraft:enchanted_book",
+            "description": "Step Assist"
+        },
+        {
+            "id": "minecraft:enchanted_book",
+            "description": "Voidless"
+        },
+        {
+            "id": "minecraft:enchanted_book",
+            "description": "Accuracy Shot"
+        },
+        {
+            "id": "minecraft:enchanted_book",
+            "description": "Breezing Arrow"
+        }
+    ]
+}

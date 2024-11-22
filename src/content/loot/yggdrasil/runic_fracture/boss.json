@@ -1,0 +1,16 @@
+{
+    "items": [
+        {
+            "id": "minecraft:written_book",
+            "description": "Chronicle of Trial"
+        },
+        {
+            "id": "minecraft:ominous_trial_key",
+            "description": "The key for the Ominous Trial in Asflors Village"
+        },
+        {
+            "id": "minecraft:enchanted_book",
+            "description": "Last Hope"
+        }
+    ]
+}

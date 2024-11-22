@@ -1,10 +1,10 @@
 import { useTranslate } from "@/components/TranslateContext.tsx";
+import TranslateText, { getKey, type TranslateTextType } from "@/lib/minecraft/components/elements/text/TranslateText.tsx";
 import { Identifier } from "@/lib/minecraft/core/Identifier.ts";
-import type { ValueParams } from "@/lib/minecraft/core/engine/value";
-import { cn, quoteString } from "@/lib/utils.ts";
 import type { Action } from "@/lib/minecraft/core/engine/actions";
 import type { Condition } from "@/lib/minecraft/core/engine/condition";
-import TranslateText, { getKey, type TranslateTextType } from "@/lib/minecraft/components/elements/text/TranslateText.tsx";
+import type { ValueParams } from "@/lib/minecraft/core/engine/value";
+import { cn, quoteString } from "@/lib/utils.ts";
 
 export type ToolSlotType = {
     type: "Slot";

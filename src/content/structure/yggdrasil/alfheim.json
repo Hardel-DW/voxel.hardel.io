@@ -1,0 +1,42 @@
+{
+    "id": "alfheim",
+    "name": "Alfheim",
+    "image": "/images/addons/card/yggdrasil/alfheim.webp",
+    "rewards": [
+        {
+            "id": "minecraft:trial_spawner",
+            "description": "Les générateurs d'épreuves que vous croisez par défaut",
+            "content": "yggdrasil/alfheim/trial_spawner"
+        },
+        {
+            "id": "minecraft:vault",
+            "description": "Nécessite une clef de L'Alfheim normal pour être ouvert, trouvable dans les générateur d'épreuve.",
+            "content": "yggdrasil/alfheim/vault"
+        },
+        {
+            "id": "minecraft:ominous_trial_spawner",
+            "description": "Nécessite une potions sinistre pour déclencher le donjon en version sinistre",
+            "content": "yggdrasil/alfheim/ominous_trial_spawner"
+        },
+        {
+            "id": "minecraft:ominous_vault",
+            "description": "Nécessite une clef sinistre de L'Alfheim pour être ouvert, trouvable dans les générateur d'épreuve sinistre.",
+            "content": "yggdrasil/alfheim/ominous_vault"
+        },
+        {
+            "id": "minecraft:decorated_pot",
+            "description": "Les récompenses lorsque vous cassez un pot décoratif",
+            "content": "yggdrasil/alfheim/decorated_pot"
+        },
+        {
+            "id": "minecraft:shulker_box",
+            "description": "Les récompenses trouvables dans un shulker box",
+            "content": "yggdrasil/alfheim/shulker_box"
+        },
+        {
+            "id": "minecraft:barrel",
+            "description": "Les récompenses trouvables dans un barrel",
+            "content": "yggdrasil/alfheim/barrel"
+        }
+    ]
+}

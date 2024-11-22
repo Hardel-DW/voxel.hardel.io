@@ -1,0 +1,17 @@
+---
+const { video } = Astro.props;
+---
+
+<div class="relative">
+    <div class="absolute -z-10 size-full inset-0 bg-gradient-to-r from-pink-900 to-blue-900 opacity-50 rounded-full blur-[10rem]"/>
+    <div class="border-line"/>
+    <div class="border-corner"/>
+    <iframe
+        class="w-full aspect-video rounded-3xl"
+        src={video}
+        title="YouTube video player"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        referrerpolicy="strict-origin-when-cross-origin"
+        allowfullscreen
+    />
+</div>

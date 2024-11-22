@@ -1,0 +1,51 @@
+{
+    "items": [
+        {
+            "id": "minecraft:enchanted_golden_apple",
+            "count": 1
+        },
+        {
+            "id": "minecraft:dragon_breath",
+            "count": 1
+        },
+        {
+            "id": "minecraft:netherite_scrap",
+            "count": 1
+        },
+        {
+            "id": "minecraft:breeze_spawn_egg",
+            "count": 1
+        },
+        {
+            "id": "minecraft:witch_spawn_egg",
+            "count": 1
+        },
+        {
+            "id": "minecraft:shulker_shell",
+            "count": {
+                "min": 1,
+                "max": 4
+            }
+        },
+        {
+            "id": "minecraft:shulker_spawn_egg",
+            "count": 1
+        },
+        {
+            "id": "minecraft:totem_of_undying",
+            "count": 1
+        },
+        {
+            "id": "minecraft:nether_star",
+            "count": 1
+        },
+        {
+            "id": "minecraft:spawner",
+            "count": 1
+        },
+        {
+            "id": "minecraft:budding_amethyst",
+            "count": 1
+        }
+    ]
+}

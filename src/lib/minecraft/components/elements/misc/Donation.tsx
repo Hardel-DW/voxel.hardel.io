@@ -1,5 +1,5 @@
-import Button from "@/components/ui/react/Button.tsx";
 import TriangleWave from "@/components/ui/pattern/TriangleWave.tsx";
+import Button from "@/components/ui/react/Button.tsx";
 import TranslateText, { type TranslateTextType } from "@/lib/minecraft/components/elements/text/TranslateText.tsx";
 
 export type ToolDonationType = {

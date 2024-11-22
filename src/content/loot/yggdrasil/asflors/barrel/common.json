@@ -1,0 +1,20 @@
+{
+    "reference": [
+        "yggdrasil/asflors/compound/archer",
+        "yggdrasil/asflors/compound/arrows",
+        "yggdrasil/asflors/compound/dye",
+        "yggdrasil/asflors/compound/redstone",
+        "yggdrasil/asflors/compound/echo",
+        "yggdrasil/asflors/compound/food",
+        "yggdrasil/asflors/compound/harvest",
+        "yggdrasil/asflors/compound/small",
+        "yggdrasil/asflors/compound/treasure",
+        "yggdrasil/asflors/compound/magic"
+    ],
+    "items": [
+        {
+            "id": "minecraft:trial_key",
+            "description": "Clé de l'Asflors"
+        }
+    ]
+}

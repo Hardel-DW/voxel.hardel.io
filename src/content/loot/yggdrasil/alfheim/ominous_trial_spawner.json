@@ -1,0 +1,27 @@
+{
+    "reference": ["yggdrasil/alfheim/reward/rare", "yggdrasil/alfheim/reward/common"],
+    "items": [
+        {
+            "id": "minecraft:enchanted_book",
+            "description": "Spawner Touch"
+        },
+        {
+            "id": "minecraft:enchanted_book",
+            "description": "Pull"
+        },
+        {
+            "id": "minecraft:enchanted_book",
+            "description": "Breezing Arrow"
+        },
+        {
+            "id": "minecraft:trial_key",
+            "description": "Clef de l'Alfheim",
+            "count": 1
+        },
+        {
+            "id": "minecraft:ominous_trial_key",
+            "description": "Clef sinistre de l'Alfheim",
+            "count": 1
+        }
+    ]
+}

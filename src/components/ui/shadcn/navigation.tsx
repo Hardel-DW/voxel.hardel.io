@@ -40,7 +40,7 @@ const NavigationMenuTrigger = React.forwardRef<
     <NavigationMenuPrimitive.Trigger
         ref={ref}
         className={cn(
-            "group px-4 py-2 text-[16px] tracking-wide transition rounded-2xl text-zinc-400 hover:text-white inline-flex h-10 w-max items-center justify-center bg-transparent hover:bg-zinc-900 focus:bg-zinc-700 focus:text-white focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-zinc-800/50 data-[state=open]:bg-zinc-800/50",
+            "group px-4 py-2 text-[16px] tracking-wide transition rounded-2xl text-zinc-400 hover:text-white inline-flex h-10 w-max items-center justify-center bg-transparent hover:bg-zinc-900 focus:bg-zinc-700 focus:text-white focus:outline-hidden disabled:pointer-events-none disabled:opacity-50 data-active:bg-zinc-800/50 data-[state=open]:bg-zinc-800/50",
             className
         )}
         {...props}
@@ -95,7 +95,7 @@ const NavigationMenuIndicator = React.forwardRef<
     <NavigationMenuPrimitive.Indicator
         ref={ref}
         className={cn(
-            "top-full z-[1] flex h-1.5 items-end justify-center overflow-hidden data-[state=visible]:animate-in data-[state=hidden]:animate-out data-[state=hidden]:fade-out data-[state=visible]:fade-in",
+            "top-full z-1 flex h-1.5 items-end justify-center overflow-hidden data-[state=visible]:animate-in data-[state=hidden]:animate-out data-[state=hidden]:fade-out data-[state=visible]:fade-in",
             className
         )}
         {...props}
@@ -113,7 +113,7 @@ const ListItem = React.forwardRef<React.ElementRef<"a">, React.ComponentPropsWit
                     <a
                         ref={ref}
                         className={cn(
-                            "block select-none space-y-1 rounded-3xl px-6 py-4 leading-none no-underline outline-none transition-colors hover:bg-zinc-900 hover:text-white focus:bg-zinc-900 focus:text-white",
+                            "block select-none space-y-1 rounded-3xl px-6 py-4 leading-none no-underline outline-hidden transition-colors hover:bg-zinc-900 hover:text-white focus:bg-zinc-900 focus:text-white",
                             className
                         )}
                         {...props}
@@ -121,7 +121,7 @@ const ListItem = React.forwardRef<React.ElementRef<"a">, React.ComponentPropsWit
                         <div className="flex justify-between items-center gap-x-8">
                             <div>
                                 <div className="text-sm font-medium leading-none">{title}</div>
-                                <p className="line-clamp-2 text-sm leading-snug text-zinc-400">{children}</p>
+                                <p className="line-clamp-2 mt-1 text-xs leading-snug text-zinc-400">{children}</p>
                             </div>
                             {image && <img src={image} alt="Logo" className="w-12" />}
                         </div>

@@ -156,7 +156,7 @@ export function RenderComponent<T extends keyof Analysers>({
         }
         case "Section": {
             return (
-                <div className="[&:not(:first-child)]:mt-8">
+                <div className="not-first:mt-8">
                     <ToolSection title={component.title} id={component.id} toggle={component.toggle} button={component.button}>
                         {component.children.map((child: FormComponent, index: number) => (
                             <RenderComponent key={component.id + index.toString()} component={child} />

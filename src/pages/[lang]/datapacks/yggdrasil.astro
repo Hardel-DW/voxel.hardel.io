@@ -1,41 +1,41 @@
 ---
-import {getCollection} from "astro:content";
+import { getCollection } from "astro:content";
 import CompoundLayout from "@/components/layouts/CompoundLayout.astro";
 import YggdrasilLootViewer from "@/components/pages/datapacks/yggdrasil/YggdrasilLootViewer";
 import DatapackCard from "@/components/ui/DatapackCard.astro";
-import GallerySection, {type ImageItem} from "@/components/ui/GallerySection.astro";
+import GallerySection, { type ImageItem } from "@/components/ui/GallerySection.astro";
 import Lightbox from "@/components/ui/Lightbox.astro";
 import VideoSection from "@/components/ui/VideoSection.astro";
 import Adsense from "@/components/ui/adsense.astro";
 import ShiningStars from "@/components/ui/pattern/ShiningStars.astro";
 import Vortex from "@/components/ui/pattern/Vortex.astro";
-import {getTranslations, names} from "@/lib/i18n";
+import { getTranslations, names } from "@/lib/i18n";
 
-const {translate} = await getTranslations(Astro.url);
+const { translate } = await getTranslations(Astro.url);
 export const prerender = true;
 export async function getStaticPaths() {
     return names.map((element) => ({
-        params: {lang: element.lang}
+        params: { lang: element.lang }
     }));
 }
 
 const images: ImageItem[] = [
-    {rows: 2, cols: 2, path: "/images/addons/card/yggdrasil/alfheim.webp"},
-    {rows: 1, cols: 2, path: "/images/addons/card/yggdrasil/another_street.webp"},
-    {rows: 1, cols: 2, path: "/images/addons/card/yggdrasil/elf_house.webp"},
-    {rows: 2, cols: 2, path: "/images/addons/card/yggdrasil/fight.webp"},
-    {rows: 2, cols: 2, path: "/images/addons/card/yggdrasil/fountain.webp"},
-    {rows: 1, cols: 2, path: "/images/addons/card/yggdrasil/house.webp"},
-    {rows: 1, cols: 1, path: "/images/addons/card/yggdrasil/lac.webp"},
-    {rows: 1, cols: 1, path: "/images/addons/card/yggdrasil/lock.webp"},
-    {rows: 1, cols: 1, path: "/images/addons/card/yggdrasil/mystic_house.webp"},
-    {rows: 2, cols: 1, path: "/images/addons/card/yggdrasil/quest.webp"},
-    {rows: 1, cols: 2, path: "/images/addons/card/yggdrasil/runic_fracture.webp"},
-    {rows: 1, cols: 1, path: "/images/addons/card/yggdrasil/street.webp"},
-    {rows: 2, cols: 1, path: "/images/addons/card/yggdrasil/sword.webp"},
-    {rows: 1, cols: 1, path: "/images/addons/card/yggdrasil/village.webp"},
-    {rows: 1, cols: 2, path: "/images/addons/card/yggdrasil/table.webp"},
-    {rows: 1, cols: 1, path: "/images/addons/card/yggdrasil/underground.webp"}
+    { rows: 2, cols: 2, path: "/images/addons/card/yggdrasil/alfheim.webp" },
+    { rows: 1, cols: 2, path: "/images/addons/card/yggdrasil/another_street.webp" },
+    { rows: 1, cols: 2, path: "/images/addons/card/yggdrasil/elf_house.webp" },
+    { rows: 2, cols: 2, path: "/images/addons/card/yggdrasil/fight.webp" },
+    { rows: 2, cols: 2, path: "/images/addons/card/yggdrasil/fountain.webp" },
+    { rows: 1, cols: 2, path: "/images/addons/card/yggdrasil/house.webp" },
+    { rows: 1, cols: 1, path: "/images/addons/card/yggdrasil/lac.webp" },
+    { rows: 1, cols: 1, path: "/images/addons/card/yggdrasil/lock.webp" },
+    { rows: 1, cols: 1, path: "/images/addons/card/yggdrasil/mystic_house.webp" },
+    { rows: 2, cols: 1, path: "/images/addons/card/yggdrasil/quest.webp" },
+    { rows: 1, cols: 2, path: "/images/addons/card/yggdrasil/runic_fracture.webp" },
+    { rows: 1, cols: 1, path: "/images/addons/card/yggdrasil/street.webp" },
+    { rows: 2, cols: 1, path: "/images/addons/card/yggdrasil/sword.webp" },
+    { rows: 1, cols: 1, path: "/images/addons/card/yggdrasil/village.webp" },
+    { rows: 1, cols: 2, path: "/images/addons/card/yggdrasil/table.webp" },
+    { rows: 1, cols: 1, path: "/images/addons/card/yggdrasil/underground.webp" }
 ];
 
 // Récupération des structures
@@ -55,8 +55,8 @@ const yggdrasil = structures.filter((s) => s.id.startsWith("yggdrasil"));
 
     <section class="h-[90vh] relative z-20 flex flex-col items-center justify-end">
         {/* Gradients */}
-        <div class="absolute inset-0 bg-gradient-to-b from-black/50 from-5% to-transparent"/>
-        <div class="absolute bottom-0 h-1/2 w-full bg-gradient-to-t from-black to-transparent"/>
+        <div class="absolute inset-0 bg-linear-to-b from-black/50 from-5% to-transparent"/>
+        <div class="absolute bottom-0 h-1/2 w-full bg-linear-to-t from-black to-transparent"/>
 
         {/* Background Image */}
         <img
@@ -79,9 +79,9 @@ const yggdrasil = structures.filter((s) => s.id.startsWith("yggdrasil"));
             </span>
 
             <div class="w-full flex items-center gap-x-4">
-                <div class="h-px flex-1 bg-gradient-to-l from-zinc-700 to-transparent"/>
+                <div class="h-px flex-1 bg-linear-to-l from-zinc-700 to-transparent"/>
                 <img src="/icons/star.svg" alt="star" class="size-6 invert"/>
-                <div class="h-px flex-1 bg-gradient-to-r from-zinc-700 to-transparent"/>
+                <div class="h-px flex-1 bg-linear-to-r from-zinc-700 to-transparent"/>
             </div>
 
             {/* Structure Buttons */}

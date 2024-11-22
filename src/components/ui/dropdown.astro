@@ -1,5 +1,5 @@
 ---
-import type { HTMLAttributes } from "astro/types";
+import type {HTMLAttributes} from "astro/types";
 type DropdownElement = {
     title: string;
     url: string;
@@ -31,7 +31,7 @@ if (currentElement === undefined) throw new Error("Current element not found");
     <div id={props.id + "-content"}
          class="hidden space-y-2 p-2 mt-2 absolute w-full z-10 border border-zinc-700 hover:border-zinc-600 backdrop-blur-2xl bg-black/50 rounded-[0.5rem] shadow-lg">
         {props.elements.map((element) => (
-                <a href={element.url} class="block rounded px-4 py-2 text-zinc-200 hover:bg-white/5">
+                <a href={element.url} class="block rounded-xs px-4 py-2 text-zinc-200 hover:bg-white/5">
                     <div class="flex items-center">
                         {element.logo && <img src={element.logo} alt={element.title} class="h-6 w-6 mr-2 invert"/>}
                         <span>{element.title}</span>

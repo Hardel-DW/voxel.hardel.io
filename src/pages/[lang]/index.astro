@@ -3,15 +3,15 @@ import {Image} from "astro:assets";
 import {getCollection} from "astro:content";
 import CompoundLayout from "@/components/layouts/CompoundLayout.astro";
 import Box from "@/components/pages/home/Box.astro";
+import BlogCard from "@/components/ui/BlogCard.astro";
+import Slides from "@/components/ui/Slides.astro";
 import Adsense from "@/components/ui/adsense.astro";
 import Button from "@/components/ui/button.astro";
+import DashedPattern from "@/components/ui/pattern/DashedPattern.astro";
 import Fog from "@/components/ui/pattern/Fog.astro";
 import ShiningStars from "@/components/ui/pattern/ShiningStars.astro";
 import Vortex from "@/components/ui/pattern/Vortex.astro";
 import {getTranslations, names} from "@/lib/i18n";
-import BlogCard from "@/components/ui/BlogCard.astro";
-import DashedPattern from "@/components/ui/pattern/DashedPattern.astro";
-import Slides from "@/components/ui/Slides.astro";
 
 const {lang, translate} = await getTranslations(Astro.url);
 const blogs = await getCollection("blog", ({data, id}) => {
@@ -85,7 +85,7 @@ export async function getStaticPaths() {
 <CompoundLayout>
     <div>
         <!-- Background -->
-        <div class="absolute rounded-full w-3/4 h-1/2 bg-gradient-to-r from-[#401727] to-[#311e7696] opacity-20 blur-[10rem] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"/>
+        <div class="absolute rounded-full w-3/4 h-1/2 bg-linear-to-r from-[#401727] to-[#311e7696] opacity-20 blur-[10rem] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"/>
 
         <!-- Shining stars -->
         <div class="fixed inset-0 -z-10">
@@ -99,13 +99,13 @@ export async function getStaticPaths() {
 
         <!-- Main view -->
         <section class="h-dvh" data-direction="horizontal">
-            <div class="absolute w-full inset-0 shadow-2xl bg-gradient-to-r from-[#401727] to-[#311e7696] opacity-20 rounded-full blur-[10rem]"/>
+            <div class="absolute w-full inset-0 shadow-2xl bg-linear-to-r from-[#401727] to-[#311e7696] opacity-20 rounded-full blur-[10rem]"/>
 
             <div class="h-full w-3/4 mx-auto flex xl:grid grid-cols-2 items-center gap-8 transition-all duration-500"
                  data-effect>
                 <div class="h-full w-[95%] md:w-full mx-auto relative">
                     <div class="xl:invisible visible absolute flex justify-center items-center size-full -z-10">
-                        <div class="absolute inset-0 top-1/2 -translate-y-1/2 shadow-2xl bg-gradient-to-r from-pink-900 to-blue-900 opacity-50 rounded-full blur-[5rem]"/>
+                        <div class="absolute inset-0 top-1/2 -translate-y-1/2 shadow-2xl bg-linear-to-r from-pink-900 to-blue-900 opacity-50 rounded-full blur-[5rem]"/>
                     </div>
 
                     <div class="size-full flex flex-col justify-center" data-slide>
@@ -259,7 +259,7 @@ export async function getStaticPaths() {
                                 href={`/${lang}/blog/${post.id.split("/")[1]}`}
                                 src={post.data.image.src}
                                 alt={post.data.image.alt}
-                                slug={post.slug}
+                                slug={post.id}
                                 date={post.data.publishDate}
                                 lang={lang}
                                 category={post.data.category}

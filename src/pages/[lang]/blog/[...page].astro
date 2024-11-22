@@ -1,11 +1,11 @@
 ---
 import {getCollection} from "astro:content";
 import CompoundLayout from "@/components/layouts/CompoundLayout.astro";
+import BlogCard from "@/components/ui/BlogCard.astro";
 import Button from "@/components/ui/button.astro";
 import ShiningStars from "@/components/ui/pattern/ShiningStars.astro";
 import {getTranslations, names} from "@/lib/i18n";
 import type {PaginateFunction} from "astro";
-import BlogCard from "@/components/ui/BlogCard.astro";
 
 export const prerender = true;
 const {lang, translate} = await getTranslations(Astro.url);
@@ -45,7 +45,7 @@ const {page} = Astro.props;
             <ShiningStars/>
         </div>
 
-        <section class="w-full md:w-3/4 max-w-screen-xl mx-auto px-8 mt-32 md:mt-40">
+        <section class="w-full md:w-3/4 max-w-[theme(screens.xl)] mx-auto px-8 mt-32 md:mt-40">
             <h1 class="text-3xl lg:text-6xl lg:tracking-tight mt-1 lg:leading-tight">
                 {translate["blog.latest"]}
             </h1>
@@ -53,14 +53,14 @@ const {page} = Astro.props;
             <div class="h-1 w-full bg-zinc-700 rounded-full mt-2"/>
         </section>
 
-        <section class="max-w-screen-xl mx-auto px-8 mt-16">
+        <section class="max-w-[theme(screens.xl)] mx-auto px-8 mt-16">
             <ul class="grid sm:grid-cols-2 md:grid-cols-3 gap-10 lg:gap-16">
                 {page.data.map((post, index) => (
                         <BlogCard
                                 href={`/${lang}/blog/${post.id.split("/")[1]}`}
                                 src={post.data.image.src}
                                 alt={post.data.image.alt}
-                                slug={post.slug}
+                                slug={post.id}
                                 date={post.data.publishDate}
                                 lang={lang}
                                 category={post.data.category}
@@ -71,7 +71,7 @@ const {page} = Astro.props;
             </ul>
         </section>
 
-        <section class="max-w-screen-xl mx-auto px-8 mt-16">
+        <section class="max-w-[theme(screens.xl)] mx-auto px-8 mt-16">
             <div class="flex justify-center items-center mt-10 gap-4">
                 {page.url.prev && (
                         <Button variant="primary" href={page.url.prev}>

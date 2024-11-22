@@ -1,5 +1,5 @@
 ---
-import type { HTMLAttributes } from "astro/types";
+import type {HTMLAttributes} from "astro/types";
 
 interface Props extends HTMLAttributes<"label"> {
     accept: string;
@@ -7,34 +7,36 @@ interface Props extends HTMLAttributes<"label"> {
     multiple: boolean;
 }
 
-const { accept, maxSize, multiple, ...props } = Astro.props;
+const {accept, maxSize, multiple, ...props} = Astro.props;
 ---
 
 <div class:list={[
     'mx-auto',
     props.class,
-]} {...props}>
+]}>
     <div class="flex items-center justify-center w-full">
-        <label
-            for="dropzone-file"
-            class="w-full h-64 border-2 border-dashed flex flex-col items-center justify-between gradient-gray cursor-pointer border-t-2 border-r border-zinc-800 p-10 sm:p-16 rounded-3xl shadow-2xl shadow-black transition opacity-75 hover:opacity-100"
-        >
-            <div class="flex flex-col items-center justify-center gap-y-8">
-                <img alt="upload" src="/icons/upload.svg" class="w-16 h-16 invert" />
-                <slot />
-            </div>
-            <input
-                id="dropzone-file"
-                type="file"
-                class="hidden"
-                accept={accept}
-                multiple={multiple}
-            />
-        </label>
+        <div class="w-full h-64 border-2 border-dashed flex flex-col items-center justify-center gradient-gray cursor-pointer border-t-2 border-r border-zinc-800 p-10 sm:p-16 rounded-3xl shadow-2xl shadow-black transition opacity-75 hover:opacity-100">
+            <label
+                    for="dropzone-file"
+                    class="flex flex-col items-center justify-center w-full h-full cursor-pointer"
+            >
+                <div class="flex flex-col items-center justify-center gap-y-8">
+                    <img alt="upload" src="/icons/upload.svg" class="w-16 h-16 invert"/>
+                    <slot/>
+                </div>
+                <input
+                        id="dropzone-file"
+                        type="file"
+                        class="hidden"
+                        accept={accept}
+                        multiple={multiple}
+                />
+            </label>
+        </div>
     </div>
 </div>
 
-<script is:inline define:vars={{ maxSize }}>
+<script is:inline define:vars={{maxSize}}>
     // Handle file upload
     const input = document.getElementById("dropzone-file");
     if (input) {
@@ -44,7 +46,7 @@ const { accept, maxSize, multiple, ...props } = Astro.props;
                 // Vérifier la taille des fichiers
                 const files = Array.from(target.files);
                 const oversizedFiles = files.filter(file => file.size > maxSize);
-                
+
                 if (oversizedFiles.length > 0) {
                     alert(`Some files exceed the maximum size of ${maxSize} bytes`);
                     target.value = ''; // Reset input
@@ -53,7 +55,7 @@ const { accept, maxSize, multiple, ...props } = Astro.props;
 
                 // Créer un événement personnalisé avec les fichiers
                 const uploadEvent = new CustomEvent('fileUpload', {
-                    detail: { files: target.files }
+                    detail: {files: target.files}
                 });
                 input.dispatchEvent(uploadEvent);
             }

@@ -64,9 +64,9 @@ export default function NeoEnchantmentViewer({
             </div>
 
             <div className="w-full flex items-center gap-x-4">
-                <div className="h-px flex-1 bg-gradient-to-l from-zinc-700 to-transparent" />
+                <div className="h-px flex-1 bg-linear-to-l from-zinc-700 to-transparent" />
                 <img src="/icons/star.svg" alt="star" className="size-6 invert" />
-                <div className="h-px flex-1 bg-gradient-to-r from-zinc-700 to-transparent" />
+                <div className="h-px flex-1 bg-linear-to-r from-zinc-700 to-transparent" />
             </div>
 
             <div className="flex flex-col md:flex-row gap-16 h-fit md:h-[480px] w-full pt-4">

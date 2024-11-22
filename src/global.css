@@ -1,3 +1,107 @@
+@import 'tailwindcss';
+
+@plugin "@tailwindcss/typography";
+@plugin "./lib/tailwind-animate.ts";
+
+
+@theme {
+    --shadow-s: 2px 2px 30px 2px #000;
+    --breakpoint-s: 420px;
+    --font-sans: Inter;
+    --grid-template-columns-items: repeat(auto-fill, minmax(120px, 1fr));
+    --background-image-grid: linear-gradient(to right, #272727 1px, transparent 1px), linear-gradient(to bottom, #272727 1px, transparent 1px);
+
+    --color-modrinth: #1bd96a;
+    --color-header-translucent: #18181d6b;
+    --color-header-cloudy: #151418;
+    --color-guides-gradient-from: #0d0709;
+    --color-guides-gradient-to: #151416;
+    --color-card: #1c1b1ec2;
+    --color-content: #38373f33;
+    --color-background: #080507;
+
+    --hue-rotate-45: 45deg;
+    --brightness-20: 0.2;
+    --animate-levitate: levitate 5000ms ease-in-out infinite;
+    --animate-fadein: fadein 200ms ease-in;
+    --animate-open: open 150ms ease-in-out forwards;
+    --animate-rainbow: rainbow 10s linear infinite;
+    --animate-shimmer: shimmer 2s linear infinite;
+    --animate-progress: progress 5s linear;
+
+    @keyframes shimmer {
+        from {
+            background-position: 0 0;
+        }
+        to {
+            background-position: -200% 0;
+        }
+    }
+
+    @keyframes levitate {
+        0% {
+            transform: translateY(0);
+        }
+        50% {
+            transform: translateY(1.5rem);
+        }
+        100% {
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes open {
+        from {
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes fadein {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+
+    @keyframes progress {
+        from {
+            transform: scaleX(0);
+        }
+        to {
+            transform: scaleX(1);
+        }
+    }
+
+    @keyframes rainbow {
+        from {
+            filter: hue-rotate(0deg);
+        }
+        to {
+            filter: hue-rotate(360deg);
+        }
+    }
+}
+
+@layer base {
+    input,
+    textarea,
+    select,
+    button {
+        border: 0 solid;
+        border-radius: 0;
+        padding: 0;
+        color: inherit;
+        background-color: transparent;
+    }
+}
+
 @font-face {
     font-family: 'Rubik';
     font-style: normal;
@@ -82,17 +186,17 @@ label {
     [type="checkbox"] {
         all: unset;
         @apply w-11 cursor-pointer;
-        @apply after:absolute after:-translate-y-1/2 after:block after:rounded-full after:w-4 after:h-4 after:ml-1 after:shadow-md after:duration-200 after:bg-stone-300 after:checked:bg-neutral-300;
-        @apply before:absolute before:-translate-y-1/2 before:inline-block before:rounded-full before:duration-100 before:w-10 before:h-6 before:bg-neutral-600 before:checked:bg-rose-900;
+        @apply after:absolute after:-translate-y-1/2 after:block after:rounded-full after:w-4 after:h-4 after:ml-1 after:shadow-md after:duration-200 after:bg-stone-300 checked:after:bg-neutral-300;
+        @apply before:absolute before:-translate-y-1/2 before:inline-block before:rounded-full before:duration-100 before:w-10 before:h-6 before:bg-neutral-600 checked:before:bg-rose-900;
         @apply checked:after:duration-300 checked:after:translate-x-4;
-        @apply disabled:cursor-not-allowed disabled:after:bg-opacity-70;
+        @apply disabled:cursor-not-allowed after:disabled:bg-stone-300/70 after:disabled:checked:bg-neutral-300/70;
         @apply disabled:checked:before:opacity-50;
     }
 }
 
 select {
     @apply w-full h-10 rounded-md text-zinc-200 p-2 border border-zinc-700;
-    background-color: transparent !important; 
+    background-color: transparent !important;
     appearance: none;
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -101,14 +205,14 @@ select {
 select:focus {
     outline: none;
 }
- 
+
 select:focus-visible {
     border-color: #881337;
     box-shadow: 0 0 0 1px #881337;
 }
 
 option {
-    @apply text-zinc-200 p-2 border-none border-0 outline-none shadow-none;
+    @apply text-zinc-200 p-2 border-none border-0 outline-hidden shadow-none;
     background-color: #0c0c0c;
     appearance: none;
     -webkit-appearance: none;
@@ -116,7 +220,7 @@ option {
 }
 
 option:focus-visible {
-    border-color: #881337; 
+    border-color: #881337;
     box-shadow: 0 0 0 1px #881337;
 }
 
@@ -335,13 +439,13 @@ input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-o
 .border-line {
     &::after {
         content: "";
-        @apply absolute z-10 bottom-0 inset-x-0 w-1/2 mx-auto bg-gradient-to-r from-transparent via-rose-500 to-transparent h-px;
+        @apply absolute z-10 bottom-0 inset-x-0 w-1/2 mx-auto bg-linear-to-r from-transparent via-rose-500 to-transparent h-px;
 
     }
 
     &::before {
         content: "";
-        @apply absolute z-10 top-0 inset-x-0 w-1/2 mx-auto -bottom-px bg-gradient-to-r from-transparent via-blue-300 to-transparent h-px
+        @apply absolute z-10 top-0 inset-x-0 w-1/2 mx-auto -bottom-px bg-linear-to-r from-transparent via-blue-300 to-transparent h-px
     }
 }
 

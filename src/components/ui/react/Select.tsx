@@ -67,7 +67,7 @@ export function Select({ id, options, defaultOption, onChange, value }: SelectPr
                     {options.map((option) => (
                         <div
                             key={option}
-                            className="block rounded px-4 py-2 text-zinc-200 hover:bg-white/5"
+                            className="block rounded-xs px-4 py-2 text-zinc-200 hover:bg-white/5"
                             onClick={() => handleSelect(option)}
                             onKeyDown={() => handleSelect(option)}
                         >

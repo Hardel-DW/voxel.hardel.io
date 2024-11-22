@@ -50,7 +50,7 @@ export default function GuideTree(props: Props) {
                                 <img src="/images/shine.avif" alt="Shine" />
                             </div>
 
-                            <div className="absolute left-0 right-0 h-1/2 top-1/2 -translate-y-1/2 -z-10 bg-gradient-to-t blur-xl from-black to-fuchsia-950/75 rounded-2xl" />
+                            <div className="absolute left-0 right-0 h-1/2 top-1/2 -translate-y-1/2 -z-10 bg-linear-to-t blur-xl from-black to-fuchsia-950/75 rounded-2xl" />
                             <div className="size-full flex justify-center items-center rounded-2xl stack">
                                 <div className="text-3xl uppercase tracking-wider font-bold text-white">Bientôt</div>
                             </div>

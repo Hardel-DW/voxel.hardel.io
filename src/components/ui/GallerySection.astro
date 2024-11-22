@@ -24,7 +24,7 @@ const { title, images } = Astro.props;
 
         <div class="flex items-center w-full">
             <img src="/icons/star.svg" alt="star" class="size-6 invert"/>
-            <div class="w-full h-px bg-gradient-to-r from-white to-transparent"/>
+            <div class="w-full h-px bg-linear-to-r from-white to-transparent"/>
         </div>
     </div>
 
@@ -46,7 +46,7 @@ const { title, images } = Astro.props;
                     loading="eager"
                     class="absolute inset-0 w-full h-full object-cover object-center hover:scale-110 transition-transform duration-500"
                 />
-                <div class="absolute inset-0 bg-gradient-to-b from-transparent to-black/50 opacity-0 hover:opacity-100 transition-opacity duration-300"/>
+                <div class="absolute inset-0 bg-linear-to-b from-transparent to-black/50 opacity-0 hover:opacity-100 transition-opacity duration-300"/>
             </div>
         ))}
     </div>

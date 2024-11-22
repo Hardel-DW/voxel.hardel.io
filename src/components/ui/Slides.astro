@@ -1,31 +1,33 @@
 ---
-import { cn } from "@/lib/utils";
-import type { HTMLAttributes } from "astro/types";
+import {cn} from "@/lib/utils";
+import type {HTMLAttributes} from "astro/types";
 
 interface Props extends HTMLAttributes<"div"> {
     numberOfSlides: number;
     direction: "vertical" | "horizontal";
 }
 
-const { numberOfSlides, direction, ...props } = Astro.props;
+const {numberOfSlides, direction, ...props} = Astro.props;
 ---
 
-<div data-slides class={cn("flex gap-2 transition-opacity duration-300", props.class, direction === "vertical" ? "flex-col" : "flex-row")}  {...props}>
-    {Array.from({ length: numberOfSlides }).map((_, index) => ( 
-        <div 
-            class={cn("rounded-full bg-white/50 cursor-pointer overflow-hidden transition-all duration-300", 
-                direction === "vertical" ? "h-6 w-2" : "h-2 w-6"
-            )} 
-            data-index={index}
-            data-pagination
-        >
-            <div 
-                class={cn("h-full w-full rounded-full bg-pink-700 transform opacity-100", 
-                    direction === "vertical" ? "origin-top scale-y-0" : "origin-left scale-x-0"
-                )}
-                data-progress
-            ></div>
-        </div>
+<div data-slides
+     class={cn("flex gap-2 transition-opacity duration-300", props.class, direction === "vertical" ? "flex-col" : "flex-row")}
+     {...props}>
+    {Array.from({length: numberOfSlides}).map((_, index) => (
+            <div
+                    class={cn("rounded-full bg-white/50 cursor-pointer overflow-hidden transition-all duration-300",
+                        direction === "vertical" ? "h-6 w-2" : "h-2 w-6"
+                    )}
+                    data-index={index}
+                    data-pagination
+            >
+                <div
+                        class={cn("h-full w-full rounded-full bg-pink-700 transform opacity-100",
+                            direction === "vertical" ? "origin-top scale-y-0" : "origin-left scale-x-0"
+                        )}
+                        data-progress
+                ></div>
+            </div>
     ))}
 </div>
 
@@ -36,7 +38,7 @@ const { numberOfSlides, direction, ...props } = Astro.props;
         private readonly direction: string;
         private readonly interval: number;
         private readonly paginationItems: NodeListOf<Element>;
-        private readonly slidesCount: number; 
+        private readonly slidesCount: number;
 
         constructor(direction: string, interval: number) {
             this.direction = direction;
@@ -59,11 +61,11 @@ const { numberOfSlides, direction, ...props } = Astro.props;
 
                 // Reset styles
                 progressBar.style.transition = 'none';
-                this.direction === "vertical" 
-                    ? progressBar.style.transform = 'scaleY(0)' 
+                this.direction === "vertical"
+                    ? progressBar.style.transform = 'scaleY(0)'
                     : progressBar.style.transform = 'scaleX(0)';
                 progressBar.style.opacity = '1';
-                
+
                 // Update sizes
                 if (i === index) {
                     const item = paginationItem as HTMLElement;
@@ -72,13 +74,13 @@ const { numberOfSlides, direction, ...props } = Astro.props;
                     } else {
                         item.style.width = '4rem';
                     }
-                    
+
                     // Force reflow
                     void progressBar.offsetWidth;
-                    
+
                     progressBar.style.transition = 'transform 5s linear, opacity 0.3s linear 4.7s';
-                    this.direction === "vertical" 
-                        ? progressBar.style.transform = 'scaleY(1)' 
+                    this.direction === "vertical"
+                        ? progressBar.style.transform = 'scaleY(1)'
                         : progressBar.style.transform = 'scaleX(1)';
                     progressBar.style.opacity = '0';
                 } else {
@@ -99,8 +101,8 @@ const { numberOfSlides, direction, ...props } = Astro.props;
 
         private showSlide() {
             this.updatePagination(this.currentSlide);
-            window.dispatchEvent(new CustomEvent('onSlideChange', { 
-                detail: { index: this.currentSlide }
+            window.dispatchEvent(new CustomEvent('onSlideChange', {
+                detail: {index: this.currentSlide}
             }));
         }
 
@@ -125,13 +127,11 @@ const { numberOfSlides, direction, ...props } = Astro.props;
         private handleScroll() {
             const slidesElement = document.querySelector('[data-slides]');
             if (!slidesElement) return;
-
-            let lastScrollPosition = window.scrollY;
-            const scrollThreshold = 50; // Seuil de défilement avant de cacher les slides
+            const scrollThreshold = 50;
 
             window.addEventListener('scroll', () => {
                 const currentScroll = window.scrollY;
-                
+
                 if (currentScroll > scrollThreshold) {
                     slidesElement.classList.add('opacity-0');
                     slidesElement.classList.add('pointer-events-none');
@@ -139,8 +139,6 @@ const { numberOfSlides, direction, ...props } = Astro.props;
                     slidesElement.classList.remove('opacity-0');
                     slidesElement.classList.remove('pointer-events-none');
                 }
-                
-                lastScrollPosition = currentScroll;
             });
         }
     }

@@ -2,13 +2,12 @@
 import PageLayout from "@/components/layouts/PageLayout.astro";
 import Star from "@/components/ui/star.astro";
 import Dropzone from "@/components/ui/Dropzone.astro";
-import { getTranslations, names } from "@/lib/i18n";
+import {names} from "@/lib/i18n";
 
-const { translate } = await getTranslations(Astro.url);
 export const prerender = true;
 export async function getStaticPaths() {
     return names.map((element) => ({
-        params: { lang: element.lang }
+        params: {lang: element.lang}
     }));
 }
 ---
@@ -17,14 +16,14 @@ export async function getStaticPaths() {
     <section class="mt-32 mb-20 relative w-3/4 mx-auto">
         <div class="w-full text-center mt-12 mb-24">
             <h2 class="text-5xl font-bold mb-4">Harmonization</h2>
-            <Star />
+            <Star/>
         </div>
 
         <!-- Gallery -->
         <div class="mb-8 w-full">
             <div
-                id="imageGallery"
-                class="flex gap-4 overflow-x-auto pb-4 min-h-[100px] items-center"
+                    id="imageGallery"
+                    class="flex gap-4 overflow-x-auto pb-4 min-h-[100px] items-center"
             >
                 <p id="noImagesText" class="text-zinc-400 text-center w-full">
                     No images uploaded yet
@@ -36,10 +35,10 @@ export async function getStaticPaths() {
             <!-- Input -->
             <div class="flex flex-col gap-4">
                 <Dropzone
-                    accept="image/*"
-                    maxSize={5242880}
-                    multiple={false}
-                    class="w-full"
+                        accept="image/*"
+                        maxSize={5242880}
+                        multiple={false}
+                        class="w-full"
                 >
                     <p class="text-center text-zinc-400">
                         Drop your image here or click to select
@@ -49,23 +48,23 @@ export async function getStaticPaths() {
                 <div class="flex flex-col items-start gap-4 mt-6">
                     <div class="flex justify-between items-center gap-4 w-full">
                         <label
-                            for="similarityThreshold"
-                            class="text-zinc-400 text-semibold"
-                            >Similarity Threshold :</label
+                                for="similarityThreshold"
+                                class="text-zinc-400 text-semibold"
+                        >Similarity Threshold :</label
                         >
                         <span
-                            id="similarityThresholdValue"
-                            class="text-zinc-400 text-semibold">30</span
+                                id="similarityThresholdValue"
+                                class="text-zinc-400 text-semibold">30</span
                         >
                     </div>
 
                     <input
-                        type="range"
-                        id="similarityThreshold"
-                        min="0"
-                        max="150"
-                        value="30"
-                        class="w-full"
+                            type="range"
+                            id="similarityThreshold"
+                            min="0"
+                            max="150"
+                            value="30"
+                            class="w-full"
                     />
 
                     <!-- Palette Display -->
@@ -74,8 +73,8 @@ export async function getStaticPaths() {
                             Extracted Colors:
                         </p>
                         <div
-                            id="paletteDisplay"
-                            class="flex flex-wrap gap-2 *:transition-transform *:duration-200 *:ease-in-out [&>*:hover]:scale-125"
+                                id="paletteDisplay"
+                                class="flex flex-wrap gap-2 *:transition-transform *:duration-200 *:ease-in-out [&>*:hover]:scale-125"
                         >
                         </div>
                     </div>
@@ -84,28 +83,28 @@ export async function getStaticPaths() {
 
             <!-- Output -->
             <div
-                class="border-2 border-zinc-700 border-dashed rounded-3xl p-16 aspect-square relative"
+                    class="border-2 border-zinc-700 border-dashed rounded-3xl p-16 aspect-square relative"
             >
                 <!-- Download Button -->
                 <div class="absolute top-4 right-4 z-10">
                     <div
-                        id="downloadBtn"
-                        class="w-12 h-12 p-2 hover:bg-zinc-800/50 cursor-pointer transition bg-black/10 border border-white/10 rounded-md flex justify-center items-center"
+                            id="downloadBtn"
+                            class="w-12 h-12 p-2 hover:bg-zinc-800/50 cursor-pointer transition bg-black/10 border border-white/10 rounded-md flex justify-center items-center"
                     >
                         <img
-                            alt="download"
-                            src="/icons/download.svg"
-                            width="24"
-                            height="24"
-                            class="invert"
+                                alt="download"
+                                src="/icons/download.svg"
+                                width="24"
+                                height="24"
+                                class="invert"
                         />
                     </div>
                 </div>
                 <canvas
-                    id="output"
-                    width="16"
-                    height="16"
-                    class="pixelated size-full"></canvas>
+                        id="output"
+                        width="16"
+                        height="16"
+                        class="pixelated size-full"></canvas>
             </div>
         </div>
     </section>
@@ -151,7 +150,7 @@ export async function getStaticPaths() {
             // Ajouter un X en hover
             const deleteIcon = document.createElement("div");
             deleteIcon.className = "absolute inset-0 hidden group-hover:flex items-center justify-center bg-black/50 rounded";
-            deleteIcon.innerHTML = '<img src="/icons/close.svg" class="w-4 h-4 invert opacity-0 group-hover:opacity-100" />';
+            deleteIcon.innerHTML = '<img alt="close button" src="/icons/close.svg" class="w-4 h-4 invert opacity-0 group-hover:opacity-100" />';
 
             colorBox.onclick = async () => {
                 // Supprimer la couleur de la palette originale
@@ -197,7 +196,7 @@ export async function getStaticPaths() {
         deleteBtn.className =
             "absolute top-2 right-2 bg-red-500 rounded-full p-1 hidden group-hover:block";
         deleteBtn.innerHTML =
-            '<img src="/icons/close.svg" class="w-4 h-4 invert" />';
+            '<img alt="close button" src="/icons/close.svg" class="w-4 h-4 invert" />';
 
         deleteBtn.onclick = (e) => {
             e.stopPropagation();
@@ -243,10 +242,10 @@ export async function getStaticPaths() {
 
         const currentFile = uploadedFiles[currentFileIndex];
         const image = await loadImage(currentFile);
-        
+
         // Utiliser une valeur fixe plus élevée pour capturer plus de couleurs initialement
         originalPalette = await extractPalette(image, 128); // Augmenter à 128 pour avoir plus de couleurs de base
-        
+
         const threshold = parseInt(similarityThreshold?.value || "30");
         const cleanedPalette = cleanPalette(originalPalette, threshold);
         displayPalette(cleanedPalette);

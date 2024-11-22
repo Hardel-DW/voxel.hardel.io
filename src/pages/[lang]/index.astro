@@ -1,6 +1,6 @@
 ---
-import { Image } from "astro:assets";
-import { getCollection } from "astro:content";
+import {Image} from "astro:assets";
+import {getCollection} from "astro:content";
 import CompoundLayout from "@/components/layouts/CompoundLayout.astro";
 import Box from "@/components/pages/home/Box.astro";
 import Adsense from "@/components/ui/adsense.astro";
@@ -8,21 +8,21 @@ import Button from "@/components/ui/button.astro";
 import Fog from "@/components/ui/pattern/Fog.astro";
 import ShiningStars from "@/components/ui/pattern/ShiningStars.astro";
 import Vortex from "@/components/ui/pattern/Vortex.astro";
-import { getTranslations, names } from "@/lib/i18n";
+import {getTranslations, names} from "@/lib/i18n";
 import BlogCard from "@/components/ui/BlogCard.astro";
 import DashedPattern from "@/components/ui/pattern/DashedPattern.astro";
 import Slides from "@/components/ui/Slides.astro";
 
-const { lang, translate } = await getTranslations(Astro.url);
-const blogs = await getCollection("blog", ({ data, id }) => {
+const {lang, translate} = await getTranslations(Astro.url);
+const blogs = await getCollection("blog", ({data, id}) => {
     return !data.draft && data.publishDate < new Date() && id.split("/")[0] === lang;
 });
 
 const sortedBlogs = blogs
-    .sort((a, b) => {
-        return b.data.publishDate.valueOf() - a.data.publishDate.valueOf();
-    })
-    .slice(0, 3);
+.sort((a, b) => {
+    return b.data.publishDate.valueOf() - a.data.publishDate.valueOf();
+})
+.slice(0, 3);
 
 const slides = [
     {
@@ -77,7 +77,7 @@ const slides = [
 export const prerender = true;
 export async function getStaticPaths() {
     return names.map((element) => ({
-        params: { lang: element.lang }
+        params: {lang: element.lang}
     }));
 }
 ---
@@ -101,12 +101,13 @@ export async function getStaticPaths() {
         <section class="h-dvh" data-direction="horizontal">
             <div class="absolute w-full inset-0 shadow-2xl bg-gradient-to-r from-[#401727] to-[#311e7696] opacity-20 rounded-full blur-[10rem]"/>
 
-            <div class="h-full w-3/4 mx-auto flex xl:grid grid-cols-2 items-center gap-8 transition-all duration-500" data-effect>
+            <div class="h-full w-3/4 mx-auto flex xl:grid grid-cols-2 items-center gap-8 transition-all duration-500"
+                 data-effect>
                 <div class="h-full w-[95%] md:w-full mx-auto relative">
                     <div class="xl:invisible visible absolute flex justify-center items-center size-full -z-10">
                         <div class="absolute inset-0 top-1/2 -translate-y-1/2 shadow-2xl bg-gradient-to-r from-pink-900 to-blue-900 opacity-50 rounded-full blur-[5rem]"/>
                     </div>
-    
+
                     <div class="size-full flex flex-col justify-center" data-slide>
                         <small class="text-pink-700 font-bold tracking-wide text-[16px]">
                             {translate["generic.section"]}
@@ -117,12 +118,14 @@ export async function getStaticPaths() {
                         <p class="text-gray-300 mt-4" data-slide-description>
                             {slides[0].description}
                         </p>
-    
+
                         <div class="mt-8 flex gap-4">
-                            <Button href={slides[0].button.main.href} size="xl" variant="primary" data-slide-button-main>
+                            <Button href={slides[0].button.main.href} size="xl" variant="primary"
+                                    data-slide-button-main>
                                 {slides[0].button.main.text}
                             </Button>
-                            <Button href={slides[0].button.secondary.href} size="xl" variant="ghost" data-slide-button-secondary>
+                            <Button href={slides[0].button.secondary.href} size="xl" variant="ghost"
+                                    data-slide-button-secondary>
                                 {slides[0].button.secondary.text}
                             </Button>
                         </div>
@@ -130,10 +133,12 @@ export async function getStaticPaths() {
                 </div>
                 <div class="relative w-full hidden xl:flex justify-center items-center">
                     <img class="absolute opacity-10 drag-none" src="/icons/circle.svg" alt="box"/>
-                    <img loading="eager" width="1200" height="900" src={slides[0].image} alt="404" data-slide-image class="aspect-auto drag-none" />
-                </div> 
+                    <img loading="eager" width="1200" height="900" src={slides[0].image} alt="404" data-slide-image
+                         class="aspect-auto drag-none"/>
+                </div>
             </div>
-            <Slides numberOfSlides={slides.length} direction="horizontal" class="absolute left-1/2 -translate-x-1/2 bottom-20" />
+            <Slides numberOfSlides={slides.length} direction="horizontal"
+                    class="absolute left-1/2 -translate-x-1/2 bottom-20"/>
         </section>
 
         <!-- Features -->
@@ -155,7 +160,7 @@ export async function getStaticPaths() {
                 <h1 class="text-white text-4xl md:text-5xl font-bold mt-4">
                     {translate["home.feature.title"]}
                 </h1>
-                <p class="text-zinc-400 text-sm md:text-base mt-6"> 
+                <p class="text-zinc-400 text-sm md:text-base mt-6">
                     {translate["home.feature.description"]}
                 </p>
 
@@ -241,7 +246,7 @@ export async function getStaticPaths() {
 
         <!-- Blog -->
         <section class="mt-20 pb-40 w-full flex flex-col items-center gap-10 relative rounded-t-3xl overflow-hidden">
-            <DashedPattern />
+            <DashedPattern/>
             <div class="w-3/4 pt-40">
                 <h1 class="text-white text-2xl md:text-4xl font-semibold tracking-tighter mt-4 text-balance">
                     Actualités du moment
@@ -250,25 +255,24 @@ export async function getStaticPaths() {
             </div>
             <ul class="w-3/4 grid grid-cols-3 gap-10 lg:gap-16">
                 {sortedBlogs.map((post, index) => (
-                    <BlogCard
-                        href={`/${lang}/blog/${post.id.split("/")[1]}`}
-                        src={post.data.image.src}
-                        alt={post.data.image.alt}
-                        slug={post.slug}
-                        date={post.data.publishDate}
-                        lang={lang}
-                        category={post.data.category}
-                        title={post.data.title}
-                        index={index}
-                    />
+                        <BlogCard
+                                href={`/${lang}/blog/${post.id.split("/")[1]}`}
+                                src={post.data.image.src}
+                                alt={post.data.image.alt}
+                                slug={post.slug}
+                                date={post.data.publishDate}
+                                lang={lang}
+                                category={post.data.category}
+                                title={post.data.title}
+                                index={index}
+                        />
                 ))}
-            </ul>    
+            </ul>
         </section>
     </div>
-</CompoundLayout> 
+</CompoundLayout>
 
-<script is:inline define:vars={{ slides }}>
-    const slidesContainer = document.querySelector('[data-slides]');
+<script is:inline define:vars={{slides}}>
     const slideImage = document.querySelector('[data-slide-image]');
     const slideEffect = document.querySelector('[data-effect]');
     const slideTitle = document.querySelector('[data-slide-title]');
@@ -278,11 +282,11 @@ export async function getStaticPaths() {
 
     function updateSlideContent(index) {
         if (!slideImage || !slideTitle || !slideDescription) return;
-        
+
         slideEffect.classList.remove('opacity-100');
         slideEffect.classList.add('opacity-50');
 
-        
+
         setTimeout(() => {
             slideImage.src = slides[index].image;
             slideImage.alt = slides[index].title;

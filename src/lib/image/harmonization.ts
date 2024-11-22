@@ -1,12 +1,10 @@
 /**
  * Type représentant une couleur RGB sous forme de tuple de 3 nombres
- * @typedef {[number, number, number]} RGB - Tuple contenant les valeurs Rouge, Vert, Bleu (0-255)
  */
 export type RGB = [number, number, number];
 
 /**
  * Type représentant une palette de couleurs RGB
- * @typedef {RGB[]} Palette - Tableau de couleurs RGB
  */
 export type Palette = RGB[];
 
@@ -43,12 +41,11 @@ export const colorDistance = (color1: RGB, color2: RGB): number => {
 /**
  * Nettoie une palette en retirant les couleurs trop similaires
  * @param {Palette} palette - Palette à nettoyer
- * @param {number} threshold - Seuil de similarité (0-442 où 0 = identique, 442 = très différent)
+ * @param threshold - Seuil de similarité (0-442 où 0 = identique, 442 = très différent)
  * @returns {Palette} Nouvelle palette sans les couleurs trop similaires
  */
 export const cleanPalette = (palette: Palette, threshold = 30): Palette => {
     return palette.reduce((acc: Palette, color) => {
-        // Si la couleur est trop proche d'une couleur déjà dans la palette, on ne l'ajoute pas
         const isTooSimilar = acc.some((existingColor) => colorDistance(color, existingColor) < threshold);
 
         if (!isTooSimilar) {

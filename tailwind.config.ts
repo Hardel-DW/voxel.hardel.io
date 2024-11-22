@@ -49,7 +49,8 @@ export default {
                 fadein: "fadein 200ms ease-in",
                 open: "open 150ms ease-in-out forwards",
                 rainbow: "rainbow 10s linear infinite",
-                shimmer: "shimmer 2s linear infinite"
+                shimmer: "shimmer 2s linear infinite",
+                progress: "progress 5s linear"
             },
             keyframes: {
                 shimmer: {
@@ -78,6 +79,10 @@ export default {
                 fadein: {
                     from: { opacity: "0" },
                     to: { opacity: "1" }
+                },
+                progress: {
+                    from: { transform: "scaleX(0)" },
+                    to: { transform: "scaleX(1)" }
                 },
                 rainbow: {
                     from: {

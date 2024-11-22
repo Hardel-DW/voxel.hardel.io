@@ -1,0 +1,62 @@
+---
+import { Picture } from "astro:assets";
+
+interface Props {
+    href: string;
+    src: string;
+    alt: string;
+    slug: string;
+    date: Date;
+    lang: string;
+    category: string;
+    title: string;
+    index: number;
+}
+
+const { href, src, alt, slug, date, lang, category, title, index } = Astro.props;
+---
+
+<li class="relative group">
+    <div class="absolute -z-10 size-full inset-0 bg-gradient-to-r from-pink-900 to-blue-900 opacity-30 rounded-full blur-[5rem]"/>
+
+    <a href={href}>
+        <div class="relative">
+            <div class="relative overflow-hidden rounded-md" style={{width: 800, height: 600}}>
+                <div class="border-line"/>
+
+                <Picture
+                    formats={["avif", "webp"]}
+                    src={src}
+                    alt={alt}
+                    sizes="(max-width: 800px) 100vw, 800px"
+                    width={800}
+                    height={600}
+                    loading={index <= 2 ? "eager" : "lazy"}
+                    decoding={index <= 2 ? "sync" : "async"}
+                    class="w-full rounded-md object-cover group-hover:scale-125 transition duration-500"
+                    transition:name={`post-img-${slug}`}
+                />
+            </div>
+
+            <div class="mt-4">
+                <span class="text-blue-400 uppercase tracking-wider text-xs font-medium">
+                    {category}
+                </span>
+
+                <h2 class="text-xl font-semibold leading-snug tracking-tight mt-1">
+                    {title}
+                </h2>
+
+                <div class="flex gap-2 mt-3 text-sm">
+                    <time class="text-gray-400" datetime={date.toISOString()}>
+                        {Intl.DateTimeFormat(lang, {
+                            year: "numeric",
+                            month: "long",
+                            day: "numeric"
+                        }).format(date)}
+                    </time>
+                </div>
+            </div>
+        </div>
+    </a>
+</li>

@@ -20,7 +20,7 @@ export default function SidebarPanel<T extends keyof Analysers>() {
         <>
             <div
                 style={{ width: width }}
-                className={cn("flex-shrink-0 overflow-hidden container-type transition-[width] ease-in-out xl:py-4", {
+                className={cn("shrink-0 overflow-hidden container-type transition-[width] ease-in-out xl:py-4", {
                     "pl-4": width > 0
                 })}
             >

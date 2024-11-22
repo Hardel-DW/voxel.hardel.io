@@ -41,7 +41,7 @@ export default function ToolSwitchSlot(props: {
             <div className="flex items-center justify-between w-full">
                 <div className="flex items-center gap-4">
                     {props.image && (
-                        <div className="flex-shrink-0">
+                        <div className="shrink-0">
                             <img src={props.image} alt="" className="w-8 h-8 object-contain pixelated" />
                         </div>
                     )}

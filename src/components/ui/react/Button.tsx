@@ -15,7 +15,7 @@ const variants = {
         modrinth:
             "animate-shimmer bg-[length:200%_100%] bg-[linear-gradient(110deg,#1bd96a,45%,#00ff82,55%,#1bd96a)] transition hover:scale-95 hover:bg-green-700 text-black border-0",
         shimmer:
-            "animate-shimmer hover:scale-95 rounded-md border border-slate-800 bg-[linear-gradient(110deg,#000103,45%,#1e2631,55%,#000103)] bg-[length:200%_100%] font-medium text-slate-400 transition focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50",
+            "animate-shimmer hover:scale-95 rounded-md border border-slate-800 bg-[linear-gradient(110deg,#000103,45%,#1e2631,55%,#000103)] bg-[length:200%_100%] font-medium text-slate-400 transition focus:outline-hidden focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50",
         "white-shimmer":
             "animate-shimmer bg-[linear-gradient(110deg,#FFFEFC,45%,#d0d0d0,55%,#FFFEFC)] bg-[length:200%_100%] text-black font-medium border-t border-l border-zinc-900 hover:opacity-75 transition",
         "patreon-shimmer":
@@ -75,7 +75,7 @@ const Button = React.forwardRef<HTMLAnchorElement, Props>(
             <a
                 ref={ref}
                 className={cn([
-                    "inline-flex items-center justify-center whitespace-nowrap cursor-pointer truncate text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
+                    "inline-flex items-center justify-center whitespace-nowrap cursor-pointer truncate text-sm font-medium ring-offset-background transition-colors focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
                     variants.variant[variant],
                     variants.size[size],
                     variants.rounded[rounded],

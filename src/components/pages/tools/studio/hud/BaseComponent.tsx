@@ -3,7 +3,7 @@ import { cn } from "@/lib/utils";
 import type React from "react";
 
 const baseComponentVariants = cva(
-    "select-none flex items-center gap-4 relative border-zinc-800 border-t border-b text-sm backdrop-blur-sm bg-header-translucent rounded-2xl",
+    "select-none flex items-center gap-4 relative border-zinc-800 border-t border-b text-sm backdrop-blur-xs bg-header-translucent rounded-2xl",
     {
         variants: {
             variant: {

@@ -17,7 +17,7 @@ export default function ConfiguratorPanel<T extends keyof Analysers>(props: {
 
     return (
         <>
-            <div className="absolute w-full -z-10 inset-0 shadow-2xl bg-gradient-to-r from-[#401727] to-[#311e7696] opacity-20 rounded-full blur-[10rem]" />
+            <div className="absolute w-full -z-10 inset-0 shadow-2xl bg-linear-to-r from-[#401727] to-[#311e7696] opacity-20 rounded-full blur-[10rem]" />
             {props.children}
             <div className="border-zinc-800 border-t border-l bg-header-translucent rounded-2xl shadow-black p-4 sm:p-8">
                 <Tabs defaultValue={props.defaultTab}>

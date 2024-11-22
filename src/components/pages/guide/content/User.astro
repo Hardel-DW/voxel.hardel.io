@@ -14,10 +14,10 @@ const { user } = Astro.locals;
 <div class="relative">
     <div id="authtoggle"
          class="flex items-center justify-between rounded-2xl gap-x-4 px-4 py-2 border border-zinc-900 relative overflow-hidden cursor-pointer">
-        <div class="absolute right-0 size-32 bg-gradient-to-r from-fuchsia-500 via-pink-500 to-transparent opacity-20 rounded-full blur-[70px]"/>
+        <div class="absolute right-0 size-32 bg-linear-to-r from-fuchsia-500 via-pink-500 to-transparent opacity-20 rounded-full blur-[70px]"/>
 
         {user ? (
-                <div class="flex-shrink-0 h-12 w-12 m-2 justify-between">
+                <div class="shrink-0 h-12 w-12 m-2 justify-between">
                     <Image src={user.picture} alt="Avatar"
                            class="rounded-full"
                            decoding="async"
@@ -64,7 +64,7 @@ const { user } = Astro.locals;
                 <ul class="flex flex-col gap-y-2">
                     {!isPremium && (
                             <UserItem>
-                                <span class="bg-gradient-to-r from-blue-500 via-teal-500 to-purple-500 font-bold text-transparent bg-clip-text transition-all bg-[length:200%_200%] group-hover:bg-[length:100%_50%]">
+                                <span class="bg-linear-to-r from-blue-500 via-teal-500 to-purple-500 font-bold text-transparent bg-clip-text transition-all bg-[length:200%_200%] group-hover:bg-[length:100%_50%]">
                                     Premium
                                 </span>
                                 <img src="/icons/account.svg" alt="Profil" class="w-5 h-5"/>

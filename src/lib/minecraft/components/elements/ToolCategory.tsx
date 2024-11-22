@@ -13,7 +13,7 @@ export default function ToolCategory(props: {
     component: FormComponent[];
 }) {
     return (
-        <div className="[&:not(:first-child)]:mt-8">
+        <div className="not-first:mt-8">
             <div className="flex items-center gap-x-4 mb-8">
                 <div className="h-1 flex-1 bg-zinc-700" />
                 <h2 className="text-2xl font-semibold px-4">

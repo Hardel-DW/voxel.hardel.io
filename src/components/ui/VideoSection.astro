@@ -18,11 +18,11 @@ const { url, title, description } = Astro.props;
 
         <div class="flex items-center w-full">
             <img src="/icons/star.svg" alt="star" class="size-6 invert"/>
-            <div class="w-full h-px bg-gradient-to-r from-white to-transparent"/>
+            <div class="w-full h-px bg-linear-to-r from-white to-transparent"/>
         </div>
     </div>
 
-    <div class="grid items-center grid-cols-12 p-8 gap-8 border-t border-l border-zinc-900 rounded-3xl mt-16 bg-gradient-to-br from-black to-transparent">
+    <div class="grid items-center grid-cols-12 p-8 gap-8 border-t border-l border-zinc-900 rounded-3xl mt-16 bg-linear-to-br from-black to-transparent">
         <div class="col-span-7 size-full">
             <Video video={url}/>
         </div>

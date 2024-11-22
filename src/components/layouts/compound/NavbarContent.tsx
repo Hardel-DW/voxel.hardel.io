@@ -22,7 +22,7 @@ export default function NavBarItem({ translate, lang }: Props) {
                 <NavigationMenuItem>
                     <NavigationMenuLink
                         href={`/${lang}/blog`}
-                        className="px-4 py-2 rounded-3xl cursor-pointer text-[16px] tracking-wide transition text-zinc-400 hover:text-white inline-flex h-10 w-max items-center justify-center bg-transparent hover:bg-zinc-900 focus:bg-zinc-700 focus:text-white focus:outline-none disabled:pointer-events-none disabled:opacity-50"
+                        className="px-4 py-2 rounded-3xl cursor-pointer text-[16px] tracking-wide transition text-zinc-400 hover:text-white inline-flex h-10 w-max items-center justify-center bg-transparent hover:bg-zinc-900 focus:bg-zinc-700 focus:text-white focus:outline-hidden disabled:pointer-events-none disabled:opacity-50"
                     >
                         {translate["navbar.item.blog"]}
                     </NavigationMenuLink>
@@ -91,7 +91,7 @@ export default function NavBarItem({ translate, lang }: Props) {
                 <NavigationMenuItem>
                     <NavigationMenuLink
                         href={`/${lang}/contact`}
-                        className="px-4 py-2 rounded-3xl cursor-pointer text-[16px] tracking-wide transition text-zinc-400 hover:text-white inline-flex h-10 w-max items-center justify-center bg-transparent hover:bg-zinc-900 focus:bg-zinc-700 focus:text-white focus:outline-none disabled:pointer-events-none disabled:opacity-50"
+                        className="px-4 py-2 rounded-3xl cursor-pointer text-[16px] tracking-wide transition text-zinc-400 hover:text-white inline-flex h-10 w-max items-center justify-center bg-transparent hover:bg-zinc-900 focus:bg-zinc-700 focus:text-white focus:outline-hidden disabled:pointer-events-none disabled:opacity-50"
                     >
                         {translate["navbar.item.contact"]}
                     </NavigationMenuLink>

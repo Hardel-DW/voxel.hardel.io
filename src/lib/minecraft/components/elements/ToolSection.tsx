@@ -51,7 +51,7 @@ export default function ToolSection(props: {
                     </Button>
                 )}
                 {props.toggle && (
-                    <div className="flex gap-x-2 py-2 px-2 items-center rounded-2xl p-1 bg-header-cloudy flex-shrink-0">
+                    <div className="flex gap-x-2 py-2 px-2 items-center rounded-2xl p-1 bg-header-cloudy shrink-0">
                         {props.toggle?.map((element) => (
                             <div
                                 className={cn("px-4 py-2 rounded-xl", {

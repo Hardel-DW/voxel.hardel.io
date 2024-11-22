@@ -34,7 +34,7 @@ const Blueprint = forwardRef<HTMLDivElement, BlueprintProps>((props, ref) => {
         >
             <div onMouseDown={handleMouseDown} className="bg-zinc-950 p-3 font-bold cursor-move relative overflow-hidden rounded-t-2xl">
                 <div className="relative z-10 text-base">{props.title}</div>
-                <div className="absolute inset-0 -left-1/2 size-full bg-gradient-to-tr from-pink-950 from-70% to-transparent rounded-full filter blur-2xl pointer-events-none" />
+                <div className="absolute inset-0 -left-1/2 size-full bg-linear-to-tr from-pink-950 from-70% to-transparent rounded-full filter blur-2xl pointer-events-none" />
             </div>
             <FieldManager fields={props.fields} blueprintId={props.id} />
         </div>

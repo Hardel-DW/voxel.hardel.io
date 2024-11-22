@@ -19,7 +19,7 @@ const { asset, name, version, link, soon } = Astro.props;
         <img
             src={asset}
             alt={name}
-            class="aspect-square w-14 !my-0 !rounded-xl"
+            class="aspect-square w-14 my-0! rounded-xl!"
         />
         <div class="flex flex-col">
             <span class="text-lg font-bold line-clamp-1">{name}</span>
@@ -27,7 +27,7 @@ const { asset, name, version, link, soon } = Astro.props;
         </div>
     </div>
     <Button
-        class="!no-underline hidden md:flex"
+        class="no-underline! hidden md:flex"
         variant={soon ? "link" : "modrinth"}
         href={soon ? "#" : link}
         target="_blank"
@@ -36,7 +36,7 @@ const { asset, name, version, link, soon } = Astro.props;
     </Button>
 
     <Button
-        class="!no-underline flex md:hidden"
+        class="no-underline! flex md:hidden"
         variant={soon ? "link" : "modrinth"}
         href={soon ? "#" : link}
         target="_blank"

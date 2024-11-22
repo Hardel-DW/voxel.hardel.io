@@ -1,13 +1,13 @@
 ---
-import { cn } from "@/lib/utils";
-import type { HTMLAttributes } from "astro/types";
+import {cn} from "@/lib/utils";
+import type {HTMLAttributes} from "astro/types";
 
 interface Props extends HTMLAttributes<"div"> {
     numberOfSlides: number;
     direction: "vertical" | "horizontal";
 }
 
-const { numberOfSlides, direction, ...props } = Astro.props;
+const {numberOfSlides, direction, ...props} = Astro.props;
 ---
 
 <div data-slides
@@ -23,7 +23,7 @@ const { numberOfSlides, direction, ...props } = Astro.props;
             >
                 <div
                         class={cn("h-full w-full rounded-full bg-pink-700 transform opacity-100",
-                            direction === "vertical" ? "origin-top scale-y-0" : "origin-left scale-x-0"
+                            direction === "vertical" ? "origin-top" : "origin-left"
                         )}
                         data-progress
                 ></div>

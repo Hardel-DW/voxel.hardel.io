@@ -82,8 +82,7 @@ const Button = React.forwardRef<HTMLAnchorElement, Props>(
                     variants.ring[ring],
                     className
                 ])}
-                {...rest}
-            >
+                {...rest}>
                 {children}
             </a>
         );

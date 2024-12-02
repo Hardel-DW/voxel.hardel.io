@@ -28,13 +28,11 @@ export default function RewardsModal(props: {
         <div
             className="fixed inset-0 z-50 bg-black/50 backdrop-blur-xl overflow-y-auto overflow-body"
             onClick={handleClose}
-            onKeyDown={handleClose}
-        >
+            onKeyDown={handleClose}>
             <div className="min-h-full w-full py-8 flex items-center justify-center">
                 <div
                     ref={contentRef}
-                    className="w-3/4 h-[80vh] border-t border-l border-zinc-800 bg-header-translucent rounded-xl grid grid-cols-7"
-                >
+                    className="w-3/4 h-[80vh] border-t border-l border-zinc-800 bg-header-translucent rounded-xl grid grid-cols-7">
                     {/* Left Column */}
                     <div className="overflow-y-auto col-span-2 flex flex-col gap-y-4 p-8">
                         <div className="relative stack">
@@ -44,8 +42,7 @@ export default function RewardsModal(props: {
                                     const structure = props.structures.find((s) => s.id === e.target.value);
                                     if (structure) setSelectedStructure(structure);
                                 }}
-                                className="w-full h-10 rounded-md bg-zinc-800 text-zinc-200 p-2"
-                            >
+                                className="w-full h-10 rounded-md bg-zinc-800 text-zinc-200 p-2">
                                 {props.structures.map((structure) => (
                                     <option key={structure.id} value={structure.id}>
                                         {structure.data.name}

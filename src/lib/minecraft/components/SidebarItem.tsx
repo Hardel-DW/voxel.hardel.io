@@ -41,8 +41,7 @@ export function SidebarItem<T extends keyof Analysers>(props: {
         <div
             className={cn("odd:bg-black/75 pl-4 pr-2 py-2 rounded-xl", {
                 "ring-1 ring-rose-900": context.currentElement?.identifier?.equals(props.element.identifier)
-            })}
-        >
+            })}>
             <div className="flex items-center justify-between" onClick={handleClick} onKeyDown={handleClick}>
                 <TextComponent data={descriptionValue as TextComponentType} />
                 <div className="flex items-center gap-8" ref={switchRef}>

@@ -32,8 +32,7 @@ export default function ConfiguratorPanel<T extends keyof Analysers>(props: {
                                     }
                                 )}
                                 disabled={section.soon}
-                                value={section.id}
-                            >
+                                value={section.id}>
                                 <TranslateText content={section.section} />
                                 {section.soon && <span className="text-xs text-zinc-400 font-light ml-1">(soon)</span>}
                             </TabsTrigger>

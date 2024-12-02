@@ -61,8 +61,7 @@ export default function DownloadButton<T extends keyof Analysers>() {
                             target="_blank"
                             rel="noopener noreferrer"
                             aria-label="discord"
-                            className="hover:opacity-50 transition"
-                        >
+                            className="hover:opacity-50 transition">
                             <img src="/icons/company/discord.svg" alt="Discord" className="size-6 invert" />
                         </a>
                     </div>
@@ -70,8 +69,7 @@ export default function DownloadButton<T extends keyof Analysers>() {
                         target="_blank"
                         rel="noopener noreferrer"
                         href="https://streamelements.com/hardoudou/tip"
-                        variant="primary-shimmer"
-                    >
+                        variant="primary-shimmer">
                         {translate["dialog.footer.donate"]}
                     </Button>
                 </DialogFooter>

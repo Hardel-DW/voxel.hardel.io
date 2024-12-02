@@ -30,8 +30,7 @@ export default function NeoEnchantmentViewer({
                                 <span className="text-zinc-400"> - </span>
                                 <a
                                     href="https://modrinth.com/datapack/yggdrasil-structure"
-                                    className="text-rose-400 hover:text-rose-500 transition"
-                                >
+                                    className="text-rose-400 hover:text-rose-500 transition">
                                     Findable in the Yggdrasil structure
                                 </a>
                             </>
@@ -48,8 +47,7 @@ export default function NeoEnchantmentViewer({
                             })}
                             key={item.id}
                             onClick={() => handleChangeSection(item)}
-                            onKeyDown={() => handleChangeSection(item)}
-                        >
+                            onKeyDown={() => handleChangeSection(item)}>
                             <div className="size-20 p-4 relative z-20 flex items-center justify-center">
                                 <img src={item.image} alt={item.short} className="h-full pixelated" />
                                 {item.id === currentCategory.id && (
@@ -78,8 +76,7 @@ export default function NeoEnchantmentViewer({
                             className="rounded-3xl w-full h-full object-cover"
                             autoPlay
                             loop
-                            muted
-                        >
+                            muted>
                             <source src={currentEnchantment.video} type="video/webm" />
                             Your browser does not support the video tag.
                         </video>
@@ -107,8 +104,7 @@ export default function NeoEnchantmentViewer({
                                 setCurrentEnchantment(selectedEnchant);
                                 setCurrentCategory(enchant.find((item) => item.enchants.includes(selectedEnchant)) || enchant[0]);
                             }
-                        }}
-                    >
+                        }}>
                         <SelectTrigger className="w-full">
                             <SelectValue placeholder="Select an Enchant" />
                         </SelectTrigger>
@@ -145,8 +141,7 @@ export default function NeoEnchantmentViewer({
                                 }}
                                 onClick={() => setCurrentEnchantment(enchantment)}
                                 onKeyDown={() => setCurrentEnchantment(enchantment)}
-                                key={enchantment.id}
-                            >
+                                key={enchantment.id}>
                                 <div className="px-8 gap-8 flex items-center w-full">
                                     <div className="size-12 rounded-2xl p-2">
                                         <img src={enchantment.image} alt={enchantment.name} className="size-full pixelated" />
@@ -154,8 +149,7 @@ export default function NeoEnchantmentViewer({
                                     <p
                                         className={cn("text-zinc-200 font-semibold text-base text-center", {
                                             "text-rose-600": enchantment.id === currentEnchantment.id
-                                        })}
-                                    >
+                                        })}>
                                         {enchantment.name}
                                     </p>
                                 </div>

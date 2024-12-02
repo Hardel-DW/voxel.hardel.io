@@ -144,15 +144,13 @@ export default function Studio() {
                 }
                 onMouseDown={handleMouseDown}
                 onMouseUp={handleMouseUp}
-                onWheel={handleWheel}
-            >
+                onWheel={handleWheel}>
                 <div
                     style={{
                         position: "absolute",
                         transform: `translate(${positionRef.current.x}px, ${positionRef.current.y}px) scale(${zoom})`,
                         transformOrigin: "top left"
-                    }}
-                >
+                    }}>
                     <BlueprintsManager zoom={zoom} setDraggingObjectId={setDraggingObjectId} setObjectOffset={setObjectOffset} />
                     <LinkManager />
                     <TemporaryLinkManager />

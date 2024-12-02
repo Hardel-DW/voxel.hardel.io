@@ -1,17 +1,17 @@
 ---
 import NavBarItem from "@/components/layouts/compound/NavbarContent";
 import Button from "@/components/ui/button.astro";
-import {getTranslations} from "@/lib/i18n";
-import {generateAuthUrl} from "@/lib/lucia";
-import {cn} from "@/lib/utils";
+import { getTranslations } from "@/lib/i18n";
+import { generateAuthUrl } from "@/lib/lucia";
+import { cn } from "@/lib/utils";
 import Internalization from "./internalization.astro";
 
-const {translate, lang} = await getTranslations(Astro.url);
+const { translate, lang } = await getTranslations(Astro.url);
 const links = [
-    {name: translate["navbar.item.blog"], href: `/${lang}/blog`},
-    {name: translate["navbar.item.data_pack"], href: `/${lang}/datapacks/neoenchant`},
-    {name: translate["navbar.item.resources"], href: `/${lang}/soon`},
-    {name: translate["navbar.item.contact"], href: `/${lang}/contact`}
+    { name: translate["navbar.item.blog"], href: `/${lang}/blog` },
+    { name: translate["navbar.item.data_pack"], href: `/${lang}/datapacks/neoenchant` },
+    { name: translate["navbar.item.resources"], href: `/${lang}/soon` },
+    { name: translate["navbar.item.contact"], href: `/${lang}/contact` }
 ];
 
 interface Props {
@@ -19,7 +19,7 @@ interface Props {
     full?: boolean;
     className?: string;
 }
-const {transparent = true, full = true, className}: Props = Astro.props;
+const { transparent = true, full = true, className }: Props = Astro.props;
 ---
 
 <header id="header" aria-expanded="false" class={cn("mt-8 fixed left-0 right-0 z-50 group", className)}>

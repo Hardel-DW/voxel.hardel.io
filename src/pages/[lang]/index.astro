@@ -1,9 +1,9 @@
 ---
-import {Image} from "astro:assets";
-import {getCollection} from "astro:content";
+import { Image } from "astro:assets";
+import { getCollection } from "astro:content";
 import CompoundLayout from "@/components/layouts/CompoundLayout.astro";
-import Box from "@/components/pages/home/Box.astro";
 import BlogCard from "@/components/ui/BlogCard.astro";
+import Box from "@/components/ui/Box.astro";
 import Slides from "@/components/ui/Slides.astro";
 import Adsense from "@/components/ui/adsense.astro";
 import Button from "@/components/ui/button.astro";
@@ -11,18 +11,18 @@ import DashedPattern from "@/components/ui/pattern/DashedPattern.astro";
 import Fog from "@/components/ui/pattern/Fog.astro";
 import ShiningStars from "@/components/ui/pattern/ShiningStars.astro";
 import Vortex from "@/components/ui/pattern/Vortex.astro";
-import {getTranslations, names} from "@/lib/i18n";
+import { getTranslations, names } from "@/lib/i18n";
 
-const {lang, translate} = await getTranslations(Astro.url);
-const blogs = await getCollection("blog", ({data, id}) => {
+const { lang, translate } = await getTranslations(Astro.url);
+const blogs = await getCollection("blog", ({ data, id }) => {
     return !data.draft && data.publishDate < new Date() && id.split("/")[0] === lang;
 });
 
 const sortedBlogs = blogs
-.sort((a, b) => {
-    return b.data.publishDate.valueOf() - a.data.publishDate.valueOf();
-})
-.slice(0, 3);
+    .sort((a, b) => {
+        return b.data.publishDate.valueOf() - a.data.publishDate.valueOf();
+    })
+    .slice(0, 3);
 
 const slides = [
     {
@@ -36,6 +36,22 @@ const slides = [
             },
             secondary: {
                 href: `/${lang}/blog/enchant-configurator`,
+                text: translate["generic.learn_more"]
+            }
+        }
+    },
+    {
+        title: "Des ressources libres d'utilisation",
+        description:
+            "Nous proposons des ressources libres et gratuites ainsi que des packs payants thématiques pour que vous puissiez créer du contenu que ce soit des mods, datapacks, ou autre.",
+        image: "/images/background/marketplace.webp",
+        button: {
+            main: {
+                href: "/resources/asset",
+                text: translate["generic.take_a_look"]
+            },
+            secondary: {
+                href: "/resources/asset",
                 text: translate["generic.learn_more"]
             }
         }
@@ -77,7 +93,7 @@ const slides = [
 export const prerender = true;
 export async function getStaticPaths() {
     return names.map((element) => ({
-        params: {lang: element.lang}
+        params: { lang: element.lang }
     }));
 }
 ---
@@ -132,9 +148,9 @@ export async function getStaticPaths() {
                     </div>
                 </div>
                 <div class="relative w-full hidden xl:flex justify-center items-center">
-                    <img class="absolute opacity-10 drag-none" src="/icons/circle.svg" alt="box"/>
+                    <img class="absolute opacity-10 select-none" src="/icons/circle.svg" alt="box"/>
                     <img loading="eager" width="1200" height="900" src={slides[0].image} alt="404" data-slide-image
-                         class="aspect-auto drag-none"/>
+                         class="aspect-auto select-none"/>
                 </div>
             </div>
             <Slides numberOfSlides={slides.length} direction="horizontal"
@@ -149,8 +165,8 @@ export async function getStaticPaths() {
 
             <div class="hidden xl:flex justify-center items-center relative w-full">
                 <Image loading="eager" width="442" height="544" src="/images/features/skin/avatar.webp" alt="404"
-                       class="w-1/2 aspect-auto animate-levitate scale-x-[-1] drag-none"/>
-                <img class="absolute opacity-10 drag-none" src="/icons/circle.svg" alt="box"/>
+                       class="w-1/2 aspect-auto animate-levitate scale-x-[-1] select-none"/>
+                <img class="absolute opacity-10 select-none" src="/icons/circle.svg" alt="box"/>
             </div>
 
             <div class="w-[95%] xl:w-full mx-auto">
@@ -191,8 +207,8 @@ export async function getStaticPaths() {
 
         <!-- Product -->
         <section class="my-32 md:my-52 px-8 w-full md:w-3/4 xl:w-1/2 mx-auto grid md:grid-cols-2 gap-8">
-            <Box loading="eager" image="/images/features/dev.webp">
-                <h2 class="text-white text-xl md:text-2xl font-bold line-clamp-1">
+            <Box variant="big" loading="eager" image="/images/features/dev.webp">
+                <h2 class="text-white text-xl md:text-2xl font-bold line-clamp-1 pt-8">
                     {translate["home.product.tools.title"]}
                 </h2>
                 <p class="text-zinc-400 text-sm md:text-base mt-2 line-clamp-3">
@@ -208,19 +224,24 @@ export async function getStaticPaths() {
                     </Button>
                 </div>
             </Box>
-            <Box loading="lazy" image="/images/features/bundle.webp">
-                <h2 class="text-white text-xl md:text-2xl font-bold text-left line-clamp-1">
+            <Box variant="big" loading="lazy" image="/images/features/bundle.webp">
+                <h2 class="text-white text-xl md:text-2xl font-bold text-left line-clamp-1 pt-8">
                     {translate["home.product.resource.title"]}
                 </h2>
                 <p class="text-zinc-400 text-sm md:text-base mt-2 line-clamp-3">
                     {translate["home.product.resource.description"]}
                 </p>
-                <Button class="w-full xl:w-fit mt-6" href="/" size="md" variant="transparent">
-                    {translate["generic.take_a_look"]}
-                </Button>
+                <div class="flex flex-wrap gap-2 mt-6">
+                    <Button class="w-full xl:w-fit" href="/resources/asset" size="sm" variant="primary">
+                        {translate["generic.take_a_look"]}
+                    </Button>
+                    <Button class="w-full xl:w-fit" href="/resources/asset" size="sm" variant="transparent">
+                        {translate["generic.learn_more"]}
+                    </Button>
+                </div>
             </Box>
-            <Box loading="lazy" image="/images/features/structure/tree.webp">
-                <h2 class="text-white text-xl md:text-2xl font-bold text-left line-clamp-1">
+            <Box variant="big" loading="lazy" image="/images/features/structure/tree.webp">
+                <h2 class="text-white text-xl md:text-2xl font-bold text-left line-clamp-1 pt-8">
                     {translate["home.product.datapack.title"]}
                 </h2>
                 <p class="text-zinc-400 text-sm md:text-base mt-2 line-clamp-3">
@@ -237,7 +258,7 @@ export async function getStaticPaths() {
                 </div>
             </Box>
 
-            <div class="flex flex-col items-center justify-between gradient-gray cursor-pointer border-t-2 outline-r border-zinc-800 p-10 sm:p-16 rounded-3xl shadow-2xl shadow-black transition opacity-75 hover:opacity-100">
+            <div class="flex flex-col items-center justify-between bg-gray cursor-pointer border-t-2 outline-r border-zinc-800 p-10 sm:p-16 rounded-3xl shadow-2xl shadow-black transition opacity-75 hover:opacity-100">
                 <div class="size-full flex justify-center items-center">
                     <Adsense slot="2018282613" format="rectangle" style="width: 100%; aspect-ratio: 1/1"/>
                 </div>
@@ -255,17 +276,17 @@ export async function getStaticPaths() {
             </div>
             <ul class="w-3/4 grid grid-cols-3 gap-10 lg:gap-16">
                 {sortedBlogs.map((post, index) => (
-                        <BlogCard
-                                href={`/${lang}/blog/${post.id.split("/")[1]}`}
-                                src={post.data.image.src}
-                                alt={post.data.image.alt}
-                                slug={post.id}
-                                date={post.data.publishDate}
-                                lang={lang}
-                                category={post.data.category}
-                                title={post.data.title}
-                                index={index}
-                        />
+                    <BlogCard
+                        href={`/${lang}/blog/${post.id.split("/")[1]}`}
+                        src={post.data.image.src}
+                        alt={post.data.image.alt}
+                        slug={post.id}
+                        date={post.data.publishDate}
+                        lang={lang}
+                        category={post.data.category}
+                        title={post.data.title}
+                        index={index}
+                    />
                 ))}
             </ul>
         </section>

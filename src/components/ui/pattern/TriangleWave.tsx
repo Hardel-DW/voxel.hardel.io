@@ -11,8 +11,7 @@ const TriangleWave: React.FC = () => {
                     height: "100dvh",
                     inset: 0,
                     zIndex: -0
-                }}
-            >
+                }}>
                 <Triangle triangleCount={100} spiralSpeed={1} />
             </div>
         </div>

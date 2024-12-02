@@ -1,4 +1,6 @@
 ---
+import Disclosure from "./Disclosure.astro";
+
 export interface Props {
     values: Array<{
         question: string;
@@ -10,19 +12,11 @@ const { values } = Astro.props;
 ---
 
 <section class="grid divide-y divide-zinc-700 max-w-5xl mx-auto">
-    {values.map((item: { question: string; answer: string }) => (
-            <div class="py-5">
-                <details class="group relative">
-                    <summary
-                            class="flex justify-between items-center gap-x-10 font-medium cursor-pointer list-none group-open:before:absolute group-open:before:inset-0 group-open:before:cursor-pointer">
-                        <span class="select-none text-zinc-200 text-base">{item.question}</span>
-                        <span class="transition group-open:rotate-180 shrink-0">
-                        <img loading="eager" src="/icons/chevron-down.svg" alt="arrow"
-                             class="size-6 invert select-none"/>
-                    </span>
-                    </summary>
-                    <p class="text-zinc-400 mt-4 group-open:animate-fadein">{item.answer}</p>
-                </details>
-            </div>
-    ))}
+    {
+        values.map((item) => (
+            <Disclosure heading={item.question} >
+                <p class="text-zinc-400 mt-4 group-open:animate-fadein">{item.answer}</p>
+            </Disclosure>
+        ))
+    }
 </section>

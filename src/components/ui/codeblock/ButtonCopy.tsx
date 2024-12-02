@@ -18,8 +18,7 @@ export default function ButtonCopy(props: { snippet: string }) {
         <div
             className={
                 "w-12 h-12 p-2 hover:bg-zinc-800/50 cursor-pointer transition bg-black/10 border border-white/10 rounded-md flex justify-center items-center"
-            }
-        >
+            }>
             {pending ? (
                 <img alt="checked" src="/icons/check.svg" width={24} height={24} />
             ) : (

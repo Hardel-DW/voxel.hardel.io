@@ -2,7 +2,8 @@
 import PageLayout from "@/components/layouts/PageLayout.astro";
 import Dropzone from "@/components/ui/Dropzone.astro";
 import Star from "@/components/ui/star.astro";
-import { names, getTranslations } from "@/lib/i18n";
+import { getTranslations, names } from "@/lib/i18n";
+import IconButton from "@/components/ui/IconButton.astro";
 
 const { translate } = await getTranslations(Astro.url);
 export const prerender = true;
@@ -35,7 +36,7 @@ export async function getStaticPaths() {
         <div class="mb-8 w-full in-data-hidden:hidden">
             <div
                     id="imageGallery"
-                    class="flex gap-4 overflow-x-auto pb-4 min-h-[100px] items-center"
+                    class="flex gap-4 overflow-x-auto pb-4 min-h-25 items-center"
             >
                 <p id="noImagesText" class="text-zinc-400 text-center w-full">
                     {translate["tools.harmonization.no_images"]}
@@ -83,16 +84,7 @@ export async function getStaticPaths() {
             <div class="border-2 border-zinc-700 border-dashed rounded-3xl p-16 aspect-square relative in-data-hidden:hidden">
                 <!-- Download Button -->
                 <div class="absolute top-4 right-4 z-10">
-                    <div id="downloadBtn"
-                         class="w-12 h-12 p-2 hover:bg-zinc-800/50 cursor-pointer transition bg-black/10 border border-white/10 rounded-md flex justify-center items-center"
-                    >
-                        <img alt="download"
-                             src="/icons/download.svg"
-                             width="24"
-                             height="24"
-                             class="invert"
-                        />
-                    </div>
+                    <IconButton id="downloadBtn" icon="/icons/download.svg" />
                 </div>
                 <canvas id="output" width="16" height="16" class="pixelated size-full"></canvas>
             </div>
@@ -101,7 +93,7 @@ export async function getStaticPaths() {
 </PageLayout>
 
 <script>
-    import { extractPalette, loadImage, quantizeImage, type RGB, cleanPalette } from "@/lib/image/harmonization";
+    import {extractPalette, loadImage, quantizeImage, type RGB, cleanPalette} from "@/lib/image/harmonization";
 
     const dropzoneInput = document.getElementById("dropzone-file");
     const outputCanvas = document.getElementById("output") as HTMLCanvasElement;

@@ -1,0 +1,54 @@
+{
+    "name": "Artifacts and Magic",
+    "description": "Collection of magical artifacts and items",
+    "items": [
+        {
+            "name": "Falling Star",
+            "asset": "/images/marketplace/items/magic/falling_star.png"
+        },
+        {
+            "name": "Solarium",
+            "asset": "/images/marketplace/items/magic/solarium.png"
+        },
+        {
+            "name": "Letter",
+            "asset": "/images/marketplace/items/magic/letter.png"
+        },
+        {
+            "name": "Card Variant 2",
+            "asset": "/images/marketplace/items/magic/card_variant_2.png"
+        },
+        {
+            "name": "Card Variant 1",
+            "asset": "/images/marketplace/items/magic/card_variant_1.png"
+        },
+        {
+            "name": "Rainbow Diamond",
+            "asset": "/images/marketplace/items/magic/rainbow_diamond.png"
+        },
+        {
+            "name": "Small Scroll",
+            "asset": "/images/marketplace/items/magic/small_scroll.png"
+        },
+        {
+            "name": "Big Scroll",
+            "asset": "/images/marketplace/items/magic/big_scroll.png"
+        },
+        {
+            "name": "Speed Rune",
+            "asset": "/images/marketplace/items/magic/speed_rune.png"
+        },
+        {
+            "name": "Quantity Rune",
+            "asset": "/images/marketplace/items/magic/quantity_rune.png"
+        },
+        {
+            "name": "Unpowered Crystal",
+            "asset": "/images/marketplace/items/magic/unpowered_crystal.png"
+        },
+        {
+            "name": "Crystal",
+            "asset": "/images/marketplace/items/magic/crystal.png"
+        }
+    ]
+}

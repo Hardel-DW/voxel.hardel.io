@@ -200,6 +200,46 @@ const lootCollection = defineCollection({
     })
 });
 
+const marketplaceItemCollection = defineCollection({
+    loader: glob({ pattern: "**/[^_]*.json", base: "./src/content/marketplace/item" }),
+    schema: z.object({
+        hide: z.boolean().default(false),
+        name: z.string(),
+        description: z.string(),
+        items: z.array(
+            z.object({
+                name: z.string(),
+                asset: z.string()
+            })
+        )
+    })
+});
+
+const marketplacePackCollection = defineCollection({
+    loader: glob({ pattern: "**/[^_]*.json", base: "./src/content/marketplace/pack" }),
+    schema: z.object({
+        hide: z.boolean().default(false),
+        type: z.enum(["landscape", "portrait", "fullwidth"]),
+        name: z.string(),
+        asset: z.string(),
+        title: z.string(),
+        preview: z.string(),
+        price: z.number(),
+        payment: z.object({
+            url: z.string()
+        })
+    })
+});
+
+const marketplacePreviewCollection = defineCollection({
+    loader: glob({ pattern: "**/[^_]*.md", base: "./src/content/marketplace/preview" }),
+    schema: z.object({
+        name: z.string(),
+        description: z.string(),
+        asset: z.string()
+    })
+});
+
 export const collections = {
     article: articleCollection,
     guide: guideCollection,
@@ -210,5 +250,8 @@ export const collections = {
     timeline: timelineCollection,
     update: updateCollection,
     structure: structureCollection,
-    loot: lootCollection
+    loot: lootCollection,
+    marketplace_pack: marketplacePackCollection,
+    marketplace_item: marketplaceItemCollection,
+    marketplace_preview: marketplacePreviewCollection
 };

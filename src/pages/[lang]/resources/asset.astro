@@ -1,67 +1,197 @@
 ---
+import { getCollection } from "astro:content";
 import PageLayout from "@/components/layouts/PageLayout.astro";
-import Box from "@/components/pages/home/Box.astro";
+import Box from "@/components/ui/Box.astro";
+import Disclosure from "@/components/ui/Disclosure.astro";
 import Button from "@/components/ui/button.astro";
 import Star from "@/components/ui/star.astro";
+import { names } from "@/lib/i18n";
+import IconButton from "@/components/ui/IconButton.astro";
+import MarketplaceCard from "@/components/pages/resource/MarketplaceCard.astro";
 
-// I want to make a "Resources" page with sidebar on the left and a main content on the right
-// The sidebar contains the categories of resources and a search bar
-// The main content displays the resources related to the selected category
+export const prerender = true;
+const marketplacePacks = await getCollection("marketplace_pack");
+const rawMarketplaceItems = await getCollection("marketplace_item");
+const marketplaceItems = rawMarketplaceItems.toSorted((a, b) => a.data.name.localeCompare(b.data.name));
 
-// I want show items to buy / free
+export async function getStaticPaths() {
+    return names.map((element) => ({
+        params: { lang: element.lang }
+    }));
+}
 ---
 
 <PageLayout>
-    <section class="mt-32 mb-20 relative w-3/4 mx-auto">
-        <!-- <aside class="col-span-3 px-8 pb-4">
-            <h2 class="text-2xl font-bold mb-4">Filters</h2>
-            <label>
-                <input type="text" placeholder="Search" class="w-full"/>
-            </label>
-            <div class="flex flex-col gap-4 mt-4">
-                <section>
-                    <h3 class="text-lg font-bold mb-2">Categories</h3>
-                    <div class="flex flex-col gap-2 text-sm text-zinc-200">
-                        <label class="flex items-center justify-between w-full">
-                            <span>Items</span>
-                            <input type="checkbox" class="w-4 h-4"/>
-                        </label>
-                        <label class="flex items-center justify-between w-full">
-                            <span>Blocks</span>
-                            <input type="checkbox" class="w-4 h-4"/>
-                        </label>
-                        <label class="flex items-center justify-between w-full">
-                            <span>Entities</span>
-                            <input type="checkbox" class="w-4 h-4"/>
-                        </label>
-                    </div>
-                </section>
-                <Star/>
-                <section>
-                    <h3 class="text-lg font-bold">Pricing</h3>
-                    <Select id="pricing" options={["Free", "Paid"]}/>
-                </section>
-            </div>
-        </aside> -->
-        <div class="w-full text-center mt-12 mb-24">
-            <h2 class="text-5xl font-bold mb-4">Marketplace</h2>
+    <main class="mt-32 mb-20 relative w-full">
+        <div class="w-full text-center mt-12 mb-12">
+            <h2 class="text-5xl font-bold mb-4">The Marketplace</h2>
             <Star/>
         </div>
 
+        <div class="flex lg:flex-row flex-col gap-12 px-12" data-layout-category id="layout-category">
+            <aside class="shrink-0 w-full lg:w-1/5">
+                <label>
+                    <input
+                            type="text"
+                            placeholder="Search"
+                            id="searchInput"
+                            class="w-full p-2 rounded border border-zinc-800"
+                    />
+                </label>
 
-        <div class="grid grid-cols-5 gap-4">
-            {Array.from({length: 10}).map(() => (
-                    <Box loading="lazy" image="/images/features/structure/tree.webp">
-                        <h2 class="text-white text-xl md:text-2xl font-bold text-left line-clamp-1">
-                            Sword Packs
-                        </h2>
-                        <div class="flex flex-wrap gap-2 mt-6">
-                            <Button class="w-full" size="sm" variant="ghost">
-                                Download
-                            </Button>
-                        </div>
-                    </Box>
-            ))}
+                <div class="mt-6 flex flex-col gap-4">
+                    <h3 class="text-2xl font-semibold tracking-tighter">
+                        Filters
+                    </h3>
+                    <div class="grid divide-y divide-zinc-900 border-t-2 border-zinc-900">
+                        <Disclosure heading="Layout" variant="minimal">
+                            <div class="mt-4 flex gap-2 select-none">
+                                <IconButton class="in-data-layout-grid:bg-zinc-800" id="grid-btn"
+                                            icon="/icons/layout/grid.svg"/>
+                                <IconButton class="in-data-layout-category:bg-zinc-800" id="list-btn"
+                                            icon="/icons/layout/list.svg"/>
+                            </div>
+                        </Disclosure>
+                        <Disclosure heading="Tags" variant="minimal">
+                            <div class="mt-4 flex flex-col gap-2">
+                                <div class="flex flex-col gap-2 select-none">
+                                    {marketplaceItems.map((category) => (
+                                            <label
+                                                    for={category.data.name.toLowerCase()}
+                                                    class="flex items-center gap-2"
+                                            >
+                                                <input
+                                                        type="checkbox"
+                                                        checked={true}
+                                                        id={category.data.name.toLowerCase()}
+                                                />
+                                                <span>{category.data.name}</span>
+                                            </label>
+                                    ))}
+                                </div>
+                            </div>
+                        </Disclosure>
+                        <Disclosure heading="Pricing" variant="minimal">
+                            <div class="mt-4 flex flex-col gap-2 select-none">
+                                <label
+                                        for="free"
+                                        class="flex items-center gap-2"
+                                >
+                                    <input type="checkbox" id="free" checked={true} disabled/>
+                                    <span>Free - ({marketplaceItems.flatMap((item) => item.data.items).length})</span>
+                                </label>
+                                <label
+                                        for="paid"
+                                        class="flex items-center gap-2"
+                                >
+                                    <input type="checkbox" id="paid" checked={false} disabled/>
+                                    <span>Paid - (0)</span>
+                                </label>
+                            </div>
+                        </Disclosure>
+                    </div>
+                </div>
+            </aside>
+            <section class="w-full">
+                <div class="w-full flex flex-wrap justify-center gap-4 mb-8" id="marketplaceCards">
+                    {
+                        marketplacePacks
+                        .filter((card) => !card.data.hide)
+                        .map((card) =>
+                                <MarketplaceCard schema={card} class="min-w-90 w-full md:w-[calc(50%-1rem)]" />)
+                    }
+                </div>
+
+                <div class="in-data-layout-grid:grid in-data-layout-grid:grid-cols-marketplace in-data-layout-grid:gap-4 in-data-layout-category:flex in-data-layout-category:flex-col in-data-layout-category:gap-16"
+                     id="marketplace">
+                    {marketplaceItems.map((category) => (
+                            <div class="in-data-layout-grid:contents in-data-layout-category:flex in-data-layout-category:flex-col"
+                                 data-marketplace-category={category.data.name.toLowerCase()}>
+                                <h3 class="text-3xl font-semibold tracking-tighter in-data-layout-grid:hidden">
+                                    {category.data.name}
+                                </h3>
+                                <Star className="in-data-layout-grid:hidden"/>
+                                <div class="grid grid-cols-marketplace gap-4 mt-4 in-data-layout-grid:contents">
+                                    {category.data.items.map((item) => (
+                                            <Box loading="lazy" image={item.asset} data-marketplace>
+                                                <h2 class="text-white font-semibold text-center line-clamp-1 mt-8 item-name">
+                                                    {item.name}
+                                                </h2>
+                                                <div class="flex flex-wrap gap-2 mt-6 w-full justify-center">
+                                                    <Button
+                                                            class="w-32"
+                                                            size="sm"
+                                                            variant="ghost"
+                                                            href={item.asset}
+                                                    >
+                                                        Download
+                                                    </Button>
+                                                </div>
+                                            </Box>
+                                    ))}
+                                </div>
+                            </div>
+                    ))}
+                </div>
+            </section>
         </div>
-    </section>
+    </main>
 </PageLayout>
+
+<script>
+    const searchInput = document.getElementById('searchInput');
+    const marketplace = document.getElementById('marketplace');
+    const layoutCategory = document.getElementById('layout-category');
+    const gridBtn = document.getElementById('grid-btn');
+    const listBtn = document.getElementById('list-btn');
+
+    if (searchInput instanceof HTMLInputElement &&
+        marketplace instanceof HTMLElement) {
+
+        searchInput.addEventListener('input', (e: Event) => {
+            if (!(e.target instanceof HTMLInputElement)) return;
+            const searchTerm = e.target.value.toLowerCase();
+            const visibleSections = marketplace.querySelectorAll('[data-marketplace-category]:not([style*="display: none"])');
+
+            for (const section of visibleSections) {
+                const boxes = section.querySelectorAll('[data-marketplace]') as NodeListOf<HTMLElement>;
+
+                for (const box of boxes) {
+                    const titleElement = box.querySelector('.item-name');
+                    if (titleElement instanceof HTMLElement && titleElement.textContent) {
+                        const title = titleElement.textContent.toLowerCase();
+                        box.style.display = title.includes(searchTerm) ? '' : 'none';
+                    }
+                }
+
+                const visibleBoxes = section.querySelectorAll('[data-marketplace]:not([style*="display: none"])');
+                (section as HTMLElement).style.display = visibleBoxes.length === 0 ? 'none' : '';
+            }
+        });
+    }
+
+    if (gridBtn instanceof HTMLElement && listBtn instanceof HTMLElement && layoutCategory instanceof HTMLElement) {
+        gridBtn.addEventListener('click', () => {
+            delete layoutCategory.dataset.layoutCategory;
+            layoutCategory.dataset.layoutGrid = '';
+        });
+
+        listBtn.addEventListener('click', () => {
+            delete layoutCategory.dataset.layoutGrid;
+            layoutCategory.dataset.layoutCategory = '';
+        });
+    }
+
+    // Gérer les filtres par catégorie
+    const checkboxes = document.querySelectorAll('input[type="checkbox"]') as NodeListOf<HTMLInputElement>;
+    checkboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', () => {
+            const categoryId = checkbox.id;
+            const categorySection = marketplace?.querySelector(`[data-marketplace-category="${categoryId}"]`) as HTMLElement;
+
+            if (categorySection) {
+                categorySection.style.display = checkbox.checked ? '' : 'none';
+            }
+        });
+    });
+</script>

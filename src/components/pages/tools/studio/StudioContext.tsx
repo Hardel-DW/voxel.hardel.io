@@ -188,8 +188,7 @@ export function StudioProvider({ children }: { children: React.ReactNode }) {
                 updateTemporaryLink,
                 cancelLinking,
                 updateFieldValue
-            }}
-        >
+            }}>
             {children}
         </StudioContext.Provider>
     );

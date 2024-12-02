@@ -59,8 +59,7 @@ export default function ToolSection(props: {
                                 })}
                                 key={element.name}
                                 onKeyDown={() => changeToggleValue(props.id, element)}
-                                onClick={() => changeToggleValue(props.id, element)}
-                            >
+                                onClick={() => changeToggleValue(props.id, element)}>
                                 <p className="text-sm font-semibold">
                                     <TranslateText content={element.title} />
                                 </p>

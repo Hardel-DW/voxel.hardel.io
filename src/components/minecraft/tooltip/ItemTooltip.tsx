@@ -37,8 +37,7 @@ export default function ItemTooltip(props: {
                         "after:absolute after:top-tiny after:-right-tiny after:bottom-tiny after:-left-tiny after:border-tiny after:border-[#100010f0] border-none-solid",
                         "before:right-0 before:left-0 before:top-tiny before:bottom-tiny tooltip-border"
                     )}
-                    style={{ left: position.x, top: position.y }}
-                >
+                    style={{ left: position.x, top: position.y }}>
                     <div className={"font-seven text-base text-white whitespace-nowrap text-left word-spacing"}>
                         <div className={"text-name text-shadow-white"}>
                             {hoveredItem

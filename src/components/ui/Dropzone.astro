@@ -1,5 +1,5 @@
 ---
-import type {HTMLAttributes} from "astro/types";
+import type { HTMLAttributes } from "astro/types";
 
 interface Props extends HTMLAttributes<"label"> {
     accept: string;
@@ -7,7 +7,7 @@ interface Props extends HTMLAttributes<"label"> {
     multiple: boolean;
 }
 
-const {accept, maxSize, multiple, ...props} = Astro.props;
+const { accept, maxSize, multiple, ...props } = Astro.props;
 ---
 
 <div class:list={[
@@ -15,7 +15,7 @@ const {accept, maxSize, multiple, ...props} = Astro.props;
     props.class,
 ]}>
     <div class="flex items-center justify-center w-full">
-        <div class="w-full h-64 border-2 border-dashed flex flex-col items-center justify-center gradient-gray cursor-pointer border-t-2 border-r border-zinc-800 p-10 sm:p-16 rounded-3xl shadow-2xl shadow-black transition opacity-75 hover:opacity-100">
+        <div class="w-full h-64 border-2 border-dashed flex flex-col items-center justify-center bg-gray cursor-pointer border-t-2 border-r border-zinc-800 p-10 sm:p-16 rounded-3xl shadow-2xl shadow-black transition opacity-75 hover:opacity-100">
             <label
                     for="dropzone-file"
                     class="flex flex-col items-center justify-center w-full h-full cursor-pointer"

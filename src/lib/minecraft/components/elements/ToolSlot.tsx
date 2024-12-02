@@ -42,8 +42,7 @@ export default function ToolSlot(props: {
                 { "opacity-50 ring-1 ring-rose-950": !!props.lock }
             )}
             onClick={() => handleChange(!props.checked)}
-            onKeyDown={() => handleChange(!props.checked)}
-        >
+            onKeyDown={() => handleChange(!props.checked)}>
             {(props.checked || !!props.lock) && (
                 <div className="absolute p-4 top-0 right-0">
                     <img src="/icons/check.svg" alt="checkbox" className="w-6 h-6 invert" />

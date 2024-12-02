@@ -1,0 +1,46 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import { Image } from "astro:assets";
+import type { CollectionEntry } from "astro:content";
+import Button from "@/components/ui/button.astro";
+
+interface Props extends HTMLAttributes<"div"> {
+    schema: CollectionEntry<"marketplace_pack">;
+}
+
+const { schema, ...props }: Props = Astro.props;
+---
+
+<div class:list={[
+    "relative group border-t-2 border-r border-zinc-800 rounded-3xl transition-all duration-200 hover:before:opacity-100 before:opacity-0 before:absolute before:inset-0 before:-z-10 before:transition-opacity before:rounded-3xl before:duration-200 before:blur-xl before:bg-[image:var(--hover-image)]",
+    props.class,
+]}
+     style={`--hover-image: url('/images/marketplace/${schema.data.asset}')`} {...props}>
+    <div class="relative w-full h-64">
+        <img
+                src={`/images/marketplace/${schema.data.asset}`}
+                alt={schema.data.name}
+                class="w-full h-full object-cover rounded-3xl"
+        />
+
+        <!-- Overlay avec le nom -->
+        <div class="absolute top-0 left-0 p-4">
+            <img height="113" src={`/images/marketplace/${schema.data.title}`}
+                 alt={schema.data.name} class="h-16"/>
+        </div>
+
+        <!-- Overlay avec le bouton -->
+        <div class="absolute bottom-0 left-0 p-4 w-full">
+            <Button class="border-0" href={schema.id}>
+                Je veux y aller maintenant
+            </Button>
+        </div>
+
+        <!-- Images de preview à droite -->
+        <div class="hidden sm:block absolute right-0 bottom-0 h-3/4 md:h-1/2 lg:h-3/4 p-4">
+            <Image loading="lazy" width="678" height="769" src={`/images/marketplace/${schema.data.preview}`}
+                   alt="Preview top"
+                   class="size-16 pixelated select-none h-full w-fit"/>
+        </div>
+    </div>
+</div>

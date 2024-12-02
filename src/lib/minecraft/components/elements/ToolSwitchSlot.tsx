@@ -36,8 +36,7 @@ export default function ToolSwitchSlot(props: {
                 { "opacity-50 ring-1 ring-rose-950": !!props.lock }
             )}
             onClick={handleChange}
-            onKeyDown={handleChange}
-        >
+            onKeyDown={handleChange}>
             <div className="flex items-center justify-between w-full">
                 <div className="flex items-center gap-4">
                     {props.image && (

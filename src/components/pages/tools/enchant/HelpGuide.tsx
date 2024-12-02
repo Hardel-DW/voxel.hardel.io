@@ -22,8 +22,7 @@ export default function HelpGuide(props: {
                 className="w-11/12 md:w-3/4 mx-auto flex flex-col justify-evenly xl:grid grid-cols-2 items-center relative gap-8"
                 style={{
                     minHeight: "calc(100vh - 8rem)"
-                }}
-            >
+                }}>
                 <div className="h-full w-[95%] md:w-full relative">
                     <div className="xl:invisible visible absolute flex justify-center items-center size-full -z-10">
                         <div className="absolute inset-0 top-1/2 -translate-y-1/2 shadow-2xl bg-linear-to-r from-pink-900 to-blue-900 opacity-50 rounded-full blur-[5rem]" />
@@ -38,15 +37,14 @@ export default function HelpGuide(props: {
 
                         <a
                             href={`/${lang}/update/enchant-configurator`}
-                            className="inline-flex w-fit h-12 mt-8 animate-shimmer items-center justify-center rounded-md border border-slate-800 bg-[linear-gradient(110deg,#000103,45%,#1e2631,55%,#000103)] bg-[length:200%_100%] px-6 font-medium text-slate-400 transition-colors hover:text-zinc-300 focus:outline-hidden focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50"
-                        >
+                            className="inline-flex w-fit h-12 mt-8 animate-shimmer items-center justify-center rounded-md border border-slate-800 bg-[linear-gradient(110deg,#000103,45%,#1e2631,55%,#000103)] bg-[length:200%_100%] px-6 font-medium text-slate-400 transition-colors hover:text-zinc-300 focus:outline-hidden focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50">
                             {translate["timeline.see_latest_updates"]} &rarr;
                         </a>
                     </div>
                 </div>
                 <div className="relative w-full flex justify-center items-center">
                     <DatapackUploader />
-                    <img className="absolute -z-10 opacity-10 drag-none" src="/icons/circle.svg" alt="box" />
+                    <img className="absolute -z-10 opacity-10 select-none" src="/icons/circle.svg" alt="box" />
                 </div>
             </section>
 

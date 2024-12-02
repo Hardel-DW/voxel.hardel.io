@@ -1,13 +1,39 @@
 ---
+import { Image } from "astro:assets";
+import { cn } from "@/lib/utils";
 import type { HTMLAttributes } from "astro/types";
-import { cn } from "../../lib/utils";
 
-interface Props extends HTMLAttributes<"div"> {}
+interface Props extends HTMLAttributes<"div"> {
+    image: string;
+    loading: "lazy" | "eager";
+    variant?: keyof typeof variants.asset;
+}
 
-const props = Astro.props;
+const variants = {
+    asset: {
+        default: "size-16 pixelated select-none self-center group-hover:animate-levitate duration-200",
+        big: "size-48"
+    },
+    defaultVariant: {
+        asset: "default"
+    }
+} as const;
 ---
 
-<div {...Astro.props}
-     class={cn("w-full h-64 border-2 border-dashed flex flex-col items-center justify-between gradient-gray cursor-pointer border-t-2 border-r border-zinc-800 p-10 sm:p-16 rounded-3xl shadow-2xl shadow-black transition opacity-75 hover:opacity-100", props.class)}>
-    <slot/>
+<div class={cn(
+    "group relative z-10 flex flex-col items-center justify-between gap-y-4 bg-gray cursor-pointer border-t-2 border-r border-zinc-800 p-8 rounded-3xl shadow-2xl shadow-black transition opacity-75 hover:opacity-100 hover:ring-zinc-800 hover:ring-2",
+    Astro.props.class)}
+     {...Astro.props}>
+
+    <div class="flex justify-center h-full">
+        <Image loading={Astro.props.loading} width="500" height="500" src={Astro.props.image} alt="404" class={cn([
+            variants.asset[Astro.props.variant ?? variants.defaultVariant.asset],
+            Astro.props.class
+        ])}/>
+    </div>
+
+    <div>
+        <div class="hidden group-hover:block absolute -z-10 top-0 left-0 w-full h-full bg-linear-to-r from-pink-900 to-blue-900 opacity-30 rounded-full blur-[5rem]"/>
+        <slot/>
+    </div>
 </div>

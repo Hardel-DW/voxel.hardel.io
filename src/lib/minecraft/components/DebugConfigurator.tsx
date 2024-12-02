@@ -75,16 +75,14 @@ export default function DebugConfigurator<T extends keyof Analysers>() {
                                                         key={element.identifier.filePath()}
                                                         onClick={() => setCode(element)}
                                                         onKeyDown={() => setCode(element)}
-                                                        className="border-zinc-800 relative cursor-pointer border-t border-b rounded-lg p-2 bg-zinc-900/10 hover:bg-zinc-800/50 transition-colors"
-                                                    >
+                                                        className="border-zinc-800 relative cursor-pointer border-t border-b rounded-lg p-2 bg-zinc-900/10 hover:bg-zinc-800/50 transition-colors">
                                                         <p className="absolute top-2 right-2 px-2 rounded-2xl bg-zinc-700/50 text-[0.65rem] text-zinc-500">
                                                             {element.identifier.renderNamespace()}
                                                         </p>
                                                         <div
                                                             className={cn("text-white", {
                                                                 "text-rose-500": code && element.identifier.equals(code?.identifier)
-                                                            })}
-                                                        >
+                                                            })}>
                                                             {element.identifier.renderResource()}
                                                         </div>
                                                         <small className="text-xs text-gray-400">{element.identifier.toString()}</small>
@@ -102,8 +100,7 @@ export default function DebugConfigurator<T extends keyof Analysers>() {
                             className="absolute -top-2 right-0 rounded-xl text-zinc-500 hover:text-zinc-200 transition-colors bg-zinc-950/10 px-2 py-1 border-zinc-950"
                             onClick={handleDebugging}
                             onKeyDown={handleDebugging}
-                            type="button"
-                        >
+                            type="button">
                             {translate["tools.debug.quit"]}
                         </button>
                         <CodeBlock language="json" title={code?.identifier.render()}>
@@ -121,8 +118,7 @@ export default function DebugConfigurator<T extends keyof Analysers>() {
             className="p-2 bottom-36 cursor-pointer right-4 z-50 rounded-xl size-10"
             onClick={handleDebugging}
             onKeyDown={handleDebugging}
-            type="button"
-        >
+            type="button">
             <img src="/icons/debug.svg" alt="Debug Configurator" className="invert" />
         </button>
     );

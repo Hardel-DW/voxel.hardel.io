@@ -15,8 +15,7 @@ const RewardCard = (props: {
                 props.selected ? "bg-black/20 ring-1 ring-zinc-800" : "bg-black/10"
             )}
             onClick={() => props.onClick?.(props.id)}
-            onKeyDown={(e) => e.key === "Enter" && props.onClick?.(props.id)}
-        >
+            onKeyDown={(e) => e.key === "Enter" && props.onClick?.(props.id)}>
             <TextureRenderer id={props.id} />
             <div>
                 <h2 className="text-xl font-bold text-white">

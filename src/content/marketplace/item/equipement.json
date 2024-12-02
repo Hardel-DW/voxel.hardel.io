@@ -1,0 +1,34 @@
+{
+    "name": "Equipment",
+    "description": "Collection of various equipment and tools",
+    "items": [
+        {
+            "name": "Ruby Pickaxe",
+            "asset": "/images/marketplace/items/equipement/pcikaxe_ruby.png"
+        },
+        {
+            "name": "Cyber Elytra",
+            "asset": "/images/marketplace/items/equipement/cyber_elytra.png"
+        },
+        {
+            "name": "Blue Elytra",
+            "asset": "/images/marketplace/items/equipement/elytra_blue.png"
+        },
+        {
+            "name": "Purple Elytra",
+            "asset": "/images/marketplace/items/equipement/elytra_purple.png"
+        },
+        {
+            "name": "Ring",
+            "asset": "/images/marketplace/items/equipement/ring.png"
+        },
+        {
+            "name": "Hourglass",
+            "asset": "/images/marketplace/items/equipement/sablier.png"
+        },
+        {
+            "name": "Magnet",
+            "asset": "/images/marketplace/items/equipement/magnet.png"
+        }
+    ]
+}

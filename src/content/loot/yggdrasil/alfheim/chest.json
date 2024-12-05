@@ -14,10 +14,6 @@
             }
         },
         {
-            "id": "minecraft:nether_star",
-            "count": 1
-        },
-        {
             "id": "minecraft:emerald",
             "count": {
                 "min": 1,
@@ -26,10 +22,6 @@
         },
         {
             "id": "minecraft:golden_apple",
-            "count": 1
-        },
-        {
-            "id": "minecraft:netherite_scrap",
             "count": 1
         },
         {

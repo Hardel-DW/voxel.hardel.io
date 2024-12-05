@@ -21,12 +21,12 @@ export default function ConfiguratorPanel<T extends keyof Analysers>(props: {
             {props.children}
             <div className="border-zinc-800 border-t border-l bg-header-translucent rounded-2xl shadow-black p-4 sm:p-8">
                 <Tabs defaultValue={props.defaultTab}>
-                    <TabsList className="bg-inherit overflow-x-auto h-[inherit] border-inherit border-0 mb-4 pb-4 flex justify-start gap-x-10 border-b-2 rounded-none border-zinc-800">
+                    <TabsList className="bg-inherit overflow-x-auto h-[inherit] border-0 mb-4 pb-4 flex justify-start gap-x-10 border-b-2 rounded-none border-zinc-800">
                         {configuration.interface.map((section, index) => (
                             <TabsTrigger
                                 key={section.id}
                                 className={cn(
-                                    "text-md transition-none py-2 data-[state=active]:bg-rose-900 data-[state=active]:text-white",
+                                    "text-md transition-none py-2 bg-transparent border-0 data-[state=active]:bg-rose-900 data-[state=active]:text-white",
                                     {
                                         "text-zinc-500": currentElement?.identifier?.getNamespace() === "minecraft" && index > 2
                                     }

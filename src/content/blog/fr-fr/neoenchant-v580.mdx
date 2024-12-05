@@ -1,0 +1,116 @@
+---
+draft: true
+title: "NeoEnchant - Version 5.8.0"
+snippet: "Une mise à jour majeure pour NeoEnchant apportant des améliorations de performances, des rééquilibrages et le support de nouvelles langues !"
+image: {
+    src: "/images/background/blog/hero-ne.webp",
+    alt: "NeoEnchant - 5.8.0"
+}
+authors: ["hardel"]
+publishDate: "2024-12-05"
+category: "Datapacks"
+---
+
+import Star from "@/components/ui/star.astro";
+import DownloadModrinth from "@/components/ui/note/DonwloadModrinth.astro";
+import Changelog from "@/components/ui/note/Changelog.astro";
+import ChangelogContainer from "@/components/ui/note/ChangelogContainer.astro";
+import ChangelogSection from "@/components/ui/note/ChangelogSection.astro";
+import ChangelogItem from "@/components/ui/note/ChangelogItem.astro";
+
+# Aperçu
+La version 5.8.0 de NeoEnchant apporte des améliorations significatives aux performances, des rééquilibrages d'enchantements et l'ajout du support multilingue.
+
+## Comment obtenir les traductions
+- Placez le pack **NeoEnchant** dans votre dossier de packs de ressources.
+- Alternativement, vous pouvez utiliser le pack **Voxel Translation**, qui inclut des traductions pour tout le contenu **Voxel** (NeoEnchant, Yggdrasil, et les futurs packs).
+
+<DownloadModrinth soon asset="/images/addons/picture/ne.webp" name="NeoEnchant" version="5.8.0" link="https://modrinth.com/datapack/neoenchant" />  
+
+<Star />
+
+# Enchantements Remaniés
+
+<Changelog>
+    <ChangelogContainer
+        title="Rebound (Stable)"
+        citation="Après une longue période de développement, Rebound sort enfin de sa phase expérimentale avec des améliorations majeures de stabilité et de gameplay."
+        stats={{
+            maxLevel: 3,
+            anvilCost: 2,
+            weight: 4
+        }}
+        applicable={{ name: "Arcs et Arbalètes", asset: "bow" }}
+    >
+        <ChangelogSection>
+            <ChangelogItem title="Rebonds">
+                Les flèches rebondissent maintenant sur les murs de manière précise
+            </ChangelogItem>
+            <ChangelogItem title="Effets">
+                Activation des effets à chaque impact avec les murs ou les entités
+            </ChangelogItem>
+        </ChangelogSection>
+    </ChangelogContainer>
+
+    <ChangelogContainer
+        title="Poison Aspect"
+        citation="Correction d'un bug qui affectait l'enchantement Poison Aspect, l'effet de poison se déclenchait sur les non-joueurs."
+        stats={{
+            maxLevel: 2,
+            anvilCost: 3,
+            weight: 3
+        }}
+        applicable={{ name: "Épées", asset: "sword" }}
+    >
+        <ChangelogSection>
+            <ChangelogItem title="Effets à l'impact">
+                Affecte désormais les joueurs avec l'effet de poison
+            </ChangelogItem>
+            <ChangelogItem title="Équilibrage">
+                Avant l'effet de poison et wither se déclenchait sur les non-joueurs, maintenant seulement l'effet de poison est actif.
+            </ChangelogItem>
+        </ChangelogSection>
+    </ChangelogContainer>
+
+    <ChangelogContainer
+        title="Pull"
+        citation="Un bug empêchait l'enchantement Pull de fonctionner, il est désormais corrigé."
+        stats={{
+            maxLevel: 1,
+            anvilCost: 2,
+            weight: 3
+        }}
+        applicable={{ name: "Sword", asset: "sword" }}
+    >
+        <ChangelogSection>
+            <ChangelogItem title="Recharge">
+                Redonne maintenant des oeufs lors de l'utilisation de l'épée
+            </ChangelogItem>
+        </ChangelogSection>
+    </ChangelogContainer>
+</Changelog>
+
+<Star />
+
+# Support Multilingue
+Cette version apporte 5 nouvelles langues, générées par **Claude-3.5-Sonnet-2024-10-22** à partir des traductions française et anglaise de la version 2.0.0.
+Ces traductions servent de base et peuvent être améliorées par la communauté via notre Discord.
+
+### Nouvelles Langues
+- Allemand
+- Espagnol
+- Japonais
+- Russe
+- Chinois
+
+### Contribution
+- Rejoignez notre Discord pour participer à l'amélioration des traductions
+- Signalez les erreurs de traduction via notre système de tickets
+- Proposez vos propres traductions pour d'autres langues
+
+<Star />
+
+# Compatibilité et Support
+- Support complet de Minecraft 1.21 - 1.21.4
+- Compatibilité améliorée avec Yggdrasil 3.0.0
+- Support des dernières versions de BeyondEnchant

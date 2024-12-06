@@ -2,6 +2,7 @@
     "id": "runic_fracture",
     "name": "Runic Fracture",
     "image": "/images/addons/card/yggdrasil/runic_fracture.webp",
+    "icon": "/images/addons/icon/yggdrasil/runic_fracture.webp",
     "rewards": [
         {
             "id": "minecraft:trial_spawner",

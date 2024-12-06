@@ -2,6 +2,7 @@
     "id": "alfheim",
     "name": "Alfheim",
     "image": "/images/addons/card/yggdrasil/alfheim.webp",
+    "icon": "/images/addons/icon/yggdrasil/aflheim_tree.webp",
     "rewards": [
         {
             "id": "minecraft:trial_spawner",
@@ -31,7 +32,7 @@
         {
             "id": "minecraft:shulker_box",
             "description": "Les récompenses trouvables dans un shulker box",
-            "content": "yggdrasil/alfheim/shulker_box"
+            "content": "yggdrasil/alfheim/chest"
         },
         {
             "id": "minecraft:barrel",

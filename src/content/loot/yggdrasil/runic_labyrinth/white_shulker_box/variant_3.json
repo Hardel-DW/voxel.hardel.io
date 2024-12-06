@@ -1,0 +1,29 @@
+{
+	"items": [
+		{
+			"id": "minecraft:diamond_sword",
+			"description": "Enchanté (20-30)",
+			"count": 1
+		},
+		{
+			"id": "minecraft:diamond_chestplate",
+			"description": "Enchanté (20-30)",
+			"count": 1
+		},
+		{
+			"id": "minecraft:diamond_helmet",
+			"description": "Enchanté (20-30)",
+			"count": 1
+		},
+		{
+			"id": "minecraft:trident",
+			"description": "Enchanté (15-25)",
+			"count": 1
+		},
+		{
+			"id": "minecraft:crossbow",
+			"description": "Enchanté (20-30)",
+			"count": 1
+		}
+	]
+}

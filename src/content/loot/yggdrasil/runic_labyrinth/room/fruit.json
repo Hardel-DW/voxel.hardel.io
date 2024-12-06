@@ -1,0 +1,29 @@
+{
+    "items": [
+        {
+            "id": "minecraft:apple",
+            "description": "Apple of Rân - Pomme légendaire permettant de se téléporter au sommet du monde",
+            "properties": {
+                "rarity": "epic",
+                "glint": true,
+                "quest_item": true,
+                "quest_id": "yggdrasil.generic.ran_fruit",
+                "name": "Apple of Rân",
+                "lore": ["Teleport to the top of the world", "", "[Runic Labyrinth]"]
+            },
+            "count": 1
+        },
+        {
+            "id": "minecraft:apple",
+            "count": 1
+        },
+        {
+            "id": "minecraft:golden_apple",
+            "count": 1
+        },
+        {
+            "id": "minecraft:enchanted_golden_apple",
+            "count": 1
+        }
+    ]
+}

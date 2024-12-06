@@ -1,0 +1,46 @@
+{
+	"items": [
+		{
+			"id": "minecraft:ender_pearl",
+			"count": {
+				"min": 2,
+				"max": 6
+			}
+		},
+		{
+			"id": "minecraft:echo_shard",
+			"count": {
+				"min": 2,
+				"max": 5
+			}
+		},
+		{
+			"id": "minecraft:potion",
+			"description": "Long Invisibility",
+			"count": 1
+		},
+		{
+			"id": "minecraft:potion",
+			"description": "Strong Strength",
+			"count": 1
+		},
+		{
+			"id": "minecraft:shulker_shell",
+			"count": {
+				"min": 1,
+				"max": 2
+			}
+		},
+		{
+			"id": "minecraft:dragon_breath",
+			"count": 1
+		},
+		{
+			"id": "minecraft:chorus_fruit",
+			"count": {
+				"min": 4,
+				"max": 8
+			}
+		}
+	]
+}

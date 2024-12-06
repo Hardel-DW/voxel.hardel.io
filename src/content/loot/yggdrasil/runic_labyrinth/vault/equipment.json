@@ -1,0 +1,139 @@
+{
+	"items": [
+		{
+			"id": "minecraft:leather_boots",
+			"description": "Enchanté (0-12)",
+			"count": 1
+		},
+		{
+			"id": "minecraft:leather_chestplate",
+			"description": "Enchanté (0-12)",
+			"count": 1
+		},
+		{
+			"id": "minecraft:leather_leggings",
+			"description": "Enchanté (0-12)",
+			"count": 1
+		},
+		{
+			"id": "minecraft:leather_helmet",
+			"description": "Enchanté (0-12)",
+			"count": 1
+		},
+		{
+			"id": "minecraft:wooden_sword",
+			"description": "Enchanté (0-12)",
+			"count": 1
+		},
+		{
+			"id": "minecraft:wooden_shovel",
+			"description": "Enchanté (0-12)",
+			"count": 1
+		},
+		{
+			"id": "minecraft:wooden_pickaxe",
+			"description": "Enchanté (0-12)",
+			"count": 1
+		},
+		{
+			"id": "minecraft:wooden_axe",
+			"description": "Enchanté (0-12)",
+			"count": 1
+		},
+		{
+			"id": "minecraft:wooden_hoe",
+			"description": "Enchanté (0-12)",
+			"count": 1
+		},
+		{
+			"id": "minecraft:chainmail_boots",
+			"description": "Enchanté (0-12)",
+			"count": 1
+		},
+		{
+			"id": "minecraft:chainmail_chestplate",
+			"description": "Enchanté (0-12)",
+			"count": 1
+		},
+		{
+			"id": "minecraft:chainmail_leggings",
+			"description": "Enchanté (0-12)",
+			"count": 1
+		},
+		{
+			"id": "minecraft:chainmail_helmet",
+			"description": "Enchanté (0-12)",
+			"count": 1
+		},
+		{
+			"id": "minecraft:stone_sword",
+			"description": "Enchanté (0-12)",
+			"count": 1
+		},
+		{
+			"id": "minecraft:stone_shovel",
+			"description": "Enchanté (0-12)",
+			"count": 1
+		},
+		{
+			"id": "minecraft:stone_pickaxe",
+			"description": "Enchanté (0-12)",
+			"count": 1
+		},
+		{
+			"id": "minecraft:stone_axe",
+			"description": "Enchanté (0-12)",
+			"count": 1
+		},
+		{
+			"id": "minecraft:stone_hoe",
+			"description": "Enchanté (0-12)",
+			"count": 1
+		},
+		{
+			"id": "minecraft:iron_boots",
+			"description": "Enchanté (0-12)",
+			"count": 1
+		},
+		{
+			"id": "minecraft:iron_chestplate",
+			"description": "Enchanté (0-12)",
+			"count": 1
+		},
+		{
+			"id": "minecraft:iron_leggings",
+			"description": "Enchanté (0-12)",
+			"count": 1
+		},
+		{
+			"id": "minecraft:iron_helmet",
+			"description": "Enchanté (0-12)",
+			"count": 1
+		},
+		{
+			"id": "minecraft:iron_sword",
+			"description": "Enchanté (0-12)",
+			"count": 1
+		},
+		{
+			"id": "minecraft:iron_shovel",
+			"description": "Enchanté (0-12)",
+			"count": 1
+		},
+		{
+			"id": "minecraft:iron_pickaxe",
+			"description": "Enchanté (0-12)",
+			"count": 1
+		},
+		{
+			"id": "minecraft:iron_axe",
+			"description": "Enchanté (0-12)",
+			"count": 1
+		},
+		{
+			"id": "minecraft:iron_hoe",
+			"description": "Enchanté (0-12)",
+			"count": 1
+		}
+	]
+}

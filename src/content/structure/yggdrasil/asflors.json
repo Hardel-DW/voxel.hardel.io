@@ -2,6 +2,7 @@
     "id": "asflors",
     "name": "Asflors",
     "image": "/images/addons/card/yggdrasil/village.webp",
+    "icon": "/images/addons/icon/yggdrasil/asflors.webp",
     "rewards": [
         {
             "id": "minecraft:vault",

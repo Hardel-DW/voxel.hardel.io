@@ -174,6 +174,7 @@ const structureCollection = defineCollection({
         disabled: z.boolean().default(false),
         name: z.string(),
         image: z.string(),
+        icon: z.string(),
         rewards: z.array(
             z.object({
                 id: z.string(),

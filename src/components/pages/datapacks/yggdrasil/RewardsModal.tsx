@@ -4,19 +4,22 @@ import type React from "react";
 import { useRef, useState } from "react";
 import RewardCollection from "./RewardCollection";
 
-export default function RewardsModal(props: {
-    onClose: () => void;
+interface RewardsModalProps {
     structures: CollectionEntry<"structure">[];
-}) {
-    const [selectedStructure, setSelectedStructure] = useState<CollectionEntry<"structure">>(props.structures[0]);
+    onClose: () => void;
+    selectedIndex: number;
+}
+
+export default function RewardsModal({ structures, onClose, selectedIndex }: RewardsModalProps) {
+    const [selectedStructure, setSelectedStructure] = useState<CollectionEntry<"structure">>(structures[selectedIndex]);
     const [selectedReward, setSelectedReward] = useState<CollectionEntry<"structure">["data"]["rewards"][number]>(
-        props.structures[0].data.rewards[0]
+        structures[selectedIndex].data.rewards[0]
     );
     const contentRef = useRef<HTMLDivElement>(null);
 
     const handleClose = (e: React.MouseEvent<HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>) => {
         if (!contentRef.current?.contains(e.target as Node)) {
-            props.onClose();
+            onClose();
         }
     };
 
@@ -39,11 +42,11 @@ export default function RewardsModal(props: {
                             <select
                                 value={selectedStructure.id}
                                 onChange={(e) => {
-                                    const structure = props.structures.find((s) => s.id === e.target.value);
+                                    const structure = structures.find((s) => s.id === e.target.value);
                                     if (structure) setSelectedStructure(structure);
                                 }}
                                 className="w-full h-10 rounded-md bg-zinc-800 text-zinc-200 p-2">
-                                {props.structures.map((structure) => (
+                                {structures.map((structure) => (
                                     <option key={structure.id} value={structure.id}>
                                         {structure.data.name}
                                     </option>

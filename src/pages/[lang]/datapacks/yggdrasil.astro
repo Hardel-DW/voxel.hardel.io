@@ -40,7 +40,7 @@ const images: ImageItem[] = [
 
 // Récupération des structures
 const structures = await getCollection("structure");
-const yggdrasil = structures.filter((s) => s.id.startsWith("yggdrasil"));
+const yggdrasil = structures.filter((s) => s.id.startsWith("yggdrasil")).filter((s) => !s.data.disabled);
 ---
 
 <CompoundLayout
@@ -71,7 +71,9 @@ const yggdrasil = structures.filter((s) => s.id.startsWith("yggdrasil"));
 
         {/* Content */}
         <div class="relative flex flex-col items-center gap-y-4 pb-24 select-none">
-            <YggdrasilLootViewer client:only="react" structures={yggdrasil}/>
+            <div id="structure-viewer" data-selected-index="0">
+                <YggdrasilLootViewer client:only="react" structures={yggdrasil}/>
+            </div>
 
             <span style={{fontFamily: "fantasy"}} id="title"
                   class="text-4xl md:text-6xl uppercase tracking-widest text-white">
@@ -90,12 +92,12 @@ const yggdrasil = structures.filter((s) => s.id.startsWith("yggdrasil"));
                         <button
                                 type="button"
                                 data-index={index}
-                                class="structure-btn relative size-24 rounded-full overflow-hidden transition-transform duration-300 hover:scale-110"
+                                class="structure-btn relative size-24 transition-transform grayscale hover:grayscale-0 duration-300 hover:scale-110 cursor-pointer"
                         >
                             <img
-                                    src={structure.data.image}
+                                    src={structure.data.icon}
                                     alt={structure.data.id}
-                                    class="w-full h-full object-cover p-1 rounded-full"
+                                    class="w-full h-full object-contain p-1"
                             />
                         </button>
                 ))}
@@ -172,6 +174,7 @@ const yggdrasil = structures.filter((s) => s.id.startsWith("yggdrasil"));
         const structure = yggdrasil[index];
         const background = document.getElementById('main-background');
         const title = document.getElementById('title');
+        const viewer = document.getElementById('structure-viewer');
 
         if (background && title) {
             background.src = structure.data.image;
@@ -179,12 +182,16 @@ const yggdrasil = structures.filter((s) => s.id.startsWith("yggdrasil"));
             title.textContent = structure.data.name;
         }
 
+        if (viewer) {
+            viewer.dataset.selectedIndex = index.toString();
+        }
+
         // Mise à jour des boutons
         for (const [i, btn] of document.querySelectorAll('.structure-btn').entries()) {
             if (i === index) {
-                btn.classList.add('scale-125', 'ring-1', 'ring-white');
+                btn.classList.add('scale-125', "grayscale-0");
             } else {
-                btn.classList.remove('scale-125', 'ring-1', 'ring-white');
+                btn.classList.remove('scale-125', "grayscale-0");
             }
         }
     }

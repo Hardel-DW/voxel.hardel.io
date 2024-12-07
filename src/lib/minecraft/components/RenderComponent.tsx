@@ -156,7 +156,7 @@ export function RenderComponent<T extends keyof Analysers>({
         }
         case "Section": {
             return (
-                <div className="[&:not(:first-child)]:mt-8">
+                <div className="not-first:mt-8">
                     <ToolSection title={component.title} id={component.id} toggle={component.toggle} button={component.button}>
                         {component.children.map((child: FormComponent, index: number) => (
                             <RenderComponent key={component.id + index.toString()} component={child} />
@@ -173,8 +173,7 @@ export function RenderComponent<T extends keyof Analysers>({
                     className="grid max-xl:grid-cols-1 gap-4"
                     style={{
                         gridTemplateColumns: `repeat(auto-fit, minmax(${size}, 1fr))`
-                    }}
-                >
+                    }}>
                     {component.children.map((child: FormComponent, index: number) => (
                         <RenderComponent key={index.toString()} component={child} />
                     ))}
@@ -215,8 +214,7 @@ export function RenderComponent<T extends keyof Analysers>({
                     className={cn("flex gap-4", {
                         "flex-row": component.direction === "horizontal",
                         "flex-col": component.direction === "vertical"
-                    })}
-                >
+                    })}>
                     {component.children.map((child: FormComponent, index: number) => (
                         <RenderComponent key={index.toString()} component={child} />
                     ))}

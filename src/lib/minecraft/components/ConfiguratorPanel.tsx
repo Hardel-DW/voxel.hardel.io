@@ -17,23 +17,22 @@ export default function ConfiguratorPanel<T extends keyof Analysers>(props: {
 
     return (
         <>
-            <div className="absolute w-full -z-10 inset-0 shadow-2xl bg-gradient-to-r from-[#401727] to-[#311e7696] opacity-20 rounded-full blur-[10rem]" />
+            <div className="absolute w-full -z-10 inset-0 shadow-2xl bg-linear-to-r from-[#401727] to-[#311e7696] opacity-20 rounded-full blur-[10rem]" />
             {props.children}
             <div className="border-zinc-800 border-t border-l bg-header-translucent rounded-2xl shadow-black p-4 sm:p-8">
                 <Tabs defaultValue={props.defaultTab}>
-                    <TabsList className="bg-inherit overflow-x-auto h-[inherit] border-inherit border-0 mb-4 pb-4 flex justify-start gap-x-10 border-b-2 rounded-none border-zinc-800">
+                    <TabsList className="bg-inherit overflow-x-auto h-[inherit] border-0 mb-4 pb-4 flex justify-start gap-x-10 border-b-2 rounded-none border-zinc-800">
                         {configuration.interface.map((section, index) => (
                             <TabsTrigger
                                 key={section.id}
                                 className={cn(
-                                    "text-md transition-none py-2 data-[state=active]:bg-rose-900 data-[state=active]:text-white",
+                                    "text-md transition-none py-2 bg-transparent border-0 data-[state=active]:bg-rose-900 data-[state=active]:text-white",
                                     {
                                         "text-zinc-500": currentElement?.identifier?.getNamespace() === "minecraft" && index > 2
                                     }
                                 )}
                                 disabled={section.soon}
-                                value={section.id}
-                            >
+                                value={section.id}>
                                 <TranslateText content={section.section} />
                                 {section.soon && <span className="text-xs text-zinc-400 font-light ml-1">(soon)</span>}
                             </TabsTrigger>

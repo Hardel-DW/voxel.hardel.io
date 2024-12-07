@@ -1,0 +1,16 @@
+{
+    "items": [
+        {
+            "id": "minecraft:enchanted_book",
+            "description": "Spawner Touch"
+        },
+        {
+            "id": "minecraft:enchanted_book",
+            "description": "Pull"
+        },
+        {
+            "id": "minecraft:enchanted_book",
+            "description": "Breezing Arrow"
+        }
+    ]
+}

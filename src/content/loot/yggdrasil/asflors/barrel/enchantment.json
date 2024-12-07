@@ -1,0 +1,25 @@
+{
+    "reference": ["yggdrasil/asflors/compound/magic"],
+    "items": [
+        {
+            "id": "minecraft:enchanted_book",
+            "description": "Non Treasure (30+ Enchant)"
+        },
+        {
+            "id": "minecraft:enchanted_book",
+            "description": "Bedrock Breaker"
+        },
+        {
+            "id": "minecraft:enchanted_book",
+            "description": "Auto Smelt"
+        },
+        {
+            "id": "minecraft:enchanted_book",
+            "description": "Eternal Frost"
+        },
+        {
+            "id": "minecraft:enchanted_book",
+            "description": "Striker"
+        }
+    ]
+}

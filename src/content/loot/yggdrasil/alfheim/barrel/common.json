@@ -1,0 +1,83 @@
+{
+    "items": [
+        {
+            "id": "minecraft:trial_key",
+            "description": "Clé du spawner",
+            "count": 1
+        },
+        {
+            "id": "minecraft:diamond_axe",
+            "description": "Endommagé (40-90%) et enchanté aléatoirement",
+            "count": 1
+        },
+        {
+            "id": "minecraft:diamond_pickaxe",
+            "description": "Endommagé (15-80%)",
+            "count": 1
+        },
+        {
+            "id": "minecraft:diamond",
+            "count": {
+                "min": 1,
+                "max": 3
+            }
+        },
+        {
+            "id": "minecraft:compass",
+            "description": "Endommagé (15-80%)",
+            "count": 1
+        },
+        {
+            "id": "minecraft:bucket",
+            "count": {
+                "min": 1,
+                "max": 2
+            }
+        },
+        {
+            "id": "minecraft:golden_axe",
+            "description": "Endommagé (15-80%)",
+            "count": 1
+        },
+        {
+            "id": "minecraft:golden_pickaxe",
+            "description": "Endommagé (15-80%)",
+            "count": 1
+        },
+        {
+            "id": "minecraft:cherry_sapling",
+            "count": {
+                "min": 1,
+                "max": 8
+            }
+        },
+        {
+            "id": "minecraft:experience_bottle",
+            "count": {
+                "min": 1,
+                "max": 4
+            }
+        },
+        {
+            "id": "minecraft:torch",
+            "count": {
+                "min": 8,
+                "max": 17
+            }
+        },
+        {
+            "id": "minecraft:golden_carrot",
+            "count": {
+                "min": 2,
+                "max": 4
+            }
+        },
+        {
+            "id": "minecraft:iron_ingot",
+            "count": {
+                "min": 1,
+                "max": 2
+            }
+        }
+    ]
+}

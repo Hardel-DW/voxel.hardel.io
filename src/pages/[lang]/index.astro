@@ -1,11 +1,12 @@
 ---
 import { Image } from "astro:assets";
-import { getEntry } from "astro:content";
+import { getCollection } from "astro:content";
 import CompoundLayout from "@/components/layouts/CompoundLayout.astro";
-import Box from "@/components/pages/home/Box.astro";
+import BlogCard from "@/components/ui/BlogCard.astro";
+import Box from "@/components/ui/Box.astro";
+import Slides from "@/components/ui/Slides.astro";
 import Adsense from "@/components/ui/adsense.astro";
 import Button from "@/components/ui/button.astro";
-import Faq from "@/components/ui/faq.astro";
 import DashedPattern from "@/components/ui/pattern/DashedPattern.astro";
 import Fog from "@/components/ui/pattern/Fog.astro";
 import ShiningStars from "@/components/ui/pattern/ShiningStars.astro";
@@ -13,7 +14,81 @@ import Vortex from "@/components/ui/pattern/Vortex.astro";
 import { getTranslations, names } from "@/lib/i18n";
 
 const { lang, translate } = await getTranslations(Astro.url);
-const faq = await getEntry("faq", `${lang}/home`);
+const blogs = await getCollection("blog", ({ data, id }) => {
+    return !data.draft && data.publishDate < new Date() && id.split("/")[0] === lang;
+});
+
+const sortedBlogs = blogs
+    .sort((a, b) => {
+        return b.data.publishDate.valueOf() - a.data.publishDate.valueOf();
+    })
+    .slice(0, 3);
+
+const slides = [
+    {
+        title: translate["datapacks.neoenchant.personalize.title"],
+        description: translate["datapacks.neoenchant.personalize.description"],
+        image: "/images/background/tools/enchant-hero.webp",
+        button: {
+            main: {
+                href: `/${lang}/tools/enchant`,
+                text: translate["generic.start"]
+            },
+            secondary: {
+                href: `/${lang}/blog/enchant-configurator`,
+                text: translate["generic.learn_more"]
+            }
+        }
+    },
+    {
+        title: "Des ressources libres d'utilisation",
+        description:
+            "Nous proposons des ressources libres et gratuites ainsi que des packs payants thématiques pour que vous puissiez créer du contenu que ce soit des mods, datapacks, ou autre.",
+        image: "/images/background/marketplace.webp",
+        button: {
+            main: {
+                href: "/resources/asset",
+                text: translate["generic.take_a_look"]
+            },
+            secondary: {
+                href: "/resources/asset",
+                text: translate["generic.learn_more"]
+            }
+        }
+    },
+    {
+        title: "Du contenu pour vous amuser",
+        description:
+            "Nous proposons des datapacks pour que vous puissiez vous amuser, des nouveaux enchantements, des nouvelles structures, et des nouvelles récompenses",
+        image: "/images/background/datapack.webp",
+        button: {
+            main: {
+                href: "/",
+                text: translate["generic.take_a_look"]
+            },
+            secondary: {
+                href: "/",
+                text: translate["generic.learn_more"]
+            }
+        }
+    },
+    {
+        title: "Accompagnés d'un wiki",
+        description:
+            "Les datapacks sont accompagnés d'un wiki pour les joueurs. Retrouver la liste des enchantements en vidéo, les récompenses de chaque structures, et bien d'autres choses !",
+        image: "/images/tools/yggdrasil_loot.webp",
+        button: {
+            main: {
+                href: "/",
+                text: translate["generic.take_a_look"]
+            },
+            secondary: {
+                href: "/",
+                text: translate["generic.learn_more"]
+            }
+        }
+    }
+];
 
 export const prerender = true;
 export async function getStaticPaths() {
@@ -21,14 +96,12 @@ export async function getStaticPaths() {
         params: { lang: element.lang }
     }));
 }
-
-const values = faq.data.values;
 ---
 
 <CompoundLayout>
     <div>
         <!-- Background -->
-        <div class="absolute rounded-full w-3/4 h-1/2 bg-gradient-to-r from-[#401727] to-[#311e7696] opacity-20 blur-[10rem] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"/>
+        <div class="absolute rounded-full w-3/4 h-1/2 bg-linear-to-r from-[#401727] to-[#311e7696] opacity-20 blur-[10rem] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"/>
 
         <!-- Shining stars -->
         <div class="fixed inset-0 -z-10">
@@ -41,41 +114,47 @@ const values = faq.data.values;
         </div>
 
         <!-- Main view -->
-        <section class="h-dvh w-3/4 mx-auto flex xl:grid grid-cols-2 items-center gap-8">
-            <div class="absolute w-full inset-0 shadow-2xl bg-gradient-to-r from-[#401727] to-[#311e7696] opacity-20 rounded-full blur-[10rem]"/>
+        <section class="h-dvh" data-direction="horizontal">
+            <div class="absolute w-full inset-0 shadow-2xl bg-linear-to-r from-[#401727] to-[#311e7696] opacity-20 rounded-full blur-[10rem]"/>
 
-            <div class="h-full w-[95%] md:w-full mx-auto relative">
-                <div class="xl:invisible visible absolute flex justify-center items-center size-full -z-10">
-                    <div class="absolute inset-0 top-1/2 -translate-y-1/2 shadow-2xl bg-gradient-to-r from-pink-900 to-blue-900 opacity-50 rounded-full blur-[5rem]"/>
-                </div>
+            <div class="h-full w-3/4 mx-auto flex xl:grid grid-cols-2 items-center gap-8 transition-all duration-500"
+                 data-effect>
+                <div class="h-full w-[95%] md:w-full mx-auto relative">
+                    <div class="xl:invisible visible absolute flex justify-center items-center size-full -z-10">
+                        <div class="absolute inset-0 top-1/2 -translate-y-1/2 shadow-2xl bg-linear-to-r from-pink-900 to-blue-900 opacity-50 rounded-full blur-[5rem]"/>
+                    </div>
 
-                <div class="size-full flex flex-col justify-center">
-                    <small class="text-pink-700 font-bold tracking-wide text-[16px]">
-                        {translate["generic.section"]}
-                    </small>
-                    <h1 class="text-white text-4xl md:text-6xl font-bold mt-4 text-balance">
-                        {translate["home.main.title"]}
-                    </h1>
-                    <p class="text-gray-300 mt-4">
-                        {translate["home.main.description"]}
-                    </p>
+                    <div class="size-full flex flex-col justify-center" data-slide>
+                        <small class="text-pink-700 font-bold tracking-wide text-[16px]">
+                            {translate["generic.section"]}
+                        </small>
+                        <h1 class="text-white text-4xl md:text-6xl font-bold mt-4 text-balance" data-slide-title>
+                            {slides[0].title}
+                        </h1>
+                        <p class="text-gray-300 mt-4" data-slide-description>
+                            {slides[0].description}
+                        </p>
 
-                    <div class="mt-8 flex gap-4">
-                        <Button href="/guides" size="xl" variant="primary">
-                            {translate["generic.start"]}
-                        </Button>
-                        <Button href="/guides/basic_concept_forge" size="xl" variant="ghost">
-                            {translate["generic.learn_more"]}
-                        </Button>
+                        <div class="mt-8 flex gap-4">
+                            <Button href={slides[0].button.main.href} size="xl" variant="primary"
+                                    data-slide-button-main>
+                                {slides[0].button.main.text}
+                            </Button>
+                            <Button href={slides[0].button.secondary.href} size="xl" variant="ghost"
+                                    data-slide-button-secondary>
+                                {slides[0].button.secondary.text}
+                            </Button>
+                        </div>
                     </div>
                 </div>
+                <div class="relative w-full hidden xl:flex justify-center items-center">
+                    <img class="absolute opacity-10 select-none" src="/icons/circle.svg" alt="box"/>
+                    <img loading="eager" width="1200" height="900" src={slides[0].image} alt="404" data-slide-image
+                         class="aspect-auto select-none"/>
+                </div>
             </div>
-            <div class="relative w-full hidden xl:flex justify-center items-center">
-                <Image loading="eager" width="500" height="500" src="/images/features/dev.webp" alt="404"
-                       class="w-1/2 aspect-auto animate-levitate drag-none"
-                />
-                <img class="absolute opacity-10 drag-none" src="/icons/circle.svg" alt="box"/>
-            </div>
+            <Slides numberOfSlides={slides.length} direction="horizontal"
+                    class="absolute left-1/2 -translate-x-1/2 bottom-20"/>
         </section>
 
         <!-- Features -->
@@ -86,8 +165,8 @@ const values = faq.data.values;
 
             <div class="hidden xl:flex justify-center items-center relative w-full">
                 <Image loading="eager" width="442" height="544" src="/images/features/skin/avatar.webp" alt="404"
-                       class="w-1/2 aspect-auto animate-levitate scale-x-[-1] drag-none"/>
-                <img class="absolute opacity-10 drag-none" src="/icons/circle.svg" alt="box"/>
+                       class="w-1/2 aspect-auto animate-levitate scale-x-[-1] select-none"/>
+                <img class="absolute opacity-10 select-none" src="/icons/circle.svg" alt="box"/>
             </div>
 
             <div class="w-[95%] xl:w-full mx-auto">
@@ -126,90 +205,124 @@ const values = faq.data.values;
             </div>
         </section>
 
-        <!-- Configurator -->
-        <section
-                class="mb-32 md:mb-52 md:mt-20 pb-52 w-3/4 mx-auto relative grid md:grid-cols-2 items-center gap-x-8 gap-y-24">
-            <div class="absolute w-full inset-0 shadow-2xl bg-gradient-to-r from-[#401727] to-[#311e7696] opacity-20 rounded-full blur-[10rem]"/>
-            <DashedPattern class="[mask-image:radial-gradient(white,transparent_60%)]"/>
-
-            <div class="h-full w-full mx-auto relative">
-                <div class="size-full flex flex-col justify-center">
-                    <small class="text-pink-700 font-bold tracking-wide text-[16px]">
-                        {translate["generic.section"]}
-                    </small>
-                    <h1 class="text-white text-4xl md:text-6xl font-bold mt-4 text-balance">
-                        {translate["datapacks.neoenchant.personalize.title"]}
-                    </h1>
-                    <p class="text-gray-300 mt-4">
-                        {translate["datapacks.neoenchant.personalize.description"]}
-                    </p>
-
-                    <div class="mt-8 flex flex-col md:flex-row gap-4">
-                        <Button href={`/${lang}/tools/enchant`} size="xl" variant="ghost" class="w-full md:w-3/4">
-                            {translate["generic.start"]}
-                        </Button>
-                    </div>
-                </div>
-            </div>
-            <div class="relative w-full flex justify-center items-center">
-                <img class="absolute opacity-10 drag-none" src="/icons/circle.svg" alt="box"/>
-                <Image loading="eager" width="1200" height="900" src="/images/background/tools/enchant-hero.webp"
-                       alt="404"
-                       class="aspect-auto drag-none"
-                />
-            </div>
-        </section>
-
         <!-- Product -->
         <section class="my-32 md:my-52 px-8 w-full md:w-3/4 xl:w-1/2 mx-auto grid md:grid-cols-2 gap-8">
-            <Box loading="eager" image="/images/features/structure/tree.webp"
-                 class="border-zinc-800 border-2 relative z-10">
-                <div class="absolute -z-10 top-0 left-0 w-full h-full bg-gradient-to-r from-pink-900 to-blue-900 opacity-30 rounded-full blur-[5rem]"/>
-                <h2 class="text-white text-xl md:text-2xl font-bold text-left line-clamp-1">
-                    {translate["home.product.modding.title"]}
+            <Box variant="big" loading="eager" image="/images/features/dev.webp">
+                <h2 class="text-white text-xl md:text-2xl font-bold line-clamp-1 pt-8">
+                    {translate["home.product.tools.title"]}
                 </h2>
                 <p class="text-zinc-400 text-sm md:text-base mt-2 line-clamp-3">
-                    {translate["home.product.modding.description"]}
+                    {translate["home.product.tools.description"]}
                 </p>
                 <div class="flex flex-wrap gap-2 mt-6">
-                    <Button class="w-full xl:w-fit" href="/guides" size="sm" variant="primary">
+                    <Button class="w-full xl:w-fit" href={`/${lang}/tools/enchant`} size="sm" variant="primary">
                         {translate["generic.start"]}
                     </Button>
-                    <Button class="w-full xl:w-fit" href="/guides" size="sm" variant="transparent">
+                    <Button class="w-full xl:w-fit" href={`/${lang}/blog/enchant-configurator`} size="sm"
+                            variant="transparent">
                         {translate["generic.learn_more"]}
                     </Button>
                 </div>
             </Box>
-            <Box loading="lazy" image="/images/features/bundle.webp">
-                <h2 class="text-white text-xl md:text-2xl font-bold text-left line-clamp-1">
+            <Box variant="big" loading="lazy" image="/images/features/bundle.webp">
+                <h2 class="text-white text-xl md:text-2xl font-bold text-left line-clamp-1 pt-8">
                     {translate["home.product.resource.title"]}
                 </h2>
                 <p class="text-zinc-400 text-sm md:text-base mt-2 line-clamp-3">
                     {translate["home.product.resource.description"]}
                 </p>
-                <Button class="w-full xl:w-fit mt-6" href="/" size="md" variant="transparent">
-                    {translate["generic.take_a_look"]}
-                </Button>
+                <div class="flex flex-wrap gap-2 mt-6">
+                    <Button class="w-full xl:w-fit" href="/resources/asset" size="sm" variant="primary">
+                        {translate["generic.take_a_look"]}
+                    </Button>
+                    <Button class="w-full xl:w-fit" href="/resources/asset" size="sm" variant="transparent">
+                        {translate["generic.learn_more"]}
+                    </Button>
+                </div>
             </Box>
-            <Box loading="lazy" image="/images/features/title/question_mark.webp">
-                <h2 class="text-white text-xl md:text-2xl font-bold text-left line-clamp-1">
-                    {translate["generic.soon"]}
+            <Box variant="big" loading="lazy" image="/images/features/structure/tree.webp">
+                <h2 class="text-white text-xl md:text-2xl font-bold text-left line-clamp-1 pt-8">
+                    {translate["home.product.datapack.title"]}
                 </h2>
                 <p class="text-zinc-400 text-sm md:text-base mt-2 line-clamp-3">
-                    {translate["home.product.soon"]}
+                    {translate["home.product.datapack.description"]}
                 </p>
+                <div class="flex flex-wrap gap-2 mt-6">
+                    <Button class="w-full xl:w-fit" href={`/${lang}/datapacks/neoenchant`} size="sm" variant="primary">
+                        NeoEnchant+
+                    </Button>
+                    <Button class="w-full xl:w-fit" href={`/${lang}/datapacks/neoenchant`} size="sm"
+                            variant="transparent">
+                        Yggdrasil
+                    </Button>
+                </div>
             </Box>
 
-            <div class="flex flex-col items-center justify-between gradient-gray cursor-pointer border-t-2 border-r border-zinc-800 p-10 sm:p-16 rounded-3xl shadow-2xl shadow-black transition opacity-75 hover:opacity-100">
+            <div class="flex flex-col items-center justify-between bg-gray cursor-pointer border-t-2 outline-r border-zinc-800 p-10 sm:p-16 rounded-3xl shadow-2xl shadow-black transition opacity-75 hover:opacity-100">
                 <div class="size-full flex justify-center items-center">
                     <Adsense slot="2018282613" format="rectangle" style="width: 100%; aspect-ratio: 1/1"/>
                 </div>
             </div>
         </section>
 
-        <!-- FAQ -->
-        <section class="mt-20 mb-20 w-3/4 xl:w-full mx-auto relative">
-            <Faq values={values}/>
+        <!-- Blog -->
+        <section class="mt-20 pb-40 w-full flex flex-col items-center gap-10 relative rounded-t-3xl overflow-hidden">
+            <DashedPattern/>
+            <div class="w-3/4 pt-40">
+                <h1 class="text-white text-2xl md:text-4xl font-semibold tracking-tighter mt-4 text-balance">
+                    Actualités du moment
+                </h1>
+                <div class="h-1 w-full bg-zinc-700 rounded-full mt-2"/>
+            </div>
+            <ul class="w-3/4 grid grid-cols-3 gap-10 lg:gap-16">
+                {sortedBlogs.map((post, index) => (
+                    <BlogCard
+                        href={`/${lang}/blog/${post.id.split("/")[1]}`}
+                        src={post.data.image.src}
+                        alt={post.data.image.alt}
+                        slug={post.id}
+                        date={post.data.publishDate}
+                        lang={lang}
+                        category={post.data.category}
+                        title={post.data.title}
+                        index={index}
+                    />
+                ))}
+            </ul>
         </section>
     </div>
 </CompoundLayout>
+
+<script is:inline define:vars={{slides}}>
+    const slideImage = document.querySelector('[data-slide-image]');
+    const slideEffect = document.querySelector('[data-effect]');
+    const slideTitle = document.querySelector('[data-slide-title]');
+    const slideDescription = document.querySelector('[data-slide-description]');
+    const slideButtonMain = document.querySelector('[data-slide-button-main]');
+    const slideButtonSecondary = document.querySelector('[data-slide-button-secondary]');
+
+    function updateSlideContent(index) {
+        if (!slideImage || !slideTitle || !slideDescription) return;
+
+        slideEffect.classList.remove('opacity-100');
+        slideEffect.classList.add('opacity-50');
+
+
+        setTimeout(() => {
+            slideImage.src = slides[index].image;
+            slideImage.alt = slides[index].title;
+            slideTitle.textContent = slides[index].title;
+            slideDescription.textContent = slides[index].description;
+            slideButtonMain.href = slides[index].button.main.href;
+            slideButtonSecondary.href = slides[index].button.secondary.href;
+            slideButtonMain.textContent = slides[index].button.main.text;
+            slideButtonSecondary.textContent = slides[index].button.secondary.text;
+            slideEffect.classList.remove('opacity-50');
+            slideEffect.classList.add('opacity-100');
+        }, 200);
+    }
+
+    window.addEventListener('onSlideChange', (event) => {
+        updateSlideContent(event.detail.index);
+    });
+</script>

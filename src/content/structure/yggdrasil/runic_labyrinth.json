@@ -1,0 +1,63 @@
+{
+    "id": "runic_labyrinth",
+    "name": "Runic Labyrinth",
+    "image": "/images/addons/card/yggdrasil/labyrinth.webp",
+    "icon": "/images/addons/icon/yggdrasil/runic_labyrinth.webp",
+    "rewards": [
+        {
+            "id": "minecraft:white_shulker_box",
+            "description": "Les récompenses avancées du labyrinthe",
+            "content": "yggdrasil/runic_labyrinth/white_shulker_box"
+        },
+        {
+            "id": "minecraft:black_shulker_box",
+            "description": "Les récompenses avancées du labyrinthe",
+            "content": "yggdrasil/runic_labyrinth/black_shulker_box"
+        },
+        {
+            "id": "minecraft:chest",
+            "description": "Les récompenses communes du labyrinthe",
+            "content": "yggdrasil/runic_labyrinth/chest"
+        },
+        {
+            "id": "minecraft:decorated_pot",
+            "description": "Les objets trouvable en cassant des pots décoratifs",
+            "content": "yggdrasil/runic_labyrinth/decorated_pot"
+        },
+        {
+            "id": "minecraft:vault",
+            "description": "Néccésite une clef pour l'ouvrir, trouvable dans les pots ou shulker box",
+            "content": "yggdrasil/runic_labyrinth/vault"
+        },
+        {
+            "id": "minecraft:ominous_vault",
+            "description": "Néccésite une clef pour l'ouvrir, trouvable dans le vault",
+            "content": "yggdrasil/runic_labyrinth/ominous_vault"
+        },
+        {
+            "id": "minecraft:chest",
+            "description": "Salle Spéciale - Chambre",
+            "content": "yggdrasil/runic_labyrinth/room/bed"
+        },
+        {
+            "id": "minecraft:chest",
+            "description": "Salle Spéciale - Bibliothèque",
+            "content": "yggdrasil/runic_labyrinth/room/library"
+        },
+        {
+            "id": "minecraft:chest",
+            "description": "Salle Spéciale - Fruit",
+            "content": "yggdrasil/runic_labyrinth/room/fruit"
+        },
+        {
+            "id": "minecraft:chest",
+            "description": "Salle Spéciale - Mine",
+            "content": "yggdrasil/runic_labyrinth/room/mine"
+        },
+        {
+            "id": "minecraft:chest",
+            "description": "Salle Spéciale - Nature",
+            "content": "yggdrasil/runic_labyrinth/room/nature"
+        }
+    ]
+}

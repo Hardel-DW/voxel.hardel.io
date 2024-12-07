@@ -22,7 +22,7 @@ export default function NumberField(props: {
                 type="number"
                 value={props.field.value}
                 onChange={(e) => updateFieldValue(props.blueprintId, props.field.id, Number(e.target.value))}
-                className="!w-24 h-full text-sm bg-opacity-60 rounded text-right"
+                className="w-24! h-full text-sm bg-opacity-60 rounded-xs text-right"
             />
         </div>
     );

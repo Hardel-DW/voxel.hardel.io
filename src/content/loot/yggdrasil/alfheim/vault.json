@@ -1,0 +1,61 @@
+{
+    "reference": ["yggdrasil/alfheim/enchanted_book/random_loot"],
+    "items": [
+        {
+            "id": "minecraft:enchanted_book",
+            "description": "Vein Miner"
+        },
+        {
+            "id": "minecraft:enchanted_book",
+            "description": "Auto Smelt"
+        },
+        {
+            "id": "minecraft:enchanted_book",
+            "description": "Mining Plus"
+        },
+        {
+            "id": "minecraft:enchanted_book",
+            "description": "Reach"
+        },
+        {
+            "id": "minecraft:enchanted_book",
+            "description": "XP Boost"
+        },
+        {
+            "id": "minecraft:enchanted_book",
+            "description": "Builder Arm"
+        },
+        {
+            "id": "minecraft:enchanted_book",
+            "description": "Sky Walk"
+        },
+        {
+            "id": "minecraft:enchanted_book",
+            "description": "Timber"
+        },
+        {
+            "id": "minecraft:enchanted_book",
+            "description": "Scyther"
+        },
+        {
+            "id": "minecraft:enchanted_book",
+            "description": "Auto Feed"
+        },
+        {
+            "id": "minecraft:enchanted_book",
+            "description": "Eternal Frost"
+        },
+        {
+            "id": "minecraft:enchanted_book",
+            "description": "Oversize"
+        },
+        {
+            "id": "minecraft:enchanted_book",
+            "description": "Striker"
+        },
+        {
+            "id": "minecraft:enchanted_book",
+            "description": "Wind Propulsion"
+        }
+    ]
+}

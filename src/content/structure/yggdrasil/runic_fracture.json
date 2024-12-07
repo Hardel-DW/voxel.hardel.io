@@ -1,0 +1,18 @@
+{
+    "id": "runic_fracture",
+    "name": "Runic Fracture",
+    "image": "/images/addons/card/yggdrasil/runic_fracture.webp",
+    "icon": "/images/addons/icon/yggdrasil/runic_fracture.webp",
+    "rewards": [
+        {
+            "id": "minecraft:trial_spawner",
+            "description": "Les récompenses lié au monstre secondaire",
+            "content": "yggdrasil/runic_fracture/monster"
+        },
+        {
+            "id": "minecraft:trial_spawner",
+            "description": "La récompense lié au générateur du boss",
+            "content": "yggdrasil/runic_fracture/boss"
+        }
+    ]
+}

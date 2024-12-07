@@ -1,0 +1,64 @@
+{
+    "items": [
+        {
+            "id": "minecraft:enchanted_book",
+            "description": "Curse Of Breaking"
+        },
+        {
+            "id": "minecraft:enchanted_book",
+            "description": "Agility"
+        },
+        {
+            "id": "minecraft:enchanted_book",
+            "description": "Lava Walker"
+        },
+        {
+            "id": "minecraft:enchanted_book",
+            "description": "Step Assist"
+        },
+        {
+            "id": "minecraft:enchanted_book",
+            "description": "Accuracy Shot"
+        },
+        {
+            "id": "minecraft:enchanted_book",
+            "description": "Explosive Arrow"
+        },
+        {
+            "id": "minecraft:enchanted_book",
+            "description": "Venom Protection"
+        },
+        {
+            "id": "minecraft:enchanted_book",
+            "description": "Life Plus"
+        },
+        {
+            "id": "minecraft:enchanted_book",
+            "description": "Fury"
+        },
+        {
+            "id": "minecraft:enchanted_book",
+            "description": "Leaping"
+        },
+        {
+            "id": "minecraft:enchanted_book",
+            "description": "Fast Swim"
+        },
+        {
+            "id": "minecraft:enchanted_book",
+            "description": "Poison Aspect"
+        },
+        {
+            "id": "minecraft:enchanted_book",
+            "description": "Attack Speed"
+        },
+        {
+            "id": "minecraft:enchanted_book",
+            "description": "Life Steal"
+        },
+        {
+            "id": "minecraft:enchanted_book",
+            "description": "Gungnir Breath"
+        }
+    ]
+}

@@ -66,15 +66,15 @@ const contentCondition = (Boolean(user) && isPremiumUser) || !payementCondition;
         </div>
 
         <!-- Listes des Guides -->
-        <div style="width: 350px" id="collapse-menu"
-             class="flex-shrink-0 overflow-hidden container-type transition-[width] ease-in-out max-md:absolute max-md:inset-0 max-md:bg-gradient-to-br max-md:from-guides-gradient-from max-md:to-guides-gradient-to max-md:z-50 max-md:py-4 max-md:rounded-r-2xl max-md:border max-md:border-zinc-700">
-            <div id="fix" class="w-[350px] flex flex-col h-full relative z-10 px-4 md:pl-0 fix">
+        <div style="width: 384px" id="collapse-menu"
+             class="@container shrink-0 overflow-hidden transition-[width] ease-in-out max-md:absolute max-md:inset-0 max-md:bg-linear-to-br max-md:from-guides-gradient-from max-md:to-guides-gradient-to max-md:z-50 max-md:py-4 max-md:rounded-r-2xl max-md:border max-md:border-zinc-700">
+            <div class="w-[384px] flex flex-col h-full relative z-10 px-4 md:pl-0 @sm:pl-0">
                 <!-- Top Content -->
                 <div>
                     <!-- The Logo and Voxel Title -->
                     <div class="flex w-full items-center justify-between">
                         <a href="/public"
-                           class="text-lg flex items-center transition focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-indigo-500 focus-visible:outline-none focus-visible:shadow-outline-indigo rounded-full px-2 -ml-2">
+                           class="text-lg flex items-center transition focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-indigo-500 focus-visible:outline-hidden focus-visible:shadow-outline-indigo rounded-full px-2 -ml-2">
                             <img src="/favicon.svg" alt="Voxel" class="w-6 h-6 brightness-90 mx-2"/>
                             <span class="font-bold text-primary">VOXEL</span>
                         </a>

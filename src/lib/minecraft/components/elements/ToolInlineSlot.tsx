@@ -1,9 +1,9 @@
+import TranslateText, { type TranslateTextType } from "@/lib/minecraft/components/elements/text/TranslateText.tsx";
 import { Identifier } from "@/lib/minecraft/core/Identifier.ts";
 import type { ValueParams } from "@/lib/minecraft/core/engine/value";
 import { cn, quoteString } from "@/lib/utils.ts";
 import type { Action } from "src/lib/minecraft/core/engine/actions";
 import type { Condition } from "src/lib/minecraft/core/engine/condition";
-import TranslateText, { type TranslateTextType } from "@/lib/minecraft/components/elements/text/TranslateText.tsx";
 
 export type ToolInlineType = {
     type: "InlineSlot";
@@ -37,8 +37,7 @@ export default function ToolInline(props: {
                 { "opacity-50 ring-1 ring-rose-950": !!props.lock }
             )}
             onClick={() => handleChange(!props.checked)}
-            onKeyDown={() => handleChange(!props.checked)}
-        >
+            onKeyDown={() => handleChange(!props.checked)}>
             {props.checked && !props.lock && (
                 <div className="absolute z-30 top-0 right-0 p-2 bg-zinc-950/80 rounded-bl-xl rounded-tr-2xl">
                     <img src="/icons/check.svg" alt="checkbox" className="w-6 h-6 invert" />
@@ -68,7 +67,7 @@ export default function ToolInline(props: {
                         </p>
                     )}
                 </div>
-                <div className="rounded-2xl relative shadow-bottom z-10" />
+                <div className="rounded-2xl relative bg-shadow-bottom z-10" />
                 <div
                     className="w-full h-full rounded-2xl bg-cover bg-center group-hover:scale-110 duration-500 ease-in-out transition"
                     style={{ backgroundImage: `url(${props.image})` }}

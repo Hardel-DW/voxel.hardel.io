@@ -2,8 +2,8 @@ import { useTranslate } from "@/components/TranslateContext.tsx";
 import { useConfigurator } from "@/lib/minecraft/components/ConfiguratorContext.tsx";
 import DebugConfigurator from "@/lib/minecraft/components/DebugConfigurator.tsx";
 import DownloadButton from "@/lib/minecraft/components/DownloadButton.tsx";
-import SettingsButton from "@/lib/minecraft/components/elements/SettingsButton.tsx";
 import { SidebarItem } from "@/lib/minecraft/components/SidebarItem.tsx";
+import SettingsButton from "@/lib/minecraft/components/elements/SettingsButton.tsx";
 import { Identifier } from "@/lib/minecraft/core/Identifier.ts";
 import type { Analysers, GetAnalyserVoxel } from "@/lib/minecraft/core/engine/Analyser.ts";
 import { cn } from "@/lib/utils.ts";
@@ -20,10 +20,9 @@ export default function SidebarPanel<T extends keyof Analysers>() {
         <>
             <div
                 style={{ width: width }}
-                className={cn("flex-shrink-0 overflow-hidden container-type transition-[width] ease-in-out xl:py-4", {
+                className={cn("shrink-0 overflow-hidden container-type transition-[width] ease-in-out xl:py-4", {
                     "pl-4": width > 0
-                })}
-            >
+                })}>
                 <div style={{ width: "350px" }} className="flex flex-col h-full z-10 px-4 md:pl-0 md:pt-0 pt-4">
                     <div className="overflow-hidden -mr-2 pr-2" style={{ flex: 1 }}>
                         <div className="relative size-full px-2 border-zinc-800 border-t border-l bg-header-translucent rounded-2xl shadow-black">
@@ -54,8 +53,7 @@ export default function SidebarPanel<T extends keyof Analysers>() {
                 <button
                     type="button"
                     onClick={() => setWidth(width === 350 ? 0 : 350)}
-                    className="bg-header-cloudy text-white p-2 size-12 rounded-xl border-zinc-700 border-t border-l"
-                >
+                    className="bg-header-cloudy text-white p-2 size-12 rounded-xl border-zinc-700 border-t border-l">
                     {width === 350 ? "<<" : ">>"}
                 </button>
             </div>

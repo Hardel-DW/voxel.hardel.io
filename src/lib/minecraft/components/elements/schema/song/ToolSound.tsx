@@ -1,4 +1,4 @@
-import { getCategory, searchSound, type CategorySound } from "@/lib/minecraft/net/api/Sound.ts";
+import { type CategorySound, getCategory, searchSound } from "@/lib/minecraft/net/api/Sound.ts";
 import { cn } from "@/lib/utils.ts";
 import { useEffect, useMemo, useRef, useState } from "react";
 import TranslateText from "../../text/TranslateText";
@@ -115,8 +115,7 @@ export default function ToolSound() {
                             className="flex gap-4 transition-[translate]"
                             style={{
                                 translate: `-${scroll}px`
-                            }}
-                        >
+                            }}>
                             {category.map((sound) => (
                                 <li
                                     key={sound.name}
@@ -125,8 +124,7 @@ export default function ToolSound() {
                                         "hover:bg-zinc-900": sound.name !== currentCategory?.name
                                     })}
                                     onClick={() => handleCategory(sound)}
-                                    onKeyUp={() => handleCategory(sound)}
-                                >
+                                    onKeyUp={() => handleCategory(sound)}>
                                     <TranslateText content={sound.name} />
                                 </li>
                             ))}
@@ -139,8 +137,7 @@ export default function ToolSound() {
                                     key={name}
                                     className={cn("w-full flex justify-between items-center odd:bg-black/35 py-2 px-4 rounded-xl", {
                                         "ring-2 ring-rose-900": song === sound
-                                    })}
-                                >
+                                    })}>
                                     <div className="flex items-center gap-4">
                                         <p>{index + 1}</p>
                                         <div>
@@ -153,8 +150,7 @@ export default function ToolSound() {
                                         onClick={() => handlePlaySound(song)}
                                         onKeyUp={() => handlePlaySound(song)}
                                         type="button"
-                                        tabIndex={0}
-                                    >
+                                        tabIndex={0}>
                                         <img src="/icons/play.svg" alt="Play" className="p-3" />
                                     </button>
                                 </li>

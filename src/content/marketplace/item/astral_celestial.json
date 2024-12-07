@@ -1,0 +1,62 @@
+{
+    "name": "Astral and Celestial",
+    "description": "Collection of celestial and cosmic items",
+    "items": [
+        {
+            "name": "Amethyst Coral Crystal Variant",
+            "asset": "/images/marketplace/items/astral/amethysm_coral_crystal_variant.png"
+        },
+        {
+            "name": "Amethyst Coral Crystal",
+            "asset": "/images/marketplace/items/astral/amethysm_coral_crystal.png"
+        },
+        {
+            "name": "Astral Powder",
+            "asset": "/images/marketplace/items/astral/astral_powder.png"
+        },
+        {
+            "name": "Orb",
+            "asset": "/images/marketplace/items/astral/orb.png"
+        },
+        {
+            "name": "Quartz Meteorite",
+            "asset": "/images/marketplace/items/astral/quartz_meteorite.png"
+        },
+        {
+            "name": "Diamond Meteorite",
+            "asset": "/images/marketplace/items/astral/diamond_meteorite.png"
+        },
+        {
+            "name": "Zinc Meteorite",
+            "asset": "/images/marketplace/items/astral/zinc_meteorite.png"
+        },
+        {
+            "name": "Iron Meteorite",
+            "asset": "/images/marketplace/items/astral/iron_meteorite.png"
+        },
+        {
+            "name": "Diamond Meteorite Variant",
+            "asset": "/images/marketplace/items/astral/diamond_meteorite_variant.png"
+        },
+        {
+            "name": "Stars",
+            "asset": "/images/marketplace/items/astral/stars.png"
+        },
+        {
+            "name": "Lunar Compass",
+            "asset": "/images/marketplace/items/astral/lunar_compass.png"
+        },
+        {
+            "name": "Lunar Compass Variant",
+            "asset": "/images/marketplace/items/astral/lunar_compass_variant.png"
+        },
+        {
+            "name": "Pure Crystal Variant",
+            "asset": "/images/marketplace/items/astral/pure_crystal_variant.png"
+        },
+        {
+            "name": "Pure Crystal",
+            "asset": "/images/marketplace/items/astral/pure_crystal.png"
+        }
+    ]
+}

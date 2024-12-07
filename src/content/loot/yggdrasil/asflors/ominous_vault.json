@@ -1,0 +1,16 @@
+{
+    "items": [
+        {
+            "id": "minecraft:enchanted_book",
+            "description": "Tears of Asflors"
+        },
+        {
+            "id": "minecraft:diamond_sword",
+            "description": "Authentic Asflors Sword"
+        },
+        {
+            "id": "minecraft:written_book",
+            "description": "Secret Journal - Chapter 9"
+        }
+    ]
+}

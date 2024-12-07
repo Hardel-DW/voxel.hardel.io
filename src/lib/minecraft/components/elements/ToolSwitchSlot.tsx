@@ -1,9 +1,9 @@
+import TranslateText, { type TranslateTextType } from "@/lib/minecraft/components/elements/text/TranslateText.tsx";
 import { Identifier } from "@/lib/minecraft/core/Identifier.ts";
 import type { ValueParams } from "@/lib/minecraft/core/engine/value";
 import { cn, quoteString } from "@/lib/utils.ts";
 import type { Action } from "src/lib/minecraft/core/engine/actions";
 import type { Condition } from "src/lib/minecraft/core/engine/condition";
-import TranslateText, { type TranslateTextType } from "@/lib/minecraft/components/elements/text/TranslateText.tsx";
 
 export type ToolSwitchSlotType = {
     type: "SwitchSlot";
@@ -36,12 +36,11 @@ export default function ToolSwitchSlot(props: {
                 { "opacity-50 ring-1 ring-rose-950": !!props.lock }
             )}
             onClick={handleChange}
-            onKeyDown={handleChange}
-        >
+            onKeyDown={handleChange}>
             <div className="flex items-center justify-between w-full">
                 <div className="flex items-center gap-4">
                     {props.image && (
-                        <div className="flex-shrink-0">
+                        <div className="shrink-0">
                             <img src={props.image} alt="" className="w-8 h-8 object-contain pixelated" />
                         </div>
                     )}

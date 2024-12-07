@@ -1,0 +1,46 @@
+---
+import { cn } from "@/lib/utils";
+import type { HTMLAttributes } from "astro/types";
+
+const variants = {
+    heading: {
+        default: "text-zinc-200 text-base",
+        large: "text-zinc-200 text-lg font-semibold",
+        primary: "text-pink-500 text-base font-medium",
+        accent: "text-zinc-100 text-base font-medium border-l-2 border-pink-500 pl-2",
+        minimal: "text-zinc-400 text-sm"
+    },
+    defaultVariant: {
+        heading: "default"
+    }
+} as const;
+
+export interface Props extends HTMLAttributes<"details"> {
+    heading: string;
+    variant?: keyof typeof variants.heading;
+}
+
+const { heading, variant = variants.defaultVariant.heading, ...rest } = Astro.props;
+---
+ 
+<div class="py-5">
+    <details class="group relative" {...rest}>
+        <summary
+            class="flex justify-between items-center gap-x-10 font-medium cursor-pointer list-none group-open:before:absolute group-open:before:inset-0 group-open:before:cursor-pointer"
+        >
+            <span class={cn([
+                "select-none",
+                variants.heading[variant]
+            ])}>{heading}</span> 
+            <span class="transition group-open:rotate-180 shrink-0">
+                <img 
+                    loading="eager" 
+                    src="/icons/chevron-down.svg" 
+                    alt="arrow"
+                    class="size-6 invert select-none"
+                />
+            </span>
+        </summary>
+        <slot />
+    </details>
+</div> 

@@ -21,7 +21,7 @@ export default function Studio() {
     const updateCanvasPosition = useCallback(() => {
         if (canvasRef.current) {
             canvasRef.current.style.backgroundPosition = `${positionRef.current.x}px ${positionRef.current.y}px`;
-            const innerDiv = canvasRef.current.querySelector('div');
+            const innerDiv = canvasRef.current.querySelector("div");
             if (innerDiv) {
                 innerDiv.style.transform = `translate(${positionRef.current.x}px, ${positionRef.current.y}px) scale(${zoom})`;
             }
@@ -144,15 +144,13 @@ export default function Studio() {
                 }
                 onMouseDown={handleMouseDown}
                 onMouseUp={handleMouseUp}
-                onWheel={handleWheel}
-            >
+                onWheel={handleWheel}>
                 <div
                     style={{
                         position: "absolute",
                         transform: `translate(${positionRef.current.x}px, ${positionRef.current.y}px) scale(${zoom})`,
                         transformOrigin: "top left"
-                    }}
-                >
+                    }}>
                     <BlueprintsManager zoom={zoom} setDraggingObjectId={setDraggingObjectId} setObjectOffset={setObjectOffset} />
                     <LinkManager />
                     <TemporaryLinkManager />

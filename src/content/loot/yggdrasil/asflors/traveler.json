@@ -1,0 +1,16 @@
+{
+    "items": [
+        {
+            "id": "minecraft:written_book",
+            "description": "Timeless Journal"
+        },
+        {
+            "id": "minecraft:amethyst_shard",
+            "description": "Rune of Rupture"
+        },
+        {
+            "id": "minecraft:map",
+            "description": "Map of Runic Fracture"
+        }
+    ]
+}

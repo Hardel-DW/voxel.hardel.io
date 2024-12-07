@@ -1,5 +1,5 @@
-import Button from "@/components/ui/react/Button.tsx";
 import TriangleWave from "@/components/ui/pattern/TriangleWave.tsx";
+import Button from "@/components/ui/react/Button.tsx";
 import TranslateText, { type TranslateTextType } from "@/lib/minecraft/components/elements/text/TranslateText.tsx";
 
 export type ToolDonationType = {
@@ -21,8 +21,8 @@ export default function Donation(props: {
             <div className="opacity-10">
                 <TriangleWave />
             </div>
-            <div className="absolute top-0 left-0 size-96 bg-gradient-to-b from-pink-950/10 to-pink-950 blur-[20rem] rounded-2xl" />
-            <div className="absolute top-0 right-0 size-72 bg-gradient-to-b from-blue-950/10 to-blue-950 blur-[20rem] rounded-2xl" />
+            <div className="absolute top-0 left-0 size-96 bg-linear-to-b from-pink-950/10 to-pink-950 blur-[20rem] rounded-2xl" />
+            <div className="absolute top-0 right-0 size-72 bg-linear-to-b from-blue-950/10 to-blue-950 blur-[20rem] rounded-2xl" />
             <img className="absolute -top-24 -right-24 size-96 opacity-20" src="/favicon.svg" alt="Voxel Labs" />
 
             <div className="flex flex-col justify-between h-full p-8">

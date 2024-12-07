@@ -1,5 +1,5 @@
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/shadcn/popover.tsx";
 import Button from "@/components/ui/react/Button.tsx";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/shadcn/popover.tsx";
 import { useConfigurator } from "../ConfiguratorContext";
 
 export default function SettingsButton() {

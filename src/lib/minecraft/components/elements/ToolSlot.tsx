@@ -1,10 +1,10 @@
 import { useTranslate } from "@/components/TranslateContext.tsx";
+import TranslateText, { getKey, type TranslateTextType } from "@/lib/minecraft/components/elements/text/TranslateText.tsx";
 import { Identifier } from "@/lib/minecraft/core/Identifier.ts";
-import type { ValueParams } from "@/lib/minecraft/core/engine/value";
-import { cn, quoteString } from "@/lib/utils.ts";
 import type { Action } from "@/lib/minecraft/core/engine/actions";
 import type { Condition } from "@/lib/minecraft/core/engine/condition";
-import TranslateText, { getKey, type TranslateTextType } from "@/lib/minecraft/components/elements/text/TranslateText.tsx";
+import type { ValueParams } from "@/lib/minecraft/core/engine/value";
+import { cn, quoteString } from "@/lib/utils.ts";
 
 export type ToolSlotType = {
     type: "Slot";
@@ -42,8 +42,7 @@ export default function ToolSlot(props: {
                 { "opacity-50 ring-1 ring-rose-950": !!props.lock }
             )}
             onClick={() => handleChange(!props.checked)}
-            onKeyDown={() => handleChange(!props.checked)}
-        >
+            onKeyDown={() => handleChange(!props.checked)}>
             {(props.checked || !!props.lock) && (
                 <div className="absolute p-4 top-0 right-0">
                     <img src="/icons/check.svg" alt="checkbox" className="w-6 h-6 invert" />

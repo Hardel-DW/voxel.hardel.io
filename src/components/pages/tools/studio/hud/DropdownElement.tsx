@@ -25,8 +25,7 @@ export default function DropdownElement({ icons, dropdownId, ...props }: Dropdow
         <div
             {...props}
             onClick={handleClick}
-            className="px-4 py-2 flex items-center gap-2 cursor-pointer rounded-xl font-semibold text-sm text-zinc-400 hover:bg-zinc-800 hover:text-white transition duration-200"
-        >
+            className="px-4 py-2 flex items-center gap-2 cursor-pointer rounded-xl font-semibold text-sm text-zinc-400 hover:bg-zinc-800 hover:text-white transition duration-200">
             {icons && <img src={icons} alt="icon" className="invert size-4" />}
             <span className="flex-1">{props.children}</span>
             {dropdownId && <img src="/icons/chevron-right.svg" alt="expand" className="invert size-4 ml-4" />}

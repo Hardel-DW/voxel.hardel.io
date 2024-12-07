@@ -33,13 +33,11 @@ export default function ConnectorField(props: {
             className={cn("flex items-center gap-2", {
                 "justify-start": props.field.type === "input",
                 "justify-end flex-row-reverse": props.field.type === "output"
-            })}
-        >
+            })}>
             <div
                 className="w-3 h-3 select-none rounded-full cursor-pointer"
                 onMouseDown={(e) => handleConnectorMouseDown(e, props.field.id)}
-                onMouseUp={() => handleConnectorMouseUp(props.field.id)}
-            >
+                onMouseUp={() => handleConnectorMouseUp(props.field.id)}>
                 <img draggable="false" src="/icons/tools/studio/connector.svg" alt="connector" />
             </div>
             <span>{props.field.name}</span>

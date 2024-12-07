@@ -49,8 +49,7 @@ export function Select({ id, options, defaultOption, onChange, value }: SelectPr
             <div
                 className="w-full mt-4 border px-4 py-2 inline-flex items-center justify-between text-sm font-normal border-zinc-700 hover:border-zinc-600 text-zinc-400 hover:text-zinc-200 whitespace-nowrap transition-colors rounded-[0.5rem]"
                 onClick={toggleDropdown}
-                onKeyDown={toggleDropdown}
-            >
+                onKeyDown={toggleDropdown}>
                 <span>{selectedOption || "Select an option"}</span>
                 <img
                     src="/icons/chevron-down.svg"
@@ -62,15 +61,13 @@ export function Select({ id, options, defaultOption, onChange, value }: SelectPr
             {isOpen && (
                 <div
                     id={`${id}-content`}
-                    className="space-y-2 p-2 mt-2 absolute w-full z-10 border border-zinc-700 hover:border-zinc-600 backdrop-blur-2xl bg-black/50 rounded-[0.5rem] shadow-lg"
-                >
+                    className="space-y-2 p-2 mt-2 absolute w-full z-10 border border-zinc-700 hover:border-zinc-600 backdrop-blur-2xl bg-black/50 rounded-[0.5rem] shadow-lg">
                     {options.map((option) => (
                         <div
                             key={option}
-                            className="block rounded px-4 py-2 text-zinc-200 hover:bg-white/5"
+                            className="block rounded-xs px-4 py-2 text-zinc-200 hover:bg-white/5"
                             onClick={() => handleSelect(option)}
-                            onKeyDown={() => handleSelect(option)}
-                        >
+                            onKeyDown={() => handleSelect(option)}>
                             {option}
                         </div>
                     ))}

@@ -1,0 +1,59 @@
+{
+    "items": [
+        {
+            "id": "minecraft:arrow",
+            "count": {
+                "min": 5,
+                "max": 12
+            }
+        },
+        {
+            "id": "minecraft:tipped_arrow",
+            "description": "healing",
+            "count": {
+                "min": 1,
+                "max": 5
+            }
+        },
+        {
+            "id": "minecraft:tipped_arrow",
+            "description": "fire_resistance",
+            "count": {
+                "min": 1,
+                "max": 5
+            }
+        },
+        {
+            "id": "minecraft:tipped_arrow",
+            "description": "long_poison",
+            "count": {
+                "min": 1,
+                "max": 5
+            }
+        },
+        {
+            "id": "minecraft:tipped_arrow",
+            "description": "invisibility",
+            "count": {
+                "min": 1,
+                "max": 2
+            }
+        },
+        {
+            "id": "minecraft:tipped_arrow",
+            "description": "weakness",
+            "count": {
+                "min": 1,
+                "max": 4
+            }
+        },
+        {
+            "id": "minecraft:tipped_arrow",
+            "description": "strong_harming",
+            "count": {
+                "min": 1,
+                "max": 5
+            }
+        }
+    ]
+}

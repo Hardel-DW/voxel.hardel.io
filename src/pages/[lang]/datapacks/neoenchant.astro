@@ -68,6 +68,23 @@ const sections: SectionViewer[] = [
                 video: "/videos/datapacks/neoenchant/storm_arrow.webm",
                 level: 2,
                 addons: true
+            },
+            {
+                id: "eternal_frost",
+                name: translate["datapacks.neoenchant.enchant.eternal_frost.title"],
+                description: translate["datapacks.neoenchant.enchant.eternal_frost.description"],
+                image: "/images/features/item/range.webp",
+                video: "/videos/datapacks/neoenchant/eternal_frost.webm",
+                level: 2,
+                addons: true
+            },
+            {
+                id: "rebound",
+                name: translate["datapacks.neoenchant.enchant.rebound.title"],
+                description: translate["datapacks.neoenchant.enchant.rebound.description"],
+                image: "/images/features/item/range.webp",
+                video: "/videos/datapacks/neoenchant/rebound.webm",
+                level: 3
             }
         ]
     },
@@ -76,6 +93,42 @@ const sections: SectionViewer[] = [
         image: "/images/features/item/sword.webp",
         short: translate["datapacks.neoenchant.type.weapon.short"],
         enchants: [
+            {
+                id: "gungnir",
+                name: translate["datapacks.neoenchant.enchant.gugnir.title"],
+                description: translate["datapacks.neoenchant.enchant.gugnir.description"],
+                image: "/images/features/item/trident.webp",
+                video: "/videos/datapacks/neoenchant/gugnir.webm",
+                level: 1,
+                addons: true
+            },
+            {
+                id: "striker",
+                name: translate["datapacks.neoenchant.enchant.striker.title"],
+                description: translate["datapacks.neoenchant.enchant.striker.description"],
+                image: "/images/features/item/mace.webp",
+                video: "/videos/datapacks/neoenchant/striker.webm",
+                level: 2,
+                addons: true
+            },
+            {
+                id: "wind_propulsion",
+                name: translate["datapacks.neoenchant.enchant.wind_propulsion.title"],
+                description: translate["datapacks.neoenchant.enchant.wind_propulsion.description"],
+                image: "/images/features/item/mace.webp",
+                video: "/videos/datapacks/neoenchant/wind_propulsion.webm",
+                level: 3,
+                addons: true
+            },
+            {
+                id: "teluric",
+                name: translate["datapacks.neoenchant.enchant.teluric.title"],
+                description: translate["datapacks.neoenchant.enchant.teluric.description"],
+                image: "/images/features/item/mace.webp",
+                video: "/videos/datapacks/neoenchant/teluric_wave.webm",
+                level: 1,
+                addons: true
+            },
             {
                 id: "fear",
                 name: translate["datapacks.neoenchant.enchant.fear.title"],
@@ -126,21 +179,21 @@ const sections: SectionViewer[] = [
                 level: 3
             },
             {
-                id: "striker",
-                name: translate["datapacks.neoenchant.enchant.striker.title"],
-                description: translate["datapacks.neoenchant.enchant.striker.description"],
-                image: "/images/features/item/mace.webp",
-                video: "/videos/datapacks/neoenchant/striker.webm",
-                level: 2,
+                id: "tears_of_asflors",
+                name: translate["datapacks.neoenchant.enchant.tears_of_asflors.title"],
+                description: translate["datapacks.neoenchant.enchant.tears_of_asflors.description"],
+                image: "/images/features/item/sword.webp",
+                video: "/videos/datapacks/neoenchant/tears_of_asflors.webm",
+                level: 3,
                 addons: true
             },
             {
-                id: "wind_propulsion",
-                name: translate["datapacks.neoenchant.enchant.wind_propulsion.title"],
-                description: translate["datapacks.neoenchant.enchant.wind_propulsion.description"],
-                image: "/images/features/item/mace.webp",
-                video: "/videos/datapacks/neoenchant/wind_propulsion.webm",
-                level: 3,
+                id: "last_hope",
+                name: translate["datapacks.neoenchant.enchant.last_hope.title"],
+                description: translate["datapacks.neoenchant.enchant.last_hope.description"],
+                image: "/images/features/item/sword.webp",
+                video: "/videos/datapacks/neoenchant/last_hope.webm",
+                level: 1,
                 addons: true
             }
         ]
@@ -222,6 +275,24 @@ const sections: SectionViewer[] = [
                 image: "/images/features/item/armor.webp",
                 video: "/videos/datapacks/neoenchant/lifeplus.webm",
                 level: 5
+            },
+            {
+                id: "curse_of_breaking",
+                name: translate["datapacks.neoenchant.enchant.curse_of_breaking.title"],
+                description: translate["datapacks.neoenchant.enchant.curse_of_breaking.description"],
+                image: "/images/features/item/armor.webp",
+                video: "/videos/datapacks/neoenchant/curse_of_breaking.webm",
+                level: 5,
+                addons: true
+            },
+            {
+                id: "curse_of_enchant",
+                name: translate["datapacks.neoenchant.enchant.curse_of_enchant.title"],
+                description: translate["datapacks.neoenchant.enchant.curse_of_enchant.description"],
+                image: "/images/features/item/armor.webp",
+                video: "/videos/datapacks/neoenchant/curse_of_enchant.webm",
+                level: 5,
+                addons: true
             },
             {
                 id: "venom_protection",
@@ -330,7 +401,7 @@ const sections: SectionViewer[] = [
                 description: translate["datapacks.neoenchant.enchant.sky_walk.description"],
                 image: "/images/features/item/boots.webp",
                 video: "/videos/datapacks/neoenchant/sky_walk.webm",
-                level: 1
+                level: 3
             },
             {
                 id: "step_assist",
@@ -408,7 +479,7 @@ const sections: SectionViewer[] = [
     </section>
 
     <section class="w-3/4 mx-auto relative grid md:grid-cols-2 items-center gap-x-8 gap-y-24 my-40">
-        <div class="absolute w-full inset-0 shadow-2xl bg-gradient-to-r from-[#401727] to-[#311e7696] opacity-20 rounded-full blur-[10rem]"/>
+        <div class="absolute w-full inset-0 shadow-2xl bg-linear-to-r from-[#401727] to-[#311e7696] opacity-20 rounded-full blur-[10rem]"/>
         <DashedPattern class="[mask-image:radial-gradient(white,transparent_60%)]"/>
 
         <div class="h-full w-full mx-auto relative">
@@ -434,9 +505,9 @@ const sections: SectionViewer[] = [
             </div>
         </div>
         <div class="relative w-full flex justify-center items-center">
-            <img class="absolute opacity-10 drag-none" src="/icons/circle.svg" alt="box"/>
+            <img class="absolute opacity-10 select-none" src="/icons/circle.svg" alt="box"/>
             <Image loading="eager" width="1200" height="900" src="/images/background/tools/enchant-hero.webp" alt="404"
-                   class="aspect-auto drag-none"
+                   class="aspect-auto select-none"
             />
         </div>
     </section>

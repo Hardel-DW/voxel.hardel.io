@@ -9,8 +9,7 @@ const NavigationMenu = React.forwardRef<
     <NavigationMenuPrimitive.Root
         ref={ref}
         className={cn("relative z-10 flex max-w-max flex-1 items-center justify-center", className)}
-        {...props}
-    >
+        {...props}>
         {children}
         <NavigationMenuViewport />
     </NavigationMenuPrimitive.Root>
@@ -40,11 +39,10 @@ const NavigationMenuTrigger = React.forwardRef<
     <NavigationMenuPrimitive.Trigger
         ref={ref}
         className={cn(
-            "group px-4 py-2 text-[16px] tracking-wide transition rounded-2xl text-zinc-400 hover:text-white inline-flex h-10 w-max items-center justify-center bg-transparent hover:bg-zinc-900 focus:bg-zinc-700 focus:text-white focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-zinc-800/50 data-[state=open]:bg-zinc-800/50",
+            "group px-4 py-2 text-[16px] tracking-wide transition rounded-2xl text-zinc-400 hover:text-white inline-flex h-10 w-max items-center justify-center bg-transparent hover:bg-zinc-900 focus:bg-zinc-700 focus:text-white focus:outline-hidden disabled:pointer-events-none disabled:opacity-50 data-active:bg-zinc-800/50 data-[state=open]:bg-zinc-800/50",
             className
         )}
-        {...props}
-    >
+        {...props}>
         {children}{" "}
         <img
             src="/icons/chevron-down.svg"
@@ -95,31 +93,34 @@ const NavigationMenuIndicator = React.forwardRef<
     <NavigationMenuPrimitive.Indicator
         ref={ref}
         className={cn(
-            "top-full z-[1] flex h-1.5 items-end justify-center overflow-hidden data-[state=visible]:animate-in data-[state=hidden]:animate-out data-[state=hidden]:fade-out data-[state=visible]:fade-in",
+            "top-full z-1 flex h-1.5 items-end justify-center overflow-hidden data-[state=visible]:animate-in data-[state=hidden]:animate-out data-[state=hidden]:fade-out data-[state=visible]:fade-in",
             className
         )}
-        {...props}
-    >
+        {...props}>
         <div className="relative top-[60%] h-2 w-2 rotate-45 rounded-tl-sm bg-border shadow-md" />
     </NavigationMenuPrimitive.Indicator>
 ));
 NavigationMenuIndicator.displayName = NavigationMenuPrimitive.Indicator.displayName;
 
-const ListItem = React.forwardRef<React.ElementRef<"a">, React.ComponentPropsWithoutRef<"a">>(
-    ({ className, title, children, ...props }, ref) => {
+const ListItem = React.forwardRef<React.ElementRef<"a">, React.ComponentPropsWithoutRef<"a"> & { image?: string }>(
+    ({ className, image, title, children, ...props }, ref) => {
         return (
             <li>
                 <NavigationMenuLink asChild>
                     <a
                         ref={ref}
                         className={cn(
-                            "block select-none space-y-1 rounded-3xl px-6 py-4 leading-none no-underline outline-none transition-colors hover:bg-zinc-900 hover:text-white focus:bg-zinc-900 focus:text-white",
+                            "block select-none space-y-1 rounded-3xl px-6 py-4 leading-none no-underline outline-hidden transition-colors hover:bg-zinc-900 hover:text-white focus:bg-zinc-900 focus:text-white",
                             className
                         )}
-                        {...props}
-                    >
-                        <div className="text-sm font-medium leading-none">{title}</div>
-                        <p className="line-clamp-2 text-sm leading-snug text-zinc-400">{children}</p>
+                        {...props}>
+                        <div className="flex justify-between items-center gap-x-8">
+                            <div>
+                                <div className="text-sm font-medium leading-none">{title}</div>
+                                <p className="line-clamp-2 mt-1 text-xs leading-snug text-zinc-400">{children}</p>
+                            </div>
+                            {image && <img src={image} alt="Logo" className="w-12" />}
+                        </div>
                     </a>
                 </NavigationMenuLink>
             </li>
@@ -130,7 +131,9 @@ ListItem.displayName = "ListItem";
 
 export const HeroItem = (props: { image: string } & React.ComponentPropsWithoutRef<"a">) => {
     return (
-        <a className="h-40 group/picture relative cursor-pointer flex flex-col justify-end select-none gap-1 p-3" {...props}>
+        <a
+            {...props}
+            className={cn("h-40 group/picture relative cursor-pointer flex flex-col justify-end select-none gap-1 p-3", props.className)}>
             <div className="text-xl font-medium text-white leading-none relative z-10">{props.title}</div>
             <p className="line-clamp-2 text-sm leading-snug text-zinc-400">{props.children}</p>
 

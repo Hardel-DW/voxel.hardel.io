@@ -1,0 +1,98 @@
+{
+    "name": "Resource and Materials",
+    "description": "Collection of various resources and materials",
+    "items": [
+        {
+            "name": "Three Spring Leaf",
+            "asset": "/images/marketplace/items/ressource/leaf/three_spring_leaf.png"
+        },
+        {
+            "name": "Three Spring Leaf Darker",
+            "asset": "/images/marketplace/items/ressource/leaf/three_spring_leaf_variant_darker.png"
+        },
+        {
+            "name": "Simple Spring Leaf",
+            "asset": "/images/marketplace/items/ressource/leaf/simple_spring_leaf.png"
+        },
+        {
+            "name": "Autumn Leaf",
+            "asset": "/images/marketplace/items/ressource/leaf/autnom_leaf.png"
+        },
+        {
+            "name": "Sandwich",
+            "asset": "/images/marketplace/items/ressource/sandwich.png"
+        },
+        {
+            "name": "Gold Coin",
+            "asset": "/images/marketplace/items/ressource/gold_coin.png"
+        },
+        {
+            "name": "Lapis Powder",
+            "asset": "/images/marketplace/items/ressource/lapis_powder.png"
+        },
+        {
+            "name": "Mythril",
+            "asset": "/images/marketplace/items/ressource/myhtril.png"
+        },
+        {
+            "name": "White Quartz",
+            "asset": "/images/marketplace/items/ressource/white_quartz.png"
+        },
+        {
+            "name": "Sapphire",
+            "asset": "/images/marketplace/items/ressource/sapphir.png"
+        },
+        {
+            "name": "Copper Pebbles",
+            "asset": "/images/marketplace/items/ressource/copper_pebbles.png"
+        },
+        {
+            "name": "Pebbles",
+            "asset": "/images/marketplace/items/ressource/pebbles.png"
+        },
+        {
+            "name": "Fragment",
+            "asset": "/images/marketplace/items/ressource/fragment.png"
+        },
+        {
+            "name": "Gold Fish",
+            "asset": "/images/marketplace/items/ressource/gold_fish.png"
+        },
+        {
+            "name": "Raw Quartz",
+            "asset": "/images/marketplace/items/ressource/raw_quartz.png"
+        },
+        {
+            "name": "Clover",
+            "asset": "/images/marketplace/items/ressource/clover.png"
+        },
+        {
+            "name": "Floral Egg",
+            "asset": "/images/marketplace/items/ressource/floral_egg.png"
+        },
+        {
+            "name": "Rainbow Candy",
+            "asset": "/images/marketplace/items/ressource/rainbow_candy.png"
+        },
+        {
+            "name": "Redstone Ingot",
+            "asset": "/images/marketplace/items/ressource/redstone_ingot.png"
+        },
+        {
+            "name": "Diamond Ingot",
+            "asset": "/images/marketplace/items/ressource/diamond_ingot.png"
+        },
+        {
+            "name": "Turquoise Ingot",
+            "asset": "/images/marketplace/items/ressource/turquoise_ingot.png"
+        },
+        {
+            "name": "Manganese Ingot",
+            "asset": "/images/marketplace/items/ressource/manganese_ingot.png"
+        },
+        {
+            "name": "Tungsten Ingot",
+            "asset": "/images/marketplace/items/ressource/tungsten_ingot.png"
+        }
+    ]
+}

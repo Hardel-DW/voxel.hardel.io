@@ -1,0 +1,188 @@
+---
+import {getCollection, render} from "astro:content";
+import CompoundLayout from "@/components/layouts/CompoundLayout.astro";
+import Button from "@/components/ui/button.astro";
+import {getTranslations} from "@/lib/i18n";
+import ShiningStars from "@/components/ui/pattern/ShiningStars.astro";
+import Star from "@/components/ui/star.astro";
+import TriangleWave from "@/components/ui/pattern/TriangleWave";
+import MarketplaceCard from "@/components/pages/resource/MarketplaceCard.astro";
+
+export const prerender = true;
+const {lang} = await getTranslations(Astro.url);
+export async function getStaticPaths() {
+    const marketplacePacks = await getCollection("marketplace_pack");
+    const marketplacePreviews = await getCollection("marketplace_preview");
+
+    return marketplacePreviews.map((preview) => {
+        const [language, id] = preview.id.split("/");
+
+        const pack = marketplacePacks.find((pack) => pack.id === id);
+        const recommended = marketplacePacks.filter((p) => p.id !== id).slice(0, 2);
+
+        return {
+            params: {
+                lang: language,
+                id: id
+            },
+            props: {
+                preview,
+                pack,
+                recommended
+            }
+        };
+    });
+}
+
+const {preview, pack, recommended} = Astro.props;
+const {Content} = await render(preview);
+
+// Get price from card if available
+const paymentUrl = pack?.data.payment?.url;
+---
+
+<CompoundLayout
+        title={preview.data.name}
+        description={preview.data.description}
+        openGraph={{
+            title: preview.data.name,
+            description: preview.data.description,
+            image: preview.data.asset
+        }}
+>
+    <div class="fixed inset-0 -z-10">
+        <div class="absolute rounded-full w-3/4 h-1/2 bg-linear-to-r from-[#401727] to-[#311e7696] opacity-20 blur-[10rem] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"/>
+        <ShiningStars/>
+    </div>
+
+    <main class="mt-32 mb-20 relative w-full">
+        <div class="absolute inset-0 -z-10 bg-cover bg-center bg-no-repeat opacity-10 blur-3xl"
+             style={`background-image: url('/images/marketplace/${preview.data.asset}')`}/>
+
+        <div class="px-4">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 w-5/6 mx-auto justify-items-end relative">
+                <!-- Product Image -->
+                <div class="space-y-8">
+                    <div class="h-fit w-fit px-8 relative before:absolute before:inset-4 before:-z-10 before:rounded-3xl before:blur-3xl before:bg-[image:var(--hover-image)] before:opacity-50"
+                         style={`--hover-image: url('/images/marketplace/${preview.data.asset}')`}
+                    >
+                        <img src={`/images/marketplace/${preview.data.asset}`}
+                             alt={preview.data.name}
+                             class="w-full h-fit rounded-3xl relative opacity-90"
+                             loading="eager"
+                        />
+                    </div>
+
+                    <Star/>
+
+                    <div class="grid w-full px-8">
+                        <Button
+                                href="/marketplace"
+                                variant="ghost"
+                        >
+                            Revenir a la marketplace
+                        </Button>
+                    </div>
+                </div>
+
+                <!-- Product Info -->
+                <div class="prose prose-invert">
+                    <Content/>
+                </div>
+            </div>
+
+            <div id="bottom-bar"
+                 class="z-50 bottom-8 bg-black/50 backdrop-blur-sm border-t container mx-auto border-t-zinc-800 rounded-3xl overflow-hidden transition-transform duration-300"
+                 style="position: fixed; inset-inline: 32px; width: 100%;"
+            >
+                <div class="opacity-50">
+                    <TriangleWave client:load/>
+                </div>
+
+                <div class="mx-auto py-6 px-12 z-100 relative">
+                    <div class="flex justify-between items-center gap-4">
+                        <div class="flex flex-col gap-1">
+                            <div class="flex items-center gap-4">
+                                <h1 class="text-2xl font-bold tracking-tight">{preview.data.name}</h1>
+                                <span class="text-zinc-400 text-sm">{new Intl.NumberFormat(lang, {
+                                    style: 'currency',
+                                    currency: 'EUR'
+                                }).format(Number(pack?.data.price))}</span>
+                            </div>
+                            <p class="text-zinc-400 text-sm">
+                                {preview.data.description}
+                            </p>
+                        </div>
+
+                        <div class="flex flex-col gap-1">
+                            {paymentUrl && (
+                                    <Button
+                                            href={paymentUrl}
+                                            size="md"
+                                            variant="white-shimmer"
+                                            class="w-full md:w-auto"
+                                    >
+                                        Acheter - {preview.data.name}
+                                    </Button>
+                            )}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="slow-scroll-target" class="mb-8"/>
+
+            <div class="mb-8 container mx-auto mt-40">
+                <div class="pb-8">
+                    <h1 class="text-2xl font-bold tracking-tight">
+                        Recommandé pour vous
+                    </h1>
+                    <Star/>
+                </div>
+
+                <div class="grid grid-cols-4 gap-4 *:opacity-50 *:hover:opacity-100">
+                    {recommended.map((pack) =>
+                            <MarketplaceCard schema={pack} class="col-span-2"/>)}
+                </div>
+            </>
+        </div>
+    </main>
+
+</CompoundLayout>
+
+<script>
+    const bottomBar = document.getElementById('bottom-bar');
+    const slowScrollTarget = document.getElementById('slow-scroll-target');
+
+    if (bottomBar && slowScrollTarget) {
+        let isTransitioning = false;
+
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                if (isTransitioning) return;
+
+                isTransitioning = true;
+
+                if (!entry.isIntersecting) {
+                    bottomBar.style.position = 'fixed';
+                    bottomBar.style.transform = 'translateY(0)';
+                    bottomBar.style.insetInline = '32px';
+                } else {
+                    bottomBar.style.position = 'relative';
+                    bottomBar.style.transform = 'translateY(100%)';
+                    bottomBar.style.insetInline = '0';
+                }
+
+                // Attendre que la transition soit terminée avant de permettre un autre changement
+                setTimeout(() => {
+                    isTransitioning = false;
+                }, 300); // Correspond à la durée de transition CSS (duration-300)
+            },
+            {
+                threshold: 0.5,
+                rootMargin: '-50px'
+            }
+        );
+
+        observer.observe(slowScrollTarget);
+    }
+</script>

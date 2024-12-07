@@ -1,0 +1,11 @@
+{
+    "name": "Frozen Pack",
+    "price": 3.99,
+    "type": "landscape",
+    "asset": "card/frozen.webp",
+    "title": "title/frozen.webp",
+    "preview": "feature/frozen.webp",
+    "payment": {
+        "url": "https://voxel.lemonsqueezy.com/buy/fb964120-c8b0-4512-8e78-0c180c04b5fc"
+    }
+}

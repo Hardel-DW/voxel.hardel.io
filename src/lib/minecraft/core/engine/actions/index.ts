@@ -6,6 +6,7 @@ import { type DynamicAction, DynamicModifier } from "@/lib/minecraft/core/engine
 import ListModifier, { type ListAction } from "@/lib/minecraft/core/engine/actions/ListModifier.ts";
 import MultipleModifier, { type MultipleAction } from "@/lib/minecraft/core/engine/actions/MultipleModifier.ts";
 import { type RemoveKeyAction, RemoveKeyModifier } from "@/lib/minecraft/core/engine/actions/RemoveKeyModifier.ts";
+import SequentialModifier, { type SequentialAction } from "@/lib/minecraft/core/engine/actions/SequentialModifier.ts";
 import {
     type BooleanAction,
     type NumberAction,
@@ -15,7 +16,6 @@ import {
 import { type SlotAction, SlotModifier } from "@/lib/minecraft/core/engine/actions/SlotModifier.ts";
 import { type UndefinedAction, UndefinedModifier } from "@/lib/minecraft/core/engine/actions/UndefinedModifier.ts";
 import type { RegistryElement } from "@/lib/minecraft/mczip.ts";
-import SequentialModifier, { type SequentialAction } from "@/lib/minecraft/core/engine/actions/SequentialModifier.ts";
 
 export type Action =
     | RemoveKeyAction

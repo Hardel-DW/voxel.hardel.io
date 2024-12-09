@@ -1,4 +1,4 @@
-import type { ToolRevealElementType } from "@/lib/minecraft/components/elements/reveal/ToolRevealElementType.tsx";
+import type { ToolRevealElementType } from "@/components/tools/elements/reveal/ToolRevealElementType.tsx";
 
 export const dungeon: ToolRevealElementType = {
     id: "enchant.addons.dnt",

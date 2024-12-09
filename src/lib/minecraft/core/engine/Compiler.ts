@@ -1,4 +1,4 @@
-import type { ConfiguratorContextType } from "@/lib/minecraft/components/ConfiguratorContext.tsx";
+import type { ConfiguratorContextType } from "@/components/tools/ConfiguratorContext.tsx";
 import { Identifier, type IdentifierOneToMany } from "@/lib/minecraft/core/Identifier.ts";
 import { compileTags } from "@/lib/minecraft/core/Tag.ts";
 import {

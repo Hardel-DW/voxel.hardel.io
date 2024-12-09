@@ -1,4 +1,4 @@
-import type { ConfiguratorContextType } from "@/lib/minecraft/components/ConfiguratorContext.tsx";
+import type { ConfiguratorContextType } from "@/components/tools/ConfiguratorContext.tsx";
 import type { Analysers, GetAnalyserVoxel } from "@/lib/minecraft/core/engine/Analyser.ts";
 import { getManager } from "@/lib/minecraft/core/engine/Manager.ts";
 import { type Field, getField } from "@/lib/minecraft/core/engine/field";

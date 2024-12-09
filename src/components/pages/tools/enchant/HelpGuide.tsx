@@ -1,7 +1,7 @@
 import { useTranslate } from "@/components/TranslateContext.tsx";
+import { useConfigurator } from "@/components/tools/ConfiguratorContext.tsx";
+import DatapackUploader from "@/components/tools/DatapackUploader.tsx";
 import type { FaqType } from "@/content/config.ts";
-import { useConfigurator } from "@/lib/minecraft/components/ConfiguratorContext.tsx";
-import DatapackUploader from "@/lib/minecraft/components/DatapackUploader.tsx";
 import type React from "react";
 
 export default function HelpGuide(props: {

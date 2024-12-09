@@ -1,4 +1,4 @@
-import type { ConfiguratorContextType } from "@/lib/minecraft/components/ConfiguratorContext.tsx";
+import type { ConfiguratorContextType } from "@/components/tools/ConfiguratorContext.tsx";
 import type { Analysers, GetAnalyserVoxel } from "@/lib/minecraft/core/engine/Analyser.ts";
 import { type ToggleField, getToggleField } from "@/lib/minecraft/core/engine/field/toggle/getToggleField";
 import { type ToggleName, getToggleName } from "@/lib/minecraft/core/engine/field/toggle/getToggleName";

@@ -1,4 +1,4 @@
-import type { ToggleSection } from "@/lib/minecraft/components/elements/ToolSection";
+import type { ToggleSection } from "@/components/tools/elements/ToolSection";
 import type { InterfaceConfiguration } from "@/lib/minecraft/core/engine";
 
 export function calculateInitialToggle(interfaces: InterfaceConfiguration[]): Record<string, ToggleSection> {

@@ -1,4 +1,4 @@
-import type { ConfiguratorContextType } from "@/lib/minecraft/components/ConfiguratorContext.tsx";
+import type { ConfiguratorContextType } from "@/components/tools/ConfiguratorContext.tsx";
 import type { Identifier } from "@/lib/minecraft/core/Identifier.ts";
 import type { Analysers, GetAnalyserVoxel } from "@/lib/minecraft/core/engine/Analyser.ts";
 import DynamicListModifier, { type DynamicListAction } from "@/lib/minecraft/core/engine/actions/DynamicListModifier.ts";

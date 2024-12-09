@@ -1,4 +1,4 @@
-import type { ConfiguratorContextType } from "@/lib/minecraft/components/ConfiguratorContext.tsx";
+import type { ConfiguratorContextType } from "@/components/tools/ConfiguratorContext.tsx";
 import type { Analysers, GetAnalyserVoxel } from "@/lib/minecraft/core/engine/Analyser.ts";
 import type { Action, ActionValue } from "@/lib/minecraft/core/engine/actions/index.ts";
 import { updateData } from "@/lib/minecraft/core/engine/actions/index.ts";

@@ -2,7 +2,7 @@ import mdx from "@astrojs/mdx";
 import react from "@astrojs/react";
 import vercel from "@astrojs/vercel";
 import tailwindcss from "@tailwindcss/vite";
-import {defineConfig} from "astro/config";
+import { defineConfig } from "astro/config";
 
 const uris = {
     production: "https://voxel.hardel.io/",
@@ -28,6 +28,9 @@ export default defineConfig({
     },
     vite: {
         plugins: [tailwindcss()],
+        build: {
+            minify: false
+        }
     },
     integrations: [react(), mdx()],
     adapter: vercel({

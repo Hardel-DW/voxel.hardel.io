@@ -13,7 +13,7 @@ export default function DownloadButton<T extends keyof Analysers>() {
 
     const handleCompile = async () => {
         const content = compileDatapack(context);
-        const compiledContent = await generateZip(context.files, content, context.minify);
+        const compiledContent = await generateZip(context.files, content, context.minify, context.logger);
         const fileExtension = context.isJar ? "jar" : "zip";
         const blob = new Blob([compiledContent], {
             type: `application/${fileExtension}`

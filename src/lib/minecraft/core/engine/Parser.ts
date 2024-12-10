@@ -10,8 +10,10 @@ import {
     getAnalyserForVersion
 } from "@/lib/minecraft/core/engine/Analyser.ts";
 import { calculateInitialToggle } from "@/lib/minecraft/core/engine/managers/InitialToggle.ts";
-import { type RegistryElement, getRegistry, parseZip } from "@/lib/minecraft/mczip.ts";
+import { type RegistryElement, getRegistry, parseZip, readDatapackFile } from "@/lib/minecraft/mczip.ts";
 import type { TagType } from "@voxel/definitions";
+import { Logger } from "./migrations/logger";
+import type { Log } from "./migrations/types";
 
 interface PackMcmeta {
     pack: {
@@ -44,6 +46,11 @@ export async function parseDatapack<T extends keyof Analysers>(
     if (!packMcmetaFile) return "tools.enchantments.warning.invalid_datapack";
     const packMcmeta: PackMcmeta = JSON.parse(new TextDecoder().decode(packMcmetaFile));
     const packFormat = packMcmeta.pack.pack_format;
+    const description = packMcmeta.pack.description;
+    const namespaces = Object.keys(files)
+        .filter((path) => path.startsWith("data/"))
+        .map((path) => path.split("/")[1])
+        .filter((namespace, index, self) => namespace && self.indexOf(namespace) === index);
 
     const analyserResult = getAnalyserForVersion(context.tool, packFormat);
     if (!analyserResult) return "tools.enchantments.warning.no_analyser";
@@ -64,7 +71,34 @@ export async function parseDatapack<T extends keyof Analysers>(
     });
 
     if (compiled.length === 0) return "tools.enchantments.warning.no_elements";
-    context.setName(`Modified-${file[0].name.replace(/\.(zip|jar)$/, "")}`);
+    const name = `Modified-${file[0].name.replace(/\.(zip|jar)$/, "")}`;
+
+    // Chercher le fichier de log dans le datapack
+    const logFile = files["voxel/logs.json"];
+    let logger: Logger;
+
+    if (logFile) {
+        try {
+            const existingLog: Log = JSON.parse(new TextDecoder().decode(logFile));
+            logger = new Logger(existingLog.version, existingLog.isModded, existingLog.datapack, existingLog);
+        } catch (e) {
+            logger = new Logger(packFormat, isJar, {
+                name,
+                description,
+                namespaces
+            });
+        }
+    } else {
+        logger = new Logger(packFormat, isJar, {
+            name,
+            description,
+            namespaces
+        });
+    }
+
+    context.setLogger(logger);
+
+    context.setName(name);
     context.setFiles(files);
     context.setElements(compiled);
     context.setVersion(packFormat);
@@ -73,4 +107,32 @@ export async function parseDatapack<T extends keyof Analysers>(
     context.setIsJar(isJar);
     context.setConfiguration(config);
     return null;
+}
+
+/**
+ * Parse un élément spécifique à partir d'un identifiant et du contexte
+ */
+export function parseSpecificElement<T extends keyof Analysers>(
+    identifier: Identifier,
+    context: ConfiguratorContextType<GetAnalyserVoxel<T>>
+): RegistryElement<GetAnalyserVoxel<T>> | undefined {
+    const dataDrivenElement = readDatapackFile<GetAnalyserMinecraft<T>>(context.files, identifier);
+
+    if (!dataDrivenElement || !context.version) return undefined;
+    const analyserResult = getAnalyserForVersion(context.tool, context.version);
+    if (!analyserResult?.analyser) return undefined;
+
+    const tagsRegistry = analyserResult.config.parser.registries.tags
+        ? parseDatapackElement<TagType>(context.files, analyserResult.config.parser.registries.tags)
+        : [];
+
+    const tags = tagsRegistry.filter((tag) => isPresentInTag(tag, identifier.toString())).map((tag) => tag.identifier.toString());
+
+    return analyserResult.analyser.parser(
+        {
+            identifier,
+            data: dataDrivenElement
+        },
+        tags
+    );
 }

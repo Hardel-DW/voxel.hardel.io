@@ -5,8 +5,8 @@ import { DataDrivenToVoxelFormat, type EnchantmentProps, VoxelToDataDriven } fro
 import { ENCHANT_TOOL_CONFIG } from "@/lib/minecraft/core/schema/enchant/config";
 import type { Enchantment } from "@voxel/definitions";
 
-export type DataDrivenElement = {};
-export type VoxelElement = {};
+export type DataDrivenElement = Record<string, unknown>;
+export type VoxelElement = Record<string, unknown>;
 export type GetAnalyserVoxel<T extends keyof Analysers> = Analysers[T]["voxel"];
 export type GetAnalyserMinecraft<T extends keyof Analysers> = Analysers[T]["minecraft"];
 
@@ -55,7 +55,12 @@ export const versionedAnalyserCollection: VersionedAnalysers = {
 export function getAnalyserForVersion<T extends keyof Analysers>(
     type: T,
     version: number
-): { analyser: Analyser<Analysers[T]["voxel"], Analysers[T]["minecraft"], boolean>; config: ToolConfiguration } | undefined {
+):
+    | {
+          analyser: Analyser<Analysers[T]["voxel"], Analysers[T]["minecraft"], boolean>;
+          config: ToolConfiguration;
+      }
+    | undefined {
     const versionedAnalysers = versionedAnalyserCollection[type];
     if (!versionedAnalysers) return undefined;
 

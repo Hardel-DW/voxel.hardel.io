@@ -1,6 +1,7 @@
 import type { Identifier } from "@/lib/minecraft/core/Identifier.ts";
 import type { ToolConfiguration } from "@/lib/minecraft/core/engine";
 import type { Analysers, VoxelElement } from "@/lib/minecraft/core/engine/Analyser.ts";
+import type { Logger } from "@/lib/minecraft/core/engine/migrations/logger";
 import type { RegistryElement } from "@/lib/minecraft/mczip.ts";
 import type React from "react";
 import { type ReactNode, createContext, useContext, useState } from "react";
@@ -18,6 +19,10 @@ export interface ConfiguratorContextType<T extends VoxelElement> {
     // Store the minify state
     minify: boolean;
     setMinify: (minify: boolean) => void;
+
+    // Logger
+    logger?: Logger;
+    setLogger: React.Dispatch<React.SetStateAction<Logger | undefined>>;
 
     // Store the list of elements
     elements: RegistryElement<T>[];
@@ -48,13 +53,14 @@ export interface ConfiguratorContextType<T extends VoxelElement> {
     tool: keyof Analysers;
 }
 
-const ConfiguratorContext = createContext<ConfiguratorContextType<any> | undefined>(undefined);
+const ConfiguratorContext = createContext<ConfiguratorContextType<VoxelElement> | undefined>(undefined);
 export function ConfiguratorProvider<T extends VoxelElement>(props: {
     children: ReactNode;
     tool: keyof Analysers;
 }) {
     const [name, setName] = useState<string>("");
     const [minify, setMinify] = useState<boolean>(true);
+    const [logger, setLogger] = useState<Logger>();
     const [files, setFiles] = useState<Record<string, Uint8Array>>({});
     const [elements, setElements] = useState<RegistryElement<T>[]>([]);
     const [currentElementId, setCurrentElementId] = useState<Identifier>();
@@ -76,6 +82,8 @@ export function ConfiguratorProvider<T extends VoxelElement>(props: {
         setName,
         minify,
         setMinify,
+        logger,
+        setLogger,
         files,
         setFiles,
         elements,
@@ -94,7 +102,11 @@ export function ConfiguratorProvider<T extends VoxelElement>(props: {
         tool: props.tool
     };
 
-    return <ConfiguratorContext.Provider value={contextValue}>{props.children}</ConfiguratorContext.Provider>;
+    return (
+        <ConfiguratorContext.Provider value={contextValue as ConfiguratorContextType<VoxelElement>}>
+            {props.children}
+        </ConfiguratorContext.Provider>
+    );
 }
 
 export function useConfigurator<T extends VoxelElement>(): ConfiguratorContextType<T> {
@@ -103,5 +115,5 @@ export function useConfigurator<T extends VoxelElement>(): ConfiguratorContextTy
         throw new Error("useConfigurator must be used within an ConfiguratorProvider");
     }
 
-    return context;
+    return context as unknown as ConfiguratorContextType<T>;
 }

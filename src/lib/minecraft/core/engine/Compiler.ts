@@ -73,7 +73,7 @@ export function compileDatapack<T extends keyof Analysers>(
                 : [];
 
             const uniqueValuesMap = new Map<string, string | OptionalTag>();
-            for (const value of tag.data.values) {
+            for (const value of tag.data.values as Array<string | OptionalTag>) {
                 const key = typeof value === "string" ? value : value.id;
                 uniqueValuesMap.set(key, value);
             }
@@ -83,8 +83,6 @@ export function compileDatapack<T extends keyof Analysers>(
                     uniqueValuesMap.set(value, value);
                 }
             }
-
-            console.log(tag.identifier, uniqueValuesMap);
 
             tag.data.values = Array.from(uniqueValuesMap.values());
             return tag;

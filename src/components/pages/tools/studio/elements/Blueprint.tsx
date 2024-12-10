@@ -15,7 +15,6 @@ interface BlueprintProps {
 
 const Blueprint = forwardRef<HTMLDivElement, BlueprintProps>((props, ref) => {
     const handleMouseDown = (e: React.MouseEvent) => {
-        console.log("move");
         e.stopPropagation();
         const rect = e.currentTarget.getBoundingClientRect();
         const offsetX = (e.clientX - rect.left) / props.zoom;

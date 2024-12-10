@@ -51,14 +51,15 @@ const variants = {
     }
 } as const;
 
-interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+interface Props extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
     variant?: keyof typeof variants.variant;
     size?: keyof typeof variants.size;
     rounded?: keyof typeof variants.rounded;
     ring?: keyof typeof variants.ring;
+    disabled?: boolean;
 }
 
-const Button = React.forwardRef<HTMLButtonElement, Props>(
+const Button = React.forwardRef<HTMLAnchorElement, Props>(
     (
         {
             variant = variants.defaultVariant.variant,
@@ -73,7 +74,7 @@ const Button = React.forwardRef<HTMLButtonElement, Props>(
         ref
     ) => {
         return (
-            <button
+            <a
                 ref={ref}
                 type={type}
                 className={cn([
@@ -86,7 +87,7 @@ const Button = React.forwardRef<HTMLButtonElement, Props>(
                 ])}
                 {...rest}>
                 {children}
-            </button>
+            </a>
         );
     }
 );

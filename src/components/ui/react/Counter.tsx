@@ -1,36 +1,93 @@
-type Props = {
+import type React from "react";
+import { useState, useRef, useEffect } from "react";
+
+interface CounterProps {
     value: number;
     min: number;
     max: number;
     step: number;
     onChange?: (value: number) => void;
-};
+}
 
-export default function Counter(props: Props) {
-    const increment = () => {
-        const newValue = Math.min(props.value + props.step, props.max);
-        props.onChange?.(newValue);
+export default function Counter({ value, min, max, step, onChange }: CounterProps) {
+    const [isEditing, setIsEditing] = useState(false);
+    const [inputValue, setInputValue] = useState(value.toString());
+    const inputRef = useRef<HTMLInputElement>(null);
+
+    const handleDecrease = () => {
+        const newValue = Math.max(min, value - step);
+        onChange?.(newValue);
     };
 
-    const decrement = () => {
-        const newValue = Math.max(props.value - props.step, props.min);
-        props.onChange?.(newValue);
+    const handleIncrease = () => {
+        const newValue = Math.min(max, value + step);
+        onChange?.(newValue);
+    };
+
+    const handleValueClick = () => {
+        setIsEditing(true);
+        setInputValue(value.toString());
+        setTimeout(() => inputRef.current?.focus(), 0);
+    };
+
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const numbersOnly = e.target.value.replace(/[^0-9]/g, "");
+        setInputValue(numbersOnly);
+    };
+
+    const handleInputBlur = () => {
+        setIsEditing(false);
+        const newValue = Number(inputValue);
+        if (!Number.isNaN(newValue)) {
+            const clampedValue = Math.min(max, Math.max(min, newValue));
+            onChange?.(clampedValue);
+        }
+    };
+
+    const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === "Enter") {
+            e.currentTarget.blur();
+        }
+    };
+
+    const handleSpanKeyDown = (e: React.KeyboardEvent<HTMLSpanElement>) => {
+        if (e.key === "Enter" || e.key === " ") {
+            handleValueClick();
+        }
     };
 
     return (
-        <div className="relative z-20 w-20 h-10 border-2 rounded-3xl border-solid border-white border-opacity-20 transition-[width] duration-500 ease-in-out hover:w-32 hover:border-opacity-100 group">
+        <div className="relative z-20 w-20 h-10 border-2 rounded-3xl border-solid border-zinc-700 hover:border-white border-opacity-20 transition-[width] duration-500 ease-in-out hover:w-32 hover:border-opacity-100 group">
             <span
-                onClick={increment}
-                onKeyDown={increment}
+                onClick={handleIncrease}
+                onKeyDown={handleSpanKeyDown}
+                role="button"
+                tabIndex={0}
                 className="group-hover:opacity-100 group-hover:right-3 absolute z-20 top-1/2 right-4 block w-3 h-3 border-t-2 border-r-2 border-white transform -translate-y-1/2 rotate-45 cursor-pointer opacity-0 transition duration-500 ease-in-out hover:opacity-100"
             />
             <span
-                onClick={decrement}
-                onKeyDown={decrement}
+                onClick={handleDecrease}
+                onKeyDown={handleSpanKeyDown}
+                role="button"
+                tabIndex={0}
                 className="group-hover:opacity-100 group-hover:left-3 absolute z-20 top-1/2 left-4 block w-3 h-3 border-t-2 border-l-2 border-white transform -translate-y-1/2 -rotate-45 cursor-pointer opacity-0 transition duration-500 ease-in-out hover:opacity-100"
             />
             <div className="absolute z-10 inset-0 flex justify-center items-center select-none">
-                <span className="font-bold text-xl text-white">{props.value}</span>
+                {isEditing ? (
+                    <input
+                        ref={inputRef}
+                        type="custom"
+                        value={inputValue}
+                        onChange={handleInputChange}
+                        onBlur={handleInputBlur}
+                        onKeyDown={handleKeyDown}
+                        className="w-16 text-center bg-transparent outline-none font-bold text-xl text-white"
+                    />
+                ) : (
+                    <span onClick={handleValueClick} onKeyDown={handleSpanKeyDown} className="font-bold text-xl text-white cursor-text">
+                        {value}
+                    </span>
+                )}
             </div>
         </div>
     );

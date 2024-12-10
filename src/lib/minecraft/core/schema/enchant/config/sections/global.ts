@@ -6,7 +6,10 @@ export const global: InterfaceConfiguration = {
     components: [
         {
             type: "Section",
-            title: { type: "translate", value: "tools.enchantments.section.global.description" },
+            title: {
+                type: "translate",
+                value: "tools.enchantments.section.global.description"
+            },
             id: "main",
             children: [
                 {
@@ -14,11 +17,17 @@ export const global: InterfaceConfiguration = {
                     children: [
                         {
                             type: "Counter",
-                            title: { type: "translate", value: "tools.enchantments.section.global.components.maxLevel.title" },
-                            description: { type: "translate", value: "tools.enchantments.section.global.explanation.list.1" },
+                            title: {
+                                type: "translate",
+                                value: "tools.enchantments.section.global.components.maxLevel.title"
+                            },
+                            description: {
+                                type: "translate",
+                                value: "tools.enchantments.section.global.explanation.list.1"
+                            },
                             image: "/icons/tools/level.svg",
                             min: 1,
-                            max: 10,
+                            max: 127,
                             step: 1,
                             action: { type: "Dynamic", field: "maxLevel" },
                             value: {
@@ -30,11 +39,17 @@ export const global: InterfaceConfiguration = {
                         },
                         {
                             type: "Counter",
-                            title: { type: "translate", value: "tools.enchantments.section.global.components.weight.title" },
-                            description: { type: "translate", value: "tools.enchantments.section.global.explanation.list.2" },
+                            title: {
+                                type: "translate",
+                                value: "tools.enchantments.section.global.components.weight.title"
+                            },
+                            description: {
+                                type: "translate",
+                                value: "tools.enchantments.section.global.explanation.list.2"
+                            },
                             image: "/icons/tools/weight.svg",
                             min: 1,
-                            max: 20,
+                            max: 127,
                             step: 1,
                             action: { type: "Dynamic", field: "weight" },
                             value: {
@@ -46,11 +61,17 @@ export const global: InterfaceConfiguration = {
                         },
                         {
                             type: "Counter",
-                            title: { type: "translate", value: "tools.enchantments.section.global.components.anvilCost.title" },
-                            description: { type: "translate", value: "tools.enchantments.section.global.explanation.list.3" },
+                            title: {
+                                type: "translate",
+                                value: "tools.enchantments.section.global.components.anvilCost.title"
+                            },
+                            description: {
+                                type: "translate",
+                                value: "tools.enchantments.section.global.explanation.list.3"
+                            },
                             image: "/icons/tools/anvil.svg",
                             min: 1,
-                            max: 20,
+                            max: 127,
                             step: 1,
                             action: { type: "Dynamic", field: "anvilCost" },
                             value: {
@@ -64,8 +85,14 @@ export const global: InterfaceConfiguration = {
                 },
                 {
                     type: "Donation",
-                    title: { type: "translate", value: "tools.enchantments.section.global.components.donate.title" },
-                    description: { type: "translate", value: "tools.enchantments.section.global.components.donate.description" },
+                    title: {
+                        type: "translate",
+                        value: "tools.enchantments.section.global.components.donate.title"
+                    },
+                    description: {
+                        type: "translate",
+                        value: "tools.enchantments.section.global.components.donate.description"
+                    },
                     image: "/icons/tools/donate.svg",
                     link: "https://www.patreon.com/voxel"
                 }

@@ -1,32 +1,164 @@
 ---
-import Layout from "@/components/layouts/Layout.astro";
-import Navbar from "@/components/layouts/compound/navbar.astro";
 import MigrationTool from "@/components/pages/tools/migration/MigrationTool";
 import ShiningStars from "@/components/ui/pattern/ShiningStars.astro";
-import {getTranslations, names} from "@/lib/i18n";
+import { getTranslations, names } from "@/lib/i18n";
+import CompoundLayout from "@/components/layouts/CompoundLayout.astro";
+import Star from "@/components/ui/star.astro";
+import Walkthrough from "@/components/ui/Walkthrough.astro";
+import Button from "@/components/ui/button.astro";
+import { Image } from "astro:assets";
+import DashedPattern from "@/components/ui/pattern/DashedPattern.astro";
 
-const {lang, translate} = await getTranslations(Astro.url);
+const { lang, translate } = await getTranslations(Astro.url);
+
+const walkthroughSteps = [
+    {
+        title: translate["tools.migration.step1.title"],
+        description: translate["tools.migration.step1.description"],
+        target: "source-dropzone",
+        position: "bottom" as const,
+        image: "/images/tools/migration/origin.webp",
+        imagePosition: "top-left" as const
+    },
+    {
+        title: translate["tools.migration.step2.title"],
+        description: translate["tools.migration.step2.description"],
+        target: "target-dropzone",
+        position: "bottom" as const,
+        image: "/images/tools/migration/target.webp",
+        imagePosition: "top-right" as const
+    },
+    {
+        title: translate["tools.migration.step3.title"],
+        description: translate["tools.migration.step3.description"]
+    }
+];
 
 export const prerender = true;
 export async function getStaticPaths() {
     return names.map((element) => ({
-        params: {lang: element.lang},
+        params: { lang: element.lang }
     }));
 }
 ---
 
-<Layout title={translate["tools.migration.home"]} description={translate["tools.migration.home.description"]}
+<CompoundLayout title={translate["tools.migration.home"]} description={translate["tools.migration.home.description"]}
         openGraph={{
             title: translate["tools.migration.home"],
             description: translate["tools.migration.home.description"],
             image: "/images/tools/migration.webp"
         }}>
-    <div class="fixed inset-0">
+    <div class="fixed inset-0 -z-10">
         <ShiningStars/>
     </div>
     <div class="absolute rounded-full w-3/4 h-1/2 bg-linear-to-r from-[#830335] to-[#311e7696] opacity-20 blur-[10rem] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"/>
 
-    <MigrationTool client:only="react" translate={translate} lang={lang}>
-        <Navbar transparent={false} full={false} className="relative mt-0 mb-8 w-full"/>
-    </MigrationTool>
-</Layout>
+    <!-- Hero Section -->
+    <section class="h-dvh relative py-20 flex flex-col items-center justify-center">
+        <div class="w-3/4 mx-auto">            
+            <div class="text-center mb-16">
+                <h1 class="text-4xl md:text-7xl font-bold mb-4">{translate["tools.migration.home"]}</h1>
+                <Star/>
+            </div>
+
+            <MigrationTool client:only="react" translate={translate} lang={lang} />
+
+            <!-- Scroll Arrow -->
+            <div class="absolute bottom-12 left-1/2 -translate-x-1/2 animate-bounce opacity-100 transition-opacity duration-500" id="scroll-arrow">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                </svg>
+            </div>
+        </div>
+    </section>
+
+    <section class="w-3/4 mx-auto relative grid md:grid-cols-2 items-center gap-x-16 gap-y-24 mt-16 mb-40">
+        <div class="absolute w-full inset-0 shadow-2xl bg-linear-to-r from-[#401727] to-[#311e7696] opacity-20 rounded-full blur-[10rem]"/>
+        <DashedPattern class="[mask-image:radial-gradient(white,transparent_60%)]"/>
+
+        <div class="relative w-full flex justify-center items-center">
+            <img class="absolute opacity-10 select-none" src="/icons/circle.svg" alt="box"/>
+            <Image loading="eager" width="1200" height="900" src="/images/background/tools/enchant-hero.webp" alt="404"
+                   class="aspect-auto select-none"
+            />
+        </div>
+        <div class="h-full w-full mx-auto relative">
+            <div class="size-full flex flex-col justify-center">
+                <small class="text-pink-700 font-bold tracking-wide text-[16px]">
+                    {translate["generic.section"]}
+                </small>
+                <h1 class="text-white text-4xl md:text-6xl font-bold mt-4 text-balance">
+                    {translate["datapacks.neoenchant.personalize.title"]}
+                </h1>
+                <p class="text-gray-300 mt-4">
+                    {translate["datapacks.neoenchant.personalize.description"]}
+                </p>
+
+                <div class="mt-8 flex flex-col md:flex-row gap-4">
+                    <Button href={`/${lang}/tools/enchant`} size="xl" variant="primary" class="w-full md:w-auto">
+                        {translate["generic.start"]}
+                    </Button>
+                    <Button href={`/${lang}/tools/enchant`} size="xl" variant="ghost" class="w-full md:w-auto">
+                        {translate["generic.learn_more"]}
+                    </Button>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="w-3/4 mx-auto relative grid md:grid-cols-2 items-center gap-x-16 gap-y-24 my-40">
+        <div class="absolute w-full inset-0 shadow-2xl bg-linear-to-r from-[#401727] to-[#311e7696] opacity-20 rounded-full blur-[10rem]"/>
+        <DashedPattern class="[mask-image:radial-gradient(white,transparent_60%)]"/>
+
+        <div class="h-full w-full mx-auto relative">
+            <div class="size-full flex flex-col justify-center">
+                <h1 class="text-white text-4xl md:text-6xl font-bold mt-4 text-balance">
+                    Explore nos datapacks
+                </h1>
+                <p class="text-gray-300 mt-4">
+                    Sur Modrinth, retrouve tous nos datapacks, comme NeoEnchant qui rajoute des enchantements, Yggdrasil qui rajoute une histoire nordique avec des tonnes de structures !
+                </p>
+
+                <div class="mt-8 flex flex-col md:flex-row gap-4">
+                    <Button href={`/${lang}/tools/enchant`} size="xl" variant="white-shimmer" class="w-full md:w-auto">
+                        {translate["generic.take_a_look"]}
+                    </Button>
+                    <Button href={`/${lang}/tools/enchant`} size="xl" variant="ghost" class="w-full md:w-auto">
+                        {translate["generic.learn_more"]}
+                    </Button>
+                </div>
+            </div>
+        </div>
+        <div class="relative w-full flex justify-center items-center">
+            <img class="absolute opacity-10 select-none" src="/icons/circle.svg" alt="box"/>
+            <Image loading="eager" width="1200" height="900" src="/images/tools/modrinth.webp" alt="404"
+                   class="aspect-auto select-none"
+            />
+        </div>
+    </section>
+
+    <Walkthrough steps={walkthroughSteps} />
+    
+    <!-- Bouton pour démarrer le walkthrough -->
+    <button
+        class="fixed bottom-4 right-4 p-3 bg-zinc-900/80 backdrop-blur-md rounded-full border border-zinc-800 hover:bg-zinc-800/80 transition-colors"
+        onclick="window.walkthrough.start()"
+    >
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+    </button>
+</CompoundLayout>
+
+<script>
+    const scrollArrow = document.getElementById('scroll-arrow');
+    
+    window.addEventListener('scroll', () => {
+        if (scrollArrow && window.scrollY > 100) {
+            scrollArrow.style.opacity = '0';
+            setTimeout(() => {
+                scrollArrow.style.display = 'none';
+            }, 500);
+        }
+    });
+</script>

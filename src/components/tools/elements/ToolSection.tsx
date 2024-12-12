@@ -1,25 +1,10 @@
 import { useConfigurator } from "@/components/tools/ConfiguratorContext.tsx";
-import TranslateText, { type TranslateTextType } from "@/components/tools/elements/text/TranslateText.tsx";
 import Button from "@/components/ui/react/Button.tsx";
-import type { FormComponent } from "@/lib/minecraft/core/engine";
+import type { TranslateTextType } from "@/lib/minecraft/core/schema/primitive/text";
+import type { ToggleSection } from "@/lib/minecraft/core/schema/primitive/toggle";
 import { cn } from "@/lib/utils.ts";
+import TranslateText from "./text/TranslateText";
 import type React from "react";
-
-export type ToolSectionType = {
-    type: "Section";
-    id: string;
-    title: TranslateTextType;
-    children: FormComponent[];
-    toggle?: ToggleSection[];
-    button?: { text: TranslateTextType; url: string };
-};
-
-export type ToggleSection = {
-    name: string;
-    field?: string;
-    title: TranslateTextType;
-    description: TranslateTextType;
-};
 
 export default function ToolSection(props: {
     title: TranslateTextType | string;

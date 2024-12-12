@@ -1,9 +1,9 @@
-import type { ConfiguratorContextType } from "@/components/tools/ConfiguratorContext.tsx";
 import { Identifier } from "@/lib/minecraft/core/Identifier.ts";
 import type { Analysers, GetAnalyserVoxel } from "@/lib/minecraft/core/engine/Analyser.ts";
 import { type Field, getField } from "@/lib/minecraft/core/engine/field";
 import type { RegistryElement } from "@/lib/minecraft/mczip.ts";
 import { getPropertySafely } from "@/lib/utils";
+import type { ExtraActionData } from ".";
 
 type ValidType = string | number | Identifier;
 
@@ -51,10 +51,12 @@ const isValueEqual = (a: ValidType, b: ValidType): boolean =>
  */
 export default function MultipleModifier<T extends keyof Analysers>(
     action: MultipleAction,
-    context: ConfiguratorContextType<GetAnalyserVoxel<T>>,
-    element: RegistryElement<GetAnalyserVoxel<T>>
+    element: RegistryElement<GetAnalyserVoxel<T>>,
+    extra: ExtraActionData
 ): RegistryElement<GetAnalyserVoxel<T>> | undefined {
-    const field = getField(action.field, context);
+    const { toggleSection } = extra;
+
+    const field = getField<T>(action.field, toggleSection);
     const currentList = getPropertySafely<GetAnalyserVoxel<T>, Array<ValidType>>(element.data, field, []);
     if (!checkTypesConsistency(action.values, currentList)) {
         throw new Error("The types of the values are not consistent");

@@ -1,7 +1,7 @@
-import type { ConfiguratorContextType } from "@/components/tools/ConfiguratorContext.tsx";
 import type { Analysers, GetAnalyserVoxel } from "@/lib/minecraft/core/engine/Analyser.ts";
 import { type Field, getField } from "@/lib/minecraft/core/engine/field";
 import type { RegistryElement } from "@/lib/minecraft/mczip.ts";
+import type { ExtraActionData } from ".";
 
 export type SimpleActionMode = "toggle";
 
@@ -35,10 +35,11 @@ export type NumberAction = {
  */
 export function SimpleModifier<T extends keyof Analysers>(
     action: BooleanAction | StringAction | NumberAction,
-    context: ConfiguratorContextType<GetAnalyserVoxel<T>>,
-    element: RegistryElement<GetAnalyserVoxel<T>>
+    element: RegistryElement<GetAnalyserVoxel<T>>,
+    extra: ExtraActionData
 ): RegistryElement<GetAnalyserVoxel<T>> | undefined {
-    const field = getField<T>(action.field, context);
+    const { toggleSection } = extra;
+    const field = getField<T>(action.field, toggleSection);
 
     if (action.mode === "toggle" && element.data[field] === action.value) {
         return {

@@ -1,6 +1,5 @@
-import type { ConfiguratorContextType } from "@/components/tools/ConfiguratorContext.tsx";
 import type { Analysers, GetAnalyserVoxel } from "@/lib/minecraft/core/engine/Analyser.ts";
-import type { ActionValue } from "@/lib/minecraft/core/engine/actions/index.ts";
+import type { ExtraActionData } from "@/lib/minecraft/core/engine/actions/index.ts";
 import { type Field, getField } from "@/lib/minecraft/core/engine/field";
 import type { RegistryElement } from "@/lib/minecraft/mczip.ts";
 
@@ -19,12 +18,13 @@ export type DynamicListAction = {
  */
 export default function DynamicListModifier<T extends keyof Analysers>(
     action: DynamicListAction,
-    value: ActionValue,
-    context: ConfiguratorContextType<GetAnalyserVoxel<T>>,
-    element: RegistryElement<GetAnalyserVoxel<T>>
+    element: RegistryElement<GetAnalyserVoxel<T>>,
+    extra: ExtraActionData
 ): RegistryElement<GetAnalyserVoxel<T>> | undefined {
     const shadowCopy = structuredClone(element);
-    const field = getField(action.field, context);
+    const { value, toggleSection } = extra;
+
+    const field = getField(action.field, toggleSection);
     const list = (shadowCopy.data[field] as string[]) || [];
     if (!Array.isArray(list) || !list.every((item) => typeof item === "string") || typeof value !== "string") {
         return;

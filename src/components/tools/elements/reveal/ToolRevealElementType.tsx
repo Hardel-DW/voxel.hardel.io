@@ -1,20 +1,9 @@
 import { useTranslate } from "@/components/TranslateContext";
-import TranslateText, { type TranslateTextType } from "@/components/tools/elements/text/TranslateText.tsx";
 import Button from "@/components/ui/react/Button.tsx";
-import type { FormComponent } from "@/lib/minecraft/core/engine";
+import TranslateText from "@/components/tools/elements/text/TranslateText";
+import type { TranslateTextType } from "@/lib/minecraft/core/schema/primitive/text";
 import { cn } from "@/lib/utils.ts";
 import { toast } from "sonner";
-
-export type ToolRevealElementType = {
-    id: string;
-    title: TranslateTextType;
-    soon?: boolean;
-    image: string;
-    logo: string;
-    href: string;
-    description: TranslateTextType;
-    children: FormComponent[];
-};
 
 export default function ToolRevealElement(props: {
     isSelect: boolean;

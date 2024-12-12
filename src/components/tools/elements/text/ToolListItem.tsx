@@ -1,9 +1,5 @@
-import TranslateText, { type TranslateTextType } from "@/components/tools/elements/text/TranslateText.tsx";
-
-export type ToolListItemType = {
-    type: "ListItem";
-    content: TranslateTextType;
-};
+import TranslateText from "./TranslateText";
+import type { TranslateTextType } from "@/lib/minecraft/core/schema/primitive/text";
 
 export default function ToolListItem({ content }: { content: TranslateTextType | string }) {
     return (

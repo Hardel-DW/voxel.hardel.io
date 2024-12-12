@@ -1,17 +1,16 @@
 import { useConfigurator } from "@/components/tools/ConfiguratorContext.tsx";
 import { RenderComponent } from "@/components/tools/RenderComponent.tsx";
 import { TabsList, TabsTrigger } from "@/components/ui/shadcn/tabs.tsx";
-import type { Analysers, GetAnalyserVoxel } from "@/lib/minecraft/core/engine/Analyser.ts";
 import { cn } from "@/lib/utils.ts";
 import { Tabs, TabsContent } from "@radix-ui/react-tabs";
 import type React from "react";
 import TranslateText from "./elements/text/TranslateText";
 
-export default function ConfiguratorPanel<T extends keyof Analysers>(props: {
+export default function ConfiguratorPanel(props: {
     children?: React.ReactNode;
     defaultTab: string;
 }) {
-    const { currentElement, elements, configuration } = useConfigurator<GetAnalyserVoxel<T>>();
+    const { currentElement, elements, configuration } = useConfigurator();
     if (elements.length === 0) return null;
     if (!currentElement || !configuration) return null;
 

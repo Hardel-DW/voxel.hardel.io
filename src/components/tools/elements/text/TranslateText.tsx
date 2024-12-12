@@ -1,11 +1,5 @@
 import { useTranslate } from "@/components/TranslateContext.tsx";
-
-type InternalTranslateType = {
-    type: "translate";
-    value: string;
-};
-
-export type TranslateTextType = string | InternalTranslateType;
+import type { TranslateTextType } from "@/lib/minecraft/core/schema/primitive/text";
 
 export default function TranslateText(props: {
     content: TranslateTextType | undefined;

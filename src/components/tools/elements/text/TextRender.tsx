@@ -1,17 +1,6 @@
-import TranslateText, { type TranslateTextType } from "@/components/tools/elements/text/TranslateText.tsx";
-import ToolUnorderedList, { type UnorderedListChildren } from "./ToolUnorderedList";
-
-export type TextRenderType = {
-    type: "Text";
-    content: TextContent[];
-};
-
-export type ToolParagraphType = {
-    type: "Paragraph";
-    content: TranslateTextType;
-};
-
-type TextContent = ToolParagraphType | UnorderedListChildren;
+import TranslateText from "@/components/tools/elements/text/TranslateText.tsx";
+import ToolUnorderedList from "@/components/tools/elements/text/ToolUnorderedList";
+import type { TextContent } from "@/lib/minecraft/core/schema/primitive/text";
 
 export default function TextRender({ content }: { content: TextContent[] }) {
     const renderContent = (element: TextContent) => {

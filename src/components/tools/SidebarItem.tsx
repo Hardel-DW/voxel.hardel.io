@@ -2,26 +2,25 @@ import { useTranslate } from "@/components/TranslateContext.tsx";
 import { useConfigurator } from "@/components/tools/ConfiguratorContext.tsx";
 import TextComponent from "@/components/tools/elements/schema/TextComponent.tsx";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/shadcn/tooltip.tsx";
-import type { Analysers, GetAnalyserVoxel } from "@/lib/minecraft/core/engine/Analyser.ts";
+import type { VoxelElement } from "@/lib/minecraft/core/engine/Analyser";
 import { getField } from "@/lib/minecraft/core/engine/field";
 import type { RegistryElement } from "@/lib/minecraft/mczip.ts";
 import { cn } from "@/lib/utils.ts";
 import type { TextComponentType } from "@voxel/definitions";
 import type React from "react";
 import { useRef } from "react";
-import { handleChange } from "src/lib/minecraft/core/engine/actions";
 
-export function SidebarItem<T extends keyof Analysers>(props: {
-    element: RegistryElement<GetAnalyserVoxel<T>>;
+export function SidebarItem(props: {
+    element: RegistryElement<VoxelElement>;
 }) {
-    const context = useConfigurator<GetAnalyserVoxel<T>>();
+    const context = useConfigurator();
     const { translate } = useTranslate();
     const switchRef = useRef<HTMLDivElement>(null);
     const sidebar = context.configuration?.sidebar;
     if (!sidebar) return null;
 
-    const descriptionField = getField(sidebar.description.field, context);
-    const softDeleteField = getField(sidebar.toggle.field, context);
+    const descriptionField = getField(sidebar.description.field, context.toggleSection);
+    const softDeleteField = getField(sidebar.toggle.field, context.toggleSection);
     const descriptionValue = props.element.data[descriptionField];
     const check = props.element.data[softDeleteField];
     if (!context.currentElement) return null;
@@ -34,7 +33,7 @@ export function SidebarItem<T extends keyof Analysers>(props: {
 
     const handleSoftDelete = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (!context.configuration?.sidebar.toggle) return;
-        handleChange(context.configuration.sidebar.toggle.action, !e.target.checked, context, props.element.identifier);
+        context.handleChange(context.configuration.sidebar.toggle.action, !e.target.checked, props.element.identifier);
     };
 
     return (

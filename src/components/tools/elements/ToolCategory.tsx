@@ -1,12 +1,7 @@
 import { RenderComponent } from "@/components/tools/RenderComponent.tsx";
-import TranslateText, { type TranslateTextType } from "@/components/tools/elements/text/TranslateText.tsx";
+import TranslateText from "@/components/tools/elements/text/TranslateText";
+import type { TranslateTextType } from "@/lib/minecraft/core/schema/primitive/text";
 import type { FormComponent } from "@/lib/minecraft/core/engine";
-
-export type ToolCategoryType = {
-    type: "Category";
-    title: TranslateTextType;
-    children: FormComponent[];
-};
 
 export default function ToolCategory(props: {
     title: TranslateTextType | string;

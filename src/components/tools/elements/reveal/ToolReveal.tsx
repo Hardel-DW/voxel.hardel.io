@@ -1,11 +1,7 @@
+import type { ToolRevealElementType } from "@/lib/minecraft/core/schema/primitive/reveal";
+import ToolRevealElement from "@/components/tools/elements/reveal/ToolRevealElementType";
 import { RenderComponent } from "@/components/tools/RenderComponent.tsx";
-import ToolRevealElement, { type ToolRevealElementType } from "@/components/tools/elements/reveal/ToolRevealElementType.tsx";
 import React from "react";
-
-export type ToolRevealType = {
-    type: "Reveal";
-    elements: ToolRevealElementType[];
-};
 
 export default function ToolReveal(props: {
     elements: ToolRevealElementType[];

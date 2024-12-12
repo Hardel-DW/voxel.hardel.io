@@ -1,5 +1,4 @@
-import type { ConfiguratorContextType } from "@/components/tools/ConfiguratorContext.tsx";
-import type { Analysers, GetAnalyserVoxel } from "@/lib/minecraft/core/engine/Analyser.ts";
+import type { ToggleSectionMap } from "@/lib/minecraft/core/schema/primitive/toggle";
 
 export type ConditionEqualsToggleField = {
     type: "compare_to_toggle_field";
@@ -7,11 +6,10 @@ export type ConditionEqualsToggleField = {
     value: string;
 };
 
-export function CheckEqualConditionToggleField<T extends keyof Analysers>(
+export function CheckEqualConditionToggleField(
     condition: ConditionEqualsToggleField,
-    context: ConfiguratorContextType<GetAnalyserVoxel<T>>
+    toggleSection: ToggleSectionMap | undefined
 ): boolean {
-    const { toggleSection } = context;
     if (!toggleSection) return false;
     return toggleSection[condition.group]?.field === condition.value;
 }

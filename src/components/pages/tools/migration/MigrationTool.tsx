@@ -1,6 +1,5 @@
 import Dropzone from "@/components/ui/react/Dropzone";
 import type React from "react";
-import { useState } from "react";
 
 interface MigrationToolProps {
     translate: Record<string, string>;
@@ -9,8 +8,6 @@ interface MigrationToolProps {
 }
 
 export default function MigrationTool({ translate, children }: MigrationToolProps) {
-    const [error, setError] = useState<string | null>(null);
-
     return (
         <div className="container mx-auto px-4">
             {children}
@@ -19,7 +16,7 @@ export default function MigrationTool({ translate, children }: MigrationToolProp
                 <div className="w-1/3">
                     <Dropzone
                         id="source-dropzone"
-                        onFileUpload={(files) => {}}
+                        onFileUpload={() => {}}
                         dropzone={{
                             accept: ".zip",
                             maxSize: 100000000,
@@ -40,7 +37,7 @@ export default function MigrationTool({ translate, children }: MigrationToolProp
                 <div className="w-1/3">
                     <Dropzone
                         id="target-dropzone"
-                        onFileUpload={(files) => {}}
+                        onFileUpload={() => {}}
                         dropzone={{
                             accept: ".zip",
                             maxSize: 100000000,
@@ -53,8 +50,6 @@ export default function MigrationTool({ translate, children }: MigrationToolProp
                     </Dropzone>
                 </div>
             </div>
-
-            {error && <div className="mt-4 text-center text-red-500">{error}</div>}
         </div>
     );
 }

@@ -1,4 +1,4 @@
-import type { ToolRevealElementType } from "@/components/tools/elements/reveal/ToolRevealElementType.tsx";
+import type { ToolRevealElementType } from "@/lib/minecraft/core/schema/primitive/reveal";
 
 export const yggdrasil: ToolRevealElementType = {
     id: "enchant.addons.yggdrasil",

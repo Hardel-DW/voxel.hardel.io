@@ -1,5 +1,4 @@
-import type { ConfiguratorContextType } from "@/components/tools/ConfiguratorContext.tsx";
-import type { Analysers, GetAnalyserVoxel } from "@/lib/minecraft/core/engine/Analyser.ts";
+import type { ToggleSectionMap } from "@/lib/minecraft/core/schema/primitive/toggle";
 
 export type ConditionEqualsToggleName = {
     type: "compare_to_toggle_name";
@@ -7,11 +6,7 @@ export type ConditionEqualsToggleName = {
     value: string;
 };
 
-export function CheckEqualConditionToggleName<T extends keyof Analysers>(
-    condition: ConditionEqualsToggleName,
-    context: ConfiguratorContextType<GetAnalyserVoxel<T>>
-): boolean {
-    const { toggleSection } = context;
+export function CheckEqualConditionToggleName(condition: ConditionEqualsToggleName, toggleSection: ToggleSectionMap | undefined): boolean {
     if (!toggleSection) return false;
     return toggleSection[condition.group]?.name === condition.value;
 }

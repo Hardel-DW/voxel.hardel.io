@@ -1,4 +1,3 @@
-import type { ConfiguratorContextType } from "@/components/tools/ConfiguratorContext.tsx";
 import { Identifier, type IdentifierOneToMany } from "@/lib/minecraft/core/Identifier.ts";
 import { compileTags } from "@/lib/minecraft/core/Tag.ts";
 import {
@@ -9,6 +8,7 @@ import {
     type VoxelElement,
     getAnalyserForVersion
 } from "@/lib/minecraft/core/engine/Analyser.ts";
+import type { ToolConfiguration } from "@/lib/minecraft/core/engine";
 import { type RegistryElement, readDatapackFile } from "@/lib/minecraft/mczip.ts";
 import type { OptionalTag, TagType } from "@voxel/definitions";
 
@@ -17,38 +17,43 @@ export type Compiler<T extends VoxelElement, K extends DataDrivenElement> = (
     original: K
 ) => RegistryElement<K>;
 
+export interface CompileDatapackParams<T extends VoxelElement> {
+    elements: RegistryElement<T>[];
+    version: number;
+    files: Record<string, Uint8Array>;
+    configuration: ToolConfiguration;
+}
+
 /**
- * Compile all enchantment from Voxel Format to Data Driven Format.
- * @param context
+ * Compile all elements from Voxel Format to Data Driven Format.
  */
-export function compileDatapack<T extends keyof Analysers>(
-    context: ConfiguratorContextType<GetAnalyserVoxel<T>>
-): Array<RegistryElement<GetAnalyserMinecraft<T>> | RegistryElement<TagType>> {
-    const parserConfig = context.configuration?.parser;
-    const compilerConfig = context.configuration?.compiler;
+export function compileDatapack<T extends keyof Analysers>({
+    elements,
+    version,
+    files,
+    configuration
+}: CompileDatapackParams<GetAnalyserVoxel<T>>): Array<RegistryElement<GetAnalyserMinecraft<T>> | RegistryElement<TagType>> {
+    const parserConfig = configuration?.parser;
+    const compilerConfig = configuration?.compiler;
     if (!parserConfig) return [];
 
-    if (context.version === null) {
-        throw new Error("Minecraft version not set");
-    }
-
-    const config = getAnalyserForVersion(parserConfig.id, context.version);
+    const config = getAnalyserForVersion(parserConfig.id, version);
     if (!config) throw new Error("No analyser found for the specified version.");
 
-    const compiledElements = context.elements
+    const compiledElements = elements
         .map((element) => {
-            const original = readDatapackFile<GetAnalyserMinecraft<T>>(context.files, element.identifier);
+            const original = readDatapackFile<GetAnalyserMinecraft<T>>(files, element.identifier);
             return original ? config.analyser.compiler(element, original) : null;
         })
-        .filter((enchantment) => enchantment !== null);
+        .filter((element) => element !== null);
 
-    const identifiers: IdentifierOneToMany[] = context.elements.map((element) => {
+    const identifiers: IdentifierOneToMany[] = elements.map((element) => {
         if (element.data.softDelete) return { primary: element.identifier, related: [] };
 
         const related = element.data.tags.map((tag) => Identifier.fromString(tag, parserConfig.registries.tags));
 
         const mergedTags =
-            compilerConfig?.merge_field_to_tags.flatMap((field) => {
+            compilerConfig?.merge_field_to_tags.flatMap((field: string) => {
                 const value = element.data[field as keyof GetAnalyserVoxel<T>];
                 if (typeof value === "string") {
                     return [Identifier.fromString(value, parserConfig.registries.tags)];
@@ -65,7 +70,7 @@ export function compileDatapack<T extends keyof Analysers>(
 
     const compiledTags = compileTags(identifiers)
         .map((tag) => {
-            const original = readDatapackFile<TagType>(context.files, tag.identifier);
+            const original = readDatapackFile<TagType>(files, tag.identifier);
             const valueToAdd = original
                 ? original.values
                       .map(Identifier.getValue)

@@ -1,6 +1,5 @@
-import type { ConfiguratorContextType } from "@/components/tools/ConfiguratorContext.tsx";
 import type { Analysers, GetAnalyserVoxel } from "@/lib/minecraft/core/engine/Analyser.ts";
-import type { Action, ActionValue } from "@/lib/minecraft/core/engine/actions/index.ts";
+import type { Action, ActionValue, ExtraActionData } from "@/lib/minecraft/core/engine/actions/index.ts";
 import { updateData } from "@/lib/minecraft/core/engine/actions/index.ts";
 import type { RegistryElement } from "@/lib/minecraft/mczip.ts";
 
@@ -22,16 +21,16 @@ export type SequentialAction = {
  */
 export default function SequentialModifier<T extends keyof Analysers>(
     action: SequentialAction,
-    value: ActionValue,
-    context: ConfiguratorContextType<GetAnalyserVoxel<T>>,
-    element: RegistryElement<GetAnalyserVoxel<T>>
+    element: RegistryElement<GetAnalyserVoxel<T>>,
+    extra: ExtraActionData
 ): RegistryElement<GetAnalyserVoxel<T>> | undefined {
+    const { value, toggleSection } = extra;
     let currentElement = element;
 
     for (const { action: subAction, value: subValue } of action.actions) {
         const resolvedValue = subValue ?? value;
 
-        const updatedElement = updateData<T>(subAction, resolvedValue, context, currentElement);
+        const updatedElement = updateData<T>(subAction, currentElement, { value: resolvedValue, toggleSection });
         if (!updatedElement) return undefined;
         currentElement = updatedElement;
     }

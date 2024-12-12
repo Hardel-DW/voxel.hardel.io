@@ -1,65 +1,8 @@
-import type { ConfiguratorContextType } from "@/components/tools/ConfiguratorContext.tsx";
 import { useConfigurator } from "@/components/tools/ConfiguratorContext.tsx";
 import { RenderComponent } from "@/components/tools/RenderComponent";
-import type { FormComponent, GetValueFromContext } from "@/lib/minecraft/core/engine";
 import type { VoxelElement } from "@/lib/minecraft/core/engine/Analyser.ts";
+import type { InternalIterationResult, IterationResult, IterationType } from "@/lib/minecraft/core/schema/primitive/iteration";
 import { type RegistryElement, getRegistry } from "@/lib/minecraft/mczip.ts";
-
-type IterationCollectFromPath = {
-    type: "collect_from_path";
-    registry: string;
-    path: string;
-    exclude_namespace?: string[];
-};
-
-type IterationStatic = {
-    type: "static";
-    values: string[];
-};
-
-type IterationObject = {
-    type: "object";
-    values: Record<string, any>[];
-};
-
-type IterationGetRegistryElements = {
-    type: "get_registry_elements";
-    registry: string;
-};
-
-export type IterationType = {
-    type: "Iteration";
-    values: IterationValue[];
-    template: TemplateReplacer<FormComponent>;
-};
-
-type IterationValue = IterationCollectFromPath | IterationStatic | IterationObject | IterationGetRegistryElements;
-type TemplateReplacer<T> = T extends string
-    ? string | GetValueFromContext
-    : T extends object
-      ? { [K in keyof T]: T[K] extends GetValueFromContext ? T[K]["key"] : TemplateReplacer<T[K]> }
-      : T;
-
-type InternalCurrentIteration = {
-    current_iteration: string;
-};
-
-type InternalFileName = {
-    filename: string;
-    resource: string;
-    namespace: string;
-    identifier: string;
-};
-
-type InternalObjectData = {
-    object_data: Record<string, any>;
-};
-
-export type InternalIterationResult = InternalCurrentIteration | InternalFileName | InternalObjectData;
-export type IterationResult = {
-    key: string;
-    context: InternalIterationResult;
-};
 
 function resolveIterationValue(value: any, context: InternalIterationResult | undefined): any {
     if (typeof value === "object" && value?.type === "get_value_from_context") {
@@ -93,11 +36,11 @@ function resolveIterationValue(value: any, context: InternalIterationResult | un
 
 function collectFromPath<T extends VoxelElement>(
     registry: string,
-    context: ConfiguratorContextType<T>,
+    files: Record<string, Uint8Array>,
     path: string,
     exclude_namespace?: string[]
 ): RegistryElement<T>[] {
-    const content = getRegistry<T>(context.files, registry);
+    const content = getRegistry<T>(files, registry);
     return content.filter((element) => {
         const matchesPath = element.identifier.getResource().startsWith(path);
         if (!matchesPath) return false;
@@ -115,7 +58,7 @@ export default function ToolIteration(props: IterationType) {
 
     const iterations: IterationResult[] = props.values.flatMap<IterationResult>((valueSet) => {
         if (valueSet.type === "collect_from_path") {
-            const files = collectFromPath(valueSet.registry, context, valueSet.path, valueSet.exclude_namespace);
+            const files = collectFromPath(valueSet.registry, context.files, valueSet.path, valueSet.exclude_namespace);
             return files.map((file) => ({
                 key: file.identifier.toString(),
                 context: {

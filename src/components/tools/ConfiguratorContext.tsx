@@ -1,14 +1,16 @@
 import type { Identifier } from "@/lib/minecraft/core/Identifier.ts";
 import type { ToolConfiguration } from "@/lib/minecraft/core/engine";
-import type { Analysers, VoxelElement } from "@/lib/minecraft/core/engine/Analyser.ts";
+import type { Analysers, GetAnalyserVoxel } from "@/lib/minecraft/core/engine/Analyser.ts";
+import type { Action, ActionValue } from "@/lib/minecraft/core/engine/actions";
+import { updateData } from "@/lib/minecraft/core/engine/actions";
+import { createDifferenceFromAction } from "@/lib/minecraft/core/engine/migrations/logValidation";
 import type { Logger } from "@/lib/minecraft/core/engine/migrations/logger";
+import type { ToggleSection } from "@/lib/minecraft/core/schema/primitive/toggle";
 import type { RegistryElement } from "@/lib/minecraft/mczip.ts";
 import type React from "react";
 import { type ReactNode, createContext, useContext, useState } from "react";
-import type { ToggleSection } from "./elements/ToolSection";
 
-export interface ConfiguratorContextType<T extends VoxelElement> {
-    // Store the name of the current element
+export interface ConfiguratorContextType<T extends keyof Analysers> {
     name: string;
     setName: (name: string) => void;
 
@@ -25,11 +27,11 @@ export interface ConfiguratorContextType<T extends VoxelElement> {
     setLogger: React.Dispatch<React.SetStateAction<Logger | undefined>>;
 
     // Store the list of elements
-    elements: RegistryElement<T>[];
-    setElements: React.Dispatch<React.SetStateAction<RegistryElement<T>[]>>;
+    elements: RegistryElement<GetAnalyserVoxel<T>>[];
+    setElements: React.Dispatch<React.SetStateAction<RegistryElement<GetAnalyserVoxel<T>>[]>>;
 
     // Store the current element data
-    currentElement?: RegistryElement<T>;
+    currentElement?: RegistryElement<GetAnalyserVoxel<T>>;
     setCurrentElementId: React.Dispatch<React.SetStateAction<Identifier | undefined>>;
 
     // Store toggle section
@@ -50,19 +52,20 @@ export interface ConfiguratorContextType<T extends VoxelElement> {
     setVersion: (version: number) => void;
 
     // Store the type of tool
-    tool: keyof Analysers;
+    tool: T;
+    handleChange: (action: Action, value: ActionValue, identifier?: Identifier) => void;
 }
 
-const ConfiguratorContext = createContext<ConfiguratorContextType<VoxelElement> | undefined>(undefined);
-export function ConfiguratorProvider<T extends VoxelElement>(props: {
+const ConfiguratorContext = createContext<ConfiguratorContextType<any> | undefined>(undefined);
+export function ConfiguratorProvider<T extends keyof Analysers>(props: {
     children: ReactNode;
-    tool: keyof Analysers;
+    tool: T;
 }) {
     const [name, setName] = useState<string>("");
     const [minify, setMinify] = useState<boolean>(true);
     const [logger, setLogger] = useState<Logger>();
     const [files, setFiles] = useState<Record<string, Uint8Array>>({});
-    const [elements, setElements] = useState<RegistryElement<T>[]>([]);
+    const [elements, setElements] = useState<RegistryElement<GetAnalyserVoxel<T>>[]>([]);
     const [currentElementId, setCurrentElementId] = useState<Identifier>();
     const [toggleSection, setToggleSection] = useState<Record<string, ToggleSection>>();
     const [isJar, setIsJar] = useState<boolean>(false);
@@ -75,6 +78,31 @@ export function ConfiguratorProvider<T extends VoxelElement>(props: {
             ...prevState,
             [id]: name
         }));
+    };
+
+    const handleChange = (action: Action, value: ActionValue, identifier?: Identifier) => {
+        const element = identifier ? elements.find((elem) => elem.identifier.equals(identifier)) : currentElement;
+        if (!element) {
+            console.error("Element not found");
+            return;
+        }
+
+        const extra = { toggleSection, value, version: version ?? undefined };
+        const updatedElement = updateData<T>(action, element, extra);
+        if (updatedElement && logger && version) {
+            const difference = createDifferenceFromAction(action, updatedElement, extra, files, version, props.tool);
+
+            if (difference) {
+                logger.logDifference(element.identifier.toString(), element.identifier.getRegistry() || "unknown", difference);
+            }
+        }
+
+        if (!updatedElement) return;
+
+        setElements((prev) => {
+            const index = prev.findIndex((item) => item.identifier.equals(updatedElement.identifier));
+            return index === -1 ? prev : prev.toSpliced(index, 1, updatedElement);
+        });
     };
 
     const contextValue: ConfiguratorContextType<T> = {
@@ -99,17 +127,14 @@ export function ConfiguratorProvider<T extends VoxelElement>(props: {
         setIsJar,
         version,
         setVersion,
-        tool: props.tool
+        tool: props.tool,
+        handleChange
     };
 
-    return (
-        <ConfiguratorContext.Provider value={contextValue as ConfiguratorContextType<VoxelElement>}>
-            {props.children}
-        </ConfiguratorContext.Provider>
-    );
+    return <ConfiguratorContext.Provider value={contextValue}>{props.children}</ConfiguratorContext.Provider>;
 }
 
-export function useConfigurator<T extends VoxelElement>(): ConfiguratorContextType<T> {
+export function useConfigurator<T extends keyof Analysers>(): ConfiguratorContextType<T> {
     const context = useContext(ConfiguratorContext);
     if (!context) {
         throw new Error("useConfigurator must be used within an ConfiguratorProvider");

@@ -1,21 +1,8 @@
 import { useTranslate } from "@/components/TranslateContext.tsx";
-import TranslateText, { getKey, type TranslateTextType } from "@/components/tools/elements/text/TranslateText.tsx";
 import { Identifier } from "@/lib/minecraft/core/Identifier.ts";
-import type { Action } from "@/lib/minecraft/core/engine/actions";
-import type { Condition } from "@/lib/minecraft/core/engine/condition";
-import type { ValueParams } from "@/lib/minecraft/core/engine/value";
+import type { TranslateTextType } from "@/lib/minecraft/core/schema/primitive/text";
 import { cn, quoteString } from "@/lib/utils.ts";
-
-export type ToolSlotType = {
-    type: "Slot";
-    description?: TranslateTextType;
-    title: TranslateTextType;
-    image: string;
-    action: Action;
-    size?: number;
-    condition?: Condition;
-    lock?: ValueParams<string>;
-};
+import TranslateText, { getKey } from "@/components/tools/elements/text/TranslateText";
 
 export default function ToolSlot(props: {
     title: TranslateTextType | string;

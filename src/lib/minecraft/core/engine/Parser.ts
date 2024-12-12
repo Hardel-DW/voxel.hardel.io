@@ -1,6 +1,6 @@
-import type { ConfiguratorContextType } from "@/components/tools/ConfiguratorContext.tsx";
 import { Identifier } from "@/lib/minecraft/core/Identifier.ts";
 import { isPresentInTag } from "@/lib/minecraft/core/Tag.ts";
+import type { ToolConfiguration } from "@/lib/minecraft/core/engine";
 import {
     type Analysers,
     type DataDrivenElement,
@@ -10,6 +10,7 @@ import {
     getAnalyserForVersion
 } from "@/lib/minecraft/core/engine/Analyser.ts";
 import { calculateInitialToggle } from "@/lib/minecraft/core/engine/managers/InitialToggle.ts";
+import type { ToggleSectionMap } from "@/lib/minecraft/core/schema/primitive/toggle";
 import { type RegistryElement, getRegistry, parseZip, readDatapackFile } from "@/lib/minecraft/mczip.ts";
 import type { TagType } from "@voxel/definitions";
 import { Logger } from "./migrations/logger";
@@ -30,15 +31,25 @@ export function parseDatapackElement<T>(files: Record<string, Uint8Array>, confi
     return getRegistry<T>(files, config);
 }
 
+export interface ParseDatapackResult<T extends VoxelElement> {
+    name: string;
+    files: Record<string, Uint8Array>;
+    elements: RegistryElement<T>[];
+    version: number;
+    toggleSection: ToggleSectionMap;
+    currentElementId: Identifier;
+    isJar: boolean;
+    configuration: ToolConfiguration;
+    logger: Logger;
+}
+
 /**
  * Parses a datapack and returns the elements.
- * @param context
- * @param file
  */
 export async function parseDatapack<T extends keyof Analysers>(
-    context: ConfiguratorContextType<GetAnalyserVoxel<T>>,
+    tool: T,
     file: FileList
-): Promise<string | null> {
+): Promise<ParseDatapackResult<GetAnalyserVoxel<T>> | string> {
     const isJar = file[0].name.endsWith(".jar");
     const files = await parseZip(file[0]);
 
@@ -52,7 +63,7 @@ export async function parseDatapack<T extends keyof Analysers>(
         .map((path) => path.split("/")[1])
         .filter((namespace, index, self) => namespace && self.indexOf(namespace) === index);
 
-    const analyserResult = getAnalyserForVersion(context.tool, packFormat);
+    const analyserResult = getAnalyserForVersion(tool, packFormat);
     if (!analyserResult) return "tools.enchantments.warning.no_analyser";
 
     const { analyser, config } = analyserResult;
@@ -96,17 +107,17 @@ export async function parseDatapack<T extends keyof Analysers>(
         });
     }
 
-    context.setLogger(logger);
-
-    context.setName(name);
-    context.setFiles(files);
-    context.setElements(compiled);
-    context.setVersion(packFormat);
-    context.setToggleSection(initialToggle);
-    context.setCurrentElementId(Identifier.sortRegistry(compiled)[0].identifier);
-    context.setIsJar(isJar);
-    context.setConfiguration(config);
-    return null;
+    return {
+        name,
+        files,
+        elements: compiled,
+        version: packFormat,
+        toggleSection: initialToggle,
+        currentElementId: Identifier.sortRegistry(compiled)[0].identifier,
+        isJar,
+        configuration: config,
+        logger
+    };
 }
 
 /**
@@ -114,16 +125,18 @@ export async function parseDatapack<T extends keyof Analysers>(
  */
 export function parseSpecificElement<T extends keyof Analysers>(
     identifier: Identifier,
-    context: ConfiguratorContextType<GetAnalyserVoxel<T>>
+    files: Record<string, Uint8Array>,
+    version: number,
+    tool: T
 ): RegistryElement<GetAnalyserVoxel<T>> | undefined {
-    const dataDrivenElement = readDatapackFile<GetAnalyserMinecraft<T>>(context.files, identifier);
+    const dataDrivenElement = readDatapackFile<GetAnalyserMinecraft<T>>(files, identifier);
 
-    if (!dataDrivenElement || !context.version) return undefined;
-    const analyserResult = getAnalyserForVersion(context.tool, context.version);
+    if (!dataDrivenElement || !version) return undefined;
+    const analyserResult = getAnalyserForVersion(tool, version);
     if (!analyserResult?.analyser) return undefined;
 
     const tagsRegistry = analyserResult.config.parser.registries.tags
-        ? parseDatapackElement<TagType>(context.files, analyserResult.config.parser.registries.tags)
+        ? parseDatapackElement<TagType>(files, analyserResult.config.parser.registries.tags)
         : [];
 
     const tags = tagsRegistry.filter((tag) => isPresentInTag(tag, identifier.toString())).map((tag) => tag.identifier.toString());

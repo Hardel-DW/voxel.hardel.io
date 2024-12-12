@@ -1,4 +1,4 @@
-import type { ConfiguratorContextType } from "@/components/tools/ConfiguratorContext.tsx";
+import type { ToggleSection } from "@/lib/minecraft/core/schema/primitive/toggle";
 import type { Analysers, GetAnalyserVoxel } from "@/lib/minecraft/core/engine/Analyser.ts";
 import { toast } from "sonner";
 
@@ -9,9 +9,8 @@ export type ToggleName = {
 
 export function getToggleName<T extends keyof Analysers>(
     params: ToggleName,
-    context: ConfiguratorContextType<GetAnalyserVoxel<T>>
+    toggleSection: Record<string, ToggleSection> | undefined
 ): keyof GetAnalyserVoxel<T> {
-    const { toggleSection } = context;
     if (!toggleSection) {
         toast.error("Internal Server", {
             description: `An error occurred while trying to get the name ${params.group}`

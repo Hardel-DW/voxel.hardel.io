@@ -1,4 +1,3 @@
-import type { ConfiguratorContextType } from "@/components/tools/ConfiguratorContext.tsx";
 import type { Analysers, GetAnalyserVoxel } from "@/lib/minecraft/core/engine/Analyser.ts";
 import {
     CheckEqualConditionToggleField,
@@ -17,6 +16,7 @@ import {
     type ConditionEqualsUndefined
 } from "@/lib/minecraft/core/engine/condition/equals/EqualConditionUndefined.ts";
 import type { RegistryElement } from "@/lib/minecraft/mczip.ts";
+import type { ToggleSectionMap } from "@/lib/minecraft/core/schema/primitive/toggle";
 
 export type EqualCondition = {
     condition: "Equals";
@@ -26,24 +26,24 @@ type EqualConditionType = ConditionEqualsString | ConditionEqualsToggleName | Co
 
 export function CheckEqualsCondition<T extends keyof Analysers>(
     condition: EqualCondition,
-    context: ConfiguratorContextType<GetAnalyserVoxel<T>>,
-    element: RegistryElement<GetAnalyserVoxel<T>>
+    element: RegistryElement<GetAnalyserVoxel<T>>,
+    toggleSection: ToggleSectionMap | undefined
 ): boolean {
     switch (condition.type) {
         case "String": {
-            return CheckEqualConditionString<T>(condition, context, element);
+            return CheckEqualConditionString<T>(condition, element, toggleSection);
         }
 
         case "compare_to_toggle_name": {
-            return CheckEqualConditionToggleName<T>(condition, context);
+            return CheckEqualConditionToggleName(condition, toggleSection);
         }
 
         case "compare_to_toggle_field": {
-            return CheckEqualConditionToggleField<T>(condition, context);
+            return CheckEqualConditionToggleField(condition, toggleSection);
         }
 
         case "Undefined": {
-            return CheckEqualConditionUndefined<T>(condition, context, element);
+            return CheckEqualConditionUndefined<T>(condition, element, toggleSection);
         }
     }
 }

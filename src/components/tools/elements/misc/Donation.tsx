@@ -1,14 +1,7 @@
-import TranslateText, { type TranslateTextType } from "@/components/tools/elements/text/TranslateText.tsx";
 import TriangleWave from "@/components/ui/pattern/TriangleWave.tsx";
 import Button from "@/components/ui/react/Button.tsx";
-
-export type ToolDonationType = {
-    type: "Donation";
-    title: TranslateTextType;
-    link: string;
-    description: TranslateTextType;
-    image: string;
-};
+import type { TranslateTextType } from "@/lib/minecraft/core/schema/primitive/text";
+import TranslateText from "@/components/tools/elements/text/TranslateText";
 
 export default function Donation(props: {
     title: TranslateTextType | string;

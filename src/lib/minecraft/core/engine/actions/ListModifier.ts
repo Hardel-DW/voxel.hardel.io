@@ -1,6 +1,5 @@
-import type { ConfiguratorContextType } from "@/components/tools/ConfiguratorContext.tsx";
 import type { Analysers, GetAnalyserVoxel } from "@/lib/minecraft/core/engine/Analyser.ts";
-import type { ActionValue } from "@/lib/minecraft/core/engine/actions/index.ts";
+import type { ExtraActionData } from "@/lib/minecraft/core/engine/actions/index.ts";
 import { type Field, getField } from "@/lib/minecraft/core/engine/field";
 import type { RegistryElement } from "@/lib/minecraft/mczip.ts";
 import { getPropertySafely } from "@/lib/utils.ts";
@@ -22,16 +21,16 @@ export type ListAction = {
  */
 export default function ListModifier<T extends keyof Analysers>(
     action: ListAction,
-    value: ActionValue,
-    context: ConfiguratorContextType<GetAnalyserVoxel<T>>,
-    element: RegistryElement<GetAnalyserVoxel<T>>
+    element: RegistryElement<GetAnalyserVoxel<T>>,
+    extra: ExtraActionData
 ): RegistryElement<GetAnalyserVoxel<T>> | undefined {
+    const { value, toggleSection } = extra;
     if (typeof value !== "boolean") {
         throw new Error("List action requires a boolean value");
     }
 
     const shadowCopy = structuredClone(element);
-    const field = getField(action.field, context);
+    const field = getField(action.field, toggleSection);
     const list = getPropertySafely<GetAnalyserVoxel<T>, Array<unknown>>(shadowCopy.data, field, []);
     const newList = value ? [...list, action.value] : list.filter((item) => item !== action.value);
 

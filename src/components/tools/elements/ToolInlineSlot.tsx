@@ -1,19 +1,7 @@
-import TranslateText, { type TranslateTextType } from "@/components/tools/elements/text/TranslateText.tsx";
+import TranslateText from "@/components/tools/elements/text/TranslateText";
+import type { TranslateTextType } from "@/lib/minecraft/core/schema/primitive/text";
 import { Identifier } from "@/lib/minecraft/core/Identifier.ts";
-import type { ValueParams } from "@/lib/minecraft/core/engine/value";
 import { cn, quoteString } from "@/lib/utils.ts";
-import type { Action } from "src/lib/minecraft/core/engine/actions";
-import type { Condition } from "src/lib/minecraft/core/engine/condition";
-
-export type ToolInlineType = {
-    type: "InlineSlot";
-    description?: TranslateTextType;
-    title: TranslateTextType;
-    image: string;
-    action?: Action;
-    condition?: Condition;
-    lock?: ValueParams<string>;
-};
 
 export default function ToolInline(props: {
     title: TranslateTextType | string;

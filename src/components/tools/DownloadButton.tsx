@@ -2,17 +2,28 @@ import { useTranslate } from "@/components/TranslateContext.tsx";
 import { useConfigurator } from "@/components/tools/ConfiguratorContext.tsx";
 import Button from "@/components/ui/react/Button.tsx";
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/shadcn/dialog.tsx";
-import type { Analysers, GetAnalyserVoxel } from "@/lib/minecraft/core/engine/Analyser.ts";
+import type { Analysers } from "@/lib/minecraft/core/engine/Analyser.ts";
 import { compileDatapack } from "@/lib/minecraft/core/engine/Compiler.ts";
 import { generateZip } from "@/lib/minecraft/mczip.ts";
 import { DialogDescription } from "@radix-ui/react-dialog";
 
 export default function DownloadButton<T extends keyof Analysers>() {
     const { translate } = useTranslate();
-    const context = useConfigurator<GetAnalyserVoxel<T>>();
+    const context = useConfigurator<T>();
 
     const handleCompile = async () => {
-        const content = compileDatapack(context);
+        if (!context.version || !context.configuration) {
+            console.error("Version or configuration is missing");
+            return;
+        }
+
+        const content = compileDatapack({
+            elements: context.elements,
+            version: context.version,
+            files: context.files,
+            configuration: context.configuration
+        });
+
         const compiledContent = await generateZip(context.files, content, context.minify, context.logger);
         const fileExtension = context.isJar ? "jar" : "zip";
         const blob = new Blob([compiledContent], {

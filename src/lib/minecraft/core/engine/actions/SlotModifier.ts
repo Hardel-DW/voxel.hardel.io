@@ -1,10 +1,10 @@
-import type { ConfiguratorContextType } from "@/components/tools/ConfiguratorContext.tsx";
 import type { Analysers, GetAnalyserVoxel } from "@/lib/minecraft/core/engine/Analyser.ts";
 import { getManager } from "@/lib/minecraft/core/engine/Manager.ts";
 import { type Field, getField } from "@/lib/minecraft/core/engine/field";
 import { type SlotRegistryType, isArraySlotRegistryType, isSlotRegistryType } from "@/lib/minecraft/core/engine/managers/SlotManager.ts";
 import type { RegistryElement } from "@/lib/minecraft/mczip.ts";
 import { isStringArray } from "@/lib/utils.ts";
+import type { ExtraActionData } from ".";
 
 export type SlotAction = {
     type: "Slot";
@@ -21,13 +21,15 @@ export type SlotAction = {
  */
 export function SlotModifier<T extends keyof Analysers>(
     action: SlotAction,
-    context: ConfiguratorContextType<GetAnalyserVoxel<T>>,
-    element: RegistryElement<GetAnalyserVoxel<T>>
+    element: RegistryElement<GetAnalyserVoxel<T>>,
+    extra: ExtraActionData
 ): RegistryElement<GetAnalyserVoxel<T>> | undefined {
+    const { toggleSection, version } = extra;
+    if (!version) throw new Error("Version is not set in the context");
+
     const shadowCopy = structuredClone(element);
-    const field = getField<T>(action.field, context);
+    const field = getField<T>(action.field, toggleSection);
     const unformattedValue = shadowCopy.data[field];
-    const version = context.version;
 
     let value: SlotRegistryType;
     if (isSlotRegistryType(action.value)) {

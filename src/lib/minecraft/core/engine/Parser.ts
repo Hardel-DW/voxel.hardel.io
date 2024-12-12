@@ -86,25 +86,15 @@ export async function parseDatapack<T extends keyof Analysers>(
 
     // Chercher le fichier de log dans le datapack
     const logFile = files["voxel/logs.json"];
-    let logger: Logger;
+    const id = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+    const date = new Intl.DateTimeFormat("fr-FR", { year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit" }).format(
+        new Date()
+    );
 
+    let logger: Logger = new Logger(id, date, packFormat, isJar, { name, description, namespaces });
     if (logFile) {
-        try {
-            const existingLog: Log = JSON.parse(new TextDecoder().decode(logFile));
-            logger = new Logger(existingLog.version, existingLog.isModded, existingLog.datapack, existingLog);
-        } catch (e) {
-            logger = new Logger(packFormat, isJar, {
-                name,
-                description,
-                namespaces
-            });
-        }
-    } else {
-        logger = new Logger(packFormat, isJar, {
-            name,
-            description,
-            namespaces
-        });
+        const existingLog: Log = JSON.parse(new TextDecoder().decode(logFile));
+        logger = new Logger(existingLog.id, existingLog.date, existingLog.version, existingLog.isModded, existingLog.datapack, existingLog);
     }
 
     return {

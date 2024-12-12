@@ -49,6 +49,8 @@ export type DatapackInfo = {
 };
 
 export type Log = {
+    id: string;
+    date: string;
     version: number;
     isModded: boolean;
     datapack: DatapackInfo;

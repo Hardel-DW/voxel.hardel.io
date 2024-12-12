@@ -3,11 +3,13 @@ import type { DatapackInfo, FileLog, Log, LogDifference, LogValue } from "./type
 export class Logger {
     private readonly log: Log;
 
-    constructor(version: number, isModded: boolean, datapack: DatapackInfo, existingLog?: Log) {
+    constructor(id: string, date: string, version: number, isModded: boolean, datapack: DatapackInfo, existingLog?: Log) {
         if (existingLog) {
             this.log = existingLog;
         } else {
             this.log = {
+                id,
+                date,
                 version,
                 isModded,
                 datapack,

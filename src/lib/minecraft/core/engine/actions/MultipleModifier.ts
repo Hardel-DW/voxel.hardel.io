@@ -46,8 +46,8 @@ const isValueEqual = (a: ValidType, b: ValidType): boolean =>
 /**
  * Modify the field of the current element, check if the value is in the list, if it is, he tries to remove all the values from the list, if it is not, he adds them.
  * @param action - The action to perform
- * @param context - The context of the configurator
  * @param element - The element to modify
+ * @param extra - Extra data
  */
 export default function MultipleModifier<T extends keyof Analysers>(
     action: MultipleAction,

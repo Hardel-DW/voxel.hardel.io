@@ -11,9 +11,8 @@ export type DynamicAction = {
 /**
  * Modifies the field of the element with the given value.
  * @param action - The action to perform.
- * @param value - The value to set.
- * @param context - The context of the configurator.
  * @param element - The element to modify.
+ * @param extra - Extra data.
  * @constructor
  */
 export function DynamicModifier<T extends keyof Analysers>(

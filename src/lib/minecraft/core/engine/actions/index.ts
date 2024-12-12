@@ -14,8 +14,8 @@ import {
 } from "@/lib/minecraft/core/engine/actions/SimpleModifier.ts";
 import { type SlotAction, SlotModifier } from "@/lib/minecraft/core/engine/actions/SlotModifier.ts";
 import { type UndefinedAction, UndefinedModifier } from "@/lib/minecraft/core/engine/actions/UndefinedModifier.ts";
-import type { RegistryElement } from "@/lib/minecraft/mczip.ts";
 import type { ToggleSectionMap } from "@/lib/minecraft/core/schema/primitive/toggle";
+import type { RegistryElement } from "@/lib/minecraft/mczip.ts";
 
 export type Action =
     | RemoveKeyAction
@@ -43,7 +43,7 @@ export function updateData<T extends keyof Analysers>(
     element: RegistryElement<GetAnalyserVoxel<T>>,
     extra: ExtraActionData
 ): RegistryElement<GetAnalyserVoxel<T>> | undefined {
-    const updatedElement = (() => {
+    return (() => {
         switch (action.type) {
             case "Boolean":
             case "String":
@@ -67,6 +67,4 @@ export function updateData<T extends keyof Analysers>(
                 return SequentialModifier(action, element, extra);
         }
     })();
-
-    return updatedElement;
 }

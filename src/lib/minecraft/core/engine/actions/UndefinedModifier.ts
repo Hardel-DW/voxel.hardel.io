@@ -11,8 +11,8 @@ export type UndefinedAction = {
 /**
  * This action set the field of the element to undefined.
  * @param action
- * @param context
  * @param element
+ * @param extra
  * @constructor
  */
 export function UndefinedModifier<T extends keyof Analysers>(

@@ -29,8 +29,8 @@ export type NumberAction = {
 /**
  * Modifies the field of the element with the hardcoded value given.
  * @param action - The action to perform.
- * @param context - The context of the configurator.
  * @param element - The element to modify.
+ * @param extra - Extra data.
  * @constructor
  */
 export function SimpleModifier<T extends keyof Analysers>(

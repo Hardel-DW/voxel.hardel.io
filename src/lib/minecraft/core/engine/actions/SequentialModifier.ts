@@ -15,9 +15,8 @@ export type SequentialAction = {
  * Execute a sequence of actions in order. Each action is executed with its corresponding value if provided.
  * If any action in the sequence fails, the entire sequence is aborted and undefined is returned.
  * @param action - The sequential action containing the list of actions to perform
- * @param value - Not used for sequential actions
- * @param context - The context of the configurator
  * @param element - The element to modify
+ * @param extra - Extra data
  */
 export default function SequentialModifier<T extends keyof Analysers>(
     action: SequentialAction,

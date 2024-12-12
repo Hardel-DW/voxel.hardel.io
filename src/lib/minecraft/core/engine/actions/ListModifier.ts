@@ -14,9 +14,8 @@ export type ListAction = {
 /**
  * Toggle the value in the list field of the element. it will add/remove the hardcoded value to the list depending on the dynamic boolean value
  * @param action - The action to perform.
- * @param value - The value to set.
- * @param context - The context of the configurator.
  * @param element - The element to modify.
+ * @param extra - Extra data.
  * @constructor
  */
 export default function ListModifier<T extends keyof Analysers>(

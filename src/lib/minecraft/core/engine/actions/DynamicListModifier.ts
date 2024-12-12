@@ -11,9 +11,8 @@ export type DynamicListAction = {
 /**
  * Toggle the value in the list field of the element. it adds them if not present, remove them if present.
  * @param action - The action to perform.
- * @param value - The value to set.
- * @param context - The context of the configurator.
  * @param element - The element to modify.
+ * @param extra - Extra data.
  * @constructor
  */
 export default function DynamicListModifier<T extends keyof Analysers>(

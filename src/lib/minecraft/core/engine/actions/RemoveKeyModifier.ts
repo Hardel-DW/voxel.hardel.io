@@ -11,9 +11,8 @@ export type RemoveKeyAction = {
 /**
  * This action removes a key from the field of the element.
  * @param action - The action to perform
- * @param value - The value to remove
- * @param context - The context of the configurator
  * @param element - The element to modify
+ * @param extra - Extra data
  * @constructor
  */
 export function RemoveKeyModifier<T extends keyof Analysers>(

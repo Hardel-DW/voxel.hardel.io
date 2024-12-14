@@ -1,6 +1,7 @@
-import type { ToolRevealElementType } from "@/lib/minecraft/core/schema/primitive/reveal";
+import type { Unresolved } from "@/lib/minecraft/core/engine/resolver/field/type.ts";
+import type { ToolRevealElementType } from "@/lib/minecraft/core/schema/primitive";
 
-export const dungeon: ToolRevealElementType = {
+export const dungeon: Unresolved<ToolRevealElementType> = {
     id: "enchant.addons.dnt",
     soon: true,
     logo: "/images/addons/logo/dnt.webp",
@@ -81,7 +82,7 @@ export const dungeon: ToolRevealElementType = {
                                 },
                                 size: 128,
                                 action: {
-                                    type: "List",
+                                    type: "toggle_value_in_list",
                                     field: "tags",
                                     value: {
                                         type: "get_value_from_context",
@@ -200,7 +201,7 @@ export const dungeon: ToolRevealElementType = {
                                     key: "image"
                                 },
                                 action: {
-                                    type: "List",
+                                    type: "toggle_value_in_list",
                                     field: "tags",
                                     value: {
                                         type: "get_value_from_context",

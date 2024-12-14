@@ -1,6 +1,7 @@
-import type { InterfaceConfiguration } from "@/lib/minecraft/core/engine";
+import type { Unresolved } from "@/lib/minecraft/core/engine/resolver/field/type.ts";
+import type { InterfaceConfiguration } from "@/lib/minecraft/core/schema/primitive";
 
-export const global: InterfaceConfiguration = {
+export const global: Unresolved<InterfaceConfiguration> = {
     id: "enchant.global",
     section: { type: "translate", value: "tools.enchantments.section.global" },
     components: [
@@ -29,7 +30,10 @@ export const global: InterfaceConfiguration = {
                             min: 1,
                             max: 127,
                             step: 1,
-                            action: { type: "Dynamic", field: "maxLevel" },
+                            action: {
+                                type: "Dynamic",
+                                field: "maxLevel"
+                            },
                             value: {
                                 params: {
                                     type: "Field",

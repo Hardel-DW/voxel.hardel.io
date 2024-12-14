@@ -1,47 +1,27 @@
 import type { Analysers, GetAnalyserVoxel } from "@/lib/minecraft/core/engine/Analyser.ts";
-import { type Field, getField } from "@/lib/minecraft/core/engine/field";
 import type { RegistryElement } from "@/lib/minecraft/mczip.ts";
-import type { ExtraActionData } from ".";
+import type { ActionValue, BaseAction } from ".";
 
-export type SimpleActionMode = "toggle";
-
-export type BooleanAction = {
-    type: "Boolean";
-    field: Field;
-    value: boolean;
-    mode?: SimpleActionMode;
-};
-
-export type StringAction = {
-    type: "String";
-    field: Field;
-    value: string;
-    mode?: SimpleActionMode;
-};
-
-export type NumberAction = {
-    type: "Number";
-    field: Field;
-    value: number;
-    mode?: SimpleActionMode;
-};
+export interface SimpleAction extends BaseAction {
+    type: "set_value" | "toggle_value";
+    value: ActionValue;
+}
 
 /**
  * Modifies the field of the element with the hardcoded value given.
+ * For set_value: Sets the field to the given value
+ * For toggle_value: Toggles between the value and undefined
  * @param action - The action to perform.
  * @param element - The element to modify.
- * @param extra - Extra data.
  * @constructor
  */
 export function SimpleModifier<T extends keyof Analysers>(
-    action: BooleanAction | StringAction | NumberAction,
-    element: RegistryElement<GetAnalyserVoxel<T>>,
-    extra: ExtraActionData
+    action: SimpleAction,
+    element: RegistryElement<GetAnalyserVoxel<T>>
 ): RegistryElement<GetAnalyserVoxel<T>> | undefined {
-    const { toggleSection } = extra;
-    const field = getField<T>(action.field, toggleSection);
+    const { field } = action;
 
-    if (action.mode === "toggle" && element.data[field] === action.value) {
+    if (action.type === "toggle_value" && element.data[field] === action.value) {
         return {
             identifier: element.identifier,
             data: {

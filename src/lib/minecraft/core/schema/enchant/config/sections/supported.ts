@@ -1,6 +1,7 @@
-import type { InterfaceConfiguration } from "@/lib/minecraft/core/engine";
+import type { Unresolved } from "@/lib/minecraft/core/engine/resolver/field/type.ts";
+import type { InterfaceConfiguration } from "@/lib/minecraft/core/schema/primitive";
 
-export const supported: InterfaceConfiguration = {
+export const supported: Unresolved<InterfaceConfiguration> = {
     id: "enchant.supported",
     section: { type: "translate", value: "tools.enchantments.section.supported" },
     components: [
@@ -192,7 +193,10 @@ export const supported: InterfaceConfiguration = {
                                 condition: {
                                     condition: "Equals",
                                     type: "String",
-                                    field: { type: "get_toggle_field", group: "main.supported" },
+                                    field: {
+                                        type: "get_toggle_field",
+                                        group: "main.supported"
+                                    },
                                     value: {
                                         type: "get_value_from_context",
                                         key: "value"
@@ -208,7 +212,7 @@ export const supported: InterfaceConfiguration = {
                             },
                             image: "/images/tools/cross.webp",
                             action: {
-                                type: "Undefined",
+                                type: "set_undefined",
                                 field: {
                                     type: "get_toggle_field",
                                     group: "main.supported"
@@ -216,8 +220,11 @@ export const supported: InterfaceConfiguration = {
                             },
                             hide: {
                                 condition: "Equals",
-                                type: "compare_to_toggle_name",
-                                group: "main.supported",
+                                type: "String",
+                                field: {
+                                    type: "get_toggle_field",
+                                    group: "main.supported"
+                                },
                                 value: "main.supported.items"
                             },
                             condition: {

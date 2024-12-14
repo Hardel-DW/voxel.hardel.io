@@ -1,20 +1,30 @@
-import type { InterfaceConfiguration } from "@/lib/minecraft/core/engine";
+import type { Unresolved } from "@/lib/minecraft/core/engine/resolver/field/type.ts";
+import type { InterfaceConfiguration } from "@/lib/minecraft/core/schema/primitive";
 
-export const technical: InterfaceConfiguration = {
+export const technical: Unresolved<InterfaceConfiguration> = {
     id: "enchant.technical",
     section: { type: "translate", value: "tools.enchantments.section.technical" },
     components: [
         {
             type: "Section",
-            title: { type: "translate", value: "tools.enchantments.section.technical.description" },
+            title: {
+                type: "translate",
+                value: "tools.enchantments.section.technical.description"
+            },
             id: "technical_behaviour",
             children: [
                 {
                     type: "Switch",
-                    title: { type: "translate", value: "tools.enchantments.section.technical.components.curse.title" },
-                    description: { type: "translate", value: "tools.enchantments.section.technical.components.curse.description" },
+                    title: {
+                        type: "translate",
+                        value: "tools.enchantments.section.technical.components.curse.title"
+                    },
+                    description: {
+                        type: "translate",
+                        value: "tools.enchantments.section.technical.components.curse.description"
+                    },
                     action: {
-                        type: "List",
+                        type: "toggle_value_in_list",
                         field: "tags",
                         value: "#minecraft:curse"
                     },
@@ -27,10 +37,16 @@ export const technical: InterfaceConfiguration = {
                 },
                 {
                     type: "Switch",
-                    title: { type: "translate", value: "tools.enchantments.section.technical.components.nonTreasure.title" },
-                    description: { type: "translate", value: "tools.enchantments.section.technical.components.nonTreasure.description" },
+                    title: {
+                        type: "translate",
+                        value: "tools.enchantments.section.technical.components.nonTreasure.title"
+                    },
+                    description: {
+                        type: "translate",
+                        value: "tools.enchantments.section.technical.components.nonTreasure.description"
+                    },
                     action: {
-                        type: "List",
+                        type: "toggle_value_in_list",
                         field: "tags",
                         value: "#minecraft:non_treasure"
                     },
@@ -43,10 +59,16 @@ export const technical: InterfaceConfiguration = {
                 },
                 {
                     type: "Switch",
-                    title: { type: "translate", value: "tools.enchantments.section.technical.components.treasure.title" },
-                    description: { type: "translate", value: "tools.enchantments.section.technical.components.treasure.description" },
+                    title: {
+                        type: "translate",
+                        value: "tools.enchantments.section.technical.components.treasure.title"
+                    },
+                    description: {
+                        type: "translate",
+                        value: "tools.enchantments.section.technical.components.treasure.description"
+                    },
                     action: {
-                        type: "List",
+                        type: "toggle_value_in_list",
                         field: "tags",
                         value: "#minecraft:treasure"
                     },
@@ -59,10 +81,16 @@ export const technical: InterfaceConfiguration = {
                 },
                 {
                     type: "Switch",
-                    title: { type: "translate", value: "tools.enchantments.section.technical.components.smeltsLoot.title" },
-                    description: { type: "translate", value: "tools.enchantments.section.technical.components.smeltsLoot.description" },
+                    title: {
+                        type: "translate",
+                        value: "tools.enchantments.section.technical.components.smeltsLoot.title"
+                    },
+                    description: {
+                        type: "translate",
+                        value: "tools.enchantments.section.technical.components.smeltsLoot.description"
+                    },
                     action: {
-                        type: "List",
+                        type: "toggle_value_in_list",
                         field: "tags",
                         value: "#minecraft:smelts_loot"
                     },
@@ -78,13 +106,16 @@ export const technical: InterfaceConfiguration = {
                     children: [
                         {
                             type: "Switch",
-                            title: { type: "translate", value: "tools.enchantments.section.technical.components.preventsIceMelting.title" },
+                            title: {
+                                type: "translate",
+                                value: "tools.enchantments.section.technical.components.preventsIceMelting.title"
+                            },
                             description: {
                                 type: "translate",
                                 value: "tools.enchantments.section.technical.components.preventsIceMelting.description"
                             },
                             action: {
-                                type: "List",
+                                type: "toggle_value_in_list",
                                 field: "tags",
                                 value: "#minecraft:prevent_ice_melting"
                             },
@@ -106,7 +137,7 @@ export const technical: InterfaceConfiguration = {
                                 value: "tools.enchantments.section.technical.components.preventInfestedBlockSpawning.description"
                             },
                             action: {
-                                type: "List",
+                                type: "toggle_value_in_list",
                                 field: "tags",
                                 value: "#minecraft:prevent_infested_block_spawning"
                             },
@@ -124,13 +155,16 @@ export const technical: InterfaceConfiguration = {
                     children: [
                         {
                             type: "Switch",
-                            title: { type: "translate", value: "tools.enchantments.section.technical.components.preventBeeSpawning.title" },
+                            title: {
+                                type: "translate",
+                                value: "tools.enchantments.section.technical.components.preventBeeSpawning.title"
+                            },
                             description: {
                                 type: "translate",
                                 value: "tools.enchantments.section.technical.components.preventBeeSpawning.description"
                             },
                             action: {
-                                type: "List",
+                                type: "toggle_value_in_list",
                                 field: "tags",
                                 value: "#minecraft:prevent_bee_spawning"
                             },
@@ -152,7 +186,7 @@ export const technical: InterfaceConfiguration = {
                                 value: "tools.enchantments.section.technical.components.preventPotShattering.description"
                             },
                             action: {
-                                type: "List",
+                                type: "toggle_value_in_list",
                                 field: "tags",
                                 value: "#minecraft:prevent_pot_shattering"
                             },
@@ -181,7 +215,10 @@ export const technical: InterfaceConfiguration = {
                     children: [
                         {
                             type: "Range",
-                            label: { type: "translate", value: "tools.enchantments.section.global.components.minCostBase.label" },
+                            label: {
+                                type: "translate",
+                                value: "tools.enchantments.section.global.components.minCostBase.label"
+                            },
                             min: 0,
                             max: 100,
                             step: 1,
@@ -220,7 +257,10 @@ export const technical: InterfaceConfiguration = {
                     children: [
                         {
                             type: "Range",
-                            label: { type: "translate", value: "tools.enchantments.section.global.components.maxCostBase.label" },
+                            label: {
+                                type: "translate",
+                                value: "tools.enchantments.section.global.components.maxCostBase.label"
+                            },
                             min: 0,
                             max: 100,
                             step: 1,
@@ -258,7 +298,10 @@ export const technical: InterfaceConfiguration = {
         },
         {
             type: "Section",
-            title: { type: "translate", value: "tools.enchantments.section.effects.components.title" },
+            title: {
+                type: "translate",
+                value: "tools.enchantments.section.effects.components.title"
+            },
             id: "effects",
             children: [
                 {

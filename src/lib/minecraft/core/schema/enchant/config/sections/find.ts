@@ -1,7 +1,8 @@
-import type { InterfaceConfiguration } from "@/lib/minecraft/core/engine";
+import type { Unresolved } from "@/lib/minecraft/core/engine/resolver/field/type.ts";
 import { ADDONS } from "@/lib/minecraft/core/schema/enchant/config/addons";
+import type { InterfaceConfiguration } from "@/lib/minecraft/core/schema/primitive";
 
-export const find: InterfaceConfiguration = {
+export const find: Unresolved<InterfaceConfiguration> = {
     id: "enchant.find",
     section: { type: "translate", value: "tools.enchantments.section.find" },
     components: [
@@ -77,14 +78,17 @@ export const find: InterfaceConfiguration = {
                                 },
                                 image: { type: "get_value_from_context", key: "image" },
                                 action: {
-                                    type: "List",
+                                    type: "toggle_value_in_list",
                                     field: "tags",
                                     value: { type: "get_value_from_context", key: "tag" }
                                 },
                                 lock: {
                                     params: {
                                         type: "Value",
-                                        value: { type: "get_value_from_context", key: "lock_value" }
+                                        value: {
+                                            type: "get_value_from_context",
+                                            key: "lock_value"
+                                        }
                                     },
                                     condition: {
                                         condition: "Contains",
@@ -107,7 +111,10 @@ export const find: InterfaceConfiguration = {
         },
         {
             type: "Section",
-            title: { type: "translate", value: "tools.enchantments.section.addons.description" },
+            title: {
+                type: "translate",
+                value: "tools.enchantments.section.addons.description"
+            },
             id: "addons",
             children: [
                 {

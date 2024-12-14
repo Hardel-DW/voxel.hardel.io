@@ -3,26 +3,24 @@ import { useConfigurator } from "@/components/tools/ConfiguratorContext.tsx";
 import TextComponent from "@/components/tools/elements/schema/TextComponent.tsx";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/shadcn/tooltip.tsx";
 import type { VoxelElement } from "@/lib/minecraft/core/engine/Analyser";
-import { getField } from "@/lib/minecraft/core/engine/field";
+import { resolve } from "@/lib/minecraft/core/engine/resolver/field/resolveField";
 import type { RegistryElement } from "@/lib/minecraft/mczip.ts";
 import { cn } from "@/lib/utils.ts";
 import type { TextComponentType } from "@voxel/definitions";
-import type React from "react";
 import { useRef } from "react";
 
-export function SidebarItem(props: {
-    element: RegistryElement<VoxelElement>;
-}) {
+export function SidebarItem(props: { element: RegistryElement<VoxelElement> }) {
     const context = useConfigurator();
     const { translate } = useTranslate();
     const switchRef = useRef<HTMLDivElement>(null);
-    const sidebar = context.configuration?.sidebar;
-    if (!sidebar) return null;
+    if (!context.configuration?.sidebar) return null;
+    const configuration = resolve(context.configuration, context.toggleSection);
+    if (!configuration) return null;
 
-    const descriptionField = getField(sidebar.description.field, context.toggleSection);
-    const softDeleteField = getField(sidebar.toggle.field, context.toggleSection);
+    const descriptionField = configuration.sidebar.description;
+    const softDeleteField = "field" in configuration.sidebar.action ? configuration.sidebar.action.field : null;
     const descriptionValue = props.element.data[descriptionField];
-    const check = props.element.data[softDeleteField];
+    const check = softDeleteField ? props.element.data[softDeleteField] : null;
     if (!context.currentElement) return null;
     if (typeof check !== "boolean") return null;
 
@@ -31,9 +29,9 @@ export function SidebarItem(props: {
         context.setCurrentElementId(props.element.identifier);
     };
 
-    const handleSoftDelete = (e: React.ChangeEvent<HTMLInputElement>) => {
-        if (!context.configuration?.sidebar.toggle) return;
-        context.handleChange(context.configuration.sidebar.toggle.action, !e.target.checked, props.element.identifier);
+    const handleSoftDelete = () => {
+        if (!configuration.sidebar.action) return;
+        context.handleChange(configuration.sidebar.action, props.element.identifier);
     };
 
     return (

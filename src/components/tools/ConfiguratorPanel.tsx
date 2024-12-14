@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils.ts";
 import { Tabs, TabsContent } from "@radix-ui/react-tabs";
 import type React from "react";
 import TranslateText from "./elements/text/TranslateText";
+import { resolve } from "@/lib/minecraft/core/engine/resolver/field/resolveField";
 
 export default function ConfiguratorPanel(props: {
     children?: React.ReactNode;
@@ -13,6 +14,7 @@ export default function ConfiguratorPanel(props: {
     const { currentElement, elements, configuration } = useConfigurator();
     if (elements.length === 0) return null;
     if (!currentElement || !configuration) return null;
+    const resolvedConfiguration = resolve(configuration);
 
     return (
         <>
@@ -21,7 +23,7 @@ export default function ConfiguratorPanel(props: {
             <div className="border-zinc-800 border-t border-l bg-header-translucent rounded-2xl shadow-black p-4 sm:p-8">
                 <Tabs defaultValue={props.defaultTab}>
                     <TabsList className="bg-inherit overflow-x-auto h-[inherit] border-0 mb-4 pb-4 flex justify-start gap-x-10 border-b-2 rounded-none border-zinc-800">
-                        {configuration.interface.map((section, index) => (
+                        {resolvedConfiguration.interface.map((section, index) => (
                             <TabsTrigger
                                 key={section.id}
                                 className={cn(
@@ -38,7 +40,7 @@ export default function ConfiguratorPanel(props: {
                         ))}
                     </TabsList>
 
-                    {configuration.interface.map((section) => (
+                    {resolvedConfiguration.interface.map((section) => (
                         <TabsContent key={section.id} value={section.id}>
                             {currentElement?.identifier?.getNamespace() === "minecraft" && (
                                 <div className="text-xs text-zinc-400 font-light mb-4">

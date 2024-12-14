@@ -1,6 +1,7 @@
-import type { InterfaceConfiguration } from "@/lib/minecraft/core/engine";
+import type { Unresolved } from "@/lib/minecraft/core/engine/resolver/field/type.ts";
+import type { InterfaceConfiguration } from "@/lib/minecraft/core/schema/primitive";
 
-export const exclusive: InterfaceConfiguration = {
+export const exclusive: Unresolved<InterfaceConfiguration> = {
     id: "enchant.exclusive",
     section: { type: "translate", value: "tools.enchantments.section.exclusive" },
     components: [
@@ -43,8 +44,11 @@ export const exclusive: InterfaceConfiguration = {
                     direction: "horizontal",
                     hide: {
                         condition: "Equals",
-                        type: "compare_to_toggle_name",
-                        group: "main.exclusive",
+                        type: "String",
+                        field: {
+                            type: "get_toggle_field",
+                            group: "main.exclusive"
+                        },
                         value: "main.exclusive.individual"
                     },
                     children: [
@@ -135,27 +139,22 @@ export const exclusive: InterfaceConfiguration = {
                                                     key: "image"
                                                 },
                                                 action: {
-                                                    type: "Sequential",
+                                                    type: "sequential",
                                                     actions: [
                                                         {
-                                                            action: {
-                                                                type: "String",
-                                                                value: {
-                                                                    type: "get_value_from_context",
-                                                                    key: "value"
-                                                                },
-                                                                field: "exclusiveSet",
-                                                                mode: "toggle"
-                                                            }
+                                                            type: "set_value",
+                                                            value: {
+                                                                type: "get_value_from_context",
+                                                                key: "value"
+                                                            },
+                                                            field: "exclusiveSet"
                                                         },
                                                         {
-                                                            action: {
-                                                                type: "List",
-                                                                field: "tags",
-                                                                value: {
-                                                                    type: "get_value_from_context",
-                                                                    key: "value"
-                                                                }
+                                                            type: "List",
+                                                            field: "tags",
+                                                            value: {
+                                                                type: "get_value_from_context",
+                                                                key: "value"
                                                             }
                                                         }
                                                     ]
@@ -203,24 +202,20 @@ export const exclusive: InterfaceConfiguration = {
                                                             type: "Sequential",
                                                             actions: [
                                                                 {
-                                                                    action: {
-                                                                        type: "String",
-                                                                        value: {
-                                                                            type: "get_value_from_context",
-                                                                            key: "identifier"
-                                                                        },
-                                                                        field: "exclusiveSet",
-                                                                        mode: "toggle"
-                                                                    }
+                                                                    type: "String",
+                                                                    value: {
+                                                                        type: "get_value_from_context",
+                                                                        key: "identifier"
+                                                                    },
+                                                                    field: "exclusiveSet",
+                                                                    mode: "toggle"
                                                                 },
                                                                 {
-                                                                    action: {
-                                                                        type: "List",
-                                                                        field: "tags",
-                                                                        value: {
-                                                                            type: "get_value_from_context",
-                                                                            key: "identifier"
-                                                                        }
+                                                                    type: "List",
+                                                                    field: "tags",
+                                                                    value: {
+                                                                        type: "get_value_from_context",
+                                                                        key: "identifier"
                                                                     }
                                                                 }
                                                             ]
@@ -274,8 +269,11 @@ export const exclusive: InterfaceConfiguration = {
                     type: "Grid",
                     hide: {
                         condition: "Equals",
-                        type: "compare_to_toggle_name",
-                        group: "main.exclusive",
+                        type: "String",
+                        field: {
+                            type: "get_toggle_field",
+                            group: "main.exclusive"
+                        },
                         value: "main.exclusive.group"
                     },
                     children: [

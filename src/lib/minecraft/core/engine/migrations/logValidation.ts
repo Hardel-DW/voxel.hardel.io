@@ -1,7 +1,6 @@
 import type { Analysers, VoxelElement } from "@/lib/minecraft/core/engine/Analyser";
 import { parseSpecificElement } from "@/lib/minecraft/core/engine/Parser";
-import type { Action, ExtraActionData } from "@/lib/minecraft/core/engine/actions";
-import { type Field, getField } from "@/lib/minecraft/core/engine/field";
+import type { Action } from "@/lib/minecraft/core/engine/actions";
 import type { LogDifference, LogValue } from "@/lib/minecraft/core/engine/migrations/types";
 import type { RegistryElement } from "@/lib/minecraft/mczip";
 
@@ -25,18 +24,6 @@ export function isLogValue(value: unknown): value is LogValue {
         return Object.values(value as Record<string, unknown>).every(isLogValue);
     }
     return false;
-}
-
-/**
- * Type guard checking if an action has a field property
- *
- * @param action - The action to check
- * @returns true if the action has a field property, false otherwise
- */
-function hasField(action: Action): action is Action & {
-    field: Field;
-} {
-    return "field" in action;
 }
 
 /**
@@ -77,14 +64,28 @@ function hasField(action: Action): action is Action & {
 export function createDifferenceFromAction<T extends keyof Analysers>(
     action: Action,
     element: RegistryElement<VoxelElement>,
-    extra: ExtraActionData,
     files: Record<string, Uint8Array>,
     version: number,
     tool: T
-): LogDifference | undefined {
-    if (!hasField(action)) return undefined;
+): LogDifference[] | LogDifference | undefined {
+    if (action.type === "sequential") {
+        const differences: LogDifference[] = [];
 
-    const field = getField(action.field, extra.toggleSection);
+        for (const subAction of action.actions) {
+            const difference = createDifferenceFromAction(subAction, element, files, version, tool);
+            if (difference) {
+                if (Array.isArray(difference)) {
+                    differences.push(...difference);
+                } else {
+                    differences.push(difference);
+                }
+            }
+        }
+
+        return differences.length > 0 ? differences : undefined;
+    }
+
+    const field = action.field;
     const parsedOriginalData = parseSpecificElement<T>(element.identifier, files, version, tool);
 
     if (!parsedOriginalData) return undefined;
@@ -105,22 +106,22 @@ export function createDifferenceFromAction<T extends keyof Analysers>(
     if (!isLogValue(originalValue)) return undefined;
 
     switch (action.type) {
-        case "Boolean":
-        case "String":
-        case "Number":
-        case "DynamicList":
-        case "Dynamic":
+        case "set_value":
+        case "set_computed_slot":
+        case "toggle_value_in_list":
+        case "toggle_multiple_values":
+        case "list_operation":
+        case "set_undefined":
             return {
                 type: "set",
                 path: String(field),
                 value: newValue,
                 origin_value: originalValue
             };
-        case "List":
-        case "RemoveKey":
+        case "remove_key":
             return {
                 type: "remove",
-                path: `${String(field)}.${String(extra.value)}`
+                path: `${String(field)}.${String(action.value)}`
             };
         default:
             return {

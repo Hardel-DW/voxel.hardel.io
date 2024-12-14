@@ -9,7 +9,6 @@ import {
     type ConditionContainTags
 } from "@/lib/minecraft/core/engine/condition/contains/ContainConditionTags.ts";
 import type { RegistryElement } from "@/lib/minecraft/mczip.ts";
-import type { ToggleSectionMap } from "@/lib/minecraft/core/schema/primitive/toggle";
 
 export type ContainCondition = {
     condition: "Contains";
@@ -20,16 +19,15 @@ type ContainConditionType = ConditionContainString | ConditionContainTags;
 export function CheckContainCondition<T extends keyof Analysers>(
     condition: ContainConditionType,
     element: RegistryElement<GetAnalyserVoxel<T>>,
-    toggleSection: ToggleSectionMap | undefined,
     value?: ActionValue
 ): boolean {
     switch (condition.type) {
         case "String": {
-            return CheckContainConditionString<T>(condition, element, toggleSection, value);
+            return CheckContainConditionString<T>(condition, element, value);
         }
 
         case "Tags": {
-            return CheckContainConditionTags<T>(condition, element, toggleSection);
+            return CheckContainConditionTags<T>(condition, element);
         }
     }
 }

@@ -1,4 +1,5 @@
 import type { DatapackInfo, FileLog, Log, LogDifference, LogValue } from "./types";
+import type { FileLogUpdated } from "./types";
 
 export class Logger {
     private readonly log: Log;
@@ -37,14 +38,25 @@ export class Logger {
     }
 
     // Ajoute ou met à jour une différence
-    public logDifference(identifier: string, registry: string, difference: LogDifference) {
+    public logDifference(identifier: string, registry: string, difference: LogDifference | LogDifference[]) {
         const fileLog = this.findOrCreateFileLog(identifier, registry);
 
         if (fileLog.type !== "updated") {
             return;
         }
 
-        const existingDiffIndex = fileLog.differences.findIndex((diff) => diff.path === difference.path);
+        // Si c'est un tableau de différences, on les traite une par une
+        if (Array.isArray(difference)) {
+            for (const diff of difference) {
+                this.handleSingleDifference(fileLog as FileLogUpdated, diff);
+            }
+        } else {
+            this.handleSingleDifference(fileLog as FileLogUpdated, difference);
+        }
+    }
+
+    private handleSingleDifference(fileLog: FileLogUpdated, difference: LogDifference) {
+        const existingDiffIndex = fileLog.differences.findIndex((diff: LogDifference) => diff.path === difference.path);
 
         if (existingDiffIndex !== -1) {
             if (difference.type === "remove") {

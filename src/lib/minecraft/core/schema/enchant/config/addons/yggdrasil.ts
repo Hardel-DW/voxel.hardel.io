@@ -1,6 +1,7 @@
-import type { ToolRevealElementType } from "@/lib/minecraft/core/schema/primitive/reveal";
+import type { Unresolved } from "@/lib/minecraft/core/engine/resolver/field/type.ts";
+import type { ToolRevealElementType } from "@/lib/minecraft/core/schema/primitive";
 
-export const yggdrasil: ToolRevealElementType = {
+export const yggdrasil: Unresolved<ToolRevealElementType> = {
     id: "enchant.addons.yggdrasil",
     logo: "/images/addons/logo/yggdrasil.webp",
     image: "/images/addons/hero/yggdrasil.png",
@@ -37,9 +38,9 @@ export const yggdrasil: ToolRevealElementType = {
                                 value: "tools.enchantments.section.yggdrasil.components.yggdrasilMobEquipment.description"
                             },
                             action: {
-                                type: "Multiple",
+                                type: "toggle_multiple_values",
                                 field: "tags",
-                                values: [
+                                value: [
                                     "#yggdrasil:equipment/item/bow",
                                     "#yggdrasil:equipment/item/sword",
                                     "#yggdrasil:equipment/item/helmet",
@@ -122,7 +123,7 @@ export const yggdrasil: ToolRevealElementType = {
                                     key: "image"
                                 },
                                 action: {
-                                    type: "List",
+                                    type: "toggle_value_in_list",
                                     field: "tags",
                                     value: {
                                         type: "get_value_from_context",
@@ -258,7 +259,7 @@ export const yggdrasil: ToolRevealElementType = {
                             },
                             image: "/images/features/block/ominous_trial_spawner.webp",
                             action: {
-                                type: "List",
+                                type: "toggle_value_in_list",
                                 field: "tags",
                                 value: "#yggdrasil:structure/runic_fracture/boss_trial_spawner"
                             },
@@ -281,7 +282,7 @@ export const yggdrasil: ToolRevealElementType = {
                             },
                             image: "/images/features/block/ominous_trial_spawner.webp",
                             action: {
-                                type: "List",
+                                type: "toggle_value_in_list",
                                 field: "tags",
                                 value: "#yggdrasil:structure/runic_fracture/monster_trial_spawner"
                             },
@@ -395,7 +396,7 @@ export const yggdrasil: ToolRevealElementType = {
                                     key: "image"
                                 },
                                 action: {
-                                    type: "List",
+                                    type: "toggle_value_in_list",
                                     field: "tags",
                                     value: {
                                         type: "get_value_from_context",

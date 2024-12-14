@@ -22,7 +22,7 @@ export default function ToolEffectRecord(props: {
             {props.value &&
                 Object.entries(props.value).map(([effect]) => {
                     if (!context.currentElement) return null;
-                    const checked = checkCondition(props.conditions, context.currentElement, context.toggleSection, effect);
+                    const checked = checkCondition(props.conditions, context.currentElement, effect);
 
                     return (
                         <ToolEffect

@@ -8,7 +8,7 @@ import {
     type VoxelElement,
     getAnalyserForVersion
 } from "@/lib/minecraft/core/engine/Analyser.ts";
-import type { ToolConfiguration } from "@/lib/minecraft/core/engine";
+import type { ToolConfiguration } from "@/lib/minecraft/core/schema/primitive";
 import { type RegistryElement, readDatapackFile } from "@/lib/minecraft/mczip.ts";
 import type { OptionalTag, TagType } from "@voxel/definitions";
 
@@ -33,7 +33,7 @@ export function compileDatapack<T extends keyof Analysers>({
     files,
     configuration
 }: CompileDatapackParams<GetAnalyserVoxel<T>>): Array<RegistryElement<GetAnalyserMinecraft<T>> | RegistryElement<TagType>> {
-    const parserConfig = configuration?.parser;
+    const parserConfig = configuration?.analyser;
     const compilerConfig = configuration?.compiler;
     if (!parserConfig) return [];
 

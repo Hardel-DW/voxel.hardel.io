@@ -1,14 +1,73 @@
 import type { Action } from "@/lib/minecraft/core/engine/actions";
 import type { Condition } from "@/lib/minecraft/core/engine/condition";
+import type { IterationValue, TemplateReplacer } from "@/lib/minecraft/core/engine/resolver/iteration/type";
 import type { ValueParams } from "@/lib/minecraft/core/engine/value";
-import type { FormComponent } from "@/lib/minecraft/core/engine";
+import type { ToolRevealElementType } from "@/lib/minecraft/core/schema/primitive/index.ts";
+import type { TextRenderType, TranslateTextType } from "@/lib/minecraft/core/schema/primitive/text";
 import type { ToggleSection } from "@/lib/minecraft/core/schema/primitive/toggle";
-import type { IterationValue, TemplateReplacer } from "@/lib/minecraft/core/schema/primitive/iteration";
-import type { TranslateTextType } from "@/lib/minecraft/core/schema/primitive/text";
-import type { ToolRevealElementType } from "@/lib/minecraft/core/schema/primitive/reveal";
 import type { EffectComponentsRecord } from "@voxel/definitions";
 
-// Primitive Component
+// Base type for common component properties
+type BaseComponent = {
+    hide?: Condition;
+    condition?: Condition;
+};
+
+// Define non-container components first
+type NonContainerComponent =
+    | ToolDonationType
+    | ToolSwitchSlotType
+    | ToolSwitchType
+    | TextRenderType
+    | ToolSlotType
+    | ToolCounterType
+    | ToolRangeType
+    | ToolInlineType
+    | ToolTagViewerType
+    | ToolEffectType;
+
+// Define container components
+export type ToolGridType = BaseComponent & {
+    type: "Grid";
+    size?: string;
+    children: FormComponent[];
+};
+
+export type ToolListType = BaseComponent & {
+    type: "Flexible";
+    direction: "horizontal" | "vertical";
+    children: FormComponent[];
+};
+
+export type ToolSectionType = BaseComponent & {
+    type: "Section";
+    id: string;
+    title: TranslateTextType;
+    children: FormComponent[];
+    toggle?: ToggleSection[];
+    button?: { text: TranslateTextType; url: string };
+};
+
+export type ToolScrollableType = BaseComponent & {
+    type: "Scrollable";
+    height?: number;
+    children: FormComponent[];
+};
+
+export type ToolCategoryType = BaseComponent & {
+    type: "Category";
+    title: TranslateTextType;
+    children: FormComponent[];
+};
+
+// Non-container components definitions restent les mêmes jusqu'à ToolIterationType
+export type ToolIterationType = {
+    type: "Iteration";
+    values: IterationValue[];
+    template: TemplateReplacer<FormComponent>;
+};
+
+// Non-container components remain the same
 export type ToolRevealType = {
     type: "Reveal";
     elements: ToolRevealElementType[];
@@ -20,15 +79,6 @@ export type ToolDonationType = {
     link: string;
     description: TranslateTextType;
     image: string;
-};
-
-export type ToolSectionType = {
-    type: "Section";
-    id: string;
-    title: TranslateTextType;
-    children: FormComponent[];
-    toggle?: ToggleSection[];
-    button?: { text: TranslateTextType; url: string };
 };
 
 export type ToolSwitchSlotType = {
@@ -61,12 +111,6 @@ export type ToolSlotType = {
     lock?: ValueParams<string>;
 };
 
-export type ToolScrollableType = {
-    type: "Scrollable";
-    height?: number;
-    children: FormComponent[];
-};
-
 export type ToolCounterType = {
     type: "Counter";
     title: TranslateTextType;
@@ -90,12 +134,6 @@ export type ToolRangeType = {
     value: ValueParams<number>;
 };
 
-export type ToolCategoryType = {
-    type: "Category";
-    title: TranslateTextType;
-    children: FormComponent[];
-};
-
 export type ToolInlineType = {
     type: "InlineSlot";
     description?: TranslateTextType;
@@ -104,12 +142,6 @@ export type ToolInlineType = {
     action?: Action;
     condition?: Condition;
     lock?: ValueParams<string>;
-};
-
-export type ToolIterationType = {
-    type: "Iteration";
-    values: IterationValue[];
-    template: TemplateReplacer<FormComponent>;
 };
 
 export type ToolTagViewerType = {
@@ -125,3 +157,13 @@ export type ToolEffectType = {
     condition: Condition;
     value: ValueParams<EffectComponentsRecord>;
 };
+// Finally, export the complete FormComponent type
+export type FormComponent =
+    | NonContainerComponent
+    | ToolRevealType
+    | ToolGridType
+    | ToolListType
+    | ToolSectionType
+    | ToolScrollableType
+    | ToolCategoryType
+    | ToolIterationType;

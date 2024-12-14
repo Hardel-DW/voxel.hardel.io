@@ -1,6 +1,5 @@
 import { Identifier } from "@/lib/minecraft/core/Identifier.ts";
 import { isPresentInTag } from "@/lib/minecraft/core/Tag.ts";
-import type { ToolConfiguration } from "@/lib/minecraft/core/engine";
 import {
     type Analysers,
     type DataDrivenElement,
@@ -10,11 +9,13 @@ import {
     getAnalyserForVersion
 } from "@/lib/minecraft/core/engine/Analyser.ts";
 import { calculateInitialToggle } from "@/lib/minecraft/core/engine/managers/InitialToggle.ts";
+import type { ToolConfiguration } from "@/lib/minecraft/core/schema/primitive";
 import type { ToggleSectionMap } from "@/lib/minecraft/core/schema/primitive/toggle";
 import { type RegistryElement, getRegistry, parseZip, readDatapackFile } from "@/lib/minecraft/mczip.ts";
 import type { TagType } from "@voxel/definitions";
 import { Logger } from "./migrations/logger";
 import type { Log } from "./migrations/types";
+import type { Unresolved } from "./resolver/field/type";
 
 interface PackMcmeta {
     pack: {
@@ -39,7 +40,7 @@ export interface ParseDatapackResult<T extends VoxelElement> {
     toggleSection: ToggleSectionMap;
     currentElementId: Identifier;
     isJar: boolean;
-    configuration: ToolConfiguration;
+    configuration: Unresolved<ToolConfiguration>;
     logger: Logger;
 }
 
@@ -70,8 +71,13 @@ export async function parseDatapack<T extends keyof Analysers>(
     if (!config) return "tools.enchantments.warning.no_config";
     const initialToggle = calculateInitialToggle(config.interface);
 
-    const mainRegistry = parseDatapackElement<GetAnalyserMinecraft<T>>(files, config.parser.registries.main);
-    const tagsRegistry = config.parser.registries.tags ? parseDatapackElement<TagType>(files, config.parser.registries.tags) : [];
+    const main = config.analyser.registries.main;
+    if (typeof main !== "string") {
+        throw new Error("Main registry must be a string");
+    }
+
+    const mainRegistry = parseDatapackElement<GetAnalyserMinecraft<T>>(files, main);
+    const tagsRegistry = config.analyser.registries.tags ? parseDatapackElement<TagType>(files, config.analyser.registries.tags) : [];
 
     const compiled = mainRegistry.map((element) => {
         const tags = tagsRegistry
@@ -125,8 +131,8 @@ export function parseSpecificElement<T extends keyof Analysers>(
     const analyserResult = getAnalyserForVersion(tool, version);
     if (!analyserResult?.analyser) return undefined;
 
-    const tagsRegistry = analyserResult.config.parser.registries.tags
-        ? parseDatapackElement<TagType>(files, analyserResult.config.parser.registries.tags)
+    const tagsRegistry = analyserResult.config.analyser.registries.tags
+        ? parseDatapackElement<TagType>(files, analyserResult.config.analyser.registries.tags)
         : [];
 
     const tags = tagsRegistry.filter((tag) => isPresentInTag(tag, identifier.toString())).map((tag) => tag.identifier.toString());

@@ -1,24 +1,18 @@
-import type { ToolConfiguration } from "@/lib/minecraft/core/engine";
+import type { Unresolved } from "@/lib/minecraft/core/engine/resolver/field/type.ts";
 import { SECTIONS } from "@/lib/minecraft/core/schema/enchant/config/sections";
+import type { ToolConfiguration } from "@/lib/minecraft/core/schema/primitive";
 
-export const ENCHANT_TOOL_CONFIG: ToolConfiguration = {
+export const ENCHANT_TOOL_CONFIG: Unresolved<ToolConfiguration> = {
     interface: SECTIONS,
     sidebar: {
-        toggle: {
+        action: {
+            type: "set_value",
             field: "softDelete",
-            action: {
-                type: "Dynamic",
-                field: "softDelete"
-            }
+            value: false
         },
-        value: {
-            field: "softDelete"
-        },
-        description: {
-            field: "description"
-        }
+        description: "description"
     },
-    parser: {
+    analyser: {
         id: "enchantment",
         registries: {
             main: "enchantment",

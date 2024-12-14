@@ -1,4 +1,4 @@
-import type { FormComponent, GetValueFromContext } from "@/lib/minecraft/core/engine";
+import type { Field } from "../field/type";
 
 type IterationCollectFromPath = {
     type: "collect_from_path";
@@ -22,10 +22,9 @@ type IterationGetRegistryElements = {
     registry: string;
 };
 
-export type IterationType = {
-    type: "Iteration";
-    values: IterationValue[];
-    template: TemplateReplacer<FormComponent>;
+export type GetValueFromContext = {
+    type: "get_value_from_context";
+    key: string;
 };
 
 type InternalCurrentIteration = {
@@ -51,7 +50,7 @@ export type IterationResult = {
 
 export type IterationValue = IterationCollectFromPath | IterationStatic | IterationObject | IterationGetRegistryElements;
 export type TemplateReplacer<T> = T extends string
-    ? string | GetValueFromContext
+    ? string | GetValueFromContext | Field
     : T extends object
-      ? { [K in keyof T]: T[K] extends GetValueFromContext ? T[K]["key"] : TemplateReplacer<T[K]> }
+      ? { [K in keyof T]: TemplateReplacer<T[K]> }
       : T;

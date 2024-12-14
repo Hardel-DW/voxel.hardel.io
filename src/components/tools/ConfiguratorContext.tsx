@@ -1,10 +1,11 @@
 import type { Identifier } from "@/lib/minecraft/core/Identifier.ts";
-import type { ToolConfiguration } from "@/lib/minecraft/core/engine";
 import type { Analysers, GetAnalyserVoxel } from "@/lib/minecraft/core/engine/Analyser.ts";
-import type { Action, ActionValue } from "@/lib/minecraft/core/engine/actions";
+import type { Action } from "@/lib/minecraft/core/engine/actions";
 import { updateData } from "@/lib/minecraft/core/engine/actions";
 import { createDifferenceFromAction } from "@/lib/minecraft/core/engine/migrations/logValidation";
 import type { Logger } from "@/lib/minecraft/core/engine/migrations/logger";
+import type { Unresolved } from "@/lib/minecraft/core/engine/resolver/field/type";
+import type { ToolConfiguration } from "@/lib/minecraft/core/schema/primitive";
 import type { ToggleSection } from "@/lib/minecraft/core/schema/primitive/toggle";
 import type { RegistryElement } from "@/lib/minecraft/mczip.ts";
 import type React from "react";
@@ -40,8 +41,8 @@ export interface ConfiguratorContextType<T extends keyof Analysers> {
     changeToggleValue: (id: string, name: ToggleSection) => void;
 
     // Store the configuration
-    configuration: ToolConfiguration | null;
-    setConfiguration: React.Dispatch<React.SetStateAction<ToolConfiguration | null>>;
+    configuration: Unresolved<ToolConfiguration> | null;
+    setConfiguration: React.Dispatch<React.SetStateAction<Unresolved<ToolConfiguration> | null>>;
 
     // Store whether the file is a JAR
     isJar: boolean;
@@ -53,7 +54,7 @@ export interface ConfiguratorContextType<T extends keyof Analysers> {
 
     // Store the type of tool
     tool: T;
-    handleChange: (action: Action, value: ActionValue, identifier?: Identifier) => void;
+    handleChange: (action: Action, identifier?: Identifier) => void;
 }
 
 const ConfiguratorContext = createContext<ConfiguratorContextType<any> | undefined>(undefined);
@@ -70,7 +71,7 @@ export function ConfiguratorProvider<T extends keyof Analysers>(props: {
     const [toggleSection, setToggleSection] = useState<Record<string, ToggleSection>>();
     const [isJar, setIsJar] = useState<boolean>(false);
     const [version, setVersion] = useState<number | null>(null);
-    const [configuration, setConfiguration] = useState<ToolConfiguration | null>(null);
+    const [configuration, setConfiguration] = useState<Unresolved<ToolConfiguration> | null>(null);
     const currentElement = currentElementId && elements.find((element) => element.identifier.equals(currentElementId));
 
     const changeToggleValue = (id: string, name: ToggleSection) => {
@@ -80,17 +81,15 @@ export function ConfiguratorProvider<T extends keyof Analysers>(props: {
         }));
     };
 
-    const handleChange = (action: Action, value: ActionValue, identifier?: Identifier) => {
+    const handleChange = (action: Action, identifier?: Identifier) => {
         const element = identifier ? elements.find((elem) => elem.identifier.equals(identifier)) : currentElement;
         if (!element) {
             console.error("Element not found");
             return;
         }
-
-        const extra = { toggleSection, value, version: version ?? undefined };
-        const updatedElement = updateData<T>(action, element, extra);
+        const updatedElement = updateData<T>(action, element, version ?? Number.POSITIVE_INFINITY);
         if (updatedElement && logger && version) {
-            const difference = createDifferenceFromAction(action, updatedElement, extra, files, version, props.tool);
+            const difference = createDifferenceFromAction(action, updatedElement, files, version, props.tool);
 
             if (difference) {
                 logger.logDifference(element.identifier.toString(), element.identifier.getRegistry() || "unknown", difference);

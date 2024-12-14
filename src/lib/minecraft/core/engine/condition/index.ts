@@ -5,7 +5,6 @@ import { CheckEqualsCondition, type EqualCondition } from "@/lib/minecraft/core/
 import { type AllOfCondition, checkAllOfCondition } from "@/lib/minecraft/core/engine/condition/generic/AllOfCondition.ts";
 import { type AnyOfCondition, checkAnyOfCondition } from "@/lib/minecraft/core/engine/condition/generic/AnyOfCondition.ts";
 import { type InvertedCondition, checkInvertedCondition } from "@/lib/minecraft/core/engine/condition/generic/InvertedCondition.ts";
-import type { ToggleSection } from "@/lib/minecraft/core/schema/primitive/toggle";
 import type { RegistryElement } from "@/lib/minecraft/mczip.ts";
 
 export type Condition = ContainCondition | EqualCondition | AllOfCondition | AnyOfCondition | InvertedCondition;
@@ -13,22 +12,21 @@ export type Condition = ContainCondition | EqualCondition | AllOfCondition | Any
 export function checkCondition<T extends keyof Analysers>(
     condition: Condition | undefined,
     element: RegistryElement<GetAnalyserVoxel<T>>,
-    toggleSection: Record<string, ToggleSection> | undefined,
     value?: ActionValue
 ): boolean {
     if (!condition) return true;
 
     switch (condition.condition) {
         case "Equals":
-            return CheckEqualsCondition<T>(condition, element, toggleSection);
+            return CheckEqualsCondition<T>(condition, element);
         case "Contains":
-            return CheckContainCondition<T>(condition, element, toggleSection, value);
+            return CheckContainCondition<T>(condition, element, value);
         case "AllOf":
-            return checkAllOfCondition<T>(condition, element, toggleSection, value);
+            return checkAllOfCondition<T>(condition, element, value);
         case "AnyOf":
-            return checkAnyOfCondition<T>(condition, element, toggleSection, value);
+            return checkAnyOfCondition<T>(condition, element, value);
         case "Inverted":
-            return checkInvertedCondition<T>(condition, element, toggleSection, value);
+            return checkInvertedCondition<T>(condition, element, value);
         default:
             return false;
     }

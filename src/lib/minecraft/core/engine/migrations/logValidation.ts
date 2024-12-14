@@ -33,7 +33,6 @@ export function isLogValue(value: unknown): value is LogValue {
  *
  * @param action - The action that generated the change
  * @param element - The registry element that was modified
- * @param extra
  * @param files
  * @param version
  * @param tool

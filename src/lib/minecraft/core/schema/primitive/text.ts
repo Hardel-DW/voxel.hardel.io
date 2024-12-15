@@ -1,9 +1,11 @@
+import type { BaseComponent } from "@/lib/minecraft/core/schema/primitive/component";
+
 export type InternalTranslateType = {
     type: "translate";
     value: string;
 };
 
-export type TextRenderType = {
+export type TextRenderType = BaseComponent & {
     type: "Text";
     content: TextContent[];
 };

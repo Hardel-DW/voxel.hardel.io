@@ -43,10 +43,9 @@ export const exclusive: Unresolved<InterfaceConfiguration> = {
                     type: "Flexible",
                     direction: "horizontal",
                     hide: {
-                        condition: "Equals",
-                        type: "String",
-                        field: {
-                            type: "get_toggle_field",
+                        condition: "compare_to_value",
+                        compare: {
+                            type: "get_toggle_name",
                             group: "main.exclusive"
                         },
                         value: "main.exclusive.individual"
@@ -160,13 +159,9 @@ export const exclusive: Unresolved<InterfaceConfiguration> = {
                                                     ]
                                                 },
                                                 condition: {
-                                                    condition: "Equals",
-                                                    type: "String",
+                                                    condition: "compare_value_to_field_value",
                                                     field: "exclusiveSet",
-                                                    value: {
-                                                        type: "get_value_from_context",
-                                                        key: "value"
-                                                    }
+                                                    value: { type: "get_value_from_context", key: "value" }
                                                 }
                                             }
                                         },
@@ -221,8 +216,7 @@ export const exclusive: Unresolved<InterfaceConfiguration> = {
                                                             ]
                                                         },
                                                         condition: {
-                                                            condition: "Equals",
-                                                            type: "String",
+                                                            condition: "compare_value_to_field_value",
                                                             field: "exclusiveSet",
                                                             value: {
                                                                 type: "get_value_from_context",
@@ -268,10 +262,9 @@ export const exclusive: Unresolved<InterfaceConfiguration> = {
                 {
                     type: "Grid",
                     hide: {
-                        condition: "Equals",
-                        type: "String",
-                        field: {
-                            type: "get_toggle_field",
+                        condition: "compare_to_value",
+                        compare: {
+                            type: "get_toggle_name",
                             group: "main.exclusive"
                         },
                         value: "main.exclusive.group"
@@ -305,8 +298,7 @@ export const exclusive: Unresolved<InterfaceConfiguration> = {
                                     }
                                 },
                                 condition: {
-                                    condition: "Contains",
-                                    type: "String",
+                                    condition: "contains_in_tags",
                                     field: "exclusiveSet",
                                     values: [
                                         {

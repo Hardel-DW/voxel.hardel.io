@@ -1,20 +1,20 @@
 import { useConfigurator } from "@/components/tools/ConfiguratorContext.tsx";
 import { RenderComponent } from "@/components/tools/RenderComponent.tsx";
 import { TabsList, TabsTrigger } from "@/components/ui/shadcn/tabs.tsx";
+import { resolve } from "@/lib/minecraft/core/engine/resolver/field/resolveField";
 import { cn } from "@/lib/utils.ts";
 import { Tabs, TabsContent } from "@radix-ui/react-tabs";
 import type React from "react";
 import TranslateText from "./elements/text/TranslateText";
-import { resolve } from "@/lib/minecraft/core/engine/resolver/field/resolveField";
 
 export default function ConfiguratorPanel(props: {
     children?: React.ReactNode;
     defaultTab: string;
 }) {
-    const { currentElement, elements, configuration } = useConfigurator();
+    const { currentElement, elements, configuration, toggleSection } = useConfigurator();
     if (elements.length === 0) return null;
-    if (!currentElement || !configuration) return null;
-    const resolvedConfiguration = resolve(configuration);
+    if (!currentElement || !configuration || !toggleSection) return null;
+    const resolvedConfiguration = resolve(configuration, toggleSection);
 
     return (
         <>

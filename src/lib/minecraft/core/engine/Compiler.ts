@@ -6,8 +6,10 @@ import {
     type GetAnalyserMinecraft,
     type GetAnalyserVoxel,
     type VoxelElement,
-    getAnalyserForVersion
+    getAnalyserForVersion,
+    versionedAnalyserCollection
 } from "@/lib/minecraft/core/engine/Analyser.ts";
+import type { Unresolved } from "@/lib/minecraft/core/engine/resolver/field/type.ts";
 import type { ToolConfiguration } from "@/lib/minecraft/core/schema/primitive";
 import { type RegistryElement, readDatapackFile } from "@/lib/minecraft/mczip.ts";
 import type { OptionalTag, TagType } from "@voxel/definitions";
@@ -21,7 +23,7 @@ export interface CompileDatapackParams<T extends VoxelElement> {
     elements: RegistryElement<T>[];
     version: number;
     files: Record<string, Uint8Array>;
-    configuration: ToolConfiguration;
+    configuration: Unresolved<ToolConfiguration>;
 }
 
 /**
@@ -37,7 +39,11 @@ export function compileDatapack<T extends keyof Analysers>({
     const compilerConfig = configuration?.compiler;
     if (!parserConfig) return [];
 
-    const config = getAnalyserForVersion(parserConfig.id, version);
+    if (typeof parserConfig.id !== "string" || !(parserConfig.id in versionedAnalyserCollection)) {
+        throw new Error(`Invalid analyser ID. Must be one of: ${Object.keys(versionedAnalyserCollection).join(", ")}`);
+    }
+
+    const config = getAnalyserForVersion(parserConfig.id as T, version);
     if (!config) throw new Error("No analyser found for the specified version.");
 
     const compiledElements = elements
@@ -53,12 +59,11 @@ export function compileDatapack<T extends keyof Analysers>({
         const related = element.data.tags.map((tag) => Identifier.fromString(tag, parserConfig.registries.tags));
 
         const mergedTags =
-            compilerConfig?.merge_field_to_tags.flatMap((field: string) => {
+            compilerConfig?.merge_field_to_tags.flatMap((field) => {
                 const value = element.data[field as keyof GetAnalyserVoxel<T>];
                 if (typeof value === "string") {
                     return [Identifier.fromString(value, parserConfig.registries.tags)];
                 }
-
                 return [];
             }) ?? [];
 

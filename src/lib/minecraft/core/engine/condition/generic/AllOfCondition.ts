@@ -4,8 +4,8 @@ import { type Condition, checkCondition } from "@/lib/minecraft/core/engine/cond
 import type { RegistryElement } from "@/lib/minecraft/mczip.ts";
 
 export type AllOfCondition = {
-    condition: "AllOf";
-    conditions: Condition[];
+    condition: "all_of";
+    terms: Condition[];
 };
 
 export function checkAllOfCondition<T extends keyof Analysers>(
@@ -13,5 +13,5 @@ export function checkAllOfCondition<T extends keyof Analysers>(
     element: RegistryElement<GetAnalyserVoxel<T>>,
     value?: ActionValue
 ): boolean {
-    return condition.conditions.every((subCondition) => checkCondition(subCondition, element, value));
+    return condition.terms.every((subCondition) => checkCondition(subCondition, element, value));
 }

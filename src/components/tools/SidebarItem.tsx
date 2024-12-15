@@ -13,7 +13,8 @@ export function SidebarItem(props: { element: RegistryElement<VoxelElement> }) {
     const context = useConfigurator();
     const { translate } = useTranslate();
     const switchRef = useRef<HTMLDivElement>(null);
-    if (!context.configuration?.sidebar) return null;
+    if (!context?.configuration?.sidebar) return null;
+    if (!context.toggleSection) return null;
     const configuration = resolve(context.configuration, context.toggleSection);
     if (!configuration) return null;
 

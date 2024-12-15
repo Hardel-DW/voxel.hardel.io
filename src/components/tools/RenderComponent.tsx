@@ -33,7 +33,7 @@ export function RenderComponent<T extends keyof Analysers>({
     const { translate } = useTranslate();
     if (!context.currentElement) return null;
 
-    if ("hide" in component && component.hide && checkCondition<T>(component.hide, context.currentElement)) {
+    if (component.hide && checkCondition<T>(component.hide, context.currentElement)) {
         return null;
     }
 

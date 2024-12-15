@@ -191,16 +191,12 @@ export const supported: Unresolved<InterfaceConfiguration> = {
                                     }
                                 },
                                 condition: {
-                                    condition: "Equals",
-                                    type: "String",
+                                    condition: "compare_value_to_field_value",
                                     field: {
                                         type: "get_toggle_field",
                                         group: "main.supported"
                                     },
-                                    value: {
-                                        type: "get_value_from_context",
-                                        key: "value"
-                                    }
+                                    value: { type: "get_value_from_context", key: "value" }
                                 }
                             }
                         },
@@ -219,8 +215,7 @@ export const supported: Unresolved<InterfaceConfiguration> = {
                                 }
                             },
                             hide: {
-                                condition: "Equals",
-                                type: "String",
+                                condition: "compare_value_to_field_value",
                                 field: {
                                     type: "get_toggle_field",
                                     group: "main.supported"
@@ -228,8 +223,7 @@ export const supported: Unresolved<InterfaceConfiguration> = {
                                 value: "main.supported.items"
                             },
                             condition: {
-                                condition: "Equals",
-                                type: "Undefined",
+                                condition: "if_field_is_undefined",
                                 field: {
                                     type: "get_toggle_field",
                                     group: "main.supported"

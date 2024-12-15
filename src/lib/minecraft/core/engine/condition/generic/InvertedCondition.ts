@@ -4,8 +4,8 @@ import { type Condition, checkCondition } from "@/lib/minecraft/core/engine/cond
 import type { RegistryElement } from "@/lib/minecraft/mczip.ts";
 
 export type InvertedCondition = {
-    condition: "Inverted";
-    invertedCondition: Condition;
+    condition: "inverted";
+    terms: Condition;
 };
 
 export function checkInvertedCondition<T extends keyof Analysers>(
@@ -13,5 +13,5 @@ export function checkInvertedCondition<T extends keyof Analysers>(
     element: RegistryElement<GetAnalyserVoxel<T>>,
     value?: ActionValue
 ): boolean {
-    return !checkCondition(condition.invertedCondition, element, value);
+    return !checkCondition(condition.terms, element, value);
 }

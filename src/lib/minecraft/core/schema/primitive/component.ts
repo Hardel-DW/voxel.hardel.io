@@ -8,9 +8,8 @@ import type { ToggleSection } from "@/lib/minecraft/core/schema/primitive/toggle
 import type { EffectComponentsRecord } from "@voxel/definitions";
 
 // Base type for common component properties
-type BaseComponent = {
+export type BaseComponent = {
     hide?: Condition;
-    condition?: Condition;
 };
 
 // Define non-container components first
@@ -61,19 +60,19 @@ export type ToolCategoryType = BaseComponent & {
 };
 
 // Non-container components definitions restent les mêmes jusqu'à ToolIterationType
-export type ToolIterationType = {
+export type ToolIterationType = BaseComponent & {
     type: "Iteration";
     values: IterationValue[];
     template: TemplateReplacer<FormComponent>;
 };
 
 // Non-container components remain the same
-export type ToolRevealType = {
+export type ToolRevealType = BaseComponent & {
     type: "Reveal";
     elements: ToolRevealElementType[];
 };
 
-export type ToolDonationType = {
+export type ToolDonationType = BaseComponent & {
     type: "Donation";
     title: TranslateTextType;
     link: string;
@@ -81,7 +80,7 @@ export type ToolDonationType = {
     image: string;
 };
 
-export type ToolSwitchSlotType = {
+export type ToolSwitchSlotType = BaseComponent & {
     type: "SwitchSlot";
     title: TranslateTextType;
     description: TranslateTextType;
@@ -91,7 +90,7 @@ export type ToolSwitchSlotType = {
     image?: string;
 };
 
-export type ToolSwitchType = {
+export type ToolSwitchType = BaseComponent & {
     type: "Switch";
     title: TranslateTextType;
     description: TranslateTextType;
@@ -100,7 +99,7 @@ export type ToolSwitchType = {
     lock?: ValueParams<string> | null;
 };
 
-export type ToolSlotType = {
+export type ToolSlotType = BaseComponent & {
     type: "Slot";
     description?: TranslateTextType;
     title: TranslateTextType;
@@ -111,7 +110,7 @@ export type ToolSlotType = {
     lock?: ValueParams<string>;
 };
 
-export type ToolCounterType = {
+export type ToolCounterType = BaseComponent & {
     type: "Counter";
     title: TranslateTextType;
     short?: TranslateTextType;
@@ -124,7 +123,7 @@ export type ToolCounterType = {
     value: ValueParams<number>;
 };
 
-export type ToolRangeType = {
+export type ToolRangeType = BaseComponent & {
     type: "Range";
     label: TranslateTextType;
     min: number;
@@ -134,7 +133,7 @@ export type ToolRangeType = {
     value: ValueParams<number>;
 };
 
-export type ToolInlineType = {
+export type ToolInlineType = BaseComponent & {
     type: "InlineSlot";
     description?: TranslateTextType;
     title: TranslateTextType;
@@ -144,14 +143,14 @@ export type ToolInlineType = {
     lock?: ValueParams<string>;
 };
 
-export type ToolTagViewerType = {
+export type ToolTagViewerType = BaseComponent & {
     type: "TagViewer";
     field?: string;
     registry: string;
     additional?: Record<string, string[]>;
 };
 
-export type ToolEffectType = {
+export type ToolEffectType = BaseComponent & {
     type: "Effect";
     action: Action;
     condition: Condition;

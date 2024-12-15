@@ -199,8 +199,7 @@ describe("Combined Field and Iteration Resolver", () => {
                                         }
                                     },
                                     condition: {
-                                        condition: "Equals",
-                                        type: "String",
+                                        condition: "compare_value_to_field_value",
                                         field: {
                                             type: "get_toggle_field",
                                             group: "main.supported"
@@ -227,8 +226,7 @@ describe("Combined Field and Iteration Resolver", () => {
                                     }
                                 },
                                 hide: {
-                                    condition: "Equals",
-                                    type: "String",
+                                    condition: "compare_value_to_field_value",
                                     field: {
                                         type: "get_toggle_field",
                                         group: "main.supported"
@@ -236,8 +234,7 @@ describe("Combined Field and Iteration Resolver", () => {
                                     value: "main.supported.items"
                                 },
                                 condition: {
-                                    condition: "Equals",
-                                    type: "Undefined",
+                                    condition: "if_field_is_undefined",
                                     field: {
                                         type: "get_toggle_field",
                                         group: "main.supported"

@@ -29,8 +29,7 @@ export const technical: Unresolved<InterfaceConfiguration> = {
                         value: "#minecraft:curse"
                     },
                     condition: {
-                        condition: "Contains",
-                        type: "Tags",
+                        condition: "contains_in_tags",
                         field: "tags",
                         values: ["#minecraft:curse"]
                     }
@@ -51,8 +50,7 @@ export const technical: Unresolved<InterfaceConfiguration> = {
                         value: "#minecraft:non_treasure"
                     },
                     condition: {
-                        condition: "Contains",
-                        type: "Tags",
+                        condition: "contains_in_tags",
                         field: "tags",
                         values: ["#minecraft:non_treasure"]
                     }
@@ -73,8 +71,7 @@ export const technical: Unresolved<InterfaceConfiguration> = {
                         value: "#minecraft:treasure"
                     },
                     condition: {
-                        condition: "Contains",
-                        type: "Tags",
+                        condition: "contains_in_tags",
                         field: "tags",
                         values: ["#minecraft:treasure"]
                     }
@@ -95,8 +92,7 @@ export const technical: Unresolved<InterfaceConfiguration> = {
                         value: "#minecraft:smelts_loot"
                     },
                     condition: {
-                        condition: "Contains",
-                        type: "Tags",
+                        condition: "contains_in_tags",
                         field: "tags",
                         values: ["#minecraft:smelts_loot"]
                     }
@@ -120,8 +116,7 @@ export const technical: Unresolved<InterfaceConfiguration> = {
                                 value: "#minecraft:prevent_ice_melting"
                             },
                             condition: {
-                                condition: "Contains",
-                                type: "Tags",
+                                condition: "contains_in_tags",
                                 field: "tags",
                                 values: ["#minecraft:prevent_ice_melting"]
                             }
@@ -142,8 +137,7 @@ export const technical: Unresolved<InterfaceConfiguration> = {
                                 value: "#minecraft:prevent_infested_block_spawning"
                             },
                             condition: {
-                                condition: "Contains",
-                                type: "Tags",
+                                condition: "contains_in_tags",
                                 field: "tags",
                                 values: ["#minecraft:prevent_infested_block_spawning"]
                             }
@@ -169,8 +163,7 @@ export const technical: Unresolved<InterfaceConfiguration> = {
                                 value: "#minecraft:prevent_bee_spawning"
                             },
                             condition: {
-                                condition: "Contains",
-                                type: "Tags",
+                                condition: "contains_in_tags",
                                 field: "tags",
                                 values: ["#minecraft:prevent_bee_spawning"]
                             }
@@ -191,8 +184,7 @@ export const technical: Unresolved<InterfaceConfiguration> = {
                                 value: "#minecraft:prevent_pot_shattering"
                             },
                             condition: {
-                                condition: "Contains",
-                                type: "Tags",
+                                condition: "contains_in_tags",
                                 field: "tags",
                                 values: ["#minecraft:prevent_pot_shattering"]
                             }
@@ -311,8 +303,7 @@ export const technical: Unresolved<InterfaceConfiguration> = {
                         field: "disabledEffects"
                     },
                     condition: {
-                        condition: "Contains",
-                        type: "String",
+                        condition: "contains_in_value",
                         field: "disabledEffects"
                     },
                     value: {

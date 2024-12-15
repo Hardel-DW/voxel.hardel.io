@@ -34,8 +34,7 @@ describe("Condition System", () => {
         it("should check string equality", () => {
             const element = createMockElement();
             const condition: Condition = {
-                condition: "Equals",
-                type: "String",
+                condition: "compare_value_to_field_value",
                 field: "supportedItems",
                 value: "#minecraft:sword"
             };
@@ -46,8 +45,7 @@ describe("Condition System", () => {
         it("should check undefined equality", () => {
             const element = createMockElement();
             const condition: Condition = {
-                condition: "Equals",
-                type: "Undefined",
+                condition: "if_field_is_undefined",
                 field: "exclusiveSet"
             };
 
@@ -59,8 +57,7 @@ describe("Condition System", () => {
         it("should check string array contains", () => {
             const element = createMockElement();
             const condition: Condition = {
-                condition: "Contains",
-                type: "String",
+                condition: "contains_in_value",
                 field: "slots",
                 values: ["head"]
             };
@@ -71,8 +68,7 @@ describe("Condition System", () => {
         it("should check tags contains", () => {
             const element = createMockElement();
             const condition: Condition = {
-                condition: "Contains",
-                type: "Tags",
+                condition: "contains_in_tags",
                 field: "tags",
                 values: ["#minecraft:enchantable/bow"]
             };
@@ -85,10 +81,9 @@ describe("Condition System", () => {
         it("should invert condition result", () => {
             const element = createMockElement();
             const condition: Condition = {
-                condition: "Inverted",
-                invertedCondition: {
-                    condition: "Equals",
-                    type: "String",
+                condition: "inverted",
+                terms: {
+                    condition: "compare_value_to_field_value",
                     field: "supportedItems",
                     value: "#minecraft:axe"
                 }
@@ -102,17 +97,15 @@ describe("Condition System", () => {
         it("should check all conditions are true", () => {
             const element = createMockElement();
             const condition: Condition = {
-                condition: "AllOf",
-                conditions: [
+                condition: "all_of",
+                terms: [
                     {
-                        condition: "Contains",
-                        type: "String",
+                        condition: "contains_in_value",
                         field: "slots",
                         values: ["head"]
                     },
                     {
-                        condition: "Contains",
-                        type: "Tags",
+                        condition: "contains_in_tags",
                         field: "tags",
                         values: ["#minecraft:enchantable/bow"]
                     }
@@ -125,17 +118,15 @@ describe("Condition System", () => {
         it("should return false if any condition is false", () => {
             const element = createMockElement();
             const condition: Condition = {
-                condition: "AllOf",
-                conditions: [
+                condition: "all_of",
+                terms: [
                     {
-                        condition: "Contains",
-                        type: "String",
+                        condition: "contains_in_value",
                         field: "slots",
                         values: ["head"]
                     },
                     {
-                        condition: "Contains",
-                        type: "Tags",
+                        condition: "contains_in_tags",
                         field: "tags",
                         values: ["#minecraft:enchantable/crossbow"]
                     }
@@ -150,17 +141,15 @@ describe("Condition System", () => {
         it("should check if any condition is true", () => {
             const element = createMockElement();
             const condition: Condition = {
-                condition: "AnyOf",
-                conditions: [
+                condition: "any_of",
+                terms: [
                     {
-                        condition: "Contains",
-                        type: "String",
+                        condition: "contains_in_value",
                         field: "slots",
                         values: ["invalid_slot"]
                     },
                     {
-                        condition: "Contains",
-                        type: "Tags",
+                        condition: "contains_in_tags",
                         field: "tags",
                         values: ["#minecraft:enchantable/bow"]
                     }
@@ -173,17 +162,15 @@ describe("Condition System", () => {
         it("should return false if all conditions are false", () => {
             const element = createMockElement();
             const condition: Condition = {
-                condition: "AnyOf",
-                conditions: [
+                condition: "any_of",
+                terms: [
                     {
-                        condition: "Contains",
-                        type: "String",
+                        condition: "contains_in_value",
                         field: "slots",
                         values: ["invalid_slot"]
                     },
                     {
-                        condition: "Contains",
-                        type: "Tags",
+                        condition: "contains_in_tags",
                         field: "tags",
                         values: ["#minecraft:enchantable/crossbow"]
                     }
@@ -198,30 +185,27 @@ describe("Condition System", () => {
         it("should handle nested conditions", () => {
             const element = createMockElement();
             const condition: Condition = {
-                condition: "AllOf",
-                conditions: [
+                condition: "all_of",
+                terms: [
                     {
-                        condition: "AnyOf",
-                        conditions: [
+                        condition: "any_of",
+                        terms: [
                             {
-                                condition: "Contains",
-                                type: "String",
+                                condition: "contains_in_value",
                                 field: "slots",
                                 values: ["head"]
                             },
                             {
-                                condition: "Contains",
-                                type: "String",
+                                condition: "contains_in_value",
                                 field: "slots",
                                 values: ["chest"]
                             }
                         ]
                     },
                     {
-                        condition: "Inverted",
-                        invertedCondition: {
-                            condition: "Contains",
-                            type: "Tags",
+                        condition: "inverted",
+                        terms: {
+                            condition: "contains_in_tags",
                             field: "tags",
                             values: ["#minecraft:enchantable/crossbow"]
                         }

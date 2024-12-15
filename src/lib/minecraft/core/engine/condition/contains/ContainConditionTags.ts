@@ -3,7 +3,7 @@ import type { Analysers, GetAnalyserVoxel } from "@/lib/minecraft/core/engine/An
 import type { RegistryElement } from "@/lib/minecraft/mczip.ts";
 
 export type ConditionContainTags = {
-    type: "Tags";
+    condition: "contains_in_tags";
     field: string;
     lock?: boolean;
     values: string[];

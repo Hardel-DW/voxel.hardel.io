@@ -50,8 +50,7 @@ export const yggdrasil: Unresolved<ToolRevealElementType> = {
                                 ]
                             },
                             condition: {
-                                condition: "Contains",
-                                type: "Tags",
+                                condition: "contains_in_tags",
                                 field: "tags",
                                 values: [
                                     "#yggdrasil:equipment/item/bow",
@@ -131,15 +130,9 @@ export const yggdrasil: Unresolved<ToolRevealElementType> = {
                                     }
                                 },
                                 condition: {
-                                    condition: "Contains",
-                                    type: "Tags",
+                                    condition: "contains_in_tags",
                                     field: "tags",
-                                    values: [
-                                        {
-                                            type: "get_value_from_context",
-                                            key: "tag"
-                                        }
-                                    ]
+                                    values: [{ type: "get_value_from_context", key: "tag" }]
                                 }
                             }
                         }
@@ -220,15 +213,9 @@ export const yggdrasil: Unresolved<ToolRevealElementType> = {
                                     }
                                 },
                                 condition: {
-                                    condition: "Contains",
-                                    type: "Tags",
+                                    condition: "contains_in_tags",
                                     field: "tags",
-                                    values: [
-                                        {
-                                            type: "get_value_from_context",
-                                            key: "tag"
-                                        }
-                                    ]
+                                    values: [{ type: "get_value_from_context", key: "tag" }]
                                 }
                             }
                         }
@@ -264,8 +251,7 @@ export const yggdrasil: Unresolved<ToolRevealElementType> = {
                                 value: "#yggdrasil:structure/runic_fracture/boss_trial_spawner"
                             },
                             condition: {
-                                condition: "Contains",
-                                type: "Tags",
+                                condition: "contains_in_tags",
                                 field: "tags",
                                 values: ["#yggdrasil:structure/runic_fracture/boss_trial_spawner"]
                             }
@@ -287,8 +273,7 @@ export const yggdrasil: Unresolved<ToolRevealElementType> = {
                                 value: "#yggdrasil:structure/runic_fracture/monster_trial_spawner"
                             },
                             condition: {
-                                condition: "Contains",
-                                type: "Tags",
+                                condition: "contains_in_tags",
                                 field: "tags",
                                 values: ["#yggdrasil:structure/runic_fracture/monster_trial_spawner"]
                             }
@@ -404,15 +389,9 @@ export const yggdrasil: Unresolved<ToolRevealElementType> = {
                                     }
                                 },
                                 condition: {
-                                    condition: "Contains",
-                                    type: "Tags",
+                                    condition: "contains_in_tags",
                                     field: "tags",
-                                    values: [
-                                        {
-                                            type: "get_value_from_context",
-                                            key: "tag"
-                                        }
-                                    ]
+                                    values: [{ type: "get_value_from_context", key: "tag" }]
                                 }
                             }
                         }

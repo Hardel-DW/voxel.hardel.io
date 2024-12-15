@@ -50,8 +50,7 @@ describe("Value System", () => {
                     value: "test"
                 },
                 condition: {
-                    condition: "Contains",
-                    type: "String",
+                    condition: "contains_in_value",
                     field: "slots",
                     values: ["head"]
                 }
@@ -68,8 +67,7 @@ describe("Value System", () => {
                     value: "test"
                 },
                 condition: {
-                    condition: "Contains",
-                    type: "String",
+                    condition: "contains_in_value",
                     field: "slots",
                     values: ["invalid_slot"]
                 }
@@ -88,17 +86,15 @@ describe("Value System", () => {
                     value: 42
                 },
                 condition: {
-                    condition: "AllOf",
-                    conditions: [
+                    condition: "all_of",
+                    terms: [
                         {
-                            condition: "Contains",
-                            type: "String",
+                            condition: "contains_in_value",
                             field: "slots",
                             values: ["head"]
                         },
                         {
-                            condition: "Contains",
-                            type: "Tags",
+                            condition: "contains_in_tags",
                             field: "tags",
                             values: ["#minecraft:enchantable/bow"]
                         }
@@ -117,17 +113,15 @@ describe("Value System", () => {
                     value: 42
                 },
                 condition: {
-                    condition: "AnyOf",
-                    conditions: [
+                    condition: "any_of",
+                    terms: [
                         {
-                            condition: "Contains",
-                            type: "String",
+                            condition: "contains_in_value",
                             field: "slots",
                             values: ["invalid_slot"]
                         },
                         {
-                            condition: "Contains",
-                            type: "Tags",
+                            condition: "contains_in_tags",
                             field: "tags",
                             values: ["#minecraft:enchantable/crossbow"]
                         }

@@ -29,8 +29,7 @@ export const slots: Unresolved<InterfaceConfiguration> = {
                                 value: "mainhand"
                             },
                             condition: {
-                                condition: "Contains",
-                                type: "String",
+                                condition: "contains_in_value",
                                 field: "slots",
                                 values: ["mainhand", "any", "hand"]
                             }
@@ -45,8 +44,7 @@ export const slots: Unresolved<InterfaceConfiguration> = {
                                 value: "offhand"
                             },
                             condition: {
-                                condition: "Contains",
-                                type: "String",
+                                condition: "contains_in_value",
                                 field: "slots",
                                 values: ["offhand", "any", "hand"]
                             }
@@ -66,8 +64,7 @@ export const slots: Unresolved<InterfaceConfiguration> = {
                                 value: "head"
                             },
                             condition: {
-                                condition: "Contains",
-                                type: "String",
+                                condition: "contains_in_value",
                                 field: "slots",
                                 values: ["head", "any", "armor"]
                             }
@@ -82,8 +79,7 @@ export const slots: Unresolved<InterfaceConfiguration> = {
                                 value: "chest"
                             },
                             condition: {
-                                condition: "Contains",
-                                type: "String",
+                                condition: "contains_in_value",
                                 field: "slots",
                                 values: ["chest", "any", "armor"]
                             }
@@ -98,8 +94,7 @@ export const slots: Unresolved<InterfaceConfiguration> = {
                                 value: "legs"
                             },
                             condition: {
-                                condition: "Contains",
-                                type: "String",
+                                condition: "contains_in_value",
                                 field: "slots",
                                 values: ["legs", "any", "armor"]
                             }
@@ -114,8 +109,7 @@ export const slots: Unresolved<InterfaceConfiguration> = {
                                 value: "feet"
                             },
                             condition: {
-                                condition: "Contains",
-                                type: "String",
+                                condition: "contains_in_value",
                                 field: "slots",
                                 values: ["feet", "any", "armor"]
                             }

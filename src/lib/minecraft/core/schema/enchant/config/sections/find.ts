@@ -91,15 +91,13 @@ export const find: Unresolved<InterfaceConfiguration> = {
                                         }
                                     },
                                     condition: {
-                                        condition: "Contains",
-                                        type: "Tags",
+                                        condition: "contains_in_tags",
                                         field: "tags",
                                         values: [{ type: "get_value_from_context", key: "lock_value" }]
                                     }
                                 },
                                 condition: {
-                                    type: "Tags",
-                                    condition: "Contains",
+                                    condition: "contains_in_tags",
                                     field: "tags",
                                     values: [{ type: "get_value_from_context", key: "tag" }]
                                 }

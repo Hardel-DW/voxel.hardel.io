@@ -1,7 +1,6 @@
 import { useConfigurator } from "@/components/tools/ConfiguratorContext";
 import { Identifier } from "@/lib/minecraft/core/Identifier";
 import { compileDatapack } from "@/lib/minecraft/core/engine/Compiler";
-import { resolve } from "@/lib/minecraft/core/engine/resolver/field/resolveField";
 import type { RegistryElement } from "@/lib/minecraft/mczip";
 import type { TagType } from "@voxel/definitions";
 
@@ -12,7 +11,6 @@ export default function TagViewer(props: {
 }) {
     const context = useConfigurator();
     if (!context.configuration) return null;
-    const resolvedConfiguration = resolve(context.configuration);
     const values: string[] = [];
 
     // Get the field value from the given field
@@ -24,7 +22,7 @@ export default function TagViewer(props: {
         elements: context.elements,
         version: context.version,
         files: context.files,
-        configuration: resolvedConfiguration
+        configuration: context.configuration
     });
 
     if (typeof fieldValue !== "string") return null;

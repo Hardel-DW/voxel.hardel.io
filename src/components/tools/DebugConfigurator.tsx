@@ -3,7 +3,6 @@ import { useConfigurator } from "@/components/tools/ConfiguratorContext.tsx";
 import CodeBlock from "@/components/ui/codeblock/CodeBlock.tsx";
 import type { DataDrivenElement } from "@/lib/minecraft/core/engine/Analyser.ts";
 import { compileDatapack } from "@/lib/minecraft/core/engine/Compiler.ts";
-import { resolve } from "@/lib/minecraft/core/engine/resolver/field/resolveField";
 import type { RegistryElement } from "@/lib/minecraft/mczip.ts";
 import { cn } from "@/lib/utils.ts";
 import { useState } from "react";
@@ -17,7 +16,6 @@ export default function DebugConfigurator() {
     const { translate } = useTranslate();
     const context = useConfigurator();
     if (!context.configuration) return null;
-    const resolvedConfiguration = resolve(context.configuration);
 
     const groupByRegistry = (elements: RegistryElement<DataDrivenElement>[]): Record<string, RegistryElement<DataDrivenElement>[]> => {
         const groups: Record<string, RegistryElement<DataDrivenElement>[]> = {};
@@ -43,7 +41,7 @@ export default function DebugConfigurator() {
             elements: context.elements,
             version: context.version,
             files: context.files,
-            configuration: resolvedConfiguration
+            configuration: context.configuration
         });
         const registries = groupByRegistry(assembleDatapack);
         if (!registries) return;

@@ -4,8 +4,8 @@ import { type Condition, checkCondition } from "@/lib/minecraft/core/engine/cond
 import type { RegistryElement } from "@/lib/minecraft/mczip.ts";
 
 export type AnyOfCondition = {
-    condition: "AnyOf";
-    conditions: Condition[];
+    condition: "any_of";
+    terms: Condition[];
 };
 
 export function checkAnyOfCondition<T extends keyof Analysers>(
@@ -13,5 +13,5 @@ export function checkAnyOfCondition<T extends keyof Analysers>(
     element: RegistryElement<GetAnalyserVoxel<T>>,
     value?: ActionValue
 ): boolean {
-    return condition.conditions.some((subCondition) => checkCondition(subCondition, element, value));
+    return condition.terms.some((subCondition) => checkCondition(subCondition, element, value));
 }

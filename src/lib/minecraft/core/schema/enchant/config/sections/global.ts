@@ -31,7 +31,7 @@ export const global: Unresolved<InterfaceConfiguration> = {
                             max: 127,
                             step: 1,
                             action: {
-                                type: "Dynamic",
+                                type: "set_value",
                                 field: "maxLevel"
                             },
                             value: {
@@ -55,7 +55,10 @@ export const global: Unresolved<InterfaceConfiguration> = {
                             min: 1,
                             max: 127,
                             step: 1,
-                            action: { type: "Dynamic", field: "weight" },
+                            action: {
+                                type: "set_value",
+                                field: "weight"
+                            },
                             value: {
                                 params: {
                                     type: "Field",
@@ -77,7 +80,10 @@ export const global: Unresolved<InterfaceConfiguration> = {
                             min: 1,
                             max: 127,
                             step: 1,
-                            action: { type: "Dynamic", field: "anvilCost" },
+                            action: {
+                                type: "set_value",
+                                field: "anvilCost"
+                            },
                             value: {
                                 params: {
                                     type: "Field",

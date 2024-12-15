@@ -180,7 +180,7 @@ export const supported: Unresolved<InterfaceConfiguration> = {
                                     key: "image"
                                 },
                                 action: {
-                                    type: "String",
+                                    type: "set_value",
                                     value: {
                                         type: "get_value_from_context",
                                         key: "value"
@@ -215,9 +215,9 @@ export const supported: Unresolved<InterfaceConfiguration> = {
                                 }
                             },
                             hide: {
-                                condition: "compare_value_to_field_value",
-                                field: {
-                                    type: "get_toggle_field",
+                                condition: "compare_to_value",
+                                compare: {
+                                    type: "get_toggle_name",
                                     group: "main.supported"
                                 },
                                 value: "main.supported.items"

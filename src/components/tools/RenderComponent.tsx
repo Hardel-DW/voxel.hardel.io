@@ -59,7 +59,7 @@ export function RenderComponent<T extends keyof Analysers>({
                     short={component.short}
                     image={component.image}
                     description={component.description}
-                    onChange={() => context.handleChange(component.action, context.currentElement?.identifier)}
+                    onChange={(value) => context.handleChange(component.action, context.currentElement?.identifier, value)}
                 />
             );
         }
@@ -79,7 +79,7 @@ export function RenderComponent<T extends keyof Analysers>({
                     id={getKey(component.label)}
                     value={result}
                     label={component.label}
-                    onValueChange={() => context.handleChange(component.action, context.currentElement?.identifier)}
+                    onValueChange={(value) => context.handleChange(component.action, context.currentElement?.identifier, value)}
                 />
             );
         }
@@ -95,7 +95,7 @@ export function RenderComponent<T extends keyof Analysers>({
                     lock={lock ? lock : undefined}
                     description={component.description}
                     name={getKey(component.title)}
-                    onChange={() => context.handleChange(component.action, context.currentElement?.identifier)}
+                    onChange={(value) => context.handleChange(component.action, context.currentElement?.identifier, value)}
                 />
             );
         }
@@ -113,7 +113,7 @@ export function RenderComponent<T extends keyof Analysers>({
                     lock={lock ? lock : undefined}
                     description={component.description}
                     image={component.image}
-                    onChange={() => context.handleChange(component.action, context.currentElement?.identifier)}
+                    onChange={(value) => context.handleChange(component.action, context.currentElement?.identifier, value)}
                 />
             );
         }
@@ -130,7 +130,9 @@ export function RenderComponent<T extends keyof Analysers>({
                     value={result}
                     lock={lock ? lock : undefined}
                     image={component.image}
-                    onChange={() => component.action && context.handleChange(component.action, context.currentElement?.identifier)}
+                    onChange={(value) =>
+                        component.action && context.handleChange(component.action, context.currentElement?.identifier, value)
+                    }
                 />
             );
         }
@@ -141,7 +143,9 @@ export function RenderComponent<T extends keyof Analysers>({
                 <ToolEffectRecord
                     value={result}
                     conditions={component.condition}
-                    onChange={() => component.action && context.handleChange(component.action, context.currentElement?.identifier)}
+                    onChange={(value) =>
+                        component.action && context.handleChange(component.action, context.currentElement?.identifier, value)
+                    }
                 />
             );
         }
@@ -204,7 +208,9 @@ export function RenderComponent<T extends keyof Analysers>({
                     image={component.image}
                     checked={checked}
                     lock={lock ? lock : undefined}
-                    onChange={() => component.action && context.handleChange(component.action, context.currentElement?.identifier)}
+                    onChange={(value) =>
+                        component.action && context.handleChange(component.action, context.currentElement?.identifier, value)
+                    }
                 />
             );
         }

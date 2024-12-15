@@ -149,7 +149,7 @@ export const exclusive: Unresolved<InterfaceConfiguration> = {
                                                             field: "exclusiveSet"
                                                         },
                                                         {
-                                                            type: "List",
+                                                            type: "toggle_value_in_list",
                                                             field: "tags",
                                                             value: {
                                                                 type: "get_value_from_context",
@@ -194,10 +194,10 @@ export const exclusive: Unresolved<InterfaceConfiguration> = {
                                                         },
                                                         image: "/favicon.svg",
                                                         action: {
-                                                            type: "Sequential",
+                                                            type: "sequential",
                                                             actions: [
                                                                 {
-                                                                    type: "String",
+                                                                    type: "set_value",
                                                                     value: {
                                                                         type: "get_value_from_context",
                                                                         key: "identifier"
@@ -206,7 +206,7 @@ export const exclusive: Unresolved<InterfaceConfiguration> = {
                                                                     mode: "toggle"
                                                                 },
                                                                 {
-                                                                    type: "List",
+                                                                    type: "toggle_value_in_list",
                                                                     field: "tags",
                                                                     value: {
                                                                         type: "get_value_from_context",
@@ -289,7 +289,7 @@ export const exclusive: Unresolved<InterfaceConfiguration> = {
                                     key: "namespace"
                                 },
                                 action: {
-                                    type: "List",
+                                    type: "toggle_value_in_list",
                                     field: "exclusiveSet",
                                     mode: "remove_if_empty",
                                     value: {

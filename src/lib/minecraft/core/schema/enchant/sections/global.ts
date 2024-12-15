@@ -31,7 +31,7 @@ export const global: Unresolved<InterfaceConfiguration> = {
                             max: 127,
                             step: 1,
                             action: {
-                                type: "set_value",
+                                type: "set_value_from_computed_value",
                                 field: "maxLevel"
                             },
                             value: {
@@ -56,7 +56,7 @@ export const global: Unresolved<InterfaceConfiguration> = {
                             max: 127,
                             step: 1,
                             action: {
-                                type: "set_value",
+                                type: "set_value_from_computed_value",
                                 field: "weight"
                             },
                             value: {
@@ -81,7 +81,7 @@ export const global: Unresolved<InterfaceConfiguration> = {
                             max: 127,
                             step: 1,
                             action: {
-                                type: "set_value",
+                                type: "set_value_from_computed_value",
                                 field: "anvilCost"
                             },
                             value: {

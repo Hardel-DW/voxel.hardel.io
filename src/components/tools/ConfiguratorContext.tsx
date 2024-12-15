@@ -1,6 +1,6 @@
 import type { Identifier } from "@/lib/minecraft/core/Identifier.ts";
 import type { Analysers, GetAnalyserVoxel } from "@/lib/minecraft/core/engine/Analyser.ts";
-import type { Action } from "@/lib/minecraft/core/engine/actions";
+import type { Action, ActionValue } from "@/lib/minecraft/core/engine/actions";
 import { updateData } from "@/lib/minecraft/core/engine/actions";
 import { createDifferenceFromAction } from "@/lib/minecraft/core/engine/migrations/logValidation";
 import type { Logger } from "@/lib/minecraft/core/engine/migrations/logger";
@@ -54,7 +54,7 @@ export interface ConfiguratorContextType<T extends keyof Analysers> {
 
     // Store the type of tool
     tool: T;
-    handleChange: (action: Action, identifier?: Identifier) => void;
+    handleChange: (action: Action, identifier?: Identifier, value?: ActionValue) => void;
 }
 
 const ConfiguratorContext = createContext<ConfiguratorContextType<any> | undefined>(undefined);
@@ -81,13 +81,13 @@ export function ConfiguratorProvider<T extends keyof Analysers>(props: {
         }));
     };
 
-    const handleChange = (action: Action, identifier?: Identifier) => {
+    const handleChange = (action: Action, identifier?: Identifier, value?: ActionValue) => {
         const element = identifier ? elements.find((elem) => elem.identifier.equals(identifier)) : currentElement;
         if (!element) {
             console.error("Element not found");
             return;
         }
-        const updatedElement = updateData<T>(action, element, version ?? Number.POSITIVE_INFINITY);
+        const updatedElement = updateData<T>(action, element, version ?? Number.POSITIVE_INFINITY, value);
         if (updatedElement && logger && version) {
             const difference = createDifferenceFromAction(action, updatedElement, files, version, props.tool);
 

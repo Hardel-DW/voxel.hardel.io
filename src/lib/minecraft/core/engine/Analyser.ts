@@ -2,7 +2,7 @@ import type { Compiler } from "@/lib/minecraft/core/engine/Compiler.ts";
 import type { Parser } from "@/lib/minecraft/core/engine/Parser.ts";
 import type { Unresolved } from "@/lib/minecraft/core/engine/resolver/field/type.ts";
 import { DataDrivenToVoxelFormat, type EnchantmentProps, VoxelToDataDriven } from "@/lib/minecraft/core/schema/enchant/EnchantmentProps.ts";
-import { ENCHANT_TOOL_CONFIG } from "@/lib/minecraft/core/schema/enchant/config";
+import { ENCHANT_TOOL_CONFIG } from "@/lib/minecraft/core/schema/enchant";
 import type { ToolConfiguration } from "@/lib/minecraft/core/schema/primitive";
 import type { Enchantment } from "@voxel/definitions";
 

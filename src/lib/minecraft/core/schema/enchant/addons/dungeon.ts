@@ -3,7 +3,7 @@ import type { ToolRevealElementType } from "@/lib/minecraft/core/schema/primitiv
 
 export const dungeon: Unresolved<ToolRevealElementType> = {
     id: "enchant.addons.dnt",
-    soon: true,
+    soon: false,
     logo: "/images/addons/logo/dnt.webp",
     image: "/images/addons/hero/dnt.png",
     href: "https://modrinth.com/datapack/dungeons-and-taverns",

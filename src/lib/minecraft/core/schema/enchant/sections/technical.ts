@@ -214,7 +214,10 @@ export const technical: Unresolved<InterfaceConfiguration> = {
                             min: 0,
                             max: 100,
                             step: 1,
-                            action: { type: "Dynamic", field: "minCostBase" },
+                            action: {
+                                type: "set_value_from_computed_value",
+                                field: "minCostBase"
+                            },
                             value: {
                                 params: {
                                     type: "Field",
@@ -232,7 +235,7 @@ export const technical: Unresolved<InterfaceConfiguration> = {
                             max: 100,
                             step: 1,
                             action: {
-                                type: "Dynamic",
+                                type: "set_value_from_computed_value",
                                 field: "minCostPerLevelAboveFirst"
                             },
                             value: {
@@ -256,7 +259,7 @@ export const technical: Unresolved<InterfaceConfiguration> = {
                             min: 0,
                             max: 100,
                             step: 1,
-                            action: { type: "Dynamic", field: "maxCostBase" },
+                            action: { type: "set_value_from_computed_value", field: "maxCostBase" },
                             value: {
                                 params: {
                                     type: "Field",
@@ -274,7 +277,7 @@ export const technical: Unresolved<InterfaceConfiguration> = {
                             max: 100,
                             step: 1,
                             action: {
-                                type: "Dynamic",
+                                type: "set_value_from_computed_value",
                                 field: "maxCostPerLevelAboveFirst"
                             },
                             value: {
@@ -299,7 +302,7 @@ export const technical: Unresolved<InterfaceConfiguration> = {
                 {
                     type: "Effect",
                     action: {
-                        type: "DynamicList",
+                        type: "toggle_value_in_list",
                         field: "disabledEffects"
                     },
                     condition: {

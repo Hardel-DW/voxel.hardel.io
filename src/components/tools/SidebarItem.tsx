@@ -22,17 +22,16 @@ export function SidebarItem(props: { element: RegistryElement<VoxelElement> }) {
     const softDeleteField = "field" in configuration.sidebar.action ? configuration.sidebar.action.field : null;
     const descriptionValue = props.element.data[descriptionField];
     const check = softDeleteField ? props.element.data[softDeleteField] : null;
-    if (!context.currentElement) return null;
-    if (typeof check !== "boolean") return null;
+    if (!context.currentElement || typeof check !== "boolean") return null;
 
     const handleClick = () => {
         if (switchRef.current?.contains(document.activeElement)) return;
         context.setCurrentElementId(props.element.identifier);
     };
 
-    const handleSoftDelete = () => {
+    const handleSoftDelete = (checked: boolean) => {
         if (!configuration.sidebar.action) return;
-        context.handleChange(configuration.sidebar.action, props.element.identifier);
+        context.handleChange(configuration.sidebar.action, props.element.identifier, checked);
     };
 
     return (
@@ -46,7 +45,12 @@ export function SidebarItem(props: { element: RegistryElement<VoxelElement> }) {
                     <Tooltip>
                         <TooltipTrigger asChild>
                             <label className="flex items-center justify-between gap-4">
-                                <input type="checkbox" name="enable" checked={!check} onChange={handleSoftDelete} />
+                                <input
+                                    type="checkbox"
+                                    name="enable"
+                                    checked={!check}
+                                    onChange={(e) => handleSoftDelete(!e.target.checked)}
+                                />
                             </label>
                         </TooltipTrigger>
                         <TooltipContent align="end" className="w-64">

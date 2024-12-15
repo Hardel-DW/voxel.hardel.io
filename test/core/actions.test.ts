@@ -16,7 +16,7 @@ import { describe, expect, it } from "vitest";
 const createMockElement = (data: Partial<EnchantmentProps> = {}): RegistryElement<EnchantmentProps> => ({
     identifier: new Identifier("namespace", "enchantment", "foo"),
     data: {
-        description: { translate: "enchantment.test.foo" },
+        description: { translate: "enchantment.test.foo", fallback: "Enchantment Test" },
         exclusiveSet: undefined,
         supportedItems: "#minecraft:sword",
         primaryItems: undefined,
@@ -32,6 +32,43 @@ const createMockElement = (data: Partial<EnchantmentProps> = {}): RegistryElemen
         tags: [],
         softDelete: false,
         disabledEffects: [],
+        ...data
+    }
+});
+
+const createComplexMockElement = (data: Partial<EnchantmentProps> = {}): RegistryElement<EnchantmentProps> => ({
+    identifier: new Identifier("enchantplus", "enchantment", "bow/accuracy_shot"),
+    data: {
+        anvilCost: 4,
+        description: { translate: "enchantment.test.foo", fallback: "Enchantment Test" },
+        disabledEffects: [],
+        effects: {
+            "minecraft:projectile_spawned": [
+                {
+                    effect: {
+                        type: "minecraft:run_function",
+                        function: "enchantplus:actions/accuracy_shot/on_shoot"
+                    }
+                }
+            ]
+        } as EffectComponentsRecord,
+        exclusiveSet: undefined,
+        maxLevel: 1,
+        minCostBase: 1,
+        minCostPerLevelAboveFirst: 1,
+        maxCostBase: 10,
+        maxCostPerLevelAboveFirst: 10,
+        primaryItems: undefined,
+        supportedItems: "#voxel:enchantable/range",
+        slots: ["mainhand", "offhand"],
+        softDelete: false,
+        tags: [
+            "#minecraft:non_treasure",
+            "#yggdrasil:structure/alfheim_tree/ominous_vault",
+            "#yggdrasil:structure/alfheim_tree/ominous_vault/floor",
+            "#yggdrasil:structure/asflors/common"
+        ],
+        weight: 2,
         ...data
     }
 });
@@ -276,6 +313,30 @@ describe("Action System", () => {
             };
 
             expect(() => updateData(action, element, 48)).toThrow();
+        });
+    });
+
+    describe("Complex object resolution", () => {
+        it("Toggle Element in List", () => {
+            const element = createComplexMockElement();
+            const action: ToggleListValueAction = {
+                type: "toggle_value_in_list",
+                field: "disabledEffects"
+            };
+
+            // Premier appel - ajoute l'élément
+            const result = updateData(action, element, 48, "minecraft:projectile_spawned");
+            expect(result).toBeDefined();
+            expect(result?.data.disabledEffects).toEqual(["minecraft:projectile_spawned"]);
+
+            // Deuxième appel - utilise le résultat du premier appel comme entrée
+            if (result === undefined) {
+                throw new Error("First update failed");
+            }
+
+            const result2 = updateData(action, result, 48, "minecraft:projectile_spawned");
+            expect(result2).toBeDefined();
+            expect(result2?.data.disabledEffects).toEqual([]);
         });
     });
 });

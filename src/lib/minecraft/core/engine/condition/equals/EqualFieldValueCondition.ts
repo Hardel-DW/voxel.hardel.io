@@ -12,7 +12,7 @@ export function CheckEqualFieldValueCondition<T extends keyof Analysers>(
     element: RegistryElement<GetAnalyserVoxel<T>>
 ): boolean {
     const compared = element.data[condition.field];
-    if (!compared || typeof compared !== "string") {
+    if (!compared) {
         return false;
     }
 

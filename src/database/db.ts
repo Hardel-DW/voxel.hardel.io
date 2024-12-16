@@ -21,6 +21,8 @@ export const checkPurchase = async (userId: string, productId: string) => {
 
 export const saveMigrationLog = async (log: Log) => {
     console.log("Saving migration log:", log);
+    const migrationLogId = randomUUID();
+
     try {
         // Vérification et conversion de la date
         let date: Date;
@@ -39,7 +41,7 @@ export const saveMigrationLog = async (log: Log) => {
 
         // Insertion du log principal
         await db.insert(migrationLog).values({
-            id: randomUUID(),
+            id: migrationLogId,
             datapackId: log.id,
             date: date,
             version: log.version,
@@ -53,10 +55,10 @@ export const saveMigrationLog = async (log: Log) => {
         // Log pour debug des namespaces
         console.log("Saving namespaces:", log.datapack.namespaces);
 
-        // Insertion des namespaces
+        // Insertion des namespaces avec le bon ID de migration
         const namespaceValues = log.datapack.namespaces.map((namespace) => ({
             id: randomUUID(),
-            migrationId: log.id,
+            migrationId: migrationLogId,
             namespace
         }));
 
@@ -73,8 +75,8 @@ export const saveMigrationLog = async (log: Log) => {
 
         // En cas d'erreur, on essaie de nettoyer les données partiellement insérées
         try {
-            await db.delete(migrationNamespace).where(eq(migrationNamespace.migrationId, log.id));
-            await db.delete(migrationLog).where(eq(migrationLog.id, log.id));
+            await db.delete(migrationNamespace).where(eq(migrationNamespace.migrationId, migrationLogId));
+            await db.delete(migrationLog).where(eq(migrationLog.id, migrationLogId));
         } catch (cleanupError) {
             console.error("Failed to cleanup after error:", cleanupError);
         }

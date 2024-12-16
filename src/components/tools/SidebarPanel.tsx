@@ -5,14 +5,13 @@ import DownloadButton from "@/components/tools/DownloadButton.tsx";
 import { SidebarItem } from "@/components/tools/SidebarItem.tsx";
 import SettingsButton from "@/components/tools/elements/SettingsButton.tsx";
 import { Identifier } from "@/lib/minecraft/core/Identifier.ts";
-import type { Analysers, GetAnalyserVoxel } from "@/lib/minecraft/core/engine/Analyser.ts";
 import { cn } from "@/lib/utils.ts";
 import { useState } from "react";
 
-export default function SidebarPanel<T extends keyof Analysers>() {
+export default function SidebarPanel() {
     const [width, setWidth] = useState(350);
     const { translate } = useTranslate();
-    const { elements } = useConfigurator<GetAnalyserVoxel<T>>();
+    const { elements } = useConfigurator();
 
     if (elements.length === 0) return null;
 

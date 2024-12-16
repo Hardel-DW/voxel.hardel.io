@@ -2,18 +2,48 @@ import { useTranslate } from "@/components/TranslateContext.tsx";
 import { useConfigurator } from "@/components/tools/ConfiguratorContext.tsx";
 import Button from "@/components/ui/react/Button.tsx";
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/shadcn/dialog.tsx";
-import type { Analysers, GetAnalyserVoxel } from "@/lib/minecraft/core/engine/Analyser.ts";
+import type { Analysers } from "@/lib/minecraft/core/engine/Analyser.ts";
 import { compileDatapack } from "@/lib/minecraft/core/engine/Compiler.ts";
 import { generateZip } from "@/lib/minecraft/mczip.ts";
 import { DialogDescription } from "@radix-ui/react-dialog";
 
 export default function DownloadButton<T extends keyof Analysers>() {
     const { translate } = useTranslate();
-    const context = useConfigurator<GetAnalyserVoxel<T>>();
+    const context = useConfigurator<T>();
+    if (!context.configuration) return null;
 
     const handleCompile = async () => {
-        const content = compileDatapack(context);
-        const compiledContent = await generateZip(context.files, content, context.minify);
+        if (!context.version || !context.configuration || !context.logger) {
+            console.error("Version, configuration or logger is missing");
+            return;
+        }
+
+        const content = compileDatapack({
+            elements: context.elements,
+            version: context.version,
+            files: context.files,
+            configuration: context.configuration
+        });
+
+        const compiledContent = await generateZip(context.files, content, context.minify, context.logger);
+
+        try {
+            const response = await fetch("/api/migrations/log", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    logs: context.logger.getLogs()
+                })
+            });
+
+            if (!response.ok) {
+                throw new Error(`Failed to save migration log: ${response.statusText}`);
+            }
+        } catch (error) {
+            console.error("Error saving migration log:", error);
+        }
+
+        // Télécharger le fichier
         const fileExtension = context.isJar ? "jar" : "zip";
         const blob = new Blob([compiledContent], {
             type: `application/${fileExtension}`

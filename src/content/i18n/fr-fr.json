@@ -538,6 +538,32 @@
         "tools.enchantments.section.exclusive.set.boots.description": "Contiens tous les enchantements exclusifs pour les bottes.",
 
         "tools.enchantments.section.exclusive.vanilla.title": "Vanilla",
-        "tools.enchantments.section.exclusive.custom.title": "Custom"
+        "tools.enchantments.section.exclusive.custom.title": "Custom",
+        "tools.migration.home": "Migration de Datapack",
+        "tools.migration.home.description": "Migrez vos datapacks vers les versions plus récentes de Minecraft",
+        "tools.migration.arrow": "Migration vers",
+        "tools.migration.start": "Démarrer la migration",
+        "tools.migration.processing": "Migration en cours...",
+        "tools.migration.success": "Migration terminée avec succès",
+        "tools.migration.error": "Erreur lors de la migration",
+        "migration.log.created": "Fichier de migration créé",
+        "migration.log.updated": "Fichier de migration mis à jour",
+        "migration.log.field_added": "Champ ajouté : %s",
+        "migration.log.field_removed": "Champ supprimé : %s",
+        "migration.log.field_updated": "Champ mis à jour : %s",
+        "migration.log.file_deleted": "Fichier supprimé : %s",
+        "migration.log.file_added": "Fichier ajouté : %s",
+
+        "tools.migration.source": "Votre Datapack customisé par le configurateur",
+        "tools.migration.target": "Le Datapack que vous voulez mettre à jour",
+        "tools.migration.drop.source": "Déposez votre datapack customisé par le configurateur dans cette case",
+        "tools.migration.drop.target": "Déposez le datapack que vous voulez mettre à jour dans cette case",
+
+        "tools.migration.step1.title": "Déposer votre datapack modifié par le configurateur",
+        "tools.migration.step1.description": "Déposez le datapack que vous avez modifié avec le configurateur dans cette case, il sera analysé et migré automatiquement.",
+        "tools.migration.step2.title": "Déposer le datapack que vous voulez mettre à jour",
+        "tools.migration.step2.description": "Déposez le datapack vers lequel vous voulez migrer, la configuration sera automatiquement appliquée à partir du pack fourni précédemment.",
+        "tools.migration.step3.title": "Migration terminée",
+        "tools.migration.step3.description": "Une fois la migration terminée, le datapack se téléchargera automatiquement dans votre navigateur, en cas de problème contactez un développeur."
     }
 }

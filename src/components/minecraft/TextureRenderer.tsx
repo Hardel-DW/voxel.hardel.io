@@ -1,8 +1,6 @@
 import ITEMS from "@/lib/minecraft/render/items";
 
 export default function TextureRenderer(props: { id: string }) {
-    console.log(props.id);
-    console.log(ITEMS);
     if (!(props.id in ITEMS)) {
         return null;
     }

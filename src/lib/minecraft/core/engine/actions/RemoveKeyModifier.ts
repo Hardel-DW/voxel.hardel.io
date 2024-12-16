@@ -1,37 +1,32 @@
-import type { ConfiguratorContextType } from "@/components/tools/ConfiguratorContext.tsx";
 import type { Analysers, GetAnalyserVoxel } from "@/lib/minecraft/core/engine/Analyser.ts";
-import type { ActionValue } from "@/lib/minecraft/core/engine/actions/index.ts";
-import { type Field, getField } from "@/lib/minecraft/core/engine/field";
 import type { RegistryElement } from "@/lib/minecraft/mczip.ts";
+import type { ActionValue, BaseAction } from ".";
 
-export type RemoveKeyAction = {
-    type: "RemoveKey";
-    field: Field;
-};
+export interface RemoveKeyAction extends BaseAction {
+    type: "remove_key";
+    value: ActionValue;
+}
 
 /**
  * This action removes a key from the field of the element.
  * @param action - The action to perform
- * @param value - The value to remove
- * @param context - The context of the configurator
  * @param element - The element to modify
  * @constructor
  */
 export function RemoveKeyModifier<T extends keyof Analysers>(
     action: RemoveKeyAction,
-    value: ActionValue,
-    context: ConfiguratorContextType<GetAnalyserVoxel<T>>,
     element: RegistryElement<GetAnalyserVoxel<T>>
 ): RegistryElement<GetAnalyserVoxel<T>> | undefined {
+    const { value, field } = action;
+
     if (typeof value !== "string") {
         throw new Error("Remove Key action requires a string value");
     }
 
     const shadowCopy = structuredClone(element);
-    const field = getField<T>(action.field, context);
-    const effects = shadowCopy.data[field] as keyof typeof field | undefined;
+    const effects = shadowCopy.data[field] as Record<string, unknown> | undefined;
     if (effects) {
-        delete effects[value as keyof typeof field];
+        delete effects[value];
     }
 
     return {

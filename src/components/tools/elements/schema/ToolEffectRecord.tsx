@@ -1,26 +1,17 @@
 import { useTranslate } from "@/components/TranslateContext.tsx";
 import { useConfigurator } from "@/components/tools/ConfiguratorContext.tsx";
 import { ToolEffect } from "@/components/tools/elements/schema/ToolEffect.tsx";
-import type { Analysers, GetAnalyserVoxel } from "@/lib/minecraft/core/engine/Analyser.ts";
 import { type Condition, checkCondition } from "@/lib/minecraft/core/engine/condition";
-import type { ReturnValue, ValueParams } from "@/lib/minecraft/core/engine/value";
+import type { ReturnValue } from "@/lib/minecraft/core/engine/value";
 import type { EffectComponents, EffectComponentsRecord } from "@voxel/definitions";
-import type { Action } from "src/lib/minecraft/core/engine/actions";
 
-export type ToolEffectType = {
-    type: "Effect";
-    action: Action;
-    condition: Condition;
-    value: ValueParams<EffectComponentsRecord>;
-};
-
-export default function ToolEffectRecord<T extends keyof Analysers>(props: {
+export default function ToolEffectRecord(props: {
     value: ReturnValue<EffectComponentsRecord>;
     conditions: Condition;
     onChange: (value: string) => void;
 }) {
     const { translate } = useTranslate();
-    const context = useConfigurator<GetAnalyserVoxel<T>>();
+    const context = useConfigurator();
 
     return (
         <div className="grid gap-4">
@@ -31,7 +22,7 @@ export default function ToolEffectRecord<T extends keyof Analysers>(props: {
             {props.value &&
                 Object.entries(props.value).map(([effect]) => {
                     if (!context.currentElement) return null;
-                    const checked = checkCondition(props.conditions, context, context.currentElement, effect);
+                    const checked = checkCondition(props.conditions, context.currentElement, effect);
 
                     return (
                         <ToolEffect

@@ -1,7 +1,7 @@
 import { type CategorySound, getCategory, searchSound } from "@/lib/minecraft/net/api/Sound.ts";
 import { cn } from "@/lib/utils.ts";
 import { useEffect, useMemo, useRef, useState } from "react";
-import TranslateText from "../../text/TranslateText";
+import TranslateText from "@/components/tools/elements/text/TranslateText";
 
 export default function ToolSound() {
     const [search, setSearch] = useState<string>("");

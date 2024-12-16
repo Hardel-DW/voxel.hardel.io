@@ -540,6 +540,30 @@
         "tools.enchantments.section.exclusive.set.boots.description": "Contains all exclusive enchantments for boots.",
 
         "tools.enchantments.section.exclusive.vanilla.title": "Vanilla",
-        "tools.enchantments.section.exclusive.custom.title": "Custom"
+        "tools.enchantments.section.exclusive.custom.title": "Custom",
+        "tools.migration.home": "Datapack Migration",
+        "tools.migration.home.description": "Migrate your datapacks to newer Minecraft versions",
+        "tools.migration.source": "Your datapack customized by the configurator",
+        "tools.migration.target": "The datapack you want to update",
+        "tools.migration.drop.source": "Drop your datapack customized by the configurator in this box",
+        "tools.migration.drop.target": "Drop the datapack you want to update in this box",
+        "tools.migration.arrow": "Migrate to",
+        "tools.migration.start": "Start migration",
+        "tools.migration.processing": "Migration in progress...",
+        "tools.migration.success": "Migration completed successfully",
+        "tools.migration.error": "Error during migration",
+        "migration.log.created": "Migration file created",
+        "migration.log.updated": "Migration file updated",
+        "migration.log.field_added": "Field added: %s",
+        "migration.log.field_removed": "Field removed: %s",
+        "migration.log.field_updated": "Field updated: %s",
+        "migration.log.file_deleted": "File deleted: %s",
+        "migration.log.file_added": "File added: %s",
+        "tools.migration.step1.title": "Drop your datapack modified by the configurator",
+        "tools.migration.step1.description": "Drop the datapack that you modified with the configurator in this box, it will be automatically analyzed and migrated.",
+        "tools.migration.step2.title": "Drop the datapack you want to update",
+        "tools.migration.step2.description": "Drop the datapack you want to migrate to, the configuration will be automatically applied from the previously provided pack.",
+        "tools.migration.step3.title": "Migration complete",
+        "tools.migration.step3.description": "Once the migration is complete, the datapack will automatically download in your browser, in case of problems contact a developer."
     }
 }

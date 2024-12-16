@@ -1,20 +1,6 @@
-import TranslateText, { type TranslateTextType } from "@/components/tools/elements/text/TranslateText.tsx";
+import TranslateText from "@/components/tools/elements/text/TranslateText";
+import type { TranslateTextType } from "@/lib/minecraft/core/schema/primitive/text";
 import Counter from "@/components/ui/react/Counter.tsx";
-import type { ValueParams } from "@/lib/minecraft/core/engine/value";
-import type { Action } from "src/lib/minecraft/core/engine/actions";
-
-export type ToolCounterType = {
-    type: "Counter";
-    title: TranslateTextType;
-    short?: TranslateTextType;
-    description?: TranslateTextType;
-    image: string;
-    min: number;
-    max: number;
-    step: number;
-    action: Action;
-    value: ValueParams<number>;
-};
 
 export default function ToolCounter(props: {
     title: TranslateTextType | string;

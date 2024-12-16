@@ -1,4 +1,5 @@
-import { pgTable, text, timestamp, varchar } from "drizzle-orm/pg-core";
+import type { FileLog } from "@/lib/minecraft/core/engine/migrations/types";
+import { pgTable, text, timestamp, varchar, boolean, integer, json } from "drizzle-orm/pg-core";
 
 export const userTable = pgTable("user", {
     id: text("id").primaryKey(),
@@ -26,4 +27,27 @@ export const purchase = pgTable("purchase", {
         .notNull()
         .references(() => userTable.id),
     productId: text("productId").notNull()
+});
+
+export const migrationLog = pgTable("migration_log", {
+    id: text("id").primaryKey(),
+    datapackId: text("datapack_id").notNull(),
+    date: timestamp("date", {
+        withTimezone: true,
+        mode: "date"
+    }).notNull(),
+    version: integer("version").notNull(),
+    isModded: boolean("is_modded").notNull(),
+    isMinified: boolean("is_minified").notNull(),
+    name: text("name").notNull(),
+    description: text("description").notNull(),
+    logs: json("logs").$type<FileLog[]>().notNull()
+});
+
+export const migrationNamespace = pgTable("migration_namespace", {
+    id: text("id").primaryKey(),
+    migrationId: text("migration_id")
+        .notNull()
+        .references(() => migrationLog.id),
+    namespace: text("namespace").notNull()
 });

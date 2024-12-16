@@ -16,11 +16,10 @@ import ToolReveal from "@/components/tools/elements/reveal/ToolReveal.tsx";
 import ToolEffectRecord from "@/components/tools/elements/schema/ToolEffectRecord.tsx";
 import TextRender from "@/components/tools/elements/text/TextRender.tsx";
 import { getKey } from "@/components/tools/elements/text/TranslateText";
-import type { FormComponent } from "@/lib/minecraft/core/engine";
-import type { Analysers, GetAnalyserVoxel } from "@/lib/minecraft/core/engine/Analyser.ts";
-import { handleChange } from "@/lib/minecraft/core/engine/actions";
+import type { Analysers } from "@/lib/minecraft/core/engine/Analyser";
 import { checkCondition } from "@/lib/minecraft/core/engine/condition";
 import { getValue } from "@/lib/minecraft/core/engine/value";
+import type { FormComponent } from "@/lib/minecraft/core/schema/primitive/component.ts";
 import { cn } from "@/lib/utils";
 import type { EffectComponentsRecord } from "@voxel/definitions";
 import { toast } from "sonner";
@@ -30,16 +29,17 @@ export function RenderComponent<T extends keyof Analysers>({
 }: {
     component: FormComponent;
 }) {
-    const context = useConfigurator<GetAnalyserVoxel<T>>();
+    const context = useConfigurator();
     const { translate } = useTranslate();
     if (!context.currentElement) return null;
-    if (component.hide && checkCondition<T>(component.hide, context, context.currentElement)) {
+
+    if (component.hide && checkCondition<T>(component.hide, context.currentElement)) {
         return null;
     }
 
     switch (component.type) {
         case "Counter": {
-            const result = getValue<T, number>(context, component.value, context.currentElement);
+            const result = getValue<T, number>(component.value, context.currentElement);
             if (typeof result !== "number") {
                 toast.error(translate["generic.error"], {
                     description: translate["tools.enchantments.warning.component"]
@@ -59,12 +59,12 @@ export function RenderComponent<T extends keyof Analysers>({
                     short={component.short}
                     image={component.image}
                     description={component.description}
-                    onChange={(option) => handleChange(component.action, option, context)}
+                    onChange={(value) => context.handleChange(component.action, context.currentElement?.identifier, value)}
                 />
             );
         }
         case "Range": {
-            const result = getValue<T, number>(context, component.value, context.currentElement);
+            const result = getValue<T, number>(component.value, context.currentElement);
             if (typeof result !== "number") {
                 toast.error(translate["generic.error"], {
                     description: translate["tools.enchantments.warning.component"]
@@ -79,13 +79,13 @@ export function RenderComponent<T extends keyof Analysers>({
                     id={getKey(component.label)}
                     value={result}
                     label={component.label}
-                    onValueChange={(option) => handleChange(component.action, option, context)}
+                    onValueChange={(value) => context.handleChange(component.action, context.currentElement?.identifier, value)}
                 />
             );
         }
         case "Switch": {
-            const result = checkCondition<T>(component.condition, context, context.currentElement);
-            const lock = component.lock ? getValue<T, string>(context, component.lock, context.currentElement) : null;
+            const result = checkCondition<T>(component.condition, context.currentElement);
+            const lock = component.lock ? getValue<T, string>(component.lock, context.currentElement) : null;
 
             return (
                 <ToolSwitch
@@ -95,13 +95,13 @@ export function RenderComponent<T extends keyof Analysers>({
                     lock={lock ? lock : undefined}
                     description={component.description}
                     name={getKey(component.title)}
-                    onChange={(value) => handleChange(component.action, value, context)}
+                    onChange={(value) => context.handleChange(component.action, context.currentElement?.identifier, value)}
                 />
             );
         }
         case "Slot": {
-            const result = checkCondition<T>(component.condition, context, context.currentElement);
-            const lock = component.lock ? getValue<T, string>(context, component.lock, context.currentElement) : null;
+            const result = checkCondition<T>(component.condition, context.currentElement);
+            const lock = component.lock ? getValue<T, string>(component.lock, context.currentElement) : null;
 
             return (
                 <ToolSlot
@@ -113,13 +113,13 @@ export function RenderComponent<T extends keyof Analysers>({
                     lock={lock ? lock : undefined}
                     description={component.description}
                     image={component.image}
-                    onChange={(value) => handleChange(component.action, value, context)}
+                    onChange={(value) => context.handleChange(component.action, context.currentElement?.identifier, value)}
                 />
             );
         }
         case "InlineSlot": {
-            const result = checkCondition<T>(component.condition, context, context.currentElement);
-            const lock = component.lock ? getValue<T, string>(context, component.lock, context.currentElement) : null;
+            const result = checkCondition<T>(component.condition, context.currentElement);
+            const lock = component.lock ? getValue<T, string>(component.lock, context.currentElement) : null;
 
             return (
                 <ToolInline
@@ -130,18 +130,22 @@ export function RenderComponent<T extends keyof Analysers>({
                     value={result}
                     lock={lock ? lock : undefined}
                     image={component.image}
-                    onChange={(value) => component.action && handleChange(component.action, value, context)}
+                    onChange={(value) =>
+                        component.action && context.handleChange(component.action, context.currentElement?.identifier, value)
+                    }
                 />
             );
         }
         case "Effect": {
-            const result = getValue<T, EffectComponentsRecord>(context, component.value, context.currentElement);
+            const result = getValue<T, EffectComponentsRecord>(component.value, context.currentElement);
 
             return (
                 <ToolEffectRecord
                     value={result}
                     conditions={component.condition}
-                    onChange={(value) => handleChange(component.action, value, context)}
+                    onChange={(value) =>
+                        component.action && context.handleChange(component.action, context.currentElement?.identifier, value)
+                    }
                 />
             );
         }
@@ -193,8 +197,8 @@ export function RenderComponent<T extends keyof Analysers>({
             );
         }
         case "SwitchSlot": {
-            const checked = checkCondition<T>(component.condition, context, context.currentElement);
-            const lock = component.lock ? getValue<T, string>(context, component.lock, context.currentElement) : null;
+            const checked = checkCondition<T>(component.condition, context.currentElement);
+            const lock = component.lock ? getValue<T, string>(component.lock, context.currentElement) : null;
 
             return (
                 <ToolSwitchSlot
@@ -204,7 +208,9 @@ export function RenderComponent<T extends keyof Analysers>({
                     image={component.image}
                     checked={checked}
                     lock={lock ? lock : undefined}
-                    onChange={(value) => handleChange(component.action, value, context)}
+                    onChange={(value) =>
+                        component.action && context.handleChange(component.action, context.currentElement?.identifier, value)
+                    }
                 />
             );
         }

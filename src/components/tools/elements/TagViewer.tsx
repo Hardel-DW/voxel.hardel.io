@@ -1,31 +1,30 @@
 import { useConfigurator } from "@/components/tools/ConfiguratorContext";
 import { Identifier } from "@/lib/minecraft/core/Identifier";
-import type { Analysers, GetAnalyserVoxel } from "@/lib/minecraft/core/engine/Analyser";
 import { compileDatapack } from "@/lib/minecraft/core/engine/Compiler";
 import type { RegistryElement } from "@/lib/minecraft/mczip";
 import type { TagType } from "@voxel/definitions";
 
-export type ToolTagViewerType = {
-    type: "TagViewer";
-    field?: string;
-    registry: string;
-    additional?: Record<string, string[]>;
-};
-
-export default function TagViewer<T extends keyof Analysers>(props: {
+export default function TagViewer(props: {
     field?: string;
     registry: string;
     additional?: Record<string, string[]>;
 }) {
-    const context = useConfigurator<GetAnalyserVoxel<T>>();
+    const context = useConfigurator();
+    if (!context.configuration) return null;
     const values: string[] = [];
 
     // Get the field value from the given field
     const fieldValue = context.currentElement?.data?.[props.field as keyof typeof context.currentElement.data];
-    if (!fieldValue) return null;
+    if (!fieldValue || !context.version || !context.configuration) return null;
 
     // Compile the datapack and get the tag by its identifier
-    const assembleDatapack = compileDatapack(context);
+    const assembleDatapack = compileDatapack({
+        elements: context.elements,
+        version: context.version,
+        files: context.files,
+        configuration: context.configuration
+    });
+
     if (typeof fieldValue !== "string") return null;
 
     const tagIdentifier = Identifier.fromString(fieldValue, props.registry);

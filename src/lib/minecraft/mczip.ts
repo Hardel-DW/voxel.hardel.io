@@ -2,6 +2,7 @@ import { Identifier } from "@/lib/minecraft/core/Identifier.ts";
 import type { VoxelElement } from "@/lib/minecraft/core/engine/Analyser.ts";
 import { voxelDatapacks } from "@/lib/minecraft/voxel/VoxelDatapack.ts";
 import JSZip from "jszip";
+import type { Logger } from "./core/engine/migrations/logger";
 
 export type RegistryElement<RegistryType> = {
     data: RegistryType;
@@ -90,7 +91,8 @@ export function readDatapackFile<T>(datapack: Record<string, Uint8Array>, identi
 export async function generateZip(
     files: Record<string, Uint8Array>,
     content: RegistryElement<VoxelElement>[],
-    minify: boolean
+    minify: boolean,
+    logger?: Logger
 ): Promise<Uint8Array> {
     const zip = new JSZip();
 
@@ -104,6 +106,17 @@ export async function generateZip(
 
     for (const file of content) {
         zip.file(`${file.identifier.filePath()}.json`, JSON.stringify(file.data, null, minify ? 0 : 4));
+    }
+
+    if (logger) {
+        const logs = logger.getLogs();
+        const updatedLogs = {
+            ...logs,
+            isMinified: minify
+        };
+
+        const logsJson = JSON.stringify(updatedLogs, null, minify ? 0 : 4);
+        zip.file("voxel/logs.json", logsJson);
     }
 
     return zip.generateAsync({ type: "uint8array" });

@@ -1,36 +1,35 @@
-import type { ConfiguratorContextType } from "@/components/tools/ConfiguratorContext.tsx";
 import type { Analysers, GetAnalyserVoxel } from "@/lib/minecraft/core/engine/Analyser.ts";
 import { getManager } from "@/lib/minecraft/core/engine/Manager.ts";
-import { type Field, getField } from "@/lib/minecraft/core/engine/field";
 import { type SlotRegistryType, isArraySlotRegistryType, isSlotRegistryType } from "@/lib/minecraft/core/engine/managers/SlotManager.ts";
 import type { RegistryElement } from "@/lib/minecraft/mczip.ts";
 import { isStringArray } from "@/lib/utils.ts";
+import type { ActionValue, BaseAction } from ".";
 
-export type SlotAction = {
-    type: "Slot";
-    field: Field;
-    value: string;
-};
+export interface SlotAction extends BaseAction {
+    type: "set_computed_slot";
+    value: ActionValue;
+}
 
 /**
  * This action modifies the slot field of the element with the given value. It adds or removes the value from the slot. If the value is already in the slot, it will be removed, otherwise it will be added.
  * @param action - The action to perform.
- * @param context - The context of the configurator.
  * @param element - The element to modify.
+ * @param version - Extra data.
  * @constructor
  */
 export function SlotModifier<T extends keyof Analysers>(
     action: SlotAction,
-    context: ConfiguratorContextType<GetAnalyserVoxel<T>>,
-    element: RegistryElement<GetAnalyserVoxel<T>>
+    element: RegistryElement<GetAnalyserVoxel<T>>,
+    version: number
 ): RegistryElement<GetAnalyserVoxel<T>> | undefined {
+    if (!version) throw new Error("Version is not set in the context");
+
     const shadowCopy = structuredClone(element);
-    const field = getField<T>(action.field, context);
+    const { field } = action;
     const unformattedValue = shadowCopy.data[field];
-    const version = context.version;
 
     let value: SlotRegistryType;
-    if (isSlotRegistryType(action.value)) {
+    if (typeof action.value === "string" && isSlotRegistryType(action.value)) {
         value = action.value;
     } else {
         throw new Error(`Invalid SlotRegistryType: ${action.value}`);
@@ -41,10 +40,6 @@ export function SlotModifier<T extends keyof Analysers>(
         currentValue = unformattedValue;
     } else {
         throw new Error(`Invalid SlotRegistryType array: ${shadowCopy.data[field]}`);
-    }
-
-    if (version === null) {
-        throw new Error("Version is not set in the context");
     }
 
     // Utiliser le ManagerSelector pour obtenir le SlotManager approprié

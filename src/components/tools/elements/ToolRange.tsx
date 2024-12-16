@@ -1,23 +1,12 @@
-import TranslateText, { type TranslateTextType } from "@/components/tools/elements/text/TranslateText.tsx";
-import type { ValueParams } from "@/lib/minecraft/core/engine/value";
+import TranslateText from "@/components/tools/elements/text/TranslateText";
+import type { TranslateTextType } from "@/lib/minecraft/core/schema/primitive/text";
 import type { InputHTMLAttributes } from "react";
-import type { Action } from "src/lib/minecraft/core/engine/actions";
 
 interface Props extends InputHTMLAttributes<HTMLInputElement> {
     label?: TranslateTextType | string;
     onValueChange?: (option: number) => void;
     value?: number;
 }
-
-export type ToolRangeType = {
-    type: "Range";
-    label: TranslateTextType;
-    min: number;
-    max: number;
-    step: number;
-    action: Action;
-    value: ValueParams<number>;
-};
 
 export default function ToolRange({ id, label, onValueChange, ...props }: Props) {
     return (

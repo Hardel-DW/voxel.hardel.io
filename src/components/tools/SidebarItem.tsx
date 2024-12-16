@@ -2,39 +2,36 @@ import { useTranslate } from "@/components/TranslateContext.tsx";
 import { useConfigurator } from "@/components/tools/ConfiguratorContext.tsx";
 import TextComponent from "@/components/tools/elements/schema/TextComponent.tsx";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/shadcn/tooltip.tsx";
-import type { Analysers, GetAnalyserVoxel } from "@/lib/minecraft/core/engine/Analyser.ts";
-import { getField } from "@/lib/minecraft/core/engine/field";
+import type { VoxelElement } from "@/lib/minecraft/core/engine/Analyser";
+import { resolve } from "@/lib/minecraft/core/engine/resolver/field/resolveField";
 import type { RegistryElement } from "@/lib/minecraft/mczip.ts";
 import { cn } from "@/lib/utils.ts";
 import type { TextComponentType } from "@voxel/definitions";
-import type React from "react";
 import { useRef } from "react";
-import { handleChange } from "src/lib/minecraft/core/engine/actions";
 
-export function SidebarItem<T extends keyof Analysers>(props: {
-    element: RegistryElement<GetAnalyserVoxel<T>>;
-}) {
-    const context = useConfigurator<GetAnalyserVoxel<T>>();
+export function SidebarItem(props: { element: RegistryElement<VoxelElement> }) {
+    const context = useConfigurator();
     const { translate } = useTranslate();
     const switchRef = useRef<HTMLDivElement>(null);
-    const sidebar = context.configuration?.sidebar;
-    if (!sidebar) return null;
+    if (!context?.configuration?.sidebar) return null;
+    if (!context.toggleSection) return null;
+    const configuration = resolve(context.configuration, context.toggleSection);
+    if (!configuration) return null;
 
-    const descriptionField = getField(sidebar.description.field, context);
-    const softDeleteField = getField(sidebar.toggle.field, context);
+    const descriptionField = configuration.sidebar.description;
+    const softDeleteField = "field" in configuration.sidebar.action ? configuration.sidebar.action.field : null;
     const descriptionValue = props.element.data[descriptionField];
-    const check = props.element.data[softDeleteField];
-    if (!context.currentElement) return null;
-    if (typeof check !== "boolean") return null;
+    const check = softDeleteField ? props.element.data[softDeleteField] : null;
+    if (!context.currentElement || typeof check !== "boolean") return null;
 
     const handleClick = () => {
         if (switchRef.current?.contains(document.activeElement)) return;
         context.setCurrentElementId(props.element.identifier);
     };
 
-    const handleSoftDelete = (e: React.ChangeEvent<HTMLInputElement>) => {
-        if (!context.configuration?.sidebar.toggle) return;
-        handleChange(context.configuration.sidebar.toggle.action, !e.target.checked, context, props.element.identifier);
+    const handleSoftDelete = (checked: boolean) => {
+        if (!configuration.sidebar.action) return;
+        context.handleChange(configuration.sidebar.action, props.element.identifier, checked);
     };
 
     return (
@@ -48,7 +45,12 @@ export function SidebarItem<T extends keyof Analysers>(props: {
                     <Tooltip>
                         <TooltipTrigger asChild>
                             <label className="flex items-center justify-between gap-4">
-                                <input type="checkbox" name="enable" checked={!check} onChange={handleSoftDelete} />
+                                <input
+                                    type="checkbox"
+                                    name="enable"
+                                    checked={!check}
+                                    onChange={(e) => handleSoftDelete(!e.target.checked)}
+                                />
                             </label>
                         </TooltipTrigger>
                         <TooltipContent align="end" className="w-64">

@@ -1,26 +1,25 @@
-import type { ConfiguratorContextType } from "@/components/tools/ConfiguratorContext.tsx";
 import type { Analysers, GetAnalyserVoxel } from "@/lib/minecraft/core/engine/Analyser.ts";
-import { type Field, getField } from "@/lib/minecraft/core/engine/field";
 import type { RegistryElement } from "@/lib/minecraft/mczip.ts";
+import type { BaseAction } from ".";
 
-export type UndefinedAction = {
-    type: "Undefined";
-    field: Field;
-};
+export interface UndefinedAction extends BaseAction {
+    type: "set_undefined";
+}
 
 /**
- * This action set the field of the element to undefined.
- * @param action
- * @param context
- * @param element
+ * Modifies the field of the element with the hardcoded value given.
+ * For set_value: Sets the field to the given value
+ * For toggle_value: Toggles between the value and undefined
+ * For set_undefined: Sets the field to undefined
+ * @param action - The action to perform.
+ * @param element - The element to modify.
  * @constructor
  */
 export function UndefinedModifier<T extends keyof Analysers>(
     action: UndefinedAction,
-    context: ConfiguratorContextType<GetAnalyserVoxel<T>>,
     element: RegistryElement<GetAnalyserVoxel<T>>
 ): RegistryElement<GetAnalyserVoxel<T>> | undefined {
-    const field = getField<T>(action.field, context);
+    const { field } = action;
 
     return {
         identifier: element.identifier,

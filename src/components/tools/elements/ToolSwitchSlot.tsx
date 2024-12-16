@@ -1,19 +1,7 @@
-import TranslateText, { type TranslateTextType } from "@/components/tools/elements/text/TranslateText.tsx";
+import TranslateText from "@/components/tools/elements/text/TranslateText";
+import type { TranslateTextType } from "@/lib/minecraft/core/schema/primitive/text";
 import { Identifier } from "@/lib/minecraft/core/Identifier.ts";
-import type { ValueParams } from "@/lib/minecraft/core/engine/value";
 import { cn, quoteString } from "@/lib/utils.ts";
-import type { Action } from "src/lib/minecraft/core/engine/actions";
-import type { Condition } from "src/lib/minecraft/core/engine/condition";
-
-export type ToolSwitchSlotType = {
-    type: "SwitchSlot";
-    title: TranslateTextType;
-    description: TranslateTextType;
-    action: Action;
-    condition?: Condition;
-    lock?: ValueParams<string>;
-    image?: string;
-};
 
 export default function ToolSwitchSlot(props: {
     title: TranslateTextType | string;

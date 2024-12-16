@@ -1,0 +1,203 @@
+---
+interface Props {
+    steps: {
+        title: string;
+        description: string;
+        target?: string;
+        position?: "top" | "bottom" | "left" | "right";
+        image?: string;
+        imagePosition?: "top-right" | "top" | "top-left" | "right" | "middle" | "left" | "bottom-right" | "bottom" | "bottom-left";
+    }[];
+}
+
+const {steps} = Astro.props;
+---
+
+<div class="fixed inset-0 z-50 hidden" id="walkthrough">
+    <div class="absolute inset-0 bg-black/50"></div>
+
+    <div class="absolute hidden border-2 border-white/50 rounded-lg transition-all duration-300" id="highlight"></div>
+
+    <div class="absolute hidden transition-all duration-300" id="walkthrough-image">
+        <img src="" alt="" class="rounded-lg shadow-xl max-w-md"/>
+    </div>
+
+    <div class="fixed bottom-0 left-1/2 -translate-x-1/2 w-[90%] max-w-2xl mb-8 p-6 bg-zinc-900/80 backdrop-blur-md rounded-2xl border border-zinc-800 transition-all duration-300"
+         id="walkthrough-content">
+        <h3 class="text-xl font-bold text-white mb-2" id="walkthrough-title"></h3>
+        <p class="text-zinc-300 mb-6" id="walkthrough-description"></p>
+
+        <div class="flex items-center justify-between">
+            <button class="px-4 py-2 text-sm text-white/80 hover:text-white transition-colors" id="walkthrough-prev">
+                Précédent
+            </button>
+            <div class="flex gap-1.5" id="walkthrough-dots"></div>
+            <button class="px-4 py-2 text-sm bg-white/10 hover:bg-white/20 text-white rounded-lg transition-colors"
+                    id="walkthrough-next">
+                Suivant
+            </button>
+        </div>
+    </div>
+</div>
+
+<script is:inline define:vars={{steps}}>
+    class Walkthrough {
+        constructor() {
+            this.steps = steps;
+            this.currentStep = 0;
+            this.container = document.getElementById('walkthrough');
+            this.highlight = document.getElementById('highlight');
+            this.imageContainer = document.getElementById('walkthrough-image');
+            this.title = document.getElementById('walkthrough-title');
+            this.description = document.getElementById('walkthrough-description');
+            this.prevBtn = document.getElementById('walkthrough-prev');
+            this.nextBtn = document.getElementById('walkthrough-next');
+            this.dotsContainer = document.getElementById('walkthrough-dots');
+
+            this.init();
+        }
+
+        init() {
+            // Créer les points de navigation
+            this.steps.forEach((_) => {
+                const dot = document.createElement('div');
+                dot.className = 'w-2 h-2 rounded-full bg-white/30 transition-colors';
+                this.dotsContainer.appendChild(dot);
+            });
+
+            // Événements des boutons
+            this.prevBtn.addEventListener('click', () => this.prev());
+            this.nextBtn.addEventListener('click', () => this.next());
+
+            // Mise à jour initiale
+            this.update();
+        }
+
+        getImagePosition(rect, position) {
+            const margin = 20;
+            const imageWidth = 300; // Largeur par défaut de l'image
+            const imageHeight = 200; // Hauteur par défaut de l'image
+
+            const positions = {
+                'top-right': {
+                    top: rect.top - imageHeight - margin,
+                    left: rect.right - imageWidth
+                },
+                'top': {
+                    top: rect.top - imageHeight - margin,
+                    left: rect.left + (rect.width - imageWidth) / 2
+                },
+                'top-left': {
+                    top: rect.top - imageHeight - margin,
+                    left: rect.left
+                },
+                'right': {
+                    top: rect.top + (rect.height - imageHeight) / 2,
+                    left: rect.right + margin
+                },
+                'middle': {
+                    top: rect.top + (rect.height - imageHeight) / 2,
+                    left: rect.left + (rect.width - imageWidth) / 2
+                },
+                'left': {
+                    top: rect.top + (rect.height - imageHeight) / 2,
+                    left: rect.left - imageWidth - margin
+                },
+                'bottom-right': {
+                    top: rect.bottom + margin,
+                    left: rect.right - imageWidth
+                },
+                'bottom': {
+                    top: rect.bottom + margin,
+                    left: rect.left + (rect.width - imageWidth) / 2
+                },
+                'bottom-left': {
+                    top: rect.bottom + margin,
+                    left: rect.left
+                }
+            };
+
+            return positions[position] || positions['right']; // 'right' par défaut
+        }
+
+        update() {
+            const step = this.steps[this.currentStep];
+
+            // Mettre à jour le contenu
+            this.title.textContent = step.title;
+            this.description.textContent = step.description;
+
+            // Gérer l'image
+            if (step.image && step.target) {
+                const target = document.getElementById(step.target);
+                if (target) {
+                    const rect = target.getBoundingClientRect();
+                    this.imageContainer.style.display = 'block';
+                    this.imageContainer.querySelector('img').src = step.image;
+
+                    // Positionner l'image selon la position spécifiée
+                    const position = this.getImagePosition(rect, step.imagePosition);
+                    this.imageContainer.style.top = `${position.top}px`;
+                    this.imageContainer.style.left = `${position.left}px`;
+                }
+            } else {
+                this.imageContainer.style.display = 'none';
+            }
+
+            // Mettre à jour les boutons
+            this.prevBtn.style.visibility = this.currentStep === 0 ? 'hidden' : 'visible';
+            this.nextBtn.textContent = this.currentStep === this.steps.length - 1 ? 'Terminer' : 'Suivant';
+
+            // Mettre à jour les points
+            Array.from(this.dotsContainer.children).forEach((dot, index) => {
+                dot.className = `w-2 h-2 rounded-full transition-colors ${
+                    index === this.currentStep ? 'bg-white' : 'bg-white/30'
+                }`;
+            });
+
+            // Mettre en évidence l'élément cible
+            if (step.target) {
+                const target = document.getElementById(step.target);
+                if (target) {
+                    const rect = target.getBoundingClientRect();
+                    this.highlight.style.display = 'block';
+                    this.highlight.style.top = `${rect.top - 8}px`;
+                    this.highlight.style.left = `${rect.left - 8}px`;
+                    this.highlight.style.width = `${rect.width + 16}px`;
+                    this.highlight.style.height = `${rect.height + 16}px`;
+                }
+            } else {
+                this.highlight.style.display = 'none';
+            }
+        }
+
+        next() {
+            if (this.currentStep === this.steps.length - 1) {
+                this.close();
+            } else {
+                this.currentStep++;
+                this.update();
+            }
+        }
+
+        prev() {
+            if (this.currentStep > 0) {
+                this.currentStep--;
+                this.update();
+            }
+        }
+
+        start() {
+            this.container.classList.remove('hidden');
+            this.currentStep = 0;
+            this.update();
+        }
+
+        close() {
+            this.container.classList.add('hidden');
+        }
+    }
+
+    // Créer l'instance et l'exposer globalement
+    window.walkthrough = new Walkthrough(steps);
+</script> 

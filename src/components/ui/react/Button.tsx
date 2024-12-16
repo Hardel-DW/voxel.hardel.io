@@ -56,6 +56,7 @@ interface Props extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
     size?: keyof typeof variants.size;
     rounded?: keyof typeof variants.rounded;
     ring?: keyof typeof variants.ring;
+    disabled?: boolean;
 }
 
 const Button = React.forwardRef<HTMLAnchorElement, Props>(
@@ -67,6 +68,7 @@ const Button = React.forwardRef<HTMLAnchorElement, Props>(
             ring = variants.defaultVariant.ring,
             className,
             children,
+            type = "button",
             ...rest
         },
         ref
@@ -74,6 +76,7 @@ const Button = React.forwardRef<HTMLAnchorElement, Props>(
         return (
             <a
                 ref={ref}
+                type={type}
                 className={cn([
                     "inline-flex items-center justify-center whitespace-nowrap cursor-pointer truncate text-sm font-medium ring-offset-background transition-colors focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
                     variants.variant[variant],

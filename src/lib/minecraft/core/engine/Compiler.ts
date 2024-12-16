@@ -1,4 +1,3 @@
-import type { ConfiguratorContextType } from "@/components/tools/ConfiguratorContext.tsx";
 import { Identifier, type IdentifierOneToMany } from "@/lib/minecraft/core/Identifier.ts";
 import { compileTags } from "@/lib/minecraft/core/Tag.ts";
 import {
@@ -7,8 +6,11 @@ import {
     type GetAnalyserMinecraft,
     type GetAnalyserVoxel,
     type VoxelElement,
-    getAnalyserForVersion
+    getAnalyserForVersion,
+    versionedAnalyserCollection
 } from "@/lib/minecraft/core/engine/Analyser.ts";
+import type { Unresolved } from "@/lib/minecraft/core/engine/resolver/field/type.ts";
+import type { ToolConfiguration } from "@/lib/minecraft/core/schema/primitive";
 import { type RegistryElement, readDatapackFile } from "@/lib/minecraft/mczip.ts";
 import type { OptionalTag, TagType } from "@voxel/definitions";
 
@@ -17,55 +19,65 @@ export type Compiler<T extends VoxelElement, K extends DataDrivenElement> = (
     original: K
 ) => RegistryElement<K>;
 
+export interface CompileDatapackParams<T extends VoxelElement> {
+    elements: RegistryElement<T>[];
+    version: number;
+    files: Record<string, Uint8Array>;
+    configuration: Unresolved<ToolConfiguration>;
+}
+
 /**
- * Compile all enchantment from Voxel Format to Data Driven Format.
- * @param context
+ * Compile all elements from Voxel Format to Data Driven Format.
  */
-export function compileDatapack<T extends keyof Analysers>(
-    context: ConfiguratorContextType<GetAnalyserVoxel<T>>
-): Array<RegistryElement<GetAnalyserMinecraft<T>> | RegistryElement<TagType>> {
-    const parserConfig = context.configuration?.parser;
-    const compilerConfig = context.configuration?.compiler;
+export function compileDatapack<T extends keyof Analysers>({
+    elements,
+    version,
+    files,
+    configuration
+}: CompileDatapackParams<GetAnalyserVoxel<T>>): Array<RegistryElement<GetAnalyserMinecraft<T>> | RegistryElement<TagType>> {
+    const parserConfig = configuration?.analyser;
     if (!parserConfig) return [];
 
-    if (context.version === null) {
-        throw new Error("Minecraft version not set");
+    if (typeof parserConfig.id !== "string" || !(parserConfig.id in versionedAnalyserCollection)) {
+        throw new Error(`Invalid analyser ID. Must be one of: ${Object.keys(versionedAnalyserCollection).join(", ")}`);
     }
 
-    const config = getAnalyserForVersion(parserConfig.id, context.version);
+    const config = getAnalyserForVersion(parserConfig.id as T, version);
     if (!config) throw new Error("No analyser found for the specified version.");
 
-    const compiledElements = context.elements
+    const compiledElements = elements
         .map((element) => {
-            const original = readDatapackFile<GetAnalyserMinecraft<T>>(context.files, element.identifier);
+            const original = readDatapackFile<GetAnalyserMinecraft<T>>(files, element.identifier);
             return original ? config.analyser.compiler(element, original) : null;
         })
-        .filter((enchantment) => enchantment !== null);
+        .filter((element) => element !== null);
 
-    const identifiers: IdentifierOneToMany[] = context.elements.map((element) => {
+    const identifiers: IdentifierOneToMany[] = elements.map((element) => {
         if (element.data.softDelete) return { primary: element.identifier, related: [] };
 
         const related = element.data.tags.map((tag) => Identifier.fromString(tag, parserConfig.registries.tags));
 
-        const mergedTags =
-            compilerConfig?.merge_field_to_tags.flatMap((field) => {
+        const assignedTagValues =
+            element.data.assignedTags?.flatMap((field) => {
                 const value = element.data[field as keyof GetAnalyserVoxel<T>];
+                if (Array.isArray(value)) {
+                    return value.map((tag) => Identifier.fromString(tag, parserConfig.registries.tags));
+                }
                 if (typeof value === "string") {
                     return [Identifier.fromString(value, parserConfig.registries.tags)];
                 }
-
                 return [];
             }) ?? [];
 
         return {
             primary: element.identifier,
-            related: [...mergedTags, ...related]
+            related: [...related, ...assignedTagValues]
         };
     });
 
     const compiledTags = compileTags(identifiers)
         .map((tag) => {
-            const original = readDatapackFile<TagType>(context.files, tag.identifier);
+            const original = readDatapackFile<TagType>(files, tag.identifier);
             const valueToAdd = original
                 ? original.values
                       .map(Identifier.getValue)
@@ -73,7 +85,7 @@ export function compileDatapack<T extends keyof Analysers>(
                 : [];
 
             const uniqueValuesMap = new Map<string, string | OptionalTag>();
-            for (const value of tag.data.values) {
+            for (const value of tag.data.values as Array<string | OptionalTag>) {
                 const key = typeof value === "string" ? value : value.id;
                 uniqueValuesMap.set(key, value);
             }
@@ -83,8 +95,6 @@ export function compileDatapack<T extends keyof Analysers>(
                     uniqueValuesMap.set(value, value);
                 }
             }
-
-            console.log(tag.identifier, uniqueValuesMap);
 
             tag.data.values = Array.from(uniqueValuesMap.values());
             return tag;

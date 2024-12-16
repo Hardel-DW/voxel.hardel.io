@@ -1,4 +1,4 @@
-import { type SlotRegistryType, toggleSlot } from "./managers/SlotManager.ts";
+import { type SlotRegistryType, toggleSlot } from "@/lib/minecraft/core/engine/managers/SlotManager.ts";
 
 type ManagerTypes = {
     slot: {

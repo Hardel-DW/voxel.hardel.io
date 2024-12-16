@@ -1,12 +1,13 @@
 import type { Compiler } from "@/lib/minecraft/core/engine/Compiler.ts";
 import type { Parser } from "@/lib/minecraft/core/engine/Parser.ts";
-import type { ToolConfiguration } from "@/lib/minecraft/core/engine/index.ts";
+import type { Unresolved } from "@/lib/minecraft/core/engine/resolver/field/type.ts";
 import { DataDrivenToVoxelFormat, type EnchantmentProps, VoxelToDataDriven } from "@/lib/minecraft/core/schema/enchant/EnchantmentProps.ts";
-import { ENCHANT_TOOL_CONFIG } from "@/lib/minecraft/core/schema/enchant/config";
+import { ENCHANT_TOOL_CONFIG } from "@/lib/minecraft/core/schema/enchant";
+import type { ToolConfiguration } from "@/lib/minecraft/core/schema/primitive";
 import type { Enchantment } from "@voxel/definitions";
 
-export type DataDrivenElement = {};
-export type VoxelElement = {};
+export type DataDrivenElement = Record<string, unknown>;
+export type VoxelElement = Record<string, unknown>;
 export type GetAnalyserVoxel<T extends keyof Analysers> = Analysers[T]["voxel"];
 export type GetAnalyserMinecraft<T extends keyof Analysers> = Analysers[T]["minecraft"];
 
@@ -26,7 +27,7 @@ export interface Analyser<T extends VoxelElement, K extends DataDrivenElement, U
 export type VersionedAnalyser<T extends VoxelElement, K extends DataDrivenElement, UseTags extends boolean = false> = {
     analyser: Analyser<T, K, UseTags>;
     range: VersionRange;
-    config: ToolConfiguration;
+    config: Unresolved<ToolConfiguration>;
 };
 
 export type VersionedAnalysers = {
@@ -55,7 +56,12 @@ export const versionedAnalyserCollection: VersionedAnalysers = {
 export function getAnalyserForVersion<T extends keyof Analysers>(
     type: T,
     version: number
-): { analyser: Analyser<Analysers[T]["voxel"], Analysers[T]["minecraft"], boolean>; config: ToolConfiguration } | undefined {
+):
+    | {
+          analyser: Analyser<Analysers[T]["voxel"], Analysers[T]["minecraft"], boolean>;
+          config: Unresolved<ToolConfiguration>;
+      }
+    | undefined {
     const versionedAnalysers = versionedAnalyserCollection[type];
     if (!versionedAnalysers) return undefined;
 

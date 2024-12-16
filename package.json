@@ -14,8 +14,8 @@
         "biome:format": "biome format --write ./src",
         "biome:check": "biome check ./src",
         "biome:unsafefix": "biome check --write --unsafe  ./src",
-        "db:generate": "drizzle-kit generate:pg",
-        "db:push": "drizzle-kit push:pg"
+        "db:generate": "drizzle-kit generate",
+        "db:push": "drizzle-kit push"
     },
     "dependencies": {
         "@astrojs/check": "^0.9.4",

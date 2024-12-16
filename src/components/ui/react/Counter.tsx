@@ -1,5 +1,5 @@
 import type React from "react";
-import { useState, useRef, useEffect } from "react";
+import { useRef, useState } from "react";
 
 interface CounterProps {
     value: number;

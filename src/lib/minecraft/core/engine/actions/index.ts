@@ -1,86 +1,67 @@
-import type { ConfiguratorContextType } from "@/components/tools/ConfiguratorContext.tsx";
 import type { Identifier } from "@/lib/minecraft/core/Identifier.ts";
 import type { Analysers, GetAnalyserVoxel } from "@/lib/minecraft/core/engine/Analyser.ts";
-import DynamicListModifier, { type DynamicListAction } from "@/lib/minecraft/core/engine/actions/DynamicListModifier.ts";
-import { type DynamicAction, DynamicModifier } from "@/lib/minecraft/core/engine/actions/DynamicModifier.ts";
-import ListModifier, { type ListAction } from "@/lib/minecraft/core/engine/actions/ListModifier.ts";
+import { AppendListModifier, type ListAction } from "@/lib/minecraft/core/engine/actions/AppendListModifier";
 import MultipleModifier, { type MultipleAction } from "@/lib/minecraft/core/engine/actions/MultipleModifier.ts";
 import { type RemoveKeyAction, RemoveKeyModifier } from "@/lib/minecraft/core/engine/actions/RemoveKeyModifier.ts";
 import SequentialModifier, { type SequentialAction } from "@/lib/minecraft/core/engine/actions/SequentialModifier.ts";
-import {
-    type BooleanAction,
-    type NumberAction,
-    SimpleModifier,
-    type StringAction
-} from "@/lib/minecraft/core/engine/actions/SimpleModifier.ts";
+import { type SimpleAction, SimpleModifier } from "@/lib/minecraft/core/engine/actions/SimpleModifier.ts";
 import { type SlotAction, SlotModifier } from "@/lib/minecraft/core/engine/actions/SlotModifier.ts";
-import { type UndefinedAction, UndefinedModifier } from "@/lib/minecraft/core/engine/actions/UndefinedModifier.ts";
+import { UndefinedModifier, type UndefinedAction } from "@/lib/minecraft/core/engine/actions/UndefinedModifier.ts";
+import ToggleListValueModifier, { type ToggleListValueAction } from "@/lib/minecraft/core/engine/actions/ToggleListValueModifier";
 import type { RegistryElement } from "@/lib/minecraft/mczip.ts";
-
-export type Action =
-    | RemoveKeyAction
-    | DynamicListAction
-    | BooleanAction
-    | UndefinedAction
-    | StringAction
-    | NumberAction
-    | DynamicAction
-    | SlotAction
-    | ListAction
-    | MultipleAction
-    | SequentialAction;
+import { ComputedModifier, type ComputedAction } from "@/lib/minecraft/core/engine/actions/ComputedModifier.ts";
+import RemoveValueFromListModifier, {
+    type RemoveValueFromListAction
+} from "@/lib/minecraft/core/engine/actions/RemoveValueFromListModifier.ts";
 
 export type ActionValue = string | number | boolean | Identifier;
+export interface BaseAction {
+    field: string;
+}
+
+// Type pour les actions résolues
+export type Action =
+    | RemoveKeyAction
+    | UndefinedAction
+    | SimpleAction
+    | SlotAction
+    | ToggleListValueAction
+    | MultipleAction
+    | SequentialAction
+    | ListAction
+    | ComputedAction
+    | RemoveValueFromListAction;
 
 export function updateData<T extends keyof Analysers>(
     action: Action,
-    value: ActionValue,
-    context: ConfiguratorContextType<GetAnalyserVoxel<T>>,
-    element: RegistryElement<GetAnalyserVoxel<T>>
+    element: RegistryElement<GetAnalyserVoxel<T>>,
+    version: number,
+    value?: ActionValue
 ): RegistryElement<GetAnalyserVoxel<T>> | undefined {
-    switch (action.type) {
-        case "Boolean":
-            return SimpleModifier(action, context, element);
-        case "String":
-            return SimpleModifier(action, context, element);
-        case "Number":
-            return SimpleModifier(action, context, element);
-        case "Slot":
-            return SlotModifier(action, context, element);
-        case "Undefined":
-            return UndefinedModifier(action, context, element);
-        case "Dynamic":
-            return DynamicModifier(action, value, context, element);
-        case "Multiple":
-            return MultipleModifier(action, context, element);
-        case "List":
-            return ListModifier(action, value, context, element);
-        case "DynamicList":
-            return DynamicListModifier(action, value, context, element);
-        case "RemoveKey":
-            return RemoveKeyModifier(action, value, context, element);
-        case "Sequential":
-            return SequentialModifier(action, value, context, element);
-    }
+    return (() => {
+        switch (action.type) {
+            case "set_value_from_computed_value":
+            case "toggle_value_from_computed_value":
+                return ComputedModifier(action, element, value);
+            case "set_value":
+            case "toggle_value":
+                return SimpleModifier(action, element);
+            case "set_undefined":
+                return UndefinedModifier(action, element);
+            case "set_computed_slot":
+                return SlotModifier(action, element, version);
+            case "toggle_multiple_values":
+                return MultipleModifier(action, element);
+            case "toggle_value_in_list":
+                return ToggleListValueModifier(action, element, value);
+            case "remove_key":
+                return RemoveKeyModifier(action, element);
+            case "remove_value_from_list":
+                return RemoveValueFromListModifier(action, element, value);
+            case "sequential":
+                return SequentialModifier(action, element, version, value);
+            case "list_operation":
+                return AppendListModifier(action, element);
+        }
+    })();
 }
-
-export const handleChange = <T extends keyof Analysers>(
-    action: Action,
-    value: ActionValue,
-    context: ConfiguratorContextType<GetAnalyserVoxel<T>>,
-    identifier?: Identifier
-) => {
-    const elementToUpdate = identifier ? context.elements.find((elem) => elem.identifier.equals(identifier)) : context.currentElement;
-    if (!elementToUpdate) {
-        console.error("Element not found");
-        return;
-    }
-
-    const updatedElement = updateData<T>(action, value, context, elementToUpdate);
-    if (!updatedElement) return;
-
-    context.setElements((prev) => {
-        const index = prev.findIndex((item) => item.identifier.equals(updatedElement.identifier));
-        return index === -1 ? prev : prev.toSpliced(index, 1, updatedElement);
-    });
-};

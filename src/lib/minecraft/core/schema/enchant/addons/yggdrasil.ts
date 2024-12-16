@@ -205,7 +205,7 @@ export const yggdrasil: Unresolved<ToolRevealElementType> = {
                                     key: "image"
                                 },
                                 action: {
-                                    type: "List",
+                                    type: "toggle_value_in_list",
                                     field: "tags",
                                     value: {
                                         type: "get_value_from_context",

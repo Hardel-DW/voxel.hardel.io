@@ -1,8 +1,9 @@
-import type { Analysers, VoxelElement } from "@/lib/minecraft/core/engine/Analyser";
-import { parseSpecificElement } from "@/lib/minecraft/core/engine/Parser";
-import type { Action } from "@/lib/minecraft/core/engine/actions";
+import type { Analysers, GetAnalyserVoxel, VoxelElement } from "@/lib/minecraft/core/engine/Analyser";
+import type { Action, ActionValue } from "@/lib/minecraft/core/engine/actions";
+import { updateData } from "@/lib/minecraft/core/engine/actions";
 import type { LogDifference, LogValue } from "@/lib/minecraft/core/engine/migrations/types";
 import type { RegistryElement } from "@/lib/minecraft/mczip";
+import type { Logger } from "./logger";
 
 /**
  * Checks if a value matches the LogValue type
@@ -33,9 +34,9 @@ export function isLogValue(value: unknown): value is LogValue {
  *
  * @param action - The action that generated the change
  * @param element - The registry element that was modified
- * @param files
  * @param version
  * @param tool
+ * @param logger
  * @returns A LogDifference describing the change, or undefined if the change cannot be logged
  *
  * @example
@@ -62,16 +63,17 @@ export function isLogValue(value: unknown): value is LogValue {
  */
 export function createDifferenceFromAction<T extends keyof Analysers>(
     action: Action,
-    element: RegistryElement<VoxelElement>,
-    files: Record<string, Uint8Array>,
+    element: RegistryElement<GetAnalyserVoxel<T>>,
     version: number,
-    tool: T
+    tool: T,
+    logger: Logger,
+    value?: ActionValue
 ): LogDifference[] | LogDifference | undefined {
     if (action.type === "sequential") {
         const differences: LogDifference[] = [];
 
         for (const subAction of action.actions) {
-            const difference = createDifferenceFromAction(subAction, element, files, version, tool);
+            const difference = createDifferenceFromAction(subAction, element, version, tool, logger, value);
             if (difference) {
                 if (Array.isArray(difference)) {
                     differences.push(...difference);
@@ -85,49 +87,58 @@ export function createDifferenceFromAction<T extends keyof Analysers>(
     }
 
     const field = action.field;
-    const parsedOriginalData = parseSpecificElement<T>(element.identifier, files, version, tool);
+    const fieldExists = field in element.data;
+    const loggedOriginalValue = logger.getOriginalValue(element.identifier.toString(), String(field));
 
-    if (!parsedOriginalData) return undefined;
     const originalValue =
-        field in parsedOriginalData.data ? parsedOriginalData.data[field as keyof typeof parsedOriginalData.data] : undefined;
+        loggedOriginalValue !== undefined
+            ? loggedOriginalValue
+            : fieldExists
+              ? element.data[field as keyof typeof element.data]
+              : undefined;
 
-    const newValue = element.data[field as keyof typeof element.data];
-    if (!isLogValue(newValue)) return undefined;
+    const updatedElement = updateData<T>(action, element, version, value);
+    if (!updatedElement) return undefined;
+    const currentValue = updatedElement.data[field as keyof typeof updatedElement.data];
+    if (!isLogValue(currentValue)) return undefined;
 
-    if (originalValue === undefined) {
+    if (JSON.stringify(originalValue) === JSON.stringify(currentValue)) {
+        return undefined;
+    }
+
+    // Si le champ n'existait pas avant mais existe maintenant
+    if (!fieldExists && field in updatedElement.data) {
         return {
             type: "add",
             path: String(field),
-            value: newValue
+            value: currentValue
         };
     }
 
-    if (!isLogValue(originalValue)) return undefined;
+    // Si le champ existait avant mais n'existe plus dans updatedElement
+    if (fieldExists && !(field in updatedElement.data)) {
+        return {
+            type: "remove",
+            path: String(field)
+        };
+    }
 
-    switch (action.type) {
-        case "set_value":
-        case "set_computed_slot":
-        case "toggle_value_in_list":
-        case "toggle_multiple_values":
-        case "list_operation":
-        case "set_undefined":
-            return {
-                type: "set",
-                path: String(field),
-                value: newValue,
-                origin_value: originalValue
-            };
-        case "remove_key":
+    // Si le champ existe dans les deux mais a été modifié
+    if (fieldExists && isLogValue(originalValue)) {
+        // Cas spécial pour remove_key qui nécessite un chemin plus spécifique
+        if (action.type === "remove_key") {
             return {
                 type: "remove",
                 path: `${String(field)}.${String(action.value)}`
             };
-        default:
-            return {
-                type: "set",
-                path: String(field),
-                value: newValue,
-                origin_value: originalValue
-            };
+        }
+
+        // Pour tous les autres cas où la valeur a changé
+        return {
+            type: "set",
+            path: String(field),
+            value: currentValue,
+            origin_value: originalValue
+        };
     }
 }

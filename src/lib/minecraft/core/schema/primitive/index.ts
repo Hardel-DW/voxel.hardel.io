@@ -18,9 +18,6 @@ export type ToolConfiguration = {
             tags?: string;
         };
     };
-    compiler?: {
-        merge_field_to_tags: string[];
-    };
 };
 
 export type InterfaceConfiguration = {

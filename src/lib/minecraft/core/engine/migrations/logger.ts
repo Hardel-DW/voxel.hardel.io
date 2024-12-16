@@ -1,5 +1,8 @@
-import type { DatapackInfo, FileLog, Log, LogDifference, LogValue } from "./types";
-import type { FileLogUpdated } from "./types";
+import type { Analysers, GetAnalyserVoxel } from "@/lib/minecraft/core/engine/Analyser";
+import type { Action, ActionValue } from "@/lib/minecraft/core/engine/actions";
+import { createDifferenceFromAction } from "@/lib/minecraft/core/engine/migrations/logValidation";
+import type { RegistryElement } from "@/lib/minecraft/mczip";
+import type { DatapackInfo, FileLog, FileLogUpdated, Log, LogDifference, LogValue } from "./types";
 
 export class Logger {
     private readonly log: Log;
@@ -112,5 +115,28 @@ export class Logger {
     // Récupère les logs
     public getLogs(): Log {
         return this.log;
+    }
+
+    // Ajouter une nouvelle méthode pour récupérer la valeur originale
+    public getOriginalValue(identifier: string, field: string): LogValue | undefined {
+        const fileLog = this.log.logs.find((log) => log.identifier === identifier);
+        if (fileLog && fileLog.type === "updated") {
+            const difference = fileLog.differences.find((diff) => diff.path === field);
+            return difference?.type === "set" ? difference.origin_value : undefined;
+        }
+        return undefined;
+    }
+
+    public handleActionDifference<T extends keyof Analysers>(
+        action: Action,
+        element: RegistryElement<GetAnalyserVoxel<T>>,
+        version: number,
+        tool: T,
+        value?: ActionValue
+    ): void {
+        const difference = createDifferenceFromAction(action, element, version, tool, this, value);
+        if (difference) {
+            this.logDifference(String(element.identifier), element.identifier.getRegistry() || "unknown", difference);
+        }
     }
 }

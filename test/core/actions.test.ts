@@ -3,6 +3,7 @@ import { updateData } from "@/lib/minecraft/core/engine/actions";
 import type { ListAction } from "@/lib/minecraft/core/engine/actions/AppendListModifier";
 import type { MultipleAction } from "@/lib/minecraft/core/engine/actions/MultipleModifier";
 import type { RemoveKeyAction } from "@/lib/minecraft/core/engine/actions/RemoveKeyModifier";
+import type { RemoveValueFromListAction } from "@/lib/minecraft/core/engine/actions/RemoveValueFromListModifier";
 import type { SequentialAction } from "@/lib/minecraft/core/engine/actions/SequentialModifier";
 import type { SimpleAction } from "@/lib/minecraft/core/engine/actions/SimpleModifier";
 import type { SlotAction } from "@/lib/minecraft/core/engine/actions/SlotModifier";
@@ -28,6 +29,7 @@ const createMockElement = (data: Partial<EnchantmentProps> = {}): RegistryElemen
         maxCostBase: 10,
         maxCostPerLevelAboveFirst: 10,
         effects: undefined,
+        assignedTags: [],
         slots: [],
         tags: [],
         softDelete: false,
@@ -52,11 +54,12 @@ const createComplexMockElement = (data: Partial<EnchantmentProps> = {}): Registr
                 }
             ]
         } as EffectComponentsRecord,
-        exclusiveSet: undefined,
+        exclusiveSet: "#minecraft:exclusive_set/armor",
         maxLevel: 1,
         minCostBase: 1,
         minCostPerLevelAboveFirst: 1,
         maxCostBase: 10,
+        assignedTags: ["exclusiveSet"],
         maxCostPerLevelAboveFirst: 10,
         primaryItems: undefined,
         supportedItems: "#voxel:enchantable/range",
@@ -243,13 +246,135 @@ describe("Action System", () => {
                 type: "toggle_value_in_list",
                 field: "slots",
                 value: "head",
-                mode: "remove_if_empty"
+                mode: ["remove_if_empty"]
             };
 
             const result = updateData(action, element, 48);
 
             expect(result).toBeDefined();
             expect(result?.data.slots).toBeUndefined();
+        });
+
+        it("should convert primitive value to array with override mode", () => {
+            const element = createMockElement({
+                exclusiveSet: "#minecraft:exclusive_set/armor"
+            });
+
+            const action: ToggleListValueAction = {
+                type: "toggle_value_in_list",
+                field: "exclusiveSet",
+                value: "#minecraft:exclusive_set/weapon",
+                mode: ["override"]
+            };
+
+            const result = updateData(action, element, 48);
+
+            expect(result).toBeDefined();
+            expect(Array.isArray(result?.data.exclusiveSet)).toBe(true);
+            expect(result?.data.exclusiveSet).toEqual(["#minecraft:exclusive_set/weapon"]);
+        });
+
+        it("should support multiple modes", () => {
+            const element = createMockElement({
+                exclusiveSet: "#minecraft:exclusive_set/armor"
+            });
+            const action: ToggleListValueAction = {
+                type: "toggle_value_in_list",
+                field: "exclusiveSet",
+                value: "#minecraft:exclusive_set/armor",
+                mode: ["override", "remove_if_empty"]
+            };
+
+            const result = updateData(action, element, 48);
+
+            expect(result).toBeDefined();
+            expect(result?.data.exclusiveSet).toEqual(["#minecraft:exclusive_set/armor"]);
+        });
+
+        it("should handle undefined field with override mode", () => {
+            const element = createMockElement({
+                exclusiveSet: undefined
+            });
+            const action: ToggleListValueAction = {
+                type: "toggle_value_in_list",
+                field: "exclusiveSet",
+                value: "#minecraft:exclusive_set/weapon",
+                mode: ["override"]
+            };
+
+            const result = updateData(action, element, 48);
+
+            expect(result).toBeDefined();
+            expect(Array.isArray(result?.data.exclusiveSet)).toBe(true);
+            expect(result?.data.exclusiveSet).toEqual(["#minecraft:exclusive_set/weapon"]);
+        });
+    });
+
+    describe("RemoveValueFromListModifier", () => {
+        it("should remove a value from a list", () => {
+            const element = createMockElement({ slots: ["head", "chest", "legs"] });
+            const action: RemoveValueFromListAction = {
+                type: "remove_value_from_list",
+                field: "slots",
+                value: "chest"
+            };
+
+            const result = updateData(action, element, 48);
+
+            expect(result).toBeDefined();
+            expect(result?.data.slots).toEqual(["head", "legs"]);
+        });
+
+        it("should remove field if list becomes empty with remove_if_empty mode", () => {
+            const element = createMockElement({ slots: ["head"] });
+            const action: RemoveValueFromListAction = {
+                type: "remove_value_from_list",
+                field: "slots",
+                value: "head",
+                mode: ["remove_if_empty"]
+            };
+
+            const result = updateData(action, element, 48);
+
+            expect(result).toBeDefined();
+            expect(result?.data.slots).toBeUndefined();
+        });
+
+        it("should handle value from props parameter", () => {
+            const element = createMockElement({ slots: ["head", "chest"] });
+            const action: RemoveValueFromListAction = {
+                type: "remove_value_from_list",
+                field: "slots"
+            };
+
+            const result = updateData(action, element, 48, "head");
+
+            expect(result).toBeDefined();
+            expect(result?.data.slots).toEqual(["chest"]);
+        });
+
+        it("should throw error when both value and props are undefined", () => {
+            const element = createMockElement({ slots: ["head", "chest"] });
+            const action: RemoveValueFromListAction = {
+                type: "remove_value_from_list",
+                field: "slots"
+            };
+
+            expect(() => updateData(action, element, 48)).toThrow("Both props and action.value cannot be undefined");
+        });
+
+        it("should handle non-existent value gracefully", () => {
+            const element = createMockElement({ slots: ["head", "chest"] });
+            const action: RemoveValueFromListAction = {
+                type: "remove_value_from_list",
+                field: "slots",
+                value: "legs"
+            };
+
+            const result = updateData(action, element, 48);
+
+            expect(result).toBeDefined();
+            expect(result?.data.slots).toEqual(["head", "chest"]);
         });
     });
 
@@ -338,5 +463,138 @@ describe("Action System", () => {
             expect(result2).toBeDefined();
             expect(result2?.data.disabledEffects).toEqual([]);
         });
+    });
+});
+
+describe("Action System - Identifier Validation", () => {
+    it("should maintain Identifier instance through SimpleModifier", () => {
+        const element = createMockElement();
+        const action: SimpleAction = {
+            type: "set_value",
+            field: "minCostBase",
+            value: 5
+        };
+
+        const result = updateData(action, element, 48);
+        expect(result?.identifier).toBeInstanceOf(Identifier);
+        expect(result?.identifier.equals(element.identifier)).toBe(true);
+    });
+
+    it("should maintain Identifier instance through ToggleListValueModifier", () => {
+        const element = createMockElement({ slots: ["head"] });
+        const action: ToggleListValueAction = {
+            type: "toggle_value_in_list",
+            field: "slots",
+            value: "chest"
+        };
+
+        const result = updateData(action, element, 48);
+        expect(result?.identifier).toBeInstanceOf(Identifier);
+        expect(result?.identifier.equals(element.identifier)).toBe(true);
+    });
+
+    it("should maintain Identifier instance through SequentialModifier", () => {
+        const element = createMockElement();
+        const action: SequentialAction = {
+            type: "sequential",
+            actions: [
+                {
+                    type: "set_value",
+                    field: "minCostBase",
+                    value: 5
+                },
+                {
+                    type: "toggle_value_in_list",
+                    field: "slots",
+                    value: "head"
+                }
+            ]
+        };
+
+        const result = updateData(action, element, 48);
+        expect(result?.identifier).toBeInstanceOf(Identifier);
+        expect(result?.identifier.equals(element.identifier)).toBe(true);
+    });
+
+    it("should maintain Identifier instance through RemoveKeyModifier", () => {
+        const element = createComplexMockElement();
+        const action: RemoveKeyAction = {
+            type: "remove_key",
+            field: "effects",
+            value: "minecraft:projectile_spawned"
+        };
+
+        const result = updateData(action, element, 48);
+        expect(result?.identifier).toBeInstanceOf(Identifier);
+        expect(result?.identifier.equals(element.identifier)).toBe(true);
+    });
+
+    it("should maintain Identifier instance through MultipleModifier", () => {
+        const element = createMockElement({ slots: ["head", "chest"] });
+        const action: MultipleAction = {
+            type: "toggle_multiple_values",
+            field: "slots",
+            value: ["head", "legs"]
+        };
+
+        const result = updateData(action, element, 48);
+        expect(result?.identifier).toBeInstanceOf(Identifier);
+        expect(result?.identifier.equals(element.identifier)).toBe(true);
+    });
+
+    it("should maintain Identifier instance through RemoveValueFromListModifier", () => {
+        const element = createMockElement({ slots: ["head", "chest"] });
+        const action: RemoveValueFromListAction = {
+            type: "remove_value_from_list",
+            field: "slots",
+            value: "head"
+        };
+
+        const result = updateData(action, element, 48);
+        expect(result?.identifier).toBeInstanceOf(Identifier);
+        expect(result?.identifier.equals(element.identifier)).toBe(true);
+    });
+
+    it("should maintain Identifier instance through AppendListModifier", () => {
+        const element = createMockElement({ slots: ["head"] });
+        const action: ListAction = {
+            type: "list_operation",
+            mode: "append",
+            field: "slots",
+            value: "chest"
+        };
+
+        const result = updateData(action, element, 48);
+        expect(result?.identifier).toBeInstanceOf(Identifier);
+        expect(result?.identifier.equals(element.identifier)).toBe(true);
+    });
+
+    it("should maintain Identifier instance through complex chained operations", () => {
+        const element = createComplexMockElement();
+        const action: SequentialAction = {
+            type: "sequential",
+            actions: [
+                {
+                    type: "toggle_value_in_list",
+                    field: "slots",
+                    value: "head"
+                },
+                {
+                    type: "remove_key",
+                    field: "effects",
+                    value: "minecraft:projectile_spawned"
+                },
+                {
+                    type: "set_value",
+                    field: "weight",
+                    value: 5
+                }
+            ]
+        };
+
+        const result = updateData(action, element, 48);
+        expect(result?.identifier).toBeInstanceOf(Identifier);
+        expect(result?.identifier.equals(element.identifier)).toBe(true);
+        expect(result?.identifier.toString()).toBe("enchantplus:bow/accuracy_shot");
     });
 });

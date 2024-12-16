@@ -17,8 +17,5 @@ export const ENCHANT_TOOL_CONFIG: Unresolved<ToolConfiguration> = {
             main: "enchantment",
             tags: "tags/enchantment"
         }
-    },
-    compiler: {
-        merge_field_to_tags: ["exclusiveSet"]
     }
 };

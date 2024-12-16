@@ -1,6 +1,70 @@
 import { describe, it, expect } from "vitest";
 import { Logger } from "@/lib/minecraft/core/engine/migrations/logger";
-import type { DatapackInfo, LogDifference } from "@/lib/minecraft/core/engine/migrations/types";
+import type { DatapackInfo, FileLog, Log, LogDifference } from "@/lib/minecraft/core/engine/migrations/types";
+import type { EnchantmentProps } from "@/lib/minecraft/core/schema/enchant/EnchantmentProps";
+import { Identifier } from "@/lib/minecraft/core/Identifier";
+import type { EffectComponentsRecord } from "@voxel/definitions";
+import type { RegistryElement } from "@/lib/minecraft/mczip";
+import type { SequentialAction } from "@/lib/minecraft/core/engine/actions/SequentialModifier";
+import type { SimpleAction } from "@/lib/minecraft/core/engine/actions/SimpleModifier";
+import type { UndefinedAction } from "@/lib/minecraft/core/engine/actions/UndefinedModifier";
+import type { MultipleAction } from "@/lib/minecraft/core/engine/actions/MultipleModifier";
+import type { ListAction } from "@/lib/minecraft/core/engine/actions/AppendListModifier";
+import type { ToggleListValueAction } from "@/lib/minecraft/core/engine/actions/ToggleListValueModifier";
+import type { ComputedAction } from "@/lib/minecraft/core/engine/actions/ComputedModifier";
+import { createDifferenceFromAction } from "@/lib/minecraft/core/engine/migrations/logValidation";
+
+const createComplexMockElement = (data: Partial<EnchantmentProps> = {}): RegistryElement<EnchantmentProps> => ({
+    identifier: new Identifier("enchantplus", "enchantment", "bow/accuracy_shot"),
+    data: {
+        anvilCost: 4,
+        description: { translate: "enchantment.test.foo", fallback: "Enchantment Test" },
+        disabledEffects: [],
+        effects: {
+            "minecraft:projectile_spawned": [
+                {
+                    effect: {
+                        type: "minecraft:run_function",
+                        function: "enchantplus:actions/accuracy_shot/on_shoot"
+                    }
+                }
+            ]
+        } as EffectComponentsRecord,
+        exclusiveSet: ["minecraft:efficiency", "minecraft:unbreaking"],
+        maxLevel: 1,
+        minCostBase: 1,
+        minCostPerLevelAboveFirst: 1,
+        maxCostBase: 10,
+        assignedTags: ["exclusiveSet"],
+        maxCostPerLevelAboveFirst: 10,
+        primaryItems: undefined,
+        supportedItems: "#voxel:enchantable/range",
+        slots: ["mainhand", "offhand"],
+        softDelete: false,
+        tags: [
+            "#minecraft:non_treasure",
+            "#yggdrasil:structure/alfheim_tree/ominous_vault",
+            "#yggdrasil:structure/alfheim_tree/ominous_vault/floor",
+            "#yggdrasil:structure/asflors/common"
+        ],
+        weight: 2,
+        ...data
+    }
+});
+
+const createMockLog = (logs: FileLog[]): Log => ({
+    id: "test-id",
+    date: "2024-03-20",
+    version: 48,
+    isModded: false,
+    datapack: {
+        name: "Test Datapack",
+        description: "A test datapack",
+        namespaces: ["minecraft", "test"]
+    },
+    isMinified: true,
+    logs
+});
 
 describe("Logger System", () => {
     const mockDatapackInfo: DatapackInfo = {
@@ -166,6 +230,443 @@ describe("Logger System", () => {
                 registry: "enchantment",
                 type: "deleted"
             });
+        });
+    });
+
+    describe("Logging sequential actions", () => {
+        it("should log multiple differences from sequential actions", () => {
+            const logger = new Logger("test-id", "2024-03-20", 48, false, mockDatapackInfo);
+            const element = createComplexMockElement();
+
+            // Simulate the sequential action with two modifications
+            const sequentialAction: SequentialAction = {
+                type: "sequential",
+                actions: [
+                    {
+                        type: "set_value",
+                        field: "exclusiveSet",
+                        value: "#minecraft:armor"
+                    },
+                    {
+                        type: "toggle_value_in_list",
+                        field: "tags",
+                        value: "#minecraft:new_tag"
+                    }
+                ]
+            };
+
+            const difference = createDifferenceFromAction(sequentialAction, element, 48, "enchantment", logger);
+            if (!difference) {
+                throw new Error("Failed to create difference");
+            }
+
+            // Log the differences
+            logger.logDifference(element.identifier.toString(), element.identifier.getRegistry() || "unknown", difference);
+
+            // Verify the logs
+            const logs = logger.getLogs();
+            expect(logs.logs).toHaveLength(1);
+            const fileLog = logs.logs[0];
+            expect(fileLog.type).toBe("updated");
+
+            if (fileLog.type === "updated") {
+                expect(fileLog.differences).toHaveLength(2);
+
+                // Check exclusiveSet modification
+                expect(fileLog.differences[0]).toMatchObject({
+                    type: "set",
+                    path: "exclusiveSet",
+                    value: "#minecraft:armor",
+                    origin_value: ["minecraft:efficiency", "minecraft:unbreaking"]
+                });
+
+                // Check tags modification
+                expect(fileLog.differences[1]).toMatchObject({
+                    type: "set",
+                    path: "tags",
+                    value: [
+                        "#minecraft:non_treasure",
+                        "#yggdrasil:structure/alfheim_tree/ominous_vault",
+                        "#yggdrasil:structure/alfheim_tree/ominous_vault/floor",
+                        "#yggdrasil:structure/asflors/common",
+                        "#minecraft:new_tag"
+                    ],
+                    origin_value: [
+                        "#minecraft:non_treasure",
+                        "#yggdrasil:structure/alfheim_tree/ominous_vault",
+                        "#yggdrasil:structure/alfheim_tree/ominous_vault/floor",
+                        "#yggdrasil:structure/asflors/common"
+                    ]
+                });
+            }
+        });
+
+        it("should add a new value to existing list, wihout removing the old original value", () => {
+            const existingLog = createMockLog([
+                {
+                    identifier: "enchantplus:bow/accuracy_shot",
+                    registry: "enchantment",
+                    type: "updated",
+                    differences: [
+                        {
+                            type: "set",
+                            path: "exclusiveSet",
+                            value: "#minecraft:armor",
+                            origin_value: ["minecraft:efficiency", "minecraft:unbreaking"]
+                        },
+                        {
+                            type: "set",
+                            path: "tags",
+                            value: [
+                                "#minecraft:non_treasure",
+                                "#yggdrasil:structure/alfheim_tree/ominous_vault",
+                                "#yggdrasil:structure/alfheim_tree/ominous_vault/floor",
+                                "#yggdrasil:structure/asflors/common",
+                                "#minecraft:new_tag"
+                            ],
+                            origin_value: [
+                                "#minecraft:non_treasure",
+                                "#yggdrasil:structure/alfheim_tree/ominous_vault",
+                                "#yggdrasil:structure/alfheim_tree/ominous_vault/floor",
+                                "#yggdrasil:structure/asflors/common"
+                            ]
+                        }
+                    ]
+                }
+            ]);
+
+            const actions: ToggleListValueAction = {
+                type: "toggle_value_in_list",
+                field: "exclusiveSet",
+                mode: ["remove_if_empty", "override"],
+                value: "minecraft:sharpness"
+            };
+
+            const logger = new Logger("test-id", "2024-03-20", 48, false, mockDatapackInfo, existingLog);
+            const element = createComplexMockElement();
+
+            const difference = createDifferenceFromAction(actions, element, 48, "enchantment", logger);
+            if (!difference) {
+                throw new Error("Failed to create difference");
+            }
+
+            logger.logDifference(element.identifier.toString(), element.identifier.getRegistry() || "unknown", difference);
+
+            const logs = logger.getLogs();
+            expect(logs.logs).toHaveLength(1);
+            expect(logs.logs[0]).toMatchObject({
+                identifier: "enchantplus:bow/accuracy_shot",
+                registry: "enchantment",
+                type: "updated"
+            });
+
+            expect("differences" in logs.logs[0] && logs.logs[0].differences).toHaveLength(2);
+            expect("differences" in logs.logs[0] && logs.logs[0].differences[0]).toMatchObject({
+                type: "set",
+                path: "exclusiveSet",
+                value: ["minecraft:efficiency", "minecraft:unbreaking", "minecraft:sharpness"],
+                origin_value: ["minecraft:efficiency", "minecraft:unbreaking"]
+            });
+
+            expect("differences" in logs.logs[0] && logs.logs[0].differences[1]).toMatchObject({
+                type: "set",
+                path: "tags",
+                value: [
+                    "#minecraft:non_treasure",
+                    "#yggdrasil:structure/alfheim_tree/ominous_vault",
+                    "#yggdrasil:structure/alfheim_tree/ominous_vault/floor",
+                    "#yggdrasil:structure/asflors/common",
+                    "#minecraft:new_tag"
+                ]
+            });
+        });
+
+        it("should remove a value from existing list, wihout removing the old original value", () => {
+            const element = createComplexMockElement({ exclusiveSet: "#minecraft:new_tag", assignedTags: ["exclusiveSet"] });
+            const existingLog = createMockLog([
+                {
+                    identifier: "enchantplus:bow/accuracy_shot",
+                    registry: "enchantment",
+                    type: "updated",
+                    differences: [
+                        {
+                            type: "set",
+                            path: "exclusiveSet",
+                            value: "#minecraft:new_tag",
+                            origin_value: "#minecraft:armor"
+                        },
+                        {
+                            type: "set",
+                            path: "tags",
+                            value: [
+                                "#minecraft:non_treasure",
+                                "#yggdrasil:structure/alfheim_tree/ominous_vault",
+                                "#yggdrasil:structure/alfheim_tree/ominous_vault/floor",
+                                "#yggdrasil:structure/asflors/common",
+                                "#minecraft:new_tag"
+                            ],
+                            origin_value: [
+                                "#minecraft:non_treasure",
+                                "#yggdrasil:structure/alfheim_tree/ominous_vault",
+                                "#yggdrasil:structure/alfheim_tree/ominous_vault/floor",
+                                "#yggdrasil:structure/asflors/common",
+                                "#minecraft:armor"
+                            ]
+                        }
+                    ]
+                }
+            ]);
+
+            const actions: SequentialAction = {
+                type: "sequential",
+                actions: [
+                    {
+                        type: "toggle_value_in_list",
+                        field: "exclusiveSet",
+                        mode: ["remove_if_empty", "override"],
+                        value: "minecraft:sharpness"
+                    },
+                    {
+                        type: "remove_value_from_list",
+                        field: "tags",
+                        value: "#minecraft:new_tag"
+                    }
+                ]
+            };
+
+            const logger = new Logger("test-id", "2024-03-20", 48, false, mockDatapackInfo, existingLog);
+            const difference = createDifferenceFromAction(actions, element, 48, "enchantment", logger);
+            if (!difference) {
+                throw new Error("Failed to create difference");
+            }
+
+            logger.logDifference(element.identifier.toString(), element.identifier.getRegistry() || "unknown", difference);
+
+            const logs = logger.getLogs();
+            expect(logs.logs).toHaveLength(1);
+            expect(logs.logs[0]).toMatchObject({
+                identifier: "enchantplus:bow/accuracy_shot",
+                registry: "enchantment",
+                type: "updated"
+            });
+
+            expect("differences" in logs.logs[0] && logs.logs[0].differences).toHaveLength(2);
+            expect("differences" in logs.logs[0] && logs.logs[0].differences[0]).toMatchObject({
+                type: "set",
+                path: "exclusiveSet",
+                value: ["minecraft:sharpness"],
+                origin_value: "#minecraft:armor"
+            });
+
+            expect("differences" in logs.logs[0] && logs.logs[0].differences[1]).toMatchObject({
+                type: "set",
+                path: "tags",
+                value: [
+                    "#minecraft:non_treasure",
+                    "#yggdrasil:structure/alfheim_tree/ominous_vault",
+                    "#yggdrasil:structure/alfheim_tree/ominous_vault/floor",
+                    "#yggdrasil:structure/asflors/common"
+                ]
+            });
+        });
+
+        it("Shouldn't log if value equals original value", () => {
+            const element = createComplexMockElement();
+            const action: SequentialAction = {
+                type: "sequential",
+                actions: [
+                    {
+                        type: "toggle_value",
+                        value: "#minecraft:exclusive_set/armor",
+                        field: "exclusiveSet"
+                    },
+                    {
+                        type: "list_operation",
+                        field: "assignedTags",
+                        value: "exclusiveSet",
+                        mode: "append",
+                        flag: ["not_duplicate"]
+                    }
+                ]
+            };
+
+            const logger = new Logger("test-id", "2024-03-20", 48, false, mockDatapackInfo);
+            const difference = createDifferenceFromAction(action, element, 48, "enchantment", logger);
+            if (!difference) {
+                throw new Error("Failed to create difference");
+            }
+
+            logger.logDifference(element.identifier.toString(), element.identifier.getRegistry() || "unknown", difference);
+
+            const logs = logger.getLogs();
+            expect(logs.logs).toHaveLength(1);
+            if (logs.logs[0].type === "updated") {
+                expect(logs.logs[0].differences).toHaveLength(1);
+            }
+        });
+    });
+
+    describe("Logging with optional value parameter", () => {
+        it("should handle toggle list value with optional value parameter", () => {
+            const logger = new Logger("test-id", "2024-03-20", 48, false, mockDatapackInfo);
+            const element = createComplexMockElement();
+
+            const action: ToggleListValueAction = {
+                type: "toggle_value_in_list",
+                field: "tags"
+            };
+
+            // Test avec une valeur optionnelle différente
+            const difference = createDifferenceFromAction(action, element, 48, "enchantment", logger, "#minecraft:override_tag");
+            if (!difference) {
+                throw new Error("Failed to create difference");
+            }
+
+            logger.logDifference(element.identifier.toString(), element.identifier.getRegistry() || "unknown", difference);
+
+            const logs = logger.getLogs();
+            expect(logs.logs).toHaveLength(1);
+            const fileLog = logs.logs[0];
+            expect(fileLog.type).toBe("updated");
+            if (fileLog.type === "updated") {
+                expect(fileLog.differences).toHaveLength(1);
+                expect(fileLog.differences[0]).toMatchObject({
+                    type: "set",
+                    path: "tags",
+                    value: [
+                        "#minecraft:non_treasure",
+                        "#yggdrasil:structure/alfheim_tree/ominous_vault",
+                        "#yggdrasil:structure/alfheim_tree/ominous_vault/floor",
+                        "#yggdrasil:structure/asflors/common",
+                        "#minecraft:override_tag"
+                    ],
+                    origin_value: [
+                        "#minecraft:non_treasure",
+                        "#yggdrasil:structure/alfheim_tree/ominous_vault",
+                        "#yggdrasil:structure/alfheim_tree/ominous_vault/floor",
+                        "#yggdrasil:structure/asflors/common"
+                    ]
+                });
+            }
+        });
+
+        it("should handle set_value_from_computed_value action with optional value parameter", () => {
+            const logger = new Logger("test-id", "2024-03-20", 48, false, mockDatapackInfo);
+            const element = createComplexMockElement();
+
+            const action: ComputedAction = {
+                type: "set_value_from_computed_value",
+                field: "maxLevel"
+            };
+
+            const optionalValue = 5;
+            const difference = createDifferenceFromAction(action, element, 48, "enchantment", logger, optionalValue);
+            if (!difference) {
+                throw new Error("Failed to create difference");
+            }
+
+            logger.logDifference(element.identifier.toString(), element.identifier.getRegistry() || "unknown", difference);
+
+            const logs = logger.getLogs();
+            expect(logs.logs).toHaveLength(1);
+            const fileLog = logs.logs[0];
+            expect(fileLog.type).toBe("updated");
+            if (fileLog.type === "updated") {
+                expect(fileLog.differences).toHaveLength(1);
+                expect(fileLog.differences[0]).toMatchObject({
+                    type: "set",
+                    path: "maxLevel",
+                    value: 5,
+                    origin_value: 1
+                });
+            }
+        });
+
+        it("should handle toggle_value_from_computed_value action with optional value parameter", () => {
+            const logger = new Logger("test-id", "2024-03-20", 48, false, mockDatapackInfo);
+            const element = createComplexMockElement();
+
+            const action: ComputedAction = {
+                type: "toggle_value_from_computed_value",
+                field: "supportedItems"
+            };
+
+            const optionalValue = "#minecraft:axes";
+            const difference = createDifferenceFromAction(action, element, 48, "enchantment", logger, optionalValue);
+            if (!difference) {
+                throw new Error("Failed to create difference");
+            }
+
+            logger.logDifference(element.identifier.toString(), element.identifier.getRegistry() || "unknown", difference);
+
+            const logs = logger.getLogs();
+            expect(logs.logs).toHaveLength(1);
+            const fileLog = logs.logs[0];
+            expect(fileLog.type).toBe("updated");
+            if (fileLog.type === "updated") {
+                expect(fileLog.differences).toHaveLength(1);
+                expect(fileLog.differences[0]).toMatchObject({
+                    type: "set",
+                    path: "supportedItems",
+                    value: "#minecraft:axes",
+                    origin_value: "#voxel:enchantable/range"
+                });
+            }
+        });
+
+        it("should handle toggle_value_from_computed_value action that removes value", () => {
+            const logger = new Logger("test-id", "2024-03-20", 48, false, mockDatapackInfo);
+            const element = createComplexMockElement();
+
+            const action: ComputedAction = {
+                type: "toggle_value_from_computed_value",
+                field: "supportedItems"
+            };
+
+            // Using the same value as current to trigger removal
+            const optionalValue = "#voxel:enchantable/range";
+            const difference = createDifferenceFromAction(action, element, 48, "enchantment", logger, optionalValue);
+
+            // Si la différence est undefined, c'est normal car la valeur est supprimée
+            expect(difference).toBeUndefined();
+
+            // Vérifions que le logger n'a pas enregistré de changement
+            const logs = logger.getLogs();
+            expect(logs.logs).toHaveLength(0);
+        });
+
+        // Ajoutons un test pour vérifier le comportement quand la valeur est différente
+        it("should handle toggle_value_from_computed_value action with different value", () => {
+            const logger = new Logger("test-id", "2024-03-20", 48, false, mockDatapackInfo);
+            const element = createComplexMockElement();
+
+            const action: ComputedAction = {
+                type: "toggle_value_from_computed_value",
+                field: "supportedItems"
+            };
+
+            // Utilisons une valeur différente
+            const optionalValue = "#minecraft:different_value";
+            const difference = createDifferenceFromAction(action, element, 48, "enchantment", logger, optionalValue);
+            if (!difference) {
+                throw new Error("Failed to create difference");
+            }
+
+            logger.logDifference(element.identifier.toString(), element.identifier.getRegistry() || "unknown", difference);
+
+            const logs = logger.getLogs();
+            expect(logs.logs).toHaveLength(1);
+            const fileLog = logs.logs[0];
+            expect(fileLog.type).toBe("updated");
+            if (fileLog.type === "updated") {
+                expect(fileLog.differences).toHaveLength(1);
+                expect(fileLog.differences[0]).toMatchObject({
+                    type: "set",
+                    path: "supportedItems",
+                    value: "#minecraft:different_value",
+                    origin_value: "#voxel:enchantable/range"
+                });
+            }
         });
     });
 });

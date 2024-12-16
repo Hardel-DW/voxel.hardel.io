@@ -20,6 +20,7 @@ export interface EnchantmentProps extends VoxelElement {
     effects: EffectComponentsRecord | undefined;
     slots: SlotRegistryType[];
     tags: string[];
+    assignedTags: string[];
     softDelete: boolean;
     disabledEffects: string[];
 }
@@ -47,6 +48,11 @@ export const DataDrivenToVoxelFormat: Parser<EnchantmentProps, Enchantment, true
     const primaryItems = data.primary_items;
     const effects = data.effects;
     const slots = data.slots;
+    const assignedTags = [];
+
+    if (typeof exclusiveSet === "string") {
+        assignedTags.push(exclusiveSet);
+    }
 
     const tagsToCheck = tags.filter((tag) => !(typeof data.exclusive_set === "string" && tag === data.exclusive_set));
     const softDelete = (!data.effects || Object.entries(data.effects).length === 0) && tagsToCheck.length === 0;
@@ -68,6 +74,7 @@ export const DataDrivenToVoxelFormat: Parser<EnchantmentProps, Enchantment, true
             effects,
             tags,
             slots,
+            assignedTags,
             softDelete,
             disabledEffects: []
         }

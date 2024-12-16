@@ -141,7 +141,7 @@ export const exclusive: Unresolved<InterfaceConfiguration> = {
                                                     type: "sequential",
                                                     actions: [
                                                         {
-                                                            type: "set_value",
+                                                            type: "toggle_value",
                                                             value: {
                                                                 type: "get_value_from_context",
                                                                 key: "value"
@@ -149,12 +149,11 @@ export const exclusive: Unresolved<InterfaceConfiguration> = {
                                                             field: "exclusiveSet"
                                                         },
                                                         {
-                                                            type: "toggle_value_in_list",
-                                                            field: "tags",
-                                                            value: {
-                                                                type: "get_value_from_context",
-                                                                key: "value"
-                                                            }
+                                                            type: "list_operation",
+                                                            field: "assignedTags",
+                                                            value: "exclusiveSet",
+                                                            mode: "append",
+                                                            flag: ["not_duplicate"]
                                                         }
                                                     ]
                                                 },
@@ -197,7 +196,7 @@ export const exclusive: Unresolved<InterfaceConfiguration> = {
                                                             type: "sequential",
                                                             actions: [
                                                                 {
-                                                                    type: "set_value",
+                                                                    type: "toggle_value",
                                                                     value: {
                                                                         type: "get_value_from_context",
                                                                         key: "identifier"
@@ -206,12 +205,11 @@ export const exclusive: Unresolved<InterfaceConfiguration> = {
                                                                     mode: "toggle"
                                                                 },
                                                                 {
-                                                                    type: "toggle_value_in_list",
-                                                                    field: "tags",
-                                                                    value: {
-                                                                        type: "get_value_from_context",
-                                                                        key: "identifier"
-                                                                    }
+                                                                    type: "list_operation",
+                                                                    field: "assignedTags",
+                                                                    value: "exclusiveSet",
+                                                                    mode: "append",
+                                                                    flag: ["not_duplicate"]
                                                                 }
                                                             ]
                                                         },
@@ -289,13 +287,23 @@ export const exclusive: Unresolved<InterfaceConfiguration> = {
                                     key: "namespace"
                                 },
                                 action: {
-                                    type: "toggle_value_in_list",
-                                    field: "exclusiveSet",
-                                    mode: "remove_if_empty",
-                                    value: {
-                                        type: "get_value_from_context",
-                                        key: "identifier"
-                                    }
+                                    type: "sequential",
+                                    actions: [
+                                        {
+                                            type: "toggle_value_in_list",
+                                            field: "exclusiveSet",
+                                            mode: ["remove_if_empty", "override"],
+                                            value: {
+                                                type: "get_value_from_context",
+                                                key: "identifier"
+                                            }
+                                        },
+                                        {
+                                            type: "remove_value_from_list",
+                                            field: "assignedTags",
+                                            value: "exclusiveSet"
+                                        }
+                                    ]
                                 },
                                 condition: {
                                     condition: "contains_in_tags",

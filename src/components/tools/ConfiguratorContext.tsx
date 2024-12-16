@@ -2,7 +2,6 @@ import type { Identifier } from "@/lib/minecraft/core/Identifier.ts";
 import type { Analysers, GetAnalyserVoxel } from "@/lib/minecraft/core/engine/Analyser.ts";
 import type { Action, ActionValue } from "@/lib/minecraft/core/engine/actions";
 import { updateData } from "@/lib/minecraft/core/engine/actions";
-import { createDifferenceFromAction } from "@/lib/minecraft/core/engine/migrations/logValidation";
 import type { Logger } from "@/lib/minecraft/core/engine/migrations/logger";
 import type { Unresolved } from "@/lib/minecraft/core/engine/resolver/field/type";
 import type { ToolConfiguration } from "@/lib/minecraft/core/schema/primitive";
@@ -87,13 +86,10 @@ export function ConfiguratorProvider<T extends keyof Analysers>(props: {
             console.error("Element not found");
             return;
         }
+
         const updatedElement = updateData<T>(action, element, version ?? Number.POSITIVE_INFINITY, value);
         if (updatedElement && logger && version) {
-            const difference = createDifferenceFromAction(action, updatedElement, files, version, props.tool);
-
-            if (difference) {
-                logger.logDifference(element.identifier.toString(), element.identifier.getRegistry() || "unknown", difference);
-            }
+            logger.handleActionDifference(action, element, version ?? Number.POSITIVE_INFINITY, props.tool, value);
         }
 
         if (!updatedElement) return;

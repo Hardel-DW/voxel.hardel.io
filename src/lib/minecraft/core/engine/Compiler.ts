@@ -36,7 +36,6 @@ export function compileDatapack<T extends keyof Analysers>({
     configuration
 }: CompileDatapackParams<GetAnalyserVoxel<T>>): Array<RegistryElement<GetAnalyserMinecraft<T>> | RegistryElement<TagType>> {
     const parserConfig = configuration?.analyser;
-    const compilerConfig = configuration?.compiler;
     if (!parserConfig) return [];
 
     if (typeof parserConfig.id !== "string" || !(parserConfig.id in versionedAnalyserCollection)) {
@@ -58,9 +57,12 @@ export function compileDatapack<T extends keyof Analysers>({
 
         const related = element.data.tags.map((tag) => Identifier.fromString(tag, parserConfig.registries.tags));
 
-        const mergedTags =
-            compilerConfig?.merge_field_to_tags.flatMap((field) => {
+        const assignedTagValues =
+            element.data.assignedTags?.flatMap((field) => {
                 const value = element.data[field as keyof GetAnalyserVoxel<T>];
+                if (Array.isArray(value)) {
+                    return value.map((tag) => Identifier.fromString(tag, parserConfig.registries.tags));
+                }
                 if (typeof value === "string") {
                     return [Identifier.fromString(value, parserConfig.registries.tags)];
                 }
@@ -69,7 +71,7 @@ export function compileDatapack<T extends keyof Analysers>({
 
         return {
             primary: element.identifier,
-            related: [...mergedTags, ...related]
+            related: [...related, ...assignedTagValues]
         };
     });
 

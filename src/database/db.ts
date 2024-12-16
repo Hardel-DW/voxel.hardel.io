@@ -39,7 +39,8 @@ export const saveMigrationLog = async (log: Log) => {
 
         // Insertion du log principal
         await db.insert(migrationLog).values({
-            id: log.id,
+            id: randomUUID(),
+            datapackId: log.id,
             date: date,
             version: log.version,
             isModded: log.isModded,

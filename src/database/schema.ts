@@ -31,6 +31,7 @@ export const purchase = pgTable("purchase", {
 
 export const migrationLog = pgTable("migration_log", {
     id: text("id").primaryKey(),
+    datapackId: text("datapack_id").notNull(),
     date: timestamp("date", {
         withTimezone: true,
         mode: "date"

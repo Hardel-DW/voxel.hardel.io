@@ -31,7 +31,9 @@ export default function DownloadButton<T extends keyof Analysers>() {
             const response = await fetch("/api/migrations/log", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(context.logger.getLogs())
+                body: JSON.stringify({
+                    logs: context.logger.getLogs()
+                })
             });
 
             if (!response.ok) {

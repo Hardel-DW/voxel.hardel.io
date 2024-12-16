@@ -20,12 +20,27 @@ export const checkPurchase = async (userId: string, productId: string) => {
 };
 
 export const saveMigrationLog = async (log: Log) => {
-    // Transaction pour assurer l'intégrité des données
-    await db.transaction(async (tx) => {
+    console.log("Saving migration log:", log);
+    try {
+        // Vérification et conversion de la date
+        let date: Date;
+        if (typeof log.date === "string") {
+            const [day, month, year] = log.date.split("/");
+            date = new Date(`${year}-${month}-${day}`);
+        } else if (typeof log.date === "object" && log.date !== null && "getTime" in log.date) {
+            date = log.date;
+        } else {
+            date = new Date(log.date);
+        }
+
+        if (!Number.isFinite(date.getTime())) {
+            throw new Error(`Invalid date value: ${log.date}`);
+        }
+
         // Insertion du log principal
-        await tx.insert(migrationLog).values({
+        await db.insert(migrationLog).values({
             id: log.id,
-            date: new Date(log.date),
+            date: date,
             version: log.version,
             isModded: log.isModded,
             isMinified: log.isMinified,
@@ -34,6 +49,9 @@ export const saveMigrationLog = async (log: Log) => {
             logs: log.logs
         });
 
+        // Log pour debug des namespaces
+        console.log("Saving namespaces:", log.datapack.namespaces);
+
         // Insertion des namespaces
         const namespaceValues = log.datapack.namespaces.map((namespace) => ({
             id: randomUUID(),
@@ -41,8 +59,25 @@ export const saveMigrationLog = async (log: Log) => {
             namespace
         }));
 
-        await tx.insert(migrationNamespace).values(namespaceValues);
-    });
+        await db.insert(migrationNamespace).values(namespaceValues);
 
-    return log.id;
+        return log.id;
+    } catch (error) {
+        console.error("Detailed error in saveMigrationLog:", {
+            error,
+            errorMessage: error instanceof Error ? error.message : "Unknown error",
+            stack: error instanceof Error ? error.stack : undefined,
+            originalDate: log.date
+        });
+
+        // En cas d'erreur, on essaie de nettoyer les données partiellement insérées
+        try {
+            await db.delete(migrationNamespace).where(eq(migrationNamespace.migrationId, log.id));
+            await db.delete(migrationLog).where(eq(migrationLog.id, log.id));
+        } catch (cleanupError) {
+            console.error("Failed to cleanup after error:", cleanupError);
+        }
+
+        throw new Error(`Failed to save migration log: ${error instanceof Error ? error.message : "Unknown error"}`);
+    }
 };

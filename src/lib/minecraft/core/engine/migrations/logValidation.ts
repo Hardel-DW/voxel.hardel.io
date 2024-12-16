@@ -1,4 +1,4 @@
-import type { Analysers, GetAnalyserVoxel, VoxelElement } from "@/lib/minecraft/core/engine/Analyser";
+import type { Analysers, GetAnalyserVoxel } from "@/lib/minecraft/core/engine/Analyser";
 import type { Action, ActionValue } from "@/lib/minecraft/core/engine/actions";
 import { updateData } from "@/lib/minecraft/core/engine/actions";
 import type { LogDifference, LogValue } from "@/lib/minecraft/core/engine/migrations/types";

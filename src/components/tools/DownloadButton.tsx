@@ -13,8 +13,8 @@ export default function DownloadButton<T extends keyof Analysers>() {
     if (!context.configuration) return null;
 
     const handleCompile = async () => {
-        if (!context.version || !context.configuration) {
-            console.error("Version or configuration is missing");
+        if (!context.version || !context.configuration || !context.logger) {
+            console.error("Version, configuration or logger is missing");
             return;
         }
 
@@ -26,6 +26,22 @@ export default function DownloadButton<T extends keyof Analysers>() {
         });
 
         const compiledContent = await generateZip(context.files, content, context.minify, context.logger);
+
+        try {
+            const response = await fetch("/api/migrations/log", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(context.logger.getLogs())
+            });
+
+            if (!response.ok) {
+                throw new Error(`Failed to save migration log: ${response.statusText}`);
+            }
+        } catch (error) {
+            console.error("Error saving migration log:", error);
+        }
+
+        // Télécharger le fichier
         const fileExtension = context.isJar ? "jar" : "zip";
         const blob = new Blob([compiledContent], {
             type: `application/${fileExtension}`

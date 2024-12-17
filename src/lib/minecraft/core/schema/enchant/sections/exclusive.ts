@@ -161,7 +161,19 @@ export const exclusive: Unresolved<InterfaceConfiguration> = {
                                                     condition: "compare_value_to_field_value",
                                                     field: "exclusiveSet",
                                                     value: { type: "get_value_from_context", key: "value" }
-                                                }
+                                                },
+                                                lock: [
+                                                    {
+                                                        text: {
+                                                            type: "translate",
+                                                            value: "tools.disabled_because_vanilla"
+                                                        },
+                                                        condition: {
+                                                            condition: "check_namespace",
+                                                            values: "minecraft"
+                                                        }
+                                                    }
+                                                ]
                                             }
                                         },
                                         {
@@ -181,6 +193,18 @@ export const exclusive: Unresolved<InterfaceConfiguration> = {
                                                             exclude_namespace: ["minecraft"]
                                                         }
                                                     ],
+                                                    fallback: {
+                                                        type: "Text",
+                                                        content: [
+                                                            {
+                                                                type: "Paragraph",
+                                                                content: {
+                                                                    type: "translate",
+                                                                    value: "tools.enchantments.section.exclusive.custom.fallback"
+                                                                }
+                                                            }
+                                                        ]
+                                                    },
                                                     template: {
                                                         type: "SwitchSlot",
                                                         title: {

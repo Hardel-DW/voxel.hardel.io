@@ -43,7 +43,7 @@ export default function ConfiguratorPanel(props: {
                     {resolvedConfiguration.interface.map((section) => (
                         <TabsContent key={section.id} value={section.id}>
                             {currentElement?.identifier?.getNamespace() === "minecraft" && (
-                                <div className="text-xs text-zinc-400 font-light mb-4">
+                                <div className="text-xs text-zinc-400 text-center font-light mb-4">
                                     <TranslateText
                                         content={{
                                             type: "translate",

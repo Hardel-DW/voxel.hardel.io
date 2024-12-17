@@ -1,7 +1,5 @@
-import { useTranslate } from "@/components/TranslateContext.tsx";
-import { Identifier } from "@/lib/minecraft/core/Identifier.ts";
 import type { TranslateTextType } from "@/lib/minecraft/core/schema/primitive/text";
-import { cn, quoteString } from "@/lib/utils.ts";
+import { cn } from "@/lib/utils.ts";
 import TranslateText, { getKey } from "@/components/tools/elements/text/TranslateText";
 
 export default function ToolSlot(props: {
@@ -10,11 +8,10 @@ export default function ToolSlot(props: {
     description?: TranslateTextType | string;
     value?: boolean | string | number;
     size?: number;
-    lock?: string;
+    lock?: TranslateTextType | string;
     onChange?: (value: boolean | string | number) => void;
     checked?: boolean;
 }) {
-    const { translate } = useTranslate();
     const handleChange = (option: boolean) => {
         if (props.lock) return;
 
@@ -38,10 +35,7 @@ export default function ToolSlot(props: {
 
             {props.lock && (
                 <span className="absolute p-4 bottom-0 right-0 text-xs text-zinc-400 font-light">
-                    {translate["tools.enchantments.section.technical.components.reason"].replace(
-                        "%s",
-                        quoteString(Identifier.fromString(props.lock).renderResourceName())
-                    )}
+                    <TranslateText content={props.lock} />
                 </span>
             )}
 

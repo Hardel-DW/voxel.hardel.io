@@ -2,9 +2,8 @@
 import NavBarItem from "@/components/layouts/compound/NavbarContent";
 import Button from "@/components/ui/button.astro";
 import { getTranslations } from "@/lib/i18n";
-import { generateAuthUrl } from "@/lib/lucia";
 import { cn } from "@/lib/utils";
-import Internalization from "./internalization.astro";
+import Internalization from "@/components/layouts/compound/internalization.astro";
 
 const { translate, lang } = await getTranslations(Astro.url);
 const links = [
@@ -46,14 +45,24 @@ const { transparent = true, full = true, className }: Props = Astro.props;
         <!-- Right Part -->
         <div>
             <!-- Desktop -->
-            <div class="hidden lg:flex items-center gap-2">
+            <div class="hidden lg:flex items-center gap-2 px-4">
                 <Internalization/>
-                <Button href={generateAuthUrl(Astro.url.toString())} rounded="full" variant="ghost">
+                <!-- <Button href={generateAuthUrl(Astro.url.toString())} rounded="full" variant="ghost">
                     {translate["generic.login"]}
                 </Button>
                 <Button href=`/${lang}/soon` rounded="full" variant="primary" class="group">
                     {translate["generic.start"]}
-                </Button>
+                </Button> -->
+                <a href="https://x.com/VoxelioStudio" target="_blank" rel="noopener noreferrer">
+                    <img src="/icons/company/x.svg" alt="x" class="w-6 h-6 invert mx-1 cursor-pointer opacity-70 hover:opacity-100 transition-opacity duration-150 ease-linear"/>
+                </a>
+                <a href="https://bsky.app/profile/voxelstudio.bsky.social" target="_blank" rel="noopener noreferrer">
+                    <img src="/icons/company/bluesky.svg" alt="Bluesky" class="w-6 h-6 invert mx-1 cursor-pointer opacity-70 hover:opacity-100 transition-opacity duration-150 ease-linear"/>
+                </a>
+                <a href="https://discord.gg/TAmVFvkHep" target="_blank" rel="noopener noreferrer">
+                    <img src="/icons/company/discord.svg" alt="Discord" class="w-6 h-6 invert mx-1 cursor-pointer opacity-70 hover:opacity-100 transition-opacity duration-150 ease-linear"/>
+                </a>
+
             </div>
 
             <!-- Mobile -->
@@ -77,14 +86,23 @@ const { transparent = true, full = true, className }: Props = Astro.props;
                         </a>
                 )}
             </div>
-            <div class="mt-2 space-y-2">
-                <Button href={generateAuthUrl(Astro.url.toString())} class="w-full mt-0" rounded="full"
+            <div class="mb-4 flex justify-center gap-x-4 sm:gap-x-8">
+                <!-- <Button href={generateAuthUrl(Astro.url.toString())} class="w-full mt-0" rounded="full"
                         variant="ghost">
                     {translate["generic.login"]}
                 </Button>
                 <Button href="/guides" class="w-full mt-0" rounded="full" variant="primary">
                     {translate["navbar.item.guides"]}
-                </Button>
+                </Button> -->
+                <a href="https://x.com/VoxelioStudio" target="_blank" rel="noopener noreferrer">
+                    <img src="/icons/company/x.svg" alt="x" class="w-6 h-6 invert mx-1 cursor-pointer opacity-70 hover:opacity-100 transition-opacity duration-150 ease-linear"/>
+                </a>
+                <a href="https://bsky.app/profile/voxelstudio.bsky.social" target="_blank" rel="noopener noreferrer">
+                    <img src="/icons/company/bluesky.svg" alt="Bluesky" class="w-6 h-6 invert mx-1 cursor-pointer opacity-70 hover:opacity-100 transition-opacity duration-150 ease-linear"/>
+                </a>
+                <a href="https://discord.gg/TAmVFvkHep" target="_blank" rel="noopener noreferrer">
+                    <img src="/icons/company/discord.svg" alt="Discord" class="w-6 h-6 invert mx-1 cursor-pointer opacity-70 hover:opacity-100 transition-opacity duration-150 ease-linear"/>
+                </a>
             </div>
         </div>
     </nav>

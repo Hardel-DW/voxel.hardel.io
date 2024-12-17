@@ -3,6 +3,7 @@ import { useConfigurator } from "@/components/tools/ConfiguratorContext.tsx";
 import DatapackUploader from "@/components/tools/DatapackUploader.tsx";
 import type { FaqType } from "@/content/config.ts";
 import type React from "react";
+import { parseDatapack } from "@/lib/minecraft/core/engine/Parser";
 
 export default function HelpGuide(props: {
     faq?: FaqType[];
@@ -10,6 +11,41 @@ export default function HelpGuide(props: {
 }) {
     const { translate, lang } = useTranslate();
     const context = useConfigurator();
+
+    const handleVanillaImport = async () => {
+        try {
+            const response = await fetch("/api/preset/61");
+            if (!response.ok) throw new Error("Failed to fetch datapack");
+
+            const blob = await response.blob();
+            const file = new File([blob], "enchantment-61.zip", { type: "application/zip" });
+
+            const dataTransfer = new DataTransfer();
+            dataTransfer.items.add(file);
+            const fileList = dataTransfer.files;
+            const result = await parseDatapack("enchantment", fileList);
+
+            if (typeof result === "string") {
+                console.error("Error parsing datapack:", result);
+                return;
+            }
+
+            context.setName(result.name);
+            context.setFiles(result.files);
+            context.setElements(result.elements);
+            context.setVersion(result.version);
+            context.setToggleSection(result.toggleSection);
+            context.setCurrentElementId(result.currentElementId);
+            context.setLogger(result.logger);
+            context.setIsJar(result.isJar);
+            context.setConfiguration(result.configuration);
+        } catch (error: unknown) {
+            console.error("Failed to import vanilla datapack:", error);
+            if (error instanceof Error) {
+                console.error("Error stack:", error.stack);
+            }
+        }
+    };
 
     if (context.elements.length > 0) return null;
 
@@ -35,11 +71,20 @@ export default function HelpGuide(props: {
                         </h1>
                         <p className="text-gray-300 mt-4">{translate["tools.enchantments.home.description"]}</p>
 
-                        <a
-                            href={`/${lang}/update/enchant-configurator`}
-                            className="inline-flex w-fit h-12 mt-8 animate-shimmer items-center justify-center rounded-md border border-slate-800 bg-[linear-gradient(110deg,#000103,45%,#1e2631,55%,#000103)] bg-[length:200%_100%] px-6 font-medium text-slate-400 transition-colors hover:text-zinc-300 focus:outline-hidden focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50">
-                            {translate["timeline.see_latest_updates"]} &rarr;
-                        </a>
+                        <div className="flex items-center flex-col sm:flex-row gap-4 mt-8">
+                            <button
+                                type="button"
+                                onClick={handleVanillaImport}
+                                className="h-10 px-4 py-2 rounded-md inline-flex items-center justify-center whitespace-nowrap cursor-pointer truncate text-sm ring-offset-background focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 animate-shimmer bg-[linear-gradient(110deg,#FCFCFC,45%,#d0d0d0,55%,#FCFCFC)] bg-[length:200%_100%] text-black font-medium border-t border-l border-zinc-900 hover:opacity-75 transition">
+                                {translate["tools.enchantments.import_vanilla"]}
+                            </button>
+
+                            <a
+                                href={`/${lang}/update/enchant-configurator`}
+                                className="inline-flex h-10 items-center justify-center rounded-md px-4 font-medium text-slate-400 transition-colors hover:text-zinc-300 text-sm">
+                                {translate["timeline.see_latest_updates"]} &rarr;
+                            </a>
+                        </div>
                     </div>
                 </div>
                 <div className="relative w-full flex justify-center items-center">

@@ -1,14 +1,13 @@
 import TranslateText from "@/components/tools/elements/text/TranslateText";
 import type { TranslateTextType } from "@/lib/minecraft/core/schema/primitive/text";
-import { Identifier } from "@/lib/minecraft/core/Identifier.ts";
-import { cn, quoteString } from "@/lib/utils.ts";
+import { cn } from "@/lib/utils.ts";
 
 export default function ToolInline(props: {
     title: TranslateTextType | string;
     image: string;
     description?: TranslateTextType | string;
     value?: boolean | string | number;
-    lock?: string;
+    lock?: TranslateTextType | string;
     onChange?: (value: boolean | string | number) => void;
     checked?: boolean;
 }) {
@@ -34,13 +33,7 @@ export default function ToolInline(props: {
 
             {props.lock && (
                 <span className="absolute top-0 p-4 text-xs text-zinc-400 font-light">
-                    <TranslateText
-                        content={{
-                            type: "translate",
-                            value: "tools.enchantments.section.technical.components.reason"
-                        }}
-                    />
-                    {quoteString(Identifier.fromString(props.lock).renderResourceName())}
+                    <TranslateText content={props.lock} />
                 </span>
             )}
 

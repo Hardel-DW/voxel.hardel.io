@@ -1,7 +1,5 @@
 import TranslateText from "@/components/tools/elements/text/TranslateText";
 import type { TranslateTextType } from "@/lib/minecraft/core/schema/primitive/text";
-import { Identifier } from "@/lib/minecraft/core/Identifier.ts";
-import { quoteString } from "@/lib/utils.ts";
 
 export default function ToolSwitch(props: {
     title: TranslateTextType | string;
@@ -9,7 +7,7 @@ export default function ToolSwitch(props: {
     checked?: boolean;
     onChange?: (value: boolean) => void;
     name?: string;
-    lock?: string;
+    lock?: TranslateTextType | string;
 }) {
     return (
         <div className="bg-blue-50/5 ring-0 ring-zinc-700 transition-all hover:ring-1 p-6 rounded-xl">
@@ -19,21 +17,16 @@ export default function ToolSwitch(props: {
                         <TranslateText content={props.title} />
                     </span>
                     <span className="text-xs text-zinc-400 font-light line-clamp-2">
-                        <TranslateText content={props.description} />
+                        {props.lock ? (
+                            <span className="text-xs text-zinc-400 font-light w-max">
+                                <TranslateText content={props.lock} />
+                            </span>
+                        ) : (
+                            <TranslateText content={props.description} />
+                        )}
                     </span>
                 </div>
                 <div className="flex gap-4">
-                    {props.lock && (
-                        <span className="text-xs text-zinc-400 font-light w-max">
-                            <TranslateText
-                                content={{
-                                    type: "translate",
-                                    value: "tools.enchantments.section.technical.components.reason"
-                                }}
-                            />
-                            {quoteString(Identifier.fromString(props.lock).renderResourceName())}
-                        </span>
-                    )}
                     <input
                         type="checkbox"
                         name={props.name}

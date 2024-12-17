@@ -3,6 +3,7 @@ import type { TranslateTextType } from "@/lib/minecraft/core/schema/primitive/te
 
 export default function TranslateText(props: {
     content: TranslateTextType | undefined;
+    replace?: string[];
 }) {
     const { translate } = useTranslate();
 
@@ -12,7 +13,16 @@ export default function TranslateText(props: {
 
     if (typeof props.content === "object" && props.content !== null) {
         if ("type" in props.content && props.content.type === "translate" && typeof props.content.value === "string") {
-            return translate[props.content.value] || props.content.value;
+            let text = translate[props.content.value] || props.content.value;
+
+            const replaceArray = props.replace || props.content.replace;
+            if (replaceArray) {
+                for (const replacement of replaceArray) {
+                    text = text.replace("%s", replacement);
+                }
+            }
+
+            return text;
         }
     }
 

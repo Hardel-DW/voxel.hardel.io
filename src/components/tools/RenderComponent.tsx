@@ -18,6 +18,7 @@ import TextRender from "@/components/tools/elements/text/TextRender.tsx";
 import { getKey } from "@/components/tools/elements/text/TranslateText";
 import type { Analysers } from "@/lib/minecraft/core/engine/Analyser";
 import { checkCondition } from "@/lib/minecraft/core/engine/condition";
+import { checkLocks } from "@/lib/minecraft/core/engine/lock/index";
 import { getValue } from "@/lib/minecraft/core/engine/value";
 import type { FormComponent } from "@/lib/minecraft/core/schema/primitive/component.ts";
 import { cn } from "@/lib/utils";
@@ -85,14 +86,14 @@ export function RenderComponent<T extends keyof Analysers>({
         }
         case "Switch": {
             const result = checkCondition<T>(component.condition, context.currentElement);
-            const lock = component.lock ? getValue<T, string>(component.lock, context.currentElement) : null;
+            const { isLocked, text: lockText } = checkLocks<T>(component.lock, context.currentElement);
 
             return (
                 <ToolSwitch
                     key={getKey(component.title)}
                     title={component.title}
                     checked={result}
-                    lock={lock ? lock : undefined}
+                    lock={isLocked ? lockText : undefined}
                     description={component.description}
                     name={getKey(component.title)}
                     onChange={(value) => context.handleChange(component.action, context.currentElement?.identifier, value)}
@@ -101,7 +102,7 @@ export function RenderComponent<T extends keyof Analysers>({
         }
         case "Slot": {
             const result = checkCondition<T>(component.condition, context.currentElement);
-            const lock = component.lock ? getValue<T, string>(component.lock, context.currentElement) : null;
+            const { isLocked, text: lockText } = checkLocks<T>(component.lock, context.currentElement);
 
             return (
                 <ToolSlot
@@ -110,7 +111,7 @@ export function RenderComponent<T extends keyof Analysers>({
                     checked={result}
                     value={result}
                     size={component.size}
-                    lock={lock ? lock : undefined}
+                    lock={isLocked ? lockText : undefined}
                     description={component.description}
                     image={component.image}
                     onChange={(value) => context.handleChange(component.action, context.currentElement?.identifier, value)}
@@ -119,7 +120,7 @@ export function RenderComponent<T extends keyof Analysers>({
         }
         case "InlineSlot": {
             const result = checkCondition<T>(component.condition, context.currentElement);
-            const lock = component.lock ? getValue<T, string>(component.lock, context.currentElement) : null;
+            const { isLocked, text: lockText } = checkLocks<T>(component.lock, context.currentElement);
 
             return (
                 <ToolInline
@@ -128,7 +129,7 @@ export function RenderComponent<T extends keyof Analysers>({
                     description={component.description}
                     checked={result}
                     value={result}
-                    lock={lock ? lock : undefined}
+                    lock={isLocked ? lockText : undefined}
                     image={component.image}
                     onChange={(value) =>
                         component.action && context.handleChange(component.action, context.currentElement?.identifier, value)
@@ -198,7 +199,7 @@ export function RenderComponent<T extends keyof Analysers>({
         }
         case "SwitchSlot": {
             const checked = checkCondition<T>(component.condition, context.currentElement);
-            const lock = component.lock ? getValue<T, string>(component.lock, context.currentElement) : null;
+            const { isLocked, text: lockText } = checkLocks<T>(component.lock, context.currentElement);
 
             return (
                 <ToolSwitchSlot
@@ -207,7 +208,7 @@ export function RenderComponent<T extends keyof Analysers>({
                     description={component.description}
                     image={component.image}
                     checked={checked}
-                    lock={lock ? lock : undefined}
+                    lock={isLocked ? lockText : undefined}
                     onChange={(value) =>
                         component.action && context.handleChange(component.action, context.currentElement?.identifier, value)
                     }

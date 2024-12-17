@@ -12,6 +12,11 @@ export type BaseComponent = {
     hide?: Condition;
 };
 
+export type Lock = {
+    text: TranslateTextType;
+    condition: Condition;
+};
+
 // Define non-container components first
 type NonContainerComponent =
     | ToolDonationType
@@ -64,6 +69,7 @@ export type ToolIterationType = BaseComponent & {
     type: "Iteration";
     values: IterationValue[];
     template: TemplateReplacer<FormComponent>;
+    fallback?: FormComponent;
 };
 
 // Non-container components remain the same
@@ -86,7 +92,7 @@ export type ToolSwitchSlotType = BaseComponent & {
     description: TranslateTextType;
     action: Action;
     condition?: Condition;
-    lock?: ValueParams<string>;
+    lock?: Lock[];
     image?: string;
 };
 
@@ -96,7 +102,7 @@ export type ToolSwitchType = BaseComponent & {
     description: TranslateTextType;
     action: Action;
     condition?: Condition;
-    lock?: ValueParams<string> | null;
+    lock?: Lock[];
 };
 
 export type ToolSlotType = BaseComponent & {
@@ -107,7 +113,7 @@ export type ToolSlotType = BaseComponent & {
     action: Action;
     size?: number;
     condition?: Condition;
-    lock?: ValueParams<string>;
+    lock?: Lock[];
 };
 
 export type ToolCounterType = BaseComponent & {
@@ -140,7 +146,7 @@ export type ToolInlineType = BaseComponent & {
     image: string;
     action?: Action;
     condition?: Condition;
-    lock?: ValueParams<string>;
+    lock?: Lock[];
 };
 
 export type ToolTagViewerType = BaseComponent & {

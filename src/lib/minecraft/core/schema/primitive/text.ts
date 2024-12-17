@@ -3,6 +3,7 @@ import type { BaseComponent } from "@/lib/minecraft/core/schema/primitive/compon
 export type InternalTranslateType = {
     type: "translate";
     value: string;
+    replace?: string[];
 };
 
 export type TextRenderType = BaseComponent & {

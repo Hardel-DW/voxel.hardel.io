@@ -18,6 +18,7 @@ export default function ToolIteration(props: ToolIterationType) {
 
                 return <RenderComponent key={iteration.key} component={resolvedTemplate} />;
             })}
+            {props.fallback && iterations.length === 0 && <RenderComponent key="fallback" component={props.fallback} />}
         </>
     );
 }

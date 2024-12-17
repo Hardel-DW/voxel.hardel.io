@@ -1,13 +1,12 @@
 import TranslateText from "@/components/tools/elements/text/TranslateText";
 import type { TranslateTextType } from "@/lib/minecraft/core/schema/primitive/text";
-import { Identifier } from "@/lib/minecraft/core/Identifier.ts";
-import { cn, quoteString } from "@/lib/utils.ts";
+import { cn } from "@/lib/utils.ts";
 
 export default function ToolSwitchSlot(props: {
     title: TranslateTextType | string;
     description: TranslateTextType | string;
     checked?: boolean;
-    lock?: string;
+    lock?: TranslateTextType | string;
     image?: string;
     onChange?: (value: boolean) => void;
 }) {
@@ -43,14 +42,8 @@ export default function ToolSwitchSlot(props: {
                 </div>
                 <div className="flex gap-4">
                     {props.lock && (
-                        <span className="text-xs text-zinc-400 font-light w-max">
-                            <TranslateText
-                                content={{
-                                    type: "translate",
-                                    value: "tools.enchantments.section.technical.components.reason"
-                                }}
-                            />
-                            {quoteString(Identifier.fromString(props.lock).renderResourceName())}
+                        <span className="text-xs text-zinc-400 font-light w-max flex items-center">
+                            <TranslateText content={props.lock} />
                         </span>
                     )}
                     {(props.checked || !!props.lock) && <img src="/icons/check.svg" alt="checkbox" className="w-6 h-6 invert" />}

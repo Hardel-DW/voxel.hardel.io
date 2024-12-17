@@ -9,6 +9,7 @@ import { CheckEqualConditionString, type ConditionEqualsString } from "./equals/
 import { CheckEqualConditionUndefined, type ConditionEqualsUndefined } from "./equals/EqualConditionUndefined.ts";
 import { CheckContainConditionTags, type ConditionContainTags } from "./contains/ContainConditionTags";
 import { CheckContainConditionValue, type ConditionContainValue } from "./contains/ContainConditionValue";
+import { CheckNamespaceCondition, type ConditionNamespace } from "./equals/EqualNamespace.ts";
 
 export type Condition =
     | ConditionEqualsString
@@ -16,6 +17,7 @@ export type Condition =
     | ConditionEqualsFieldValue
     | ConditionContainValue
     | ConditionContainTags
+    | ConditionNamespace
     | AllOfCondition
     | AnyOfCondition
     | InvertedCondition;
@@ -38,6 +40,8 @@ export function checkCondition<T extends keyof Analysers>(
             return CheckContainConditionValue<T>(condition, element, value);
         case "contains_in_tags":
             return CheckContainConditionTags<T>(condition, element);
+        case "check_namespace":
+            return CheckNamespaceCondition(condition, element);
         case "all_of":
             return checkAllOfCondition<T>(condition, element, value);
         case "any_of":

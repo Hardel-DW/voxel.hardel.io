@@ -82,20 +82,29 @@ export const find: Unresolved<InterfaceConfiguration> = {
                                     field: "tags",
                                     value: { type: "get_value_from_context", key: "tag" }
                                 },
-                                lock: {
-                                    params: {
-                                        type: "Value",
-                                        value: {
-                                            type: "get_value_from_context",
-                                            key: "lock_value"
+                                lock: [
+                                    {
+                                        text: {
+                                            type: "translate",
+                                            value: "tools.enchantments.section.technical.components.reason"
+                                        },
+                                        condition: {
+                                            condition: "contains_in_tags",
+                                            field: "tags",
+                                            values: [{ type: "get_value_from_context", key: "lock_value" }]
                                         }
                                     },
-                                    condition: {
-                                        condition: "contains_in_tags",
-                                        field: "tags",
-                                        values: [{ type: "get_value_from_context", key: "lock_value" }]
+                                    {
+                                        text: {
+                                            type: "translate",
+                                            value: "tools.disabled_because_vanilla"
+                                        },
+                                        condition: {
+                                            condition: "check_namespace",
+                                            values: "minecraft"
+                                        }
                                     }
-                                },
+                                ],
                                 condition: {
                                     condition: "contains_in_tags",
                                     field: "tags",

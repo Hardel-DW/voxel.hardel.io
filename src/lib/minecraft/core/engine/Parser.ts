@@ -55,7 +55,10 @@ export async function parseDatapack<T extends keyof Analysers>(
     const files = await parseZip(file[0]);
 
     const packMcmetaFile = files["pack.mcmeta"];
-    if (!packMcmetaFile) return "tools.enchantments.warning.invalid_datapack";
+    if (!packMcmetaFile) {
+        return "tools.enchantments.warning.invalid_datapack";
+    }
+
     const packMcmeta: PackMcmeta = JSON.parse(new TextDecoder().decode(packMcmetaFile));
     const packFormat = packMcmeta.pack.pack_format;
     const description = packMcmeta.pack.description;
@@ -77,6 +80,7 @@ export async function parseDatapack<T extends keyof Analysers>(
     }
 
     const mainRegistry = parseDatapackElement<GetAnalyserMinecraft<T>>(files, main);
+
     const tagsRegistry = config.analyser.registries.tags ? parseDatapackElement<TagType>(files, config.analyser.registries.tags) : [];
 
     const compiled = mainRegistry.map((element) => {

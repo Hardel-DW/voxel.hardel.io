@@ -24,16 +24,12 @@ export function getRegistry<T>(files: Record<string, Uint8Array>, registry: stri
         if (fileParts[0] !== "data") continue;
 
         const namespace = fileParts[1];
-        const compressedPath = file
-            .split("/")
-            .slice(2)
-            .map((part, index, arr) => (index === arr.length - 1 ? part.split(".")[0] : part))
-            .join("/");
-        const resource = compressedPath.startsWith(registry) ? compressedPath.slice(registry.length + 1) : null;
-        if (!resource) continue;
+        const compressedPath = file.split("/").slice(2).join("/").replace(".json", "");
 
-        const startWithRegistry = compressedPath.startsWith(registry);
-        if (!startWithRegistry) continue;
+        if (!compressedPath.startsWith(`${registry}/`) && compressedPath !== registry) continue;
+
+        const resource = compressedPath.slice(registry.length + 1);
+        if (!resource) continue;
 
         const content = new TextDecoder().decode(files[file]);
 

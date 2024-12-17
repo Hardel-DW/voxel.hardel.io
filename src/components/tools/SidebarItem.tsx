@@ -2,26 +2,31 @@ import { useTranslate } from "@/components/TranslateContext.tsx";
 import { useConfigurator } from "@/components/tools/ConfiguratorContext.tsx";
 import TextComponent from "@/components/tools/elements/schema/TextComponent.tsx";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/shadcn/tooltip.tsx";
-import type { VoxelElement } from "@/lib/minecraft/core/engine/Analyser";
+import type { Analysers, GetAnalyserVoxel } from "@/lib/minecraft/core/engine/Analyser";
+import { checkLocks } from "@/lib/minecraft/core/engine/lock/index";
 import { resolve } from "@/lib/minecraft/core/engine/resolver/field/resolveField";
 import type { RegistryElement } from "@/lib/minecraft/mczip.ts";
 import { cn } from "@/lib/utils.ts";
-import type { TextComponentType } from "@voxel/definitions";
 import { useRef } from "react";
+import TranslateText from "./elements/text/TranslateText";
 
-export function SidebarItem(props: { element: RegistryElement<VoxelElement> }) {
+export function SidebarItem<T extends keyof Analysers>(props: { element: RegistryElement<GetAnalyserVoxel<T>> }) {
     const context = useConfigurator();
-    const { translate } = useTranslate();
     const switchRef = useRef<HTMLDivElement>(null);
-    if (!context?.configuration?.sidebar) return null;
-    if (!context.toggleSection) return null;
+
+    if (!context?.configuration?.sidebar || !context.toggleSection) return null;
     const configuration = resolve(context.configuration, context.toggleSection);
     if (!configuration) return null;
 
+    const lock = configuration.sidebar.lock;
+    const lockData = checkLocks(lock, props.element);
+
     const descriptionField = configuration.sidebar.description;
     const softDeleteField = "field" in configuration.sidebar.action ? configuration.sidebar.action.field : null;
-    const descriptionValue = props.element.data[descriptionField];
+
+    const descriptionValue = props.element.data[descriptionField] as string;
     const check = softDeleteField ? props.element.data[softDeleteField] : null;
+
     if (!context.currentElement || typeof check !== "boolean") return null;
 
     const handleClick = () => {
@@ -40,7 +45,7 @@ export function SidebarItem(props: { element: RegistryElement<VoxelElement> }) {
                 "ring-1 ring-rose-900": context.currentElement?.identifier?.equals(props.element.identifier)
             })}>
             <div className="flex items-center justify-between" onClick={handleClick} onKeyDown={handleClick}>
-                <TextComponent data={descriptionValue as TextComponentType} />
+                <TextComponent data={descriptionValue} />
                 <div className="flex items-center gap-8" ref={switchRef}>
                     <Tooltip>
                         <TooltipTrigger asChild>
@@ -48,13 +53,20 @@ export function SidebarItem(props: { element: RegistryElement<VoxelElement> }) {
                                 <input
                                     type="checkbox"
                                     name="enable"
+                                    disabled={lockData.isLocked}
                                     checked={!check}
                                     onChange={(e) => handleSoftDelete(!e.target.checked)}
                                 />
                             </label>
                         </TooltipTrigger>
                         <TooltipContent align="end" className="w-64">
-                            <p>{translate["tooltip.safe_delete"]}</p>
+                            {lockData ? (
+                                <span className="text-xs text-zinc-400 font-light w-max">
+                                    <TranslateText content={lockData.text} />
+                                </span>
+                            ) : (
+                                <TranslateText content={{ type: "translate", value: "tooltip.safe_delete" }} />
+                            )}
                         </TooltipContent>
                     </Tooltip>
                 </div>

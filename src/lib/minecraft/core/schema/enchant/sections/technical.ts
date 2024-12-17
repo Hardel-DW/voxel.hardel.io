@@ -23,6 +23,18 @@ export const technical: Unresolved<InterfaceConfiguration> = {
                         type: "translate",
                         value: "tools.enchantments.section.technical.components.curse.description"
                     },
+                    lock: [
+                        {
+                            text: {
+                                type: "translate",
+                                value: "tools.disabled_because_vanilla"
+                            },
+                            condition: {
+                                condition: "check_namespace",
+                                values: "minecraft"
+                            }
+                        }
+                    ],
                     action: {
                         type: "toggle_value_in_list",
                         field: "tags",
@@ -44,6 +56,18 @@ export const technical: Unresolved<InterfaceConfiguration> = {
                         type: "translate",
                         value: "tools.enchantments.section.technical.components.nonTreasure.description"
                     },
+                    lock: [
+                        {
+                            text: {
+                                type: "translate",
+                                value: "tools.disabled_because_vanilla"
+                            },
+                            condition: {
+                                condition: "check_namespace",
+                                values: "minecraft"
+                            }
+                        }
+                    ],
                     action: {
                         type: "toggle_value_in_list",
                         field: "tags",
@@ -65,6 +89,18 @@ export const technical: Unresolved<InterfaceConfiguration> = {
                         type: "translate",
                         value: "tools.enchantments.section.technical.components.treasure.description"
                     },
+                    lock: [
+                        {
+                            text: {
+                                type: "translate",
+                                value: "tools.disabled_because_vanilla"
+                            },
+                            condition: {
+                                condition: "check_namespace",
+                                values: "minecraft"
+                            }
+                        }
+                    ],
                     action: {
                         type: "toggle_value_in_list",
                         field: "tags",
@@ -86,6 +122,18 @@ export const technical: Unresolved<InterfaceConfiguration> = {
                         type: "translate",
                         value: "tools.enchantments.section.technical.components.smeltsLoot.description"
                     },
+                    lock: [
+                        {
+                            text: {
+                                type: "translate",
+                                value: "tools.disabled_because_vanilla"
+                            },
+                            condition: {
+                                condition: "check_namespace",
+                                values: "minecraft"
+                            }
+                        }
+                    ],
                     action: {
                         type: "toggle_value_in_list",
                         field: "tags",
@@ -110,6 +158,18 @@ export const technical: Unresolved<InterfaceConfiguration> = {
                                 type: "translate",
                                 value: "tools.enchantments.section.technical.components.preventsIceMelting.description"
                             },
+                            lock: [
+                                {
+                                    text: {
+                                        type: "translate",
+                                        value: "tools.disabled_because_vanilla"
+                                    },
+                                    condition: {
+                                        condition: "check_namespace",
+                                        values: "minecraft"
+                                    }
+                                }
+                            ],
                             action: {
                                 type: "toggle_value_in_list",
                                 field: "tags",
@@ -131,6 +191,18 @@ export const technical: Unresolved<InterfaceConfiguration> = {
                                 type: "translate",
                                 value: "tools.enchantments.section.technical.components.preventInfestedBlockSpawning.description"
                             },
+                            lock: [
+                                {
+                                    text: {
+                                        type: "translate",
+                                        value: "tools.disabled_because_vanilla"
+                                    },
+                                    condition: {
+                                        condition: "check_namespace",
+                                        values: "minecraft"
+                                    }
+                                }
+                            ],
                             action: {
                                 type: "toggle_value_in_list",
                                 field: "tags",
@@ -157,6 +229,18 @@ export const technical: Unresolved<InterfaceConfiguration> = {
                                 type: "translate",
                                 value: "tools.enchantments.section.technical.components.preventBeeSpawning.description"
                             },
+                            lock: [
+                                {
+                                    text: {
+                                        type: "translate",
+                                        value: "tools.disabled_because_vanilla"
+                                    },
+                                    condition: {
+                                        condition: "check_namespace",
+                                        values: "minecraft"
+                                    }
+                                }
+                            ],
                             action: {
                                 type: "toggle_value_in_list",
                                 field: "tags",
@@ -178,6 +262,18 @@ export const technical: Unresolved<InterfaceConfiguration> = {
                                 type: "translate",
                                 value: "tools.enchantments.section.technical.components.preventPotShattering.description"
                             },
+                            lock: [
+                                {
+                                    text: {
+                                        type: "translate",
+                                        value: "tools.disabled_because_vanilla"
+                                    },
+                                    condition: {
+                                        condition: "check_namespace",
+                                        values: "minecraft"
+                                    }
+                                }
+                            ],
                             action: {
                                 type: "toggle_value_in_list",
                                 field: "tags",

@@ -475,7 +475,7 @@
         "tools.enchantments.section.technical.components.nonTreasure.description": "Utilisé dans des loot tables comme les déchets de la pêche, de certaines structures, etc.",
         "tools.enchantments.section.technical.components.treasure.title": "Trésor",
         "tools.enchantments.section.technical.components.treasure.description": "Utilisé dans des loot tables comme les récompenses de la pêche.",
-        "tools.enchantments.section.technical.components.smeltsLoot.title": "Butin de fusion",
+        "tools.enchantments.section.technical.components.smeltsLoot.title": "Butin fondu",
         "tools.enchantments.section.technical.components.smeltsLoot.description": "Les objets laissés par les monstres seront cuits.",
         "tools.enchantments.section.technical.components.preventBeeSpawning.title": "Empêcher l'apparition des abeilles lorsque vous cassez la ruche",
         "tools.enchantments.section.technical.components.preventBeeSpawning.description": "La ruche n'invoquera pas les abeilles lorsque vous cassez la ruche, et les abeilles seront incluses dans les données du bloc.",

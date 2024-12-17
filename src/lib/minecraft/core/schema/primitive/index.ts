@@ -2,10 +2,12 @@ import type { Analysers } from "@/lib/minecraft/core/engine/Analyser.ts";
 import type { Action } from "@/lib/minecraft/core/engine/actions";
 import type { FormComponent } from "@/lib/minecraft/core/schema/primitive/component.ts";
 import type { TranslateTextType } from "@/lib/minecraft/core/schema/primitive/text";
+import type { Lock } from "@/lib/minecraft/core/schema/primitive/component.ts";
 
 export type SidebarConfig = {
     action: Action;
     description: string;
+    lock?: Lock[];
 };
 
 export type ToolConfiguration = {

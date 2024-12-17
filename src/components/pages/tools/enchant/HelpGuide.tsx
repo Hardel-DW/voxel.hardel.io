@@ -4,6 +4,7 @@ import DatapackUploader from "@/components/tools/DatapackUploader.tsx";
 import type { FaqType } from "@/content/config.ts";
 import type React from "react";
 import { parseDatapack } from "@/lib/minecraft/core/engine/Parser";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/shadcn/dropdown";
 
 export default function HelpGuide(props: {
     faq?: FaqType[];
@@ -12,13 +13,13 @@ export default function HelpGuide(props: {
     const { translate, lang } = useTranslate();
     const context = useConfigurator();
 
-    const handleVanillaImport = async () => {
+    const handleVanillaImport = async (version: number) => {
         try {
-            const response = await fetch("/api/preset/61");
+            const response = await fetch(`/api/preset/${version}`);
             if (!response.ok) throw new Error("Failed to fetch datapack");
 
             const blob = await response.blob();
-            const file = new File([blob], "enchantment-61.zip", { type: "application/zip" });
+            const file = new File([blob], `enchantment-${version}.zip`, { type: "application/zip" });
 
             const dataTransfer = new DataTransfer();
             dataTransfer.items.add(file);
@@ -30,7 +31,7 @@ export default function HelpGuide(props: {
                 return;
             }
 
-            context.setName(result.name);
+            context.setName("Vanilla Enchantment - Voxel Configurator");
             context.setFiles(result.files);
             context.setElements(result.elements);
             context.setVersion(result.version);
@@ -72,12 +73,24 @@ export default function HelpGuide(props: {
                         <p className="text-gray-300 mt-4">{translate["tools.enchantments.home.description"]}</p>
 
                         <div className="flex items-center flex-col sm:flex-row gap-4 mt-8">
-                            <button
-                                type="button"
-                                onClick={handleVanillaImport}
-                                className="h-10 px-4 py-2 rounded-md inline-flex items-center justify-center whitespace-nowrap cursor-pointer truncate text-sm ring-offset-background focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 animate-shimmer bg-[linear-gradient(110deg,#FCFCFC,45%,#d0d0d0,55%,#FCFCFC)] bg-[length:200%_100%] text-black font-medium border-t border-l border-zinc-900 hover:opacity-75 transition">
-                                {translate["tools.enchantments.import_vanilla"]}
-                            </button>
+                            <DropdownMenu>
+                                <DropdownMenuTrigger>
+                                    <button
+                                        type="button"
+                                        className="h-10 px-4 py-2 rounded-md inline-flex items-center justify-center whitespace-nowrap cursor-pointer truncate text-sm ring-offset-background focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 animate-shimmer bg-[linear-gradient(110deg,#FCFCFC,45%,#d0d0d0,55%,#FCFCFC)] bg-[length:200%_100%] text-black font-medium border-t border-l border-zinc-900 hover:opacity-75 transition">
+                                        {translate["tools.enchantments.import_vanilla"]}
+                                    </button>
+                                </DropdownMenuTrigger>
+                                <DropdownMenuContent>
+                                    <DropdownMenuItem onClick={() => handleVanillaImport(48)}>Minecraft - Version 1.21.4</DropdownMenuItem>
+                                    <DropdownMenuItem onClick={() => handleVanillaImport(57)}>
+                                        Minecraft - Version 1.21.2 to 1.21.3
+                                    </DropdownMenuItem>
+                                    <DropdownMenuItem onClick={() => handleVanillaImport(61)}>
+                                        Minecraft - Version 1.21 to 1.21.1
+                                    </DropdownMenuItem>
+                                </DropdownMenuContent>
+                            </DropdownMenu>
 
                             <a
                                 href={`/${lang}/update/enchant-configurator`}

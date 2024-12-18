@@ -82,11 +82,11 @@ export default function HelpGuide(props: {
                                     </button>
                                 </DropdownMenuTrigger>
                                 <DropdownMenuContent>
-                                    <DropdownMenuItem onClick={() => handleVanillaImport(48)}>Minecraft - Version 1.21.4</DropdownMenuItem>
+                                    <DropdownMenuItem onClick={() => handleVanillaImport(61)}>Minecraft - Version 1.21.4</DropdownMenuItem>
                                     <DropdownMenuItem onClick={() => handleVanillaImport(57)}>
                                         Minecraft - Version 1.21.2 to 1.21.3
                                     </DropdownMenuItem>
-                                    <DropdownMenuItem onClick={() => handleVanillaImport(61)}>
+                                    <DropdownMenuItem onClick={() => handleVanillaImport(48)}>
                                         Minecraft - Version 1.21 to 1.21.1
                                     </DropdownMenuItem>
                                 </DropdownMenuContent>

@@ -54,11 +54,11 @@ export async function getStaticPaths() {
     <div class="absolute rounded-full w-3/4 h-1/2 bg-linear-to-r from-[#830335] to-[#311e7696] opacity-20 blur-[10rem] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"/>
 
     <!-- Hero Section -->
-    <section class="h-dvh relative flex flex-col items-center justify-center">
+    <section class="pt-36 md:pt-60 relative flex flex-col items-center justify-center pb-72">
         <div class="w-3/4 mx-auto">            
             <div class="mb-16">
                 <h1 class="text-3xl md:text-5xl mb-4 font-semibold">{translate["tools.migration.home"]}</h1>
-                <p class="text-sm text-zinc-400 w-3/4 mb-4"> 
+                <p class="text-sm text-zinc-400 md:w-3/4 w-full mb-4"> 
                     {translate["tools.migration.description"]}
                 </p>
                 <ul class="list-disc list-inside text-sm text-zinc-400 w-3/4 mb-4">
@@ -113,7 +113,7 @@ export async function getStaticPaths() {
         </div>
     </section>
     
-    <section class="w-3/4 mx-auto relative grid md:grid-cols-2 items-center gap-x-16 gap-y-24 my-40">
+    <section class="w-3/4 mx-auto relative flex flex-col-reverse md:grid md:grid-cols-2 items-center gap-x-16 gap-y-24 my-40">
         <div class="absolute w-full inset-0 shadow-2xl bg-linear-to-r from-[#401727] to-[#311e7696] opacity-20 rounded-full blur-[10rem]"/>
         <DashedPattern class="[mask-image:radial-gradient(white,transparent_60%)]"/>
 

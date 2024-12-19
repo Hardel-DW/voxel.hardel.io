@@ -152,7 +152,7 @@ export default function MigrationTool({ translate, children }: MigrationToolProp
     };
 
     return (
-        <div className="container mx-auto px-4">
+        <div className="container mx-auto">
             {renderConfetti()}
             {children}
             <Toaster richColors />
@@ -202,7 +202,7 @@ export default function MigrationTool({ translate, children }: MigrationToolProp
                 </DialogContent>
             </Dialog>
 
-            <div className="grid grid-cols-5 items-center justify-center mt-8">
+            <div className="flex flex-col md:grid md:grid-cols-5 items-center justify-center mt-8">
                 <div className="col-span-2 h-full">
                     {!sourceFiles ? (
                         <DatapackDropzone
@@ -226,9 +226,14 @@ export default function MigrationTool({ translate, children }: MigrationToolProp
                     )}
                 </div>
 
-                <div className="col-span-1 flex flex-col items-center gap-2">
+                <div className="col-span-1 flex flex-col items-center gap-2 hidden md:flex">
                     <img src="/icons/arrow-right.svg" alt="Arrow" className="w-12 h-12 invert-75" />
                     <span className="text-sm text-muted-foreground">{translate["tools.migration.arrow"]}</span>
+                </div>
+
+                <div className="col-span-1 flex-col items-center py-8 gap-4 md:hidden flex">
+                    <span className="text-sm text-muted-foreground">{translate["tools.migration.arrow"]}</span>
+                    <img src="/icons/arrow-bottom.svg" alt="Arrow" className="w-12 h-12 invert-75" />
                 </div>
 
                 <div className="col-span-2">

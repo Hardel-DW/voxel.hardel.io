@@ -3,7 +3,7 @@ import CompoundLayout from "@/components/layouts/CompoundLayout.astro";
 import Button from "@/components/ui/button.astro";
 import DashedPattern from "@/components/ui/pattern/DashedPattern.astro";
 import { getTranslations, names } from "@/lib/i18n";
-import ShiningStars from "../../components/ui/pattern/ShiningStars.astro";
+import ShiningStars from "@/components/ui/pattern/ShiningStars.astro";
 
 const { translate } = await getTranslations(Astro.url);
 
@@ -25,9 +25,9 @@ const contact = [
     {
         name: translate["contact.twitter.name"],
         icon: "/icons/company/twitter.svg",
-        link: "https://twitter.com/Hardel7401",
+        link: "https://twitter.com/VoxelioStudio",
         description: translate["contact.twitter.description"],
-        button: "@Hardel7401"
+        button: "@Voxel"
     },
     {
         name: translate["contact.github.name"],
@@ -39,7 +39,7 @@ const contact = [
     {
         name: translate["contact.mail.name"],
         icon: "/icons/mail.svg",
-        link: "mailto:hardel7401@gmaiil.com",
+        link: "mailto:teams.voxel@gmail.com",
         description: translate["contact.mail.description"],
         button: translate["generic.contact_us"]
     },

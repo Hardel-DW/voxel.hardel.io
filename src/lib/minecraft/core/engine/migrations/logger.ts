@@ -7,6 +7,10 @@ import type { DatapackInfo, FileLog, FileLogUpdated, Log, LogDifference, LogValu
 export class Logger {
     private readonly log: Log;
 
+    public static fromLog(log: Log): Logger {
+        return new Logger(log.id, log.date, log.version, log.isModded, log.datapack, log);
+    }
+
     constructor(id: string, date: string, version: number, isModded: boolean, datapack: DatapackInfo, existingLog?: Log) {
         if (existingLog) {
             this.log = existingLog;

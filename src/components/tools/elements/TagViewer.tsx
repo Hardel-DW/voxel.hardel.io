@@ -1,5 +1,6 @@
 import { useConfigurator } from "@/components/tools/ConfiguratorContext";
 import { Identifier } from "@/lib/minecraft/core/Identifier";
+import type { versionedAnalyserCollection } from "@/lib/minecraft/core/engine/Analyser";
 import { compileDatapack } from "@/lib/minecraft/core/engine/Compiler";
 import type { RegistryElement } from "@/lib/minecraft/mczip";
 import type { TagType } from "@voxel/definitions";
@@ -22,7 +23,7 @@ export default function TagViewer(props: {
         elements: context.elements,
         version: context.version,
         files: context.files,
-        configuration: context.configuration
+        tool: context.configuration.analyser.id as keyof typeof versionedAnalyserCollection
     });
 
     if (typeof fieldValue !== "string") return null;

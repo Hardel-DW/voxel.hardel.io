@@ -118,7 +118,7 @@
     .pixelated {
         image-rendering: pixelated;
     }
-
+    
     .border-corner {
         &::after {
             height: 4rem;

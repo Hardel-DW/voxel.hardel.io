@@ -69,14 +69,14 @@ export default function NavBarItem({ translate, lang }: Props) {
                                 <ListItem href={`/${lang}/tools/harmonization`} title={translate["navbar.resources.harmonization.title"]}>
                                     {translate["navbar.resources.harmonization.description"]}
                                 </ListItem>
-                                <ListItem href={`/${lang}/resources/asset`} title={translate["navbar.resources.textures.title"]}>
-                                    {translate["navbar.resources.textures.description"]}
-                                </ListItem>
-                                <ListItem href={`/${lang}/soon`} title={translate["navbar.resources.model.title"]}>
-                                    {translate["navbar.resources.model.description"]}
+                                <ListItem href={`/${lang}/resources/asset`} title={translate["navbar.resources.asset.title"]}>
+                                    {translate["navbar.resources.asset.description"]}
                                 </ListItem>
                                 <ListItem href={`/${lang}/soon`} title={translate["navbar.resources.sound.title"]}>
                                     {translate["navbar.resources.sound.description"]}
+                                </ListItem>
+                                <ListItem href={`/${lang}/tools/migration`} title={translate["navbar.resources.migration.title"]}>
+                                    {translate["navbar.resources.migration.description"]}
                                 </ListItem>
                             </ul>
                         </div>

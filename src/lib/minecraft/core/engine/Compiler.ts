@@ -6,11 +6,8 @@ import {
     type GetAnalyserMinecraft,
     type GetAnalyserVoxel,
     type VoxelElement,
-    getAnalyserForVersion,
-    versionedAnalyserCollection
+    getAnalyserForVersion
 } from "@/lib/minecraft/core/engine/Analyser.ts";
-import type { Unresolved } from "@/lib/minecraft/core/engine/resolver/field/type.ts";
-import type { ToolConfiguration } from "@/lib/minecraft/core/schema/primitive";
 import { type RegistryElement, readDatapackFile } from "@/lib/minecraft/mczip.ts";
 import type { OptionalTag, TagType } from "@voxel/definitions";
 
@@ -19,13 +16,6 @@ export type Compiler<T extends VoxelElement, K extends DataDrivenElement> = (
     original: K
 ) => RegistryElement<K>;
 
-export interface CompileDatapackParams<T extends VoxelElement> {
-    elements: RegistryElement<T>[];
-    version: number;
-    files: Record<string, Uint8Array>;
-    configuration: Unresolved<ToolConfiguration>;
-}
-
 /**
  * Compile all elements from Voxel Format to Data Driven Format.
  */
@@ -33,38 +23,37 @@ export function compileDatapack<T extends keyof Analysers>({
     elements,
     version,
     files,
-    configuration
-}: CompileDatapackParams<GetAnalyserVoxel<T>>): Array<RegistryElement<GetAnalyserMinecraft<T>> | RegistryElement<TagType>> {
-    const parserConfig = configuration?.analyser;
-    if (!parserConfig) return [];
-
-    if (typeof parserConfig.id !== "string" || !(parserConfig.id in versionedAnalyserCollection)) {
-        throw new Error(`Invalid analyser ID. Must be one of: ${Object.keys(versionedAnalyserCollection).join(", ")}`);
-    }
-
-    const config = getAnalyserForVersion(parserConfig.id as T, version);
-    if (!config) throw new Error("No analyser found for the specified version.");
+    tool
+}: {
+    elements: RegistryElement<GetAnalyserVoxel<T>>[];
+    version: number;
+    files: Record<string, Uint8Array>;
+    tool: T;
+}): Array<RegistryElement<GetAnalyserMinecraft<T>> | RegistryElement<TagType>> {
+    const analyserResult = getAnalyserForVersion(tool, version);
+    if (!analyserResult) throw new Error("No analyser found for the specified version.");
+    const { analyser, config } = analyserResult;
 
     const compiledElements = elements
         .map((element) => {
             const original = readDatapackFile<GetAnalyserMinecraft<T>>(files, element.identifier);
-            return original ? config.analyser.compiler(element, original) : null;
+            return original ? analyser.compiler(element, original) : null;
         })
         .filter((element) => element !== null);
 
     const identifiers: IdentifierOneToMany[] = elements.map((element) => {
         if (element.data.softDelete) return { primary: element.identifier, related: [] };
 
-        const related = element.data.tags.map((tag) => Identifier.fromString(tag, parserConfig.registries.tags));
+        const related = element.data.tags.map((tag) => Identifier.fromString(tag, config.analyser.registries.tags));
 
         const assignedTagValues =
             element.data.assignedTags?.flatMap((field) => {
                 const value = element.data[field as keyof GetAnalyserVoxel<T>];
                 if (Array.isArray(value)) {
-                    return value.map((tag) => Identifier.fromString(tag, parserConfig.registries.tags));
+                    return value.map((tag) => Identifier.fromString(tag, config.analyser.registries.tags));
                 }
                 if (typeof value === "string") {
-                    return [Identifier.fromString(value, parserConfig.registries.tags)];
+                    return [Identifier.fromString(value, config.analyser.registries.tags)];
                 }
                 return [];
             }) ?? [];

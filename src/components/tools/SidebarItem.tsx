@@ -1,16 +1,17 @@
-import { useTranslate } from "@/components/TranslateContext.tsx";
 import { useConfigurator } from "@/components/tools/ConfiguratorContext.tsx";
 import TextComponent from "@/components/tools/elements/schema/TextComponent.tsx";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/shadcn/tooltip.tsx";
 import type { Analysers, GetAnalyserVoxel } from "@/lib/minecraft/core/engine/Analyser";
-import { checkLocks } from "@/lib/minecraft/core/engine/lock/index";
+import { checkLocks } from "@/lib/minecraft/core/engine/lock";
 import { resolve } from "@/lib/minecraft/core/engine/resolver/field/resolveField";
 import type { RegistryElement } from "@/lib/minecraft/mczip.ts";
 import { cn } from "@/lib/utils.ts";
 import { useRef } from "react";
 import TranslateText from "./elements/text/TranslateText";
 
-export function SidebarItem<T extends keyof Analysers>(props: { element: RegistryElement<GetAnalyserVoxel<T>> }) {
+export function SidebarItem<T extends keyof Analysers>(props: {
+    element: RegistryElement<GetAnalyserVoxel<T>>;
+}) {
     const context = useConfigurator();
     const switchRef = useRef<HTMLDivElement>(null);
 

@@ -54,21 +54,28 @@ export async function getStaticPaths() {
     <div class="absolute rounded-full w-3/4 h-1/2 bg-linear-to-r from-[#830335] to-[#311e7696] opacity-20 blur-[10rem] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"/>
 
     <!-- Hero Section -->
-    <section class="h-dvh relative py-20 flex flex-col items-center justify-center">
+    <section class="pt-36 md:pt-60 relative flex flex-col items-center justify-center pb-72">
         <div class="w-3/4 mx-auto">            
-            <div class="text-center mb-16">
-                <h1 class="text-4xl md:text-7xl font-bold mb-4">{translate["tools.migration.home"]}</h1>
+            <div class="mb-16">
+                <h1 class="text-3xl md:text-5xl mb-4 font-semibold">{translate["tools.migration.home"]}</h1>
+                <p class="text-sm text-zinc-400 md:w-3/4 w-full mb-4"> 
+                    {translate["tools.migration.description"]}
+                </p>
+                <ul class="list-disc list-inside text-sm text-zinc-400 w-3/4 mb-4">
+                    <li>
+                        {translate["tools.migration.description.list.1"]}
+                    </li>
+                    <li>
+                        {translate["tools.migration.description.list.2"]}
+                    </li>
+                    <li>
+                        {translate["tools.migration.description.list.3"]}
+                    </li>
+                </ul>
                 <Star/>
             </div>
 
-            <MigrationTool client:only="react" translate={translate} lang={lang} />
-
-            <!-- Scroll Arrow -->
-            <div class="absolute bottom-12 left-1/2 -translate-x-1/2 animate-bounce opacity-100 transition-opacity duration-500" id="scroll-arrow">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-                </svg>
-            </div>
+            <MigrationTool client:only="react" translate={translate} />
         </div>
     </section>
 
@@ -106,17 +113,17 @@ export async function getStaticPaths() {
         </div>
     </section>
     
-    <section class="w-3/4 mx-auto relative grid md:grid-cols-2 items-center gap-x-16 gap-y-24 my-40">
+    <section class="w-3/4 mx-auto relative flex flex-col-reverse md:grid md:grid-cols-2 items-center gap-x-16 gap-y-24 my-40">
         <div class="absolute w-full inset-0 shadow-2xl bg-linear-to-r from-[#401727] to-[#311e7696] opacity-20 rounded-full blur-[10rem]"/>
         <DashedPattern class="[mask-image:radial-gradient(white,transparent_60%)]"/>
 
         <div class="h-full w-full mx-auto relative">
             <div class="size-full flex flex-col justify-center">
                 <h1 class="text-white text-4xl md:text-6xl font-bold mt-4 text-balance">
-                    Explore nos datapacks
+                    {translate["tools.migration.description.title"]}
                 </h1>
                 <p class="text-gray-300 mt-4">
-                    Sur Modrinth, retrouve tous nos datapacks, comme NeoEnchant qui rajoute des enchantements, Yggdrasil qui rajoute une histoire nordique avec des tonnes de structures !
+                    {translate["tools.migration.description.description"]}
                 </p>
 
                 <div class="mt-8 flex flex-col md:flex-row gap-4">
@@ -149,16 +156,3 @@ export async function getStaticPaths() {
         </svg>
     </button>
 </CompoundLayout>
-
-<script>
-    const scrollArrow = document.getElementById('scroll-arrow');
-    
-    window.addEventListener('scroll', () => {
-        if (scrollArrow && window.scrollY > 100) {
-            scrollArrow.style.opacity = '0';
-            setTimeout(() => {
-                scrollArrow.style.display = 'none';
-            }, 500);
-        }
-    });
-</script>

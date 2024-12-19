@@ -10,7 +10,7 @@ interface Props {
     }[];
 }
 
-const {steps} = Astro.props;
+const { steps } = Astro.props;
 ---
 
 <div class="fixed inset-0 z-50 hidden" id="walkthrough">
@@ -53,6 +53,7 @@ const {steps} = Astro.props;
             this.prevBtn = document.getElementById('walkthrough-prev');
             this.nextBtn = document.getElementById('walkthrough-next');
             this.dotsContainer = document.getElementById('walkthrough-dots');
+            this.originalOverflow = '';
 
             this.init();
         }
@@ -120,81 +121,93 @@ const {steps} = Astro.props;
             return positions[position] || positions['right']; // 'right' par défaut
         }
 
-        update() {
-            const step = this.steps[this.currentStep];
+        async scrollIntoView(element) {
+            if (!element) return;
+            
+            const rect = element.getBoundingClientRect();
+            const isInViewport = (
+                rect.top >= 0 &&
+                rect.left >= 0 &&
+                rect.bottom <= window.innerHeight &&
+                rect.right <= window.innerWidth
+            );
 
-            // Mettre à jour le contenu
+            if (!isInViewport) {
+                element.scrollIntoView({
+                    behavior: 'instant',
+                    block: 'center'
+                });
+                await new Promise(resolve => setTimeout(resolve, 0));
+            }
+        }
+
+        async update() {
+            const step = this.steps[this.currentStep];
             this.title.textContent = step.title;
             this.description.textContent = step.description;
 
-            // Gérer l'image
-            if (step.image && step.target) {
-                const target = document.getElementById(step.target);
-                if (target) {
-                    const rect = target.getBoundingClientRect();
-                    this.imageContainer.style.display = 'block';
-                    this.imageContainer.querySelector('img').src = step.image;
-
-                    // Positionner l'image selon la position spécifiée
-                    const position = this.getImagePosition(rect, step.imagePosition);
-                    this.imageContainer.style.top = `${position.top}px`;
-                    this.imageContainer.style.left = `${position.left}px`;
-                }
-            } else {
-                this.imageContainer.style.display = 'none';
-            }
-
-            // Mettre à jour les boutons
-            this.prevBtn.style.visibility = this.currentStep === 0 ? 'hidden' : 'visible';
-            this.nextBtn.textContent = this.currentStep === this.steps.length - 1 ? 'Terminer' : 'Suivant';
-
-            // Mettre à jour les points
-            Array.from(this.dotsContainer.children).forEach((dot, index) => {
-                dot.className = `w-2 h-2 rounded-full transition-colors ${
-                    index === this.currentStep ? 'bg-white' : 'bg-white/30'
-                }`;
-            });
-
-            // Mettre en évidence l'élément cible
             if (step.target) {
                 const target = document.getElementById(step.target);
                 if (target) {
+                    await this.scrollIntoView(target);
+                    
                     const rect = target.getBoundingClientRect();
                     this.highlight.style.display = 'block';
                     this.highlight.style.top = `${rect.top - 8}px`;
                     this.highlight.style.left = `${rect.left - 8}px`;
                     this.highlight.style.width = `${rect.width + 16}px`;
                     this.highlight.style.height = `${rect.height + 16}px`;
+
+                    if (step.image) {
+                        this.imageContainer.style.display = 'block';
+                        this.imageContainer.querySelector('img').src = step.image;
+                        const position = this.getImagePosition(rect, step.imagePosition);
+                        this.imageContainer.style.top = `${position.top}px`;
+                        this.imageContainer.style.left = `${position.left}px`;
+                    }
                 }
             } else {
                 this.highlight.style.display = 'none';
+                this.imageContainer.style.display = 'none';
             }
+
+            this.prevBtn.style.visibility = this.currentStep === 0 ? 'hidden' : 'visible';
+            this.nextBtn.textContent = this.currentStep === this.steps.length - 1 ? 'Terminer' : 'Suivant';
+
+            Array.from(this.dotsContainer.children).forEach((dot, index) => {
+                dot.className = `w-2 h-2 rounded-full transition-colors ${
+                    index === this.currentStep ? 'bg-white' : 'bg-white/30'
+                }`;
+            });
         }
 
-        next() {
+        async next() {
             if (this.currentStep === this.steps.length - 1) {
                 this.close();
             } else {
                 this.currentStep++;
-                this.update();
+                await this.update();
             }
         }
 
-        prev() {
+        async prev() {
             if (this.currentStep > 0) {
                 this.currentStep--;
-                this.update();
+                await this.update();
             }
         }
 
-        start() {
+        async start() {
             this.container.classList.remove('hidden');
             this.currentStep = 0;
-            this.update();
+            this.originalOverflow = document.body.style.overflow;
+            document.body.style.overflow = 'hidden';
+            await this.update();
         }
 
         close() {
             this.container.classList.add('hidden');
+            document.body.style.overflow = this.originalOverflow;
         }
     }
 

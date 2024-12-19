@@ -11,7 +11,9 @@ const PACK_VERSION = {
     "18": "1.20.2",
     "26": { start: "1.20.3", end: "1.20.4" },
     "41": { start: "1.20.5", end: "1.20.6" },
-    "48": "1.21"
+    "48": { start: "1.21", end: "1.21.1" },
+    "57": { start: "1.21.2", end: "1.21.3" },
+    "61": "1.21.4"
 };
 
 export function getMinecraftVersion(packFormat: number): string {
@@ -20,4 +22,19 @@ export function getMinecraftVersion(packFormat: number): string {
         throw new Error(`Unsupported pack_format: ${packFormat}`);
     }
     return typeof version === "string" ? version : version.start;
+}
+
+/**
+ * Get the description of the pack format e.g :
+ * Version 1.21.1
+ * Version 1.21.2 - 1.21.3
+ * @param packFormat - The pack format
+ * @returns The description of the pack format
+ */
+export function getDescription(packFormat: number): string {
+    const version = PACK_VERSION[packFormat.toString() as keyof typeof PACK_VERSION];
+    if (!version) {
+        throw new Error(`Unsupported pack_format: ${packFormat}`);
+    }
+    return typeof version === "string" ? version : `Version ${version.start} - ${version.end}`;
 }

@@ -2,7 +2,7 @@ import { useTranslate } from "@/components/TranslateContext.tsx";
 import { useConfigurator } from "@/components/tools/ConfiguratorContext.tsx";
 import Button from "@/components/ui/react/Button.tsx";
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/shadcn/dialog.tsx";
-import type { Analysers } from "@/lib/minecraft/core/engine/Analyser.ts";
+import type { Analysers, versionedAnalyserCollection } from "@/lib/minecraft/core/engine/Analyser.ts";
 import { compileDatapack } from "@/lib/minecraft/core/engine/Compiler.ts";
 import { generateZip } from "@/lib/minecraft/mczip.ts";
 import { DialogDescription } from "@radix-ui/react-dialog";
@@ -22,7 +22,7 @@ export default function DownloadButton<T extends keyof Analysers>() {
             elements: context.elements,
             version: context.version,
             files: context.files,
-            configuration: context.configuration
+            tool: context.configuration.analyser.id as keyof typeof versionedAnalyserCollection
         });
 
         const compiledContent = await generateZip(context.files, content, context.minify, context.logger);

@@ -1,0 +1,33 @@
+{
+    "items": [
+        {
+            "id": "minecraft:dried_kelp",
+            "description": "Dried Kelp",
+            "count": {
+                "min": 2,
+                "max": 7
+            }
+        },
+        {
+            "id": "minecraft:sweet_berries",
+            "description": "Sweet Berries",
+            "count": {
+                "min": 2,
+                "max": 7
+            }
+        },
+        {
+            "id": "minecraft:milk_bucket",
+            "description": "Milk Bucket",
+            "count": 1
+        },
+        {
+            "id": "minecraft:leather",
+            "description": "Leather",
+            "count": {
+                "min": 2,
+                "max": 3
+            }
+        }
+    ]
+}

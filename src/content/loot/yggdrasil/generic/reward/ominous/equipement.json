@@ -1,0 +1,84 @@
+{
+    "items": [
+        {
+            "id": "minecraft:diamond_boots",
+            "description": "Diamond Boots - Enchanted (12-22)"
+        },
+        {
+            "id": "minecraft:diamond_chestplate",
+            "description": "Diamond Chestplate - Enchanted (12-22)"
+        },
+        {
+            "id": "minecraft:diamond_leggings",
+            "description": "Diamond Leggings - Enchanted (12-22)"
+        },
+        {
+            "id": "minecraft:diamond_helmet",
+            "description": "Diamond Helmet - Enchanted (12-22)"
+        },
+        {
+            "id": "minecraft:diamond_sword",
+            "description": "Diamond Sword - Enchanted (12-22)"
+        },
+        {
+            "id": "minecraft:diamond_shovel",
+            "description": "Diamond Shovel - Enchanted (12-22)"
+        },
+        {
+            "id": "minecraft:diamond_pickaxe",
+            "description": "Diamond Pickaxe - Enchanted (12-22)"
+        },
+        {
+            "id": "minecraft:diamond_axe",
+            "description": "Diamond Axe - Enchanted (12-22)"
+        },
+        {
+            "id": "minecraft:diamond_hoe",
+            "description": "Diamond Hoe - Enchanted (12-22)"
+        },
+        {
+            "id": "minecraft:chainmail_boots",
+            "description": "Chainmail Boots - Enchanted (12-22)"
+        },
+        {
+            "id": "minecraft:chainmail_chestplate",
+            "description": "Chainmail Chestplate - Enchanted (12-22)"
+        },
+        {
+            "id": "minecraft:chainmail_leggings",
+            "description": "Chainmail Leggings - Enchanted (12-22)"
+        },
+        {
+            "id": "minecraft:chainmail_helmet",
+            "description": "Chainmail Helmet - Enchanted (12-22)"
+        },
+        {
+            "id": "minecraft:iron_boots",
+            "description": "Iron Boots - Enchanted (12-22)"
+        },
+        {
+            "id": "minecraft:iron_chestplate",
+            "description": "Iron Chestplate - Enchanted (12-22)"
+        },
+        {
+            "id": "minecraft:iron_leggings",
+            "description": "Iron Leggings - Enchanted (12-22)"
+        },
+        {
+            "id": "minecraft:iron_helmet",
+            "description": "Iron Helmet - Enchanted (12-22)"
+        },
+        {
+            "id": "minecraft:iron_sword",
+            "description": "Iron Sword - Enchanted (12-22)"
+        },
+        {
+            "id": "minecraft:iron_shovel",
+            "description": "Iron Shovel - Enchanted (12-22)"
+        },
+        {
+            "id": "minecraft:iron_pickaxe",
+            "description": "Iron Pickaxe - Enchanted (12-22)"
+        }
+    ]
+}

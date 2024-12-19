@@ -3,5 +3,21 @@
     "name": "Glaosheimr Village",
     "image": "/images/addons/card/yggdrasil/glaosheimr.webp",
     "icon": "/images/addons/icon/yggdrasil/glaosheimr.webp",
-    "rewards": []
+    "rewards": [
+        {
+            "id": "minecraft:barrel",
+            "description": "Les récompenses dans la bibliothèque",
+            "content": "yggdrasil/generic/reward/normal/misc"
+        },
+        {
+            "id": "minecraft:chest",
+            "description": "Les récompenses dans la maison",
+            "content": "yggdrasil/generic/reward/normal/enchanted_book"
+        },
+        {
+            "id": "minecraft:chiseled_bookshelf",
+            "description": "Les récompenses dans la maison",
+            "content": "yggdrasil/generic/reward/normal/enchanted_book"
+        }
+    ]
 }

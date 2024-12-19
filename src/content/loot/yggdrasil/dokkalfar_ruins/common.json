@@ -1,0 +1,14 @@
+{
+    "reference": [
+        "yggdrasil/generic/reward/random/archer",
+        "yggdrasil/generic/reward/random/arrow",
+        "yggdrasil/generic/reward/random/dye",
+        "yggdrasil/generic/reward/random/redstone",
+        "yggdrasil/generic/reward/random/echo",
+        "yggdrasil/generic/reward/random/food",
+        "yggdrasil/generic/reward/random/harvest",
+        "yggdrasil/generic/reward/random/small",
+        "yggdrasil/generic/reward/random/treasure",
+        "yggdrasil/generic/reward/random/magic"
+    ]
+}

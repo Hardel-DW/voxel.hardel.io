@@ -1,9 +1,8 @@
 {
     "id": "runic_alfheim_tree",
     "name": "Runic Alfheim Tree",
-    "disabled": true,
     "image": "/images/addons/card/yggdrasil/runic_alfheim_tree.webp",
-    "icon": "/images/addons/icon/yggdrasil/runic_alfheim_tree.webp",
+    "icon": "/images/addons/icon/yggdrasil/runic_aflheim_tree.webp",
     "rewards": [
         {
             "id": "minecraft:trial_spawner",

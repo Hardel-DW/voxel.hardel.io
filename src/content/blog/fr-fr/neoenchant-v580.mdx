@@ -25,7 +25,7 @@ La version 5.8.0 de NeoEnchant apporte des améliorations significatives aux per
 - Placez le pack **NeoEnchant** dans votre dossier de packs de ressources.
 - Alternativement, vous pouvez utiliser le pack **Voxel Translation**, qui inclut des traductions pour tout le contenu **Voxel** (NeoEnchant, Yggdrasil, et les futurs packs).
 
-<DownloadModrinth soon asset="/images/addons/picture/ne.webp" name="NeoEnchant" version="5.8.0" link="https://modrinth.com/datapack/neoenchant" />  
+<DownloadModrinth asset="/images/addons/picture/ne.webp" name="NeoEnchant" version="5.8.0" link="https://modrinth.com/datapack/neoenchant" />  
 
 <Star />
 
@@ -80,7 +80,7 @@ La version 5.8.0 de NeoEnchant apporte des améliorations significatives aux per
             anvilCost: 2,
             weight: 3
         }}
-        applicable={{ name: "Sword", asset: "sword" }}
+        applicable={{ name: "Épées", asset: "sword" }}
     >
         <ChangelogSection>
             <ChangelogItem title="Recharge">
@@ -88,9 +88,131 @@ La version 5.8.0 de NeoEnchant apporte des améliorations significatives aux per
             </ChangelogItem>
         </ChangelogSection>
     </ChangelogContainer>
+
+    <ChangelogContainer
+        title="VeinMiner & MiningPlus"
+        citation="Amélioration du gameplay avec une activation plus précise"
+        stats={{
+            maxLevel: 1,
+            anvilCost: 3,
+            weight: 2
+        }}
+        applicable={{ name: "Outils", asset: "pickaxe" }}
+    >
+        <ChangelogSection>
+            <ChangelogItem title="Activation">
+                Ne se déclenche plus en position accroupie pour une meilleure précision
+            </ChangelogItem>
+        </ChangelogSection>
+    </ChangelogContainer>
+
+    <ChangelogContainer
+        title="Fury"
+        citation="Amélioration de la puissance de l'enchantement"
+        stats={{
+            maxLevel: 3,
+            anvilCost: 2,
+            weight: 3
+        }}
+        applicable={{ name: "Épées", asset: "sword" }}
+    >
+        <ChangelogSection>
+            <ChangelogItem title="Dégâts">
+                Augmentation des dégâts infligés
+            </ChangelogItem>
+        </ChangelogSection>
+    </ChangelogContainer>
+
+    <ChangelogContainer
+        title="Sky Walk"
+        citation="Ajustement pour un meilleur contrôle"
+        stats={{
+            maxLevel: 2,
+            anvilCost: 3,
+            weight: 2
+        }}
+        applicable={{ name: "Bottes", asset: "boots" }}
+    >
+        <ChangelogSection>
+            <ChangelogItem title="Mobilité">
+                Réduction de la propulsion pour un meilleur contrôle
+            </ChangelogItem>
+        </ChangelogSection>
+    </ChangelogContainer>
+
+    <ChangelogContainer
+        title="Storm Arrow"
+        citation="Rééquilibrage de la puissance maximale"
+        stats={{
+            maxLevel: 1,
+            anvilCost: 4,
+            weight: 1
+        }}
+        applicable={{ name: "Arcs", asset: "bow" }}
+    >
+        <ChangelogSection>
+            <ChangelogItem title="Niveau Maximum">
+                Niveau maximum réduit de 2 à 1
+            </ChangelogItem>
+        </ChangelogSection>
+    </ChangelogContainer>
+
+    <ChangelogContainer
+        title="Builder Arms"
+        citation="Amélioration de la portée de construction"
+        stats={{
+            maxLevel: 3,
+            anvilCost: 2,
+            weight: 3
+        }}
+        applicable={{ name: "Outils", asset: "pickaxe" }}
+    >
+        <ChangelogSection>
+            <ChangelogItem title="Portée">
+                Portée augmentée de 1.5 à 2 blocs par niveau
+            </ChangelogItem>
+        </ChangelogSection>
+    </ChangelogContainer>
+
+    <ChangelogContainer
+        title="Armored"
+        citation="Renforcement de la protection"
+        stats={{
+            maxLevel: 2,
+            anvilCost: 3,
+            weight: 2
+        }}
+        applicable={{ name: "Armures", asset: "chestplate" }}
+    >
+        <ChangelogSection>
+            <ChangelogItem title="Protection">
+                Protection renforcée pour une meilleure défense
+            </ChangelogItem>
+        </ChangelogSection>
+    </ChangelogContainer>
+
+    <ChangelogContainer
+        title="Dwarfed & Oversize"
+        citation="Rééquilibrage des effets négatifs"
+        stats={{
+            maxLevel: 1,
+            anvilCost: 4,
+            weight: 1
+        }}
+        applicable={{ name: "Armures", asset: "chestplate" }}
+    >
+        <ChangelogSection>
+            <ChangelogItem title="Équilibrage">
+                Réduction des pénalités pour un style de jeu plus équilibré
+            </ChangelogItem>
+        </ChangelogSection>
+    </ChangelogContainer>
 </Changelog>
 
 <Star />
+
+# Optimisations de Performance
+Les commandes en arrière-plan qui causaient des ralentissements ont été supprimées pour améliorer la fluidité du gameplay.
 
 # Support Multilingue
 Cette version apporte 5 nouvelles langues, générées par **Claude-3.5-Sonnet-2024-10-22** à partir des traductions française et anglaise de la version 2.0.0.

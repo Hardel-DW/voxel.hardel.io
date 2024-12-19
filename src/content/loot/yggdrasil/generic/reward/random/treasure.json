@@ -1,0 +1,33 @@
+{
+    "items": [
+        {
+            "id": "minecraft:quartz",
+            "description": "Quartz",
+            "count": 1
+        },
+        {
+            "id": "minecraft:lapis_lazuli",
+            "description": "Lapis Lazuli",
+            "count": {
+                "min": 2,
+                "max": 7
+            }
+        },
+        {
+            "id": "minecraft:gold_nugget",
+            "description": "Gold Nugget",
+            "count": {
+                "min": 4,
+                "max": 17
+            }
+        },
+        {
+            "id": "minecraft:iron_nugget",
+            "description": "Iron Nugget",
+            "count": {
+                "min": 4,
+                "max": 17
+            }
+        }
+    ]
+}

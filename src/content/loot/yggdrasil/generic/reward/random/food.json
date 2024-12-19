@@ -1,0 +1,33 @@
+{
+    "items": [
+        {
+            "id": "minecraft:melon_slice",
+            "description": "Melon Slice",
+            "count": 1
+        },
+        {
+            "id": "minecraft:bread",
+            "description": "Bread",
+            "count": {
+                "min": 2,
+                "max": 7
+            }
+        },
+        {
+            "id": "minecraft:tropical_fish",
+            "description": "Tropical Fish",
+            "count": {
+                "min": 4,
+                "max": 17
+            }
+        },
+        {
+            "id": "minecraft:apple",
+            "description": "Apple",
+            "count": {
+                "min": 4,
+                "max": 17
+            }
+        }
+    ]
+}

@@ -3,5 +3,16 @@
     "name": "Cubeoid",
     "image": "/images/addons/card/yggdrasil/cubeoid.webp",
     "icon": "/images/addons/icon/yggdrasil/cubeoid.webp",
-    "rewards": []
+    "rewards": [
+        {
+            "id": "minecraft:trial_spawner",
+            "description": "Les générateurs d'épreuves que vous croisez par défaut",
+            "content": "yggdrasil/cubeoid/trial_spawner"
+        },
+        {
+            "id": "minecraft:vault",
+            "description": "Nécessite une clef de Cubeoid normal pour être ouvert, trouvable dans les générateur d'épreuve.",
+            "content": "yggdrasil/cubeoid/vault"
+        }
+    ]
 }

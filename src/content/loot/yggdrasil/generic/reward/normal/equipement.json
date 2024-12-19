@@ -1,0 +1,84 @@
+{
+    "items": [
+        {
+            "id": "minecraft:leather_boots",
+            "description": "Leather Boots - Enchanted (0-12)"
+        },
+        {
+            "id": "minecraft:leather_chestplate",
+            "description": "Leather Chestplate - Enchanted (0-12)"
+        },
+        {
+            "id": "minecraft:leather_leggings",
+            "description": "Leather Leggings - Enchanted (0-12)"
+        },
+        {
+            "id": "minecraft:leather_helmet",
+            "description": "Leather Helmet - Enchanted (0-12)"
+        },
+        {
+            "id": "minecraft:wooden_sword",
+            "description": "Wooden Sword - Enchanted (0-12)"
+        },
+        {
+            "id": "minecraft:wooden_shovel",
+            "description": "Wooden Shovel - Enchanted (0-12)"
+        },
+        {
+            "id": "minecraft:wooden_pickaxe",
+            "description": "Wooden Pickaxe - Enchanted (0-12)"
+        },
+        {
+            "id": "minecraft:wooden_axe",
+            "description": "Wooden Axe - Enchanted (0-12)"
+        },
+        {
+            "id": "minecraft:wooden_hoe",
+            "description": "Wooden Hoe - Enchanted (0-12)"
+        },
+        {
+            "id": "minecraft:chainmail_boots",
+            "description": "Chainmail Boots - Enchanted (0-12)"
+        },
+        {
+            "id": "minecraft:chainmail_chestplate",
+            "description": "Chainmail Chestplate - Enchanted (0-12)"
+        },
+        {
+            "id": "minecraft:chainmail_leggings",
+            "description": "Chainmail Leggings - Enchanted (0-12)"
+        },
+        {
+            "id": "minecraft:chainmail_helmet",
+            "description": "Chainmail Helmet - Enchanted (0-12)"
+        },
+        {
+            "id": "minecraft:stone_sword",
+            "description": "Stone Sword - Enchanted (0-12)"
+        },
+        {
+            "id": "minecraft:stone_shovel",
+            "description": "Stone Shovel - Enchanted (0-12)"
+        },
+        {
+            "id": "minecraft:stone_pickaxe",
+            "description": "Stone Pickaxe - Enchanted (0-12)"
+        },
+        {
+            "id": "minecraft:stone_axe",
+            "description": "Stone Axe - Enchanted (0-12)"
+        },
+        {
+            "id": "minecraft:stone_hoe",
+            "description": "Stone Hoe - Enchanted (0-12)"
+        },
+        {
+            "id": "minecraft:iron_boots",
+            "description": "Iron Boots - Enchanted (0-12)"
+        },
+        {
+            "id": "minecraft:iron_chestplate",
+            "description": "Iron Chestplate - Enchanted (0-12)"
+        }
+    ]
+}

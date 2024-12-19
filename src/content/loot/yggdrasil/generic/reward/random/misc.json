@@ -1,0 +1,52 @@
+{
+    "items": [
+        {
+            "id": "minecraft:cherry_sapling",
+            "description": "Cherry Sapling",
+            "count": {
+                "min": 1,
+                "max": 8
+            }
+        },
+        {
+            "id": "minecraft:experience_bottle",
+            "description": "Experience Bottle",
+            "count": {
+                "min": 1,
+                "max": 4
+            }
+        },
+        {
+            "id": "minecraft:golden_carrot",
+            "description": "Golden Carrot",
+            "count": {
+                "min": 2,
+                "max": 4
+            }
+        },
+        {
+            "id": "minecraft:iron_ingot",
+            "description": "Iron Ingot",
+            "count": {
+                "min": 1,
+                "max": 2
+            }
+        },
+        {
+            "id": "minecraft:axolotl_bucket",
+            "description": "Bucket of Axolotl"
+        },
+        {
+            "id": "minecraft:firework_rocket",
+            "description": "Firework Rocket (Duration: 3)"
+        },
+        {
+            "id": "minecraft:cherry_boat",
+            "description": "Cherry Boat"
+        },
+        {
+            "id": "minecraft:map",
+            "description": "Empty Map"
+        }
+    ]
+}

@@ -1,0 +1,41 @@
+{
+    "reference": ["yggdrasil/alfheim/enchanted_book/random_loot"],
+    "items": [
+        {
+            "id": "minecraft:zombie_spawn_egg",
+            "description": "Zombie Spawn Egg"
+        },
+        {
+            "id": "minecraft:diamond_chestplate",
+            "description": "Diamond Chestplate - Enchanted Level 30"
+        },
+        {
+            "id": "minecraft:diamond_leggings",
+            "description": "Diamond Leggings - Enchanted Level 30"
+        },
+        {
+            "id": "minecraft:diamond_boots",
+            "description": "Diamond Boots - Enchanted Level 30"
+        },
+        {
+            "id": "minecraft:diamond_helmet",
+            "description": "Diamond Helmet - Enchanted Level 30"
+        },
+        {
+            "id": "minecraft:bow",
+            "description": "Bow - Enchanted Level 30"
+        },
+        {
+            "id": "minecraft:diamond_sword",
+            "description": "Diamond Sword - Enchanted Level 30"
+        },
+        {
+            "id": "minecraft:shulker_box",
+            "description": "Shulker Box"
+        },
+        {
+            "id": "minecraft:enchanted_book",
+            "description": "Random Enchantment"
+        }
+    ]
+}

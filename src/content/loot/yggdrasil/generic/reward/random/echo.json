@@ -1,0 +1,28 @@
+{
+    "items": [
+        {
+            "id": "minecraft:echo_shard",
+            "description": "Echo Shard",
+            "count": {
+                "min": 2,
+                "max": 5
+            }
+        },
+        {
+            "id": "minecraft:bone",
+            "description": "Bone",
+            "count": {
+                "min": 2,
+                "max": 4
+            }
+        },
+        {
+            "id": "minecraft:string",
+            "description": "String",
+            "count": {
+                "min": 2,
+                "max": 4
+            }
+        }
+    ]
+}

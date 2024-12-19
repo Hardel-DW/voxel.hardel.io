@@ -1,0 +1,12 @@
+{
+    "items": [
+        {
+            "id": "minecraft:experience_bottle",
+            "description": "Experience Bottle - Random",
+            "count": {
+                "min": 1,
+                "max": 5
+            }
+        }
+    ]
+}

@@ -1,0 +1,40 @@
+{
+    "items": [
+        {
+            "id": "minecraft:silence_armor_trim_smithing_template",
+            "description": "Silence Armor Trim Template"
+        },
+        {
+            "id": "minecraft:sentry_armor_trim_smithing_template",
+            "description": "Sentry Armor Trim Template"
+        },
+        {
+            "id": "minecraft:ward_armor_trim_smithing_template",
+            "description": "Ward Armor Trim Template"
+        },
+        {
+            "id": "minecraft:spire_armor_trim_smithing_template",
+            "description": "Spire Armor Trim Template"
+        },
+        {
+            "id": "minecraft:vex_armor_trim_smithing_template",
+            "description": "Vex Armor Trim Template"
+        },
+        {
+            "id": "minecraft:ominous_bottle",
+            "description": "Ominous Bottle"
+        },
+        {
+            "id": "minecraft:totem_of_undying",
+            "description": "Totem of Undying"
+        },
+        {
+            "id": "minecraft:bundle",
+            "description": "Bundle"
+        },
+        {
+            "id": "minecraft:trial_key",
+            "description": "25% - Vault Key of the Cubeoid"
+        }
+    ]
+}

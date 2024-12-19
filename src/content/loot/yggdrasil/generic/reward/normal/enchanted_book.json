@@ -1,0 +1,9 @@
+{
+    "items": [
+        {
+            "id": "minecraft:enchanted_book",
+            "description": "Random Enchanted Book",
+            "count": 3
+        }
+    ]
+}

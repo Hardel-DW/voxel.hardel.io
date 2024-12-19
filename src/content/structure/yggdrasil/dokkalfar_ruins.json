@@ -3,5 +3,16 @@
     "name": "Dokkalfar Ruins",
     "image": "/images/addons/card/yggdrasil/dokkalfar.webp",
     "icon": "/images/addons/icon/yggdrasil/dokkalfar_ruins.webp",
-    "rewards": []
+    "rewards": [
+        {
+            "id": "minecraft:barrel",
+            "description": "Les récompenses dans les ruines",
+            "content": "yggdrasil/dokkalfar_ruins/common"
+        },
+        {
+            "id": "minecraft:chest",
+            "description": "Les récompenses dans les coffres des ruines",
+            "content": "yggdrasil/generic/reward/normal/equipement"
+        }
+    ]
 }

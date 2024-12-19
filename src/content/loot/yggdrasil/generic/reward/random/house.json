@@ -1,0 +1,72 @@
+{
+    "items": [
+        {
+            "id": "minecraft:music_disc_otherside",
+            "description": "Music Disc (Otherside)"
+        },
+        {
+            "id": "minecraft:stone_hoe",
+            "description": "Stone Hoe - Enchanted (10-15)",
+            "count": 1
+        },
+        {
+            "id": "minecraft:stone_axe",
+            "description": "Stone Axe - Enchanted (10-15)",
+            "count": 1
+        },
+        {
+            "id": "minecraft:stone_pickaxe",
+            "description": "Stone Pickaxe - Enchanted (10-15)",
+            "count": 1
+        },
+        {
+            "id": "minecraft:stone_sword",
+            "description": "Stone Sword - Enchanted (10-15)",
+            "count": 1
+        },
+        {
+            "id": "minecraft:stone_shovel",
+            "description": "Stone Shovel - Enchanted (10-15)",
+            "count": 1
+        },
+        {
+            "id": "minecraft:lead",
+            "description": "Lead",
+            "count": 1
+        },
+        {
+            "id": "minecraft:iron_horse_armor",
+            "description": "Iron Horse Armor",
+            "count": 1
+        },
+        {
+            "id": "minecraft:saddle",
+            "description": "Saddle",
+            "count": 1
+        },
+        {
+            "id": "minecraft:candle",
+            "description": "Candle",
+            "count": {
+                "min": 1,
+                "max": 4
+            }
+        },
+        {
+            "id": "minecraft:amethyst_shard",
+            "description": "Amethyst Shard",
+            "count": {
+                "min": 1,
+                "max": 7
+            }
+        },
+        {
+            "id": "minecraft:experience_bottle",
+            "description": "Experience Bottle",
+            "count": {
+                "min": 1,
+                "max": 7
+            }
+        }
+    ]
+}

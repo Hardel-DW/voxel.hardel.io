@@ -1,0 +1,60 @@
+{
+    "items": [
+        {
+            "id": "minecraft:arrow",
+            "description": "Arrow",
+            "count": {
+                "min": 5,
+                "max": 12
+            }
+        },
+        {
+            "id": "minecraft:tipped_arrow",
+            "description": "Arrow of Healing",
+            "count": {
+                "min": 1,
+                "max": 5
+            }
+        },
+        {
+            "id": "minecraft:tipped_arrow",
+            "description": "Arrow of Fire Resistance",
+            "count": {
+                "min": 1,
+                "max": 5
+            }
+        },
+        {
+            "id": "minecraft:tipped_arrow",
+            "description": "Arrow of Long Poison",
+            "count": {
+                "min": 1,
+                "max": 5
+            }
+        },
+        {
+            "id": "minecraft:tipped_arrow",
+            "description": "Arrow of Invisibility",
+            "count": {
+                "min": 1,
+                "max": 2
+            }
+        },
+        {
+            "id": "minecraft:tipped_arrow",
+            "description": "Arrow of Weakness",
+            "count": {
+                "min": 1,
+                "max": 4
+            }
+        },
+        {
+            "id": "minecraft:tipped_arrow",
+            "description": "Arrow of Harming II",
+            "count": {
+                "min": 1,
+                "max": 5
+            }
+        }
+    ]
+}

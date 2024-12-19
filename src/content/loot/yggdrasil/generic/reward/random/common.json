@@ -1,0 +1,116 @@
+{
+    "items": [
+        {
+            "id": "minecraft:stone_axe",
+            "description": "Stone Axe"
+        },
+        {
+            "id": "minecraft:wooden_axe",
+            "description": "Wooden Axe"
+        },
+        {
+            "id": "minecraft:stone_pickaxe",
+            "description": "Stone Pickaxe"
+        },
+        {
+            "id": "minecraft:wooden_pickaxe",
+            "description": "Wooden Pickaxe"
+        },
+        {
+            "id": "minecraft:apple",
+            "description": "Apple",
+            "count": {
+                "min": 1,
+                "max": 2
+            }
+        },
+        {
+            "id": "minecraft:bread",
+            "description": "Bread",
+            "count": {
+                "min": 1,
+                "max": 2
+            }
+        },
+        {
+            "id": "minecraft:salmon",
+            "description": "Raw Salmon",
+            "count": {
+                "min": 1,
+                "max": 2
+            }
+        },
+        {
+            "id": "minecraft:stick",
+            "description": "Stick",
+            "count": {
+                "min": 1,
+                "max": 12
+            }
+        },
+        {
+            "id": "minecraft:oak_planks",
+            "description": "Oak Planks",
+            "count": {
+                "min": 1,
+                "max": 12
+            }
+        },
+        {
+            "id": "minecraft:oak_log",
+            "description": "Oak Log",
+            "count": {
+                "min": 1,
+                "max": 3
+            }
+        },
+        {
+            "id": "minecraft:spruce_log",
+            "description": "Spruce Log",
+            "count": {
+                "min": 1,
+                "max": 3
+            }
+        },
+        {
+            "id": "minecraft:birch_log",
+            "description": "Birch Log",
+            "count": {
+                "min": 1,
+                "max": 3
+            }
+        },
+        {
+            "id": "minecraft:jungle_log",
+            "description": "Jungle Log",
+            "count": {
+                "min": 1,
+                "max": 3
+            }
+        },
+        {
+            "id": "minecraft:acacia_log",
+            "description": "Acacia Log",
+            "count": {
+                "min": 1,
+                "max": 3
+            }
+        },
+        {
+            "id": "minecraft:dark_oak_log",
+            "description": "Dark Oak Log",
+            "count": {
+                "min": 1,
+                "max": 3
+            }
+        },
+        {
+            "id": "minecraft:mangrove_log",
+            "description": "Mangrove Log",
+            "count": {
+                "min": 1,
+                "max": 3
+            }
+        }
+    ]
+}

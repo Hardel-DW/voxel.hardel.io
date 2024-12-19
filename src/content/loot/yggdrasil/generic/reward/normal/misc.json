@@ -1,0 +1,78 @@
+{
+    "items": [
+        {
+            "id": "minecraft:experience_bottle",
+            "description": "Experience Bottle",
+            "count": {
+                "min": 2,
+                "max": 5
+            }
+        },
+        {
+            "id": "minecraft:fire_charge",
+            "description": "Fire Charge",
+            "count": {
+                "min": 1,
+                "max": 3
+            }
+        },
+        {
+            "id": "minecraft:golden_carrot",
+            "description": "Golden Carrot",
+            "count": {
+                "min": 1,
+                "max": 2
+            }
+        },
+        {
+            "id": "minecraft:golden_apple",
+            "description": "Golden Apple",
+            "count": {
+                "min": 1,
+                "max": 2
+            }
+        },
+        {
+            "id": "minecraft:copper_ingot",
+            "description": "Copper Ingot",
+            "count": {
+                "min": 1,
+                "max": 2
+            }
+        },
+        {
+            "id": "minecraft:bread",
+            "description": "Bread",
+            "count": {
+                "min": 1,
+                "max": 3
+            }
+        },
+        {
+            "id": "minecraft:baked_potato",
+            "description": "Baked Potato",
+            "count": {
+                "min": 1,
+                "max": 3
+            }
+        },
+        {
+            "id": "minecraft:potion",
+            "description": "Potion of Regeneration",
+            "count": 1
+        },
+        {
+            "id": "minecraft:potion",
+            "description": "Potion of Swiftness",
+            "count": 1
+        },
+        {
+            "id": "minecraft:amethyst_shard",
+            "description": "Amethyst Shard",
+            "count": {
+                "min": 1,
+                "max": 4
+            }
+        }
+    ]
+}

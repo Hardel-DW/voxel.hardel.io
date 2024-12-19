@@ -1,0 +1,51 @@
+{
+    "items": [
+        {
+            "id": "minecraft:crossbow",
+            "description": "Crossbow - Random Enchant (10-50% Damage)"
+        },
+        {
+            "id": "minecraft:spectral_arrow",
+            "description": "Spectral Arrow",
+            "count": {
+                "min": 10,
+                "max": 28
+            }
+        },
+        {
+            "id": "minecraft:iron_sword",
+            "description": "Iron Sword",
+            "count": 1
+        },
+        {
+            "id": "minecraft:iron_chestplate",
+            "description": "Iron Chestplate - Random Enchant",
+            "count": 1
+        },
+        {
+            "id": "minecraft:iron_helmet",
+            "description": "Iron Helmet - Random Enchant",
+            "count": 1
+        },
+        {
+            "id": "minecraft:chainmail_leggings",
+            "description": "Chainmail Leggings - Random Enchant",
+            "count": 1
+        },
+        {
+            "id": "minecraft:leather_boots",
+            "description": "Leather Boots - Random Enchant",
+            "count": 1
+        },
+        {
+            "id": "minecraft:stone_axe",
+            "description": "Stone Axe - Random Enchant",
+            "count": 1
+        },
+        {
+            "id": "minecraft:bow",
+            "description": "Bow - Enchanted (0-30)",
+            "count": 1
+        }
+    ]
+}

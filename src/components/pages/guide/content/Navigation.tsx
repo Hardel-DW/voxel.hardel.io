@@ -1,7 +1,7 @@
 import type { CollectionEntry } from "astro:content";
 import GuideTree from "@/components/pages/guide/content/GuideTree.tsx";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/shadcn/tabs.tsx";
-import NavigationTree from "./NavigationTree.tsx";
+import NavigationTree from "@/components/pages/guide/content/NavigationTree.tsx";
 
 export type Guides = {
     slug: string;
@@ -15,7 +15,7 @@ export type Guides = {
 interface Props {
     schema: CollectionEntry<"guide">;
     guides: Guides[];
-    slug: { guide: string; section: string; article: string };
+    slug: { lang: string; guide: string; section: string; article: string };
 }
 
 export default function Navigation({ schema, guides, slug }: Props) {
@@ -38,7 +38,10 @@ export default function Navigation({ schema, guides, slug }: Props) {
                     </TabsList>
 
                     {/* Display the content of the selected tab */}
-                    <TabsContent value="chapter" className="overflow-y-auto pr-2 -mr-2" style={{ flex: 1, height: "calc(100% - 64px)" }}>
+                    <TabsContent
+                        value="chapter"
+                        className="overflow-y-auto overflow-x-hidden pr-2 -mr-2"
+                        style={{ flex: 1, height: "calc(100% - 64px)" }}>
                         <div className="space-y-2">
                             {schema.data.sections.map((element, index) => (
                                 <NavigationTree
@@ -47,7 +50,7 @@ export default function Navigation({ schema, guides, slug }: Props) {
                                     title={element.title}
                                     selected={element.slug === slug.section}
                                     elements={element.article.map((guide) => ({
-                                        href: `/guides/${[slug.guide, element.slug, guide.redirect].join("/")}`,
+                                        href: `/${slug.lang}/guides/${[slug.guide, element.slug, guide.redirect].join("/")}`,
                                         information: guide.time,
                                         selected: guide.redirect === slug.article,
                                         checked: false,
@@ -66,7 +69,7 @@ export default function Navigation({ schema, guides, slug }: Props) {
                                     index={index}
                                     image={element.image}
                                     locked={element.locked}
-                                    slug={`/guides/${element.slug}`}
+                                    slug={`/${slug.lang}/guides/${element.slug}`}
                                     selected={element.slug === slug.guide}
                                 />
                             ))}

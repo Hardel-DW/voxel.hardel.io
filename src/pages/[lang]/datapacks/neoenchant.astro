@@ -3,7 +3,6 @@ import { Image } from "astro:assets";
 import CompoundLayout from "@/components/layouts/CompoundLayout.astro";
 import NeoEnchantmentViewer from "@/components/pages/datapacks/NeoEnchantmentViewer";
 import DatapackCard from "@/components/ui/DatapackCard.astro";
-import Adsense from "@/components/ui/adsense.astro";
 import Button from "@/components/ui/button.astro";
 import DashedPattern from "@/components/ui/pattern/DashedPattern.astro";
 import ShiningStars from "@/components/ui/pattern/ShiningStars.astro";
@@ -459,9 +458,6 @@ const sections: SectionViewer[] = [
                     </Button>
                 </div>
             </div>
-            <div class="flex-1 hidden md:block">
-                <Adsense slot="2018282613"/>
-            </div>
         </div>
     </section>
 
@@ -472,9 +468,6 @@ const sections: SectionViewer[] = [
 
         <div class="w-5/6 mx-auto">
             <NeoEnchantmentViewer enchant={sections} client:only="react"/>
-            <div class="pt-8">
-                <Adsense class="flex justify-center" slot="4898864304"/>
-            </div>
         </div>
     </section>
 
@@ -551,8 +544,6 @@ const sections: SectionViewer[] = [
                         buttonText={translate["datapacks.modrinth.download"]}
                         buttonTextMobile={translate["generic.more"]}
                 />
-
-                <Adsense slot="8340982538"/>
             </div>
         </div>
     </section>

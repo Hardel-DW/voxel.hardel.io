@@ -24,8 +24,8 @@ export default function NavigationTree({ title, elements, completed, selected, q
 
     return (
         <div
-            style={{ animationDuration: `${(index + 5) * 50}ms` }}
-            className={cn("select-none relative group/card transition-opacity hover:opacity-100 translate-x-50 starting:translate-x-0", {
+            style={{ "--tw-duration": `${(index + 5) * 50}ms` } as React.CSSProperties}
+            className={cn("select-none relative group/card transition-all hover:opacity-100 starting:translate-x-50 translate-x-0", {
                 "opacity-100": selected,
                 "opacity-50": !selected
             })}>
@@ -63,7 +63,7 @@ export default function NavigationTree({ title, elements, completed, selected, q
             <div
                 className="overflow-hidden border-t-0 border border-zinc-800 group-hover/card:border-zinc-600 rounded-b-xl bg-content transition-all"
                 style={{ maxHeight: open ? 500 : 0 }}>
-                <ul className="py-4 gap-y-4 px-6 flex flex-col">
+                <ul className="p-4 pl-8 gap-y-4 flex flex-col">
                     {elements.map((element) => (
                         <li className="relative group flex items-center w-full transition rounded-xl" key={element.title}>
                             <a

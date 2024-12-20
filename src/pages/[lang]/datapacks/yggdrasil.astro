@@ -6,7 +6,6 @@ import DatapackCard from "@/components/ui/DatapackCard.astro";
 import GallerySection, { type ImageItem } from "@/components/ui/GallerySection.astro";
 import Lightbox from "@/components/ui/Lightbox.astro";
 import VideoSection from "@/components/ui/VideoSection.astro";
-import Adsense from "@/components/ui/adsense.astro";
 import ShiningStars from "@/components/ui/pattern/ShiningStars.astro";
 import Vortex from "@/components/ui/pattern/Vortex.astro";
 import { getTranslations, names } from "@/lib/i18n";
@@ -159,8 +158,6 @@ const yggdrasil = structures.filter((s) => s.id.startsWith("yggdrasil")).filter(
                         buttonText={translate["datapacks.modrinth.download"]}
                         buttonTextMobile={translate["generic.more"]}
                 />
-
-                <Adsense slot="8340982538"/>
             </div>
         </div>
 

@@ -7,17 +7,27 @@ import GuideSection from "@/components/pages/guide/overview/GuideSection.astro";
 import LandingGuideCard from "@/components/pages/guide/overview/LandingGuideCard.astro";
 import Button from "@/components/ui/button.astro";
 import DashedPattern from "@/components/ui/pattern/DashedPattern.astro";
-import type { InferGetStaticPropsType } from "astro";
-import type { GetStaticPaths } from "astro";
+import type { InferGetStaticPropsType, GetStaticPaths } from "astro";
+import { getTranslations, names } from "@/lib/i18n";
 
 export const prerender = true;
+const { translate } = await getTranslations(Astro.url);
 export const getStaticPaths = (async () => {
     const guides = await getCollection("guide", ({ data }) => !data.metadata.draft && data.metadata.publishDate < new Date());
 
-    return guides.map((post) => ({
-        params: { guide: post.id },
-        props: { data: post.data }
-    }));
+    const a = names.flatMap((element) => {
+        const filteredPosts = guides.filter((post) => post.id.startsWith(element.lang));
+        return filteredPosts.map((post) => ({
+            params: {
+                guide: post.id.split("/")[1] || post.id,
+                lang: element.lang
+            },
+            props: { data: post.data }
+        }));
+    });
+
+    console.log(a);
+    return a;
 }) satisfies GetStaticPaths;
 
 type Props = InferGetStaticPropsType<typeof getStaticPaths>;
@@ -43,13 +53,12 @@ const firstArticle = firstSection.article[0];
                             {data.metadata.snippet}
                         </h1>
                         <p class="text-gray-300 mt-2 text-sm w-11/12">
-                            Ce pack contient les guides pour Forge, Fabric et NeoForge, des ressources exclusives,
-                            des exemples de code et du support personnalisé.
+                            {translate["guides.contains"]}
                         </p>
                         <div class="mt-8 flex gap-4">
                             <Button href={[guide, firstSection.slug, firstArticle.redirect].join('/')} size="xl"
                                     variant="primary">
-                                Commencer
+                                {translate["generic.start"]}
                             </Button>
                         </div>
                     </div>
@@ -72,7 +81,7 @@ const firstArticle = firstSection.article[0];
                 <section class="mt-20 pb-20 mx-auto max-w-7xl relative">
                     <div class="space-y-2 mb-8">
                         <h1 class="text-zinc-200 tracking-wide text-center text-4xl font-bold">
-                            Ce que tu vas apprendre
+                            {translate["guides.what_you_will_learn"]}
                         </h1>
                         <div class="flex justify-center">
                             <div class="h-1 w-20 bg-zinc-400 rounded-full"></div>

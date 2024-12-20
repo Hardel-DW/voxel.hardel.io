@@ -14,8 +14,8 @@ interface Props {
 export default function GuideTree(props: Props) {
     return (
         <div
-            style={{ animationDuration: `${(props.index + 5) * 50}ms` }}
-            className={cn("select-none relative group/card transition-opacity hover:opacity-100 translate-x-50 starting:translate-x-0", {
+            style={{ "--tw-duration": `${(props.index + 5) * 50}ms` } as React.CSSProperties}
+            className={cn("select-none relative group/card transition-all hover:opacity-100 starting:translate-x-50 translate-x-0", {
                 "opacity-100": props.selected,
                 "opacity-50": !props.selected,
                 "hover:opacity-55": props.locked

@@ -1,10 +1,9 @@
 ---
-import CompoundLayout from "../components/layouts/CompoundLayout.astro";
-import Adsense from "../components/ui/adsense.astro";
-import Button from "../components/ui/button.astro";
-import DashedPattern from "../components/ui/pattern/DashedPattern.astro";
-import TriangleWave from "../components/ui/pattern/TriangleWave";
-import { getTranslationFromLang } from "../lib/i18n";
+import CompoundLayout from "@/components/layouts/CompoundLayout.astro";
+import Button from "@/components/ui/button.astro";
+import DashedPattern from "@/components/ui/pattern/DashedPattern.astro";
+import TriangleWave from "@/components/ui/pattern/TriangleWave";
+import { getTranslationFromLang } from "@/lib/i18n";
 
 const { translate } = await getTranslationFromLang("en-us");
 
@@ -30,9 +29,6 @@ export const prerender = true;
                 <div class="mt-10 *:w-full grid xl:grid-cols-2 gap-y-4 gap-x-8">
                     <Button size="xl" href="/">{translate["generic.back"]}</Button>
                     <Button size="xl" variant="ghost" href="/contact">{translate["generic.contact_us"]}</Button>
-                </div>
-                <div class="my-8 relative">
-                    <Adsense slot="2018282613"/>
                 </div>
             </div>
         </div>

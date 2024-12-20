@@ -1,97 +1,132 @@
 ---
+import ShiningStars from "@/components/ui/pattern/ShiningStars.astro";
 import CompoundLayout from "@/components/layouts/CompoundLayout.astro";
 
 const description = "Conditions d'utilisation du site Voxel, Voxel est spécialisées dans la création de contenu Minecraft.";
 ---
 
 <CompoundLayout title="Voxel - Conditions Générales d'Utilisation" description={description}>
-    <div class="my-48">
+    <div class="absolute rounded-full w-3/4 h-1/2 bg-linear-to-r from-[#401727] to-[#311e7696] opacity-20 blur-[10rem] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"/>
+    <div class="fixed inset-0 -z-10">
+        <ShiningStars/>
+    </div>
+    
+    <div class="my-48 relative z-10">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <h1 class="text-4xl font-bold mb-6">Conditions Générales d'Utilisation</h1>
-            <section class="mb-10">
-                <h2 class="text-2xl font-bold mb-2">1. Propriété intellectuelle</h2>
+            <section class="mb-8">
+                <h2 class="text-2xl font-semibold mb-4">1. Acceptation des conditions</h2>
                 <p class="mb-4">
-                    Tous les éléments de ce site web, y compris, mais sans s'y limiter, les textes, les graphiques, les
-                    images, les logos,
-                    les icônes de boutons, les clips audio et vidéo, les téléchargements numériques, les compilations de
-                    données et les
-                    logiciels, sont la propriété exclusive de Voxel ou de ses fournisseurs tiers de contenu, et sont
-                    protégés par les
-                    lois sur les droits d'auteur, les marques de commerce et autres lois applicables en matière de
-                    propriété intellectuelle.
-                </p>
-
-                <p class="mb-4">
-                    L'utilisation non autorisée de tout contenu de ce site web est strictement interdite et peut
-                    constituer une violation
-                    des lois sur les droits d'auteur, les marques de commerce ou autres lois applicables en matière de
-                    propriété
-                    intellectuelle.
+                    En accédant et en utilisant le site Voxel, vous acceptez d'être lié par ces conditions d'utilisation. 
+                    Si vous n'acceptez pas ces conditions, veuillez ne pas utiliser ce site.
                 </p>
             </section>
 
-            <section class="mb-10">
-                <h2 class="text-2xl font-bold mb-2">2. Licence d'utilisation limitée</h2>
+            <section class="mb-8">
+                <h2 class="text-2xl font-semibold mb-4">2. Description du service</h2>
                 <p class="mb-4">
-                    Sauf indication contraire expresse de Voxel, vous êtes autorisé à accéder et à utiliser le
-                    contenu de ce site web
-                    uniquement à des fins personnelles et non commerciales. Vous êtes autorisé à télécharger, copier,
-                    imprimer et conserver
-                    des copies de pages spécifiques de ce site web, mais uniquement pour votre usage personnel et non
-                    commercial. Tout autre
-                    usage, y compris, mais sans s'y limiter, la reproduction, la modification, la distribution, la
-                    transmission, la
-                    republication ou l'affichage du contenu de ce site web est strictement interdit sans le consentement
-                    écrit préalable de
-                    [Nom de l'entreprise].
+                    Voxel est un site dédié à la création de contenu en relation avec le jeu Minecraft. 
+                    Nous proposons du contenu informatif, interactif et créatif lié à l'univers de Minecraft, sans être affiliés à Mojang Studios ou Microsoft.
                 </p>
             </section>
 
-            <section class="mb-10">
-                <h2 class="text-2xl font-bold mb-2">3. Marques de commerce</h2>
+            <section class="mb-8">
+                <h2 class="text-2xl font-semibold mb-4">3. Propriété intellectuelle</h2>
                 <p class="mb-4">
-                    Toutes les marques de commerce, les marques de service et les logos utilisés sur ce site web sont la
-                    propriété de
-                    Voxel ou de ses fournisseurs tiers de contenu. Vous n'êtes pas autorisé à utiliser ces marques de
-                    commerce, marques
-                    de service ou logos sans le consentement écrit préalable de [Nom de l'entreprise] ou du propriétaire
-                    de la marque de
-                    commerce.
+                    Tout le contenu présent sur ce site (textes, images, logos, etc.) est la propriété de Voxel, 
+                    sauf mention contraire. Toute reproduction non autorisée est interdite.
+                    Certaines images sont issues de Minecraft, Minecraft est une marque déposée de Mojang Studios, et certains contenu sont affilités a d'autres créateurs de contenu avec leurs consentement.
+                </p>
+                <p class="mb-4">
+                    Minecraft® est une marque déposée de Mojang Studios. Notre contenu n'est ni approuvé ni affilié à Mojang Studios ou Microsoft.
                 </p>
             </section>
 
-            <section class="mb-10">
-                <h2 class="text-2xl font-bold mb-2">4. Contenu généré par l'utilisateur</h2>
-                <p class="mb-4">
-                    Dans la mesure où vous fournissez du contenu sur ce site web, y compris, mais sans s'y limiter, des
-                    commentaires, des
-                    messages, des photographies, des vidéos, des suggestions, des idées ou tout autre matériel soumis à
-                    Voxel ("Contenu
-                    généré par l'utilisateur"), vous accordez à [Nom de l'entreprise] une licence non exclusive,
-                    mondiale, libre de
-                    redevances, transférable et sous-licenciable pour utiliser, reproduire, modifier, adapter, publier,
-                    traduire, créer des
-                    œuvres dérivées à partir de, distribuer, exécuter et afficher publiquement le contenu généré par
-                    l'utilisateur dans tous
-                    les médias existants ou futurs. Vous garantissez que vous avez tous les droits nécessaires pour
-                    accorder cette licence.
-                </p>
+            <section class="mb-8">
+                <h2 class="text-2xl font-semibold mb-4">4. Utilisation du site</h2>
+                <p class="mb-4">En utilisant ce site, vous vous engagez à :</p>
+                <ul class="list-disc ml-6 mb-4">
+                    <li>Ne pas perturber ou interférer avec le fonctionnement du site</li>
+                    <li>Ne pas tenter d'accéder à des zones restreintes du site</li>
+                    <li>Ne pas utiliser le site à des fins illégales ou non autorisées</li>
+                    <li>Respecter les droits de propriété intellectuelle</li>
+                </ul>
+            </section>
 
+            <section class="mb-8">
+                <h2 class="text-2xl font-semibold mb-4">5. Comptes utilisateurs</h2>
+                <p class="mb-4">Bien que l'authentification ne soit pas toujours accessible, le site dispose d'un système de comptes. En créant un compte :</p>
+                <ul class="list-disc ml-6 mb-4">
+                    <li>Vous êtes responsable de la sécurité de vos identifiants</li>
+                    <li>Vous acceptez que vos données soient stockées conformément à notre politique de confidentialité</li>
+                    <li>Nous nous réservons le droit de suspendre ou supprimer votre compte en cas d'utilisation inappropriée</li>
+                </ul>
+            </section>
+
+            <section class="mb-8">
+                <h2 class="text-2xl font-semibold mb-4">6. Outils et contenus générés</h2>
+                <p class="mb-4">Nos outils permettent de modifier et personnaliser certains contenus. En les utilisant :</p>
+                <ul class="list-disc ml-6 mb-4">
+                    <li>Vous êtes responsable des modifications que vous apportez</li>
+                    <li>Les contenus générés ou modifiés sont pour votre usage personnel et ne peuvent être utilisés pour d'autres usages</li>
+                    <li>Nous ne garantissons pas la compatibilité ou le bon fonctionnement des contenus modifiés</li>
+                    <li>Vous vous engagez à ne pas utiliser ces outils pour créer du contenu illégal ou nuisible</li>
+                </ul>
+            </section>
+
+            <section class="mb-8">
+                <h2 class="text-2xl font-semibold mb-4">7. Contenu téléchargeable</h2>
+                <p class="mb-4">Les mods et datapacks sont disponibles sur des plateformes tierces (Modrinth/CurseForge) :</p>
+                <ul class="list-disc ml-6 mb-4">
+                    <li>Ces plateformes ont leurs propres conditions d'utilisation</li>
+                    <li>Nous ne sommes pas responsables des problèmes liés au téléchargement sur ces plateformes</li>
+                    <li>Le support est fourni via les canaux officiels de ces plateformes</li>
+                </ul>
+            </section>
+            
+            <section class="mb-8">
+                <h2 class="text-2xl font-semibold mb-4">8. Services premium et abonnements</h2>
+                <p class="mb-4">Nous proposons des contenus premium via Patreon et LemonSqueezy :</p>
+                <ul class="list-disc ml-6 mb-4">
+                    <li>Les paiements sont gérés par ces plateformes tierces</li>
+                    <li>L'abonnement Patreon donne accès à du contenu en avant-première, des salons sur discord et des contenu exclusif ou premium</li>
+                    <li>Les avantages premium sont sujets à modification</li>
+                    <li>Aucun remboursement n'est possible sauf obligation légale</li>
+                    <li>Les contenus exclusifs ou premium restent soumis à nos conditions d'utilisation</li>
+                </ul>
+            </section>
+
+            <section class="mb-8">
+                <h2 class="text-2xl font-semibold mb-4">9. Guides et tutoriels</h2>
+                <p class="mb-4">Les guides et tutoriels sont fournis à titre informatif :</p>
+                <ul class="list-disc ml-6 mb-4">
+                    <li>Nous nous efforçons de fournir des informations exactes et à jour</li>
+                    <li>Nous ne garantissons pas les résultats de l'application de ces guides</li>
+                    <li>Les utilisateurs suivent ces guides sous leur propre responsabilité</li>
+                </ul>
+            </section>
+
+            <section class="mb-8">
+                <h2 class="text-2xl font-semibold mb-4">10. Limitation de responsabilité</h2>
                 <p class="mb-4">
-                    Vous reconnaissez et acceptez que Voxel ne peut être tenu responsable de tout Contenu généré par
-                    l'utilisateur et que
-                    vous utilisez le Contenu généré par l'utilisateur à vos propres risques.
+                    Le contenu est fourni "tel quel" sans garantie d'aucune sorte. Voxel ne peut être tenu responsable 
+                    des dommages directs ou indirects résultant de l'utilisation du site.
                 </p>
             </section>
 
-            <section>
-                <h2 class="text-2xl font-bold mb-2">5. Résiliation</h2>
+            <section class="mb-8">
+                <h2 class="text-2xl font-semibold mb-4">11. Modification des conditions</h2>
                 <p class="mb-4">
-                    Ces Conditions Générales d'Utilisation entrent en vigueur dès que vous accédez à ce site web et
-                    resteront en vigueur
-                    jusqu'à leur résiliation. Voxel peut résilier ces Conditions Générales d'Utilisation à tout
-                    moment et sans préavis si
-                    vous ne respectez pas l'une des dispositions de ces Conditions Générales d'Utilisation.
+                    Nous nous réservons le droit de modifier ces conditions à tout moment. 
+                    Les modifications prennent effet dès leur publication sur le site.
+                </p>
+            </section>
+
+            <section class="mb-8">
+                <h2 class="text-2xl font-semibold mb-4">12. Contact</h2>
+                <p class="mb-4">
+                    Pour toute question concernant ces conditions d'utilisation, 
+                    vous pouvez nous contacter à : teams.voxel@gmail.com
                 </p>
             </section>
         </div>

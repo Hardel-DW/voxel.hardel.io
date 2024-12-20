@@ -1,0 +1,79 @@
+---
+import CompoundLayout from "@/components/layouts/CompoundLayout.astro";
+import ShiningStars from "@/components/ui/pattern/ShiningStars.astro";
+
+const description = "Mentions légales du site Voxel, spécialisé dans la création de contenu Minecraft.";
+---
+
+<CompoundLayout title="Mentions Légales - Voxel" description={description}>
+    <div class="absolute rounded-full w-3/4 h-1/2 bg-linear-to-r from-[#401727] to-[#311e7696] opacity-20 blur-[10rem] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"/>
+    <div class="fixed inset-0 -z-10">
+        <ShiningStars/>
+    </div>
+            
+    <div class="my-48 relative z-10">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h1 class="text-4xl font-bold mb-6">Mentions Légales</h1>
+
+        <section class="mb-8">
+            <h2 class="text-2xl font-semibold mb-4">1. Éditeur du site</h2>
+            <p>Ce site est édité par Hardel, Hardel étant un pseudonyme.</p>
+            <p>Contact : teams.voxel@gmail.com</p>
+            <p>Site non-commercial (en cours de développement vers une activité commerciale)</p>
+        </section>
+
+        <section class="mb-8">
+            <h2 class="text-2xl font-semibold mb-4">2. Hébergement</h2>
+            <p>Ce site est hébergé par :</p>
+            <p>Vercel Inc. - vercel.com</p>
+            <p>États-Unis</p>
+        </section>
+
+        <section class="mb-8">
+            <h2 class="text-2xl font-semibold mb-4">3. Propriété intellectuelle</h2>
+            <p>L'ensemble du contenu de ce site (textes, images, vidéos) est la propriété exclusive de Hardel sauf mention contraire.</p>
+            <p>Ce site propose du contenu lié au jeu Minecraft® mais n'est pas affilié à Mojang Studios ou Microsoft Corporation.</p>
+            <p>Minecraft® est une marque déposée de Mojang Studios.</p>
+        </section>
+
+        <section class="mb-8">
+            <h2 class="text-2xl font-semibold mb-4">4. Nom de domaine</h2>
+            <p>Le nom de domaine est géré par Cloudflare, Inc.</p>
+            <ul>
+                <li>
+                    <a href="https://www.cloudflare.com/fr-fr/">Cloudflare</a>
+                </li>
+                <li>
+                    <a href="https://www.google.com/intl/fr/policies/privacy/">Google</a>
+                </li>
+            </ul>
+        </section>
+
+        <section class="mb-8">
+            <h2 class="text-2xl font-semibold mb-4">5. Limitation de responsabilité</h2>
+                <p>
+                    Les informations fournies sur ce site le sont à titre informatif. L'éditeur s'efforce d'assurer
+                    l'exactitude des informations diffusées mais ne peut garantir l'exactitude, la complétude et
+                    l'actualité des informations diffusées sur son site.
+                </p>
+            </section>
+
+        <section class="mb-8">
+            <h2 class="text-2xl font-semibold mb-4">6. Données statistiques</h2>
+            <p>Ce site utilise Google Analytics ou autres outils de suivi pour l'analyse d'audience ou de comportement. Ces données sont traitées de manière anonyme.</p>
+            <p>Pour plus d'informations sur la gestion des données personnelles, veuillez consulter notre politique de confidentialité.</p>
+        </section>
+
+        <section class="mb-8">
+            <h2 class="text-2xl font-semibold mb-4">7. Crédits</h2>
+            <p>Technologies utilisées : Astro, TailwindCSS, Neon, Vercel, Cloudflare, Google, Vite, Vitest, Biome, Drizzle, typescipt.</p>
+            <p>Comporte un back-end statique.</p>
+        </section>
+
+        <section class="mb-8">
+            <h2 class="text-2xl font-semibold mb-4">8. Modification des mentions légales</h2>
+            <p>L'éditeur se réserve le droit de modifier ces mentions légales à tout moment. L'utilisateur est invité à les consulter régulièrement.</p>
+        </section>
+        </div>
+    </div>
+</CompoundLayout>

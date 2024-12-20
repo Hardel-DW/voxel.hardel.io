@@ -11,11 +11,12 @@ import {
 import { calculateInitialToggle } from "@/lib/minecraft/core/engine/managers/InitialToggle.ts";
 import type { ToolConfiguration } from "@/lib/minecraft/core/schema/primitive";
 import type { ToggleSectionMap } from "@/lib/minecraft/core/schema/primitive/toggle";
-import { type RegistryElement, getRegistry, parseZip, readDatapackFile } from "@/lib/minecraft/mczip.ts";
+import { type RegistryElement, getRegistry, getVoxelConfig, parseZip, readDatapackFile } from "@/lib/minecraft/mczip.ts";
 import type { TagType } from "@voxel/definitions";
 import { Logger } from "./migrations/logger";
 import type { Log } from "./migrations/types";
 import type { Unresolved } from "./resolver/field/type";
+import type { ConfiguratorConfigFromDatapack } from "@/lib/minecraft/core/Configurator.ts";
 
 interface PackMcmeta {
     pack: {
@@ -24,9 +25,13 @@ interface PackMcmeta {
     };
 }
 
-export type Parser<T extends VoxelElement, K extends DataDrivenElement, UseTags extends boolean = false> = UseTags extends true
-    ? (element: RegistryElement<K>, tags: string[]) => RegistryElement<T>
-    : (element: RegistryElement<K>) => RegistryElement<T>;
+export interface ParserParams<K extends DataDrivenElement> {
+    element: RegistryElement<K>;
+    tags?: string[];
+    configurator?: ConfiguratorConfigFromDatapack;
+}
+
+export type Parser<T extends VoxelElement, K extends DataDrivenElement> = (params: ParserParams<K>) => RegistryElement<T>;
 
 export function parseDatapackElement<T>(files: Record<string, Uint8Array>, config: string): RegistryElement<T>[] {
     return getRegistry<T>(files, config);
@@ -80,15 +85,19 @@ export async function parseDatapack<T extends keyof Analysers>(
     }
 
     const mainRegistry = parseDatapackElement<GetAnalyserMinecraft<T>>(files, main);
-
     const tagsRegistry = config.analyser.registries.tags ? parseDatapackElement<TagType>(files, config.analyser.registries.tags) : [];
 
     const compiled = mainRegistry.map((element) => {
+        const configurator = getVoxelConfig(files, element.identifier);
         const tags = tagsRegistry
             .filter((tag) => isPresentInTag(tag, element.identifier.toString()))
             .map((tag) => tag.identifier.toString());
 
-        return analyser.parser(element, tags);
+        return analyser.parser({
+            element,
+            tags,
+            configurator
+        });
     });
 
     if (compiled.length === 0) return "tools.enchantments.warning.no_elements";
@@ -147,11 +156,13 @@ export function parseSpecificElement<T extends keyof Analysers>(
 
     const tags = tagsRegistry.filter((tag) => isPresentInTag(tag, identifier.toString())).map((tag) => tag.identifier.toString());
 
-    return analyserResult.analyser.parser(
-        {
+    const configurator = getVoxelConfig(files, identifier);
+    return analyserResult.analyser.parser({
+        element: {
             identifier,
             data: dataDrivenElement
         },
-        tags
-    );
+        tags,
+        configurator
+    });
 }

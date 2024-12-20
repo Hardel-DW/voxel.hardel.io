@@ -5,9 +5,13 @@ import { DataDrivenToVoxelFormat, type EnchantmentProps, VoxelToDataDriven } fro
 import { ENCHANT_TOOL_CONFIG } from "@/lib/minecraft/core/schema/enchant";
 import type { ToolConfiguration } from "@/lib/minecraft/core/schema/primitive";
 import type { Enchantment } from "@voxel/definitions";
+import type { ConfiguratorConfigFromDatapack } from "@/lib/minecraft/core/Configurator.ts";
 
 export type DataDrivenElement = Record<string, unknown>;
-export type VoxelElement = Record<string, unknown>;
+export interface VoxelElement extends Record<string, unknown> {
+    override?: ConfiguratorConfigFromDatapack;
+}
+
 export type GetAnalyserVoxel<T extends keyof Analysers> = Analysers[T]["voxel"];
 export type GetAnalyserMinecraft<T extends keyof Analysers> = Analysers[T]["minecraft"];
 
@@ -20,7 +24,7 @@ export type Analysers = {
 
 export interface Analyser<T extends VoxelElement, K extends DataDrivenElement, UseTags extends boolean = false> {
     compiler: Compiler<T, K>;
-    parser: Parser<T, K, UseTags>;
+    parser: Parser<T, K>;
     useTags: UseTags;
 }
 

@@ -3,6 +3,7 @@ import type { VoxelElement } from "@/lib/minecraft/core/engine/Analyser.ts";
 import { voxelDatapacks } from "@/lib/minecraft/voxel/VoxelDatapack.ts";
 import JSZip from "jszip";
 import type { Logger } from "./core/engine/migrations/logger";
+import type { ConfiguratorConfigFromDatapack } from "./core/Configurator";
 
 export type RegistryElement<RegistryType> = {
     data: RegistryType;
@@ -45,6 +46,17 @@ export function getRegistry<T>(files: Record<string, Uint8Array>, registry: stri
     }
 
     return registries;
+}
+
+/**
+ * Get the Voxel configuration file, if it exists, il est localisés au même endroit que l'identifier mais pas dans le dossier data mais dans le dosssier voxel.
+ * @param identifier - The identifier to get the configuration file for
+ * @returns The configuration file, if it exists
+ */
+export function getVoxelConfig(files: Record<string, Uint8Array>, identifier: Identifier): ConfiguratorConfigFromDatapack | undefined {
+    const file = `${identifier.voxelFilePath()}.json`;
+    if (!(file in files)) return undefined;
+    return JSON.parse(new TextDecoder().decode(files[file]));
 }
 
 export async function parseZip(file: File): Promise<Record<string, Uint8Array>> {

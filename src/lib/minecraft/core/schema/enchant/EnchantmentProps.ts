@@ -1,6 +1,6 @@
 import type { VoxelElement } from "@/lib/minecraft/core/engine/Analyser.ts";
 import type { Compiler } from "@/lib/minecraft/core/engine/Compiler.ts";
-import type { Parser } from "@/lib/minecraft/core/engine/Parser.ts";
+import type { Parser, ParserParams } from "@/lib/minecraft/core/engine/Parser.ts";
 import type { SlotRegistryType } from "@/lib/minecraft/core/engine/managers/SlotManager.ts";
 import type { RegistryElement } from "@/lib/minecraft/mczip.ts";
 import type { EffectComponentsRecord, Enchantment, TextComponentType } from "@voxel/definitions";
@@ -30,11 +30,12 @@ export interface EnchantmentProps extends VoxelElement {
  * @param enchantment
  * @param tags
  */
-export const DataDrivenToVoxelFormat: Parser<EnchantmentProps, Enchantment, true> = (
-    enchantment: RegistryElement<Enchantment>,
-    tags: string[]
-): RegistryElement<EnchantmentProps> => {
-    const data = structuredClone(enchantment.data);
+export const DataDrivenToVoxelFormat: Parser<EnchantmentProps, Enchantment> = ({
+    element,
+    tags = [],
+    configurator
+}: ParserParams<Enchantment>): RegistryElement<EnchantmentProps> => {
+    const data = structuredClone(element.data);
     const description = data.description;
     const maxLevel = data.max_level;
     const weight = data.weight;
@@ -58,7 +59,7 @@ export const DataDrivenToVoxelFormat: Parser<EnchantmentProps, Enchantment, true
     const softDelete = (!data.effects || Object.entries(data.effects).length === 0) && tagsToCheck.length === 0;
 
     return {
-        identifier: enchantment.identifier,
+        identifier: element.identifier,
         data: {
             description,
             exclusiveSet,
@@ -76,7 +77,8 @@ export const DataDrivenToVoxelFormat: Parser<EnchantmentProps, Enchantment, true
             slots,
             assignedTags,
             softDelete,
-            disabledEffects: []
+            disabledEffects: [],
+            override: configurator
         }
     };
 };

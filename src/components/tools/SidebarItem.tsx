@@ -12,6 +12,10 @@ import TranslateText from "./elements/text/TranslateText";
 export function SidebarItem<T extends keyof Analysers>(props: {
     element: RegistryElement<GetAnalyserVoxel<T>>;
 }) {
+    if (props.element.data?.override?.configurator.hide) {
+        return null;
+    }
+
     const context = useConfigurator();
     const switchRef = useRef<HTMLDivElement>(null);
 

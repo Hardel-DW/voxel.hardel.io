@@ -98,6 +98,10 @@ export class Identifier {
         return `data/${this.namespace}/${this.registry}/${this.resource}`;
     }
 
+    public voxelFilePath(): string {
+        return `voxel/${this.namespace}/${this.registry}/${this.resource}`;
+    }
+
     public equals(other: Identifier): boolean {
         return (
             this.getNamespace() === other.getNamespace() &&

@@ -5,14 +5,22 @@ import Card from "@/components/pages/guide/overview/Card.astro";
 import DashedPattern from "@/components/ui/pattern/DashedPattern.astro";
 import { cn } from "@/lib/utils";
 import type { GetStaticPaths, InferGetStaticPropsType } from "astro";
-import ShiningStars from "../../components/ui/pattern/ShiningStars.astro";
+import ShiningStars from "@/components/ui/pattern/ShiningStars.astro";
+import { getTranslations, names } from "@/lib/i18n";
 
 export const prerender = true;
+const { lang, translate } = await getTranslations(Astro.url);
 export const getStaticPaths = (async ({ paginate }) => {
     const allPosts = await getCollection("guide", ({ data }) => !data.metadata.draft);
     const allSortedPosts = allPosts.sort((a, b) => b.data.metadata.publishDate.valueOf() - a.data.metadata.publishDate.valueOf());
 
-    return paginate(allSortedPosts, { pageSize: 6 });
+    return names.flatMap((element) => {
+        const filteredPosts = allSortedPosts.filter((post) => post.id.startsWith(element.lang));
+        return paginate(filteredPosts, {
+            params: { lang: element.lang },
+            pageSize: 6
+        });
+    });
 }) satisfies GetStaticPaths;
 
 type Props = InferGetStaticPropsType<typeof getStaticPaths>;
@@ -33,21 +41,23 @@ const { page }: Props = Astro.props;
         <div class="w-11/12 md:w-4/5 mx-auto py-16 relative">
             <article class={cn("grid md:grid-cols-2 pt-12 gap-10 lg:gap-16", {
                 "pb-56": page.data.length % 2 === 1
-            })}>
+            })}>  
                 <div class="size-full pt-20 md:pt-0 md:translate-y-8 xl:translate-y-12 flex flex-col justify-center items-start xl:gap-2">
-                    <h2 class="text-4xl xl:text-7xl font-bold">Les Guides</h2>
+                    <h2 class="text-4xl xl:text-7xl font-bold">
+                        {translate["guides.title"]} 
+                    </h2>
                     <p class="text-xl xl:text-3xl text-gray-400">
-                        Découvrez nos derniers guides et amusez-vous.
-                    </p>
+                        {translate["guides.discover"]}
+                    </p> 
                     <div class="h-1 xl:h-2 w-20 bg-pink-700 rounded-full mt-2"/>
                 </div>
                 {page.data.map((post, index: number) => (
                         <Card snippet={post.data.metadata.snippet}
                               date={post.data.metadata.publishDate.toDateString()}
                               author={post.data.metadata.author}
-                              loading={index <= 2 ? 'eager' : 'lazy'}
+                              loading={index <= 2 ? 'eager' : 'lazy'} 
                               decoding={index <= 2 ? 'sync' : 'async'}
-                              href={`/guides/${post.id}`}
+                              href={`/${lang}/guides/${post.id.split('/')[1] || post.id}`}
                               images={{...post.data.metadata.images}}
                         >
                             {post.data.metadata.title}

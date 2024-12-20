@@ -5,7 +5,6 @@ import CompoundLayout from "@/components/layouts/CompoundLayout.astro";
 import BlogCard from "@/components/ui/BlogCard.astro";
 import Box from "@/components/ui/Box.astro";
 import Slides from "@/components/ui/Slides.astro";
-import Adsense from "@/components/ui/adsense.astro";
 import Button from "@/components/ui/button.astro";
 import DashedPattern from "@/components/ui/pattern/DashedPattern.astro";
 import Fog from "@/components/ui/pattern/Fog.astro";
@@ -41,25 +40,23 @@ const slides = [
         }
     },
     {
-        title: "Des ressources libres d'utilisation",
-        description:
-            "Nous proposons des ressources libres et gratuites ainsi que des packs payants thématiques pour que vous puissiez créer du contenu que ce soit des mods, datapacks, ou autre.",
+        title: translate["home.resource.title"],
+        description: translate["home.resource.description"],
         image: "/images/background/marketplace.webp",
         button: {
             main: {
-                href: "/resources/asset",
+                href: `/${lang}/resources/asset`,
                 text: translate["generic.take_a_look"]
             },
             secondary: {
-                href: "/resources/asset",
+                href: `/${lang}/resources/asset`,
                 text: translate["generic.learn_more"]
             }
         }
     },
     {
-        title: "Du contenu pour vous amuser",
-        description:
-            "Nous proposons des datapacks pour que vous puissiez vous amuser, des nouveaux enchantements, des nouvelles structures, et des nouvelles récompenses",
+        title: translate["home.datapack.title"],
+        description: translate["home.datapack.description"],
         image: "/images/background/datapack.webp",
         button: {
             main: {
@@ -73,9 +70,8 @@ const slides = [
         }
     },
     {
-        title: "Accompagnés d'un wiki",
-        description:
-            "Les datapacks sont accompagnés d'un wiki pour les joueurs. Retrouver la liste des enchantements en vidéo, les récompenses de chaque structures, et bien d'autres choses !",
+        title: translate["home.wiki.title"],
+        description: translate["home.wiki.description"],
         image: "/images/tools/yggdrasil_loot.webp",
         button: {
             main: {
@@ -196,11 +192,6 @@ export async function getStaticPaths() {
                             {translate["home.feature.keyword_3"]}
                         </h2>
                     </div>
-                    <div class="col-span-3 w-full">
-                        <div class="flex justify-center items-center">
-                            <Adsense slot="4898864304"/>
-                        </div>
-                    </div>
                 </div>
             </div>
         </section>
@@ -257,12 +248,6 @@ export async function getStaticPaths() {
                     </Button>
                 </div>
             </Box>
-
-            <div class="flex flex-col items-center justify-between bg-gray cursor-pointer border-t-2 outline-r border-zinc-800 p-10 sm:p-16 rounded-3xl shadow-2xl shadow-black transition opacity-75 hover:opacity-100">
-                <div class="size-full flex justify-center items-center">
-                    <Adsense slot="2018282613" format="rectangle" style="width: 100%; aspect-ratio: 1/1"/>
-                </div>
-            </div>
         </section>
 
         <!-- Blog -->
@@ -270,7 +255,7 @@ export async function getStaticPaths() {
             <DashedPattern/>
             <div class="w-3/4 pt-40">
                 <h1 class="text-white text-2xl md:text-4xl font-semibold tracking-tighter mt-4 text-balance">
-                    Actualités du moment
+                    {translate["blog.actuality"]}
                 </h1>
                 <div class="h-1 w-full bg-zinc-700 rounded-full mt-2"/>
             </div>

@@ -1,5 +1,5 @@
-import { useTranslate } from "@/components/TranslateContext.tsx";
-import { useConfigurator } from "@/components/tools/ConfiguratorContext.tsx";
+import { useTranslate } from "@/components/useTranslate";
+import { useConfiguratorStore } from "@/lib/store/configuratorStore";
 import TagViewer from "@/components/tools/elements/TagViewer";
 import ToolCategory from "@/components/tools/elements/ToolCategory.tsx";
 import ToolCounter from "@/components/tools/elements/ToolCounter.tsx";
@@ -15,7 +15,6 @@ import Donation from "@/components/tools/elements/misc/Donation.tsx";
 import ToolReveal from "@/components/tools/elements/reveal/ToolReveal.tsx";
 import ToolEffectRecord from "@/components/tools/elements/schema/ToolEffectRecord.tsx";
 import TextRender from "@/components/tools/elements/text/TextRender.tsx";
-import { getKey } from "@/components/tools/elements/text/TranslateText";
 import type { Analysers } from "@/lib/minecraft/core/engine/Analyser";
 import { checkCondition } from "@/lib/minecraft/core/engine/condition";
 import { checkLocks } from "@/lib/minecraft/core/engine/lock/index";
@@ -24,28 +23,33 @@ import type { FormComponent } from "@/lib/minecraft/core/schema/primitive/compon
 import { cn } from "@/lib/utils";
 import type { EffectComponentsRecord } from "@voxel/definitions";
 import { toast } from "sonner";
+import { getKey } from "@/lib/minecraft/i18n/translations";
 
 export function RenderComponent<T extends keyof Analysers>({
     component
 }: {
     component: FormComponent;
 }) {
-    const context = useConfigurator();
-    const { translate } = useTranslate();
-    if (!context.currentElement) return null;
+    const { t } = useTranslate();
+    const store = useConfiguratorStore();
+    const currentElementId = store.currentElementId;
+    const handleChange = store.handleChange;
+    const elements = store.elements;
+    if (!currentElementId) return null;
+    const currentElement = elements.find((element) => element.identifier.equals(currentElementId));
+    if (!currentElement) return null;
 
-    if (component.hide && checkCondition<T>(component.hide, context.currentElement)) {
+    if (component.hide && checkCondition<T>(component.hide, currentElement)) {
         return null;
     }
 
     switch (component.type) {
         case "Counter": {
-            const result = getValue<T, number>(component.value, context.currentElement);
+            const result = getValue<T, number>(component.value, currentElement);
             if (typeof result !== "number") {
-                toast.error(translate["generic.error"], {
-                    description: translate["tools.enchantments.warning.component"]
+                toast.error(t("generic.error"), {
+                    description: t("tools.enchantments.warning.component")
                 });
-
                 return null;
             }
 
@@ -60,15 +64,15 @@ export function RenderComponent<T extends keyof Analysers>({
                     short={component.short}
                     image={component.image}
                     description={component.description}
-                    onChange={(value) => context.handleChange(component.action, context.currentElement?.identifier, value)}
+                    onChange={(value) => handleChange(component.action, currentElement?.identifier, value)}
                 />
             );
         }
         case "Range": {
-            const result = getValue<T, number>(component.value, context.currentElement);
+            const result = getValue<T, number>(component.value, currentElement);
             if (typeof result !== "number") {
-                toast.error(translate["generic.error"], {
-                    description: translate["tools.enchantments.warning.component"]
+                toast.error(t("generic.error"), {
+                    description: t("tools.enchantments.warning.component")
                 });
 
                 return null;
@@ -80,13 +84,13 @@ export function RenderComponent<T extends keyof Analysers>({
                     id={getKey(component.label)}
                     value={result}
                     label={component.label}
-                    onValueChange={(value) => context.handleChange(component.action, context.currentElement?.identifier, value)}
+                    onValueChange={(value) => handleChange(component.action, currentElement?.identifier, value)}
                 />
             );
         }
         case "Switch": {
-            const result = checkCondition<T>(component.condition, context.currentElement);
-            const { isLocked, text: lockText } = checkLocks<T>(component.lock, context.currentElement);
+            const result = checkCondition<T>(component.condition, currentElement);
+            const { isLocked, text: lockText } = checkLocks<T>(component.lock, currentElement);
 
             return (
                 <ToolSwitch
@@ -96,13 +100,13 @@ export function RenderComponent<T extends keyof Analysers>({
                     lock={isLocked ? lockText : undefined}
                     description={component.description}
                     name={getKey(component.title)}
-                    onChange={(value) => context.handleChange(component.action, context.currentElement?.identifier, value)}
+                    onChange={(value) => handleChange(component.action, currentElement?.identifier, value)}
                 />
             );
         }
         case "Slot": {
-            const result = checkCondition<T>(component.condition, context.currentElement);
-            const { isLocked, text: lockText } = checkLocks<T>(component.lock, context.currentElement);
+            const result = checkCondition<T>(component.condition, currentElement);
+            const { isLocked, text: lockText } = checkLocks<T>(component.lock, currentElement);
 
             return (
                 <ToolSlot
@@ -114,13 +118,13 @@ export function RenderComponent<T extends keyof Analysers>({
                     lock={isLocked ? lockText : undefined}
                     description={component.description}
                     image={component.image}
-                    onChange={(value) => context.handleChange(component.action, context.currentElement?.identifier, value)}
+                    onChange={(value) => handleChange(component.action, currentElement?.identifier, value)}
                 />
             );
         }
         case "InlineSlot": {
-            const result = checkCondition<T>(component.condition, context.currentElement);
-            const { isLocked, text: lockText } = checkLocks<T>(component.lock, context.currentElement);
+            const result = checkCondition<T>(component.condition, currentElement);
+            const { isLocked, text: lockText } = checkLocks<T>(component.lock, currentElement);
 
             return (
                 <ToolInline
@@ -131,22 +135,18 @@ export function RenderComponent<T extends keyof Analysers>({
                     value={result}
                     lock={isLocked ? lockText : undefined}
                     image={component.image}
-                    onChange={(value) =>
-                        component.action && context.handleChange(component.action, context.currentElement?.identifier, value)
-                    }
+                    onChange={(value) => component.action && handleChange(component.action, currentElement?.identifier, value)}
                 />
             );
         }
         case "Effect": {
-            const result = getValue<T, EffectComponentsRecord>(component.value, context.currentElement);
+            const result = getValue<T, EffectComponentsRecord>(component.value, currentElement);
 
             return (
                 <ToolEffectRecord
                     value={result}
                     conditions={component.condition}
-                    onChange={(value) =>
-                        component.action && context.handleChange(component.action, context.currentElement?.identifier, value)
-                    }
+                    onChange={(value) => component.action && handleChange(component.action, currentElement?.identifier, value)}
                 />
             );
         }
@@ -198,8 +198,9 @@ export function RenderComponent<T extends keyof Analysers>({
             );
         }
         case "SwitchSlot": {
-            const checked = checkCondition<T>(component.condition, context.currentElement);
-            const { isLocked, text: lockText } = checkLocks<T>(component.lock, context.currentElement);
+            const checked = checkCondition<T>(component.condition, currentElement);
+            const { isLocked, text: lockText } = checkLocks<T>(component.lock, currentElement);
+            console.log(component.title);
 
             return (
                 <ToolSwitchSlot
@@ -209,9 +210,7 @@ export function RenderComponent<T extends keyof Analysers>({
                     image={component.image}
                     checked={checked}
                     lock={isLocked ? lockText : undefined}
-                    onChange={(value) =>
-                        component.action && context.handleChange(component.action, context.currentElement?.identifier, value)
-                    }
+                    onChange={(value) => component.action && handleChange(component.action, currentElement?.identifier, value)}
                 />
             );
         }

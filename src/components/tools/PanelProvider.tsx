@@ -1,26 +1,19 @@
-import { TranslateProvider } from "@/components/TranslateContext.tsx";
-import { ConfiguratorProvider } from "@/components/tools/ConfiguratorContext.tsx";
-import type { TranslationRecord } from "@/lib/i18n.ts";
-import type { Analysers } from "@/lib/minecraft/core/engine/Analyser.ts";
 import { TooltipProvider } from "@radix-ui/react-tooltip";
 import type React from "react";
 import { Toaster } from "sonner";
+import { TranslateProvider } from "@/components/TranslateContext";
 
 export default function PanelProvider(props: {
-    translate: TranslationRecord;
     lang: string;
-    tool: keyof Analysers;
     children?: React.ReactNode;
 }) {
     return (
-        <TranslateProvider translate={props.translate} lang={props.lang}>
-            <ConfiguratorProvider tool={props.tool}>
-                <TooltipProvider>
-                    <div id="portal" />
-                    {props.children}
-                    <Toaster richColors />
-                </TooltipProvider>
-            </ConfiguratorProvider>
+        <TranslateProvider initialLang={props.lang}>
+            <TooltipProvider>
+                <div id="portal" />
+                {props.children}
+                <Toaster richColors />
+            </TooltipProvider>
         </TranslateProvider>
     );
 }

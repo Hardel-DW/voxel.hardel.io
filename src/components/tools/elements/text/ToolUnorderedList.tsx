@@ -1,4 +1,4 @@
-import { getKey } from "@/components/tools/elements/text/TranslateText.tsx";
+import { getKey } from "@/lib/minecraft/i18n/translations";
 import ToolListItem from "@/components/tools/elements/text/ToolListItem";
 import type { UnorderedListChildren } from "@/lib/minecraft/core/schema/primitive/text";
 

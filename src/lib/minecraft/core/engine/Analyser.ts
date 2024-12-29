@@ -1,11 +1,17 @@
 import type { Compiler } from "@/lib/minecraft/core/engine/Compiler.ts";
 import type { Parser } from "@/lib/minecraft/core/engine/Parser.ts";
 import type { Unresolved } from "@/lib/minecraft/core/engine/resolver/field/type.ts";
-import { DataDrivenToVoxelFormat, type EnchantmentProps, VoxelToDataDriven } from "@/lib/minecraft/core/schema/enchant/EnchantmentProps.ts";
+import {
+    DataDrivenToVoxelFormat,
+    enchantmentProperties,
+    type EnchantmentProps,
+    VoxelToDataDriven
+} from "@/lib/minecraft/core/schema/enchant/EnchantmentProps.ts";
 import { ENCHANT_TOOL_CONFIG } from "@/lib/minecraft/core/schema/enchant";
 import type { ToolConfiguration } from "@/lib/minecraft/core/schema/primitive";
 import type { Enchantment } from "@voxel/definitions";
 import type { ConfiguratorConfigFromDatapack } from "@/lib/minecraft/core/Configurator.ts";
+import type { FieldProperties } from "@/lib/minecraft/core/schema/primitive/properties";
 
 export type DataDrivenElement = Record<string, unknown>;
 export interface VoxelElement extends Record<string, unknown> {
@@ -25,6 +31,7 @@ export type Analysers = {
 export interface Analyser<T extends VoxelElement, K extends DataDrivenElement, UseTags extends boolean = false> {
     compiler: Compiler<T, K>;
     parser: Parser<T, K>;
+    properties: (lang: string) => FieldProperties;
     useTags: UseTags;
 }
 
@@ -49,6 +56,7 @@ export const versionedAnalyserCollection: VersionedAnalysers = {
             analyser: {
                 compiler: VoxelToDataDriven,
                 parser: DataDrivenToVoxelFormat,
+                properties: enchantmentProperties,
                 useTags: true
             },
             range: { min: 48, max: Number.POSITIVE_INFINITY },

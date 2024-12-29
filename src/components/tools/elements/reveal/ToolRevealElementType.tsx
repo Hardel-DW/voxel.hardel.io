@@ -1,4 +1,4 @@
-import { useTranslate } from "@/components/TranslateContext";
+import { useTranslate } from "@/components/useTranslate";
 import Button from "@/components/ui/react/Button.tsx";
 import TranslateText from "@/components/tools/elements/text/TranslateText";
 import type { TranslateTextType } from "@/lib/minecraft/core/schema/primitive/text";
@@ -15,12 +15,12 @@ export default function ToolRevealElement(props: {
     description: TranslateTextType | string;
     onClick: () => void;
 }) {
-    const { translate } = useTranslate();
+    const { t } = useTranslate();
 
     const handleClick = () => {
         if (props.soon) {
-            toast.message(translate["generic.soon"], {
-                description: translate["tools.toast.soon"]
+            toast.message(t("generic.soon"), {
+                description: t("tools.toast.soon")
             });
 
             return;

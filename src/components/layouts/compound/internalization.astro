@@ -2,6 +2,8 @@
 import { getTranslations, names } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 const { lang } = await getTranslations(Astro.url);
+
+const path = new URL(Astro.url).pathname.split("/").slice(2).join("/"); // Remove domain and language prefix
 ---
 
 <div class="relative group/langage">
@@ -28,7 +30,7 @@ const { lang } = await getTranslations(Astro.url);
         {names.map((element) => (
             <li>
                 <a
-                    href={`/${element.lang}`}
+                    href={`/${element.lang}/${path}`}
                     class={cn(
                         "flex items-center justify-between px-4 py-2 transition hover:bg-zinc-900 rounded-md",
                         element.lang === lang

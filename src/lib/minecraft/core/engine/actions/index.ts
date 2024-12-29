@@ -65,3 +65,15 @@ export function updateData<T extends keyof Analysers>(
         }
     })();
 }
+
+/**
+ * Split a SequentialAction into multiple actions, handling nested sequential actions recursively
+ * @param action - The action to split (can be any Action type)
+ * @returns The flattened list of actions
+ */
+export function SplitSequentialAction(action: Action): Action[] {
+    if (action.type === "sequential") {
+        return action.actions.flatMap((subAction) => SplitSequentialAction(subAction));
+    }
+    return [action];
+}

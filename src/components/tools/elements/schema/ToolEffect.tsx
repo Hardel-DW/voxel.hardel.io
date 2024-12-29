@@ -1,4 +1,4 @@
-import { useTranslate } from "@/components/TranslateContext.tsx";
+import { useTranslate } from "@/components/useTranslate";
 import { Identifier } from "@/lib/minecraft/core/Identifier.ts";
 import type { EffectComponentsRecord } from "@voxel/definitions";
 import type React from "react";
@@ -8,7 +8,7 @@ export function ToolEffect(props: {
     isChecked: boolean;
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }) {
-    const { translate } = useTranslate();
+    const { t } = useTranslate();
 
     return (
         <div className="bg-blue-50/5 ring-0 ring-zinc-700 transition-all hover:ring-1 p-6 rounded-xl">
@@ -17,7 +17,7 @@ export function ToolEffect(props: {
                     <span className="text-white line-clamp-1">
                         {Identifier.fromString(props.name, "enchantment_effect_type").renderResource()}
                     </span>
-                    <span className="text-xs text-zinc-400 font-light line-clamp-2">{translate[`tools.effects.${props.name}`]}</span>
+                    <span className="text-xs text-zinc-400 font-light line-clamp-2">{t(`tools.effects.${props.name}`)}</span>
                 </div>
                 <input id={props.name} name={props.name} type="checkbox" checked={props.isChecked} onChange={props.onChange} />
             </label>

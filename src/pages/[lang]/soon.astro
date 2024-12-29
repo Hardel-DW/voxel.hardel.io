@@ -14,7 +14,7 @@ export async function getStaticPaths() {
 }
 ---
 
-<CompoundLayout title="404 Not Found">
+<CompoundLayout title={translate["soon.title"]} description={translate["soon.description"]}>
     <TriangleWave client:only="react"/>
 
     <div class="relative h-dvh max-w-full flex justify-center items-center container mx-auto">

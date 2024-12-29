@@ -1,4 +1,3 @@
-import { useConfigurator } from "@/components/tools/ConfiguratorContext.tsx";
 import TextComponent from "@/components/tools/elements/schema/TextComponent.tsx";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/shadcn/tooltip.tsx";
 import type { Analysers, GetAnalyserVoxel } from "@/lib/minecraft/core/engine/Analyser";
@@ -8,6 +7,7 @@ import type { RegistryElement } from "@/lib/minecraft/mczip.ts";
 import { cn } from "@/lib/utils.ts";
 import { useRef } from "react";
 import TranslateText from "./elements/text/TranslateText";
+import { useConfiguratorStore } from "@/lib/store/configuratorStore";
 
 export function SidebarItem<T extends keyof Analysers>(props: {
     element: RegistryElement<GetAnalyserVoxel<T>>;
@@ -16,11 +16,20 @@ export function SidebarItem<T extends keyof Analysers>(props: {
         return null;
     }
 
-    const context = useConfigurator();
+    const store = useConfiguratorStore();
     const switchRef = useRef<HTMLDivElement>(null);
+    const unresolvedConfiguration = store.configuration;
+    const toggleSection = store.toggleSection;
+    const currentElementId = store.currentElementId;
+    const setCurrentElementId = store.setCurrentElementId;
+    const handleChange = store.handleChange;
+    const elements = store.elements;
 
-    if (!context?.configuration?.sidebar || !context.toggleSection) return null;
-    const configuration = resolve(context.configuration, context.toggleSection);
+    if (!currentElementId) return null;
+    const currentElement = elements.find((element) => element.identifier.equals(currentElementId));
+
+    if (!unresolvedConfiguration || !toggleSection || !currentElement) return null;
+    const configuration = resolve(unresolvedConfiguration, toggleSection);
     if (!configuration) return null;
 
     const lock = configuration.sidebar.lock;
@@ -32,22 +41,22 @@ export function SidebarItem<T extends keyof Analysers>(props: {
     const descriptionValue = props.element.data[descriptionField] as string;
     const check = softDeleteField ? props.element.data[softDeleteField] : null;
 
-    if (!context.currentElement || typeof check !== "boolean") return null;
+    if (!currentElement || typeof check !== "boolean") return null;
 
     const handleClick = () => {
         if (switchRef.current?.contains(document.activeElement)) return;
-        context.setCurrentElementId(props.element.identifier);
+        setCurrentElementId(props.element.identifier);
     };
 
     const handleSoftDelete = (checked: boolean) => {
         if (!configuration.sidebar.action) return;
-        context.handleChange(configuration.sidebar.action, props.element.identifier, checked);
+        handleChange(configuration.sidebar.action, props.element.identifier, checked);
     };
 
     return (
         <div
             className={cn("odd:bg-black/75 pl-4 pr-2 py-2 rounded-xl", {
-                "ring-1 ring-rose-900": context.currentElement?.identifier?.equals(props.element.identifier)
+                "ring-1 ring-rose-900": currentElement?.identifier?.equals(props.element.identifier)
             })}>
             <div className="flex items-center justify-between" onClick={handleClick} onKeyDown={handleClick}>
                 <TextComponent data={descriptionValue} />

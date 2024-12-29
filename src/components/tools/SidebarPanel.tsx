@@ -1,17 +1,18 @@
-import { useTranslate } from "@/components/TranslateContext.tsx";
-import { useConfigurator } from "@/components/tools/ConfiguratorContext.tsx";
+import { useTranslate } from "@/components/useTranslate";
 import DebugConfigurator from "@/components/tools/DebugConfigurator.tsx";
 import DownloadButton from "@/components/tools/DownloadButton.tsx";
 import { SidebarItem } from "@/components/tools/SidebarItem.tsx";
 import SettingsButton from "@/components/tools/elements/SettingsButton.tsx";
 import { Identifier } from "@/lib/minecraft/core/Identifier.ts";
+import { useConfiguratorStore } from "@/lib/store/configuratorStore";
 import { cn } from "@/lib/utils.ts";
 import { useState } from "react";
 
 export default function SidebarPanel() {
     const [width, setWidth] = useState(350);
-    const { translate } = useTranslate();
-    const { elements } = useConfigurator();
+    const { t } = useTranslate();
+    const store = useConfiguratorStore();
+    const elements = store.elements;
 
     if (elements.length === 0) return null;
 
@@ -28,7 +29,7 @@ export default function SidebarPanel() {
                             <div className="overflow-y-auto mt-2" style={{ flex: 1, height: "calc(100% - 56px)" }}>
                                 <div className="flex flex-col gap-x-8 px-2 justify-between">
                                     <div className="flex justify-between items-center">
-                                        <h2 className="text-2xl font-semibold">{translate["tools.enchantments.sidebar.title"]}</h2>
+                                        <h2 className="text-2xl font-semibold">{t("tools.enchantments.sidebar.title")}</h2>
                                         <DebugConfigurator />
                                     </div>
                                     <div className="h-1 w-full bg-zinc-800 rounded-full" />

@@ -36,7 +36,10 @@ export const slots: Unresolved<InterfaceConfiguration> = {
                         },
                         {
                             type: "Slot",
-                            title: "tools.enchantments.section.slots.offhand.title",
+                            title: {
+                                type: "translate",
+                                value: "tools.enchantments.section.slots.offhand.title"
+                            },
                             image: "/images/features/slots/offhand.webp",
                             action: {
                                 type: "set_computed_slot",
@@ -56,7 +59,10 @@ export const slots: Unresolved<InterfaceConfiguration> = {
                     children: [
                         {
                             type: "Slot",
-                            title: "tools.enchantments.section.slots.head.title",
+                            title: {
+                                type: "translate",
+                                value: "tools.enchantments.section.slots.head.title"
+                            },
                             image: "/images/features/slots/head.webp",
                             action: {
                                 type: "set_computed_slot",
@@ -71,7 +77,10 @@ export const slots: Unresolved<InterfaceConfiguration> = {
                         },
                         {
                             type: "Slot",
-                            title: "tools.enchantments.section.slots.chest.title",
+                            title: {
+                                type: "translate",
+                                value: "tools.enchantments.section.slots.chest.title"
+                            },
                             image: "/images/features/slots/chest.webp",
                             action: {
                                 type: "set_computed_slot",
@@ -86,7 +95,10 @@ export const slots: Unresolved<InterfaceConfiguration> = {
                         },
                         {
                             type: "Slot",
-                            title: "tools.enchantments.section.slots.legs.title",
+                            title: {
+                                type: "translate",
+                                value: "tools.enchantments.section.slots.legs.title"
+                            },
                             image: "/images/features/slots/legs.webp",
                             action: {
                                 type: "set_computed_slot",
@@ -101,7 +113,10 @@ export const slots: Unresolved<InterfaceConfiguration> = {
                         },
                         {
                             type: "Slot",
-                            title: "tools.enchantments.section.slots.feet.title",
+                            title: {
+                                type: "translate",
+                                value: "tools.enchantments.section.slots.feet.title"
+                            },
                             image: "/images/features/slots/feet.webp",
                             action: {
                                 type: "set_computed_slot",

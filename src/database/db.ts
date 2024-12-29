@@ -20,11 +20,9 @@ export const checkPurchase = async (userId: string, productId: string) => {
 };
 
 export const saveMigrationLog = async (log: Log) => {
-    console.log("Saving migration log:", log);
     const migrationLogId = randomUUID();
 
     try {
-        // Vérification et conversion de la date
         let date: Date;
         if (typeof log.date === "string") {
             const [day, month, year] = log.date.split("/");
@@ -52,10 +50,6 @@ export const saveMigrationLog = async (log: Log) => {
             logs: log.logs
         });
 
-        // Log pour debug des namespaces
-        console.log("Saving namespaces:", log.datapack.namespaces);
-
-        // Insertion des namespaces avec le bon ID de migration
         const namespaceValues = log.datapack.namespaces.map((namespace) => ({
             id: randomUUID(),
             migrationId: migrationLogId,

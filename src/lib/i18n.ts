@@ -5,7 +5,7 @@ export type TranslationRecord = Record<Translation, string> & { [key: string]: s
 
 export const getTranslations = async (url: URL) => {
     const [, lang] = url.pathname.split("/");
-    const verifiedLang = names.some((element) => element.lang === lang) ? lang : "en-us";
+    const verifiedLang = names.some((element: { lang: string }) => element.lang === lang) ? lang : "en-us";
     return await getTranslationFromLang(verifiedLang);
 };
 
@@ -19,4 +19,4 @@ export const getTranslationFromLang = async (lang: string) => {
     };
 };
 
-export const names = (await getCollection("i18n")).map((i) => ({ lang: i.id, name: i.data.name }));
+export const names = (await getCollection("i18n")).map((i: { id: string; data: { name: string } }) => ({ lang: i.id, name: i.data.name }));

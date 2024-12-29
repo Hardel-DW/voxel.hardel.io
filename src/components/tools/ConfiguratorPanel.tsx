@@ -1,4 +1,3 @@
-import { useConfigurator } from "@/components/tools/ConfiguratorContext.tsx";
 import { RenderComponent } from "@/components/tools/RenderComponent.tsx";
 import { TabsList, TabsTrigger } from "@/components/ui/shadcn/tabs.tsx";
 import { resolve } from "@/lib/minecraft/core/engine/resolver/field/resolveField";
@@ -6,15 +5,19 @@ import { cn } from "@/lib/utils.ts";
 import { Tabs, TabsContent } from "@radix-ui/react-tabs";
 import type React from "react";
 import TranslateText from "./elements/text/TranslateText";
+import { useConfiguratorStore } from "@/lib/store/configuratorStore";
+import type { FormComponent } from "@/lib/minecraft/core/schema/primitive/component";
 
 export default function ConfiguratorPanel(props: {
     children?: React.ReactNode;
     defaultTab: string;
 }) {
-    const { currentElement, elements, configuration, toggleSection } = useConfigurator();
-    if (elements.length === 0) return null;
-    if (!currentElement || !configuration || !toggleSection) return null;
-    const resolvedConfiguration = resolve(configuration, toggleSection);
+    const store = useConfiguratorStore();
+    if (store.elements.length === 0) return null;
+    const currentElement = store.elements.find((elem) => store.currentElementId && elem.identifier.equals(store.currentElementId));
+    if (!currentElement || !store.configuration || !store.toggleSection) return null;
+
+    const resolvedConfiguration = resolve(store.configuration, store.toggleSection);
 
     return (
         <>
@@ -54,7 +57,7 @@ export default function ConfiguratorPanel(props: {
                             )}
 
                             <div className="flex items flex-col gap-4">
-                                {section.components.map((component, index) => (
+                                {section.components.map((component: FormComponent, index) => (
                                     <RenderComponent key={index.toString()} component={component} />
                                 ))}
                             </div>

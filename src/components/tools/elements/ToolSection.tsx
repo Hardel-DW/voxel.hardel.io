@@ -1,4 +1,4 @@
-import { useConfigurator } from "@/components/tools/ConfiguratorContext.tsx";
+import { useConfiguratorStore } from "@/lib/store/configuratorStore";
 import Button from "@/components/ui/react/Button.tsx";
 import type { TranslateTextType } from "@/lib/minecraft/core/schema/primitive/text";
 import type { ToggleSection } from "@/lib/minecraft/core/schema/primitive/toggle";
@@ -13,7 +13,9 @@ export default function ToolSection(props: {
     children?: React.ReactNode;
     button?: { text: TranslateTextType | string; url: string };
 }) {
-    const { toggleSection, changeToggleValue } = useConfigurator();
+    const store = useConfiguratorStore();
+    const toggleSection = store.toggleSection;
+    const changeToggleValue = store.changeToggleValue;
 
     return (
         <div className="bg-black/50 p-4 flex flex-col ring-0 transition-all rounded-xl">

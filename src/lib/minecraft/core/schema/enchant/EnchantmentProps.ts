@@ -3,7 +3,89 @@ import type { Compiler } from "@/lib/minecraft/core/engine/Compiler.ts";
 import type { Parser, ParserParams } from "@/lib/minecraft/core/engine/Parser.ts";
 import type { SlotRegistryType } from "@/lib/minecraft/core/engine/managers/SlotManager.ts";
 import type { RegistryElement } from "@/lib/minecraft/mczip.ts";
+import type { FieldProperties } from "@/lib/minecraft/core/schema/primitive/properties";
 import type { EffectComponentsRecord, Enchantment, TextComponentType } from "@voxel/definitions";
+import { I18n } from "@/lib/minecraft/i18n/i18n";
+
+export const enchantmentProperties = (lang: string): FieldProperties => {
+    const i18n = new I18n(lang);
+    const t = i18n.translate.bind(i18n);
+    const fields: FieldProperties = {
+        description: {
+            name: t("enchantment.field.description.name"),
+            type: "string"
+        },
+        exclusiveSet: {
+            name: t("enchantment.field.exclusiveSet.name"),
+            type: "string"
+        },
+        supportedItems: {
+            name: t("enchantment.field.supportedItems.name"),
+            type: "tags"
+        },
+        primaryItems: {
+            name: t("enchantment.field.primaryItems.name"),
+            type: "tags"
+        },
+        maxLevel: {
+            name: t("enchantment.field.maxLevel.name"),
+            type: "number",
+            icon: "/icons/tools/level.svg"
+        },
+        weight: {
+            name: t("enchantment.field.weight.name"),
+            type: "number",
+            icon: "/icons/tools/weight.svg"
+        },
+        anvilCost: {
+            name: t("enchantment.field.anvilCost.name"),
+            type: "number",
+            icon: "/icons/tools/anvil.svg"
+        },
+        minCostBase: {
+            name: t("enchantment.field.minCostBase.name"),
+            type: "number"
+        },
+        minCostPerLevelAboveFirst: {
+            name: t("enchantment.field.minCostPerLevelAboveFirst.name"),
+            type: "number"
+        },
+        maxCostBase: {
+            name: t("enchantment.field.maxCostBase.name"),
+            type: "number"
+        },
+        maxCostPerLevelAboveFirst: {
+            name: t("enchantment.field.maxCostPerLevelAboveFirst.name"),
+            type: "number"
+        },
+        effects: {
+            name: t("enchantment.field.effects.name"),
+            type: "effects"
+        },
+        slots: {
+            name: t("enchantment.field.slots.name"),
+            type: "array"
+        },
+        tags: {
+            name: t("enchantment.field.tags.name"),
+            type: "array"
+        },
+        assignedTags: {
+            name: t("enchantment.field.assignedTags.name"),
+            type: "tags"
+        },
+        softDelete: {
+            name: t("enchantment.field.softDelete.name"),
+            type: "deleted"
+        },
+        disabledEffects: {
+            name: t("enchantment.field.disabledEffects.name"),
+            type: "effects"
+        }
+    };
+
+    return fields;
+};
 
 export interface EnchantmentProps extends VoxelElement {
     description: TextComponentType;

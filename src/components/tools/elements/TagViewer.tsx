@@ -1,4 +1,4 @@
-import { useConfigurator } from "@/components/tools/ConfiguratorContext";
+import { useConfiguratorStore } from "@/lib/store/configuratorStore";
 import { Identifier } from "@/lib/minecraft/core/Identifier";
 import type { versionedAnalyserCollection } from "@/lib/minecraft/core/engine/Analyser";
 import { compileDatapack } from "@/lib/minecraft/core/engine/Compiler";
@@ -10,20 +10,27 @@ export default function TagViewer(props: {
     registry: string;
     additional?: Record<string, string[]>;
 }) {
-    const context = useConfigurator();
-    if (!context.configuration) return null;
+    const store = useConfiguratorStore();
+    const configuration = store.configuration;
+    const currentElementId = store.currentElementId;
+    const elements = store.elements;
+    const version = store.version;
+    const files = store.files;
+    if (!configuration || !currentElementId) return null;
+    const currentElement = elements.find((element) => element.identifier.equals(currentElementId));
+    if (!currentElement) return null;
     const values: string[] = [];
 
     // Get the field value from the given field
-    const fieldValue = context.currentElement?.data?.[props.field as keyof typeof context.currentElement.data];
-    if (!fieldValue || !context.version || !context.configuration) return null;
+    const fieldValue = currentElement?.data?.[props.field as keyof typeof currentElement.data];
+    if (!fieldValue || !version || !configuration) return null;
 
     // Compile the datapack and get the tag by its identifier
     const assembleDatapack = compileDatapack({
-        elements: context.elements,
-        version: context.version,
-        files: context.files,
-        tool: context.configuration.analyser.id as keyof typeof versionedAnalyserCollection
+        elements: elements,
+        version: version,
+        files: files,
+        tool: configuration.analyser.id as keyof typeof versionedAnalyserCollection
     });
 
     if (typeof fieldValue !== "string") return null;

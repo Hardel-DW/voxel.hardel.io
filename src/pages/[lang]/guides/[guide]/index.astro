@@ -15,7 +15,7 @@ const { translate } = await getTranslations(Astro.url);
 export const getStaticPaths = (async () => {
     const guides = await getCollection("guide", ({ data }) => !data.metadata.draft && data.metadata.publishDate < new Date());
 
-    const a = names.flatMap((element) => {
+    return names.flatMap((element) => {
         const filteredPosts = guides.filter((post) => post.id.startsWith(element.lang));
         return filteredPosts.map((post) => ({
             params: {
@@ -25,9 +25,6 @@ export const getStaticPaths = (async () => {
             props: { data: post.data }
         }));
     });
-
-    console.log(a);
-    return a;
 }) satisfies GetStaticPaths;
 
 type Props = InferGetStaticPropsType<typeof getStaticPaths>;

@@ -226,7 +226,7 @@ export default function MigrationTool({ translate, children }: MigrationToolProp
                     )}
                 </div>
 
-                <div className="col-span-1 flex flex-col items-center gap-2 hidden md:flex">
+                <div className="col-span-1 flex-col items-center gap-2 hidden md:flex">
                     <img src="/icons/arrow-right.svg" alt="Arrow" className="w-12 h-12 invert-75" />
                     <span className="text-sm text-muted-foreground">{translate["tools.migration.arrow"]}</span>
                 </div>

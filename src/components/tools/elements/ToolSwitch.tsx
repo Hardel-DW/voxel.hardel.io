@@ -30,7 +30,6 @@ export default function ToolSwitch(props: {
                     <input
                         type="checkbox"
                         name={props.name}
-                        id={props.name}
                         disabled={!!props.lock}
                         checked={props.checked || !!props.lock}
                         onChange={(e) => props.onChange?.(e.target.checked)}

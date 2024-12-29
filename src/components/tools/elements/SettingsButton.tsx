@@ -1,9 +1,9 @@
-import { useConfigurator } from "@/components/tools/ConfiguratorContext";
+import { useConfiguratorStore } from "@/lib/store/configuratorStore";
 import Button from "@/components/ui/react/Button.tsx";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/shadcn/popover.tsx";
 
 export default function SettingsButton() {
-    const { minify, setMinify, name, setName } = useConfigurator();
+    const store = useConfiguratorStore();
 
     return (
         <Popover>
@@ -21,8 +21,8 @@ export default function SettingsButton() {
                                 type="text"
                                 name="datapackName"
                                 id="datapackName"
-                                value={name}
-                                onChange={(e) => setName(e.target.value)}
+                                value={store.name}
+                                onChange={(e) => store.setName(e.target.value)}
                                 className="bg-zinc-900 border border-zinc-700 rounded-lg px-3 py-2 text-sm text-white"
                                 placeholder="Enter datapack name..."
                             />
@@ -40,8 +40,8 @@ export default function SettingsButton() {
                                     type="checkbox"
                                     name="minify"
                                     id="minify"
-                                    checked={minify}
-                                    onChange={(e) => setMinify(e.target.checked)}
+                                    checked={store.minify}
+                                    onChange={(e) => store.setMinify(e.target.checked)}
                                 />
                             </div>
                         </label>

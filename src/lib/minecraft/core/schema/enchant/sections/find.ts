@@ -8,7 +8,10 @@ export const find: Unresolved<InterfaceConfiguration> = {
     components: [
         {
             type: "Section",
-            title: "tools.enchantments.section.find",
+            title: {
+                type: "translate",
+                value: "tools.enchantments.section.find"
+            },
             id: "behaviour",
             children: [
                 {

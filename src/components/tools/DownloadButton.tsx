@@ -1,38 +1,39 @@
-import { useTranslate } from "@/components/TranslateContext.tsx";
-import { useConfigurator } from "@/components/tools/ConfiguratorContext.tsx";
+import { useTranslate } from "@/components/useTranslate";
 import Button from "@/components/ui/react/Button.tsx";
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/shadcn/dialog.tsx";
-import type { Analysers, versionedAnalyserCollection } from "@/lib/minecraft/core/engine/Analyser.ts";
+import type { versionedAnalyserCollection } from "@/lib/minecraft/core/engine/Analyser.ts";
 import { compileDatapack } from "@/lib/minecraft/core/engine/Compiler.ts";
 import { generateZip } from "@/lib/minecraft/mczip.ts";
 import { DialogDescription } from "@radix-ui/react-dialog";
+import { useConfiguratorStore } from "@/lib/store/configuratorStore";
 
-export default function DownloadButton<T extends keyof Analysers>() {
-    const { translate } = useTranslate();
-    const context = useConfigurator<T>();
-    if (!context.configuration) return null;
+export default function DownloadButton() {
+    const { t } = useTranslate();
+    const store = useConfiguratorStore();
+    const isJar = store.isJar;
+    const name = store.name;
 
     const handleCompile = async () => {
-        if (!context.version || !context.configuration || !context.logger) {
+        if (!store.version || !store.configuration || !store.logger) {
             console.error("Version, configuration or logger is missing");
             return;
         }
 
         const content = compileDatapack({
-            elements: context.elements,
-            version: context.version,
-            files: context.files,
-            tool: context.configuration.analyser.id as keyof typeof versionedAnalyserCollection
+            elements: store.elements,
+            version: store.version,
+            files: store.files,
+            tool: store.configuration.analyser.id as keyof typeof versionedAnalyserCollection
         });
 
-        const compiledContent = await generateZip(context.files, content, context.minify, context.logger);
+        const compiledContent = await generateZip(store.files, content, store.minify, store.logger);
 
         try {
             const response = await fetch("/api/migrations/log", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
-                    logs: context.logger.getLogs()
+                    logs: store.logger.getLogs()
                 })
             });
 
@@ -44,14 +45,14 @@ export default function DownloadButton<T extends keyof Analysers>() {
         }
 
         // Télécharger le fichier
-        const fileExtension = context.isJar ? "jar" : "zip";
+        const fileExtension = store.isJar ? "jar" : "zip";
         const blob = new Blob([compiledContent], {
             type: `application/${fileExtension}`
         });
         const url = URL.createObjectURL(blob);
         const a = document.createElement("a");
         a.href = url;
-        a.download = `${context.name}.${context.isJar ? "jar" : "zip"}`;
+        a.download = `${store.name}.${store.isJar ? "jar" : "zip"}`;
         a.click();
         URL.revokeObjectURL(url);
     };
@@ -60,7 +61,7 @@ export default function DownloadButton<T extends keyof Analysers>() {
         <Dialog>
             <DialogTrigger asChild>
                 <Button type="button" className="w-full" variant="white-shimmer" onClick={handleCompile} onKeyDown={handleCompile}>
-                    {translate["tools.download"]}
+                    {t("tools.download")}
                     <span className="text-xs ml-2">(.zip)</span>
                 </Button>
             </DialogTrigger>
@@ -68,18 +69,18 @@ export default function DownloadButton<T extends keyof Analysers>() {
                 <DialogHeader>
                     <DialogTitle className="flex items-center gap-x-2">
                         <img src="/icons/success.svg" alt="zip" className="size-6" />
-                        {translate["dialog.success.title"]}
+                        {t("dialog.success.title")}
                     </DialogTitle>
-                    <DialogDescription>{translate["dialog.success.description"]}</DialogDescription>
+                    <DialogDescription>{t("dialog.success.description")}</DialogDescription>
                     <div className="py-2">
-                        <span className="font-semibold text-zinc-400">{`${context.name}.${context.isJar ? "jar" : "zip"}`}</span>
+                        <span className="font-semibold text-zinc-400">{`${name}.${isJar ? "jar" : "zip"}`}</span>
                     </div>
                     <div className="h-1 w-full bg-zinc-700 rounded-full" />
                     <div className="pt-8">
-                        <h4 className="font-semibold">{translate["dialog.success.additional_info_title"]}</h4>
+                        <h4 className="font-semibold">{t("dialog.success.additional_info_title")}</h4>
                         <ul className="list-disc list-inside pt-4 space-y-2 pl-4">
                             <li>
-                                <span className="font-light">{translate["dialog.success.additional_info"]}</span>
+                                <span className="font-light">{t("dialog.success.additional_info")}</span>
                             </li>
                         </ul>
                     </div>
@@ -100,7 +101,7 @@ export default function DownloadButton<T extends keyof Analysers>() {
                         rel="noopener noreferrer"
                         href="https://streamelements.com/hardoudou/tip"
                         variant="primary-shimmer">
-                        {translate["dialog.footer.donate"]}
+                        {t("dialog.footer.donate")}
                     </Button>
                 </DialogFooter>
             </DialogContent>

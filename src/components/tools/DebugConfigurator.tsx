@@ -1,5 +1,4 @@
-import { useTranslate } from "@/components/TranslateContext.tsx";
-import { useConfigurator } from "@/components/tools/ConfiguratorContext.tsx";
+import { useTranslate } from "@/components/useTranslate";
 import CodeBlock from "@/components/ui/codeblock/CodeBlock.tsx";
 import type { DataDrivenElement, versionedAnalyserCollection } from "@/lib/minecraft/core/engine/Analyser.ts";
 import { compileDatapack } from "@/lib/minecraft/core/engine/Compiler.ts";
@@ -7,15 +6,22 @@ import type { RegistryElement } from "@/lib/minecraft/mczip.ts";
 import { cn } from "@/lib/utils.ts";
 import { useState } from "react";
 import { createPortal } from "react-dom";
+import { useConfiguratorStore } from "@/lib/store/configuratorStore";
 
 export default function DebugConfigurator() {
     const [isDebugging, setIsDebugging] = useState(false);
     const [datapack, setDatapack] = useState<Record<string, RegistryElement<DataDrivenElement>[]>>();
     const [code, setCode] = useState<RegistryElement<DataDrivenElement>>();
     const [namespaces, setNamespaces] = useState<string[]>([]);
-    const { translate } = useTranslate();
-    const context = useConfigurator();
-    if (!context.configuration) return null;
+    const { t } = useTranslate();
+    const store = useConfiguratorStore();
+    const configuration = store.configuration;
+    const version = store.version;
+    const elements = store.elements;
+    const files = store.files;
+    const name = store.name;
+
+    if (!configuration) return null;
 
     const groupByRegistry = (elements: RegistryElement<DataDrivenElement>[]): Record<string, RegistryElement<DataDrivenElement>[]> => {
         const groups: Record<string, RegistryElement<DataDrivenElement>[]> = {};
@@ -32,16 +38,16 @@ export default function DebugConfigurator() {
     };
 
     const handleDebugging = () => {
-        if (!context.version || !context.configuration) {
+        if (!version || !configuration) {
             console.error("Version or configuration is missing");
             return;
         }
 
         const assembleDatapack = compileDatapack({
-            elements: context.elements,
-            version: context.version,
-            files: context.files,
-            tool: context.configuration.analyser.id as keyof typeof versionedAnalyserCollection
+            elements,
+            version,
+            files,
+            tool: configuration.analyser.id as keyof typeof versionedAnalyserCollection
         });
 
         const registries = groupByRegistry(assembleDatapack);
@@ -108,15 +114,15 @@ export default function DebugConfigurator() {
                     </div>
                     <div className="overflow-hidden h-full pt-12 relative">
                         <div className="absolute top-0 left-0 px-2">
-                            <p className="text-zinc-400">{context.name}</p>
-                            <p className="text-xs text-zinc-500">Pack Version - {context.version}</p>
+                            <p className="text-zinc-400">{name}</p>
+                            <p className="text-xs text-zinc-500">Pack Version - {version}</p>
                         </div>
                         <button
                             className="absolute top-1 right-0 rounded-xl text-zinc-500 hover:text-zinc-200 transition-colors bg-zinc-950/10 px-2 py-1 border-zinc-950"
                             onClick={handleDebugging}
                             onKeyDown={handleDebugging}
                             type="button">
-                            {translate["tools.debug.quit"]}
+                            {t("tools.debug.quit")}
                         </button>
                         <CodeBlock language="json" title={code?.identifier.render()}>
                             {JSON.stringify(code?.data, null, 4)}

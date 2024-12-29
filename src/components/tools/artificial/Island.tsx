@@ -71,7 +71,7 @@ export const Island: React.FC = () => {
                     borderRadius: isExpanded ? "24px" : "50px"
                 }}
                 onKeyDown={handleKeyPress}
-                className="fixed max-h-[50vh] space-y-2 z-50 bottom-5 left-1/2 -translate-x-1/2 bg-black/80 border-zinc-900 border-2 backdrop-blur-md px-2 py-2 flex flex-col cursor-pointer transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] starting:scale-90 starting:opacity-0"
+                className="fixed max-h-[50vh] space-y-2 z-100 bottom-5 left-1/2 -translate-x-1/2 bg-black/80 border-zinc-900 border-2 backdrop-blur-md px-2 py-2 flex flex-col cursor-pointer transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] starting:scale-90 starting:opacity-0"
                 aria-expanded={isExpanded}>
                 <div
                     className={cn(

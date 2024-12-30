@@ -3,7 +3,7 @@ import { getCollection } from "astro:content";
 import CompoundLayout from "@/components/layouts/CompoundLayout.astro";
 import TimelineContent from "@/components/pages/timeline/TimelineContent.astro";
 import { getTranslations, names } from "@/lib/i18n";
-import ShiningStars from "../../../components/ui/pattern/ShiningStars.astro";
+import ShiningStars from "@/components/ui/pattern/ShiningStars.astro";
 
 export const prerender = true;
 const { translate } = await getTranslations(Astro.url);
@@ -43,17 +43,19 @@ export async function getStaticPaths() {
 const { updates } = Astro.props;
 ---
 
-<CompoundLayout title="Enchant Configurator">
+<CompoundLayout title={translate["timeline.opengraph.title"]} description={translate["timeline.opengraph.description"]} openGraph={{
+    image: "/images/opengraph/timeline.webp"
+}}>
     <div class="fixed inset-0">
         <ShiningStars/>
-    </div>
+    </div> 
 
     <section class="w-11/12 md:w-3/4  mx-auto mt-40 relative z-20">
         <h1 class="text-3xl lg:text-6xl lg:tracking-tight font-bold mt-1 lg:leading-tight">
             {translate["timeline.updates"]}
         </h1>
         <p class="text-zinc-400 mt-1 text-lg font-medium">
-            Les nouveautés et les améliorations
+            {translate["timeline.updates.title"]}
         </p>
     </section>
 

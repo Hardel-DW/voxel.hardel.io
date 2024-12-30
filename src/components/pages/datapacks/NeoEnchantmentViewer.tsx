@@ -11,6 +11,7 @@ export default function NeoEnchantmentViewer({
 }) {
     const [currentCategory, setCurrentCategory] = useState<SectionViewer>(enchant[0]);
     const [currentEnchantment, setCurrentEnchantment] = useState<EnchantViewer>(currentCategory.enchants[0]);
+    const [isVideoLoading, setIsVideoLoading] = useState(true);
     const isPageLoaded = useLoadedPage();
 
     const handleChangeSection = (section: SectionViewer) => {
@@ -71,15 +72,24 @@ export default function NeoEnchantmentViewer({
                 <div className="aspect-video md:self-start relative w-full md:w-1/2">
                     <div className="absolute inset-0 translate-x-4 scale-y-110 border border-zinc-700 rounded-3xl -z-10" />
                     {isPageLoaded && currentEnchantment.video ? (
-                        <video
-                            key={`${currentEnchantment.id}-video`}
-                            className="rounded-3xl w-full h-full object-cover"
-                            autoPlay
-                            loop
-                            muted>
-                            <source src={currentEnchantment.video} type="video/webm" />
-                            Your browser does not support the video tag.
-                        </video>
+                        <>
+                            {isVideoLoading && (
+                                <div className="absolute inset-0 flex items-center justify-center bg-zinc-900/50 rounded-3xl">
+                                    <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-rose-500" />
+                                </div>
+                            )}
+                            <video
+                                key={`${currentEnchantment.id}-video`}
+                                className="rounded-3xl w-full h-full object-cover"
+                                autoPlay
+                                loop
+                                muted
+                                onLoadedData={() => setIsVideoLoading(false)}
+                                onLoadStart={() => setIsVideoLoading(true)}>
+                                <source src={`https://utfs.io/f/${currentEnchantment.video}`} type="video/webm" />
+                                Video not supported
+                            </video>
+                        </>
                     ) : currentEnchantment.thumbnail ? (
                         <img
                             src={currentEnchantment.thumbnail}

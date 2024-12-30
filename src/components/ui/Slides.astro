@@ -15,7 +15,7 @@ const { numberOfSlides, direction, ...props } = Astro.props;
      {...props}>
     {Array.from({length: numberOfSlides}).map((_, index) => (
             <div
-                    class={cn("rounded-full bg-white/50 cursor-pointer overflow-hidden transition-all duration-300",
+                    class={cn("rounded-full bg-white/10 border-2 border-zinc-900 cursor-pointer overflow-hidden transition-all duration-300",
                         direction === "vertical" ? "h-6 w-2" : "h-2 w-6"
                     )}
                     data-index={index}

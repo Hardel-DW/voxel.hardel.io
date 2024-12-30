@@ -57,15 +57,14 @@ const { updates } = Astro.props;
         </p>
     </section>
 
-    <section class="flex justify-center md:grid grid-cols-3 gap-x-8 w-3/4 max-w-6xl mt-20 mx-auto relative z-20 mb-32">
-        <div class="hidden md:block col-span-1"> 
-        </div>
+    <section class="flex justify-center md:grid md:grid-cols-[30%_1px_1fr] gap-x-8 w-3/4 max-w-6xl mt-20 mx-auto relative z-20 mb-32">
+        <div class="hidden md:block col-span-1" /> 
     
         <ul class="col-span-2 space-y-12">
-            <div class="flex h-full gap-x-8">
-                <div class="hidden s:block h-full w-[0.5px] bg-gradient-to-b from-zinc-300 from-0% via-zinc-800 via-[20%] to-transparent to-[105%] rounded-full"/>
+            <div class="flex h-full gap-x-16">
+                <div class="hidden s:block h-full w-0.25 mt-4 bg-gradient-to-b from-zinc-300 from-0% via-zinc-800 via-[20%] to-transparent to-[105%] rounded-full"/>
                 <div class="flex flex-col gap-y-16">
-                    {updates.map((update) => <TimelineContent entry={update}/>)}
+                    {updates.map((update, index) => <TimelineContent entry={update} index={index}/>)}
                 </div>
             </div>
         </ul>

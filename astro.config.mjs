@@ -34,6 +34,14 @@ export default defineConfig({
     },
     integrations: [react(), mdx()],
     adapter: vercel({
-        webAnalytics: { enabled: true }
+        webAnalytics: { enabled: true },
+        excludeFiles: [
+            "./src/pages/[lang]/internal/**/*",
+            "./src/pages/[lang]/guides/**/*",
+            "./src/pages/[lang]/tools/sound.astro",
+            "./src/pages/[lang]/tools/studio.astro",
+            "./src/content/guide/**/*",
+            "./src/content/article/**/*"
+        ]
     })
 });

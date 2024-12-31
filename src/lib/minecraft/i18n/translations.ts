@@ -54,7 +54,10 @@ export const translations: LanguageMap = {
         "generic.borders": "%s text %s",
         "generic.special": "Test! Test? Test.",
         "generic.partial": "Partial translation",
-        "timeline.see_latest_updates": "See latest updates",
+
+        "tools.sound.error": "An error occurred while playing the sound",
+        "tools.sound.search": "Search for a sound",
+
         "tools.enchantments.import_vanilla": "Import Vanilla Enchantments",
         "tools.toast.soon": "This feature is under development, it will be available soon, stay tuned!",
         "tools.download": "Download the data pack",
@@ -455,7 +458,10 @@ export const translations: LanguageMap = {
         "tools.upload.drop": "Ou dépose ton fichier ici",
         "tools.upload.description": "Déposez vos data packs en .zip ici pour commencer à les configurer.",
         "tools.debug.quit": "Quitter le mode débogage",
-        "timeline.see_latest_updates": "Voir les dernières mises à jour",
+
+        "tools.sound.search": "Rechercher un son",
+        "tools.sound.error": "Une erreur est survenue lors de la lecture du son",
+
         "dialog.success.title": "Succès",
         "dialog.success.description":
             "Le datapack a été modifié avec succès. Il doit apparaître dans votre dossier de téléchargement sous le nom.",

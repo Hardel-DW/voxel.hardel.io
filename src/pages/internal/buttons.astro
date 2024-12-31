@@ -1,0 +1,131 @@
+---
+import CompoundLayout from "@/components/layouts/CompoundLayout.astro";
+import Playground from "@/components/pages/playground/PlaygroundContainer.astro";
+import PlaygroundGroup from "@/components/pages/playground/PlaygroundGroup.astro";
+import Button from "@/components/ui/button.astro";
+
+const VARIANT_VALUES = {
+    primary: "Primary",
+    destructive: "Destructive",
+    black: "Black",
+    ghost: "Ghost",
+    transparent: "Transparent",
+    link: "Link"
+} as const;
+
+const SIZE_VALUES = {
+    sm: "Small",
+    md: "Medium",
+    lg: "Large",
+    xl: "Extra Large",
+    "2xl": "2x Extra Large",
+    "3xl": "3x Extra Large",
+    icon: "Icon"
+} as const;
+
+type Variant = keyof typeof VARIANT_VALUES;
+type Size = keyof typeof SIZE_VALUES;
+
+const variants = Object.entries(VARIANT_VALUES).map(([value, name]) => ({ value, name })) as {
+    value: Variant;
+    name: string;
+}[];
+const sizes = Object.entries(SIZE_VALUES).map(([value, name]) => ({ value, name })) as { value: Size; name: string }[];
+---
+
+<CompoundLayout title="Button Playground">
+    <section class="w-3/4 mx-auto pb-8 pt-32 gap-2">
+        <h1 class="text-4xl text-r font-bold mb-2 text-white">
+            Button Component Playground
+        </h1>
+        <p class="text-lg text-r text-zinc-400">
+            This is a playground for the Button component. You can test different variants, sizes, and colors.
+        </p>
+        <hr>
+    </section>
+
+    <section class="w-3/4 mx-auto space-y-8">
+        <Playground>
+            <Fragment slot="title">Default Button</Fragment>
+            <Fragment slot="content">This is a default button. With not attribute except the "variant"</Fragment>
+
+            <PlaygroundGroup>
+                <Button>Default Button</Button>
+                {variants.map((variant) => (
+                        <Button variant={variant.value}>{variant.name} Button</Button>
+                ))}
+            </PlaygroundGroup>
+        </Playground>
+
+        <Playground>
+            <Fragment slot="title">Button Ring</Fragment>
+            <Fragment slot="content"> You can change the border color of the button by using the <code>ring</code> prop.
+            </Fragment>
+
+            <div class="flex flex-wrap gap-8">
+                <div class="space-y-4">
+                    <PlaygroundGroup>
+                        <Button ring="white">Default Button</Button>
+                        <Button ring="destructive" variant="destructive">Default Button</Button>
+                        <Button ring="primary" variant="primary">Default Button</Button>
+                        <Button ring="destructive" variant="ghost">Default Button</Button>
+                        <Button variant="black">Default Button</Button>
+                    </PlaygroundGroup>
+                </div>
+            </div>
+        </Playground>
+
+        <Playground>
+            <Fragment slot="title">Default Sizes</Fragment>
+            <Fragment slot="content"> You can change the size of the button by using the <code>size</code> prop.
+            </Fragment>
+
+            <div class="flex flex-wrap gap-8">
+                <div class="space-y-4">
+                    <PlaygroundGroup>
+                        <Button size="icon">
+                            <img src="/favicon.svg" alt="icon" class="w-6 h-6 invert"/>
+                        </Button>
+                        {sizes.map((size) => (
+                                <Button size={size.value}>{size.name}</Button>
+                        ))}
+                    </PlaygroundGroup>
+                    {variants.filter((s) => s.value !== "link").map((variant) => (
+                            <PlaygroundGroup>
+                                <Button variant={variant.value} size="icon">
+                                    <img src="/favicon.svg" alt="icon" class="w-6 h-6"/>
+                                </Button>
+                                {sizes.map((size) => (
+                                        <Button variant={variant.value} size={size.value}>{size.name}</Button>
+                                ))}
+                            </PlaygroundGroup>
+                    ))}
+                </div>
+            </div>
+        </Playground>
+
+        <Playground>
+            <Fragment slot="title">Button Rounded</Fragment>
+            <Fragment slot="content"> You can change the border radius of the button by using the <code>rounded</code>
+                prop.
+            </Fragment>
+
+            <div class="flex flex-wrap gap-8">
+                <div class="space-y-4">
+                    <PlaygroundGroup>
+                        <Button>Default Button</Button>
+                        <Button rounded="full">Full Rounded Button</Button>
+                        <Button rounded="none">Not Rounded</Button>
+                    </PlaygroundGroup>
+                    {variants.filter((s) => s.value !== "link").map((variant) => (
+                            <PlaygroundGroup>
+                                <Button variant={variant.value}>Default Button</Button>
+                                <Button variant={variant.value} rounded="full">Full Rounded Button</Button>
+                                <Button variant={variant.value} rounded="none">Not Rounded</Button>
+                            </PlaygroundGroup>
+                    ))}
+                </div>
+            </div>
+        </Playground>
+    </section>
+</CompoundLayout>

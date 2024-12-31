@@ -1,0 +1,115 @@
+---
+import "@/global.css";
+
+// Import des images avec Vite
+const images = import.meta.glob("/public/images/internal/**/*.(png|jpg|jpeg|gif|webp)", {
+    eager: true,
+    as: "url"
+});
+
+// Conversion de l'objet d'images en tableau
+const imageUrls = Object.values(images);
+---
+
+<html class="bg-black h-dvh w-full">
+<head>
+    <title>Grid d'images</title>
+</head>
+<body class="bg-black m-0 p-5 h-dvh w-full">
+<div id="sortable-grid" class="grid grid-cols-[repeat(auto-fill,minmax(200px,1fr))] gap-5">
+    {
+        imageUrls.map((url) => (
+                <div
+                        class="cursor-move transition-opacity duration-200"
+                        draggable="true"
+                >
+                    <img
+                            src={url}
+                            alt="Image grille"
+                            class="w-full h-auto [image-rendering:pixelated] pointer-events-none"
+                    />
+                </div>
+        ))
+    }
+</div>
+</body>
+</html>
+
+<script>
+    interface DraggableElement extends HTMLElement {
+        style: CSSStyleDeclaration;
+        parentNode: HTMLElement;
+        nextSibling: HTMLElement | null;
+    }
+
+    const grid = document.getElementById('sortable-grid');
+    let draggedItem: DraggableElement | null = null;
+
+    if (grid) {
+        grid.querySelectorAll<HTMLElement>('[draggable="true"]').forEach(item => {
+            item.addEventListener('dragstart', handleDragStart as EventListener);
+            item.addEventListener('dragend', handleDragEnd as EventListener);
+            item.addEventListener('dragover', handleDragOver as EventListener);
+            item.addEventListener('drop', handleDrop as EventListener);
+        });
+    }
+
+    function handleDragStart(this: DraggableElement, e: DragEvent) {
+        draggedItem = this;
+        this.style.opacity = '0.4';
+        if (e.dataTransfer) {
+            e.dataTransfer.effectAllowed = 'move';
+        }
+    }
+
+    function handleDragEnd(this: DraggableElement) {
+        if (draggedItem) {
+            draggedItem.style.opacity = '1';
+        }
+        if (grid) {
+            grid.querySelectorAll<DraggableElement>('[draggable="true"]').forEach(item => {
+                item.classList.remove('opacity-50');
+            });
+        }
+    }
+
+    function handleDragOver(this: DraggableElement, e: DragEvent) {
+        e.preventDefault();
+        if (e.dataTransfer) {
+            e.dataTransfer.dropEffect = 'move';
+        }
+
+        if (!draggedItem || this === draggedItem) return;
+
+        const rect = this.getBoundingClientRect();
+        const midY = rect.top + rect.height / 2;
+        const midX = rect.left + rect.width / 2;
+
+        if (e.clientY < midY || (e.clientY === midY && e.clientX < midX)) {
+            this.parentNode.insertBefore(draggedItem, this);
+        } else {
+            this.parentNode.insertBefore(draggedItem, this.nextSibling);
+        }
+    }
+
+    function handleDrop(this: DraggableElement, e: DragEvent) {
+        e.preventDefault();
+
+        if (grid) {
+            const newOrder = Array.from(grid.querySelectorAll<HTMLImageElement>('img'))
+            .map(img => img.src);
+            console.log('Nouvel ordre:', newOrder);
+        }
+    }
+</script>
+
+<style>
+    .draggable-source--is-dragging {
+        opacity: 0.5;
+    }
+
+    .draggable-mirror {
+        opacity: 0.8;
+        transform: scale(1.05);
+    }
+</style>

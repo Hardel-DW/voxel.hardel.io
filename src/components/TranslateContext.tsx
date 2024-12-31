@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useRef, useCallback, useMemo } from "react";
+import { createContext, useState, useRef, useCallback, useMemo } from "react";
 import type { ReactNode } from "react";
 import type { LanguageCode, TranslationKey } from "@/lib/minecraft/i18n/types";
 import { I18n } from "@/lib/minecraft/i18n/i18n";

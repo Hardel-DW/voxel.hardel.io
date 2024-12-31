@@ -1,2 +1,35 @@
+---
+const DESCRIPTION =
+    "Voxel is a personal project, created by a passionate. The goal is to share knowledge and tools to help you develop your own creations.";
+const TITLE = "Voxel";
+const IMAGE = "/opengraph.webp";
+const COLOR = "#be185d";
+---
+
 <link rel="icon" type="image/svg+xml" href="/favicon.svg"/>
-<meta http-equiv="refresh" content="0;url=/fr-fr/"/>
+<title>{TITLE}</title>
+<link rel="canonical" href={Astro.url}/>
+<meta charset="UTF-8"/>
+
+<meta name="description" content={DESCRIPTION}/>
+<meta name="viewport" content="width=device-width"/>
+<meta name="generator" content={Astro.generator}/>
+<meta name="description" content={DESCRIPTION}/>
+<meta name="theme-color" content={COLOR}/>
+
+<meta property="og:title" content={TITLE}/>
+<meta property="og:type" content="website"/>
+<meta property="og:image" content={IMAGE}/>
+<meta property="og:description" content={DESCRIPTION}/>
+<meta property="og:url" content={Astro.url}/>
+<meta property="og:image:url" content={IMAGE}/>
+<meta property="og:image:alt" content={TITLE}/>
+<meta name="google-adsense-account" content="ca-pub-7277204161121479">
+
+<meta name="twitter:title" content={TITLE}/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:site" content={Astro.url}/>
+<meta name="twitter:description" content={DESCRIPTION}/>
+<meta name="twitter:creator" content="@Hardel-DW"/>
+
+<meta http-equiv="refresh" content="0;url=/en-us/"/>

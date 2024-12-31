@@ -14,24 +14,34 @@ type LayoutHelperProps = {
 };
 
 const defaultTitle = "Voxel";
-const defaultDescription =
-    "Voxel, la référence pour tout développeur souhaitant se lancer ou se perfectionner dans la création de mods Minecraft. Offrant des ressources de pointe et des guides avancés, nous accompagnons chaque talent, du novice à l'expert, avec des solutions professionnelles adaptées à vos besoins.";
-const defaultImage = {
+const defaultDescription = {
+    "en-us":
+        "Voxel, a personal project, created by a passionate. The goal is to share knowledge and tools to help you develop your own creations.",
+    "fr-fr":
+        "Voxel est un projet personnel qui a été créé par un passionné. L'objectif est de partager mes connaissances ainsi que des outils pour vous aider à développer vos propres contenu."
+};
+const defaultOG = {
     title: defaultTitle,
-    description: defaultDescription,
+    description: defaultDescription["en-us"],
     image: "/opengraph.webp"
 };
 
 export class LayoutHelper implements BaseLayoutProps, LayoutHelperProps {
     site: URL;
     url: URL;
+    lang: keyof typeof defaultDescription;
     title = defaultTitle;
-    description = defaultDescription;
-    openGraph: { title: string; description: string; image: string } = defaultImage;
+    description = defaultDescription["en-us"];
+    openGraph: { title: string; description: string; image: string } = defaultOG;
 
     constructor(site: URL, url: URL, props?: BaseLayoutProps) {
         this.site = site;
         this.url = url;
+
+        const path = site.pathname.split("/")[1] as keyof typeof defaultDescription;
+        if (path !== "en-us" && path !== "fr-fr") this.lang = "en-us";
+        else this.lang = path;
+
         if (props?.title) this.title = props.title;
         if (props?.description) this.description = props.description;
         if (props?.openGraph) {
@@ -46,11 +56,11 @@ export class LayoutHelper implements BaseLayoutProps, LayoutHelperProps {
     }
 
     public setDescription(description: string | undefined) {
-        this.description = description || defaultDescription;
+        this.description = description || defaultDescription[this.lang];
     }
 
     public setOpenGraph(props: BaseLayoutProps["openGraph"] | undefined) {
-        if (!props) this.openGraph = defaultImage;
+        if (!props) this.openGraph = defaultOG;
         if (props?.title) this.openGraph.title = props.title;
         if (props?.description) this.openGraph.description = props.description;
         if (props?.image) this.openGraph.image = props.image;

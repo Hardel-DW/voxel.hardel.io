@@ -27,10 +27,7 @@ export default defineConfig({
         }
     },
     vite: {
-        plugins: [tailwindcss()],
-        build: {
-            minify: false
-        }
+        plugins: [tailwindcss()]
     },
     integrations: [react(), mdx()],
     adapter: vercel({

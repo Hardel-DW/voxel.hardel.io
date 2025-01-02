@@ -1,0 +1,22 @@
+---
+import PageLayout from "@/components/layouts/PageLayout.astro";
+import Stripe from "stripe";
+
+export const prerender = false;
+const stripe = new Stripe(import.meta.env.STRIPE_SECRET_KEY, {
+    apiVersion: "2024-12-18.acacia"
+});
+
+const { test } = Astro.params;
+if (typeof test !== "string") {
+    throw new Error("Test is required");
+}
+---
+
+<PageLayout>
+    <main class="mt-24 mb-20 relative w-full">
+        <section class="w-11/12 md:w-3/4 mx-auto my-16 relative z-20">
+            <h1>Test</h1>
+        </section>
+    </main>
+</PageLayout> 

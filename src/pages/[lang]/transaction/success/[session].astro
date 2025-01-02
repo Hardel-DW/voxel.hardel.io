@@ -18,6 +18,7 @@ if (typeof session !== "string") {
 
 const stripeSession = await stripe.checkout.sessions.retrieve(session);
 const isValidSession = stripeSession && stripeSession.payment_status === "paid";
+console.log("stripeSession", stripeSession);
 
 if (!isValidSession) {
     return Astro.redirect("/");

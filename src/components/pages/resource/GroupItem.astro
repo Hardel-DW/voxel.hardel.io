@@ -1,0 +1,27 @@
+---
+import Star from "@/components/ui/star.astro";
+import type { HTMLAttributes } from "astro/types";
+
+interface Props extends HTMLAttributes<"div"> {
+    title: string;
+}
+
+const { title }: Props = Astro.props;
+---
+
+<div
+    class="in-data-layout-grid:contents in-data-layout-category:flex in-data-layout-category:flex-col"
+    data-marketplace-category={title.toLowerCase()}
+>
+    <h3
+        class="text-3xl font-semibold tracking-tighter in-data-layout-grid:hidden"
+    >
+        {title}
+    </h3>
+    <Star className="in-data-layout-grid:hidden" />
+    <div
+        class="grid grid-cols-marketplace gap-4 mt-4 in-data-layout-grid:contents"
+    >
+        <slot />
+    </div>
+</div>

@@ -1,0 +1,31 @@
+<script>
+    async function handleStripeCheckout(priceId: string, lang: string) {
+        try {
+            const response = await fetch("/api/payment/create-checkout-session", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ priceId, lang }),
+            });
+
+            const { url } = await response.json();
+            if (url) {
+                window.location.href = url;
+            }
+        } catch (error) {
+            console.error("Error:", error);
+        }
+    }
+
+    document.querySelectorAll("[data-stripe-price-id]").forEach((button) => {
+        button.addEventListener("click", (e) => {
+            e.preventDefault();
+            const priceId = button.getAttribute("data-stripe-price-id");
+            const lang = button.getAttribute("data-stripe-lang");
+            if (priceId && lang) {
+                handleStripeCheckout(priceId, lang);
+            }
+        });
+    });
+</script>

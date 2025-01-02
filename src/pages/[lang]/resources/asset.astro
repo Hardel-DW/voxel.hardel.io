@@ -1,15 +1,18 @@
 ---
 import { getCollection } from "astro:content";
 import PageLayout from "@/components/layouts/PageLayout.astro";
-import Box from "@/components/ui/Box.astro";
 import Disclosure from "@/components/ui/Disclosure.astro";
-import Button from "@/components/ui/button.astro";
-import Star from "@/components/ui/star.astro";
 import { names } from "@/lib/i18n";
 import IconButton from "@/components/ui/IconButton.astro";
-import MarketplaceCard from "@/components/pages/resource/MarketplaceCard.astro";
+import { getTranslations } from "@/lib/i18n";
+import GroupItem from "@/components/pages/resource/GroupItem.astro";
+import Stripe from "@/components/ui/Stripe.astro";
+import Button from "@/components/ui/button.astro";
+import Box from "@/components/ui/Box.astro";
 
 export const prerender = true;
+const { translate, lang } = await getTranslations(Astro.url);
+
 const marketplacePacks = await getCollection("marketplace_pack");
 const rawMarketplaceItems = await getCollection("marketplace_item");
 const marketplaceItems = rawMarketplaceItems.toSorted((a, b) => a.data.name.localeCompare(b.data.name));
@@ -22,70 +25,110 @@ export async function getStaticPaths() {
 ---
 
 <PageLayout>
-    <main class="mt-32 mb-20 relative w-full">
-        <div class="w-full text-center mt-12 mb-12">
-            <h2 class="text-5xl font-bold mb-4">The Marketplace</h2>
-            <Star/>
-        </div>
+    <main class="mt-24 mb-20 relative w-full">
+        <section class="w-11/12 md:w-3/4 mx-auto my-16 relative z-20">
+            <h1
+                class="text-3xl lg:text-6xl lg:tracking-tight font-bold mt-1 lg:leading-tight"
+            >
+                {translate["marketplace.title"]}
+            </h1>
+            <p class="text-zinc-400 mt-1 text-lg font-medium">
+                {translate["marketplace.description"]}
+            </p>
+        </section>
 
-        <div class="flex lg:flex-row flex-col gap-12 px-12" data-layout-category id="layout-category">
+        <div
+            class="flex lg:flex-row flex-col gap-12 px-12"
+            data-layout-category
+            id="layout-category"
+        >
             <aside class="shrink-0 w-full lg:w-1/5">
                 <label>
                     <input
-                            type="text"
-                            placeholder="Search"
-                            id="searchInput"
-                            class="w-full p-2 rounded border border-zinc-800"
+                        type="text"
+                        placeholder={translate["generic.search"]}
+                        id="searchInput"
+                        class="w-full p-2 rounded border border-zinc-800"
                     />
                 </label>
 
                 <div class="mt-6 flex flex-col gap-4">
                     <h3 class="text-2xl font-semibold tracking-tighter">
-                        Filters
+                        {translate["marketplace.filters"]}
                     </h3>
-                    <div class="grid divide-y divide-zinc-900 border-t-2 border-zinc-900">
+                    <div
+                        class="grid divide-y divide-zinc-900 border-t-2 border-zinc-900"
+                    >
                         <Disclosure heading="Layout" variant="minimal">
                             <div class="mt-4 flex gap-2 select-none">
-                                <IconButton class="in-data-layout-grid:bg-zinc-800" id="grid-btn"
-                                            icon="/icons/layout/grid.svg"/>
-                                <IconButton class="in-data-layout-category:bg-zinc-800" id="list-btn"
-                                            icon="/icons/layout/list.svg"/>
+                                <IconButton
+                                    class="in-data-layout-grid:bg-zinc-800"
+                                    id="grid-btn"
+                                    icon="/icons/layout/grid.svg"
+                                />
+                                <IconButton
+                                    class="in-data-layout-category:bg-zinc-800"
+                                    id="list-btn"
+                                    icon="/icons/layout/list.svg"
+                                />
                             </div>
                         </Disclosure>
                         <Disclosure heading="Tags" variant="minimal">
                             <div class="mt-4 flex flex-col gap-2">
                                 <div class="flex flex-col gap-2 select-none">
-                                    {marketplaceItems.map((category) => (
+                                    {
+                                        marketplaceItems.map((category) => (
                                             <label
-                                                    for={category.data.name.toLowerCase()}
-                                                    class="flex items-center gap-2"
+                                                for={category.data.name.toLowerCase()}
+                                                class="flex items-center gap-2"
                                             >
                                                 <input
-                                                        type="checkbox"
-                                                        checked={true}
-                                                        id={category.data.name.toLowerCase()}
+                                                    type="checkbox"
+                                                    checked={true}
+                                                    id={category.data.name.toLowerCase()}
                                                 />
-                                                <span>{category.data.name}</span>
+                                                <span>
+                                                    {category.data.name}
+                                                </span>
                                             </label>
-                                    ))}
+                                        ))
+                                    }
                                 </div>
                             </div>
                         </Disclosure>
                         <Disclosure heading="Pricing" variant="minimal">
                             <div class="mt-4 flex flex-col gap-2 select-none">
                                 <label
-                                        for="free"
-                                        class="flex items-center gap-2"
+                                    for="free"
+                                    class="flex items-center gap-2"
                                 >
-                                    <input type="checkbox" id="free" checked={true} disabled/>
-                                    <span>Free - ({marketplaceItems.flatMap((item) => item.data.items).length})</span>
+                                    <input
+                                        type="checkbox"
+                                        id="free"
+                                        checked={true}
+                                        disabled
+                                    />
+                                    <span>
+                                        {translate["marketplace.free"]} - ({
+                                            marketplaceItems.flatMap(
+                                                (item) => item.data.items,
+                                            ).length
+                                        })
+                                    </span>
                                 </label>
                                 <label
-                                        for="paid"
-                                        class="flex items-center gap-2"
+                                    for="paid"
+                                    class="flex items-center gap-2"
                                 >
-                                    <input type="checkbox" id="paid" checked={false} disabled/>
-                                    <span>Paid - (0)</span>
+                                    <input
+                                        type="checkbox"
+                                        id="paid"
+                                        checked={false}
+                                        disabled
+                                    />
+                                    <span
+                                        >{translate["marketplace.paid"]} - (0)</span
+                                    >
                                 </label>
                             </div>
                         </Disclosure>
@@ -93,104 +136,147 @@ export async function getStaticPaths() {
                 </div>
             </aside>
             <section class="w-full">
-                <div class="w-full flex flex-wrap justify-center gap-4 mb-8" id="marketplaceCards">
-                    {
-                        marketplacePacks
-                        .filter((card) => !card.data.hide)
-                        .map((card) =>
-                                <MarketplaceCard schema={card} class="min-w-90 w-full md:w-[calc(50%-1rem)]" />)
-                    }
-                </div>
+                <div
+                    class="in-data-layout-grid:grid in-data-layout-grid:grid-cols-marketplace in-data-layout-grid:gap-4 in-data-layout-category:flex in-data-layout-category:flex-col in-data-layout-category:gap-16"
+                    id="marketplace"
+                >
+                    <GroupItem title="Premium Packs">
+                        {
+                            marketplacePacks
+                                .filter((card) => !card.data.hide)
+                                .map((card) => (
+                                    <div class="relative group/effect">
+                                        <div
+                                            class="absolute inset-0 -z-10 group-hover/effect:opacity-100 opacity-0 transition-opacity rounded-3xl blur-xl bg-contain bg-[image:var(--hover-image)]"
+                                            style={`--hover-image: url('/images/marketplace/${card.data.asset}')`}
+                                        />
+                                        <Box
+                                            loading="lazy"
+                                            image={`/images/marketplace/${card.data.preview}`}
+                                            data-marketplace
+                                            variant="medium"
+                                        >
+                                            <h2 class="text-white font-semibold text-center line-clamp-1 mt-8 item-name">
+                                                {card.data.name}
+                                            </h2>
+                                            <div class="flex gap-2 mt-6 w-full justify-center">
+                                                <Button size="sm" variant="default" href={card.id}>
+                                                    {translate["generic.learn_more"]}
+                                                </Button>
+                                                <Button size="sm" variant="ghost" data-stripe-price-id={card.data.id} data-stripe-lang={lang}>
+                                                    {`${card.data.price} $`}
+                                                </Button>
+                                            </div>
+                                        </Box>
+                                    </div>
+                                ))
+                        }
+                    </GroupItem>
 
-                <div class="in-data-layout-grid:grid in-data-layout-grid:grid-cols-marketplace in-data-layout-grid:gap-4 in-data-layout-category:flex in-data-layout-category:flex-col in-data-layout-category:gap-16"
-                     id="marketplace">
-                    {marketplaceItems.map((category) => (
-                            <div class="in-data-layout-grid:contents in-data-layout-category:flex in-data-layout-category:flex-col"
-                                 data-marketplace-category={category.data.name.toLowerCase()}>
-                                <h3 class="text-3xl font-semibold tracking-tighter in-data-layout-grid:hidden">
-                                    {category.data.name}
-                                </h3>
-                                <Star className="in-data-layout-grid:hidden"/>
-                                <div class="grid grid-cols-marketplace gap-4 mt-4 in-data-layout-grid:contents">
-                                    {category.data.items.map((item) => (
-                                            <Box loading="lazy" image={item.asset} data-marketplace>
-                                                <h2 class="text-white font-semibold text-center line-clamp-1 mt-8 item-name">
-                                                    {item.name}
-                                                </h2>
-                                                <div class="flex flex-wrap gap-2 mt-6 w-full justify-center">
-                                                    <Button
-                                                            class="w-32"
-                                                            size="sm"
-                                                            variant="ghost"
-                                                            href={item.asset}
-                                                    >
-                                                        Download
-                                                    </Button>
-                                                </div>
-                                            </Box>
-                                    ))}
-                                </div>
-                            </div>
-                    ))}
+                    {
+                        marketplaceItems.map((category) => (
+                            <GroupItem title={category.data.name}>
+                                {category.data.items.map((item) => (
+                                    <Box loading="lazy" image={item.asset} data-marketplace>
+                                        <h2 class="text-white font-semibold text-center line-clamp-1 mt-8 item-name">
+                                            {item.name}
+                                        </h2>
+                                        <div class="flex flex-wrap gap-2 mt-6 w-full justify-center">
+                                            <Button
+                                                class="w-32"
+                                                size="sm"
+                                                variant="ghost"
+                                                href={item.asset}
+                                            >
+                                                {translate["marketplace.download"]}
+                                            </Button>
+                                        </div>
+                                    </Box>
+                                ))}
+                            </GroupItem>
+                        ))
+                    }
                 </div>
             </section>
         </div>
     </main>
+    <Stripe />
 </PageLayout>
 
 <script>
-    const searchInput = document.getElementById('searchInput');
-    const marketplace = document.getElementById('marketplace');
-    const layoutCategory = document.getElementById('layout-category');
-    const gridBtn = document.getElementById('grid-btn');
-    const listBtn = document.getElementById('list-btn');
+    const searchInput = document.getElementById("searchInput");
+    const marketplace = document.getElementById("marketplace");
+    const layoutCategory = document.getElementById("layout-category");
+    const gridBtn = document.getElementById("grid-btn");
+    const listBtn = document.getElementById("list-btn");
 
-    if (searchInput instanceof HTMLInputElement &&
-        marketplace instanceof HTMLElement) {
-
-        searchInput.addEventListener('input', (e: Event) => {
+    if (
+        searchInput instanceof HTMLInputElement &&
+        marketplace instanceof HTMLElement
+    ) {
+        searchInput.addEventListener("input", (e: Event) => {
             if (!(e.target instanceof HTMLInputElement)) return;
             const searchTerm = e.target.value.toLowerCase();
-            const visibleSections = marketplace.querySelectorAll('[data-marketplace-category]:not([style*="display: none"])');
+            const visibleSections = marketplace.querySelectorAll(
+                '[data-marketplace-category]:not([style*="display: none"])',
+            );
 
             for (const section of visibleSections) {
-                const boxes = section.querySelectorAll('[data-marketplace]') as NodeListOf<HTMLElement>;
+                const boxes = section.querySelectorAll(
+                    "[data-marketplace]",
+                ) as NodeListOf<HTMLElement>;
 
                 for (const box of boxes) {
-                    const titleElement = box.querySelector('.item-name');
-                    if (titleElement instanceof HTMLElement && titleElement.textContent) {
+                    const titleElement = box.querySelector(".item-name");
+                    if (
+                        titleElement instanceof HTMLElement &&
+                        titleElement.textContent
+                    ) {
                         const title = titleElement.textContent.toLowerCase();
-                        box.style.display = title.includes(searchTerm) ? '' : 'none';
+                        box.style.display = title.includes(searchTerm)
+                            ? ""
+                            : "none";
                     }
                 }
 
-                const visibleBoxes = section.querySelectorAll('[data-marketplace]:not([style*="display: none"])');
-                (section as HTMLElement).style.display = visibleBoxes.length === 0 ? 'none' : '';
+                const visibleBoxes = section.querySelectorAll(
+                    '[data-marketplace]:not([style*="display: none"])',
+                );
+                (section as HTMLElement).style.display =
+                    visibleBoxes.length === 0 ? "none" : "";
             }
         });
     }
 
-    if (gridBtn instanceof HTMLElement && listBtn instanceof HTMLElement && layoutCategory instanceof HTMLElement) {
-        gridBtn.addEventListener('click', () => {
+    if (
+        gridBtn instanceof HTMLElement &&
+        listBtn instanceof HTMLElement &&
+        layoutCategory instanceof HTMLElement
+    ) {
+        gridBtn.addEventListener("click", () => {
             delete layoutCategory.dataset.layoutCategory;
-            layoutCategory.dataset.layoutGrid = '';
+            layoutCategory.dataset.layoutGrid = "";
         });
 
-        listBtn.addEventListener('click', () => {
+        listBtn.addEventListener("click", () => {
             delete layoutCategory.dataset.layoutGrid;
-            layoutCategory.dataset.layoutCategory = '';
+            layoutCategory.dataset.layoutCategory = "";
         });
     }
 
     // Gérer les filtres par catégorie
-    const checkboxes = document.querySelectorAll('input[type="checkbox"]') as NodeListOf<HTMLInputElement>;
-    checkboxes.forEach(checkbox => {
-        checkbox.addEventListener('change', () => {
+    const checkboxes = document.querySelectorAll(
+        'input[type="checkbox"]',
+    ) as NodeListOf<HTMLInputElement>;
+    checkboxes.forEach((checkbox) => {
+        checkbox.addEventListener("change", () => {
             const categoryId = checkbox.id;
-            const categorySection = marketplace?.querySelector(`[data-marketplace-category="${categoryId}"]`) as HTMLElement;
+            const categorySection = marketplace?.querySelector(
+                `[data-marketplace-category="${categoryId}"]`,
+            ) as HTMLElement;
 
             if (categorySection) {
-                categorySection.style.display = checkbox.checked ? '' : 'none';
+                categorySection.style.display = checkbox.checked ? "" : "none";
             }
         });
     });

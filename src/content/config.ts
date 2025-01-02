@@ -224,11 +224,9 @@ const marketplacePackCollection = defineCollection({
         name: z.string(),
         asset: z.string(),
         title: z.string(),
+        id: z.string(),
         preview: z.string(),
-        price: z.number(),
-        payment: z.object({
-            url: z.string()
-        })
+        price: z.number()
     })
 });
 

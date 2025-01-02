@@ -7,6 +7,7 @@ import ShiningStars from "@/components/ui/pattern/ShiningStars.astro";
 import Star from "@/components/ui/star.astro";
 import TriangleWave from "@/components/ui/pattern/TriangleWave";
 import MarketplaceCard from "@/components/pages/resource/MarketplaceCard.astro";
+import Stripe from "@/components/ui/Stripe.astro";
 
 export const prerender = true;
 const { lang, translate } = await getTranslations(Astro.url);
@@ -36,9 +37,6 @@ export async function getStaticPaths() {
 
 const { preview, pack, recommended } = Astro.props;
 const { Content } = await render(preview);
-
-// Get price from card if available
-const paymentUrl = pack?.data.payment?.url;
 ---
 
 <CompoundLayout
@@ -115,23 +113,23 @@ const paymentUrl = pack?.data.payment?.url;
                         </div>
 
                         <div class="flex flex-col gap-1">
-                            {paymentUrl && (
+                            {pack?.data.id && (
                                     <Button
-                                            href={paymentUrl}
+                                            data-stripe-price-id={pack?.data.id}
+                                            data-stripe-lang={lang}
                                             size="md"
                                             variant="white-shimmer"
                                             class="w-full md:w-auto"
                                     >
-                                        Acheter - {preview.data.name}
+                                        {translate["marketplace.buy"]} - {preview.data.name}
                                     </Button>
                             )}
                         </div>
                     </div>
                 </div>
             </div>
-            <div id="slow-scroll-target" class="mb-8"/>
 
-            <div class="mb-8 container mx-auto mt-40">
+            <div class="mb-8 container mx-auto mt-32">
                 <div class="pb-8">
                     <h1 class="text-2xl font-bold tracking-tight">
                         {translate["marketplace.recommended"]}
@@ -146,43 +144,5 @@ const paymentUrl = pack?.data.payment?.url;
             </>
         </div>
     </main>
-
 </CompoundLayout>
-
-<script>
-    const bottomBar = document.getElementById('bottom-bar');
-    const slowScrollTarget = document.getElementById('slow-scroll-target');
-
-    if (bottomBar && slowScrollTarget) {
-        let isTransitioning = false;
-
-        const observer = new IntersectionObserver(
-            ([entry]) => {
-                if (isTransitioning) return;
-
-                isTransitioning = true;
-
-                if (!entry.isIntersecting) {
-                    bottomBar.style.position = 'fixed';
-                    bottomBar.style.transform = 'translateY(0)';
-                    bottomBar.style.insetInline = '32px';
-                } else {
-                    bottomBar.style.position = 'relative';
-                    bottomBar.style.transform = 'translateY(100%)';
-                    bottomBar.style.insetInline = '0';
-                }
-
-                // Attendre que la transition soit terminée avant de permettre un autre changement
-                setTimeout(() => {
-                    isTransitioning = false;
-                }, 300); // Correspond à la durée de transition CSS (duration-300)
-            },
-            {
-                threshold: 0.5,
-                rootMargin: '-50px'
-            }
-        );
-
-        observer.observe(slowScrollTarget);
-    }
-</script>
+<Stripe />

@@ -9,9 +9,9 @@ declare namespace App {
 }
 
 interface ImportMetaEnv {
-    readonly LEMON_SQUEEZY_SIGNKEY: string;
-    readonly LEMON_SQUEEZY_API_KEY: string;
-    readonly LEMON_SQUEEZY_STORE_ID: string;
+    readonly STRIPE_SECRET_KEY: string;
+    readonly STRIPE_PUBLIC_KEY: string;
+    readonly PUBLIC_SITE_URL: string;
     readonly GOOGLE_CLIENT_ID: string;
     readonly GOOGLE_CLIENT_SECRET: string;
     readonly DATABASE_URL: string;

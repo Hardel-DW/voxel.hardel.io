@@ -19,8 +19,8 @@
         "db:push": "drizzle-kit push"
     },
     "dependencies": {
-        "@astrojs/mdx": "4.0.1",
-        "@astrojs/react": "^4.0.0",
+        "@astrojs/mdx": "4.0.3",
+        "@astrojs/react": "^4.1.2",
         "@astrojs/vercel": "8.0.1",
         "@fontsource-variable/rubik": "^5.0.22",
         "@lucia-auth/adapter-drizzle": "1.1.0",
@@ -41,7 +41,7 @@
         "@voxel/definitions": "npm:@jsr/voxel__definitions@^0.2.0",
         "@voxel/registry": "npm:@jsr/voxel__registry@^0.2.0",
         "arctic": "^1.9.2",
-        "astro": "5.0.9",
+        "astro": "5.1.2",
         "drizzle-orm": "^0.34.1",
         "github-slugger": "^2.0.0",
         "jszip": "^3.10.1",

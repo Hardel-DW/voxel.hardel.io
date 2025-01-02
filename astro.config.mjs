@@ -34,6 +34,7 @@ export default defineConfig({
     },
     integrations: [react(), mdx()],
     adapter: vercel({
+        edgeMiddleware: true,
         webAnalytics: { enabled: true }
     })
 });

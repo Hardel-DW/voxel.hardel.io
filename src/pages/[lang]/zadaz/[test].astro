@@ -1,12 +1,7 @@
 ---
 import PageLayout from "@/components/layouts/PageLayout.astro";
-import Stripe from "stripe";
 
 export const prerender = false;
-const stripe = new Stripe(import.meta.env.STRIPE_SECRET_KEY, {
-    apiVersion: "2024-12-18.acacia"
-});
-
 const { test } = Astro.params;
 if (typeof test !== "string") {
     throw new Error("Test is required");

@@ -59,8 +59,6 @@ export const POST: APIRoute = async ({ request }) => {
                         }
                     }
 
-                    console.log("data", data);
-
                     if (data.length > 0) {
                         await sendEmail(session.customer_details.email, data);
                     }

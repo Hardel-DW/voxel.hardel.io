@@ -1,6 +1,6 @@
 import mdx from "@astrojs/mdx";
 import react from "@astrojs/react";
-import vercel from "@astrojs/vercel/serverless";
+import vercel from "@astrojs/vercel";
 import tailwindcss from "@tailwindcss/vite";
 import { defineConfig } from "astro/config";
 
@@ -27,11 +27,11 @@ export default defineConfig({
         }
     },
     vite: {
-        plugins: [tailwindcss()]
+        plugins: [tailwindcss()],
+        minify: false
     },
     integrations: [react(), mdx()],
     adapter: vercel({
-        edgeMiddleware: true,
         webAnalytics: { enabled: true }
     })
 });

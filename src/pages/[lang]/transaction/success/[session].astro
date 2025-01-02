@@ -1,6 +1,7 @@
 ---
 import PageLayout from "@/components/layouts/PageLayout.astro";
 import Button from "@/components/ui/button.astro";
+import ButtonCopy from "@/components/ui/codeblock/ButtonCopy";
 import { getTranslations } from "@/lib/i18n";
 import Stripe from "stripe";
 
@@ -54,7 +55,65 @@ console.log("products", products);
 <PageLayout>
     <main class="mt-24 mb-20 relative w-full">
         <section class="w-11/12 md:w-3/4 mx-auto my-16 relative z-20">
+            <h1 class="text-3xl lg:text-6xl lg:tracking-tight font-bold mt-1 lg:leading-tight">
+                {translate["payment.success.title"]}
+            </h1>
+            <p class="text-zinc-400 mt-4 text-lg mb-8">
+                {translate["payment.success.description"]}
+            </p>
 
+            {isValidSession && (
+                <div class="space-y-4">
+                    {products.filter((product) => product !== undefined).map((product) => (
+                        <div class="flex justify-between gap-6 items-center bg-zinc-900/50 p-4 rounded-2xl">
+                            <div class="flex items-center gap-4">
+                                <img
+                                    src={product.image}
+                                    alt={product.name}
+                                    class="w-24 h-24 object-cover rounded-lg"
+                                />
+                                <div class="flex flex-col">
+                                    <h3 class="text-xl font-semibold">{product.name}</h3>
+                                    <p class="text-zinc-400">{product.description}</p>
+                                    <time class="text-sm text-zinc-500">{product.date}</time>
+                                </div>
+                            </div>
+                            <div class="flex flex-col justify-between items-end gap-4">
+                                <span class="text-xl font-bold">${product.price}</span>
+                                <Button href={`/api/download/${session}/${product.id}`} size="sm">
+                                    {translate["payment.success.download"]}
+                                </Button>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+
+                <div class="mt-16">
+                    <h3 class="text-2xl font-semibold">
+                        {translate["marketplace.success.download.title"]}
+                    </h3>
+                    <p class="text-zinc-300">
+                        {translate["marketplace.success.download.description"]}
+                    </p>
+                    <ul class="list-disc list-inside text-zinc-400 mt-2">
+                        <li>{translate["marketplace.success.download.description_1"]}</li>
+                        <li>
+                            {translate["marketplace.success.download.description_2"]}
+                        </li>
+                        <li>
+                            {translate["marketplace.success.download.description_3"]}
+                        </li>
+                        <li>
+                            {translate["marketplace.success.download.description_4"]}
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="mt-8 bg-zinc-900/50 p-4 rounded-2xl px-6 py-4 flex justify-between items-center">
+                    <p class="text-zinc-300">{session}</p>
+                    <ButtonCopy client:load snippet={session} />
+                </div>
+            )}
         </section>
     </main>
 </PageLayout> 

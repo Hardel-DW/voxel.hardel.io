@@ -97,6 +97,13 @@
         "marketplace.paid": "Paid",
         "marketplace.go": "I want to see it now",
 
+        "marketplace.success.download.title": "What to do in case of loss in the future?",
+        "marketplace.success.download.description": "Some solutions :",
+        "marketplace.success.download.description_1": "An email has been sent to the address you provided when you made the purchase with the download links. If you did not receive it, you can contact me.",
+        "marketplace.success.download.description_2": "You can also come back to this page to re-download the files.",
+        "marketplace.success.download.description_3": "Otherwise, you can connect to Stripe with the email you provided when you made the purchase to retrieve the files.",
+        "marketplace.success.download.description_4": "And as a last hope, you can use the code below to contact me.",
+
         "navbar.item.blog": "Blog",
         "navbar.item.data_pack": "Datapacks",
         "navbar.item.guides": "Guides",
@@ -115,6 +122,8 @@
         "navbar.resources.asset.title": "Marketplace",
         "navbar.resources.asset.description": "Free-Use assets to help you in your content creation",
         "navbar.resources.migration.title": "Migration",
+        "navbar.resources.sound.title": "Soon",
+        "navbar.resources.sound.description": "This content is coming soon",
         "navbar.resources.migration.description": "Migrate your mod/datapack to a different version of Minecraft",
         "footer.description": "VOXEL, what is it? These are guides in French, from beginner to advanced level, to learn how to develop mods or enrich your existing knowledge.",
         "footer.copyright_left": "Copyright ©",

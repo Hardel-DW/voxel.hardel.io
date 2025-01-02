@@ -216,20 +216,6 @@ const marketplaceItemCollection = defineCollection({
     })
 });
 
-const marketplacePackCollection = defineCollection({
-    loader: glob({ pattern: "**/[^_]*.json", base: "./src/content/marketplace/pack" }),
-    schema: z.object({
-        hide: z.boolean().default(false),
-        type: z.enum(["landscape", "portrait", "fullwidth"]),
-        name: z.string(),
-        asset: z.string(),
-        title: z.string(),
-        id: z.string(),
-        preview: z.string(),
-        price: z.number()
-    })
-});
-
 const marketplacePreviewCollection = defineCollection({
     loader: glob({ pattern: "**/[^_]*.md", base: "./src/content/marketplace/preview" }),
     schema: z.object({
@@ -250,7 +236,6 @@ export const collections = {
     update: updateCollection,
     structure: structureCollection,
     loot: lootCollection,
-    marketplace_pack: marketplacePackCollection,
     marketplace_item: marketplaceItemCollection,
     marketplace_preview: marketplacePreviewCollection
 };

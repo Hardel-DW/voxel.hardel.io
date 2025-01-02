@@ -1,7 +1,9 @@
 ---
 import PageLayout from "@/components/layouts/PageLayout.astro";
 import Button from "@/components/ui/button.astro";
+import ButtonCopy from "@/components/ui/codeblock/ButtonCopy";
 import { getTranslations } from "@/lib/i18n";
+import type { EmailProductData } from "emails/marketplace/receipt";
 import Stripe from "stripe";
 
 export const prerender = false;
@@ -17,6 +19,27 @@ if (typeof session !== "string") {
 
 const stripeSession = await stripe.checkout.sessions.retrieve(session);
 const isValidSession = stripeSession && stripeSession.payment_status === "paid";
+
+if (!isValidSession) {
+    return Astro.redirect("/");
+}
+
+const lineItems = await stripe.checkout.sessions.listLineItems(session);
+const products = await Promise.all(
+    lineItems.data.map(async (item) => {
+        if (item.price?.product) {
+            const product = await stripe.products.retrieve(item.price.product as string);
+            return {
+                id: product.id,
+                name: product.name,
+                description: product.description,
+                image: product.images[0],
+                price: (item.amount_total || 0) / 100,
+                date: new Date().toISOString().split("T")[0]
+            };
+        }
+    })
+);
 ---
 
 <PageLayout>
@@ -25,15 +48,58 @@ const isValidSession = stripeSession && stripeSession.payment_status === "paid";
             <h1 class="text-3xl lg:text-6xl lg:tracking-tight font-bold mt-1 lg:leading-tight">
                 {translate["payment.success.title"]}
             </h1>
-            <p class="text-zinc-400 mt-4 text-lg">
+            <p class="text-zinc-400 mt-4 text-lg mb-8">
                 {translate["payment.success.description"]}
             </p>
 
             {isValidSession && (
-                <div class="mt-10">
-                    <Button href={`/api/download/${session}`}>
-                        {translate["payment.success.download"]}
-                    </Button>
+                <div class="space-y-4">
+                    {products.filter((product) => product !== undefined).map((product) => (
+                        <div class="flex justify-between gap-6 items-center bg-zinc-900/50 p-4 rounded-2xl">
+                            <div class="flex items-center gap-4">
+                                <img
+                                    src={product.image}
+                                    alt={product.name}
+                                    class="w-24 h-24 object-cover rounded-lg"
+                                />
+                                <div class="flex flex-col">
+                                    <h3 class="text-xl font-semibold">{product.name}</h3>
+                                    <p class="text-zinc-400">{product.description}</p>
+                                    <time class="text-sm text-zinc-500">{product.date}</time>
+                                </div>
+                            </div>
+                            <div class="flex flex-col justify-between items-end gap-4">
+                                <span class="text-xl font-bold">${product.price}</span>
+                                <Button href={`/api/download/${session}/${product.id}`} size="sm">
+                                    {translate["payment.success.download"]}
+                                </Button>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+
+                <div class="mt-16">
+                    <h3 class="text-2xl font-semibold">Que faire en cas de perte dans le futur ?</h3>
+                    <p class="text-zinc-300">Quelques solutions :</p>
+                    <ul class="list-disc list-inside text-zinc-400 mt-2">
+                        <li>
+                            Un email a était envoyés a l'adresse que tu as fournis lors de l'achat avec les liens de téléchargement. Si tu ne l'as pas reçu, tu peux me contacter.
+                        </li>
+                        <li>
+                            Tu peux aussi revenir sur cette page pour re-télécharger les fichiers.
+                        </li>
+                        <li>
+                            Autrement, tu peux te connecter a Stripe avec l'email que tu as fournis lors de ton achat pour récupérer les fichiers.
+                        </li>
+                        <li>
+                            Et en derniére espoir, tu pourras utiliser le code ci-dessous en me contactant.
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="mt-8 bg-zinc-900/50 p-4 rounded-2xl px-6 py-4 flex justify-between items-center">
+                    <p class="text-zinc-300">{session}</p>
+                    <ButtonCopy snippet={session} />
                 </div>
             )}
         </section>

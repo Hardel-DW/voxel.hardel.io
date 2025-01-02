@@ -2,6 +2,7 @@ import type { APIRoute } from "astro";
 import Stripe from "stripe";
 import { Resend } from "resend";
 import VoxelReceiptEmail, { type EmailProductData } from "emails/marketplace/receipt";
+import { render } from "@react-email/components";
 
 if (!import.meta.env.STRIPE_SECRET_KEY) {
     throw new Error("STRIPE_SECRET_KEY is not defined in environment variables");
@@ -39,25 +40,30 @@ export const POST: APIRoute = async ({ request }) => {
                 console.log("checkout.session.completed");
                 const session = event.data.object as Stripe.Checkout.Session;
                 if (session.customer_details?.email) {
-                    const products = await stripe.products.list({
-                        ids: session.line_items?.data.map((item) => item.price?.product as string) || []
-                    });
+                    const lineItems = await stripe.checkout.sessions.listLineItems(session.id);
+                    const data: EmailProductData[] = [];
 
-                    console.log("products", products);
+                    for (const item of lineItems.data) {
+                        if (item.price?.product) {
+                            const product = await stripe.products.retrieve(item.price.product as string);
 
-                    const data: EmailProductData[] = products.data.map((product) => ({
-                        name: product.name,
-                        image: product.images[0],
-                        description: product.description || "",
-                        downloadUrl: `${import.meta.env.PUBLIC_SITE_URL}/api/download/${session.id}`,
-                        date: new Date(product.created * 1000).toISOString().split("T")[0],
-                        price: Number(product.default_price) || 0,
-                        quantity: session.line_items?.data.find((item) => item.price?.product === product.id)?.quantity || 1
-                    }));
+                            data.push({
+                                name: product.name,
+                                image: product.images[0],
+                                description: product.description || "",
+                                downloadUrl: `${import.meta.env.PUBLIC_SITE_URL}/api/download/${session.id}/${product.id}`,
+                                date: new Date().toISOString().split("T")[0],
+                                price: (item.amount_total || 0) / 100,
+                                quantity: item.quantity || 1
+                            });
+                        }
+                    }
 
                     console.log("data", data);
 
-                    await sendEmail(session.customer_details.email, data);
+                    if (data.length > 0) {
+                        await sendEmail(session.customer_details.email, data);
+                    }
                 }
                 break;
             }
@@ -80,9 +86,10 @@ export const POST: APIRoute = async ({ request }) => {
 async function sendEmail(email: string, data: EmailProductData[]) {
     try {
         await resend.emails.send({
-            from: "Voxel <no-reply@voxel.hardel.io>",
+            from: "Voxel <marketplace@voxel.hardel.io>",
             to: email,
-            subject: "Votre achat sur Voxel",
+            subject: "Voxel Purchase Receipt",
+            text: await render(VoxelReceiptEmail({ items: data }), { plainText: true }),
             react: VoxelReceiptEmail({ items: data })
         });
     } catch (error) {

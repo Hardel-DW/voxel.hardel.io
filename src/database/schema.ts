@@ -54,8 +54,10 @@ export const migrationNamespace = pgTable("migration_namespace", {
 
 export const product = pgTable("product", {
     id: text("id").primaryKey(),
-    productId: text("product_id").notNull(),
-    priceId: text("price_id").notNull(),
+    name: text("name").notNull().default(""),
+    productId: text("product_id").notNull().default(""),
+    uploadId: text("upload_id").notNull().default(""),
+    priceId: text("price_id").notNull().default(""),
     filename: text("filename").notNull(),
     createdAt: timestamp("created_at", {
         withTimezone: true,
@@ -66,3 +68,5 @@ export const product = pgTable("product", {
         mode: "date"
     }).notNull()
 });
+
+export type Product = typeof product.$inferSelect;

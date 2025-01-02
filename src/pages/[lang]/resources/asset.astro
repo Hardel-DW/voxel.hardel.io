@@ -6,16 +6,43 @@ import { names } from "@/lib/i18n";
 import IconButton from "@/components/ui/IconButton.astro";
 import { getTranslations } from "@/lib/i18n";
 import GroupItem from "@/components/pages/resource/GroupItem.astro";
-import Stripe from "@/components/ui/Stripe.astro";
+import { default as StripeScript } from "@/components/ui/Stripe.astro";
 import Button from "@/components/ui/button.astro";
 import Box from "@/components/ui/Box.astro";
+import { db } from "@/database/db";
+import { product } from "@/database/schema";
+import Stripe from "stripe";
+
+const stripe = new Stripe(import.meta.env.STRIPE_SECRET_KEY, {
+    apiVersion: "2024-12-18.acacia"
+});
 
 export const prerender = true;
 const { translate, lang } = await getTranslations(Astro.url);
-
-const marketplacePacks = await getCollection("marketplace_pack");
 const rawMarketplaceItems = await getCollection("marketplace_item");
 const marketplaceItems = rawMarketplaceItems.toSorted((a, b) => a.data.name.localeCompare(b.data.name));
+
+const packs = await db.select().from(product);
+const prices = await stripe.prices.list({
+    active: true,
+    limit: 100
+});
+
+// Combiner les données
+const marketplacePacks = packs.map((pack) => {
+    const price = prices.data.find((p) => p.id === pack.priceId);
+    return {
+        id: pack.id,
+        data: {
+            name: pack.name,
+            preview: `feature/${pack.id}.webp`,
+            asset: `card/${pack.id}.webp`,
+            price: price ? (price.unit_amount || 0) / 100 : 0,
+            id: pack.priceId,
+            hide: false
+        }
+    };
+});
 
 export async function getStaticPaths() {
     return names.map((element) => ({
@@ -164,7 +191,7 @@ export async function getStaticPaths() {
                                                     {translate["generic.learn_more"]}
                                                 </Button>
                                                 <Button size="sm" variant="ghost" data-stripe-price-id={card.data.id} data-stripe-lang={lang}>
-                                                    {`${card.data.price} $`}
+                                                    {`${card.data.price} €`}
                                                 </Button>
                                             </div>
                                         </Box>
@@ -200,7 +227,7 @@ export async function getStaticPaths() {
             </section>
         </div>
     </main>
-    <Stripe />
+    <StripeScript />
 </PageLayout>
 
 <script>

@@ -1,6 +1,6 @@
 import { Tailwind, Body, Container, Column, Head, Hr, Html, Img, Link, Preview, Row, Section, Text, Button } from "@react-email/components";
 
-const baseUrl = "http://localhost:4321";
+const baseUrl = "https://voxel.hardel.io";
 
 export type EmailProductData = {
     name: string;
@@ -51,19 +51,7 @@ function ItemComponent(props: { item: EmailProductData }) {
     );
 }
 
-export default function VoxelReceiptEmail({
-    items = [
-        {
-            name: "Test",
-            image: "https://via.placeholder.com/150",
-            description: "Test",
-            downloadUrl: "https://via.placeholder.com/150",
-            date: "2025-01-01",
-            price: 10,
-            quantity: 1
-        }
-    ]
-}: { items: EmailProductData[] }) {
+export default function VoxelReceiptEmail({ items }: { items: EmailProductData[] }) {
     return (
         <Tailwind>
             <Html>

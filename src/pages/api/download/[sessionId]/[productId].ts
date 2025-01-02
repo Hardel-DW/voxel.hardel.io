@@ -12,8 +12,8 @@ const stripe = new Stripe(import.meta.env.STRIPE_SECRET_KEY, {
 
 export const GET: APIRoute = async ({ params }) => {
     try {
-        if (!params.sessionId) {
-            return new Response("Session ID is required", { status: 400 });
+        if (!params.sessionId || !params.productId) {
+            return new Response("Session ID and Product ID are required", { status: 400 });
         }
 
         const session = await stripe.checkout.sessions.retrieve(params.sessionId);
@@ -22,22 +22,20 @@ export const GET: APIRoute = async ({ params }) => {
             return new Response("Payment not completed", { status: 403 });
         }
 
-        // Récupérer l'ID du produit depuis la session
-        const lineItems = await stripe.checkout.sessions.listLineItems(params.sessionId);
-        const priceId = lineItems.data[0]?.price?.id;
-
-        if (!priceId) {
-            return new Response("Price ID not found", { status: 404 });
-        }
-
-        // Rechercher le produit dans la base de données
-        const [productData] = await db.select().from(product).where(eq(product.priceId, priceId)).limit(1);
+        const [productData] = await db.select().from(product).where(eq(product.productId, params.productId)).limit(1);
 
         if (!productData) {
             return new Response("Product not found", { status: 404 });
         }
 
-        const fileUrl = `https://utfs.io/f/${productData.productId}`;
+        const lineItems = await stripe.checkout.sessions.listLineItems(params.sessionId);
+        const hasValidProduct = lineItems.data.some((item) => item.price?.product === productData.productId);
+
+        if (!hasValidProduct) {
+            return new Response("Unauthorized access to this product", { status: 403 });
+        }
+
+        const fileUrl = `https://utfs.io/f/${productData.uploadId}`;
 
         return new Response(null, {
             status: 302,
@@ -48,7 +46,7 @@ export const GET: APIRoute = async ({ params }) => {
             }
         });
     } catch (error) {
-        console.error("Error retrieving session:", error);
-        return new Response("Invalid session", { status: 400 });
+        console.error("Error processing download request:", error);
+        return new Response("An error occurred", { status: 500 });
     }
 };

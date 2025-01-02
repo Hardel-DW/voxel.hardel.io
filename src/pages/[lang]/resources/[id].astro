@@ -7,19 +7,32 @@ import ShiningStars from "@/components/ui/pattern/ShiningStars.astro";
 import Star from "@/components/ui/star.astro";
 import TriangleWave from "@/components/ui/pattern/TriangleWave";
 import MarketplaceCard from "@/components/pages/resource/MarketplaceCard.astro";
-import Stripe from "@/components/ui/Stripe.astro";
+import { default as StripeScript } from "@/components/ui/Stripe.astro";
+import { db } from "@/database/db";
+import { product } from "@/database/schema";
+import Stripe from "stripe";
 
 export const prerender = true;
 const { lang, translate } = await getTranslations(Astro.url);
+
 export async function getStaticPaths() {
-    const marketplacePacks = await getCollection("marketplace_pack");
+    const stripe = new Stripe(import.meta.env.STRIPE_SECRET_KEY, {
+        apiVersion: "2024-12-18.acacia"
+    });
+
+    const packs = await db.select().from(product);
     const marketplacePreviews = await getCollection("marketplace_preview");
+    const prices = await stripe.prices.list({
+        active: true,
+        limit: 100
+    });
 
     return marketplacePreviews.map((preview) => {
         const [language, id] = preview.id.split("/");
 
-        const pack = marketplacePacks.find((pack) => pack.id === id);
-        const recommended = marketplacePacks.filter((p) => p.id !== id).slice(0, 2);
+        const pack = packs.find((pack) => pack.id === id);
+        const recommended = packs.filter((p) => p.id !== id).slice(0, 2);
+        const price = prices.data.find((p) => p.id === pack?.priceId);
 
         return {
             params: {
@@ -29,13 +42,14 @@ export async function getStaticPaths() {
             props: {
                 preview,
                 pack,
+                price,
                 recommended
             }
         };
     });
 }
 
-const { preview, pack, recommended } = Astro.props;
+const { preview, pack, price, recommended } = Astro.props;
 const { Content } = await render(preview);
 ---
 
@@ -105,7 +119,7 @@ const { Content } = await render(preview);
                                 <span class="text-zinc-400 text-sm">{new Intl.NumberFormat(lang, {
                                     style: 'currency',
                                     currency: 'EUR'
-                                }).format(Number(pack?.data.price))}</span>
+                                }).format(Number(price?.unit_amount || 0) / 100)}</span>
                             </div>
                             <p class="text-zinc-400 text-sm">
                                 {preview.data.description}
@@ -113,9 +127,9 @@ const { Content } = await render(preview);
                         </div>
 
                         <div class="flex flex-col gap-1">
-                            {pack?.data.id && (
+                            {pack?.id && ( 
                                     <Button
-                                            data-stripe-price-id={pack?.data.id}
+                                            data-stripe-price-id={pack?.priceId}
                                             data-stripe-lang={lang}
                                             size="md"
                                             variant="white-shimmer"
@@ -137,12 +151,18 @@ const { Content } = await render(preview);
                     <Star/>
                 </div>
 
-                <div class="grid grid-cols-4 gap-4 *:opacity-50 *:hover:opacity-100">
-                    {recommended.map((pack) =>
-                            <MarketplaceCard schema={pack} class="col-span-2"/>)}
+                <div class="grid grid-cols-4 gap-4">
+                    {recommended.map((pack) => (
+                        <MarketplaceCard 
+                            pack={pack}
+                            price={price}
+                            text={translate["marketplace.go"]} 
+                            lang={lang}
+                            class="col-span-2"/>
+                    ))}
                 </div>
             </>
         </div>
     </main>
 </CompoundLayout>
-<Stripe />
+<StripeScript/>

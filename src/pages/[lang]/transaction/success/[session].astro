@@ -1,7 +1,6 @@
 ---
 import PageLayout from "@/components/layouts/PageLayout.astro";
 import Button from "@/components/ui/button.astro";
-import ButtonCopy from "@/components/ui/codeblock/ButtonCopy";
 import { getTranslations } from "@/lib/i18n";
 import Stripe from "stripe";
 
@@ -17,14 +16,22 @@ if (typeof session !== "string") {
 }
 
 const stripeSession = await stripe.checkout.sessions.retrieve(session);
-const isValidSession = stripeSession && stripeSession.payment_status === "paid";
 console.log("stripeSession", stripeSession);
+if (!stripeSession) {
+    return Astro.redirect("/");
+}
+
+const isValidSession = stripeSession && stripeSession.payment_status === "paid";
+console.log("isValidSession", isValidSession);
 
 if (!isValidSession) {
     return Astro.redirect("/");
 }
 
+console.log("passed");
+
 const lineItems = await stripe.checkout.sessions.listLineItems(session);
+console.log("lineItems", lineItems);
 const products = await Promise.all(
     lineItems.data.map(async (item) => {
         if (item.price?.product) {
@@ -40,6 +47,8 @@ const products = await Promise.all(
         }
     })
 );
+
+console.log("products", products);
 ---
 
 <PageLayout>
@@ -101,7 +110,6 @@ const products = await Promise.all(
 
                 <div class="mt-8 bg-zinc-900/50 p-4 rounded-2xl px-6 py-4 flex justify-between items-center">
                     <p class="text-zinc-300">{session}</p>
-                    <ButtonCopy client:load snippet={session} />
                 </div>
             )}
         </section>

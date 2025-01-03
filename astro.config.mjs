@@ -22,10 +22,7 @@ export default defineConfig({
     output: "server",
     i18n: {
         defaultLocale: "en-us",
-        locales: ["en-us", "fr-fr"],
-        routing: {
-            prefixDefaultLocale: false
-        }
+        locales: ["en-us", "fr-fr"]
     },
     vite: {
         plugins: [tailwindcss()],
@@ -37,9 +34,9 @@ export default defineConfig({
         sitemap({
             filter: (page) => {
                 const url = new URL(page);
-                console.log(url.pathname);
-                const test = !["/403/", "/404/", "/transaction/", "tools/studio", "tools/sound"].includes(url.pathname);
-                if (test) {
+                const excludedPaths = ["403", "404", "transaction", "tools/studio", "tools/sound"];
+                const test = !excludedPaths.some((path) => url.pathname.includes(path));
+                if (!test) {
                     console.log(url.pathname);
                 }
                 return test;

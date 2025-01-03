@@ -1,5 +1,6 @@
 import mdx from "@astrojs/mdx";
 import react from "@astrojs/react";
+import sitemap from "@astrojs/sitemap";
 import vercel from "@astrojs/vercel";
 import tailwindcss from "@tailwindcss/vite";
 import { defineConfig } from "astro/config";
@@ -30,7 +31,28 @@ export default defineConfig({
         plugins: [tailwindcss()],
         minify: false
     },
-    integrations: [react(), mdx()],
+    integrations: [
+        react(),
+        mdx(),
+        sitemap({
+            filter: (page) => {
+                const url = new URL(page);
+                console.log(url.pathname);
+                const test = !["/403/", "/404/", "/transaction/", "tools/studio", "tools/sound"].includes(url.pathname);
+                if (test) {
+                    console.log(url.pathname);
+                }
+                return test;
+            },
+            i18n: {
+                defaultLocale: "en-us",
+                locales: {
+                    "en-us": "en-US",
+                    "fr-fr": "fr-FR"
+                }
+            }
+        })
+    ],
     adapter: vercel({
         webAnalytics: { enabled: true }
     })

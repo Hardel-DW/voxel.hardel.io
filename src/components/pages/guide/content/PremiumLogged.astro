@@ -2,8 +2,6 @@
 import type { CollectionEntry } from "astro:content";
 import Button from "@/components/ui/button.astro";
 import Faq from "@/components/ui/faq.astro";
-import { createCheckout } from "@/lib/lemon";
-const { user } = Astro.locals;
 
 interface Props {
     schema: CollectionEntry<"guide">;
@@ -14,11 +12,6 @@ if (schema.data.premium === undefined) {
     throw new Error("Missing premium data");
 }
 
-if (!user) {
-    throw new Error("Missing user data");
-}
-
-const checkoutUrl = await createCheckout(user.id, schema.data.premium.variant_id);
 const values = schema.data.premium.faq;
 ---
 
@@ -33,9 +26,7 @@ const values = schema.data.premium.faq;
                     <p class="text-2xl text-zinc-100 text-end font-semibold">{schema.data.premium.price}{schema.data.premium.currency}</p>
                 </div>
                 <p class="text-sm text-zinc-400 mt-4">{schema.data.premium.description}</p>
-                <Button size="sm"
-                        href={checkoutUrl}
-                        class="mt-6 w-48 mb-8">{schema.data.premium.button}</Button>
+                <Button size="sm" class="mt-6 w-48 mb-8">{schema.data.premium.button}</Button>
             </div>
         </div>
 

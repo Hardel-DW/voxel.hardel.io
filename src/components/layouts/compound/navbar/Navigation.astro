@@ -1,0 +1,18 @@
+---
+import type { HTMLAttributes } from "astro/types";
+
+interface Props extends HTMLAttributes<"nav"> {
+    className?: string;
+}
+
+const { className, ...props } = Astro.props;
+---
+
+<nav class:list={["relative z-10 flex max-w-max flex-1 items-center justify-center", className]} {...props}>
+    <slot />
+    <div class="absolute left-0 top-full flex justify-center">
+        <div class="origin-top-center shadow-zinc-00/40 shadow-2xl relative mt-1.5 overflow-hidden rounded-3xl bg-popover text-popover-foreground">
+            <slot name="viewport" />
+        </div>
+    </div>
+</nav> 

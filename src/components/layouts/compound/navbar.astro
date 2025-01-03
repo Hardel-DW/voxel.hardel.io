@@ -1,5 +1,5 @@
 ---
-import NavBarItem from "@/components/layouts/compound/NavbarContent";
+import NavbarContent from "@/components/layouts/compound/NavbarContent.astro";
 import Button from "@/components/ui/button.astro";
 import { getTranslations } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
@@ -38,7 +38,7 @@ const { transparent = true, full = true, className }: Props = Astro.props;
 
             <!-- Desktop -->
             <div class="hidden md:block">
-                <NavBarItem translate={translate} lang={lang} client:idle/>
+                <NavbarContent />
             </div>
         </div>
 
@@ -47,12 +47,6 @@ const { transparent = true, full = true, className }: Props = Astro.props;
             <!-- Desktop -->
             <div class="hidden lg:flex items-center gap-2 px-4">
                 <Internalization/>
-                <!-- <Button href={generateAuthUrl(Astro.url.toString())} rounded="full" variant="ghost">
-                    {translate["generic.login"]}
-                </Button>
-                <Button href=`/${lang}/soon` rounded="full" variant="primary" class="group">
-                    {translate["generic.start"]}
-                </Button> -->
                 <a href="https://x.com/VoxelioStudio" target="_blank" rel="noopener noreferrer">
                     <img src="/icons/company/x.svg" alt="x" class="w-6 h-6 invert mx-1 cursor-pointer opacity-70 hover:opacity-100 transition-opacity duration-150 ease-linear"/>
                 </a>
@@ -87,13 +81,6 @@ const { transparent = true, full = true, className }: Props = Astro.props;
                 )}
             </div>
             <div class="mb-4 flex justify-center gap-x-4 sm:gap-x-8">
-                <!-- <Button href={generateAuthUrl(Astro.url.toString())} class="w-full mt-0" rounded="full"
-                        variant="ghost">
-                    {translate["generic.login"]}
-                </Button>
-                <Button href="/guides" class="w-full mt-0" rounded="full" variant="primary">
-                    {translate["navbar.item.guides"]}
-                </Button> -->
                 <a href="https://x.com/VoxelioStudio" target="_blank" rel="noopener noreferrer">
                     <img src="/icons/company/x.svg" alt="x" class="w-6 h-6 invert mx-1 cursor-pointer opacity-70 hover:opacity-100 transition-opacity duration-150 ease-linear"/>
                 </a>

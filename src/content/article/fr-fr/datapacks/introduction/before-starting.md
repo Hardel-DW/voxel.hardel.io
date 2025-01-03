@@ -1,47 +1,69 @@
-# Informations avant de commencer
+# Quelques informations avant de commencer
 
-Bienvenue dans ce guide sur le modding pour Minecraft avec Forge ! Avant de plonger dans les détails techniques, prenons
-un moment pour comprendre ce que vous pouvez attendre de cette formation et comment vous pouvez en tirer le meilleur
-parti.
+Yo ! J'ai écrit ce guide car je suit les fonctionnalités liés au Datapacks
+depuis sa création, et je veux t'apprendre tous ce que je sais, je vais t'aider
+a commencer. Si tu as des questions, faut surtout pas hésiter a venir sur le
+discord !
 
-### Les possibilités infinies du modding
+### Les possibilités des datapacks
 
-Le modding pour Minecraft ouvre un monde infini de possibilités créatives. Avec les bonnes compétences et l'imagination,
+Les datapacks ont était introduit dans Minecraft en 1.13, et permet de
+configurer le jeu sur certains aspects comme :
 
--   **Si vous n'avez jamais touché à la programmation**, Minecraft est l'environnement idéal pour exprimer à la fois votre
-    créativité et apprendre de manière ludique les bases de la programmation.
--   Pour les **développeurs expérimentés**, Minecraft devient une structure imposante où il est possible d'avoir un avenir
-    professionnel.
+- Les recettes, et les butins aléatoires (Loot).
+- Les dimensions, biomes, structures, et la génération du monde
+- Les enchantements, avancements et les conditions associés.
+- Les "Tags" qui permet de modifier certains choses dans le jeu.
 
-### Apprendre Java à travers Minecraft
+### Une information importante
 
-Si vous êtes novice en programmation, ne vous inquiétez pas ! Ce cours est une excellente opportunité d'apprendre Java
-tout en vous amusant avec Minecraft. Vous verrez que la programmation devient beaucoup plus intéressante lorsque vous
-pouvez voir instantanément les résultats de votre travail dans le jeu.
-Par la suite, vous pourrez vous lancer dans des projets plus ambitieux, et pourquoi pas, envisager une carrière dans le
-développement de jeux vidéo.
+Les datapacks sont puissants, mais ne permette pas aujourd'hui de modifier tout
+les concepts de Minecraft, **comme les objets (Items)**, **les blocs**, **les
+entités** et les **interfaces**. Qui arriveront probablement dans le futur.
 
-### Conseils pour réussir
+### Ce qui ne sera pas abordé
 
-Pour tirer le meilleur parti de ces guides, voici quelques conseils :
+Les datapacks sont trés vaste, avec énormément de concepts a apprendre, et je ne
+vais donc pas aborder les **Fonctions / Commandes**, ça seras fait dans un autre
+guide a par entiére.
 
-1. **Création personnelle :** Ce conseil est valable pour tous les aspects de la vie, mais il est particulièrement
-   important pour le modding. Ne vous contentez pas de copier-coller des tutoriels ou des exemples de code. Essayez de
-   comprendre chaque concept et de l'appliquer à vos propres idées et projets.
+---
 
-2. **Explorez la communauté :** La meilleure façon d'apprendre est de s'entourer de personnes partageant les mêmes
-   intérêts. Rejoignez des forums, des groupes de discussion et des communautés de modding pour Minecraft. Vous y
-   trouverez des conseils, des astuces et des idées pour améliorer vos compétences.
+### Tu n'as jamais programmé ?
 
-3. **Consultez la documentation :** Forge et Fabric disposent d'une documentation relativement faible en français, mais
-   il est essentiel de consulter la documentation officielle pour comprendre les concepts de base et les bonnes
-   pratiques.
+- **Si tu n'as jamais touché à la programmation**, Sache que les datapacks ne
+  néccéssite pas de connaissances en programmation, seulement quelque concepts
+  trés rapide a prendre en main. Les datapacks n'inclut pas de langage de
+  programmation. c'est un bon début pour mettre un pied dans le monde du jeu
+  vidéo.
+- Pour les **développeurs expérimentés**, Si vous le souhaitez, vous pouvez
+  contribuer en me donnant votre avis, ou en aidant les débutants qui souhaitent
+  apprendre.
 
-4. **Soyez créatif :** Ne vous limitez pas aux fonctionnalités de base de Minecraft. Poussez les limites de la
-   créativité en expérimentant avec des idées originales et des concepts uniques.
+### Quelques conseils pour réussir
 
-En suivant ces conseils, vous pouvez devenir un moddeur accompli et apporter votre propre contribution à la communauté
-Minecraft.
+Pour tirer le meilleur parti de ce que je vais t'apprendre, voici quelques
+conseils :
 
-Prêt à commencer cette aventure passionnante ? Alors préparez-vous à plonger dans le monde fascinant du modding pour
-Minecraft avec Forge !
+1. **Projet personnel :** Ce conseil est valable pour tous les aspects de la
+   vie. Le meilleur moyen d'apprendre est de faire en parralèle un projet
+   personnel. Imagine un projet qui te plait et qui te motive.
+
+2. **Entoure toi :** S'entourer de personnes qui partagent la même passion et le
+   milleur moyen d'être a fond, et surtout d'apprendre plus rapidement, je
+   t'invite a rejoindre le discord de Voxel, de Dataworld ou de Guinivers. Et si
+   tu as des concéptences en anglais a rejoindre MCC !
+
+3. **A propos des documentations :** Ce n'est pas ce que je te conseille le
+   plus, car ils sont parfois trés difficile a lire et sont découragants. Mais
+   c'est une bonne source d'informations qui est trés détaillées.
+
+4. **Sois créatif :** Ne te limite pas a ce que je vais t'apprendre, pousse les
+   limites de ta créativité en expérimentant avec des idées originales et des
+   concepts uniques.
+
+En suivant ces quelques conseils, tu peux va trés vite maitriser tout les
+aspects de la création, et tu pourras créer tes propres datapacks.
+
+Si tu es prêt à commencer cette aventure passionnante, alors prépare toi à
+plonger dans le monde fascinant du modding !

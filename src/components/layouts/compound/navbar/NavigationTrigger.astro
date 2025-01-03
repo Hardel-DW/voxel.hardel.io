@@ -1,0 +1,25 @@
+---
+import type { HTMLAttributes } from "astro/types";
+
+interface Props extends HTMLAttributes<"button"> {
+    className?: string;
+}
+
+const { className, ...props } = Astro.props;
+---
+
+<button
+    class:list={[
+        "group px-4 py-2 text-[16px] tracking-wide transition rounded-2xl text-zinc-400 hover:text-white inline-flex h-10 w-max items-center justify-center bg-transparent hover:bg-zinc-900 focus:bg-zinc-700 focus:text-white focus:outline-hidden disabled:pointer-events-none disabled:opacity-50",
+        className
+    ]}
+    {...props}
+>
+    <slot />
+    <img
+        src="/icons/chevron-down.svg"
+        alt="Open menu"
+        class="relative invert top-[1px] ml-1 h-3 w-3 transition duration-200 group-data-[state=open]:rotate-180"
+        aria-hidden="true"
+    />
+</button> 

@@ -27,24 +27,7 @@ export default defineConfig({
     vite: {
         plugins: [tailwindcss()]
     },
-    integrations: [
-        react(),
-        mdx(),
-        sitemap({
-            filter: (page) => {
-                const url = new URL(page);
-                const excludedPaths = ["403", "404", "transaction", "tools/studio", "tools/sound"];
-                return !excludedPaths.some((path) => url.pathname.includes(path));
-            },
-            i18n: {
-                defaultLocale: "en-us",
-                locales: {
-                    "en-us": "en-US",
-                    "fr-fr": "fr-FR"
-                }
-            }
-        })
-    ],
+    integrations: [react(), mdx()],
     adapter: vercel({
         webAnalytics: { enabled: true }
     })

@@ -20,36 +20,9 @@ export default defineConfig({
         domains: ["https://voxel.hardel.io/", "https://devvoxel.hardel.io/", "https://lh3.googleusercontent.com/"]
     },
     output: "server",
-    i18n: {
-        defaultLocale: "en-us",
-        locales: ["en-us", "fr-fr"]
-    },
     vite: {
-        plugins: [tailwindcss()],
-        minify: false
+        plugins: [tailwindcss()]
     },
-    integrations: [
-        react(),
-        mdx(),
-        sitemap({
-            filter: (page) => {
-                const url = new URL(page);
-                const excludedPaths = ["403", "404", "transaction", "tools/studio", "tools/sound"];
-                const test = !excludedPaths.some((path) => url.pathname.includes(path));
-                if (!test) {
-                    console.log(url.pathname);
-                }
-                return test;
-            },
-            i18n: {
-                defaultLocale: "en-us",
-                locales: {
-                    "en-us": "en-US",
-                    "fr-fr": "fr-FR"
-                }
-            }
-        })
-    ],
     adapter: vercel({
         webAnalytics: { enabled: true }
     })

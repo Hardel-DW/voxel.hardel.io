@@ -10,6 +10,7 @@
         "check": "astro check",
         "preview": "astro preview",
         "astro": "astro",
+        "sync": "astro sync",
         "test": "vitest",
         "email": "email dev",
         "biome:format": "biome format --write ./src",

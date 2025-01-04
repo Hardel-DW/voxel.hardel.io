@@ -4,8 +4,10 @@ import Layout from "@/components/layouts/Layout.astro";
 import Navigation from "@/components/pages/guide/content/Navigation";
 import PageContent from "@/components/pages/guide/content/PageContent.astro";
 import Dropdown from "@/components/ui/dropdown.astro";
+import { getTranslations } from "@/lib/i18n";
 
 export const prerender = false;
+const { translate } = await getTranslations(Astro.url);
 const { guide, section, lang, article } = Astro.params;
 
 if (typeof guide !== "string") throw new Error("Missing required parameter 'guide'");
@@ -37,7 +39,7 @@ const postsParsed = posts.map((post) => ({
 }));
 ---
 
-<Layout>
+<Layout title={translate["guides.seo.title"]} description={translate["guides.seo.description"]}>
     <div class="flex relative md:p-4 h-dvh">
         <div class="fixed -z-20 inset-0 bg-cover bg-center bg-no-repeat opacity-10 blur-3xl"
              style={{backgroundImage: `url(${background})`}}>

@@ -26,8 +26,17 @@
         "generic.datapacks": "Datapacks",
         "generic.unsupported.video": "Your browser does not support the video tag.",
         "generic.more": "More Details",
+
+        "seo.title": "Voxel",
+        "seo.description": "Voxel is a personal project, created with passion. The goal is to share my knowledge and help you develop your own content.",
+
+        "payment.cancel.seo.title": "Payment canceled · Voxel",
+        "payment.cancel.seo.description": "A page that indicates that the payment has been canceled.",
         "payment.cancel.title": "Payment canceled",
         "payment.cancel.description": "Your payment has been canceled. If you need more information, You can contact us.",
+
+        "payment.success.seo.title": "Payment successful · Voxel",
+        "payment.success.seo.description": "A page that indicates that the payment has been successful.",
         "payment.success.title": "Payment successful",
         "payment.success.description": "Your payment has been successful. If you need more information, You can contact us.",
         "payment.success.download": "Download",
@@ -43,20 +52,29 @@
         "tracker.analytics.description": "Analytical cookies help us to improve our website by collecting and reporting information on its usage.",
         "tracker.marketing.title": "Marketing Cookies",
         "tracker.marketing.description": "Marketing cookies are used to track visitors across websites. The intention is to display ads that are relevant and engaging for the individual user and thereby more valuable for publishers and third party advertisers.",
+
         "lost.title": "Are you lost?",
         "lost.description": "The page you're trying to access doesn't exist, or it might have been moved. If you think this is an error, don't hesitate to contact us!",
+
         "timeline.updates": "Latest updates",
         "timeline.author": "Author",
         "timeline.see_latest_updates": "See the latest updates",
         "timeline.updates.title": "New updates and improvements",
-        "timeline.opengraph.title": "Patch notes - Enchant Configurator",
+        "timeline.opengraph.title": "Patch notes · Enchant Configurator · Voxel",
         "timeline.opengraph.description": "The history of changes and updates made to the Enchant Configurator.",
+
         "blog.back": "Back to the blog",
         "blog.latest": "The latest news",
         "blog.previous": "Previous",
         "blog.next": "Next",
+
+        "soon.seo.title": "Coming soon · Voxel",
+        "soon.seo.description": "This content is in development, it will arrive soon, come back soon!",
         "soon.title": "Coming soon",
         "soon.description": "Sorry, this is still in development! Come back soon, but hey - check out these pretty triangles in the meantime :3!",
+
+        "contact.seo.title": "Contact · Voxel",
+        "contact.seo.description": "Contact us for any question or collaboration request.",
         "contact.discord.name": "Discord Community",
         "contact.discord.description": "Join our Discord community to chat with us and other members - they're super friendly, I promise!",
         "contact.twitter.name": "Twitter",
@@ -67,6 +85,7 @@
         "contact.mail.description": "Got any questions? Don't hesitate to reach out!",
         "contact.discord_mp.name": "Discord - Private Message",
         "contact.discord_mp.description": "Hey, I'm Hardel! Feel free to send me a DM on Discord - I can be a bit scatterbrained, but I try to reply to everyone :3",
+
         "home.feature.title": "Made by a passionate dev for passionate players",
         "home.feature.description": "Voxel is a personal project, created with passion. The goal is to share my knowledge and help you develop your own content.",
         "home.feature.keyword": "From Scratch",
@@ -85,6 +104,8 @@
         "home.wiki.title": "Accompanied by a wiki",
         "home.wiki.description": "The two main contents NeoEnchant and Yggdrasil come with their own pages. You'll find video showcases of all enchantments, and for Yggdrasil, the rewards from each structure!",
 
+        "marketplace.seo.title": "Marketplace · Voxel",
+        "marketplace.seo.description": "Use free and paid assets made by Voxel for your next project.",
         "marketplace.title": "Marketplace",
         "marketplace.description": "Find the best assets for your next project.",
         "marketplace.back": "Back to the marketplace",
@@ -125,6 +146,7 @@
         "navbar.resources.sound.title": "Soon",
         "navbar.resources.sound.description": "This content is coming soon",
         "navbar.resources.migration.description": "Migrate your mod/datapack to a different version of Minecraft",
+
         "footer.description": "VOXEL, what is it? These are guides in French, from beginner to advanced level, to learn how to develop mods or enrich your existing knowledge.",
         "footer.copyright_left": "Copyright ©",
         "footer.copyright_right": "All rights reserved.",
@@ -146,14 +168,24 @@
         "footer.content.support.term_of_service": "Term of Service",
         "footer.content.support.legal": "Legal",
         "footer.content.support.privacy": "Privacy Policy",
+
+        "blog.seo.title": "Blog · Voxel",
+        "blog.seo.description": "Discover our latest news and updates.",
         "blog.actuality": "Actualities",
+
         "guides.title": "The Guides",
+        "guides.seo.title": "Guides · Voxel",
+        "guides.seo.description": "Discover our latest guides and have fun.",
         "guides.discover": "Discover our latest guides and have fun.",
         "guides.contains": "This pack contains the guides for Forge, Fabric and NeoForge, exclusive resources, code examples and personalized support.",
         "guides.what_you_will_learn": "What you will learn",
+
         "datapacks.back": "Back to data packs",
         "datapacks.wiki": "Check the wiki",
         "datapacks.modrinth.download": "Download on Modrinth",
+
+        "datapacks.neoenchant.seo.title": "Neo Enchant+ · Voxel",
+        "datapacks.neoenchant.seo.description": "Neo Enchant is a datapack which introduces a new suite of enchantments. It is designed to be fun and balanced. Available on Modrinth and CurseForge. Try it now!",
         "datapacks.neoenchant.title": "Neo Enchant+",
         "datapacks.neoenchant.short": "Neo",
         "datapacks.neoenchant.description": "Neo Enchant by Hardel. is a datapack which introduces a new suite of enchantments to the game. It is designed to be a balanced and fun addition to the game. Explore innovative ways to enhance your Minecraft experience.",
@@ -232,7 +264,6 @@
         "datapacks.neoenchant.enchant.miningplus.description": "Break in a zone of 3x3, depending of the direction of the player.",
         "datapacks.neoenchant.enchant.magical_water.title": "Magical Water",
         "datapacks.neoenchant.enchant.magical_water.description": "Magic, magic, what does this enchantment do ?",
-
         "datapacks.neoenchant.enchant.curse_of_enchant.title": "Curse of Enchant",
         "datapacks.neoenchant.enchant.curse_of_enchant.description": "The item can no longer be enchanted.",
         "datapacks.neoenchant.enchant.curse_of_breaking.title": "Curse of Breaking",
@@ -251,7 +282,6 @@
         "datapacks.neoenchant.enchant.last_hope.description": "Consumes the item to deal infinite damage to the target.",
         "datapacks.neoenchant.enchant.sky_walk.title": "Sky Walk",
         "datapacks.neoenchant.enchant.sky_walk.description": "Permet de flotter dans les airs, et de s'envoler en s'accroupissant.",
-
         "datapacks.neoenchant.type.armor.short": "Armor",
         "datapacks.neoenchant.type.head.short": "Head",
         "datapacks.neoenchant.type.chest.short": "Chest",
@@ -261,16 +291,27 @@
         "datapacks.neoenchant.type.weapon.short": "Weapon",
         "datapacks.neoenchant.type.range.short": "Range",
         "datapacks.neoenchant.type.pickaxe.short": "Pickaxe",
+
+        "datapacks.beyondenchant.seo.title": "Beyond Enchant · Voxel",
+        "datapacks.beyondenchant.seo.description": "A datapack which increases the maximum level of vanilla enchantments, Available on Modrinth and CurseForge. Try it now!",
         "datapacks.beyondenchant.title": "Beyond Enchant",
         "datapacks.beyondenchant.short": "Beyond",
         "datapacks.beyondenchant.description": "Increase the maximum level of vanilla enchantments, and try out new gameplay mechanics.",
+
+        "datapacks.yggdrasil.seo.title": "Yggdrasil · Voxel",
+        "datapacks.yggdrasil.seo.description": "Explore massive structures, find secrets and explore the lore. Available on Modrinth and CurseForge. Try it now!",
         "datapacks.yggdrasil.title": "Yggdrasil",
         "datapacks.yggdrasil.short": "Yggdrasil",
         "datapacks.yggdrasil.description": "Explore structures of extreme difficulty, find secrets and obtain exclusive new enchantments.",
+
+        "datapacks.better_furnace.seo.title": "Better Furnace · Voxel",
+        "datapacks.better_furnace.seo.description": "A datapack which adds some new types of furnaces. Each furnace is faster, more efficient, and more difficult to obtain. Available on Modrinth and CurseForge. Try it now!",
         "datapacks.better_furnace.title": "Better Furnace",
         "datapacks.better_furnace.short": "Furnace+",
         "datapacks.better_furnace.description": "Adds new types of furnaces, faster, more efficient, and harder to obtain.",
 
+        "tools.harmonization.seo.title": "Image harmonization · Voxel",
+        "tools.harmonization.seo.description": "Harmonize the colors of an image by reducing the color palette",
         "tools.harmonization.title": "Harmonization",
         "tools.harmonization.description": "This tool allows you to harmonize a texture by extracting its colors and quantifying the image to reduce the palette.",
         "tools.harmonization.small": "For example, you can use this tool to improve the result of a texture generated by a generative model.",
@@ -279,8 +320,10 @@
         "tools.harmonization.similarity": "Similarity threshold:",
         "tools.harmonization.colors": "Extracted colors:",
 
+        "tools.migration.seo.title": "Datapack Migration · Voxel",
+        "tools.migration.seo.description": "Migrate your mods or datapacks, modified by the configurator, to a different version, while keeping your modifications active.",
         "tools.migration.home": "Datapack Migration",
-        "tools.migration.home.description": "Migrate your datapacks to newer Minecraft versions",
+        "tools.migration.home.description": "Migrate your mods or datapacks, modified by the configurator, to a different version, while keeping your modifications active.",
         "tools.migration.source": "Your datapack customized by the configurator",
         "tools.migration.target": "The datapack you want to update",
         "tools.migration.drop.source": "Drop your datapack customized by the configurator in this box",
@@ -301,14 +344,20 @@
         "tools.migration.description.title": "Explore our datapacks",
         "tools.migration.description.description": "On Modrinth, find all our datapacks, like NeoEnchant which adds enchantments, Yggdrasil which adds a nordic story with tons of structures!",
 
-        "tools.enchantments.home": "Enchantment configurator",
-        "tools.enchantments.home.description": "Configure your enchantments with a simple and user-friendly interface",
-
         "tools.migration.step1.title": "Drop your datapack modified by the configurator",
         "tools.migration.step1.description": "Drop the datapack you modified with the configurator here, it'll be automatically analyzed and migrated.",
         "tools.migration.step2.title": "Drop the datapack you want to update",
         "tools.migration.step2.description": "Drop the datapack you want to migrate to here, and the configuration will be automatically applied from the pack you dropped on the left.",
         "tools.migration.step3.title": "Migration complete",
-        "tools.migration.step3.description": "Once the migration is complete, the datapack will automatically download in your browser"
+        "tools.migration.step3.description": "Once the migration is complete, the datapack will automatically download in your browser",
+
+        "tools.enchantments.seo.title": "Enchantment configurator · Voxel",
+        "tools.enchantments.seo.description": "Configure enchantments of a mods and or a datapack with a simple and intuitive interface",
+
+        "tools.sound.seo.title": "Mojang sound · Voxel",
+        "tools.sound.seo.description": "This tool allows you to listen to the sounds of Minecraft, very useful for mod and datapack creators to find the right sounds to use.",
+
+        "tools.studio.seo.title": "Voxel Studio",
+        "tools.studio.seo.description": "This feature is under development, come back later for more information."
     }
 }

@@ -1,14 +1,13 @@
 ---
 import { Image } from "astro:assets";
 import CompoundLayout from "@/components/layouts/CompoundLayout.astro";
-import NeoEnchantmentViewer from "@/components/pages/datapacks/NeoEnchantmentViewer";
+import NeoEnchantmentViewer, { type SectionViewer } from "@/components/pages/datapacks/NeoEnchantmentViewer";
 import DatapackCard from "@/components/ui/DatapackCard.astro";
 import Button from "@/components/ui/button.astro";
 import DashedPattern from "@/components/ui/pattern/DashedPattern.astro";
 import ShiningStars from "@/components/ui/pattern/ShiningStars.astro";
 import Vortex from "@/components/ui/pattern/Vortex.astro";
 import { getTranslations, names } from "@/lib/i18n";
-import type { SectionViewer } from "@/lib/type/SectionViewer";
 
 const { translate, lang } = await getTranslations(Astro.url);
 export const prerender = true;
@@ -424,11 +423,7 @@ const sections: SectionViewer[] = [
 ];
 ---
 
-<CompoundLayout description={translate["datapacks.neoenchant.description"]} openGraph={{
-    title: translate["datapacks.neoenchant.title"] + " - " + translate["generic.branding"],
-    description: translate["datapacks.neoenchant.description"],
-    image: "/images/background/datapacks/neoenchant.webp",
-}} title="Neo Enchant">
+<CompoundLayout title={translate["datapacks.neoenchant.seo.title"]} description={translate["datapacks.neoenchant.seo.description"]} image="/images/background/datapacks/neoenchant.webp">
     <section class="max-h-dvh relative z-20 border-b border-pink-300/50">
         <Image src="/images/background/datapacks/neoenchant.webp" alt="Neo Enchant" width="1920" height="1080"
                loading="eager"

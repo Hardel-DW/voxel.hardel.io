@@ -42,16 +42,7 @@ const structures = await getCollection("structure");
 const yggdrasil = structures.filter((s) => s.id.startsWith("yggdrasil")).filter((s) => !s.data.disabled);
 ---
 
-<CompoundLayout
-        description={translate["datapacks.yggdrasil.description"]}
-        openGraph={{
-            title: translate["datapacks.yggdrasil.title"] + " - " + translate["generic.branding"],
-            description: translate["datapacks.yggdrasil.description"],
-            image: "/images/background/datapacks/yggdrasil.webp",
-        }}
-        title="Yggdrasil"
->
-
+<CompoundLayout title={translate["datapacks.yggdrasil.seo.title"]} description={translate["datapacks.yggdrasil.seo.description"]} image="/images/background/datapacks/yggdrasil.webp">
     <section class="h-[90vh] relative z-20 flex flex-col items-center justify-end">
         {/* Gradients */}
         <div class="absolute inset-0 bg-linear-to-b from-black/50 from-5% to-transparent"/>

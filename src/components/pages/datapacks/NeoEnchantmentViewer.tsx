@@ -1,8 +1,25 @@
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/shadcn/select.tsx";
 import useLoadedPage from "@/lib/hook/useLoadedPage.ts";
-import type { EnchantViewer, SectionViewer } from "@/lib/type/SectionViewer";
 import { cn } from "@/lib/utils.ts";
 import React, { useState } from "react";
+
+export type EnchantViewer = {
+    id: string;
+    name: string;
+    level: number;
+    addons?: boolean;
+    description: string;
+    image: string;
+    thumbnail?: string;
+    video?: string;
+};
+
+export type SectionViewer = {
+    id: string;
+    short: string;
+    image: string;
+    enchants: EnchantViewer[];
+};
 
 export default function NeoEnchantmentViewer({
     enchant

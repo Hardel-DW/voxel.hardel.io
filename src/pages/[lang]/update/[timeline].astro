@@ -43,9 +43,7 @@ export async function getStaticPaths() {
 const { updates } = Astro.props;
 ---
 
-<CompoundLayout title={translate["timeline.opengraph.title"]} description={translate["timeline.opengraph.description"]} openGraph={{
-    image: "/images/opengraph/timeline.webp"
-}}>
+<CompoundLayout title={translate["timeline.opengraph.title"]} description={translate["timeline.opengraph.description"]} image="/opengraph/timeline.webp">
     <div class="fixed inset-0">
         <ShiningStars/>
     </div> 

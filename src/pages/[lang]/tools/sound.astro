@@ -6,7 +6,7 @@ import SoundTool from "@/components/pages/tools/sound/SoundTool";
 import { getTranslations } from "@/lib/i18n";
 
 export const prerender = true;
-const { lang } = await getTranslations(Astro.url);
+const { lang, translate } = await getTranslations(Astro.url);
 export async function getStaticPaths() {
     return names.map((element) => ({
         params: { lang: element.lang }
@@ -14,7 +14,7 @@ export async function getStaticPaths() {
 }
 ---
 
-<CompoundLayout>
+<CompoundLayout title={translate["tools.sound.seo.title"]} description={translate["tools.sound.seo.description"]}>
     <div class="fixed inset-0">
         <ShiningStars/>
     </div>

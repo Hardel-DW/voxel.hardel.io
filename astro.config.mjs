@@ -16,6 +16,9 @@ const site = uris[import.meta.env.VITE_ENVIRONMENT || "local"];
 // https://astro.build/config
 export default defineConfig({
     site: site,
+    optimizeDeps: {
+        include: ["react-compiler-runtime"]
+    },
     image: {
         domains: ["https://voxel.hardel.io/", "https://devvoxel.hardel.io/", "https://lh3.googleusercontent.com/"]
     },

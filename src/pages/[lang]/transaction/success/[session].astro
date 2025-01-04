@@ -17,22 +17,17 @@ if (typeof session !== "string") {
 }
 
 const stripeSession = await stripe.checkout.sessions.retrieve(session);
-console.log("stripeSession", stripeSession);
 if (!stripeSession) {
     return Astro.redirect("/");
 }
 
 const isValidSession = stripeSession && stripeSession.payment_status === "paid";
-console.log("isValidSession", isValidSession);
 
 if (!isValidSession) {
     return Astro.redirect("/");
 }
 
-console.log("passed");
-
 const lineItems = await stripe.checkout.sessions.listLineItems(session);
-console.log("lineItems", lineItems);
 const products = await Promise.all(
     lineItems.data.map(async (item) => {
         if (item.price?.product) {
@@ -48,11 +43,9 @@ const products = await Promise.all(
         }
     })
 );
-
-console.log("products", products);
 ---
 
-<PageLayout>
+<PageLayout title={translate["payment.success.seo.title"]} description={translate["payment.success.seo.description"]}>
     <main class="mt-24 mb-20 relative w-full">
         <section class="w-11/12 md:w-3/4 mx-auto my-16 relative z-20">
             <h1 class="text-3xl lg:text-6xl lg:tracking-tight font-bold mt-1 lg:leading-tight">

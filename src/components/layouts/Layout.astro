@@ -1,50 +1,55 @@
 ---
 import Tracking from "@/components/layouts/compound/tracking/tracking.astro";
 import SpeedInsights from "@vercel/speed-insights/astro";
-
+import { getTranslations } from "@/lib/i18n";
 import "@/global.css";
-import { type BaseLayoutProps, LayoutHelper } from "@/lib/LayoutHelper";
 
-export interface Props extends BaseLayoutProps {}
-
-if (!Astro?.url || !Astro?.site) {
-    throw new Error("Astro.url and Astro.site must be defined in your astro config");
+const { translate } = await getTranslations(Astro.url);
+export interface Props {
+    title?: string;
+    description?: string;
+    image?: string;
 }
 
-const LayoutContent = new LayoutHelper(Astro.url, Astro.site);
-LayoutContent.setTitle(Astro.props?.title);
-LayoutContent.setDescription(Astro.props?.description);
-LayoutContent.setOpenGraph(Astro.props?.openGraph);
+const DEFAULT = {
+    title: translate["seo.title"],
+    description: translate["seo.description"],
+    image: "/opengraph.webp"
+};
+
+const { title = DEFAULT.title, description = DEFAULT.description, image = DEFAULT.image } = Astro.props;
 ---
 
 <!doctype html>
 <html lang="en">
 <head>
-    <title>{LayoutContent.shownTitle}</title>
+    <title>{title}</title>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg"/>
-    <link rel="canonical" href={LayoutContent.canonicalURL}/>
+    <link rel="canonical" href={Astro.url}/>
     <meta charset="UTF-8"/>
     <link rel="sitemap" href="/sitemap-index.xml" />
 
-    <meta name="description" content={LayoutContent.shownDescription}/>
+    <meta name="description" content={description}/>
     <meta name="viewport" content="width=device-width"/>
     <meta name="generator" content={Astro.generator}/>
-    <meta name="description" content={LayoutContent.shownDescription}/>
     <meta name="theme-color" content="#be185d"/>
 
-    <meta property="og:title" content={LayoutContent.openGraph.title}/>
+    <meta property="og:title" content={title}/>
     <meta property="og:type" content="website"/>
-    <meta property="og:image" content={LayoutContent.resolvedImageWithDomain}/>
-    <meta property="og:description" content={LayoutContent.shownDescription}/>
-    <meta property="og:url" content={LayoutContent.canonicalURL}/>
-    <meta property="og:image:url" content={LayoutContent.resolvedImageWithDomain}/>
+    <meta property="og:site_name" content="Voxel">
+    <meta property="og:image" content={image}/>
+    <meta property="og:description" content={description}/>
+    <meta property="og:url" content={Astro.url}/>
+    <meta property="og:image:url" content={image}/>
     <meta property="og:image:alt" content="Voxel"/>
     <meta name="google-adsense-account" content="ca-pub-7277204161121479">
 
-    <meta name="twitter:title" content={LayoutContent.openGraph.title}/>
+    <meta name="twitter:title" content={title}/>
     <meta name="twitter:card" content="summary_large_image"/>
-    <meta name="twitter:site" content={LayoutContent.canonicalURL}/>
-    <meta name="twitter:description" content={LayoutContent.shownDescription}/>
+    <meta property="og:site_name" content="Voxel"/>
+    <meta name="twitter:site" content={Astro.url}/>
+    <meta name="twitter:description" content={description}/>
+    <meta property="twitter:image" content={image}/>
     <meta name="twitter:creator" content="@Hardel-DW"/>
     <script is:inline async
             src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7277204161121479"

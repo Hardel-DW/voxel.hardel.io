@@ -53,15 +53,7 @@ const { preview, pack, price, recommended } = Astro.props;
 const { Content } = await render(preview);
 ---
 
-<CompoundLayout
-        title={preview.data.name}
-        description={preview.data.description}
-        openGraph={{
-            title: preview.data.name,
-            description: preview.data.description,
-            image: preview.data.asset
-        }}
->
+<CompoundLayout title={preview.data.name} description={preview.data.description}>
     <div class="fixed inset-0 -z-10">
         <div class="absolute rounded-full w-3/4 h-1/2 bg-linear-to-r from-[#401727] to-[#311e7696] opacity-20 blur-[10rem] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"/>
         <ShiningStars/>

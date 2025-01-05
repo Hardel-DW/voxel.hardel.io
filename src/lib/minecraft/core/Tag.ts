@@ -1,4 +1,4 @@
-import type { Identifier, IdentifierOneToMany } from "@/lib/minecraft/core/Identifier.ts";
+import { Identifier } from "@/lib/minecraft/core/Identifier.ts";
 import type { RegistryElement } from "@/lib/minecraft/mczip.ts";
 import type { TagType } from "@voxel/definitions";
 
@@ -21,44 +21,16 @@ export const isPresentInTag = (tag: RegistryElement<TagType>, value: string): bo
     });
 };
 
-export const compileTags = (elements: IdentifierOneToMany[]): RegistryElement<TagType>[] => {
-    const tags: RegistryElement<TagType>[] = [];
-
-    // File name, all tags
-    const tempTags: Record<
-        string,
-        {
-            identifier: Identifier;
-            tags: string[];
-        }
-    > = {};
-
-    for (const identifier of elements) {
-        for (const tags of identifier.related) {
-            const path = tags.filePath();
-
-            if (!tempTags[path]) {
-                tempTags[path] = {
-                    identifier: tags,
-                    tags: []
-                };
-            }
-
-            if (identifier.primary.toString().startsWith("tags/")) {
-                tempTags[path].tags.push(`#${identifier.primary.toString()}`);
-                continue;
-            }
-
-            tempTags[path].tags.push(identifier.primary.toString());
-        }
+/**
+ * Converts a list of tags to identifiers.
+ * @param tags - The list of tags to convert.
+ * @param registry - The registry to use.
+ * @returns The list of identifiers.
+ */
+export const tagsToIdentifiers = (tags: string[], registry?: string): Identifier[] => {
+    if (!registry) {
+        return [];
     }
 
-    for (const path in tempTags) {
-        tags.push({
-            identifier: tempTags[path].identifier,
-            data: { values: tempTags[path].tags }
-        });
-    }
-
-    return tags;
+    return tags.map((tag) => Identifier.fromString(tag, registry));
 };

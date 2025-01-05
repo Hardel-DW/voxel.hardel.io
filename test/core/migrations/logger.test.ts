@@ -28,6 +28,7 @@ const createComplexMockElement = (data: Partial<EnchantmentProps> = {}): Registr
         } as EffectComponentsRecord,
         exclusiveSet: ["minecraft:efficiency", "minecraft:unbreaking"],
         maxLevel: 1,
+        mode: "normal",
         minCostBase: 1,
         minCostPerLevelAboveFirst: 1,
         maxCostBase: 10,
@@ -36,7 +37,6 @@ const createComplexMockElement = (data: Partial<EnchantmentProps> = {}): Registr
         primaryItems: undefined,
         supportedItems: "#voxel:enchantable/range",
         slots: ["mainhand", "offhand"],
-        softDelete: false,
         tags: [
             "#minecraft:non_treasure",
             "#yggdrasil:structure/alfheim_tree/ominous_vault",

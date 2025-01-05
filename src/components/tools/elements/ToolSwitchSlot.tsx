@@ -1,4 +1,4 @@
-import TranslateText from "@/components/tools/elements/text/TranslateText";
+import translate from "@/lib/minecraft/i18n/translate";
 import type { TranslateTextType } from "@/lib/minecraft/core/schema/primitive/text";
 import { cn } from "@/lib/utils.ts";
 
@@ -32,19 +32,13 @@ export default function ToolSwitchSlot(props: {
                         </div>
                     )}
                     <div className="flex flex-col">
-                        <span className="text-white line-clamp-1">
-                            <TranslateText content={props.title} />
-                        </span>
-                        <span className="text-xs text-zinc-400 font-light line-clamp-2">
-                            <TranslateText content={props.description} />
-                        </span>
+                        <span className="text-white line-clamp-1">{translate(props.title)}</span>
+                        <span className="text-xs text-zinc-400 font-light line-clamp-2">{translate(props.description)}</span>
                     </div>
                 </div>
                 <div className="flex gap-4">
                     {props.lock && (
-                        <span className="text-xs text-zinc-400 font-light w-max flex items-center">
-                            <TranslateText content={props.lock} />
-                        </span>
+                        <span className="text-xs text-zinc-400 font-light w-max flex items-center">{translate(props.lock)}</span>
                     )}
                     {(props.checked || !!props.lock) && <img src="/icons/check.svg" alt="checkbox" className="w-6 h-6 invert" />}
                 </div>

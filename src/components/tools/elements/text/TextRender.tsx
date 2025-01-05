@@ -1,4 +1,4 @@
-import TranslateText from "@/components/tools/elements/text/TranslateText.tsx";
+import translate from "@/lib/minecraft/i18n/translate";
 import ToolUnorderedList from "@/components/tools/elements/text/ToolUnorderedList";
 import type { TextContent } from "@/lib/minecraft/core/schema/primitive/text";
 
@@ -6,11 +6,7 @@ export default function TextRender({ content }: { content: TextContent[] }) {
     const renderContent = (element: TextContent) => {
         switch (element.type) {
             case "Paragraph":
-                return (
-                    <p className="text-zinc-300">
-                        <TranslateText content={element.content} />
-                    </p>
-                );
+                return <p className="text-zinc-300">{translate(element.content)}</p>;
 
             case "UnorderedList":
                 return <ToolUnorderedList sublist={element.sublist} />;

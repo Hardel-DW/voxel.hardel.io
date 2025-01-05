@@ -4,7 +4,7 @@ import { resolve } from "@/lib/minecraft/core/engine/resolver/field/resolveField
 import { cn } from "@/lib/utils.ts";
 import { Tabs, TabsContent } from "@radix-ui/react-tabs";
 import type React from "react";
-import TranslateText from "./elements/text/TranslateText";
+import translate from "@/lib/minecraft/i18n/translate";
 import { useConfiguratorStore } from "@/lib/store/configuratorStore";
 import type { FormComponent } from "@/lib/minecraft/core/schema/primitive/component";
 
@@ -16,8 +16,7 @@ export default function ConfiguratorPanel(props: {
     if (store.elements.length === 0) return null;
     const currentElement = store.elements.find((elem) => store.currentElementId && elem.identifier.equals(store.currentElementId));
     if (!currentElement || !store.configuration || !store.toggleSection) return null;
-
-    const resolvedConfiguration = resolve(store.configuration, store.toggleSection);
+    const resolvedInterface = resolve(store.configuration.interface, store.toggleSection);
 
     return (
         <>
@@ -26,7 +25,7 @@ export default function ConfiguratorPanel(props: {
             <div className="border-zinc-800 border-t border-l bg-header-translucent rounded-2xl shadow-black p-4 sm:p-8">
                 <Tabs defaultValue={props.defaultTab}>
                     <TabsList className="bg-inherit overflow-x-auto h-[inherit] border-0 mb-4 pb-4 flex justify-start gap-x-10 border-b-2 rounded-none border-zinc-800">
-                        {resolvedConfiguration.interface.map((section, index) => (
+                        {resolvedInterface.map((section, index) => (
                             <TabsTrigger
                                 key={section.id}
                                 className={cn(
@@ -37,22 +36,17 @@ export default function ConfiguratorPanel(props: {
                                 )}
                                 disabled={section.soon}
                                 value={section.id}>
-                                <TranslateText content={section.section} />
+                                {translate(section.section)}
                                 {section.soon && <span className="text-xs text-zinc-400 font-light ml-1">(soon)</span>}
                             </TabsTrigger>
                         ))}
                     </TabsList>
 
-                    {resolvedConfiguration.interface.map((section) => (
+                    {resolvedInterface.map((section) => (
                         <TabsContent key={section.id} value={section.id}>
                             {currentElement?.identifier?.getNamespace() === "minecraft" && (
                                 <div className="text-xs text-zinc-400 text-center font-light mb-4">
-                                    <TranslateText
-                                        content={{
-                                            type: "translate",
-                                            value: "tools.enchantments.vanilla"
-                                        }}
-                                    />
+                                    {translate({ type: "translate", value: "tools.enchantments.vanilla" })}
                                 </div>
                             )}
 

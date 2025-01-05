@@ -26,6 +26,7 @@ type NonContainerComponent =
     | ToolSlotType
     | ToolCounterType
     | ToolRangeType
+    | ToolSelectorType
     | ToolInlineType
     | ToolTagViewerType
     | ToolEffectType;
@@ -76,6 +77,16 @@ export type ToolIterationType = BaseComponent & {
 export type ToolRevealType = BaseComponent & {
     type: "Reveal";
     elements: ToolRevealElementType[];
+};
+
+export type ToolSelectorType = BaseComponent & {
+    type: "Selector";
+    title: TranslateTextType;
+    description: TranslateTextType;
+    action: Action;
+    value: ValueParams<string>;
+    options: { label: TranslateTextType; value: string }[];
+    lock?: Lock[];
 };
 
 export type ToolDonationType = BaseComponent & {

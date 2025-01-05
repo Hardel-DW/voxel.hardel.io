@@ -6,8 +6,9 @@ import { resolve } from "@/lib/minecraft/core/engine/resolver/field/resolveField
 import type { RegistryElement } from "@/lib/minecraft/mczip.ts";
 import { cn } from "@/lib/utils.ts";
 import { useRef } from "react";
-import TranslateText from "./elements/text/TranslateText";
+import translate from "@/lib/minecraft/i18n/translate";
 import { useConfiguratorStore } from "@/lib/store/configuratorStore";
+import { checkCondition } from "@/lib/minecraft/core/engine/condition";
 
 export function SidebarItem<T extends keyof Analysers>(props: {
     element: RegistryElement<GetAnalyserVoxel<T>>;
@@ -18,7 +19,7 @@ export function SidebarItem<T extends keyof Analysers>(props: {
 
     const store = useConfiguratorStore();
     const switchRef = useRef<HTMLDivElement>(null);
-    const unresolvedConfiguration = store.configuration;
+    const configuration = store.configuration;
     const toggleSection = store.toggleSection;
     const currentElementId = store.currentElementId;
     const setCurrentElementId = store.setCurrentElementId;
@@ -28,29 +29,25 @@ export function SidebarItem<T extends keyof Analysers>(props: {
     if (!currentElementId) return null;
     const currentElement = elements.find((element) => element.identifier.equals(currentElementId));
 
-    if (!unresolvedConfiguration || !toggleSection || !currentElement) return null;
-    const configuration = resolve(unresolvedConfiguration, toggleSection);
-    if (!configuration) return null;
+    if (!configuration || !toggleSection || !currentElement) return null;
+    const resolvedSidebar = resolve(configuration.sidebar, toggleSection);
+    if (!resolvedSidebar) return null;
 
-    const lock = configuration.sidebar.lock;
+    const lock = resolvedSidebar.lock;
     const lockData = checkLocks(lock, props.element);
 
-    const descriptionField = configuration.sidebar.description;
-    const softDeleteField = "field" in configuration.sidebar.action ? configuration.sidebar.action.field : null;
-
+    const descriptionField = resolvedSidebar.description;
     const descriptionValue = props.element.data[descriptionField] as string;
-    const check = softDeleteField ? props.element.data[softDeleteField] : null;
-
-    if (!currentElement || typeof check !== "boolean") return null;
+    const check = resolvedSidebar.enabled ? !checkCondition(resolvedSidebar.enabled, props.element) : true;
 
     const handleClick = () => {
         if (switchRef.current?.contains(document.activeElement)) return;
         setCurrentElementId(props.element.identifier);
     };
 
-    const handleSoftDelete = (checked: boolean) => {
-        if (!configuration.sidebar.action) return;
-        handleChange(configuration.sidebar.action, props.element.identifier, checked);
+    const handleSwitch = (checked: boolean) => {
+        if (!resolvedSidebar.action) return;
+        handleChange(resolvedSidebar.action, props.element.identifier, checked);
     };
 
     return (
@@ -68,18 +65,18 @@ export function SidebarItem<T extends keyof Analysers>(props: {
                                     type="checkbox"
                                     name="enable"
                                     disabled={lockData.isLocked}
-                                    checked={!check}
-                                    onChange={(e) => handleSoftDelete(!e.target.checked)}
+                                    checked={check}
+                                    onChange={(e) => handleSwitch(!e.target.checked)}
                                 />
                             </label>
                         </TooltipTrigger>
                         <TooltipContent align="end" className="w-64">
                             {lockData ? (
-                                <span className="text-xs text-zinc-400 font-light w-max">
-                                    <TranslateText content={lockData.text} />
-                                </span>
+                                <span className="text-xs text-zinc-400 font-light w-max">{translate(lockData.text)}</span>
                             ) : (
-                                <TranslateText content={{ type: "translate", value: "tooltip.safe_delete" }} />
+                                <span className="text-xs text-zinc-400 font-light w-max">
+                                    {translate({ type: "translate", value: "tooltip.safe_delete" })}
+                                </span>
                             )}
                         </TooltipContent>
                     </Tooltip>

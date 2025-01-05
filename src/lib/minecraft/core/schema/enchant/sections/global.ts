@@ -94,6 +94,62 @@ export const global: Unresolved<InterfaceConfiguration> = {
                     ]
                 },
                 {
+                    type: "Selector",
+                    title: {
+                        type: "translate",
+                        value: "tools.enchantments.section.global.components.mode.title"
+                    },
+                    description: {
+                        type: "translate",
+                        value: "tools.enchantments.section.global.components.mode.description"
+                    },
+                    lock: [
+                        {
+                            text: {
+                                type: "translate",
+                                value: "tools.disabled_because_vanilla"
+                            },
+                            condition: {
+                                condition: "check_namespace",
+                                values: "minecraft"
+                            }
+                        }
+                    ],
+                    action: {
+                        type: "set_value_from_computed_value",
+                        field: "mode"
+                    },
+                    value: {
+                        params: {
+                            type: "Field",
+                            field: "mode"
+                        }
+                    },
+                    options: [
+                        {
+                            label: {
+                                type: "translate",
+                                value: "tools.enchantments.section.global.components.selector.normal"
+                            },
+                            value: "normal"
+                        },
+                        {
+                            label: {
+                                type: "translate",
+                                value: "tools.enchantments.section.global.components.selector.soft_delete"
+                            },
+                            value: "soft_delete"
+                        },
+                        {
+                            label: {
+                                type: "translate",
+                                value: "tools.enchantments.section.global.components.selector.only_creative"
+                            },
+                            value: "only_creative"
+                        }
+                    ]
+                },
+                {
                     type: "Donation",
                     title: {
                         type: "translate",

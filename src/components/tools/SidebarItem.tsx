@@ -71,7 +71,7 @@ export function SidebarItem<T extends keyof Analysers>(props: {
                             </label>
                         </TooltipTrigger>
                         <TooltipContent align="end" className="w-64">
-                            {lockData ? (
+                            {lockData.isLocked ? (
                                 <span className="text-xs text-zinc-400 font-light w-max">{translate(lockData.text)}</span>
                             ) : (
                                 <span className="text-xs text-zinc-400 font-light w-max">

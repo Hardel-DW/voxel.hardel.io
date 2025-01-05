@@ -37,7 +37,6 @@ export const POST: APIRoute = async ({ request }) => {
 
         switch (event.type) {
             case "checkout.session.completed": {
-                console.log("checkout.session.completed");
                 const session = event.data.object as Stripe.Checkout.Session;
                 if (session.customer_details?.email) {
                     const lineItems = await stripe.checkout.sessions.listLineItems(session.id);

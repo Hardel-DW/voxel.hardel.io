@@ -63,12 +63,7 @@ export default function VoxelReceiptEmail({ items }: { items: EmailProductData[]
                         <Section>
                             <Row>
                                 <Column className="table-cell">
-                                    <Img
-                                        src={`${baseUrl}/public/images/branding/voxel_black.webp`}
-                                        width="42"
-                                        height="42"
-                                        alt="Voxel Logo"
-                                    />
+                                    <Img src={`${baseUrl}/images/branding/voxel_black.webp`} width="42" height="42" alt="Voxel Logo" />
                                 </Column>
 
                                 <Column align="right" className="table-cell">
@@ -122,12 +117,7 @@ export default function VoxelReceiptEmail({ items }: { items: EmailProductData[]
                         <Section>
                             <Row>
                                 <Column align="center" className="block">
-                                    <Img
-                                        src={`${baseUrl}/public/images/branding/voxel_black.webp`}
-                                        width="26"
-                                        height="26"
-                                        alt="Voxel Logo"
-                                    />
+                                    <Img src={`${baseUrl}/images/branding/voxel_black.webp`} width="26" height="26" alt="Voxel Logo" />
                                 </Column>
                             </Row>
                         </Section>

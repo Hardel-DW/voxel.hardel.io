@@ -42,7 +42,7 @@ export default function HelpGuide(props: {
                             <a
                                 href={`/${lang}/update/enchant-configurator`}
                                 className="inline-flex h-10 items-center justify-center rounded-md px-4 font-medium text-slate-400 transition-colors hover:text-zinc-300 text-sm">
-                                {t("timeline.see_latest_updates")} &rarr;
+                                {t("tools.see_latest_updates")} &rarr;
                             </a>
                         </div>
                     </div>

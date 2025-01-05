@@ -223,7 +223,6 @@ export function RenderComponent<T extends keyof Analysers>({
         case "SwitchSlot": {
             const checked = checkCondition<T>(component.condition, currentElement);
             const { isLocked, text: lockText } = checkLocks<T>(component.lock, currentElement);
-            console.log(component.title);
 
             return (
                 <ToolSwitchSlot

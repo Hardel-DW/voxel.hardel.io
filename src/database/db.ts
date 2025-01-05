@@ -1,26 +1,17 @@
-import { purchase, migrationLog, migrationNamespace } from "@/database/schema";
+import { migrationLog, migrationNamespace } from "@/database/schema";
 import { neon } from "@neondatabase/serverless";
-import { and, eq } from "drizzle-orm";
+import { eq } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/neon-http";
 import type { Log } from "@/lib/minecraft/core/engine/migrations/types";
-import { randomUUID } from "node:crypto";
+import generateUUID from "@/lib/utils/uuid";
 
 export const database_url = import.meta.env.DATABASE_URL;
 const sql = neon(database_url);
 
 export const db = drizzle(sql);
 
-export const checkPurchase = async (userId: string, productId: string) => {
-    const result = await db
-        .select()
-        .from(purchase)
-        .where(and(eq(purchase.userId, userId), eq(purchase.productId, productId)));
-
-    return result.length > 0;
-};
-
 export const saveMigrationLog = async (log: Log) => {
-    const migrationLogId = randomUUID();
+    const migrationLogId = generateUUID();
 
     try {
         let date: Date;
@@ -51,7 +42,7 @@ export const saveMigrationLog = async (log: Log) => {
         });
 
         const namespaceValues = log.datapack.namespaces.map((namespace) => ({
-            id: randomUUID(),
+            id: generateUUID(),
             migrationId: migrationLogId,
             namespace
         }));

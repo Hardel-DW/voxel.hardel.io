@@ -28,7 +28,7 @@ export default function ConfirmationCardAI(props: PropsConfirmationCardAI) {
         return null;
     }
 
-    if (props.action.type === "sequential") {
+    if (props.action.type === "sequential" || props.action.type === "alternative") {
         console.error("Sequential action type not supported with identifier", props.identifier);
         return null;
     }

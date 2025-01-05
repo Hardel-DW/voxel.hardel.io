@@ -34,11 +34,7 @@ const { entry, members } = Astro.props;
 const { Content } = await render(entry);
 ---
 
-<CompoundLayout title={entry.data.title} description={entry.data.snippet} openGraph={{
-    title: entry.data.title,
-    description: entry.data.snippet,
-    image: entry.data.image.src
-}}>
+<CompoundLayout title={entry.data.title} description={entry.data.snippet} image={entry.data.image.src}>
     <div class="fixed inset-0 -z-10">
         <ShiningStars/>
     </div>

@@ -27,7 +27,7 @@ type Props = InferGetStaticPropsType<typeof getStaticPaths>;
 const { page }: Props = Astro.props;
 ---
 
-<CompoundLayout transparent={false} title="Voxel - Guide">
+<CompoundLayout transparent={false} title={translate["guides.seo.title"]} description={translate["guides.seo.description"]}>
     <div class="fixed inset-0">
         <ShiningStars/>
     </div>

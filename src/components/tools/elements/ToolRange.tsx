@@ -1,4 +1,4 @@
-import TranslateText from "@/components/tools/elements/text/TranslateText";
+import translate from "@/lib/minecraft/i18n/translate";
 import type { TranslateTextType } from "@/lib/minecraft/core/schema/primitive/text";
 import type { InputHTMLAttributes } from "react";
 
@@ -14,7 +14,7 @@ export default function ToolRange({ id, label, onValueChange, ...props }: Props)
             <div className="flex justify-between items-center w-full">
                 {label && (
                     <label htmlFor={id} className="block line-clamp-1 text-sm font-medium text-zinc-400 mb-1">
-                        <TranslateText content={label} />
+                        {translate(label)}
                     </label>
                 )}
 

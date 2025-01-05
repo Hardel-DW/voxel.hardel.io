@@ -24,6 +24,3 @@ pnpm-debug.log*
 .idea
 .vscode
 pnpm-lock.yaml
-
-public/images/internal
-src/pages/internal

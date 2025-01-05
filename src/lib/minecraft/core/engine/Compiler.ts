@@ -1,94 +1,120 @@
-import { Identifier, type IdentifierOneToMany } from "@/lib/minecraft/core/Identifier.ts";
-import { compileTags } from "@/lib/minecraft/core/Tag.ts";
+import { Identifier } from "@/lib/minecraft/core/Identifier.ts";
 import {
-    type Analysers,
-    type DataDrivenElement,
-    type GetAnalyserMinecraft,
-    type GetAnalyserVoxel,
-    type VoxelElement,
-    getAnalyserForVersion
+	type Analysers,
+	type DataDrivenElement,
+	type GetAnalyserMinecraft,
+	type GetAnalyserVoxel,
+	type VoxelElement,
+	getAnalyserForVersion,
 } from "@/lib/minecraft/core/engine/Analyser.ts";
-import { type RegistryElement, readDatapackFile } from "@/lib/minecraft/mczip.ts";
+import {
+	type RegistryElement,
+	readDatapackFile,
+} from "@/lib/minecraft/mczip.ts";
 import type { OptionalTag, TagType } from "@voxel/definitions";
 
 export type Compiler<T extends VoxelElement, K extends DataDrivenElement> = (
-    element: RegistryElement<T>,
-    original: K
-) => RegistryElement<K>;
+	element: RegistryElement<T>,
+	original: K,
+	config: keyof Analysers,
+) => {
+	element: RegistryElement<K>;
+	tags: Identifier[];
+};
 
 /**
  * Compile all elements from Voxel Format to Data Driven Format.
  */
 export function compileDatapack<T extends keyof Analysers>({
-    elements,
-    version,
-    files,
-    tool
+	elements,
+	version,
+	files,
+	tool,
 }: {
-    elements: RegistryElement<GetAnalyserVoxel<T>>[];
-    version: number;
-    files: Record<string, Uint8Array>;
-    tool: T;
+	elements: RegistryElement<GetAnalyserVoxel<T>>[];
+	version: number;
+	files: Record<string, Uint8Array>;
+	tool: T;
 }): Array<RegistryElement<GetAnalyserMinecraft<T>> | RegistryElement<TagType>> {
-    const analyserResult = getAnalyserForVersion(tool, version);
-    if (!analyserResult) throw new Error("No analyser found for the specified version.");
-    const { analyser, config } = analyserResult;
+	console.log("elements", elements);
+	const analyserResult = getAnalyserForVersion(tool, version);
+	if (!analyserResult)
+		throw new Error("No analyser found for the specified version.");
+	const { analyser } = analyserResult;
 
-    const compiledElements = elements
-        .map((element) => {
-            const original = readDatapackFile<GetAnalyserMinecraft<T>>(files, element.identifier);
-            return original ? analyser.compiler(element, original) : null;
-        })
-        .filter((element) => element !== null);
+	const compiledElements = elements
+		.map((element) => {
+			const original = readDatapackFile<GetAnalyserMinecraft<T>>(
+				files,
+				element.identifier,
+			);
+			return original ? analyser.compiler(element, original, tool) : null;
+		})
+		.filter((element) => element !== null);
 
-    const identifiers: IdentifierOneToMany[] = elements.map((element) => {
-        if (element.data.softDelete) return { primary: element.identifier, related: [] };
+	console.log("compiledElements", compiledElements);
 
-        const related = element.data.tags.map((tag) => Identifier.fromString(tag, config.analyser.registries.tags));
+	const registryElements: RegistryElement<TagType>[] = [];
+	const temp: Record<string, { identifier: Identifier; elements: string[] }> =
+		{};
 
-        const assignedTagValues =
-            element.data.assignedTags?.flatMap((field) => {
-                const value = element.data[field as keyof GetAnalyserVoxel<T>];
-                if (Array.isArray(value)) {
-                    return value.map((tag) => Identifier.fromString(tag, config.analyser.registries.tags));
-                }
-                if (typeof value === "string") {
-                    return [Identifier.fromString(value, config.analyser.registries.tags)];
-                }
-                return [];
-            }) ?? [];
+	for (const holder of compiledElements) {
+		for (const tags of holder.tags) {
+			const path = tags.filePath();
 
-        return {
-            primary: element.identifier,
-            related: [...related, ...assignedTagValues]
-        };
-    });
+			if (!temp[path]) {
+				temp[path] = {
+					identifier: tags,
+					elements: [],
+				};
+			}
 
-    const compiledTags = compileTags(identifiers)
-        .map((tag) => {
-            const original = readDatapackFile<TagType>(files, tag.identifier);
-            const valueToAdd = original
-                ? original.values
-                      .map(Identifier.getValue)
-                      .filter((resource) => resource.startsWith("#") || resource.startsWith("minecraft"))
-                : [];
+			temp[path].elements.push(holder.element.identifier.toString());
+		}
+	}
 
-            const uniqueValuesMap = new Map<string, string | OptionalTag>();
-            for (const value of tag.data.values as Array<string | OptionalTag>) {
-                const key = typeof value === "string" ? value : value.id;
-                uniqueValuesMap.set(key, value);
-            }
+	for (const path in temp) {
+		registryElements.push({
+			identifier: temp[path].identifier,
+			data: { values: temp[path].elements },
+		});
+	}
 
-            for (const value of valueToAdd) {
-                if (!uniqueValuesMap.has(value)) {
-                    uniqueValuesMap.set(value, value);
-                }
-            }
+	console.log("registryElements", registryElements);
 
-            tag.data.values = Array.from(uniqueValuesMap.values());
-            return tag;
-        })
-        .filter((tag) => tag !== null);
+	const compiledTags = registryElements
+		.map((tag) => {
+			const original = readDatapackFile<TagType>(files, tag.identifier);
+			const valueToAdd = original
+				? original.values
+						.map(Identifier.getValue)
+						.filter(
+							(resource) =>
+								resource.startsWith("#") || resource.startsWith("minecraft"),
+						)
+				: [];
 
-    return [...compiledElements, ...compiledTags];
+			const uniqueValuesMap = new Map<string, string | OptionalTag>();
+			for (const value of tag.data.values as Array<string | OptionalTag>) {
+				const key = typeof value === "string" ? value : value.id;
+				uniqueValuesMap.set(key, value);
+			}
+
+			for (const value of valueToAdd) {
+				if (!uniqueValuesMap.has(value)) {
+					uniqueValuesMap.set(value, value);
+				}
+			}
+
+			tag.data.values = Array.from(uniqueValuesMap.values());
+			return tag;
+		})
+		.filter((tag) => tag !== null);
+
+	console.log("compiledTags", compiledTags);
+
+	return [
+		...compiledElements.map((element) => element.element),
+		...compiledTags,
+	];
 }

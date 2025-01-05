@@ -21,9 +21,9 @@ const createMockElement = (data: Partial<EnchantmentProps> = {}): RegistryElemen
         maxCostPerLevelAboveFirst: 10,
         effects: undefined,
         assignedTags: [],
+        mode: "normal",
         slots: ["head", "chest"],
         tags: ["#minecraft:enchantable/bow", "#minecraft:enchantable/armor"],
-        softDelete: false,
         disabledEffects: [],
         ...data
     }

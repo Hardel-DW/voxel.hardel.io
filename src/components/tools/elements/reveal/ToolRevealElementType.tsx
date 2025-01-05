@@ -1,6 +1,6 @@
 import { useTranslate } from "@/components/useTranslate";
 import Button from "@/components/ui/react/Button.tsx";
-import TranslateText from "@/components/tools/elements/text/TranslateText";
+import translate from "@/lib/minecraft/i18n/translate";
 import type { TranslateTextType } from "@/lib/minecraft/core/schema/primitive/text";
 import { cn } from "@/lib/utils.ts";
 import { toast } from "sonner";
@@ -43,12 +43,10 @@ export default function ToolRevealElement(props: {
                     className={cn({
                         "opacity-50 hover:opacity-50": props.soon
                     })}>
-                    <TranslateText
-                        content={{
-                            type: "translate",
-                            value: props.soon ? "generic.soon" : "generic.more"
-                        }}
-                    />
+                    {translate({
+                        type: "translate",
+                        value: props.soon ? "generic.soon" : "generic.more"
+                    })}
                 </Button>
             </div>
             <div className="bg-shadow-bottom rounded-2xl relative z-10" />
@@ -67,12 +65,8 @@ export default function ToolRevealElement(props: {
                     "opacity-50": !props.isSelect
                 })}>
                 <div className="flex flex-col gap-2">
-                    <h1 className="text-3xl font-semibold uppercase tracking-wider">
-                        <TranslateText content={props.title} />
-                    </h1>
-                    <p className="text-zinc-400 font-semibold text-xs">
-                        <TranslateText content={props.description} />
-                    </p>
+                    <h1 className="text-3xl font-semibold uppercase tracking-wider">{translate(props.title)}</h1>
+                    <p className="text-zinc-400 font-semibold text-xs">{translate(props.description)}</p>
                 </div>
             </div>
         </div>

@@ -3,16 +3,19 @@ import type { Action } from "@/lib/minecraft/core/engine/actions";
 import type { FormComponent } from "@/lib/minecraft/core/schema/primitive/component.ts";
 import type { TranslateTextType } from "@/lib/minecraft/core/schema/primitive/text";
 import type { Lock } from "@/lib/minecraft/core/schema/primitive/component.ts";
+import type { Condition } from "@/lib/minecraft/core/engine/condition";
+import type { Unresolved } from "../../engine/resolver/field/type";
 
 export type SidebarConfig = {
     action: Action;
     description: string;
+    enabled?: Condition;
     lock?: Lock[];
 };
 
 export type ToolConfiguration = {
-    interface: InterfaceConfiguration[];
-    sidebar: SidebarConfig;
+    interface: Unresolved<InterfaceConfiguration[]>;
+    sidebar: Unresolved<SidebarConfig>;
     analyser: {
         id: keyof Analysers;
         registries: {

@@ -215,7 +215,7 @@ export const exclusive: Unresolved<InterfaceConfiguration> = {
                                                             type: "get_value_from_context",
                                                             key: "namespace"
                                                         },
-                                                        image: "/favicon.svg",
+                                                        image: "/icons/logo.svg",
                                                         action: {
                                                             type: "sequential",
                                                             actions: [

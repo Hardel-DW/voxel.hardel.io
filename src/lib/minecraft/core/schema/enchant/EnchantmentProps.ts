@@ -1,4 +1,4 @@
-import type { VoxelElement } from "@/lib/minecraft/core/engine/Analyser.ts";
+import type { Analysers, VoxelElement } from "@/lib/minecraft/core/engine/Analyser.ts";
 import type { Compiler } from "@/lib/minecraft/core/engine/Compiler.ts";
 import type { Parser, ParserParams } from "@/lib/minecraft/core/engine/Parser.ts";
 import type { SlotRegistryType } from "@/lib/minecraft/core/engine/managers/SlotManager.ts";
@@ -6,6 +6,19 @@ import type { RegistryElement } from "@/lib/minecraft/mczip.ts";
 import type { FieldProperties } from "@/lib/minecraft/core/schema/primitive/properties";
 import type { EffectComponentsRecord, Enchantment, TextComponentType } from "@voxel/definitions";
 import { I18n } from "@/lib/minecraft/i18n/i18n";
+import { tagsToIdentifiers } from "../../Tag";
+import { Identifier } from "../../Identifier";
+
+const tags_related_to_functionality = [
+    new Identifier("minecraft", "enchantment", "curse", true),
+    new Identifier("minecraft", "enchantment", "double_trade_price", true),
+    new Identifier("minecraft", "enchantment", "prevents_bee_spawns_when_mining", true),
+    new Identifier("minecraft", "enchantment", "prevents_decorated_pot_shattering", true),
+    new Identifier("minecraft", "enchantment", "prevents_ice_melting", true),
+    new Identifier("minecraft", "enchantment", "prevents_infested_spawns", true),
+    new Identifier("minecraft", "enchantment", "smelts_loot", true),
+    new Identifier("minecraft", "enchantment", "tooltip_order", true)
+];
 
 export const enchantmentProperties = (lang: string): FieldProperties => {
     const i18n = new I18n(lang);
@@ -74,9 +87,9 @@ export const enchantmentProperties = (lang: string): FieldProperties => {
             name: t("enchantment.field.assignedTags.name"),
             type: "tags"
         },
-        softDelete: {
-            name: t("enchantment.field.softDelete.name"),
-            type: "deleted"
+        mode: {
+            name: t("enchantment.field.mode.name"),
+            type: "string"
         },
         disabledEffects: {
             name: t("enchantment.field.disabledEffects.name"),
@@ -103,7 +116,7 @@ export interface EnchantmentProps extends VoxelElement {
     slots: SlotRegistryType[];
     tags: string[];
     assignedTags: string[];
-    softDelete: boolean;
+    mode: "normal" | "soft_delete" | "only_creative";
     disabledEffects: string[];
 }
 
@@ -132,13 +145,23 @@ export const DataDrivenToVoxelFormat: Parser<EnchantmentProps, Enchantment> = ({
     const effects = data.effects;
     const slots = data.slots;
     const assignedTags = [];
+    let mode: "normal" | "soft_delete" | "only_creative" = "normal";
 
     if (typeof exclusiveSet === "string") {
         assignedTags.push(exclusiveSet);
     }
 
-    const tagsToCheck = tags.filter((tag) => !(typeof data.exclusive_set === "string" && tag === data.exclusive_set));
-    const softDelete = (!data.effects || Object.entries(data.effects).length === 0) && tagsToCheck.length === 0;
+    const tagsWithoutExclusiveSet = tags.filter((tag) => !(typeof data.exclusive_set === "string" && tag === data.exclusive_set));
+    const hasEffects = data.effects && Object.entries(data.effects).length > 0;
+    const tagsRelatedToFunctionality = tags_related_to_functionality.map((tag) => tag.toString());
+
+    if (!tagsWithoutExclusiveSet.some((tag) => !tagsRelatedToFunctionality.includes(tag))) {
+        mode = "only_creative";
+    }
+
+    if (!hasEffects && tagsWithoutExclusiveSet.length === 0) {
+        mode = "soft_delete";
+    }
 
     return {
         identifier: element.identifier,
@@ -157,8 +180,8 @@ export const DataDrivenToVoxelFormat: Parser<EnchantmentProps, Enchantment> = ({
             effects,
             tags,
             slots,
+            mode,
             assignedTags,
-            softDelete,
             disabledEffects: [],
             override: configurator
         }
@@ -172,10 +195,15 @@ export const DataDrivenToVoxelFormat: Parser<EnchantmentProps, Enchantment> = ({
  */
 export const VoxelToDataDriven: Compiler<EnchantmentProps, Enchantment> = (
     element: RegistryElement<EnchantmentProps>,
-    original: Enchantment
-): RegistryElement<Enchantment> => {
+    original: Enchantment,
+    config: keyof Analysers
+): {
+    element: RegistryElement<Enchantment>;
+    tags: Identifier[];
+} => {
     const enchantment = structuredClone(original);
     const enchant = structuredClone(element.data);
+    let tags = [...tagsToIdentifiers(enchant.tags, `tags/${config}`)];
 
     enchantment.max_level = enchant.maxLevel;
     enchantment.weight = enchant.weight;
@@ -190,6 +218,10 @@ export const VoxelToDataDriven: Compiler<EnchantmentProps, Enchantment> = (
 
     if (enchant.exclusiveSet) {
         enchantment.exclusive_set = enchant.exclusiveSet;
+
+        if (typeof enchant.exclusiveSet === "string") {
+            tags.push(Identifier.fromString(enchant.exclusiveSet, `tags/${config}`));
+        }
     }
 
     if (enchant.primaryItems) {
@@ -200,8 +232,13 @@ export const VoxelToDataDriven: Compiler<EnchantmentProps, Enchantment> = (
         enchantment.supported_items = enchant.primaryItems;
     }
 
-    if (enchant.softDelete) {
+    if (enchant.mode === "soft_delete") {
         enchantment.effects = undefined;
+        tags = [];
+    }
+
+    if (enchant.mode === "only_creative") {
+        tags = tags.filter((tag) => tags_related_to_functionality.some((t) => t.equals(tag)));
     }
 
     if (enchant.disabledEffects.length > 0 && enchantment.effects) {
@@ -211,7 +248,10 @@ export const VoxelToDataDriven: Compiler<EnchantmentProps, Enchantment> = (
     }
 
     return {
-        data: enchantment,
-        identifier: element.identifier
+        element: {
+            data: enchantment,
+            identifier: element.identifier
+        },
+        tags
     };
 };

@@ -3,17 +3,12 @@ import { getCollection, getEntry } from "astro:content";
 import Layout from "@/components/layouts/Layout.astro";
 import Navigation from "@/components/pages/guide/content/Navigation";
 import PageContent from "@/components/pages/guide/content/PageContent.astro";
-import PremiumLogged from "@/components/pages/guide/content/PremiumLogged.astro";
-import PremiumLogout from "@/components/pages/guide/content/PremiumLogout.astro";
-import User from "@/components/pages/guide/content/User.astro";
 import Dropdown from "@/components/ui/dropdown.astro";
-import { db } from "@/database/db";
-import { purchase } from "@/database/schema";
-import { and, eq } from "drizzle-orm";
+import { getTranslations } from "@/lib/i18n";
 
 export const prerender = false;
+const { translate } = await getTranslations(Astro.url);
 const { guide, section, lang, article } = Astro.params;
-const { user } = Astro.locals;
 
 if (typeof guide !== "string") throw new Error("Missing required parameter 'guide'");
 if (typeof section !== "string") throw new Error("Invalid parameter 'section'");
@@ -28,7 +23,6 @@ const articles = guideEntry.data.sections.flatMap(({ article }) => article.map((
 const currentIndex = articles.findIndex((element) => element.redirect === article);
 const nextArticle = articles[currentIndex + 1] || articles[0];
 const previousArticle = articles[currentIndex - 1] || articles[articles.length - 1];
-const needPremiumAccess = articles[currentIndex].premium;
 const dropdowns = guideEntry.data.navigation?.map((element) => ({
     url: `/${[lang, element.slug, section, article].join("/")}`,
     id: element.slug,
@@ -43,24 +37,9 @@ const postsParsed = posts.map((post) => ({
     image: post.data.metadata.images,
     locked: post.data.metadata.locked
 }));
-
-let isPremiumUser = false;
-if (Boolean(user) && user?.id && guideEntry.data.premium) {
-    const payment = await db
-        .select()
-        .from(purchase)
-        .where(and(eq(purchase.userId, user?.id), eq(purchase.productId, guideEntry.data.premium.product_id)))
-        .limit(1);
-
-    isPremiumUser = payment.length > 0;
-}
-
-const payementCondition = needPremiumAccess && Boolean(user) && !isPremiumUser;
-const premiumLogout = needPremiumAccess && !user;
-const contentCondition = (Boolean(user) && isPremiumUser) || !payementCondition;
 ---
 
-<Layout>
+<Layout title={translate["guides.seo.title"]} description={translate["guides.seo.description"]}>
     <div class="flex relative md:p-4 h-dvh">
         <div class="fixed -z-20 inset-0 bg-cover bg-center bg-no-repeat opacity-10 blur-3xl"
              style={{backgroundImage: `url(${background})`}}>
@@ -76,7 +55,7 @@ const contentCondition = (Boolean(user) && isPremiumUser) || !payementCondition;
                     <div class="flex w-full items-center justify-between">
                         <a href="/"
                            class="text-lg flex items-center transition focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-indigo-500 focus-visible:outline-hidden focus-visible:shadow-outline-indigo rounded-full px-2 -ml-2">
-                            <img src="/favicon.svg" alt="Voxel" class="w-6 h-6 brightness-90 mx-2"/>
+                            <img src="/icons/logo.svg" alt="Voxel" class="w-6 h-6 brightness-90 mx-2"/>
                             <span class="font-bold text-primary">VOXEL</span>
                         </a>
                         <img id="menu-dropdown" src="/icons/menu.svg" alt="menu"
@@ -93,9 +72,7 @@ const contentCondition = (Boolean(user) && isPremiumUser) || !payementCondition;
 
                 <!-- Middle Content / Chapter Sections / Switch -->
                 <Navigation client:idle schema={guideEntry} guides={postsParsed} slug={{lang, guide, section, article}}/>
- 
-                <!-- Bottom User  -->
-                <User isPremium={isPremiumUser}/>
+
             </div>
         </div>
  
@@ -107,19 +84,14 @@ const contentCondition = (Boolean(user) && isPremiumUser) || !payementCondition;
                 <h1 class="text-sm text-zinc-400 truncate">{guideEntry.data.metadata.title}</h1>
 
                 <a href="/" class="select-none size-fit">
-                    <img src="/favicon.svg" alt="Voxel" class="w-6 h-6 opacity-75"/>
+                    <img src="/icons/logo.svg" alt="Voxel" class="w-6 h-6 opacity-75"/>
                 </a>
             </div>
 
 
             <div id="content" class="px-8 lg:px-0 pt-12 transition w-full md:w-3/4 justify-self-center">
-                {payementCondition &&
-                        <PremiumLogged schema={guideEntry}/>}
-                {premiumLogout &&
-                        <PremiumLogout schema={guideEntry}/>}
-                {contentCondition &&
                         <PageContent previousArticle={previousArticle} nextArticle={nextArticle}
-                                     slug={[lang, guide, section, article].join('/')}/>}
+                                     slug={[lang, guide, section, article].join('/')}/>
             </div>
         </div>
     </div>

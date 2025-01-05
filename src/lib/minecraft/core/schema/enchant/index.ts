@@ -1,8 +1,7 @@
-import type { Unresolved } from "@/lib/minecraft/core/engine/resolver/field/type.ts";
 import { SECTIONS } from "@/lib/minecraft/core/schema/enchant/sections";
 import type { ToolConfiguration } from "@/lib/minecraft/core/schema/primitive";
 
-export const ENCHANT_TOOL_CONFIG: Unresolved<ToolConfiguration> = {
+export const ENCHANT_TOOL_CONFIG: ToolConfiguration = {
     interface: SECTIONS,
     sidebar: {
         lock: [
@@ -18,8 +17,39 @@ export const ENCHANT_TOOL_CONFIG: Unresolved<ToolConfiguration> = {
             }
         ],
         action: {
-            type: "set_value_from_computed_value",
-            field: "softDelete"
+            type: "alternative",
+            field: "mode",
+            cases: [
+                {
+                    when: "normal",
+                    do: {
+                        type: "set_value",
+                        field: "mode",
+                        value: "soft_delete"
+                    }
+                },
+                {
+                    when: "only_creative",
+                    do: {
+                        type: "set_value",
+                        field: "mode",
+                        value: "soft_delete"
+                    }
+                },
+                {
+                    when: "soft_delete",
+                    do: {
+                        type: "set_value",
+                        field: "mode",
+                        value: "normal"
+                    }
+                }
+            ]
+        },
+        enabled: {
+            condition: "compare_value_to_field_value",
+            field: "mode",
+            value: "soft_delete"
         },
         description: "description"
     },

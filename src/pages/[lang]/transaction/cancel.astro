@@ -1,0 +1,19 @@
+---
+import PageLayout from "@/components/layouts/PageLayout.astro";
+import { getTranslations } from "@/lib/i18n";
+
+const { translate } = await getTranslations(Astro.url);
+---
+
+<PageLayout title={translate["payment.cancel.seo.title"]} description={translate["payment.cancel.seo.description"]}>
+    <main class="mt-24 mb-20 relative w-full">
+        <section class="w-11/12 md:w-3/4 mx-auto my-16 relative z-20">
+            <h1 class="text-3xl lg:text-6xl lg:tracking-tight font-bold mt-1 lg:leading-tight">
+                {translate["payment.cancel.title"]}
+            </h1>
+            <p class="text-zinc-400 mt-4 text-lg">
+                {translate["payment.cancel.description"]}
+            </p>
+        </section>
+    </main>
+</PageLayout> 

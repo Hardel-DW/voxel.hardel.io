@@ -1,0 +1,21 @@
+---
+import NavigationTrigger from "./NavigationTrigger.astro";
+import NavigationContent from "./NavigationContent.astro";
+
+interface Props {
+    label: string;
+}
+
+const { label } = Astro.props;
+---
+
+<li class="relative group/dropdown">
+    <NavigationTrigger>
+        {label}
+    </NavigationTrigger>
+    <div class="absolute hidden group-hover/dropdown:flex">
+        <NavigationContent>
+            <slot />
+        </NavigationContent>
+    </div>
+</li>

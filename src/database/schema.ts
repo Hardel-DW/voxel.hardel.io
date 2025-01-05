@@ -51,3 +51,22 @@ export const migrationNamespace = pgTable("migration_namespace", {
         .references(() => migrationLog.id),
     namespace: text("namespace").notNull()
 });
+
+export const product = pgTable("product", {
+    id: text("id").primaryKey(),
+    name: text("name").notNull().default(""),
+    productId: text("product_id").notNull().default(""),
+    uploadId: text("upload_id").notNull().default(""),
+    priceId: text("price_id").notNull().default(""),
+    filename: text("filename").notNull(),
+    createdAt: timestamp("created_at", {
+        withTimezone: true,
+        mode: "date"
+    }).notNull(),
+    updatedAt: timestamp("updated_at", {
+        withTimezone: true,
+        mode: "date"
+    }).notNull()
+});
+
+export type Product = typeof product.$inferSelect;

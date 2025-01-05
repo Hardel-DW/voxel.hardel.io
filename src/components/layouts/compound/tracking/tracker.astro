@@ -14,11 +14,9 @@ interface Props extends HTMLAttributes<"details"> {
         class={cn("space-y-4 px-4 py-4 border border-zinc-800 bg-zinc-950 relative", Astro.props.class)}
         {...Astro.props}>
     <summary
-            class="before:absolute before:inset-0 before:cursor-pointer text-white tracking-normal text-base flex justify-between items-center gap-x-10 cursor-pointer list-none">
+            class="before:absolute before:inset-0 mb-0 before:cursor-pointer text-white tracking-normal text-base flex justify-between items-center gap-x-10 cursor-pointer list-none">
         <span>
-            <slot name="title">
-                    Define your own custom title here.
-            </slot>
+            <slot name="title" />
         </span>
         <span class="text-zinc-400 tracking-normal text-sm h-8 flex items-center">
             {Astro.props.alwaysActive ?
@@ -28,9 +26,7 @@ interface Props extends HTMLAttributes<"details"> {
             }
         </span>
     </summary>
-    <p class="text-zinc-300 tracking-normal text-sm">
-        <slot name="description">
-            Define your own custom description here.
-        </slot>
+    <p class="text-zinc-400 tracking-normal text-sm w-5/6">
+        <slot name="description" />
     </p>
 </details>

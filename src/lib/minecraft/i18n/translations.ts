@@ -54,7 +54,10 @@ export const translations: LanguageMap = {
         "generic.borders": "%s text %s",
         "generic.special": "Test! Test? Test.",
         "generic.partial": "Partial translation",
-        "timeline.see_latest_updates": "See latest updates",
+
+        "tools.sound.error": "An error occurred while playing the sound",
+        "tools.sound.search": "Search for a sound",
+
         "tools.enchantments.import_vanilla": "Import Vanilla Enchantments",
         "tools.toast.soon": "This feature is under development, it will be available soon, stay tuned!",
         "tools.download": "Download the data pack",
@@ -124,6 +127,12 @@ export const translations: LanguageMap = {
         "tools.enchantments.section.global.components.minCostPerLevelAboveFirst.label": "Minimum cost per level above the first",
         "tools.enchantments.section.global.components.maxCostBase.label": "Maximum base cost",
         "tools.enchantments.section.global.components.maxCostPerLevelAboveFirst.label": "Maximum cost per level above the first",
+        "tools.enchantments.section.global.components.mode.title": "Mode",
+        "tools.enchantments.section.global.components.mode.description":
+            "Choose between Normal (default), Soft Delete (Deactivates effects and obtaining) or Only Creative (Obtained only in creative).",
+        "tools.enchantments.section.global.components.selector.normal": "Normal",
+        "tools.enchantments.section.global.components.selector.soft_delete": "Soft Delete",
+        "tools.enchantments.section.global.components.selector.only_creative": "Only Creative",
 
         "tools.enchantments.section.global.explanation.title": "Detailed explanations of the different components",
         "tools.enchantments.section.global.explanation.list.1":
@@ -405,7 +414,7 @@ export const translations: LanguageMap = {
         "enchantment.field.slots.name": "Slots",
         "enchantment.field.tags.name": "Tags",
         "enchantment.field.assignedTags.name": "Assigned Tags",
-        "enchantment.field.softDelete.name": "Soft Delete",
+        "enchantment.field.mode.name": "Mode",
         "enchantment.field.disabledEffects.name": "Disabled Effects",
 
         "ai.confirmation.accept": "Accept",
@@ -455,7 +464,10 @@ export const translations: LanguageMap = {
         "tools.upload.drop": "Ou dépose ton fichier ici",
         "tools.upload.description": "Déposez vos data packs en .zip ici pour commencer à les configurer.",
         "tools.debug.quit": "Quitter le mode débogage",
-        "timeline.see_latest_updates": "Voir les dernières mises à jour",
+
+        "tools.sound.search": "Rechercher un son",
+        "tools.sound.error": "Une erreur est survenue lors de la lecture du son",
+
         "dialog.success.title": "Succès",
         "dialog.success.description":
             "Le datapack a été modifié avec succès. Il doit apparaître dans votre dossier de téléchargement sous le nom.",
@@ -541,6 +553,12 @@ export const translations: LanguageMap = {
         "tools.enchantments.section.global.components.minCostPerLevelAboveFirst.label": "Coût minimum par niveau au-dessus du premier",
         "tools.enchantments.section.global.components.maxCostBase.label": "Coût maximum de base",
         "tools.enchantments.section.global.components.maxCostPerLevelAboveFirst.label": "Coût maximum par niveau au-dessus du premier",
+        "tools.enchantments.section.global.components.mode.title": "Mode",
+        "tools.enchantments.section.global.components.mode.description":
+            "Choisir entre Normal (par défaut), Suppresion (Désactive les effets et l'obtention) ou Créatif (Obtention uniquement en créatif).",
+        "tools.enchantments.section.global.components.selector.normal": "Normal",
+        "tools.enchantments.section.global.components.selector.soft_delete": "Suppression",
+        "tools.enchantments.section.global.components.selector.only_creative": "Créatif",
 
         "tools.enchantments.section.slots.mainhand.title": "Main Principale",
         "tools.enchantments.section.slots.offhand.title": "Main Secondaire",
@@ -813,8 +831,8 @@ export const translations: LanguageMap = {
         "enchantment.field.slots.name": "Emplacements",
         "enchantment.field.tags.name": "Tags",
         "enchantment.field.assignedTags.name": "Tags Assignés",
-        "enchantment.field.softDelete.name": "Suppression Douce",
         "enchantment.field.disabledEffects.name": "Effets Désactivés",
+        "enchantment.field.mode.name": "Mode",
 
         "ai.confirmation.accept": "Accepter",
         "ai.confirmation.refuse": "Refuser",

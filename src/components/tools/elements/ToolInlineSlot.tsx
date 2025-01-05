@@ -1,4 +1,4 @@
-import TranslateText from "@/components/tools/elements/text/TranslateText";
+import translate from "@/lib/minecraft/i18n/translate";
 import type { TranslateTextType } from "@/lib/minecraft/core/schema/primitive/text";
 import { cn } from "@/lib/utils.ts";
 
@@ -31,22 +31,12 @@ export default function ToolInline(props: {
                 </div>
             )}
 
-            {props.lock && (
-                <span className="absolute top-0 p-4 text-xs text-zinc-400 font-light">
-                    <TranslateText content={props.lock} />
-                </span>
-            )}
+            {props.lock && <span className="absolute top-0 p-4 text-xs text-zinc-400 font-light">{translate(props.lock)}</span>}
 
             <div className="stack h-full rounded-2xl overflow-hidden">
                 <div className="pb-2 self-end px-4 relative z-20">
-                    <h3 className="text-xl font-semibold text-white">
-                        <TranslateText content={props.title} />
-                    </h3>
-                    {props.description && (
-                        <p className="text-sm text-zinc-400">
-                            <TranslateText content={props.description} />
-                        </p>
-                    )}
+                    <h3 className="text-xl font-semibold text-white">{translate(props.title)}</h3>
+                    {props.description && <p className="text-sm text-zinc-400">{translate(props.description)}</p>}
                 </div>
                 <div className="rounded-2xl relative bg-shadow-bottom z-10" />
                 <div

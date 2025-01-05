@@ -24,8 +24,8 @@ const createMockElement = (data: Partial<EnchantmentProps> = {}): RegistryElemen
         assignedTags: [],
         slots: ["head", "chest"],
         tags: ["#minecraft:enchantable/bow", "#minecraft:enchantable/armor"],
-        softDelete: false,
         disabledEffects: [],
+        mode: "normal",
         ...data
     }
 });

@@ -10,6 +10,7 @@ import { UndefinedModifier, type UndefinedAction } from "@/lib/minecraft/core/en
 import ToggleListValueModifier, { type ToggleListValueAction } from "@/lib/minecraft/core/engine/actions/ToggleListValueModifier";
 import type { RegistryElement } from "@/lib/minecraft/mczip.ts";
 import { ComputedModifier, type ComputedAction } from "@/lib/minecraft/core/engine/actions/ComputedModifier.ts";
+import AlternativeModifier, { type AlternativeAction } from "@/lib/minecraft/core/engine/actions/AlternativeModifier.ts";
 import RemoveValueFromListModifier, {
     type RemoveValueFromListAction
 } from "@/lib/minecraft/core/engine/actions/RemoveValueFromListModifier.ts";
@@ -30,7 +31,8 @@ export type Action =
     | SequentialAction
     | ListAction
     | ComputedAction
-    | RemoveValueFromListAction;
+    | RemoveValueFromListAction
+    | AlternativeAction;
 
 export function updateData<T extends keyof Analysers>(
     action: Action,
@@ -62,6 +64,8 @@ export function updateData<T extends keyof Analysers>(
                 return SequentialModifier(action, element, version, value);
             case "list_operation":
                 return AppendListModifier(action, element);
+            case "alternative":
+                return AlternativeModifier(action, element, version);
         }
     })();
 }

@@ -1,6 +1,6 @@
 import type { TranslateTextType } from "@/lib/minecraft/core/schema/primitive/text";
 import { cn } from "@/lib/utils.ts";
-import TranslateText from "@/components/tools/elements/text/TranslateText";
+import translate from "@/lib/minecraft/i18n/translate";
 import { getKey } from "@/lib/minecraft/i18n/translations";
 
 export default function ToolSlot(props: {
@@ -34,22 +34,12 @@ export default function ToolSlot(props: {
                 </div>
             )}
 
-            {props.lock && (
-                <span className="absolute p-4 bottom-0 right-0 text-xs text-zinc-400 font-light">
-                    <TranslateText content={props.lock} />
-                </span>
-            )}
+            {props.lock && <span className="absolute p-4 bottom-0 right-0 text-xs text-zinc-400 font-light">{translate(props.lock)}</span>}
 
             <div className="flex flex-col items-center justify-between h-full">
                 <div className="mb-8 text-center">
-                    <h3 className="text-lg font-semibold mb-1">
-                        <TranslateText content={props.title} />
-                    </h3>
-                    {props.description && (
-                        <p className="text-sm text-zinc-400">
-                            <TranslateText content={props.description} />
-                        </p>
-                    )}
+                    <h3 className="text-lg font-semibold mb-1">{translate(props.title)}</h3>
+                    {props.description && <p className="text-sm text-zinc-400">{translate(props.description)}</p>}
                 </div>
 
                 <img

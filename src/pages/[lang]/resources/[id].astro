@@ -7,18 +7,32 @@ import ShiningStars from "@/components/ui/pattern/ShiningStars.astro";
 import Star from "@/components/ui/star.astro";
 import TriangleWave from "@/components/ui/pattern/TriangleWave";
 import MarketplaceCard from "@/components/pages/resource/MarketplaceCard.astro";
+import StripeScript from "@/components/ui/Stripe.astro";
+import { db } from "@/database/db";
+import { product } from "@/database/schema";
+import Stripe from "stripe";
 
 export const prerender = true;
 const { lang, translate } = await getTranslations(Astro.url);
+
 export async function getStaticPaths() {
-    const marketplacePacks = await getCollection("marketplace_pack");
+    const stripe = new Stripe(import.meta.env.STRIPE_SECRET_KEY, {
+        apiVersion: "2024-12-18.acacia"
+    });
+
+    const packs = await db.select().from(product);
     const marketplacePreviews = await getCollection("marketplace_preview");
+    const prices = await stripe.prices.list({
+        active: true,
+        limit: 100
+    });
 
     return marketplacePreviews.map((preview) => {
         const [language, id] = preview.id.split("/");
 
-        const pack = marketplacePacks.find((pack) => pack.id === id);
-        const recommended = marketplacePacks.filter((p) => p.id !== id).slice(0, 2);
+        const pack = packs.find((pack) => pack.id === id);
+        const recommended = packs.filter((p) => p.id !== id).slice(0, 2);
+        const price = prices.data.find((p) => p.id === pack?.priceId);
 
         return {
             params: {
@@ -28,28 +42,18 @@ export async function getStaticPaths() {
             props: {
                 preview,
                 pack,
+                price,
                 recommended
             }
         };
     });
 }
 
-const { preview, pack, recommended } = Astro.props;
+const { preview, pack, price, recommended } = Astro.props;
 const { Content } = await render(preview);
-
-// Get price from card if available
-const paymentUrl = pack?.data.payment?.url;
 ---
 
-<CompoundLayout
-        title={preview.data.name}
-        description={preview.data.description}
-        openGraph={{
-            title: preview.data.name,
-            description: preview.data.description,
-            image: preview.data.asset
-        }}
->
+<CompoundLayout title={preview.data.name} description={preview.data.description}>
     <div class="fixed inset-0 -z-10">
         <div class="absolute rounded-full w-3/4 h-1/2 bg-linear-to-r from-[#401727] to-[#311e7696] opacity-20 blur-[10rem] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"/>
         <ShiningStars/>
@@ -107,7 +111,7 @@ const paymentUrl = pack?.data.payment?.url;
                                 <span class="text-zinc-400 text-sm">{new Intl.NumberFormat(lang, {
                                     style: 'currency',
                                     currency: 'EUR'
-                                }).format(Number(pack?.data.price))}</span>
+                                }).format(Number(price?.unit_amount || 0) / 100)}</span>
                             </div>
                             <p class="text-zinc-400 text-sm">
                                 {preview.data.description}
@@ -115,23 +119,23 @@ const paymentUrl = pack?.data.payment?.url;
                         </div>
 
                         <div class="flex flex-col gap-1">
-                            {paymentUrl && (
+                            {pack?.id && ( 
                                     <Button
-                                            href={paymentUrl}
+                                            data-stripe-price-id={pack?.priceId}
+                                            data-stripe-lang={lang}
                                             size="md"
                                             variant="white-shimmer"
                                             class="w-full md:w-auto"
                                     >
-                                        Acheter - {preview.data.name}
+                                        {translate["marketplace.buy"]} - {preview.data.name}
                                     </Button>
                             )}
                         </div>
                     </div>
                 </div>
             </div>
-            <div id="slow-scroll-target" class="mb-8"/>
 
-            <div class="mb-8 container mx-auto mt-40">
+            <div class="mb-8 container mx-auto mt-32">
                 <div class="pb-8">
                     <h1 class="text-2xl font-bold tracking-tight">
                         {translate["marketplace.recommended"]}
@@ -139,50 +143,18 @@ const paymentUrl = pack?.data.payment?.url;
                     <Star/>
                 </div>
 
-                <div class="grid grid-cols-4 gap-4 *:opacity-50 *:hover:opacity-100">
-                    {recommended.map((pack) =>
-                            <MarketplaceCard schema={pack} class="col-span-2"/>)}
+                <div class="grid grid-cols-4 gap-4">
+                    {recommended.map((pack) => (
+                        <MarketplaceCard 
+                            pack={pack}
+                            price={price}
+                            text={translate["marketplace.go"]} 
+                            lang={lang}
+                            class="col-span-2"/>
+                    ))}
                 </div>
             </>
         </div>
     </main>
-
 </CompoundLayout>
-
-<script>
-    const bottomBar = document.getElementById('bottom-bar');
-    const slowScrollTarget = document.getElementById('slow-scroll-target');
-
-    if (bottomBar && slowScrollTarget) {
-        let isTransitioning = false;
-
-        const observer = new IntersectionObserver(
-            ([entry]) => {
-                if (isTransitioning) return;
-
-                isTransitioning = true;
-
-                if (!entry.isIntersecting) {
-                    bottomBar.style.position = 'fixed';
-                    bottomBar.style.transform = 'translateY(0)';
-                    bottomBar.style.insetInline = '32px';
-                } else {
-                    bottomBar.style.position = 'relative';
-                    bottomBar.style.transform = 'translateY(100%)';
-                    bottomBar.style.insetInline = '0';
-                }
-
-                // Attendre que la transition soit terminée avant de permettre un autre changement
-                setTimeout(() => {
-                    isTransitioning = false;
-                }, 300); // Correspond à la durée de transition CSS (duration-300)
-            },
-            {
-                threshold: 0.5,
-                rootMargin: '-50px'
-            }
-        );
-
-        observer.observe(slowScrollTarget);
-    }
-</script>
+<StripeScript/>

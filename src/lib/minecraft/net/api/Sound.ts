@@ -8,8 +8,9 @@ const url = `https://api.github.com/repos/${owner}/${repository}/contents/${base
 
 const audioOwner = "PixiGeko";
 const audioRepository = "Minecraft-generated-data";
+const audioBranch = "1.21.4";
 const audioBasePath = "custom-generated/misc";
-const audioUrl = `https://api.github.com/repos/${audioOwner}/${audioRepository}/contents/${audioBasePath}/sounds.json`;
+const audioUrl = `https://api.github.com/repos/${audioOwner}/${audioRepository}/contents/${audioBasePath}/sounds.json?ref=${audioBranch}`;
 
 export type SoundTest = {
     [key: string]: {

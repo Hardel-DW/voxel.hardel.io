@@ -21,7 +21,6 @@
 
 @theme {
     --breakpoint-s: 420px;
-    --animate-inner-glow: inner-glow 4s linear infinite;
     --grid-template-columns-items: repeat(auto-fill, minmax(120px, 1fr));
     --grid-template-columns-marketplace: repeat(auto-fill, minmax(250px, 1fr));
     --grid-template-columns-marketplace-pack: repeat(auto-fill, minmax(600px, 1fr));
@@ -49,6 +48,7 @@
     --animate-levitate: levitate 2500ms ease-in-out infinite;
     --animate-fadein: fadein 200ms ease-in;
     --animate-open: open 150ms ease-in-out forwards;
+    --animate-inner-glow: inner-glow 4s linear infinite;
     --animate-rainbow: rainbow 10s linear infinite;
     --animate-shimmer: shimmer 2s linear infinite;
     --animate-progress: progress 5s linear;

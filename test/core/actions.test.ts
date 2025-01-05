@@ -32,7 +32,7 @@ const createMockElement = (data: Partial<EnchantmentProps> = {}): RegistryElemen
         assignedTags: [],
         slots: [],
         tags: [],
-        softDelete: false,
+        mode: "normal",
         disabledEffects: [],
         ...data
     }
@@ -57,6 +57,7 @@ const createComplexMockElement = (data: Partial<EnchantmentProps> = {}): Registr
         exclusiveSet: "#minecraft:exclusive_set/armor",
         maxLevel: 1,
         minCostBase: 1,
+        mode: "normal",
         minCostPerLevelAboveFirst: 1,
         maxCostBase: 10,
         assignedTags: ["exclusiveSet"],
@@ -64,7 +65,6 @@ const createComplexMockElement = (data: Partial<EnchantmentProps> = {}): Registr
         primaryItems: undefined,
         supportedItems: "#voxel:enchantable/range",
         slots: ["mainhand", "offhand"],
-        softDelete: false,
         tags: [
             "#minecraft:non_treasure",
             "#yggdrasil:structure/alfheim_tree/ominous_vault",

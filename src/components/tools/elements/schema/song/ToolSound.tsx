@@ -1,9 +1,11 @@
 import { type CategorySound, getCategory, searchSound } from "@/lib/minecraft/net/api/Sound.ts";
 import { cn } from "@/lib/utils.ts";
 import { useEffect, useMemo, useRef, useState } from "react";
-import TranslateText from "@/components/tools/elements/text/TranslateText";
+import { useTranslate } from "@/components/useTranslate";
+import { toast } from "sonner";
 
 export default function ToolSound() {
+    const { t } = useTranslate();
     const [search, setSearch] = useState<string>("");
     const [category, setCategory] = useState<CategorySound[]>([]);
     const [result, setResult] = useState<Record<string, string>>({});
@@ -50,7 +52,10 @@ export default function ToolSound() {
         const songUrl = `${baseSongUrl}/${song.substring(0, 2)}/${song}`;
 
         const audio = new Audio(songUrl);
-        audio.play().catch((error) => console.error("Error playing sound:", error));
+        audio.play().catch((error) => {
+            toast.error(t("tools.sound.error"));
+            console.error("Error playing sound:", error);
+        });
     };
 
     const handleScroll = (direction: string) => {
@@ -79,14 +84,7 @@ export default function ToolSound() {
 
     return (
         <div>
-            <h1 className="text-xl font-semibold pb-4">
-                <TranslateText
-                    content={{
-                        type: "translate",
-                        value: "tools.sound.search"
-                    }}
-                />
-            </h1>
+            <h1 className="text-xl font-semibold pb-4">{t("tools.sound.search")}</h1>
             <input type="text" value={search} onChange={(e) => setSearch(e.target.value)} />
 
             {loading ? (
@@ -125,7 +123,7 @@ export default function ToolSound() {
                                     })}
                                     onClick={() => handleCategory(sound)}
                                     onKeyUp={() => handleCategory(sound)}>
-                                    <TranslateText content={sound.name} />
+                                    {sound.name}
                                 </li>
                             ))}
                         </div>

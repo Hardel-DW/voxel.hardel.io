@@ -24,6 +24,7 @@ import { cn } from "@/lib/utils";
 import type { EffectComponentsRecord } from "@voxel/definitions";
 import { toast } from "sonner";
 import { getKey } from "@/lib/minecraft/i18n/translations";
+import ToolSelector from "./elements/ToolSelector";
 
 export function RenderComponent<T extends keyof Analysers>({
     component
@@ -68,6 +69,28 @@ export function RenderComponent<T extends keyof Analysers>({
                 />
             );
         }
+        case "Selector": {
+            const result = getValue<T, string>(component.value, currentElement);
+            const { isLocked, text: lockText } = checkLocks<T>(component.lock, currentElement);
+            if (typeof result !== "string") {
+                toast.error(t("generic.error"), {
+                    description: t("tools.enchantments.warning.component")
+                });
+                return null;
+            }
+
+            return (
+                <ToolSelector
+                    key={getKey(component.title)}
+                    title={component.title}
+                    description={component.description}
+                    value={result}
+                    options={component.options}
+                    onChange={(value) => handleChange(component.action, currentElement?.identifier, value)}
+                    lock={isLocked ? lockText : undefined}
+                />
+            );
+        }
         case "Range": {
             const result = getValue<T, number>(component.value, currentElement);
             if (typeof result !== "number") {
@@ -99,7 +122,7 @@ export function RenderComponent<T extends keyof Analysers>({
                     checked={result}
                     lock={isLocked ? lockText : undefined}
                     description={component.description}
-                    name={getKey(component.title)}
+                    name={component.title}
                     onChange={(value) => handleChange(component.action, currentElement?.identifier, value)}
                 />
             );

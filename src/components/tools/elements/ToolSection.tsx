@@ -3,7 +3,7 @@ import Button from "@/components/ui/react/Button.tsx";
 import type { TranslateTextType } from "@/lib/minecraft/core/schema/primitive/text";
 import type { ToggleSection } from "@/lib/minecraft/core/schema/primitive/toggle";
 import { cn } from "@/lib/utils.ts";
-import TranslateText from "./text/TranslateText";
+import translate from "@/lib/minecraft/i18n/translate";
 import type React from "react";
 
 export default function ToolSection(props: {
@@ -21,20 +21,16 @@ export default function ToolSection(props: {
         <div className="bg-black/50 p-4 flex flex-col ring-0 transition-all rounded-xl">
             <div className="py-2 px-2 flex justify-between items-center cursor-pointer">
                 <div>
-                    <h2 className="text-2xl font-semibold">
-                        <TranslateText content={props.title} />
-                    </h2>
+                    <h2 className="text-2xl font-semibold">{translate(props.title)}</h2>
                     {props.toggle?.some((toggle) => toggle.name === toggleSection?.[props.id]?.name) && (
                         <div className="text-xs text-zinc-400 font-light">
-                            <TranslateText
-                                content={props.toggle?.find((toggle) => toggle.name === toggleSection?.[props.id]?.name)?.description}
-                            />
+                            {translate(props.toggle?.find((toggle) => toggle.name === toggleSection?.[props.id]?.name)?.description)}
                         </div>
                     )}
                 </div>
                 {props.button && (
                     <Button href={props.button.url} variant="ghost">
-                        <TranslateText content={props.button.text} />
+                        {translate(props.button.text)}
                     </Button>
                 )}
                 {props.toggle && (
@@ -47,9 +43,7 @@ export default function ToolSection(props: {
                                 key={element.name}
                                 onKeyDown={() => changeToggleValue(props.id, element)}
                                 onClick={() => changeToggleValue(props.id, element)}>
-                                <p className="text-sm font-semibold">
-                                    <TranslateText content={element.title} />
-                                </p>
+                                <p className="text-sm font-semibold">{translate(element.title)}</p>
                             </div>
                         ))}
                     </div>

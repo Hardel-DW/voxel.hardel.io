@@ -4,7 +4,6 @@ import type { Analysers, GetAnalyserVoxel } from "@/lib/minecraft/core/engine/An
 import type { Action, ActionValue } from "@/lib/minecraft/core/engine/actions";
 import { updateData } from "@/lib/minecraft/core/engine/actions";
 import type { Logger } from "@/lib/minecraft/core/engine/migrations/logger";
-import type { Unresolved } from "@/lib/minecraft/core/engine/resolver/field/type";
 import type { ToolConfiguration } from "@/lib/minecraft/core/schema/primitive";
 import type { ToggleSection } from "@/lib/minecraft/core/schema/primitive/toggle";
 import type { RegistryElement } from "@/lib/minecraft/mczip";
@@ -17,7 +16,7 @@ export interface ConfiguratorState<T extends keyof Analysers> {
     elements: RegistryElement<GetAnalyserVoxel<T>>[];
     currentElementId?: Identifier;
     toggleSection?: Record<string, ToggleSection>;
-    configuration: Unresolved<ToolConfiguration> | null;
+    configuration: ToolConfiguration | null;
     isJar: boolean;
     version: number | null;
     setName: (name: string) => void;
@@ -28,7 +27,7 @@ export interface ConfiguratorState<T extends keyof Analysers> {
     setCurrentElementId: (id: Identifier | undefined) => void;
     setToggleSection: (section: Record<string, ToggleSection> | undefined) => void;
     changeToggleValue: (id: string, name: ToggleSection) => void;
-    setConfiguration: (config: Unresolved<ToolConfiguration> | null) => void;
+    setConfiguration: (config: ToolConfiguration | null) => void;
     setIsJar: (isJar: boolean) => void;
     setVersion: (version: number | null) => void;
     handleChange: (action: Action, identifier?: Identifier, value?: ActionValue) => void;

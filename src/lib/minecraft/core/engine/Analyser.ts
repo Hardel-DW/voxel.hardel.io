@@ -1,6 +1,5 @@
 import type { Compiler } from "@/lib/minecraft/core/engine/Compiler.ts";
 import type { Parser } from "@/lib/minecraft/core/engine/Parser.ts";
-import type { Unresolved } from "@/lib/minecraft/core/engine/resolver/field/type.ts";
 import {
     DataDrivenToVoxelFormat,
     enchantmentProperties,
@@ -38,7 +37,7 @@ export interface Analyser<T extends VoxelElement, K extends DataDrivenElement, U
 export type VersionedAnalyser<T extends VoxelElement, K extends DataDrivenElement, UseTags extends boolean = false> = {
     analyser: Analyser<T, K, UseTags>;
     range: VersionRange;
-    config: Unresolved<ToolConfiguration>;
+    config: ToolConfiguration;
 };
 
 export type VersionedAnalysers = {
@@ -71,7 +70,7 @@ export function getAnalyserForVersion<T extends keyof Analysers>(
 ):
     | {
           analyser: Analyser<Analysers[T]["voxel"], Analysers[T]["minecraft"], boolean>;
-          config: Unresolved<ToolConfiguration>;
+          config: ToolConfiguration;
       }
     | undefined {
     const versionedAnalysers = versionedAnalyserCollection[type];

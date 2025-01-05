@@ -39,7 +39,7 @@ export async function getStaticPaths({
 const { page } = Astro.props;
 ---
 
-<CompoundLayout title="Blog">
+<CompoundLayout title={translate["blog.seo.title"]} description={translate["blog.seo.description"]}>
     <div>
         <div class="fixed inset-0 -z-10">
             <ShiningStars/>

@@ -14,10 +14,10 @@ const prefiledProperties = {
     exclusiveSet: "",
     primaryItems: "",
     supportedItems: "",
+    mode: "normal" as const,
     slots: [],
     tags: [],
     assignedTags: [],
-    softDelete: false,
     disabledEffects: [],
     effects: {} as EffectComponentsRecord
 };
@@ -188,8 +188,8 @@ export const TEMPLATE_ENCHANTMENT: RegistryElement<EnchantmentProps>[] = [
             tags: ["#minecraft:non_treasure"],
             slots: ["head"],
             assignedTags: [],
-            softDelete: false,
-            disabledEffects: []
+            disabledEffects: [],
+            mode: "normal"
         }
     },
     {

@@ -1,22 +1,24 @@
 ---
 import CompoundLayout from "@/components/layouts/CompoundLayout.astro";
-import {names} from "@/lib/i18n";
-import ToolSound from "@/components/tools/elements/schema/song/ToolSound";
+import { names } from "@/lib/i18n";
 import ShiningStars from "@/components/ui/pattern/ShiningStars.astro";
+import SoundTool from "@/components/pages/tools/sound/SoundTool";
+import { getTranslations } from "@/lib/i18n";
 
 export const prerender = true;
+const { lang, translate } = await getTranslations(Astro.url);
 export async function getStaticPaths() {
     return names.map((element) => ({
-        params: {lang: element.lang}
+        params: { lang: element.lang }
     }));
 }
 ---
 
-<CompoundLayout>
+<CompoundLayout title={translate["tools.sound.seo.title"]} description={translate["tools.sound.seo.description"]}>
     <div class="fixed inset-0">
         <ShiningStars/>
     </div>
-    <section class="w-3/4 mx-auto pt-40 relative z-50">
-        <ToolSound client:only="react"/>
+    <section class="w-3/4 mx-auto mt-40 relative z-50">
+        <SoundTool client:load lang={lang}/>
     </section>
-</CompoundLayout>
+</CompoundLayout> 

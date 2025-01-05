@@ -49,15 +49,9 @@ export default function DatapackUploader(props: { tool: keyof Analysers }) {
             return;
         }
 
-        try {
-            toast.success(t("tools.upload.success"), {
-                description: t("tools.upload.indexed")
-            });
-        } catch (error) {
-            toast.error(t("generic.error"), {
-                description: t("tools.upload.index_failed")
-            });
-        }
+        toast.success(t("tools.upload.success"), {
+            description: t("tools.upload.success.description")
+        });
 
         setName(result.name);
         setFiles(result.files);

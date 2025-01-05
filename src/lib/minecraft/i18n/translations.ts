@@ -55,6 +55,7 @@ export const translations: LanguageMap = {
         "generic.special": "Test! Test? Test.",
         "generic.partial": "Partial translation",
 
+        "tools.see_latest_updates": "See latest updates",
         "tools.sound.error": "An error occurred while playing the sound",
         "tools.sound.search": "Search for a sound",
 
@@ -70,6 +71,10 @@ export const translations: LanguageMap = {
             "This tool is designed to modify the enchantments of an existing pack, such as NeoEnchant+ or any other pack, with a simple and user-friendly interface that requires no development knowledge.",
         "tools.enchantments.home.small": "NeoEnchant+ is available for download on ",
         "tools.debug.quit": "Leave debug mode",
+
+        "tools.upload.success": "Success",
+        "tools.upload.success.description": "The import has been successful.",
+
         "dialog.success.title": "Success",
         "dialog.success.description":
             "The datapack has been successfully modified. It should appear in your download folder under the name.",
@@ -457,6 +462,8 @@ export const translations: LanguageMap = {
         "generic.special": "Test! Test? Test.",
         "generic.partial": "Partial translation",
         "generic.missing_key": "Clé de traduction manquante",
+
+        "tools.see_latest_updates": "Voir l'historique de mises à jour",
         "tools.enchantments.import_vanilla": "Importer les enchantements vanilla",
         "tools.toast.soon": "Cette fonctionnalité est en cours de développement, elle sera bientôt disponible, restez à l'écoute !",
         "tools.download": "Télécharger le data pack",
@@ -467,6 +474,9 @@ export const translations: LanguageMap = {
 
         "tools.sound.search": "Rechercher un son",
         "tools.sound.error": "Une erreur est survenue lors de la lecture du son",
+
+        "tools.upload.success": "Succès",
+        "tools.upload.success.description": "L'importation a été effectuée avec succès.",
 
         "dialog.success.title": "Succès",
         "dialog.success.description":

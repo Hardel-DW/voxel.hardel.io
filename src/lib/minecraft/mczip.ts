@@ -1,9 +1,10 @@
 import { Identifier } from "@/lib/minecraft/core/Identifier.ts";
-import type { VoxelElement } from "@/lib/minecraft/core/engine/Analyser.ts";
 import { voxelDatapacks } from "@/lib/minecraft/voxel/VoxelDatapack.ts";
 import JSZip from "jszip";
 import type { Logger } from "./core/engine/migrations/logger";
 import type { ConfiguratorConfigFromDatapack } from "./core/Configurator";
+import type { CompileDatapackResult } from "./core/engine/Compiler";
+import type { Analysers } from "./core/engine/Analyser";
 
 export type RegistryElement<RegistryType> = {
     data: RegistryType;
@@ -98,14 +99,24 @@ export function readDatapackFile<T>(datapack: Record<string, Uint8Array>, identi
 
 export async function generateZip(
     files: Record<string, Uint8Array>,
-    content: RegistryElement<VoxelElement>[],
+    content: CompileDatapackResult<keyof Analysers>[],
     minify: boolean,
     logger?: Logger
 ): Promise<Uint8Array> {
+    console.log(content);
     const zip = new JSZip();
+    const filesToDelete = new Set<string>();
+
+    for (const file of content) {
+        if (file.type === "deleted") {
+            filesToDelete.add(`${file.identifier.filePath()}.json`);
+        }
+    }
 
     for (const [path, data] of Object.entries(files)) {
-        zip.file(path, data);
+        if (!filesToDelete.has(path)) {
+            zip.file(path, data);
+        }
     }
 
     for (const file of voxelDatapacks) {
@@ -113,7 +124,8 @@ export async function generateZip(
     }
 
     for (const file of content) {
-        zip.file(`${file.identifier.filePath()}.json`, JSON.stringify(file.data, null, minify ? 0 : 4));
+        if (file.type === "deleted") continue;
+        zip.file(`${file.element.identifier.filePath()}.json`, JSON.stringify(file.element.data, null, minify ? 0 : 4));
     }
 
     if (logger) {

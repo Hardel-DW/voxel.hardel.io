@@ -68,6 +68,7 @@ export default function MigrationTool({ translate, children }: MigrationToolProp
             const finalDatapack = compileDatapack({
                 elements: modifiedTarget.elements,
                 version: modifiedTarget.version,
+                identifiers: modifiedTarget.identifiers,
                 files: modifiedTarget.files,
                 tool: "enchantment"
             });

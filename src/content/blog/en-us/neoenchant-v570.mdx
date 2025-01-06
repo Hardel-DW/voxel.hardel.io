@@ -1,7 +1,7 @@
 ---
 draft: false
-title: "NeoEnchant Pack - Version 5.7.0 for Minecraft 1.21.2"
-snippet: "A new update for NeoEnchant is now available, introducing new enchantments, reworked enchantments, and performance improvements."
+title: "NeoEnchant+ - Version 5.7.0 for Minecraft 1.21"
+snippet: "A new update for NeoEnchant+ is now available, it introduces new enchantments, with some reworks, and a significant improvement in performance."
 image:
   {
     src: "/images/background/blog/hero-ne.webp",
@@ -20,26 +20,26 @@ import Star from "@/components/ui/star.astro";
 import DownloadModrinth from "@/components/ui/note/DonwloadModrinth.astro";
 
 # Overview
-**NeoEnchant 5.7.0** introduces 7 new enchantments, including Teluric Wave, Eternal Frost, and more. Also some adjustments to existing enchantments, **performance improvements** by eliminating repeating commands, and adds **French** translations.
+**NeoEnchant 5.7.0** introduces 7 new enchantments, Here are the new ones: Telluric Wave, Eternal Frost, and more. As well as some adjustments to existing enchantments and finally **performance improvements** by eliminating background code, and the addition of the **French** language.
 
 ## How to get translations
-- Place the **NeoEnchant** pack in your resource packs folder.
-- Alternatively, you can use the **Voxel Translation** pack, which includes translations for all **Voxel** content (NeoEnchant, Yggdrasil, and future packs).
+- You must put the **NeoEnchant** pack in your resource pack folder.
+- Alternatively, you can use the **Voxel Translation** resource pack, which includes translations for all **Voxel** content (NeoEnchant, Yggdrasil, and future packs).
 
-## Performance Improvements
-In the previous version, certain enchantments required commands to be repeated 20 times a second, especially for detection.
-These commands have been completely removed, so performance is identical to that of the modded version.
+## Performance improvements
+In the previous version, some enchantments required commands to be repeated 20 times per second, particularly for detection.
+These commands have been completely removed, performance is at the maximum possible.
 
 <DownloadModrinth asset="/images/addons/picture/ne.webp" name="NeoEnchant" version="5.7.0" link="https://modrinth.com/datapack/neoenchant" />  
 <DownloadModrinth soon asset="/images/addons/picture/voxel.webp" name="Voxel Translation Pack" version="0.1.0" link="https://modrinth.com/datapack/neoenchant" />
 
 <Star />
 
-# New Enchantments
+# New enchantments
 <Changelog>
     <ChangelogContainer
         title="Curse of Breaking"
-        citation="A new enchantment was implemented to add more variety and balance to the game. This counterbalances the fact that some enchanted people find the structures too enchanting."
+        citation="A new enchantment has been implemented to add more variety and balance to the game. This counterbalances with certain items in structures that were too powerful."
         stats={{
             maxLevel: 5,
             anvilCost: 1,
@@ -48,15 +48,15 @@ These commands have been completely removed, so performance is identical to that
         applicable={{ name: "Durability", asset: "durability" }}
     >
         <ChangelogSection>
-            <ChangelogItem title="Passive Effect">
-                The item lost (1 x level) durability on each use with (15% x level) chance
+            <ChangelogItem title="Passive effect">
+                The item loses (1 x level) durability with each use with (15% x level) chance
             </ChangelogItem>
         </ChangelogSection>
     </ChangelogContainer>
 
     <ChangelogContainer
         title="Eternal Frost"
-        citation="I'm excited for the players to take this enchantment into their own hands. It's not powerful, but it's visually stunning and can probably do some pretty amazing things."
+        citation="I can't wait for players to get their hands on this enchantment. It's not the most powerful, but it's visually beautiful and can probably do some pretty amazing things."
         stats={{
             maxLevel: 2,
             anvilCost: 6,
@@ -65,11 +65,11 @@ These commands have been completely removed, so performance is identical to that
         applicable={{ name: "Bows and Crossbows", asset: "bow" }}
     >
         <ChangelogSection>
-            <ChangelogItem title="On Impact">
-                Transforms ground to ice and plays ice spike animation
+            <ChangelogItem title="On impact">
+                Transforms the ground into ice and plays an ice spike animation
             </ChangelogItem>
-            <ChangelogItem title="On Attack">
-                Slows targets and plays ice spike animation on hit
+            <ChangelogItem title="Against a target">
+                Slows down targets and plays an ice spike animation on impact
             </ChangelogItem>
         </ChangelogSection>
 
@@ -80,7 +80,7 @@ These commands have been completely removed, so performance is identical to that
 
     <ChangelogContainer
         title="Rebound (Experimental)"
-        citation="For this one, the overall idea was to create an enchantment that bounces off nearby entities, inflicting these effects on impact, like Explosive Arrow, Storm Arrow. But it doesn't work very well yet, and it's still under development, so you can try it out now, but it does contain some bugs."
+        citation="For this one, the general idea was to create an enchantment that bounces off nearby entities, inflicting its effects on impact, like Explosive Arrow, Storm Arrow. But it doesn't work very well yet, and it's still in development, so you can try it now, but it contains some bugs."
         stats={{
             maxLevel: 3,
             anvilCost: 2,
@@ -90,17 +90,17 @@ These commands have been completely removed, so performance is identical to that
     >
         <ChangelogSection>
             <ChangelogItem title="Bounce">
-                Arrows bounce to nearby targets after hitting an entity
+                Arrows bounce towards nearby targets after hitting an entity
             </ChangelogItem>
-            <ChangelogItem title="Bounce Count">
+            <ChangelogItem title="Number of bounces">
                 Increases possible bounces: 3 + (1 per level)
             </ChangelogItem>
         </ChangelogSection>
     </ChangelogContainer>
 
     <ChangelogContainer
-        title="Tears of Asflors - (Yggdrasil Exclusive)"
-        citation="Tears of Aslors is the exclusive enchantment linked to the legendary weapon in the new Yggdrasil content. Its effects are relatively simple, converting your experience into attack damage for an end-of-game weapon."
+        title="Tears of Asflors - (Exclusive to Yggdrasil)"
+        citation="The Tear of Asflors is an exclusive enchantment tied to the legendary weapon in Yggdrasil's new content. Its effects are relatively simple, converting your experience into attack damage, strong for an end-game weapon."
         stats={{
             maxLevel: 3,
             anvilCost: 2,
@@ -109,15 +109,15 @@ These commands have been completely removed, so performance is identical to that
         applicable={{ name: "Swords", asset: "sword" }}
     >
         <ChangelogSection>
-            <ChangelogItem title="Damage Conversion">
-                Converts player experience into damage
+            <ChangelogItem title="Against a target">
+                Converts player's experience into damage
             </ChangelogItem>
         </ChangelogSection>
     </ChangelogContainer>
 
     <ChangelogContainer
-        title="Teluric Wave"
-        citation="The one I'm most proud of, and the one that will add so much interest to the mace. This one creates a seismic wave that sends targets into the air. I'm going to take a close look to see if this enchantment is too strong or not. I hope it doesn't break the balance of the game."
+        title="Telluric Wave"
+        citation="The one I'm most proud of, and the one that will add so much interest to the mace. This one creates a seismic wave that sends targets into the air. I will watch closely to see if this enchantment isn't too strong. I hope it won't break the game balance."
         stats={{
             maxLevel: 1,
             anvilCost: 6,
@@ -126,18 +126,18 @@ These commands have been completely removed, so performance is identical to that
         applicable={{ name: "Maces", asset: "mace" }}
     >
         <ChangelogSection>
-            <ChangelogItem title="On Impact">
-                By crouching, you create a seismic wave that propels targets into the air. Gives the caster a slowing effect. The wave can only be used if you don't have a slowing effect.
+            <ChangelogItem title="Against a block">
+                By crouching, you create a seismic wave that propels targets into the air. Gives the caster a slowness effect. The wave can only be used if you don't have a slowness effect.
             </ChangelogItem>
-            <ChangelogItem title="On Attack">
-                Launches nearby targets into the air after a 5-block fall
+            <ChangelogItem title="Against a target">
+                Propels nearby targets into the air after a 5 block fall
             </ChangelogItem>
         </ChangelogSection>
     </ChangelogContainer>
 
     <ChangelogContainer
-        title="Gungnir Breath"
-        citation="This enchantment is essentially the same as Eternal Frost, but for the trident. I'll wait for player feedback to see if the enchantment is better suited for the bow or the trident"
+        title="Breath of Gungnir"
+        citation="This enchantment is substantially the same as Eternal Frost, but for the trident. I'm waiting for player feedback to see if the enchantment suits the bow or trident better"
         stats={{
             maxLevel: 1,
             anvilCost: 6,
@@ -146,18 +146,18 @@ These commands have been completely removed, so performance is identical to that
         applicable={{ name: "Tridents", asset: "trident" }}
     >
         <ChangelogSection>
-            <ChangelogItem title="On Impact">
-                Transforms ground to ice and plays ice spike animation
+            <ChangelogItem title="On impact">
+                Transforms the ground into ice and plays an ice spike animation
             </ChangelogItem>
-            <ChangelogItem title="On Attack">
-                Slows targets and plays ice spike animation on hit
+            <ChangelogItem title="Against a target">
+                Slows down targets and plays an ice spike animation on impact
             </ChangelogItem>
         </ChangelogSection>
     </ChangelogContainer>
 
     <ChangelogContainer
-        title="Last Hope - (Yggdrasil Exclusive)"
-        citation="This enchantment is a last resort for players who are about to die. It's a guaranteed kill, but it consumes the item used and can only be obtained in Asflors villages on a mythical weapon."
+        title="Last Hope - (Exclusive to Yggdrasil)"
+        citation="This enchantment is a last resort for players about to die. It's a guaranteed fatal blow, but it consumes the used item and can only be obtained in Asflors villages on a mythical weapon."
         applicable={{ name: "Sword", asset: "sword" }}
         stats={{
             maxLevel: 1,
@@ -166,8 +166,8 @@ These commands have been completely removed, so performance is identical to that
         }}
     >
         <ChangelogSection>
-            <ChangelogItem title="On Attack">
-                Consume the item to inflict infinite damage to the target
+            <ChangelogItem title="Against a target">
+                Consumes the item to inflict infinite damage to the target
             </ChangelogItem>
         </ChangelogSection>
         <ChangelogSection>
@@ -176,8 +176,8 @@ These commands have been completely removed, so performance is identical to that
     </ChangelogContainer>
 
     <ChangelogContainer
-        title="Sky Walk"
-        citation="Sky Walk has existed for a long time, but it has been TOTALLY redesigned since zero, the old one has been removed."
+        title="Celestial Walk"
+        citation="Celestial Walk has existed for a long time, but it has been TOTALLY redesigned from scratch, the old one has been removed. It wasn't very practical, this one is easier to control."
         stats={{
             maxLevel: {
                 currentValue: 1,
@@ -194,15 +194,15 @@ These commands have been completely removed, so performance is identical to that
         applicable={{ name: "Boots", asset: "boots" }}
     >
         <ChangelogSection>
-            <ChangelogItem title="Passive Effect">
-                The number of blocks required to get damage by fall is increased by 1 + (1 * level)
+            <ChangelogItem title="Passive effect">
+                The number of blocks needed to take fall damage is increased by 1 + (1 * level)
             </ChangelogItem>
-            <ChangelogItem title="Active Effect">
-                Create Repulsion Effect under feet while sneaking with following speed values:
+            <ChangelogItem title="Active effect">
+                Creates a repulsion effect under the feet when crouching with the following speed values, to put it simply, the higher the level, the faster you fly.
             </ChangelogItem>
 
             | Level | Speed |
-            | ----- | ----- |
+            | ------ | ------- |
             | 1 | 0.185 |
             | 2 | 0.215 |
             | 3 | 0.265 |
@@ -213,45 +213,48 @@ These commands have been completely removed, so performance is identical to that
 
 <Star />
 
-# Modified Enchantments
+# Modified enchantments
 
 <Changelog>
     <ChangelogContainer
         title="Bedrock Breaker"
-        citation="Bedrock Breaker is loved by many, it loses its experimental stage, and receives a balancing because it was too expensive."
+        citation="Bedrock Breaker is loved by many, it loses its experimental stage and receives balancing because it was too expensive."
         applicable={{ name: "Pickaxe", asset: "pickaxe" }}
     >
         <ChangelogSection>
-            <ChangelogItem title="Availability">
-                Now obtainable
+            <ChangelogItem title="Stable">
+                The enchantment is now stable, and can be found.
             </ChangelogItem>
-            <ChangelogItem title="Damage">
-                Reduced from 200 to 150
+            <ChangelogItem title="Durability">
+                Reduced from ~200~ -> 150
             </ChangelogItem>
             <ChangelogItem title="Particle effect">
-                Changed
+                Changed the particle effect to make it more beautiful and more visible.
+            </ChangelogItem>
+            <ChangelogItem title="Sound">
+                A sound has been added
             </ChangelogItem>
             <ChangelogItem title="After the patch">
-                Bedrock Breaker will be removed from existing tools and must be re-obtained
+                Bedrock Breaker will be removed from existing tools and will need to be re-obtained
             </ChangelogItem>
         </ChangelogSection>
     </ChangelogContainer>
 
     <ChangelogContainer
         title="Dwarfed"
-        citation="Players tended to use it as a beneficial effect to make it harder to hit in combat, but it remains a malecdiction. For this reason, additional negative effects have been added."
+        citation="Players tended to use it as a beneficial effect to be harder to hit in combat, but it remains a curse. For this reason, additional negative effects have been added."
         applicable={{ name: "Leggings", asset: "leggings" }}
     >
         <ChangelogSection>
-            * **Added attributes :**
-                * Step assist attribute (+0.5 per level)
+            * **Added attributes:**
+                * Walk assist attribute (+0.5 per level)
                 * Attack speed reduction attribute (-0.15 per level)
                 * Movement speed reduction attribute (-0.125 per level)
             <ChangelogItem title="Extension">
-                Effect now extendable beyond level 4 with commands
+                Effect now extendable beyond level 4 with commands or the configurator.
             </ChangelogItem>
             <ChangelogItem title="Technical">
-                Changed attribute "scale" identifier to minecraft:enchantment.dwarfed.scale
+                The "scale" attribute identifier has been changed to "minecraft:enchantment.dwarfed.scale"
             </ChangelogItem>
         </ChangelogSection>
     </ChangelogContainer>
@@ -262,8 +265,8 @@ These commands have been completely removed, so performance is identical to that
         applicable={{ name: "Leggings", asset: "leggings" }}
     >
         <ChangelogSection>
-            * **Added attributes :**
-                * Damage reduction -2 and additional -1 per level
+            * **Added attributes:**
+                * Damage reduction -2 and -1 additional per level
                 * Attack reach reduction -0.15 per level
                 * Movement speed reduction -0.125 per level
 
@@ -271,13 +274,13 @@ These commands have been completely removed, so performance is identical to that
                 Effect now extendable beyond level 4 with commands
             </ChangelogItem>
             <ChangelogItem title="Technical">
-                Changed attribute "scale" identifier to minecraft:enchantment.oversize.scale
+                The "scale" attribute identifier has been changed to "minecraft:enchantment.oversize.scale"
             </ChangelogItem>
         </ChangelogSection>
     </ChangelogContainer>
 
     <ChangelogContainer
-        title="Auto Feed"
+        title="Auto-Feed"
         citation="This enchantment was too strong, and was also too easy to obtain, and the food system was totally useless."
         applicable={{ name: "Helmet", asset: "helmet" }}
     >
@@ -291,5 +294,5 @@ These commands have been completely removed, so performance is identical to that
 
 <Star />
 
-# Technical Changes
-- Soon
+# Technical changes
+- Coming soon

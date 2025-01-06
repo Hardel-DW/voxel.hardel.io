@@ -1,7 +1,7 @@
 ---
 draft: false
 title: "NeoEnchant - Version 5.8.0"
-snippet: "Une mise à jour majeure pour NeoEnchant apportant des améliorations de performances, des rééquilibrages et le support de nouvelles langues !"
+snippet: "Une mise à jour majeure de NeoEnchant qui apporte des améliorations sur les performances, de l'équilibrage et le support de nouvelles langues !"
 image: {
     src: "/images/background/blog/hero-ne.webp",
     alt: "NeoEnchant - 5.8.0"
@@ -20,10 +20,6 @@ import ChangelogItem from "@/components/ui/note/ChangelogItem.astro";
 
 # Aperçu
 La version 5.8.0 de NeoEnchant apporte des améliorations significatives aux performances, des rééquilibrages d'enchantements et l'ajout du support multilingue.
-
-## Comment obtenir les traductions
-- Placez le pack **NeoEnchant** dans votre dossier de packs de ressources.
-- Alternativement, vous pouvez utiliser le pack **Voxel Translation**, qui inclut des traductions pour tout le contenu **Voxel** (NeoEnchant, Yggdrasil, et les futurs packs).
 
 <DownloadModrinth asset="/images/addons/picture/ne.webp" name="NeoEnchant" version="5.8.0" link="https://modrinth.com/datapack/neoenchant" />  
 
@@ -44,10 +40,10 @@ La version 5.8.0 de NeoEnchant apporte des améliorations significatives aux per
     >
         <ChangelogSection>
             <ChangelogItem title="Rebonds">
-                Les flèches rebondissent maintenant sur les murs de manière précise
+                Les flèches rebondissent maintenant sur les murs, précédement elles ne rebondissaient entres les monstres.
             </ChangelogItem>
             <ChangelogItem title="Effets">
-                Activation des effets à chaque impact avec les murs ou les entités
+                Les effets se déclenchent maintenant à chaque rebond
             </ChangelogItem>
         </ChangelogSection>
     </ChangelogContainer>
@@ -67,7 +63,7 @@ La version 5.8.0 de NeoEnchant apporte des améliorations significatives aux per
                 Affecte désormais les joueurs avec l'effet de poison
             </ChangelogItem>
             <ChangelogItem title="Équilibrage">
-                Avant l'effet de poison et wither se déclenchait sur les non-joueurs, maintenant seulement l'effet de poison est actif.
+                Avant l'effet de poison et l'effet de wither se déclenchait sur les non-joueurs, maintenant seulement l'effet de poison sera actif sur les monstres. Et le poison sur les joueurs sera réduit.
             </ChangelogItem>
         </ChangelogSection>
     </ChangelogContainer>
@@ -84,7 +80,7 @@ La version 5.8.0 de NeoEnchant apporte des améliorations significatives aux per
     >
         <ChangelogSection>
             <ChangelogItem title="Recharge">
-                Redonne maintenant des oeufs lors de l'utilisation de l'épée
+                Donne maintenant des oeufs lorsque vous infligés des dégâts à un monstre
             </ChangelogItem>
         </ChangelogSection>
     </ChangelogContainer>
@@ -101,7 +97,7 @@ La version 5.8.0 de NeoEnchant apporte des améliorations significatives aux per
     >
         <ChangelogSection>
             <ChangelogItem title="Activation">
-                Ne se déclenche plus en position accroupie pour une meilleure précision
+                Cette effet se déclenche maintenant plus en position accroupie
             </ChangelogItem>
         </ChangelogSection>
     </ChangelogContainer>
@@ -169,7 +165,7 @@ La version 5.8.0 de NeoEnchant apporte des améliorations significatives aux per
     >
         <ChangelogSection>
             <ChangelogItem title="Portée">
-                Portée augmentée de 1.5 à 2 blocs par niveau
+                La portée a été augmentée de 1.5 à 2 blocs par niveau
             </ChangelogItem>
         </ChangelogSection>
     </ChangelogContainer>
@@ -186,7 +182,7 @@ La version 5.8.0 de NeoEnchant apporte des améliorations significatives aux per
     >
         <ChangelogSection>
             <ChangelogItem title="Protection">
-                Protection renforcée pour une meilleure défense
+                La protection a été renforcée pour une meilleure défense
             </ChangelogItem>
         </ChangelogSection>
     </ChangelogContainer>
@@ -203,7 +199,7 @@ La version 5.8.0 de NeoEnchant apporte des améliorations significatives aux per
     >
         <ChangelogSection>
             <ChangelogItem title="Équilibrage">
-                Réduction des pénalités pour un style de jeu plus équilibré
+                Les effets négatifs ont été réduits, il était trop violent
             </ChangelogItem>
         </ChangelogSection>
     </ChangelogContainer>
@@ -211,12 +207,10 @@ La version 5.8.0 de NeoEnchant apporte des améliorations significatives aux per
 
 <Star />
 
-# Optimisations de Performance
-Les commandes en arrière-plan qui causaient des ralentissements ont été supprimées pour améliorer la fluidité du gameplay.
-
 # Support Multilingue
 Cette version apporte 5 nouvelles langues, générées par **Claude-3.5-Sonnet-2024-10-22** à partir des traductions française et anglaise de la version 2.0.0.
 Ces traductions servent de base et peuvent être améliorées par la communauté via notre Discord.
+La langue Japonaise quant a elle est faites par un membre de la communauté.
 
 ### Nouvelles Langues
 - Allemand
@@ -226,13 +220,12 @@ Ces traductions servent de base et peuvent être améliorées par la communauté
 - Chinois
 
 ### Contribution
-- Rejoignez notre Discord pour participer à l'amélioration des traductions
-- Signalez les erreurs de traduction via notre système de tickets
-- Proposez vos propres traductions pour d'autres langues
+- Rejoigne notre [Discord](https://discord.gg/TAmVFvkHep) pour suivre les mises à jour et contribuer à la traduction
+- Tu peux également contribuer à la traduction en faisant un ticket sur Github.
 
 <Star />
 
 # Compatibilité et Support
 - Support complet de Minecraft 1.21 - 1.21.4
-- Compatibilité améliorée avec Yggdrasil 3.0.0
+- Compatibilité avec Yggdrasil 3.0.0
 - Support des dernières versions de BeyondEnchant

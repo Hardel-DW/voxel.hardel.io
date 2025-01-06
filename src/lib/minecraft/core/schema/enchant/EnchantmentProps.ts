@@ -224,8 +224,6 @@ export const VoxelToDataDriven: Compiler<EnchantmentProps, Enchantment> = (
         enchantment.supported_items = enchant.primaryItems;
     }
 
-    console.log("Enchantment Before", tags, element.identifier.toString());
-
     if (enchant.mode === "only_creative") {
         tags = tags.filter((tag) => tags_related_to_functionality.some((t) => t.toString() === tag.toString()));
     }
@@ -249,7 +247,6 @@ export const VoxelToDataDriven: Compiler<EnchantmentProps, Enchantment> = (
         tags = [];
     }
 
-    console.log("Enchantment After", tags, element.identifier.toString());
     return {
         element: {
             data: enchantment,

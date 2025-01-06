@@ -2,27 +2,27 @@
     "values": [
         {
             "question": "À quoi sert cet outil?",
-            "answer": "Cet outil est conçu pour modifier les enchantements d'un pack existant, tel que NeoEnchant+ ou tout autre pack, avec une interface simple et conviviale qui ne nécessite aucune connaissance en développement."
+            "answer": "Cet outil à été conçu pour pouvoir modifier les enchantements d'un contenu existant, comme NeoEnchant+, Dungeons & Taverns, ou tout autre pack, avec l'interface la plus simple et intuitive et qui ne nécessite aucune connaissance en développement."
         },
         {
-            "question": "Cet outil est-il conçu pour Minecraft PC Java, ou Minecraft Bedrock?",
-            "answer": "Cet outil est conçu pour Minecraft Java Edition uniquement. Il ne prend pas en charge l'édition Bedrock."
+            "question": "Minecraft Java Edition ou Bedrock Edition ?",
+            "answer": "Cet outil est conçu pour Minecraft Java Edition. La version Bedrock n'est pas prise en charge."
         },
         {
-            "question": "Comment commencer?",
-            "answer": "Pour commencer, il vous suffit de déposer votre pack existant dans l'outil. Une fois déposé, vous pouvez configurer les enchantements à votre guise et télécharger le pack modifié."
+            "question": "Comment commencer ?",
+            "answer": "Il vous suffit de déposer un contenu existant dans la zone grise. Vous pouvez aussi modifier le contenu de base de Minecraft avec le bouton blanc."
         },
         {
-            "question": "Quel format est pris en charge pour l'outil?",
-            "answer": "L'outil accepte les datapacks et les mods au format .zip et .jar. C'est le format que vous téléchargez depuis des plateformes comme Modrinth. L'outil analyse s'il s'agit d'un contenu valide, et si des enchantements y existent."
+            "question": "Mods ou Datapacks ?",
+            "answer": "Cet outil est conçu pour supporter les deux, a la fois les datapacks, et les mods (Forge, Fabric, NeoForge, Quilt)."
         },
         {
-            "question": "Les fichiers Mods (.jar) sont-ils pris en charge?",
-            "answer": "Oui, l'outil prend en charge les fichiers .jar que ce soit Forge/Fabric/NeoForge/Quilt."
+            "question": "Comment télécharger le contenu modifié ?",
+            "answer": "Lorsque vous serez dans l'interface de configuration, en bas à gauche, vous trouverez un bouton blanc de téléchargement."
         },
         {
-            "question": "Comment télécharger le pack modifié?",
-            "answer": "Lorsque vous êtes dans l'interface de configuration, en bas à gauche, vous verrez un bouton blanc qui dit 'Télécharger le pack'. Cliquez dessus et votre navigateur commencera à télécharger le pack modifié."
+            "question": "Si le contenu en question est mis a jour, est-ce que je vais devoir tout refaire ?",
+            "answer": "Si vous souhaiter mettre a jour votre configuration sur une version différente de l'oeuvre original, il existe un outils de migration."
         }
     ]
 }

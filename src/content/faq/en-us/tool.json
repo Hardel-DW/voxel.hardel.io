@@ -2,27 +2,27 @@
     "values": [
         {
             "question": "What is this tool for?",
-            "answer": "This tool is designed to modify the enchantments of an existing pack, such as NeoEnchant+ or any other pack, with a simple and user-friendly interface that requires no development knowledge."
+            "answer": "This tool is designed to modify enchantments of existing content, such as NeoEnchant+, Dungeons & Taverns, or any other pack, with the simplest and most intuitive interface that requires no development knowledge."
         },
         {
-            "question": "Is this tool designed for Minecraft PC Java, or Minecraft Bedrock?",
-            "answer": "This tool is designed for Minecraft Java Edition only. It doesn't support Bedrock Edition."
+            "question": "Minecraft Java Edition or Bedrock Edition?",
+            "answer": "This tool is designed for Minecraft Java Edition. Bedrock Edition is not supported."
         },
         {
             "question": "How do I get started?",
-            "answer": "To get started, simply drop your existing pack into the tool. Once dropped, you can configure the enchantments to your liking and download the modified pack."
+            "answer": "Simply drop existing content into the gray area. You can also modify Minecraft's base content using the white button."
         },
         {
-            "question": "What format is supported for the tool?",
-            "answer": "The tool accepts datapacks and mods in .zip and .jar format. This is the format you download from platforms like Modrinth. The tool analyzes whether it's valid content, and whether enchantments exist in it."
+            "question": "Mods or Datapacks?",
+            "answer": "This tool is designed to support both datapacks and mods (Forge, Fabric, NeoForge, Quilt)."
         },
         {
-            "question": "Are Mods (.jar) files supported?",
-            "answer": "Yes, the tool supports .jar files whether it's Forge/Fabric/NeoForge/Quilt."
+            "question": "How do I download the modified content?",
+            "answer": "When you are in the configuration interface, in the bottom left, you will find a white download button."
         },
         {
-            "question": "How do I download the modified pack?",
-            "answer": "When you're in the configuration interface, on the bottom left, you'll see a white button that says 'Download Pack'. Click on it and your browser will start downloading the modified pack."
+            "question": "If the content gets updated, will I have to redo everything?",
+            "answer": "If you want to update your configuration to a different version of the original work, there is a migration tool available."
         }
     ]
 }

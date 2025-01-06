@@ -1,7 +1,7 @@
 import { useConfiguratorStore } from "@/lib/store/configuratorStore";
 import { Identifier } from "@/lib/minecraft/core/Identifier";
 import type { versionedAnalyserCollection } from "@/lib/minecraft/core/engine/Analyser";
-import { compileDatapack } from "@/lib/minecraft/core/engine/Compiler";
+import { compileDatapack, getIdentifierFromCompiler } from "@/lib/minecraft/core/engine/Compiler";
 import type { RegistryElement } from "@/lib/minecraft/mczip";
 import type { TagType } from "@voxel/definitions";
 
@@ -29,6 +29,7 @@ export default function TagViewer(props: {
     const assembleDatapack = compileDatapack({
         elements: elements,
         version: version,
+        identifiers: store.identifiers,
         files: files,
         tool: configuration.analyser.id as keyof typeof versionedAnalyserCollection
     });
@@ -36,7 +37,7 @@ export default function TagViewer(props: {
     if (typeof fieldValue !== "string") return null;
 
     const tagIdentifier = Identifier.fromString(fieldValue, props.registry);
-    const tagData = assembleDatapack.find((element) => element.identifier.equals(tagIdentifier)) as RegistryElement<TagType> | undefined;
+    const tagData = assembleDatapack.find((element) => getIdentifierFromCompiler(element).equals(tagIdentifier)) as RegistryElement<TagType> | undefined;
     if (tagData) values.push(...tagData.data.values.map((value) => (typeof value === "string" ? value : value.id)));
 
     // Find the related additional tag, and add its values to the tag data

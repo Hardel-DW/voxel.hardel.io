@@ -22,6 +22,7 @@ export default function DownloadButton() {
         const content = compileDatapack({
             elements: store.elements,
             version: store.version,
+            identifiers: store.identifiers,
             files: store.files,
             tool: store.configuration.analyser.id as keyof typeof versionedAnalyserCollection
         });

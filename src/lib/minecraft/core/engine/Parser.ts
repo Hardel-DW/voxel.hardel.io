@@ -41,6 +41,7 @@ export interface ParseDatapackResult<T extends VoxelElement> {
     files: Record<string, Uint8Array>;
     elements: RegistryElement<T>[];
     version: number;
+    identifiers: Identifier[];
     toggleSection: ToggleSectionMap;
     currentElementId: Identifier;
     isJar: boolean;
@@ -86,6 +87,9 @@ export async function parseDatapack<T extends keyof Analysers>(
     const mainRegistry = parseDatapackElement<GetAnalyserMinecraft<T>>(files, main);
     const tagsRegistry = config.analyser.registries.tags ? parseDatapackElement<TagType>(files, config.analyser.registries.tags) : [];
 
+    const mainRegistryIdentifiers = mainRegistry.map((element) => element.identifier);
+    const tagsRegistryIdentifiers = tagsRegistry.map((element) => element.identifier);
+
     const compiled = mainRegistry.map((element) => {
         const configurator = getVoxelConfig(files, element.identifier);
         const tags = tagsRegistry
@@ -116,6 +120,7 @@ export async function parseDatapack<T extends keyof Analysers>(
         description,
         namespaces
     });
+
     if (logFile) {
         const existingLog: Log = JSON.parse(new TextDecoder().decode(logFile));
         logger = new Logger(existingLog.id, existingLog.date, existingLog.version, existingLog.isModded, existingLog.datapack, existingLog);
@@ -127,6 +132,7 @@ export async function parseDatapack<T extends keyof Analysers>(
         elements: compiled,
         version: packFormat,
         toggleSection: initialToggle,
+        identifiers: [...mainRegistryIdentifiers, ...tagsRegistryIdentifiers],
         currentElementId: Identifier.sortRegistry(compiled)[0].identifier,
         isJar,
         configuration: config,

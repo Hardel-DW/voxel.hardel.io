@@ -1,5 +1,5 @@
 import { useTranslate } from "@/components/useTranslate";
-import DebugConfigurator from "@/components/tools/DebugConfigurator.tsx";
+import DebugConfigurator from "@/components/tools/debug/DebugConfigurator";
 import DownloadButton from "@/components/tools/DownloadButton.tsx";
 import { SidebarItem } from "@/components/tools/SidebarItem.tsx";
 import SettingsButton from "@/components/tools/elements/SettingsButton.tsx";

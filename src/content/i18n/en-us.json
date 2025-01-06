@@ -303,6 +303,10 @@
         "datapacks.yggdrasil.title": "Yggdrasil",
         "datapacks.yggdrasil.short": "Yggdrasil",
         "datapacks.yggdrasil.description": "Explore structures of extreme difficulty, find secrets and obtain exclusive new enchantments.",
+        "datapacks.yggdrasil.video": "Watch the video",
+        "datapacks.yggdrasil.video.title": "Yggdrasil : The Lost Village",
+        "datapacks.yggdrasil.video.description": "Discover the secrets of Yggdrasil.",
+        "datapacks.yggdrasil.gallery": "View the gallery",
 
         "datapacks.better_furnace.seo.title": "Better Furnace · Voxel",
         "datapacks.better_furnace.seo.description": "A datapack which adds some new types of furnaces. Each furnace is faster, more efficient, and more difficult to obtain. Available on Modrinth and CurseForge. Try it now!",

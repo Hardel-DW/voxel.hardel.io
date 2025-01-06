@@ -1,7 +1,7 @@
 ---
 draft: false
 title: "NeoEnchant - Version 5.8.0"
-snippet: "A major update for NeoEnchant bringing performance improvements, rebalancing, and support for new languages!"
+snippet: "A major update for NeoEnchant that brings improvements to performance, balance and support for new languages!"
 image: {
     src: "/images/background/blog/hero-ne.webp",
     alt: "NeoEnchant - 5.8.0"
@@ -19,13 +19,9 @@ import ChangelogSection from "@/components/ui/note/ChangelogSection.astro";
 import ChangelogItem from "@/components/ui/note/ChangelogItem.astro";
 
 # Overview
-NeoEnchant version 5.8.0 brings significant performance improvements, enchantment rebalancing, and adds multilingual support.
+Version 5.8.0 of NeoEnchant brings significant improvements to performance, enchantment rebalancing and the addition of multilingual support.
 
-## How to Get Translations
-- Place the **NeoEnchant** pack in your resource packs folder.
-- Alternatively, you can use the **Voxel Translation** pack, which includes translations for all **Voxel** content (NeoEnchant, Yggdrasil, and future packs).
-
-<DownloadModrinth soon asset="/images/addons/picture/ne.webp" name="NeoEnchant" version="5.8.0" link="https://modrinth.com/datapack/neoenchant" />  
+<DownloadModrinth asset="/images/addons/picture/ne.webp" name="NeoEnchant" version="5.8.0" link="https://modrinth.com/datapack/neoenchant" />  
 
 <Star />
 
@@ -34,7 +30,7 @@ NeoEnchant version 5.8.0 brings significant performance improvements, enchantmen
 <Changelog>
     <ChangelogContainer
         title="Rebound (Stable)"
-        citation="After a long development period, Rebound finally exits its experimental phase with major stability and gameplay improvements."
+        citation="After a long development period, Rebound finally comes out of its experimental phase with major improvements in stability and gameplay."
         stats={{
             maxLevel: 3,
             anvilCost: 2,
@@ -44,17 +40,17 @@ NeoEnchant version 5.8.0 brings significant performance improvements, enchantmen
     >
         <ChangelogSection>
             <ChangelogItem title="Bounces">
-                Arrows now bounce off walls with precise accuracy
+                Arrows now bounce off walls, previously they only bounced between monsters.
             </ChangelogItem>
             <ChangelogItem title="Effects">
-                Effects activate on each impact with walls or entities
+                Effects now trigger on each bounce
             </ChangelogItem>
         </ChangelogSection>
     </ChangelogContainer>
 
     <ChangelogContainer
         title="Poison Aspect"
-        citation="Fixed a bug affecting the Poison Aspect enchantment where the poison effect was triggering on non-players."
+        citation="Fixed a bug that affected the Poison Aspect enchantment, the poison effect was triggering on non-players."
         stats={{
             maxLevel: 2,
             anvilCost: 3,
@@ -63,28 +59,147 @@ NeoEnchant version 5.8.0 brings significant performance improvements, enchantmen
         applicable={{ name: "Swords", asset: "sword" }}
     >
         <ChangelogSection>
-            <ChangelogItem title="Impact Effects">
+            <ChangelogItem title="Impact effects">
                 Now affects players with the poison effect
             </ChangelogItem>
             <ChangelogItem title="Balance">
-                Previously, both poison and wither effects triggered on non-players; now only the poison effect is active.
+                Previously both poison and wither effects triggered on non-players, now only the poison effect will be active on monsters. And poison on players will be reduced.
             </ChangelogItem>
         </ChangelogSection>
     </ChangelogContainer>
 
     <ChangelogContainer
         title="Pull"
-        citation="A bug preventing the Pull enchantment from working has been fixed."
+        citation="A bug was preventing the Pull enchantment from working, it is now fixed."
         stats={{
             maxLevel: 1,
             anvilCost: 2,
             weight: 3
         }}
-        applicable={{ name: "Sword", asset: "sword" }}
+        applicable={{ name: "Swords", asset: "sword" }}
     >
         <ChangelogSection>
             <ChangelogItem title="Recharge">
-                Now properly gives eggs when using the sword
+                Now gives eggs when you deal damage to a monster
+            </ChangelogItem>
+        </ChangelogSection>
+    </ChangelogContainer>
+
+    <ChangelogContainer
+        title="VeinMiner & MiningPlus"
+        citation="Gameplay improvement with more precise activation"
+        stats={{
+            maxLevel: 1,
+            anvilCost: 3,
+            weight: 2
+        }}
+        applicable={{ name: "Tools", asset: "pickaxe" }}
+    >
+        <ChangelogSection>
+            <ChangelogItem title="Activation">
+                This effect now triggers more in crouching position
+            </ChangelogItem>
+        </ChangelogSection>
+    </ChangelogContainer>
+
+    <ChangelogContainer
+        title="Fury"
+        citation="Improvement of the enchantment's power"
+        stats={{
+            maxLevel: 3,
+            anvilCost: 2,
+            weight: 3
+        }}
+        applicable={{ name: "Swords", asset: "sword" }}
+    >
+        <ChangelogSection>
+            <ChangelogItem title="Damage">
+                Increased damage dealt
+            </ChangelogItem>
+        </ChangelogSection>
+    </ChangelogContainer>
+
+    <ChangelogContainer
+        title="Sky Walk"
+        citation="Adjustment for better control"
+        stats={{
+            maxLevel: 2,
+            anvilCost: 3,
+            weight: 2
+        }}
+        applicable={{ name: "Boots", asset: "boots" }}
+    >
+        <ChangelogSection>
+            <ChangelogItem title="Mobility">
+                Reduced propulsion for better control
+            </ChangelogItem>
+        </ChangelogSection>
+    </ChangelogContainer>
+
+    <ChangelogContainer
+        title="Storm Arrow"
+        citation="Rebalancing of maximum power"
+        stats={{
+            maxLevel: 1,
+            anvilCost: 4,
+            weight: 1
+        }}
+        applicable={{ name: "Bows", asset: "bow" }}
+    >
+        <ChangelogSection>
+            <ChangelogItem title="Maximum Level">
+                Maximum level reduced from 2 to 1
+            </ChangelogItem>
+        </ChangelogSection>
+    </ChangelogContainer>
+
+    <ChangelogContainer
+        title="Builder Arms"
+        citation="Improvement of building range"
+        stats={{
+            maxLevel: 3,
+            anvilCost: 2,
+            weight: 3
+        }}
+        applicable={{ name: "Tools", asset: "pickaxe" }}
+    >
+        <ChangelogSection>
+            <ChangelogItem title="Range">
+                Range has been increased from 1.5 to 2 blocks per level
+            </ChangelogItem>
+        </ChangelogSection>
+    </ChangelogContainer>
+
+    <ChangelogContainer
+        title="Armored"
+        citation="Protection reinforcement"
+        stats={{
+            maxLevel: 2,
+            anvilCost: 3,
+            weight: 2
+        }}
+        applicable={{ name: "Armor", asset: "chestplate" }}
+    >
+        <ChangelogSection>
+            <ChangelogItem title="Protection">
+                Protection has been reinforced for better defense
+            </ChangelogItem>
+        </ChangelogSection>
+    </ChangelogContainer>
+
+    <ChangelogContainer
+        title="Dwarfed & Oversize"
+        citation="Rebalancing of negative effects"
+        stats={{
+            maxLevel: 1,
+            anvilCost: 4,
+            weight: 1
+        }}
+        applicable={{ name: "Armor", asset: "chestplate" }}
+    >
+        <ChangelogSection>
+            <ChangelogItem title="Balance">
+                Negative effects have been reduced, they were too violent
             </ChangelogItem>
         </ChangelogSection>
     </ChangelogContainer>
@@ -93,8 +208,9 @@ NeoEnchant version 5.8.0 brings significant performance improvements, enchantmen
 <Star />
 
 # Multilingual Support
-This version adds 5 new languages, generated by **Claude-3.5-Sonnet-2024-10-22** from the French and English translations of version 2.0.0.
-These translations serve as a foundation and can be improved by the community through our Discord.
+This version brings 5 new languages, generated by **Claude-3.5-Sonnet-2024-10-22** from the French and English translations of version 2.0.0.
+These translations serve as a base and can be improved by the community via our Discord.
+The Japanese language is made by a community member.
 
 ### New Languages
 - German
@@ -104,13 +220,12 @@ These translations serve as a foundation and can be improved by the community th
 - Chinese
 
 ### Contribution
-- Join our Discord to participate in improving translations
-- Report translation errors through our ticket system
-- Propose your own translations for other languages
+- Join our [Discord](https://discord.gg/TAmVFvkHep) to follow updates and contribute to translation
+- You can also contribute to translation by making a ticket on Github.
 
 <Star />
 
 # Compatibility and Support
 - Full support for Minecraft 1.21 - 1.21.4
-- Improved compatibility with Yggdrasil 3.0.0
-- Support for the latest versions of BeyondEnchant 
+- Compatibility with Yggdrasil 3.0.0
+- Support for latest versions of BeyondEnchant 

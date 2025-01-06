@@ -10,14 +10,14 @@ import { tagsToIdentifiers } from "../../Tag";
 import { Identifier } from "../../Identifier";
 
 const tags_related_to_functionality = [
-    new Identifier("minecraft", "enchantment", "curse", true),
-    new Identifier("minecraft", "enchantment", "double_trade_price", true),
-    new Identifier("minecraft", "enchantment", "prevents_bee_spawns_when_mining", true),
-    new Identifier("minecraft", "enchantment", "prevents_decorated_pot_shattering", true),
-    new Identifier("minecraft", "enchantment", "prevents_ice_melting", true),
-    new Identifier("minecraft", "enchantment", "prevents_infested_spawns", true),
-    new Identifier("minecraft", "enchantment", "smelts_loot", true),
-    new Identifier("minecraft", "enchantment", "tooltip_order", true)
+    new Identifier("minecraft", "tags/enchantment", "curse", true),
+    new Identifier("minecraft", "tags/enchantment", "double_trade_price", true),
+    new Identifier("minecraft", "tags/enchantment", "prevents_bee_spawns_when_mining", true),
+    new Identifier("minecraft", "tags/enchantment", "prevents_decorated_pot_shattering", true),
+    new Identifier("minecraft", "tags/enchantment", "prevents_ice_melting", true),
+    new Identifier("minecraft", "tags/enchantment", "prevents_infested_spawns", true),
+    new Identifier("minecraft", "tags/enchantment", "smelts_loot", true),
+    new Identifier("minecraft", "tags/enchantment", "tooltip_order", true)
 ];
 
 export const enchantmentProperties = (lang: string): FieldProperties => {
@@ -216,14 +216,6 @@ export const VoxelToDataDriven: Compiler<EnchantmentProps, Enchantment> = (
     enchantment.slots = enchant.slots;
     enchantment.effects = enchant.effects;
 
-    if (enchant.exclusiveSet) {
-        enchantment.exclusive_set = enchant.exclusiveSet;
-
-        if (typeof enchant.exclusiveSet === "string") {
-            tags.push(Identifier.fromString(enchant.exclusiveSet, `tags/${config}`));
-        }
-    }
-
     if (enchant.primaryItems) {
         enchantment.primary_items = enchant.primaryItems;
     }
@@ -232,19 +224,27 @@ export const VoxelToDataDriven: Compiler<EnchantmentProps, Enchantment> = (
         enchantment.supported_items = enchant.primaryItems;
     }
 
-    if (enchant.mode === "soft_delete") {
-        enchantment.effects = undefined;
-        tags = [];
+    if (enchant.mode === "only_creative") {
+        tags = tags.filter((tag) => tags_related_to_functionality.some((t) => t.toString() === tag.toString()));
     }
 
-    if (enchant.mode === "only_creative") {
-        tags = tags.filter((tag) => tags_related_to_functionality.some((t) => t.equals(tag)));
+    if (enchant.exclusiveSet) {
+        enchantment.exclusive_set = enchant.exclusiveSet;
+
+        if (typeof enchant.exclusiveSet === "string") {
+            tags.push(Identifier.fromString(enchant.exclusiveSet, `tags/${config}`));
+        }
     }
 
     if (enchant.disabledEffects.length > 0 && enchantment.effects) {
         for (const effect of enchant.disabledEffects) {
             delete enchantment.effects[effect as keyof typeof enchantment.effects];
         }
+    }
+
+    if (enchant.mode === "soft_delete") {
+        enchantment.effects = undefined;
+        tags = [];
     }
 
     return {

@@ -103,11 +103,12 @@ const yggdrasil = structures.filter((s) => s.id.startsWith("yggdrasil")).filter(
 
     <VideoSection
             url="https://www.youtube.com/embed/UNYxJkHhb8w"
-            title={translate["datapacks.yggdrasil.title"] + " : The Lost Village"}
-            description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ut purus eget sapien."
+            title={translate["datapacks.yggdrasil.video.title"]}
+            description={translate["datapacks.yggdrasil.video.description"]}
+            section={translate["datapacks.yggdrasil.video"]}
     />
 
-    <GallerySection images={images} title="Voir les images"/>
+    <GallerySection images={images} title={translate["datapacks.yggdrasil.gallery"]}/>
 
     <!-- Ecosystem -->
     <section class="relative mt-40">

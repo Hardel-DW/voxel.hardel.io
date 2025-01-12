@@ -4,6 +4,7 @@ import type { versionedAnalyserCollection } from "@/lib/minecraft/core/engine/An
 import { compileDatapack, getIdentifierFromCompiler } from "@/lib/minecraft/core/engine/Compiler";
 import type { RegistryElement } from "@/lib/minecraft/mczip";
 import type { TagType } from "@voxel/definitions";
+import { isTag } from "@/lib/minecraft/core/Tag";
 
 export default function TagViewer(props: {
     field?: string;
@@ -37,8 +38,13 @@ export default function TagViewer(props: {
     if (typeof fieldValue !== "string") return null;
 
     const tagIdentifier = Identifier.fromString(fieldValue, props.registry);
-    const tagData = assembleDatapack.find((element) => getIdentifierFromCompiler(element).equals(tagIdentifier)) as RegistryElement<TagType> | undefined;
-    if (tagData) values.push(...tagData.data.values.map((value) => (typeof value === "string" ? value : value.id)));
+    const tagData = assembleDatapack.find((element) => getIdentifierFromCompiler(element).equals(tagIdentifier));
+    const rawData = tagData?.type !== "deleted" ? tagData?.element : undefined;
+    if (!rawData) return null;
+
+    if (isTag(rawData)) {
+        values.push(...rawData.data.values.map((value) => (typeof value === "string" ? value : value.id)));
+    }
 
     // Find the related additional tag, and add its values to the tag data
     const additionalValues = props.additional?.[tagIdentifier.toString()];

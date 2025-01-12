@@ -34,3 +34,7 @@ export const tagsToIdentifiers = (tags: string[], registry?: string): Identifier
 
     return tags.map((tag) => Identifier.fromString(tag, registry));
 };
+
+export const isTag = (element: RegistryElement<unknown>): element is RegistryElement<TagType> => {
+    return element.identifier.getRegistry()?.startsWith("tags/") || element.identifier.isTagged();
+};

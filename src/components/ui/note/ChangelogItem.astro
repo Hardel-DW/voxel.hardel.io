@@ -9,7 +9,7 @@ interface Props {
 const { isNew, isDeleted, title } = Astro.props;
 ---
 
-<li class="ruby">
+<li class="ruby list-none">
     {
         isNew && (
             <span class="rounded-full bg-zinc-700 px-2 py-1 text-xs text-green-500">
@@ -24,7 +24,7 @@ const { isNew, isDeleted, title } = Astro.props;
             </span>
         )
     }
-    <strong>
+    <strong class="pr-2">
         {title} :
     </strong>
     <span class="*:inline text-zinc-400">

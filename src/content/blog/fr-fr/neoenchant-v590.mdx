@@ -1,0 +1,269 @@
+---
+draft: false
+title: "NeoEnchant - Version 5.9.0"
+snippet: "La mise a jour de 5.9, ajoutant 6 nouveaux enchantments dont un trés attendu et de l'équilibrage."
+image: {
+    src: "/images/background/blog/hero-ne.webp",
+    alt: "NeoEnchant - 5.9.0"
+}
+authors: ["hardel"]
+publishDate: "2025-01-19"
+category: "Datapacks"
+---
+
+import Star from "@/components/ui/star.astro";
+import DownloadModrinth from "@/components/ui/note/DonwloadModrinth.astro";
+import Changelog from "@/components/ui/note/Changelog.astro";
+import ChangelogContainer from "@/components/ui/note/ChangelogContainer.astro";
+import ChangelogSection from "@/components/ui/note/ChangelogSection.astro";
+import ChangelogItem from "@/components/ui/note/ChangelogItem.astro";
+
+# Aperçu
+Bonjour à tous, Je suis vraiment content de vous présenter la version 5.9.0 de NeoEnchant. Elle ajoute 6 nouveaux enchantements, de l'équilibrage ainsi que des améliorations diverses.
+
+NeoEnchant 5.9.0, intégres aussi la compatibilité avec Yggdrasil V4.0.0 avec sa nouvelle dimension Helheim.
+
+<DownloadModrinth soon asset="/images/addons/picture/ne.webp" name="NeoEnchant" version="5.9.0" link="https://modrinth.com/datapack/neoenchant" />  
+
+<Star />
+
+# Nouveaux Enchantements
+
+<Changelog>
+    <ChangelogContainer
+        title="Harvest"
+        citation="Je sais que c'est un enchantment trés attendu, et le voici enfin disponible, il permet de planter des graines en zone. Incroyable non ?"
+        stats={{
+            maxLevel: 3,
+            anvilCost: 2,
+            weight: 7
+        }}
+        applicable={{ name: "Houes", asset: "hoe" }}
+    >
+        <ChangelogSection>
+            <ChangelogItem title="Utilisation">
+                Une fois que vous avez l'enchantement sur votre houe, vous devez la placer dans votre main secondaire, planter ensuite des graines avec votre main principale.
+            </ChangelogItem>
+            <ChangelogItem title="Effets">
+                Lorsque vous plantez des graines, des graines additionnels seront plantés autour du bloc planté, les graines sont biensur consommés de votre inventaire.
+            </ChangelogItem>
+            <ChangelogItem title="Taille de la zone">
+                C'est le niveau de l'enchantement multipliés par 2 et ajouter 1, voici le tableau par niveau.
+            </ChangelogItem>
+
+            | Niveau | Taille de la zone |
+            | ------ | ------- |
+            | 1 | 3x3 |
+            | 2 | 5x5 |
+            | 3 | 7x7 |
+        </ChangelogSection>
+    </ChangelogContainer>
+
+    <ChangelogContainer
+        title="Critical Hit"
+        citation="Un nouvel enchantment destinés au joueurs contre joueurs, vous avez une probabilité de faire des dégats bruts. Cela veut dire qui ingore une partie de la protection de l'armure."
+        stats={{
+            maxLevel: 5,
+            anvilCost: 2,
+            weight: 4
+        }}
+        applicable={{ name: "Épées", asset: "sword" }}
+    >
+        <ChangelogSection>
+            <ChangelogItem title="Effets à l'impact">
+                Vous avez 4% de chance par niveau d'infliger qui ingore 25% de la protection de l'armure de la cible.
+            </ChangelogItem>
+
+            | Niveau | Chance |
+            | ------ | ------- |
+            | 1 | 4% |
+            | 2 | 8% |
+            | 3 | 12% |
+            | 4 | 16% |
+            | 5 | 20% |
+        </ChangelogSection>
+    </ChangelogContainer>
+
+    <ChangelogContainer
+        title="Coup Dimensional"
+        citation="Cette enchantment augmenete vos dégats lorsque vous n'etes pas dans le monde normal, cela fonctionne dans le Nether, l'End et les dimensions personnalisées."
+        stats={{
+            maxLevel: 5,
+            anvilCost: 2,
+            weight: 4
+        }}
+        applicable={{ name: "Épées", asset: "sword" }}
+    >
+        <ChangelogSection>
+            <ChangelogItem title="Dégâts Additionnels">
+                Augmente vos dégats de 2 (+1 Par niveau) sur tous vos dégats, quand vous n'etes pas dans le monde normal.
+            </ChangelogItem>
+
+            | Niveau | Dégâts |
+            | ------ | ------- |
+            | 1 | 2 |
+            | 2 | 3 |
+            | 3 | 4 |
+            | 4 | 5 |
+            | 5 | 6 |
+        </ChangelogSection>
+    </ChangelogContainer>
+
+    <ChangelogContainer
+        title="Le Desepoir Runique"
+        citation="Lié aux packs de Yggdrasil, il s'obtient sur le trésor de Asflors et permet d'augmenter drastiquement les dégats dans la dimension Runique, cela devrait facilités le Labyrinthe"
+        stats={{
+            maxLevel: 5,
+            anvilCost: 2,
+            weight: 4
+        }}
+        applicable={{ name: "Épées", asset: "sword" }}
+    >
+        <ChangelogSection>
+            <ChangelogItem title="Dégâts Additionnels">
+                Augmente tout vos dégats lorsque vous êtes dans la dimension Runique, de 125% + 25% par niveau.
+            </ChangelogItem>
+
+            | Niveau | Dégâts |
+            | ------ | ------- |
+            | 1 | 125% |
+            | 2 | 150% |
+            | 3 | 175% |
+            | 4 | 200% |
+            | 5 | 225% |
+        </ChangelogSection>
+    </ChangelogContainer>
+
+    <ChangelogContainer
+        title="Toucher Mortel"
+        citation="Cette enchantment est a destination des monstres, il peut toute fois êtres obtenu dans Helheim de maniére extrémement rare."
+        stats={{
+            maxLevel: 1,
+            anvilCost: 1,
+            weight: 1
+        }}
+        applicable={{ name: "Épées", asset: "sword" }}
+    >
+        <ChangelogSection>
+            <ChangelogItem title="Effets">
+                Donne l'effet "Darkness" à la cible lorsque vous l'infligez des dégats.
+            </ChangelogItem>
+        </ChangelogSection>
+    </ChangelogContainer>
+
+    <ChangelogContainer
+        title="Protection Cinétique"
+        citation="Réduit les dégats de collision avec les Elytra lorsque vous touchez un mur"
+        stats={{
+            maxLevel: 4,
+            anvilCost: 1,
+            weight: 1
+        }}
+        applicable={{ name: "Elytra", asset: "elytra" }}
+    >
+        <ChangelogSection>
+            <ChangelogItem title="Protection">
+                Réduit les dégats de collision avec les Elytra lorsque vous touchez un mur, de 6 de dégats par niveau.
+            </ChangelogItem>
+
+            | Niveau | Dégâts |
+            | ------ | ------- |
+            | 1 | 6 |
+            | 2 | 12 |
+            | 3 | 18 |
+            | 4 | 24 |
+        </ChangelogSection>
+    </ChangelogContainer>
+</Changelog>
+
+<Star />
+
+# Modifications et Equilibrage
+
+<Changelog>
+    <ChangelogContainer
+        title="Life+"
+        citation="Cette enchantment est trop joués, et il est beaucoup trop puissant, ces valeurs ont était fortement réduites."
+        stats={{
+            maxLevel: 5,
+            anvilCost: 1,
+            weight: 8
+        }}
+        applicable={{ name: "Armures", asset: "armor" }}
+    >
+        <ChangelogSection>
+            <ChangelogItem title="Equilibrage">
+                Le gain de coeur par niveau a était réduit de 4 à 2, l'enchantement ne donne plus qu'un coeur de plus par niveau.
+            </ChangelogItem>
+
+            | Niveau | Gain |
+            | ------ | ------- |
+            | 1 | 2 (1 Coeur) |
+            | 2 | 4 (2 Coeurs) |
+            | 3 | 6 (3 Coeurs) |
+            | 4 | 8 (4 Coeurs) |
+            | 5 | 10 (5 Coeurs) |
+        </ChangelogSection>
+    </ChangelogContainer>
+
+        <ChangelogContainer
+        title="XpBoost"
+        citation="Cette enchantment peut maintenant être appliqués sur les outils, c'est fou ! non ?"
+        stats={{
+            maxLevel: 3,
+            anvilCost: 4,
+            weight: 2
+        }}
+        applicable={{ name: "Combat et Outils", asset: "durability" }}
+    >
+        <ChangelogSection>
+            <ChangelogItem title="Augmentation de l'expérience">
+                L'expérience gagnée est augmentés lorsque vous minerais des blocs rapportant de l'expérience comme le fer, le diamant, etc, le gain pour la mélée.
+            </ChangelogItem>
+
+            | Niveau | Gain D'expérience |
+            | ------ | ------- |
+            | 1 | x1.5 |
+            | 2 | x2.25 |
+            | 3 | x3 |
+        </ChangelogSection>
+    </ChangelogContainer>
+
+    <ChangelogContainer
+        title="Bright Vision"
+        citation="Des améliorations ont été apportées pour rendre l'enchantement plus fluide et agréable à utiliser."
+        stats={{
+            maxLevel: 3,
+            anvilCost: 2,
+            weight: 5
+        }}
+        applicable={{ name: "Casques", asset: "helmet" }}
+    >
+        <ChangelogSection>
+            <ChangelogItem title="Délai">
+                L'effet est maintenant appliqué immédiatement, sans aucune latence.
+            </ChangelogItem>
+            <ChangelogItem title="Particules">
+                Les particules d'effet de potion ont été supprimées pour une meilleure expérience visuelle.
+            </ChangelogItem>
+        </ChangelogSection>
+    </ChangelogContainer>
+</Changelog>
+
+<Star />
+
+# Autres Modifications
+- Les Traductions ont était mise a jours pour inclure les nouveaux enchantements.
+- Yggdrasil V4.0.0 est maintenant supporté.
+- 5 Nouveaux progrés ont était ajoutés dans le menu de progression.
+
+### Contribution
+- Rejoins le [Discord](https://discord.gg/TAmVFvkHep) pour suivre les mises à jour et contribuer à la traduction ou a l'amélioration du datapack.
+- Tu peux également contribuer à la traduction en faisant un ticket sur Github.
+
+<Star />
+
+# Compatibilité et Support
+- Support complet de Minecraft 1.21 - 1.21.4
+- Compatibilité avec Yggdrasil 4.0.0
+- Support des dernières versions de BeyondEnchant

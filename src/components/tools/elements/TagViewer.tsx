@@ -2,8 +2,6 @@ import { useConfiguratorStore } from "@/lib/store/configuratorStore";
 import { Identifier } from "@/lib/minecraft/core/Identifier";
 import type { versionedAnalyserCollection } from "@/lib/minecraft/core/engine/Analyser";
 import { compileDatapack, getIdentifierFromCompiler } from "@/lib/minecraft/core/engine/Compiler";
-import type { RegistryElement } from "@/lib/minecraft/mczip";
-import type { TagType } from "@voxel/definitions";
 import { isTag } from "@/lib/minecraft/core/Tag";
 
 export default function TagViewer(props: {

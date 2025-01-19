@@ -1,0 +1,269 @@
+---
+draft: false
+title: "NeoEnchant - Version 5.9.0"
+snippet: "The 5.9 update, adding 6 new enchantments including a highly anticipated one and balance changes."
+image: {
+    src: "/images/background/blog/hero-ne.webp",
+    alt: "NeoEnchant - 5.9.0"
+}
+authors: ["hardel"]
+publishDate: "2025-01-19"
+category: "Datapacks"
+---
+
+import Star from "@/components/ui/star.astro";
+import DownloadModrinth from "@/components/ui/note/DonwloadModrinth.astro";
+import Changelog from "@/components/ui/note/Changelog.astro";
+import ChangelogContainer from "@/components/ui/note/ChangelogContainer.astro";
+import ChangelogSection from "@/components/ui/note/ChangelogSection.astro";
+import ChangelogItem from "@/components/ui/note/ChangelogItem.astro";
+
+# Overview
+Hello everyone, I'm really excited to present version 5.9.0 of NeoEnchant. It adds 6 new enchantments, balance changes, and various improvements.
+
+NeoEnchant 5.9.0 also includes compatibility with Yggdrasil V4.0.0 with its new Helheim dimension.
+
+<DownloadModrinth soon asset="/images/addons/picture/ne.webp" name="NeoEnchant" version="5.9.0" link="https://modrinth.com/datapack/neoenchant" />  
+
+<Star />
+
+# New Enchantments
+
+<Changelog>
+    <ChangelogContainer
+        title="Harvest"
+        citation="I know this is a highly anticipated enchantment, and it's finally available, allowing you to plant seeds in an area. Amazing, right?"
+        stats={{
+            maxLevel: 3,
+            anvilCost: 2,
+            weight: 7
+        }}
+        applicable={{ name: "Hoes", asset: "hoe" }}
+    >
+        <ChangelogSection>
+            <ChangelogItem title="Usage">
+                Once you have the enchantment on your hoe, you must place it in your off-hand, then plant seeds with your main hand.
+            </ChangelogItem>
+            <ChangelogItem title="Effects">
+                When you plant seeds, additional seeds will be planted around the planted block, the seeds are of course consumed from your inventory.
+            </ChangelogItem>
+            <ChangelogItem title="Area Size">
+                It's the enchantment level multiplied by 2 plus 1, here's the table by level.
+            </ChangelogItem>
+
+            | Level | Area Size |
+            | ------ | ------- |
+            | 1 | 3x3 |
+            | 2 | 5x5 |
+            | 3 | 7x7 |
+        </ChangelogSection>
+    </ChangelogContainer>
+
+    <ChangelogContainer
+        title="Critical Hit"
+        citation="A new enchantment designed for player versus player combat, you have a chance to deal raw damage. This means it ignores part of the armor protection."
+        stats={{
+            maxLevel: 5,
+            anvilCost: 2,
+            weight: 4
+        }}
+        applicable={{ name: "Swords", asset: "sword" }}
+    >
+        <ChangelogSection>
+            <ChangelogItem title="Impact Effects">
+                You have a 4% chance per level to deal damage that ignores 25% of the target's armor protection.
+            </ChangelogItem>
+
+            | Level | Chance |
+            | ------ | ------- |
+            | 1 | 4% |
+            | 2 | 8% |
+            | 3 | 12% |
+            | 4 | 16% |
+            | 5 | 20% |
+        </ChangelogSection>
+    </ChangelogContainer>
+
+    <ChangelogContainer
+        title="Dimensional Strike"
+        citation="This enchantment increases your damage when you're not in the normal world, this works in the Nether, End, and custom dimensions."
+        stats={{
+            maxLevel: 5,
+            anvilCost: 2,
+            weight: 4
+        }}
+        applicable={{ name: "Swords", asset: "sword" }}
+    >
+        <ChangelogSection>
+            <ChangelogItem title="Additional Damage">
+                Increases your damage by 2 (+1 Per level) on all your damage when you're not in the normal world.
+            </ChangelogItem>
+
+            | Level | Damage |
+            | ------ | ------- |
+            | 1 | 2 |
+            | 2 | 3 |
+            | 3 | 4 |
+            | 4 | 5 |
+            | 5 | 6 |
+        </ChangelogSection>
+    </ChangelogContainer>
+
+    <ChangelogContainer
+        title="Runic Despair"
+        citation="Linked to Yggdrasil packs, it's obtained from Asflors treasure and drastically increases damage in the Runic dimension, this should make the Labyrinth easier"
+        stats={{
+            maxLevel: 5,
+            anvilCost: 2,
+            weight: 4
+        }}
+        applicable={{ name: "Swords", asset: "sword" }}
+    >
+        <ChangelogSection>
+            <ChangelogItem title="Additional Damage">
+                Increases all your damage when you're in the Runic dimension by 125% + 25% per level.
+            </ChangelogItem>
+
+            | Level | Damage |
+            | ------ | ------- |
+            | 1 | 125% |
+            | 2 | 150% |
+            | 3 | 175% |
+            | 4 | 200% |
+            | 5 | 225% |
+        </ChangelogSection>
+    </ChangelogContainer>
+
+    <ChangelogContainer
+        title="Deadly Touch"
+        citation="This enchantment is intended for monsters, however it can be obtained in Helheim extremely rarely."
+        stats={{
+            maxLevel: 1,
+            anvilCost: 1,
+            weight: 1
+        }}
+        applicable={{ name: "Swords", asset: "sword" }}
+    >
+        <ChangelogSection>
+            <ChangelogItem title="Effects">
+                Gives the "Darkness" effect to the target when you deal damage.
+            </ChangelogItem>
+        </ChangelogSection>
+    </ChangelogContainer>
+
+    <ChangelogContainer
+        title="Kinetic Protection"
+        citation="Reduces collision damage with Elytra when you hit a wall"
+        stats={{
+            maxLevel: 4,
+            anvilCost: 1,
+            weight: 1
+        }}
+        applicable={{ name: "Elytra", asset: "elytra" }}
+    >
+        <ChangelogSection>
+            <ChangelogItem title="Protection">
+                Reduces collision damage with Elytra when you hit a wall by 6 damage per level.
+            </ChangelogItem>
+
+            | Level | Damage |
+            | ------ | ------- |
+            | 1 | 6 |
+            | 2 | 12 |
+            | 3 | 18 |
+            | 4 | 24 |
+        </ChangelogSection>
+    </ChangelogContainer>
+</Changelog>
+
+<Star />
+
+# Changes and Balance
+
+<Changelog>
+    <ChangelogContainer
+        title="Life+"
+        citation="This enchantment is too commonly used and is far too powerful, its values have been significantly reduced."
+        stats={{
+            maxLevel: 5,
+            anvilCost: 1,
+            weight: 8
+        }}
+        applicable={{ name: "Armor", asset: "armor" }}
+    >
+        <ChangelogSection>
+            <ChangelogItem title="Balance">
+                The heart gain per level has been reduced from 4 to 2, the enchantment now only gives one additional heart per level.
+            </ChangelogItem>
+
+            | Level | Gain |
+            | ------ | ------- |
+            | 1 | 2 (1 Heart) |
+            | 2 | 4 (2 Hearts) |
+            | 3 | 6 (3 Hearts) |
+            | 4 | 8 (4 Hearts) |
+            | 5 | 10 (5 Hearts) |
+        </ChangelogSection>
+    </ChangelogContainer>
+
+    <ChangelogContainer
+        title="XpBoost"
+        citation="This enchantment can now be applied to tools, amazing, right?"
+        stats={{
+            maxLevel: 3,
+            anvilCost: 4,
+            weight: 2
+        }}
+        applicable={{ name: "Combat and Tools", asset: "durability" }}
+    >
+        <ChangelogSection>
+            <ChangelogItem title="Experience Increase">
+                Experience gained is increased when you mine blocks that give experience like iron, diamond, etc., the gain for melee.
+            </ChangelogItem>
+
+            | Level | Experience Gain |
+            | ------ | ------- |
+            | 1 | x1.5 |
+            | 2 | x2.25 |
+            | 3 | x3 |
+        </ChangelogSection>
+    </ChangelogContainer>
+
+    <ChangelogContainer
+        title="Bright Vision"
+        citation="Improvements have been made to make the enchantment smoother and more pleasant to use."
+        stats={{
+            maxLevel: 3,
+            anvilCost: 2,
+            weight: 5
+        }}
+        applicable={{ name: "Helmets", asset: "helmet" }}
+    >
+        <ChangelogSection>
+            <ChangelogItem title="Delay">
+                The effect is now applied immediately, without any latency.
+            </ChangelogItem>
+            <ChangelogItem title="Particles">
+                Potion effect particles have been removed for a better visual experience.
+            </ChangelogItem>
+        </ChangelogSection>
+    </ChangelogContainer>
+</Changelog>
+
+<Star />
+
+# Other Changes
+- Translations have been updated to include new enchantments.
+- Yggdrasil V4.0.0 is now supported.
+- 5 New advancements have been added to the progression menu.
+
+### Contribution
+- Join the [Discord](https://discord.gg/TAmVFvkHep) to follow updates and contribute to translation or datapack improvement.
+- You can also contribute to translation by creating a ticket on Github.
+
+<Star />
+
+# Compatibility and Support
+- Full support for Minecraft 1.21 - 1.21.4
+- Compatibility with Yggdrasil 4.0.0
+- Support for latest versions of BeyondEnchant

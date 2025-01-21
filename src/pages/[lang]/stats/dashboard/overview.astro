@@ -1,0 +1,101 @@
+---
+import DashboardLayout from "@/components/layouts/DashboardLayout.astro";
+import Star from "@/components/ui/star.astro";
+import { DashboardInteractiveAreaChart } from "@/components/pages/stats/DashboardInteractiveAreaChart.tsx";
+import { DashboardPieChart } from "@/components/pages/stats/DashboardPieChart.tsx";
+import { DashboardBarChart } from "@/components/pages/stats/DashboardBarChart.tsx";
+import { GET as getMigrationsByDays } from "@/pages/api/stats/migrations";
+import { GET as getVersions } from "@/pages/api/stats/versions";
+import { GET as getNamespaces } from "@/pages/api/stats/namespaces";
+import type { ResponseVersionsStats } from "@/pages/api/stats/versions";
+import type { ResponseNamespaceStats } from "@/pages/api/stats/namespaces";
+import type { ResponseMigrationsByDays } from "@/pages/api/stats/migrations";
+import { snakeToTitleCase } from "@/lib/utils";
+
+const [migrationsResponse, versionsResponse, namespaceResponse] = await Promise.all([
+    getMigrationsByDays(Astro),
+    getVersions(Astro),
+    getNamespaces(Astro)
+]);
+
+const [migrationsData, versionsData, namespaceData] = await Promise.all([
+    migrationsResponse.json() as Promise<ResponseMigrationsByDays[]>,
+    versionsResponse.json() as Promise<ResponseVersionsStats>,
+    namespaceResponse.json().then((data: ResponseNamespaceStats[]) =>
+        data
+            .filter((item) => item.occurence >= 10)
+            .sort((a, b) => b.occurence - a.occurence)
+            .slice(0, 10)
+            .map((item) => ({
+                ...item,
+                namespace: snakeToTitleCase(item.namespace)
+            }))
+    )
+]);
+---
+
+<DashboardLayout title="Overview" description="Page de statistiques de Voxel" image="/images/background/tools/enchant-configurator.webp">
+    <h1 class="text-3xl font-bold px-8">Statictics Overview</h1>
+    <p class="text-sm text-zinc-400 px-8">
+        Here you can find the most important statistics about the usage of Voxel.
+    </p>
+
+    <hr class="my-8" />
+
+    <div class="flex flex-col gap-8">
+        <div class="w-full">
+            <DashboardInteractiveAreaChart
+                client:load
+                data={migrationsData} 
+                config={{ label: "Migrations", color: "#be185d" }}
+                select={[
+                    { label: "Last 1 year", value: "365d", days: 365 },
+                    { label: "Last 6 months", value: "180d", days: 180 },
+                    { label: "Last 3 months", value: "90d", days: 90 },
+                    { label: "Last 30 days", value: "30d", days: 30 },
+                    { label: "Last 7 days", value: "7d", days: 7 }
+                ]}
+                title="Number of datapacks modified."
+                description="Graph of the number of datapacks modified per day"
+            />
+        </div>
+    
+        <div class="grid grid-cols-2 gap-8 w-full pb-8">
+            <DashboardPieChart 
+                client:load
+                data={versionsData.summaries} 
+                config={Object.fromEntries(
+                    versionsData.summaries.map((item) => [
+                        item.minecraft_version,
+                        {
+                            label: item.minecraft_version,
+                            color: [
+                                "hsl(339, 76%, 42%)",
+                                "hsl(280, 60%, 50%)",
+                                "hsl(220, 70%, 55%)",
+                                "hsl(160, 65%, 45%)",
+                                "hsl(100, 55%, 40%)"
+                            ][versionsData.summaries.indexOf(item) % 5]
+                        }
+                    ])
+                )}
+                title="Minecraft Versions Distribution" 
+                description="Distribution of Minecraft versions across datapacks" 
+                text="Datapacks"
+            />    
+
+            <DashboardBarChart
+                client:load
+                data={namespaceData}
+                config={Object.fromEntries(
+                    namespaceData.map((item) => [
+                        item.namespace,
+                        { label: item.namespace, color: "#be185d" }
+                    ])
+                )}
+                title="Namespaces Distribution"
+                description="Distribution of namespaces across datapacks"
+            />
+        </div>
+    </div>
+</DashboardLayout>

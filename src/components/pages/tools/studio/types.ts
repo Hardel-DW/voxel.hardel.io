@@ -16,7 +16,7 @@ export interface BlueprintObject extends GridObject {
     title: string;
     fields: BlueprintFieldType[];
     linkingFieldId?: string;
-    ref: React.RefObject<HTMLDivElement>;
+    ref: React.RefObject<HTMLDivElement | null>;
 }
 
 export interface LinkObject extends GridObject {

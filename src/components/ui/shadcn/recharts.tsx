@@ -1,6 +1,5 @@
 import * as React from "react";
 import * as RechartsPrimitive from "recharts";
-
 import { cn } from "@/lib/utils";
 
 // Format: { THEME_NAME: CSS_SELECTOR }
@@ -103,12 +102,10 @@ const ChartTooltipContent = React.forwardRef<
             className,
             indicator = "dot",
             hideLabel = false,
-            hideIndicator = false,
             label,
             labelFormatter,
             labelClassName,
             formatter,
-            color,
             nameKey,
             labelKey
         },
@@ -155,7 +152,6 @@ const ChartTooltipContent = React.forwardRef<
                     {payload.map((item, index) => {
                         const key = `${nameKey || item.name || item.dataKey || "value"}`;
                         const itemConfig = getPayloadConfigFromPayload(config, item, key);
-                        const indicatorColor = color || item.payload.fill || item.color;
 
                         return (
                             <div

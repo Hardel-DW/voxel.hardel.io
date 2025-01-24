@@ -103,7 +103,6 @@ export async function generateZip(
     minify: boolean,
     logger?: Logger
 ): Promise<Uint8Array> {
-    console.log(content);
     const zip = new JSZip();
     const filesToDelete = new Set<string>();
 

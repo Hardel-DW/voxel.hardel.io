@@ -1,7 +1,6 @@
-import * as React from "react";
-import { Label, Pie, PieChart, Cell, BarChart, Bar, LabelList, XAxis, YAxis, CartesianGrid } from "recharts";
+import { BarChart, Bar, LabelList, XAxis, YAxis, CartesianGrid } from "recharts";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/shadcn/card";
-import { ChartContainer, ChartLegend, ChartLegendContent, ChartTooltip, ChartTooltipContent } from "@/components/ui/shadcn/recharts";
+import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/shadcn/recharts";
 
 type GroupedData = {
     occurence: number;

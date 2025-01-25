@@ -100,9 +100,13 @@ export function readDatapackFile<T>(datapack: Record<string, Uint8Array>, identi
 export async function generateZip(
     files: Record<string, Uint8Array>,
     content: CompileDatapackResult<keyof Analysers>[],
-    minify: boolean,
-    logger?: Logger
+    params: {
+        minify: boolean;
+        logger?: Logger;
+        includeVoxel: boolean;
+    }
 ): Promise<Uint8Array> {
+    const { minify, logger, includeVoxel } = params;
     const zip = new JSZip();
     const filesToDelete = new Set<string>();
 
@@ -118,8 +122,10 @@ export async function generateZip(
         }
     }
 
-    for (const file of voxelDatapacks) {
-        zip.file(`${file.identifier.filePath()}.json`, JSON.stringify(file.data, null, minify ? 0 : 4));
+    if (includeVoxel) {
+        for (const file of voxelDatapacks) {
+            zip.file(`${file.identifier.filePath()}.json`, JSON.stringify(file.data, null, minify ? 0 : 4));
+        }
     }
 
     for (const file of content) {

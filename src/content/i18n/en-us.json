@@ -143,8 +143,8 @@
         "navbar.resources.asset.title": "Marketplace",
         "navbar.resources.asset.description": "Free-Use assets to help you in your content creation",
         "navbar.resources.migration.title": "Migration",
-        "navbar.resources.sound.title": "Soon",
-        "navbar.resources.sound.description": "This content is coming soon",
+        "navbar.resources.converter.title": "Converter",
+        "navbar.resources.converter.description": "Convert files from datapacks to mods and vice versa",
         "navbar.resources.migration.description": "Migrate your mod/datapack to a different version of Minecraft",
 
         "footer.description": "VOXEL, what is it? These are guides in French, from beginner to advanced level, to learn how to develop mods or enrich your existing knowledge.",

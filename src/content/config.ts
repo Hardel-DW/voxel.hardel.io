@@ -1,5 +1,4 @@
 import { defineCollection, reference, z } from "astro:content";
-import * as translate from "@/content/i18n/en-us.json";
 import { glob } from "astro/loaders";
 
 export type FaqType = {
@@ -94,17 +93,7 @@ const i18nCollection = defineCollection({
     loader: glob({ pattern: "**/[^_]*.json", base: "./src/content/i18n" }),
     schema: z.object({
         name: z.string(),
-        translations: z.object(
-            (() => {
-                const acc: { [key in keyof typeof translate.translations]?: z.ZodString } = {};
-                for (const key of Object.keys(translate.translations) as (keyof typeof translate.translations)[]) {
-                    acc[key] = z.string();
-                }
-                return acc;
-            })() as {
-                [key in keyof typeof translate.translations]: z.ZodString;
-            }
-        )
+        translations: z.record(z.string()).refine((data): data is typeof import("./i18n/en-us.json")["translations"] => true)
     })
 });
 

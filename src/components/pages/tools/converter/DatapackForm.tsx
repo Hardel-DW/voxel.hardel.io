@@ -55,7 +55,7 @@ const DatapackForm: React.FC<Props> = ({ file, initialMetadata, iconUrl, transla
             const url = window.URL.createObjectURL(blob);
             const a = document.createElement("a");
             a.href = url;
-            a.download = `${metadata.name}.jar`;
+            a.download = file.name.replace(/\.zip$/i, ".jar");
             document.body.appendChild(a);
             a.click();
             window.URL.revokeObjectURL(url);

@@ -1,4 +1,5 @@
 import type { ModMetadata } from "@/lib/minecraft/converter";
+import { DEFAULT_MOD_METADATA } from "@/lib/minecraft/converter";
 
 /**
  * Generates Fabric mod JSON content from common metadata
@@ -6,27 +7,43 @@ import type { ModMetadata } from "@/lib/minecraft/converter";
  * @returns Formatted JSON for fabric.mod.json
  */
 export function generateFabricMod(commonData: ModMetadata) {
-    return JSON.stringify(
-        {
-            schemaVersion: 1,
-            id: commonData.id,
-            version: commonData.version,
-            name: commonData.name,
-            description: commonData.description,
-            authors: commonData.authors,
-            contact: {
-                homepage: commonData.homepage,
-                sources: commonData.sources,
-                issues: commonData.issues
-            },
-            license: "LicenseRef-Datapack",
-            icon: commonData.icon,
-            environment: "*",
-            depends: {
-                "fabric-resource-loader-v0": "*"
-            }
-        },
-        null,
-        2
-    );
+    const config: any = {
+        schemaVersion: 1,
+        id: commonData.id,
+        version: commonData.version,
+        name: commonData.name,
+        description: commonData.description,
+        license: "LicenseRef-Datapack",
+        environment: "*",
+        depends: {
+            "fabric-resource-loader-v0": "*"
+        }
+    };
+
+    // Add optional fields only if they exist and aren't default values
+    if (commonData.authors.length > 0) {
+        config.authors = commonData.authors;
+    }
+
+    if (commonData.icon) {
+        config.icon = commonData.icon;
+    }
+
+    // Add contact info only if any of the fields are non-default
+    const contact: Record<string, string> = {};
+    if (commonData.homepage && commonData.homepage !== DEFAULT_MOD_METADATA.homepage) {
+        contact.homepage = commonData.homepage;
+    }
+    if (commonData.sources && commonData.sources !== DEFAULT_MOD_METADATA.sources) {
+        contact.sources = commonData.sources;
+    }
+    if (commonData.issues && commonData.issues !== DEFAULT_MOD_METADATA.issues) {
+        contact.issues = commonData.issues;
+    }
+
+    if (Object.keys(contact).length > 0) {
+        config.contact = contact;
+    }
+
+    return JSON.stringify(config, null, 2);
 }

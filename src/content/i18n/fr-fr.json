@@ -364,6 +364,51 @@
         "tools.sound.seo.description": "Cette outil permet d'écouter les bandes son de Minecraft, trés utile pour les créateurs de mods ou de datapacks pour trouver le bon sons a utiliser.",
 
         "tools.studio.seo.title": "Voxel Studio",
-        "tools.studio.seo.description": "Cette fonctionnalités est en cours de développement, reviens plus tard pour plus d'informations."
+        "tools.studio.seo.description": "Cette fonctionnalités est en cours de développement, reviens plus tard pour plus d'informations.",
+
+        "tools.converter.seo.title": "Convertisseur Datapack/Mods · Voxel",
+        "tools.converter.seo.description": "Convertissez vos datapacks en mods Forge, Fabric, Quilt et NeoForge facilement avec notre outil en ligne.",
+        "tools.converter.home": "Convertisseur Datapack/Mods",
+        "tools.converter.description": "Cet outil vous permet de convertir facilement vos datapacks Minecraft en mods pour différentes plateformes : Forge, Fabric, Quilt et NeoForge. Déposez simplement votre fichier ZIP et choisissez les plateformes cibles.",
+        "tools.converter.instruction": "Déposez votre fichier ZIP de datapack ici.",
+        "tools.converter.dropzone": "Déposez votre datapack dans le format ZIP ici",
+        "tools.converter.description.list.1": "Déposez votre fichier ZIP ici.",
+        "tools.converter.description.list.2": "Le fichier .jar sera téléchargé et utilisable sur toutes les plateformes. (Forge, Fabric, Quilt, NeoForge)",
+
+        "tools.converter.step1.title": "Déposez votre fichier ZIP de datapack",
+        "tools.converter.step1.description": "Déposez votre fichier ZIP de datapack ici, il sera analysé et converti automatiquement.",
+        "tools.converter.step2.title": "Le téléchargement commence automatiquement",
+        "tools.converter.step2.description": "Le fichier .jar sera téléchargé et utilisable sur toutes les plateformes. (Forge, Fabric, Quilt, NeoForge)",
+
+        "tools.converter.error": "Une erreur est survenue lors de la conversion",
+        "tools.converter.form.name": "Nom",
+        "tools.converter.from.description": "Description",
+        "tools.converter.form.id": "ID du mod",
+        "tools.converter.form.version": "Version",
+        "tools.converter.form.authors": "Auteurs",
+        "tools.converter.form.homepage": "Page d'accueil",
+        "tools.converter.form.sources": "Sources",
+        "tools.converter.form.issues": "Problèmes",
+        "tools.converter.form.icon": "Icone",
+        "tools.converter.form.advanced": "Options avancées",
+        "tools.converter.form.advanced.description": "Cette information sera affichée dans la liste du mod sur Modrinth/CurseForge et dans le menu du mod de Minecraft.",
+        "tools.converter.form.advanced.download": "Télécharger le mod",
+        "tools.converter.form.advanced.download.disabled": "Conversion en cours...",
+        "tools.converter.form.advanced.authors.placeholder": "Tapez et appuyez sur Entrée pour ajouter",
+
+        "stats.overview.title": "Statistiques - Voxel",
+        "stats.overview.description": "Trouve les statistiques les plus importantes sur l'utilisation de Voxel.",
+        "stats.overview.migrations.title": "Nombre de datapacks modifiés",
+        "stats.overview.migrations.description": "Graphique du nombre de datapacks modifiés par jour",
+        "stats.overview.versions.title": "Distribution des versions Minecraft",
+        "stats.overview.versions.description": "Distribution des versions Minecraft à travers les datapacks",
+        "stats.overview.versions.text": "Datapacks",
+        "stats.overview.namespaces.title": "Distribution des espaces de noms",
+        "stats.overview.namespaces.description": "Distribution des espaces de noms à travers les datapacks",
+        "stats.overview.time.year": "Dernière année",
+        "stats.overview.time.6months": "6 derniers mois",
+        "stats.overview.time.3months": "3 derniers mois",
+        "stats.overview.time.30days": "30 derniers jours",
+        "stats.overview.time.7days": "7 derniers jours"
     }
 }

@@ -17,6 +17,12 @@ const PACK_VERSION = {
     "61": "1.21.4"
 };
 
+/**
+ * Get the Minecraft version from the pack format
+ * @example 1.21.1
+ * @param packFormat - The pack format
+ * @returns The Minecraft version
+ */
 export function getMinecraftVersion(packFormat: number): string {
     const version = PACK_VERSION[packFormat.toString() as keyof typeof PACK_VERSION];
     if (!version) {

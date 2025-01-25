@@ -10,6 +10,7 @@ import type { ResponseVersionsStats } from "@/pages/api/stats/versions";
 import type { ResponseNamespaceStats } from "@/pages/api/stats/namespaces";
 import type { ResponseMigrationsByDays } from "@/pages/api/stats/migrations";
 import { snakeToTitleCase } from "@/lib/utils";
+import { getTranslations } from "@/lib/i18n";
 
 const [migrationsResponse, versionsResponse, namespaceResponse] = await Promise.all([
     getMigrationsByDays(Astro),
@@ -31,12 +32,14 @@ const [migrationsData, versionsData, namespaceData] = await Promise.all([
             }))
     )
 ]);
+
+const { translate } = await getTranslations(Astro.url);
 ---
 
-<DashboardLayout title="Overview" description="Page de statistiques de Voxel" image="/images/background/tools/enchant-configurator.webp">
-    <h1 class="text-3xl font-bold px-8">Statictics Overview</h1>
+<DashboardLayout title={translate["stats.overview.title"]} description={translate["stats.overview.description"]} image="/images/opengraph/stats.webp">
+    <h1 class="text-3xl font-bold px-8">{translate["stats.overview.title"]}</h1>
     <p class="text-sm text-zinc-400 px-8">
-        Here you can find the most important statistics about the usage of Voxel.
+        {translate["stats.overview.description"]}
     </p>
 
     <hr class="my-8" />
@@ -46,16 +49,16 @@ const [migrationsData, versionsData, namespaceData] = await Promise.all([
             <DashboardInteractiveAreaChart
                 client:load
                 data={migrationsData} 
-                config={{ label: "Migrations", color: "#be185d" }}
+                config={{ label: translate["stats.overview.migrations.title"], color: "#be185d" }}
                 select={[
-                    { label: "Last 1 year", value: "365d", days: 365 },
-                    { label: "Last 6 months", value: "180d", days: 180 },
-                    { label: "Last 3 months", value: "90d", days: 90 },
-                    { label: "Last 30 days", value: "30d", days: 30 },
-                    { label: "Last 7 days", value: "7d", days: 7 }
+                    { label: translate["stats.overview.time.year"], value: "365d", days: 365 },
+                    { label: translate["stats.overview.time.6months"], value: "180d", days: 180 },
+                    { label: translate["stats.overview.time.3months"], value: "90d", days: 90 },
+                    { label: translate["stats.overview.time.30days"], value: "30d", days: 30 },
+                    { label: translate["stats.overview.time.7days"], value: "7d", days: 7 }
                 ]}
-                title="Number of datapacks modified."
-                description="Graph of the number of datapacks modified per day"
+                title={translate["stats.overview.migrations.title"]}
+                description={translate["stats.overview.migrations.description"]}
             />
         </div>
     
@@ -78,9 +81,9 @@ const [migrationsData, versionsData, namespaceData] = await Promise.all([
                         }
                     ])
                 )}
-                title="Minecraft Versions Distribution" 
-                description="Distribution of Minecraft versions across datapacks" 
-                text="Datapacks"
+                title={translate["stats.overview.versions.title"]} 
+                description={translate["stats.overview.versions.description"]} 
+                text={translate["stats.overview.versions.text"]}
             />    
 
             <DashboardBarChart
@@ -92,8 +95,8 @@ const [migrationsData, versionsData, namespaceData] = await Promise.all([
                         { label: item.namespace, color: "#be185d" }
                     ])
                 )}
-                title="Namespaces Distribution"
-                description="Distribution of namespaces across datapacks"
+                title={translate["stats.overview.namespaces.title"]}
+                description={translate["stats.overview.namespaces.description"]}
             />
         </div>
     </div>

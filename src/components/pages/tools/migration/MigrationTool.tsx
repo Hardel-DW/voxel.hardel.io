@@ -73,12 +73,11 @@ export default function MigrationTool({ translate, children }: MigrationToolProp
                 tool: "enchantment"
             });
 
-            const modifiedDatapack = await generateZip(
-                modifiedTarget.files,
-                finalDatapack,
-                modifiedTarget.logger.getLogs().isMinified,
-                Logger.fromLog(logs)
-            );
+            const modifiedDatapack = await generateZip(modifiedTarget.files, finalDatapack, {
+                minify: modifiedTarget.logger.getLogs().isMinified,
+                logger: Logger.fromLog(logs),
+                includeVoxel: true
+            });
 
             const blob = new Blob([modifiedDatapack], { type: "application/zip" });
             const url = URL.createObjectURL(blob);

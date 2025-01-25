@@ -27,7 +27,11 @@ export default function DownloadButton() {
             tool: store.configuration.analyser.id as keyof typeof versionedAnalyserCollection
         });
 
-        const compiledContent = await generateZip(store.files, content, store.minify, store.logger);
+        const compiledContent = await generateZip(store.files, content, {
+            minify: store.minify,
+            logger: store.logger,
+            includeVoxel: true
+        });
 
         try {
             const response = await fetch("/api/migrations/log", {

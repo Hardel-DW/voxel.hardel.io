@@ -90,13 +90,15 @@ function generateModFiles(metadata: ModMetadata, platforms: ModPlatforms[]) {
         files["quilt.mod.json"] = generateQuiltMod(commonData);
     }
 
-    if (platforms.includes(ModPlatforms.FORGE) || platforms.includes(ModPlatforms.NEOFORGE)) {
-        const modsToml = generateForgeMods(commonData, platforms);
-        files["META-INF/mods.toml"] = modsToml;
+    if (platforms.includes(ModPlatforms.FORGE)) {
+        files["META-INF/mods.toml"] = generateForgeMods(commonData, [ModPlatforms.FORGE]);
+    }
 
-        if (platforms.includes(ModPlatforms.NEOFORGE)) {
-            files["META-INF/neoforge.mods.toml"] = modsToml.replace(/updateJSONURL = '(.*?)'/, "updateJSONURL = '$1?neoforge=only'");
-        }
+    if (platforms.includes(ModPlatforms.NEOFORGE)) {
+        files["META-INF/neoforge.mods.toml"] = generateForgeMods(commonData, [ModPlatforms.NEOFORGE]).replace(
+            /updateJSONURL = '(.*?)'/,
+            "updateJSONURL = '$1?neoforge=only'"
+        );
     }
 
     return files;

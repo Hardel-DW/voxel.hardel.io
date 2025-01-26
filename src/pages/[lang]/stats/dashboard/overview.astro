@@ -11,6 +11,7 @@ import type { ResponseNamespaceStats } from "@/pages/api/stats/namespaces";
 import type { ResponseMigrationsByDays } from "@/pages/api/stats/migrations";
 import { snakeToTitleCase } from "@/lib/utils";
 import { getTranslations } from "@/lib/i18n";
+import type { Props as SidebarProps } from "@/components/layouts/compound/sidebar.astro";
 
 const [migrationsResponse, versionsResponse, namespaceResponse] = await Promise.all([
     getMigrationsByDays(Astro),
@@ -34,9 +35,30 @@ const [migrationsData, versionsData, namespaceData] = await Promise.all([
 ]);
 
 const { translate } = await getTranslations(Astro.url);
+const defaultSidebar: SidebarProps = {
+    groups: [
+        {
+            title: "General",
+            items: [
+                {
+                    type: "item",
+                    title: "Dashboard",
+                    href: "overview",
+                    icon: "/icons/layout/grid.svg"
+                },
+                {
+                    type: "item",
+                    title: "Telemetry",
+                    href: "telemetry",
+                    icon: "/icons/layout/list.svg"
+                }
+            ]
+        }
+    ]
+};
 ---
 
-<DashboardLayout title={translate["stats.overview.title"]} description={translate["stats.overview.description"]} image="/images/opengraph/stats.webp">
+<DashboardLayout title={translate["stats.overview.title"]} description={translate["stats.overview.description"]} image="/images/opengraph/stats.webp" sidebar={defaultSidebar}>
     <h1 class="text-3xl font-bold px-8">{translate["stats.overview.title"]}</h1>
     <p class="text-sm text-zinc-400 px-8">
         {translate["stats.overview.description"]}

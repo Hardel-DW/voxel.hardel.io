@@ -3,6 +3,7 @@ import type { ModMetadata } from "@/lib/minecraft/converter";
 import { ModPlatforms, convertDatapack } from "@/lib/minecraft/converter";
 import Button from "@/components/ui/react/Button";
 import { cn } from "@/lib/utils";
+import { trackEvent } from "@/lib/server/telemetry";
 
 interface Props {
     file: File | null;
@@ -60,6 +61,8 @@ const DatapackForm: React.FC<Props> = ({ file, initialMetadata, iconUrl, transla
             a.click();
             window.URL.revokeObjectURL(url);
             document.body.removeChild(a);
+
+            await trackEvent("converted_datapack");
         } catch (error) {
             console.error("Conversion error:", error);
             setError(error instanceof Error ? error.message : translateForm.error);

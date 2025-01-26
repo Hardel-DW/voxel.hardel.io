@@ -1,0 +1,75 @@
+---
+import DashboardLayout from "@/components/layouts/DashboardLayout.astro";
+import { getTranslations } from "@/lib/i18n";
+import type { Props as SidebarProps } from "@/components/layouts/compound/sidebar.astro";
+import { GET as getTelemetry } from "@/pages/api/stats/telemetry";
+
+const { translate } = await getTranslations(Astro.url);
+const defaultSidebar: SidebarProps = {
+    groups: [
+        {
+            title: "General",
+            items: [
+                {
+                    type: "item",
+                    title: "Dashboard",
+                    href: "overview",
+                    icon: "/icons/layout/grid.svg"
+                },
+                {
+                    type: "item",
+                    title: "Telemetry",
+                    href: "telemetry",
+                    icon: "/icons/layout/list.svg"
+                }
+            ]
+        }
+    ]
+};
+
+const telemetry = await getTelemetry(Astro);
+const telemetryData = await telemetry.json();
+---
+
+<DashboardLayout title={translate["stats.telemetry.title"]} description={translate["stats.telemetry.description"]} image="/images/opengraph/stats.webp" sidebar={defaultSidebar}>
+    <h1 class="text-3xl font-bold px-8">{translate["stats.telemetry.title"]}</h1>
+    <p class="text-sm text-zinc-400 px-8"> 
+        {translate["stats.telemetry.description"]}
+    </p>
+
+    <hr class="my-8" /> 
+
+    <div class="flex flex-col gap-8">
+        <div class="flex flex-col gap-8">
+            <div class="px-8">
+                <div class="rounded-lg border border-zinc-800 overflow-hidden">
+                    <div class="overflow-x-auto">
+                        <table class="w-full">
+                            <thead>
+                                <tr class="border-b border-zinc-800 bg-zinc-900/50">
+                                    <th class="px-6 py-4 text-left text-sm font-medium text-zinc-400">{translate["stats.telemetry.event"]}</th>
+                                    <th class="px-6 py-4 text-right text-sm font-medium text-zinc-400">{translate["stats.telemetry.count"]}</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-zinc-800">
+                                {telemetryData.data.map((item: { event: string; count: number }) => (
+                                    <tr class="hover:bg-zinc-800/50">
+                                        <td class="px-6 py-4 text-sm text-zinc-300 whitespace-nowrap">
+                                            {item.event}
+                                        </td>
+                                        <td class="px-6 py-4 text-sm text-zinc-300 text-right">
+                                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-zinc-800 text-zinc-300">
+                                                {item.count.toLocaleString()}
+                                            </span>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</DashboardLayout>
+

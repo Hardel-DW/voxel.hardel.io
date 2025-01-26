@@ -1,0 +1,100 @@
+---
+export interface Props {
+    title: string;
+    collapsible?: boolean;
+    icon?: string;
+}
+
+const { title, collapsible = false, icon } = Astro.props;
+---
+
+<div class="py-1" data-collapsible>
+    {title && (
+        <button 
+            class:list={[
+                "flex w-full items-center gap-3 px-3 py-2 text-sm transition-colors",
+                collapsible 
+                    ? "text-zinc-400 hover:bg-zinc-800/50 hover:text-zinc-50 rounded-lg" 
+                    : "text-zinc-400 font-semibold px-2"
+            ]}
+            data-collapse-trigger
+        >
+            {icon && (
+                <img src={icon} alt="" class="size-4 opacity-75 invert-100" />
+            )}
+            <span class="flex-1 text-left">
+                {title}
+            </span>
+            {collapsible && (
+                <svg 
+                    class="w-4 h-4 text-zinc-400 transition-transform duration-200 shrink-0" 
+                    data-chevron
+                    fill="none" 
+                    stroke="currentColor" 
+                    viewBox="0 0 24 24"
+                >
+                    <path 
+                        stroke-linecap="round" 
+                        stroke-linejoin="round" 
+                        stroke-width="2" 
+                        d="M9 5l7 7-7 7"
+                    />
+                </svg>
+            )}
+        </button>
+    )}
+    <div class:list={[
+        "space-y-1 overflow-hidden transition-all duration-200",
+        "data-collapse-content:relative",
+        "data-collapse-content",
+    ]} data-collapse-content>
+        <slot />
+    </div>
+</div>
+
+<script>
+    const collapsibles = document.querySelectorAll('[data-collapsible]');
+    
+    collapsibles.forEach(collapsible => {
+        const trigger = collapsible.querySelector('[data-collapse-trigger]');
+        const content = collapsible.querySelector('[data-collapse-content]') as HTMLElement;
+        const chevron = collapsible.querySelector('[data-chevron]') as HTMLElement;
+        
+        if (trigger && content && chevron) {
+            let isOpen = true;
+            
+            const toggleCollapse = () => {
+                isOpen = !isOpen;
+                chevron.style.transform = isOpen ? 'rotate(0deg)' : 'rotate(90deg)';
+                
+                if (isOpen) {
+                    content.style.maxHeight = content.scrollHeight + 'px';
+                } else {
+                    content.style.maxHeight = '0';
+                }
+            };
+            
+            // Initialize state
+            content.style.maxHeight = content.scrollHeight + 'px';
+            
+            trigger.addEventListener('click', toggleCollapse);
+        }
+    });
+</script>
+
+<style>
+    [data-collapse-content] {
+        position: relative;
+    }
+    
+    /* Ligne verticale pour les éléments imbriqués */
+    [data-collapsible] [data-collapsible]::before {
+        content: "";
+        position: absolute;
+        left: 1.125rem;
+        top: 2.75rem;
+        bottom: 0.5rem;
+        width: 1px;
+        background: rgb(82 82 91 / 0.3);
+    }
+</style> 

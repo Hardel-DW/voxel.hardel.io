@@ -214,6 +214,7 @@ export async function getStaticPaths() {
                                                 size="sm"
                                                 variant="ghost"
                                                 href={item.asset}
+                                                data-marketplace-download
                                             >
                                                 {translate["marketplace.download"]}
                                             </Button>
@@ -231,11 +232,13 @@ export async function getStaticPaths() {
 </PageLayout>
 
 <script>
+    import { trackEvent } from "@/lib/server/telemetry";
     const searchInput = document.getElementById("searchInput");
     const marketplace = document.getElementById("marketplace");
     const layoutCategory = document.getElementById("layout-category");
     const gridBtn = document.getElementById("grid-btn");
     const listBtn = document.getElementById("list-btn");
+    const marketplaceDownload = document.querySelectorAll("[data-marketplace-download]");
 
     if (
         searchInput instanceof HTMLInputElement &&
@@ -307,4 +310,11 @@ export async function getStaticPaths() {
             }
         });
     });
+
+    for (const download of marketplaceDownload) {
+        download.addEventListener("click", async () => {
+            await trackEvent("marketplace_download");
+        });
+    }
 </script>
+

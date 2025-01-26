@@ -409,6 +409,12 @@
         "stats.overview.time.6months": "6 derniers mois",
         "stats.overview.time.3months": "3 derniers mois",
         "stats.overview.time.30days": "30 derniers jours",
-        "stats.overview.time.7days": "7 derniers jours"
+        "stats.overview.time.7days": "7 derniers jours",
+
+        "stats.telemetry.title": "Telemetry - Voxel",
+        "stats.telemetry.description": "Statistiques sur les événements de telemetry",
+        "stats.telemetry.event": "Événement",
+        "stats.telemetry.count": "Nombre d'événements",
+        "stats.telemetry.total": "Total"
     }
 }

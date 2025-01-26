@@ -1,13 +1,16 @@
 ---
 import Layout from "@/components/layouts/Layout.astro";
+import type { Props as SidebarProps } from "@/components/layouts/compound/sidebar.astro";
+import Sidebar from "@/components/layouts/compound/sidebar.astro";
 
 export interface Props {
     title?: string;
     description?: string;
     image?: string;
+    sidebar?: SidebarProps;
 }
 
-const { title, description, image }: Props = Astro.props;
+const { title, description, image, sidebar }: Props = Astro.props;
 ---
 
 <Layout title={title} description={description} image={image}>
@@ -33,6 +36,10 @@ const { title, description, image }: Props = Astro.props;
                              class="w-6 h-6 cursor-pointer block md:hidden invert-[75%]"/>
                     </div>
                 </div>
+
+                {sidebar && (
+                    <Sidebar groups={sidebar.groups}/>
+                )}
             </div>
         </div>
  

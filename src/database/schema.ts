@@ -69,4 +69,10 @@ export const product = pgTable("product", {
     }).notNull()
 });
 
+export const telemetry = pgTable("telemetry", {
+    id: text("id").primaryKey(),
+    event: text("event").notNull(),
+    count: integer("count").notNull().default(1)
+});
+
 export type Product = typeof product.$inferSelect;

@@ -11,6 +11,7 @@ import { logToActions } from "@/lib/minecraft/core/engine/migrations/logToAction
 import { Logger } from "@/lib/minecraft/core/engine/migrations/logger";
 import type { Log } from "@/lib/minecraft/core/engine/migrations/types";
 import { generateZip } from "@/lib/minecraft/mczip";
+import { trackEvent } from "@/lib/server/telemetry";
 import type React from "react";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
@@ -73,12 +74,11 @@ export default function MigrationTool({ translate, children }: MigrationToolProp
                 tool: "enchantment"
             });
 
-            const modifiedDatapack = await generateZip(
-                modifiedTarget.files,
-                finalDatapack,
-                modifiedTarget.logger.getLogs().isMinified,
-                Logger.fromLog(logs)
-            );
+            const modifiedDatapack = await generateZip(modifiedTarget.files, finalDatapack, {
+                minify: modifiedTarget.logger.getLogs().isMinified,
+                logger: Logger.fromLog(logs),
+                includeVoxel: true
+            });
 
             const blob = new Blob([modifiedDatapack], { type: "application/zip" });
             const url = URL.createObjectURL(blob);
@@ -89,6 +89,7 @@ export default function MigrationTool({ translate, children }: MigrationToolProp
             URL.revokeObjectURL(url);
 
             toast.success(translate["tools.migration.success"]);
+            await trackEvent("migrated_datapack");
             setIsDialogOpen(true);
             addConfetti();
 

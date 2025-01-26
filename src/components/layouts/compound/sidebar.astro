@@ -1,0 +1,72 @@
+---
+import SidebarGroup from "./sidebar/SidebarGroup.astro";
+import SidebarItem from "./sidebar/SidebarItem.astro";
+
+export type NavigationItem = {
+    type: "item";
+    title: string;
+    href: string;
+    icon: string;
+    badge?: string | number;
+};
+
+export type NavigationNestedItem = {
+    type: "nested";
+    title: string;
+    icon: string;
+    items: NavigationItem[];
+};
+
+export type NavigationGroup = {
+    title: string;
+    items: (NavigationNestedItem | NavigationItem)[];
+};
+
+export interface Props {
+    groups: NavigationGroup[];
+}
+
+const { groups }: Props = Astro.props;
+const isActive = (href: string) => Astro.url.pathname === href;
+---
+
+<nav class="flex-1 overflow-y-auto py-6">
+    {groups.map((group) => (
+        <SidebarGroup title={group.title}>
+            {group.items.map((item) => {
+                if (item.type === "nested") {
+                    return (
+                        <SidebarGroup 
+                            title={item.title} 
+                            collapsible 
+                            icon={item.icon}
+                        >
+                            <div class="ml-6 space-y-1" data-collapsible>
+                                {item.items.map((subItem) => (
+                                    <SidebarItem
+                                        href={subItem.href}
+                                        icon={subItem.icon}
+                                        active={isActive(subItem.href)}
+                                        badge={subItem.badge}
+                                    >
+                                        {subItem.title}
+                                    </SidebarItem>
+                                ))}
+                            </div>
+                        </SidebarGroup>
+                    );
+                }
+                return (
+                    <SidebarItem
+                        href={item.href}
+                        icon={item.icon}
+                        active={isActive(item.href)}
+                        badge={item.badge}
+                    >
+                        {item.title}
+                    </SidebarItem>
+                );
+            })}
+        </SidebarGroup>
+    ))}
+</nav>

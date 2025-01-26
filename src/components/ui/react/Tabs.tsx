@@ -63,7 +63,11 @@ export default function Tabs({ tabs, defaultTab, onChange, className, disabled }
                         key={tab.value}
                         type="button"
                         onClick={(e) => handleTabChange(e, tab.value)}
-                        ref={(node) => (isActive && node ? requestAnimationFrame(() => updateIndicator(node)) : null)}
+                        ref={(node) => {
+                            if (isActive && node) {
+                                requestAnimationFrame(() => updateIndicator(node));
+                            }
+                        }}
                         className={cn(
                             "text-zinc-500 whitespace-nowrap rounded-xl px-3 py-1.5 font-medium transition-all cursor-pointer disabled:pointer-events-none hover:text-white",
                             disabled && "cursor-not-allowed",

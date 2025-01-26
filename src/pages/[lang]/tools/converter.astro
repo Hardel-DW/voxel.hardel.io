@@ -1,38 +1,48 @@
 ---
-import MigrationTool from "@/components/pages/tools/migration/MigrationTool";
 import ShiningStars from "@/components/ui/pattern/ShiningStars.astro";
 import { getTranslations, names } from "@/lib/i18n";
 import CompoundLayout from "@/components/layouts/CompoundLayout.astro";
 import Star from "@/components/ui/star.astro";
-import Walkthrough from "@/components/ui/Walkthrough.astro";
 import Button from "@/components/ui/button.astro";
 import { Image } from "astro:assets";
 import DashedPattern from "@/components/ui/pattern/DashedPattern.astro";
+import Walkthrough from "@/components/ui/Walkthrough.astro";
+import DatapackDropzone from "@/components/pages/tools/converter/DatapackDropzone";
 
 const { lang, translate } = await getTranslations(Astro.url);
 
 const walkthroughSteps = [
     {
-        title: translate["tools.migration.step1.title"],
-        description: translate["tools.migration.step1.description"],
-        target: "source-dropzone",
-        position: "bottom" as const,
-        image: "/images/tools/migration/origin.webp",
-        imagePosition: "top-left" as const
-    },
-    {
-        title: translate["tools.migration.step2.title"],
-        description: translate["tools.migration.step2.description"],
-        target: "target-dropzone",
+        title: translate["tools.converter.step1.title"],
+        description: translate["tools.converter.step1.description"],
         position: "bottom" as const,
         image: "/images/tools/migration/target.webp",
-        imagePosition: "top-right" as const
+        imagePosition: "top-right" as const,
+        target: "dropzone"
     },
     {
-        title: translate["tools.migration.step3.title"],
-        description: translate["tools.migration.step3.description"]
+        title: translate["tools.converter.step2.title"],
+        description: translate["tools.converter.step2.description"]
     }
 ];
+
+const translateForm = {
+    name: translate["tools.converter.form.name"],
+    id: translate["tools.converter.form.id"],
+    description: translate["tools.converter.from.description"],
+    version: translate["tools.converter.form.version"],
+    authors: translate["tools.converter.form.authors"],
+    homepage: translate["tools.converter.form.homepage"],
+    sources: translate["tools.converter.form.sources"],
+    issues: translate["tools.converter.form.issues"],
+    icon: translate["tools.converter.form.icon"],
+    advanced: translate["tools.converter.form.advanced"],
+    advancedDescription: translate["tools.converter.form.advanced.description"],
+    download: translate["tools.converter.form.advanced.download"],
+    downloadDisabled: translate["tools.converter.form.advanced.download.disabled"],
+    authorsPlaceholder: translate["tools.converter.form.advanced.authors.placeholder"],
+    error: translate["tools.converter.error"]
+};
 
 export const prerender = true;
 export async function getStaticPaths() {
@@ -52,25 +62,27 @@ export async function getStaticPaths() {
     <section class="pt-36 md:pt-60 relative flex flex-col items-center justify-center pb-72">
         <div class="w-3/4 mx-auto">            
             <div class="mb-16">
-                <h1 class="text-3xl md:text-5xl mb-4 font-semibold">{translate["tools.migration.home"]}</h1>
-                <p class="text-sm text-zinc-400 md:w-3/4 w-full mb-4"> 
-                    {translate["tools.migration.description"]}
+                <h1 class="text-3xl md:text-5xl mb-4 font-semibold">{translate["tools.converter.home"]}</h1>
+                <p class="text-sm text-zinc-400 md:w-3/4 w-full mb-4">
+                    {translate["tools.converter.description"]}
                 </p>
                 <ul class="list-disc list-inside text-sm text-zinc-400 w-3/4 mb-4">
                     <li>
-                        {translate["tools.migration.description.list.1"]}
+                        {translate["tools.converter.description.list.1"]}
                     </li>
                     <li>
-                        {translate["tools.migration.description.list.2"]}
-                    </li>
-                    <li>
-                        {translate["tools.migration.description.list.3"]}
+                        {translate["tools.converter.description.list.2"]} 
                     </li>
                 </ul>
-                <Star/>
+                <p class="text-sm text-zinc-400 md:w-3/4 w-full mb-4">
+                    {translate["tools.converter.instruction"]}
+                </p>
+                <Star/> 
             </div>
 
-            <MigrationTool client:load translate={translate} />
+            <DatapackDropzone client:load translateForm={translateForm}>
+                {translate["tools.converter.dropzone"]}
+            </DatapackDropzone>
         </div>
     </section>
 
@@ -107,6 +119,8 @@ export async function getStaticPaths() {
             </div>
         </div>
     </section>
+
+    <Walkthrough steps={walkthroughSteps} />
     
     <section class="w-3/4 mx-auto relative flex flex-col-reverse md:grid md:grid-cols-2 items-center gap-x-16 gap-y-24 my-40">
         <div class="absolute w-full inset-0 shadow-2xl bg-linear-to-r from-[#401727] to-[#311e7696] opacity-20 rounded-full blur-[10rem]"/>
@@ -138,8 +152,6 @@ export async function getStaticPaths() {
             />
         </div>
     </section>
-
-    <Walkthrough steps={walkthroughSteps} />
     
     <!-- Bouton pour démarrer le walkthrough -->
     <button

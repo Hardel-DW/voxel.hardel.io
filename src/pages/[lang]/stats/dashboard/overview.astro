@@ -1,0 +1,125 @@
+---
+import DashboardLayout from "@/components/layouts/DashboardLayout.astro";
+import { DashboardInteractiveAreaChart } from "@/components/pages/stats/DashboardInteractiveAreaChart.tsx";
+import { DashboardPieChart } from "@/components/pages/stats/DashboardPieChart.tsx";
+import { DashboardBarChart } from "@/components/pages/stats/DashboardBarChart.tsx";
+import { GET as getMigrationsByDays } from "@/pages/api/stats/migrations";
+import { GET as getVersions } from "@/pages/api/stats/versions";
+import { GET as getNamespaces } from "@/pages/api/stats/namespaces";
+import type { ResponseVersionsStats } from "@/pages/api/stats/versions";
+import type { ResponseNamespaceStats } from "@/pages/api/stats/namespaces";
+import type { ResponseMigrationsByDays } from "@/pages/api/stats/migrations";
+import { snakeToTitleCase } from "@/lib/utils";
+import { getTranslations } from "@/lib/i18n";
+import type { Props as SidebarProps } from "@/components/layouts/compound/sidebar.astro";
+
+const [migrationsResponse, versionsResponse, namespaceResponse] = await Promise.all([
+    getMigrationsByDays(Astro),
+    getVersions(Astro),
+    getNamespaces(Astro)
+]);
+
+const [migrationsData, versionsData, namespaceData] = await Promise.all([
+    migrationsResponse.json() as Promise<ResponseMigrationsByDays[]>,
+    versionsResponse.json() as Promise<ResponseVersionsStats>,
+    namespaceResponse.json().then((data: ResponseNamespaceStats[]) =>
+        data
+            .filter((item) => item.occurence >= 10)
+            .sort((a, b) => b.occurence - a.occurence)
+            .slice(0, 10)
+            .map((item) => ({
+                ...item,
+                namespace: snakeToTitleCase(item.namespace)
+            }))
+    )
+]);
+
+const { translate } = await getTranslations(Astro.url);
+const defaultSidebar: SidebarProps = {
+    groups: [
+        {
+            title: "General",
+            items: [
+                {
+                    type: "item",
+                    title: "Dashboard",
+                    href: "overview",
+                    icon: "/icons/layout/grid.svg"
+                },
+                {
+                    type: "item",
+                    title: "Telemetry",
+                    href: "telemetry",
+                    icon: "/icons/layout/list.svg"
+                }
+            ]
+        }
+    ]
+};
+---
+
+<DashboardLayout title={translate["stats.overview.title"]} description={translate["stats.overview.description"]} image="/images/opengraph/stats.webp" sidebar={defaultSidebar}>
+    <h1 class="text-3xl font-bold px-8">{translate["stats.overview.title"]}</h1>
+    <p class="text-sm text-zinc-400 px-8">
+        {translate["stats.overview.description"]}
+    </p>
+
+    <hr class="my-8" />
+
+    <div class="flex flex-col gap-8">
+        <div class="w-full">
+            <DashboardInteractiveAreaChart
+                client:load
+                data={migrationsData} 
+                config={{ label: translate["stats.overview.migrations.title"], color: "#be185d" }}
+                select={[
+                    { label: translate["stats.overview.time.year"], value: "365d", days: 365 },
+                    { label: translate["stats.overview.time.6months"], value: "180d", days: 180 },
+                    { label: translate["stats.overview.time.3months"], value: "90d", days: 90 },
+                    { label: translate["stats.overview.time.30days"], value: "30d", days: 30 },
+                    { label: translate["stats.overview.time.7days"], value: "7d", days: 7 }
+                ]}
+                title={translate["stats.overview.migrations.title"]}
+                description={translate["stats.overview.migrations.description"]}
+            />
+        </div>
+    
+        <div class="grid grid-cols-2 gap-8 w-full pb-8">
+            <DashboardPieChart 
+                client:load
+                data={versionsData.summaries} 
+                config={Object.fromEntries(
+                    versionsData.summaries.map((item) => [
+                        item.minecraft_version,
+                        {
+                            label: item.minecraft_version,
+                            color: [
+                                "hsl(339, 76%, 42%)",
+                                "hsl(280, 60%, 50%)",
+                                "hsl(220, 70%, 55%)",
+                                "hsl(160, 65%, 45%)",
+                                "hsl(100, 55%, 40%)"
+                            ][versionsData.summaries.indexOf(item) % 5]
+                        }
+                    ])
+                )}
+                title={translate["stats.overview.versions.title"]} 
+                description={translate["stats.overview.versions.description"]} 
+                text={translate["stats.overview.versions.text"]}
+            />    
+
+            <DashboardBarChart
+                client:load
+                data={namespaceData}
+                config={Object.fromEntries(
+                    namespaceData.map((item) => [
+                        item.namespace,
+                        { label: item.namespace, color: "#be185d" }
+                    ])
+                )}
+                title={translate["stats.overview.namespaces.title"]}
+                description={translate["stats.overview.namespaces.description"]}
+            />
+        </div>
+    </div>
+</DashboardLayout>

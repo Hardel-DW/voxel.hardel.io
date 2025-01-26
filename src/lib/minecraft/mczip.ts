@@ -60,35 +60,20 @@ export function getVoxelConfig(files: Record<string, Uint8Array>, identifier: Id
     return JSON.parse(new TextDecoder().decode(files[file]));
 }
 
-export async function parseZip(file: File): Promise<Record<string, Uint8Array>> {
-    const reader = new FileReader();
+export async function parseZip(zipData: Uint8Array): Promise<Record<string, Uint8Array>> {
+    const JSZip = (await import("jszip")).default;
+    const zip = await new JSZip().loadAsync(zipData);
+    const files: Record<string, Uint8Array> = {};
 
-    return new Promise((resolve, reject) => {
-        reader.onload = async () => {
-            const buffer = reader.result as ArrayBuffer;
-            const array = new Uint8Array(buffer);
-            const zip = new JSZip();
-            const files: Record<string, Uint8Array> = {};
-
-            try {
-                const loadedZip = await zip.loadAsync(array);
-                const filePromises = Object.keys(loadedZip.files).map(async (path) => {
-                    const file = loadedZip.files[path];
-                    if (!file.dir) {
-                        files[path] = await file.async("uint8array");
-                    }
-                });
-
-                await Promise.all(filePromises);
-                resolve(files);
-            } catch (error) {
-                reject(error);
+    await Promise.all(
+        Object.keys(zip.files).map(async (path) => {
+            if (!zip.files[path].dir) {
+                files[path] = new Uint8Array(await zip.files[path].async("arraybuffer"));
             }
-        };
+        })
+    );
 
-        reader.onerror = reject;
-        reader.readAsArrayBuffer(file);
-    });
+    return files;
 }
 
 export function readDatapackFile<T>(datapack: Record<string, Uint8Array>, identifier: Identifier): T | undefined {
@@ -100,10 +85,13 @@ export function readDatapackFile<T>(datapack: Record<string, Uint8Array>, identi
 export async function generateZip(
     files: Record<string, Uint8Array>,
     content: CompileDatapackResult<keyof Analysers>[],
-    minify: boolean,
-    logger?: Logger
+    params: {
+        minify: boolean;
+        logger?: Logger;
+        includeVoxel: boolean;
+    }
 ): Promise<Uint8Array> {
-    console.log(content);
+    const { minify, logger, includeVoxel } = params;
     const zip = new JSZip();
     const filesToDelete = new Set<string>();
 
@@ -119,8 +107,10 @@ export async function generateZip(
         }
     }
 
-    for (const file of voxelDatapacks) {
-        zip.file(`${file.identifier.filePath()}.json`, JSON.stringify(file.data, null, minify ? 0 : 4));
+    if (includeVoxel) {
+        for (const file of voxelDatapacks) {
+            zip.file(`${file.identifier.filePath()}.json`, JSON.stringify(file.data, null, minify ? 0 : 4));
+        }
     }
 
     for (const file of content) {

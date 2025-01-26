@@ -1,4 +1,5 @@
 const PACK_VERSION = {
+    "1": { start: "1.12", end: "1.12.2" },
     "4": { start: "1.13", end: "1.14.4" },
     "5": { start: "1.15", end: "1.16.1" },
     "6": { start: "1.16.2", end: "1.16.5" },
@@ -16,6 +17,12 @@ const PACK_VERSION = {
     "61": "1.21.4"
 };
 
+/**
+ * Get the Minecraft version from the pack format
+ * @example 1.21.1
+ * @param packFormat - The pack format
+ * @returns The Minecraft version
+ */
 export function getMinecraftVersion(packFormat: number): string {
     const version = PACK_VERSION[packFormat.toString() as keyof typeof PACK_VERSION];
     if (!version) {
@@ -28,13 +35,33 @@ export function getMinecraftVersion(packFormat: number): string {
  * Get the description of the pack format e.g :
  * Version 1.21.1
  * Version 1.21.2 - 1.21.3
+ * Snapshot - 1.21.4 (for versions between known versions)
+ * Future Version (for versions above known versions)
  * @param packFormat - The pack format
  * @returns The description of the pack format
  */
 export function getDescription(packFormat: number): string {
-    const version = PACK_VERSION[packFormat.toString() as keyof typeof PACK_VERSION];
-    if (!version) {
-        throw new Error(`Unsupported pack_format: ${packFormat}`);
+    const keys = Object.keys(PACK_VERSION)
+        .map(Number)
+        .sort((a, b) => a - b);
+    const maxVersion = Math.max(...keys);
+
+    if (packFormat > maxVersion) {
+        return "Future Version";
     }
-    return typeof version === "string" ? version : `Version ${version.start} - ${version.end}`;
+
+    const version = PACK_VERSION[packFormat.toString() as keyof typeof PACK_VERSION];
+    if (version) {
+        return typeof version === "string" ? version : `Version ${version.start} - ${version.end}`;
+    }
+
+    // Handle snapshot versions (between known versions)
+    const nextVersion = keys.find((v) => v > packFormat);
+    if (nextVersion) {
+        const nextVersionData = PACK_VERSION[nextVersion.toString() as keyof typeof PACK_VERSION];
+        const versionStr = typeof nextVersionData === "string" ? nextVersionData : nextVersionData.start;
+        return `Snapshot - ${versionStr}`;
+    }
+
+    throw new Error(`Unsupported pack_format: ${packFormat}`);
 }

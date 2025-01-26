@@ -5,60 +5,94 @@ interface Props extends HTMLAttributes<"label"> {
     accept: string;
     maxSize: number;
     multiple: boolean;
+    id?: string;
+    disabled?: boolean;
 }
 
-const { accept, maxSize, multiple, ...props } = Astro.props;
+const { accept, maxSize, multiple, id, disabled, ...props } = Astro.props;
 ---
 
-<div class:list={[
-    'mx-auto',
-    props.class,
-]}>
+<div class:list={["mx-auto", props.class]}>
     <div class="flex items-center justify-center w-full">
-        <div class="w-full h-64 border-2 border-dashed flex flex-col items-center justify-center bg-gray cursor-pointer border-t-2 border-r border-zinc-800 p-10 sm:p-16 rounded-3xl shadow-2xl shadow-black transition opacity-75 hover:opacity-100">
+        <div
+            id="dropzone-container"
+            class="w-full h-64 border-2 border-dashed flex flex-col items-center justify-center bg-gray border-t-2 border-r border-zinc-800 rounded-3xl shadow-2xl shadow-black transition-all duration-300 opacity-75 hover:opacity-100
+                data-dragging:opacity-100 data-dragging:scale-[1.02] data-dragging:border-pink-700
+                data-disabled:opacity-50 data-disabled:cursor-not-allowed"
+            data-disabled={disabled}
+        >
             <label
-                    for="dropzone-file"
-                    class="flex flex-col items-center justify-center w-full h-full cursor-pointer"
+                for="dropzone-file"
+                class="cursor-pointer flex flex-col items-center justify-center w-full h-full p-10 sm:p-16"
             >
-                <div class="flex flex-col items-center justify-center gap-y-8">
-                    <img alt="upload" src="/icons/upload.svg" class="w-16 h-16 invert"/>
-                    <slot/>
+                <div class="flex flex-col items-center justify-center gap-y-8 w-full">
+                    <img alt="upload" src="/icons/upload.svg" class="w-16 h-16 invert" />
+                    <div class="flex items-center justify-center">
+                        <slot/>
+                    </div>
                 </div>
                 <input
-                        id="dropzone-file"
-                        type="file"
-                        class="hidden"
-                        accept={accept}
-                        multiple={multiple}
+                    id="dropzone-file"
+                    type="file"
+                    class="hidden"
+                    accept={accept}
+                    multiple={multiple}
+                    disabled={disabled}
                 />
             </label>
         </div>
     </div>
 </div>
 
-<script is:inline define:vars={{maxSize}}>
-    // Handle file upload
-    const input = document.getElementById("dropzone-file");
-    if (input) {
-        input.addEventListener('change', (event) => {
-            const target = event.target;
-            if (target.files && target.files.length > 0) {
-                // Vérifier la taille des fichiers
-                const files = Array.from(target.files);
-                const oversizedFiles = files.filter(file => file.size > maxSize);
-
-                if (oversizedFiles.length > 0) {
-                    alert(`Some files exceed the maximum size of ${maxSize} bytes`);
-                    target.value = ''; // Reset input
-                    return;
-                }
-
-                // Créer un événement personnalisé avec les fichiers
-                const uploadEvent = new CustomEvent('fileUpload', {
-                    detail: {files: target.files}
-                });
-                input.dispatchEvent(uploadEvent);
+<script is:inline define:vars={{ maxSize }}>
+    const dropzoneContainer = document.getElementById('dropzone-container');
+    
+    if (dropzoneContainer) {
+        const handleDrag = (e, state) => {
+            e.preventDefault();
+            e.stopPropagation();
+            if (state) {
+                dropzoneContainer.setAttribute('data-dragging', 'true');
+            } else {
+                dropzoneContainer.removeAttribute('data-dragging');
             }
-        });
+        };
+
+        const handleDrop = (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            handleDrag(e, false);
+            
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+                handleFiles(files);
+            }
+        };
+
+        const handleFileInput = (e) => {
+            if (e.target.files.length > 0) {
+                handleFiles(e.target.files);
+            }
+        };
+
+        const handleFiles = (files) => {
+            const validFiles = Array.from(files).filter(file => file.size <= maxSize);
+            
+            if (validFiles.length !== files.length) {
+                alert(`Certains fichiers dépassent la taille maximale de ${maxSize} octets`);
+            }
+
+            if (validFiles.length > 0) {
+                const event = new CustomEvent('fileUpload', {
+                    detail: { files: validFiles }
+                });
+                dropzoneContainer.dispatchEvent(event);
+            }
+        };
+
+        dropzoneContainer.addEventListener('dragover', (e) => handleDrag(e, true));
+        dropzoneContainer.addEventListener('dragleave', (e) => handleDrag(e, false));
+        dropzoneContainer.addEventListener('drop', handleDrop);
+        dropzoneContainer.querySelector('input[type="file"]').addEventListener('change', handleFileInput);
     }
 </script>   

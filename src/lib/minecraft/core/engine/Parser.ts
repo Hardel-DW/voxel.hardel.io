@@ -57,7 +57,7 @@ export async function parseDatapack<T extends keyof Analysers>(
     file: FileList
 ): Promise<ParseDatapackResult<GetAnalyserVoxel<T>> | string> {
     const isJar = file[0].name.endsWith(".jar");
-    const files = await parseZip(file[0]);
+    const files = await parseZip(new Uint8Array(await file[0].arrayBuffer()));
 
     const packMcmetaFile = files["pack.mcmeta"];
     if (!packMcmetaFile) {

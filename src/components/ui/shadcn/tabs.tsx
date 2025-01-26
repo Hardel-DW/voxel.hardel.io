@@ -1,28 +1,37 @@
 import { cn } from "@/lib/utils.ts";
 import * as TabsPrimitive from "@radix-ui/react-tabs";
-import * as React from "react";
+import type * as React from "react";
 
 const Tabs = TabsPrimitive.Root;
 const TabsContent = TabsPrimitive.Content;
 
-const TabsList = React.forwardRef<React.ElementRef<typeof TabsPrimitive.List>, React.ComponentPropsWithoutRef<typeof TabsPrimitive.List>>(
-    ({ className, ...props }, ref) => (
-        <TabsPrimitive.List
-            ref={ref}
-            className={cn(
-                "inline-flex h-10 justify-center rounded-2xl border-b-0 border border-zinc-800 bg-zinc-950 p-1 text-zinc-400",
-                className
-            )}
-            {...props}
-        />
-    )
+const TabsList = ({
+    ref,
+    className,
+    ...props
+}: {
+    ref?: React.Ref<HTMLDivElement>;
+    className?: string;
+} & React.ComponentPropsWithoutRef<typeof TabsPrimitive.List>) => (
+    <TabsPrimitive.List
+        ref={ref}
+        className={cn(
+            "inline-flex h-10 justify-center rounded-2xl border-b-0 border border-zinc-800 bg-zinc-950 p-1 text-zinc-400",
+            className
+        )}
+        {...props}
+    />
 );
 TabsList.displayName = TabsPrimitive.List.displayName;
 
-const TabsTrigger = React.forwardRef<
-    React.ElementRef<typeof TabsPrimitive.Trigger>,
-    React.ComponentPropsWithoutRef<typeof TabsPrimitive.Trigger>
->(({ className, ...props }, ref) => (
+const TabsTrigger = ({
+    ref,
+    className,
+    ...props
+}: {
+    ref?: React.Ref<HTMLButtonElement>;
+    className?: string;
+} & React.ComponentPropsWithoutRef<typeof TabsPrimitive.Trigger>) => (
     <TabsPrimitive.Trigger
         ref={ref}
         className={cn(
@@ -31,7 +40,7 @@ const TabsTrigger = React.forwardRef<
         )}
         {...props}
     />
-));
+);
 TabsTrigger.displayName = TabsPrimitive.Trigger.displayName;
 
 export { Tabs, TabsList, TabsTrigger, TabsContent };

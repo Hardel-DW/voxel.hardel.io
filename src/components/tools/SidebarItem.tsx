@@ -1,4 +1,4 @@
-import TextComponent from "@/components/tools/elements/schema/TextComponent.tsx";
+import TextComponent from "@/components/tools/elements/text/TextComponent";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/shadcn/tooltip.tsx";
 import type { Analysers, GetAnalyserVoxel } from "@/lib/minecraft/core/engine/Analyser";
 import { checkLocks } from "@/lib/minecraft/core/engine/lock";

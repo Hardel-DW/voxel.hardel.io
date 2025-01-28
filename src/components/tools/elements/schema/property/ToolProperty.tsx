@@ -1,9 +1,9 @@
 import { useTranslate } from "@/components/useTranslate";
-import { ToolProperty } from "@/components/tools/elements/schema/ToolProperty";
+import { ToolPropertyElement } from "@/components/tools/elements/schema/property/ToolPropertyElement";
 import { type Condition, checkCondition } from "@/lib/minecraft/core/engine/condition";
 import type { RegistryElement } from "@/lib/minecraft/mczip";
 
-export default function ToolPropertyRecord(props: {
+export default function ToolProperty(props: {
     value: Record<string, any>;
     conditions: Condition;
     element: RegistryElement<any>;
@@ -20,7 +20,7 @@ export default function ToolPropertyRecord(props: {
             {props.value &&
                 Object.entries(props.value).map(([effect]) => {
                     const checked = checkCondition(props.conditions, props.element, effect);
-                    return <ToolProperty key={effect} name={effect} isChecked={!checked} onChange={() => props.onChange(effect)} />;
+                    return <ToolPropertyElement key={effect} name={effect} isChecked={!checked} onChange={() => props.onChange(effect)} />;
                 })}
         </div>
     );

@@ -2,7 +2,7 @@ import translate from "@/lib/minecraft/i18n/translate";
 import type { TranslateTextType } from "@/lib/minecraft/core/schema/primitive/text";
 import { cn } from "@/lib/utils.ts";
 
-export default function ToolInline(props: {
+export default function ToolInlineSlot(props: {
     title: TranslateTextType | string;
     image: string;
     description?: TranslateTextType | string;

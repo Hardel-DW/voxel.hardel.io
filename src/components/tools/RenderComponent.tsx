@@ -1,5 +1,5 @@
 import { useConfiguratorStore } from "@/lib/store/configuratorStore";
-import TagViewer from "@/components/tools/elements/TagViewer";
+import ToolTagViewer from "@/components/tools/elements/ToolTagViewer";
 import ToolCategory from "@/components/tools/elements/ToolCategory.tsx";
 import ToolCounter from "@/components/tools/elements/ToolCounter.tsx";
 import ToolInline from "@/components/tools/elements/ToolInlineSlot.tsx";
@@ -10,9 +10,9 @@ import ToolSection from "@/components/tools/elements/ToolSection.tsx";
 import ToolSlot from "@/components/tools/elements/ToolSlot.tsx";
 import ToolSwitch from "@/components/tools/elements/ToolSwitch.tsx";
 import ToolSwitchSlot from "@/components/tools/elements/ToolSwitchSlot.tsx";
-import Donation from "@/components/tools/elements/misc/Donation.tsx";
-import ToolReveal from "@/components/tools/elements/reveal/ToolReveal.tsx";
-import ToolPropertyRecord from "@/components/tools/elements/schema/ToolPropertyRecord";
+import Donation from "@/components/tools/elements/Donation";
+import ToolReveal from "@/components/tools/elements/schema/reveal/ToolReveal";
+import ToolProperty from "@/components/tools/elements/schema/property/ToolProperty";
 import ToolSelector from "@/components/tools/elements/ToolSelector";
 import ToolGrid from "@/components/tools/elements/ToolGrid";
 import TextRender from "@/components/tools/elements/text/TextRender.tsx";
@@ -141,7 +141,7 @@ export function RenderComponent<T extends keyof Analysers>({ component }: { comp
         }
         case "Property": {
             return (
-                <ToolPropertyRecord
+                <ToolProperty
                     value={currentElement[component.properties as keyof typeof currentElement]}
                     conditions={component.condition}
                     element={currentElement}
@@ -206,7 +206,7 @@ export function RenderComponent<T extends keyof Analysers>({ component }: { comp
         case "Iteration":
             return <ToolIteration {...component} />;
         case "TagViewer": {
-            return <TagViewer field={component.field} registry={component.registry} additional={component.additional} />;
+            return <ToolTagViewer field={component.field} registry={component.registry} additional={component.additional} />;
         }
         default:
             return null;

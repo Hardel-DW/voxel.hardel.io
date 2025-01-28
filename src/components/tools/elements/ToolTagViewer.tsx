@@ -4,7 +4,7 @@ import type { versionedAnalyserCollection } from "@/lib/minecraft/core/engine/An
 import { compileDatapack, getIdentifierFromCompiler } from "@/lib/minecraft/core/engine/Compiler";
 import { isTag } from "@/lib/minecraft/core/Tag";
 
-export default function TagViewer(props: {
+export default function ToolTagViewer(props: {
     field?: string;
     registry: string;
     additional?: Record<string, string[]>;

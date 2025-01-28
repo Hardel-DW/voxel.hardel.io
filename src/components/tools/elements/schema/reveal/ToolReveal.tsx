@@ -1,5 +1,5 @@
 import { RenderComponent } from "@/components/tools/RenderComponent.tsx";
-import ToolRevealElement from "@/components/tools/elements/reveal/ToolRevealElementType";
+import ToolRevealElement from "@/components/tools/elements/schema/reveal/ToolRevealElementType";
 import type { ToolRevealElementType } from "@/lib/minecraft/core/schema/primitive/component";
 import React from "react";
 

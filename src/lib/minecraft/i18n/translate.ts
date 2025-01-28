@@ -1,5 +1,5 @@
+import { i18nInstance } from "@/components/useTranslate";
 import type { TranslateTextType } from "@/lib/minecraft/core/schema/primitive/text";
-import { i18nInstance } from "@/components/TranslateContext";
 
 export default function translate(content: TranslateTextType | undefined, replace?: string[]) {
     if (typeof content === "string") {

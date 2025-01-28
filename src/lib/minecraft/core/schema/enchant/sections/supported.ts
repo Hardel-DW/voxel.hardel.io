@@ -190,13 +190,20 @@ export const supported: Unresolved<InterfaceConfiguration> = {
                                         group: "main.supported"
                                     }
                                 },
-                                condition: {
-                                    condition: "compare_value_to_field_value",
-                                    field: {
-                                        type: "get_toggle_field",
-                                        group: "main.supported"
-                                    },
-                                    value: { type: "get_value_from_context", key: "value" }
+                                renderer: {
+                                    type: "conditionnal",
+                                    return_condition: true,
+                                    term: {
+                                        condition: "compare_value_to_field_value",
+                                        field: {
+                                            type: "get_toggle_field",
+                                            group: "main.supported"
+                                        },
+                                        value: {
+                                            type: "get_value_from_context",
+                                            key: "value"
+                                        }
+                                    }
                                 }
                             }
                         },
@@ -222,11 +229,15 @@ export const supported: Unresolved<InterfaceConfiguration> = {
                                 },
                                 value: "main.supported.items"
                             },
-                            condition: {
-                                condition: "if_field_is_undefined",
-                                field: {
-                                    type: "get_toggle_field",
-                                    group: "main.supported"
+                            renderer: {
+                                type: "conditionnal",
+                                return_condition: true,
+                                term: {
+                                    condition: "if_field_is_undefined",
+                                    field: {
+                                        type: "get_toggle_field",
+                                        group: "main.supported"
+                                    }
                                 }
                             }
                         }

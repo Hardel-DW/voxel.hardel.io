@@ -1,5 +1,5 @@
 import type { Unresolved } from "@/lib/minecraft/core/engine/resolver/field/type.ts";
-import type { ToolRevealElementType } from "@/lib/minecraft/core/schema/primitive";
+import type { ToolRevealElementType } from "@/lib/minecraft/core/schema/primitive/component.ts";
 
 export const yggdrasil: Unresolved<ToolRevealElementType> = {
     id: "enchant.addons.yggdrasil",
@@ -49,17 +49,21 @@ export const yggdrasil: Unresolved<ToolRevealElementType> = {
                                     "#yggdrasil:equipment/item/boots"
                                 ]
                             },
-                            condition: {
-                                condition: "contains_in_tags",
-                                field: "tags",
-                                values: [
-                                    "#yggdrasil:equipment/item/bow",
-                                    "#yggdrasil:equipment/item/sword",
-                                    "#yggdrasil:equipment/item/helmet",
-                                    "#yggdrasil:equipment/item/chestplate",
-                                    "#yggdrasil:equipment/item/leggings",
-                                    "#yggdrasil:equipment/item/boots"
-                                ]
+                            renderer: {
+                                type: "conditionnal",
+                                return_condition: true,
+                                term: {
+                                    condition: "contains_in_tags",
+                                    field: "tags",
+                                    values: [
+                                        "#yggdrasil:equipment/item/bow",
+                                        "#yggdrasil:equipment/item/sword",
+                                        "#yggdrasil:equipment/item/helmet",
+                                        "#yggdrasil:equipment/item/chestplate",
+                                        "#yggdrasil:equipment/item/leggings",
+                                        "#yggdrasil:equipment/item/boots"
+                                    ]
+                                }
                             }
                         },
                         {
@@ -129,10 +133,14 @@ export const yggdrasil: Unresolved<ToolRevealElementType> = {
                                         key: "tag"
                                     }
                                 },
-                                condition: {
-                                    condition: "contains_in_tags",
-                                    field: "tags",
-                                    values: [{ type: "get_value_from_context", key: "tag" }]
+                                renderer: {
+                                    type: "conditionnal",
+                                    return_condition: true,
+                                    term: {
+                                        condition: "contains_in_tags",
+                                        field: "tags",
+                                        values: [{ type: "get_value_from_context", key: "tag" }]
+                                    }
                                 }
                             }
                         }
@@ -212,10 +220,14 @@ export const yggdrasil: Unresolved<ToolRevealElementType> = {
                                         key: "tag"
                                     }
                                 },
-                                condition: {
-                                    condition: "contains_in_tags",
-                                    field: "tags",
-                                    values: [{ type: "get_value_from_context", key: "tag" }]
+                                renderer: {
+                                    type: "conditionnal",
+                                    return_condition: true,
+                                    term: {
+                                        condition: "contains_in_tags",
+                                        field: "tags",
+                                        values: [{ type: "get_value_from_context", key: "tag" }]
+                                    }
                                 }
                             }
                         }
@@ -250,10 +262,14 @@ export const yggdrasil: Unresolved<ToolRevealElementType> = {
                                 field: "tags",
                                 value: "#yggdrasil:structure/runic_fracture/boss_trial_spawner"
                             },
-                            condition: {
-                                condition: "contains_in_tags",
-                                field: "tags",
-                                values: ["#yggdrasil:structure/runic_fracture/boss_trial_spawner"]
+                            renderer: {
+                                type: "conditionnal",
+                                return_condition: true,
+                                term: {
+                                    condition: "contains_in_tags",
+                                    field: "tags",
+                                    values: ["#yggdrasil:structure/runic_fracture/boss_trial_spawner"]
+                                }
                             }
                         },
                         {
@@ -272,10 +288,14 @@ export const yggdrasil: Unresolved<ToolRevealElementType> = {
                                 field: "tags",
                                 value: "#yggdrasil:structure/runic_fracture/monster_trial_spawner"
                             },
-                            condition: {
-                                condition: "contains_in_tags",
-                                field: "tags",
-                                values: ["#yggdrasil:structure/runic_fracture/monster_trial_spawner"]
+                            renderer: {
+                                type: "conditionnal",
+                                return_condition: true,
+                                term: {
+                                    condition: "contains_in_tags",
+                                    field: "tags",
+                                    values: ["#yggdrasil:structure/runic_fracture/monster_trial_spawner"]
+                                }
                             }
                         }
                     ]
@@ -388,10 +408,14 @@ export const yggdrasil: Unresolved<ToolRevealElementType> = {
                                         key: "tag"
                                     }
                                 },
-                                condition: {
-                                    condition: "contains_in_tags",
-                                    field: "tags",
-                                    values: [{ type: "get_value_from_context", key: "tag" }]
+                                renderer: {
+                                    type: "conditionnal",
+                                    return_condition: true,
+                                    term: {
+                                        condition: "contains_in_tags",
+                                        field: "tags",
+                                        values: [{ type: "get_value_from_context", key: "tag" }]
+                                    }
                                 }
                             }
                         }

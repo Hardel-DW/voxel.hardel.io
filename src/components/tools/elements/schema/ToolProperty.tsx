@@ -1,10 +1,9 @@
 import { useTranslate } from "@/components/useTranslate";
 import { Identifier } from "@/lib/minecraft/core/Identifier.ts";
-import type { EffectComponentsRecord } from "@voxel/definitions";
 import type React from "react";
 
-export function ToolEffect(props: {
-    name: keyof EffectComponentsRecord;
+export function ToolProperty(props: {
+    name: string;
     isChecked: boolean;
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }) {

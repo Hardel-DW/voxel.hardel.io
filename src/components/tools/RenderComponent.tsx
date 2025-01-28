@@ -1,4 +1,3 @@
-import { useTranslate } from "@/components/useTranslate";
 import { useConfiguratorStore } from "@/lib/store/configuratorStore";
 import TagViewer from "@/components/tools/elements/TagViewer";
 import ToolCategory from "@/components/tools/elements/ToolCategory.tsx";
@@ -13,31 +12,22 @@ import ToolSwitch from "@/components/tools/elements/ToolSwitch.tsx";
 import ToolSwitchSlot from "@/components/tools/elements/ToolSwitchSlot.tsx";
 import Donation from "@/components/tools/elements/misc/Donation.tsx";
 import ToolReveal from "@/components/tools/elements/reveal/ToolReveal.tsx";
-import ToolEffectRecord from "@/components/tools/elements/schema/ToolEffectRecord.tsx";
+import ToolPropertyRecord from "@/components/tools/elements/schema/ToolPropertyRecord";
+import ToolSelector from "@/components/tools/elements/ToolSelector";
+import ToolGrid from "@/components/tools/elements/ToolGrid";
 import TextRender from "@/components/tools/elements/text/TextRender.tsx";
+import ToolFlexible from "@/components/tools/elements/ToolFlexible";
 import type { Analysers } from "@/lib/minecraft/core/engine/Analyser";
 import { checkCondition } from "@/lib/minecraft/core/engine/condition";
 import { checkLocks } from "@/lib/minecraft/core/engine/lock/index";
 import { getValue } from "@/lib/minecraft/core/engine/value";
 import type { FormComponent } from "@/lib/minecraft/core/schema/primitive/component.ts";
-import { cn } from "@/lib/utils";
-import type { EffectComponentsRecord } from "@voxel/definitions";
-import { toast } from "sonner";
 import { getKey } from "@/lib/minecraft/i18n/translations";
-import ToolSelector from "./elements/ToolSelector";
 
-export function RenderComponent<T extends keyof Analysers>({
-    component
-}: {
-    component: FormComponent;
-}) {
-    const { t } = useTranslate();
+export function RenderComponent<T extends keyof Analysers>({ component }: { component: FormComponent }) {
     const store = useConfiguratorStore();
-    const currentElementId = store.currentElementId;
+    const currentElement = store.getCurrentElement();
     const handleChange = store.handleChange;
-    const elements = store.elements;
-    if (!currentElementId) return null;
-    const currentElement = elements.find((element) => element.identifier.equals(currentElementId));
     if (!currentElement) return null;
 
     if (component.hide && checkCondition<T>(component.hide, currentElement)) {
@@ -46,14 +36,7 @@ export function RenderComponent<T extends keyof Analysers>({
 
     switch (component.type) {
         case "Counter": {
-            const result = getValue<T, number>(component.value, currentElement);
-            if (typeof result !== "number") {
-                toast.error(t("generic.error"), {
-                    description: t("tools.enchantments.warning.component")
-                });
-                return null;
-            }
-
+            const result = getValue<T, number>(component.renderer, currentElement);
             return (
                 <ToolCounter
                     key={getKey(component.title)}
@@ -70,15 +53,8 @@ export function RenderComponent<T extends keyof Analysers>({
             );
         }
         case "Selector": {
-            const result = getValue<T, string>(component.value, currentElement);
+            const result = getValue<T, string>(component.renderer, currentElement);
             const { isLocked, text: lockText } = checkLocks<T>(component.lock, currentElement);
-            if (typeof result !== "string") {
-                toast.error(t("generic.error"), {
-                    description: t("tools.enchantments.warning.component")
-                });
-                return null;
-            }
-
             return (
                 <ToolSelector
                     key={getKey(component.title)}
@@ -92,15 +68,7 @@ export function RenderComponent<T extends keyof Analysers>({
             );
         }
         case "Range": {
-            const result = getValue<T, number>(component.value, currentElement);
-            if (typeof result !== "number") {
-                toast.error(t("generic.error"), {
-                    description: t("tools.enchantments.warning.component")
-                });
-
-                return null;
-            }
-
+            const result = getValue<T, number>(component.renderer, currentElement);
             return (
                 <ToolRange
                     key={getKey(component.label)}
@@ -112,7 +80,7 @@ export function RenderComponent<T extends keyof Analysers>({
             );
         }
         case "Switch": {
-            const result = checkCondition<T>(component.condition, currentElement);
+            const result = getValue<T, boolean>(component.renderer, currentElement);
             const { isLocked, text: lockText } = checkLocks<T>(component.lock, currentElement);
 
             return (
@@ -128,7 +96,7 @@ export function RenderComponent<T extends keyof Analysers>({
             );
         }
         case "Slot": {
-            const result = checkCondition<T>(component.condition, currentElement);
+            const result = getValue<T, boolean>(component.renderer, currentElement);
             const { isLocked, text: lockText } = checkLocks<T>(component.lock, currentElement);
 
             return (
@@ -146,7 +114,7 @@ export function RenderComponent<T extends keyof Analysers>({
             );
         }
         case "InlineSlot": {
-            const result = checkCondition<T>(component.condition, currentElement);
+            const result = getValue<T, boolean>(component.renderer, currentElement);
             const { isLocked, text: lockText } = checkLocks<T>(component.lock, currentElement);
 
             return (
@@ -162,13 +130,12 @@ export function RenderComponent<T extends keyof Analysers>({
                 />
             );
         }
-        case "Effect": {
-            const result = getValue<T, EffectComponentsRecord>(component.value, currentElement);
-
+        case "Property": {
             return (
-                <ToolEffectRecord
-                    value={result}
+                <ToolPropertyRecord
+                    value={currentElement[component.properties as keyof typeof currentElement]}
                     conditions={component.condition}
+                    element={currentElement}
                     onChange={(value) => component.action && handleChange(component.action, currentElement?.identifier, value)}
                 />
             );
@@ -194,19 +161,7 @@ export function RenderComponent<T extends keyof Analysers>({
             );
         }
         case "Grid": {
-            const size = component.size ? component.size : "255px";
-
-            return (
-                <div
-                    className="grid max-xl:grid-cols-1 gap-4"
-                    style={{
-                        gridTemplateColumns: `repeat(auto-fit, minmax(${size}, 1fr))`
-                    }}>
-                    {component.children.map((child: FormComponent, index: number) => (
-                        <RenderComponent key={index.toString()} component={child} />
-                    ))}
-                </div>
-            );
+            return <ToolGrid size={component.size}>{component.children}</ToolGrid>;
         }
         case "Text": {
             return <TextRender content={component.content} />;
@@ -221,7 +176,7 @@ export function RenderComponent<T extends keyof Analysers>({
             );
         }
         case "SwitchSlot": {
-            const checked = checkCondition<T>(component.condition, currentElement);
+            const checked = getValue<T, boolean>(component.renderer, currentElement);
             const { isLocked, text: lockText } = checkLocks<T>(component.lock, currentElement);
 
             return (
@@ -237,17 +192,7 @@ export function RenderComponent<T extends keyof Analysers>({
             );
         }
         case "Flexible": {
-            return (
-                <div
-                    className={cn("flex gap-4", {
-                        "flex-row": component.direction === "horizontal",
-                        "flex-col": component.direction === "vertical"
-                    })}>
-                    {component.children.map((child: FormComponent, index: number) => (
-                        <RenderComponent key={index.toString()} component={child} />
-                    ))}
-                </div>
-            );
+            return <ToolFlexible direction={component.direction}>{component.children}</ToolFlexible>;
         }
         case "Iteration":
             return <ToolIteration {...component} />;

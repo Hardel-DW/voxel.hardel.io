@@ -108,10 +108,14 @@ export const find: Unresolved<InterfaceConfiguration> = {
                                         }
                                     }
                                 ],
-                                condition: {
-                                    condition: "contains_in_tags",
-                                    field: "tags",
-                                    values: [{ type: "get_value_from_context", key: "tag" }]
+                                renderer: {
+                                    type: "conditionnal",
+                                    return_condition: true,
+                                    term: {
+                                        condition: "contains_in_tags",
+                                        field: "tags",
+                                        values: [{ type: "get_value_from_context", key: "tag" }]
+                                    }
                                 }
                             }
                         }

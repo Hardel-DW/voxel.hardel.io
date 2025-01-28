@@ -1,27 +1,75 @@
 import type { Analysers, GetAnalyserVoxel } from "@/lib/minecraft/core/engine/Analyser.ts";
 import type { RegistryElement } from "@/lib/minecraft/mczip.ts";
-import { type Condition, checkCondition } from "@/lib/minecraft/core/engine/condition";
+import { checkCondition, type Condition } from "@/lib/minecraft/core/engine/condition";
 
-export type ValueParams<K> = {
-    params: { type: "Value"; value: K } | { type: "Field"; field: string };
-    condition?: Condition | undefined;
+type ConditionnalValueRendererBase = {
+    type: "conditionnal";
+    term: Condition;
 };
 
-export type ReturnValue<K> = K | null;
+type ReturnConditionRenderer = ConditionnalValueRendererBase & {
+    return_condition: true;
+};
+
+type OnTrueFalseRenderer = ConditionnalValueRendererBase & {
+    return_condition?: false;
+    on_true?: FieldValueRenderer | RawValueRenderer;
+    on_false?: FieldValueRenderer | RawValueRenderer;
+};
+
+export type ConditionnalValueRenderer = ReturnConditionRenderer | OnTrueFalseRenderer;
+
+export type RawValueRenderer = {
+    type: "hardcoded";
+    value: string | number | boolean | string[] | number[] | boolean[];
+};
+
+export type FieldValueRenderer = {
+    type: "from_field";
+    field: string;
+};
+
+export type ValueRenderer = ConditionnalValueRenderer | RawValueRenderer | FieldValueRenderer;
+
+export type ReturnValue<K> = K;
 
 export function getValue<T extends keyof Analysers, K>(
-    params: ValueParams<K>,
+    renderer: ValueRenderer,
     element: RegistryElement<GetAnalyserVoxel<T>>
 ): ReturnValue<K> {
-    const isTrue = checkCondition<T>(params.condition, element);
-    if (!isTrue) return null;
+    switch (renderer.type) {
+        case "conditionnal": {
+            const conditionMet = checkCondition<T>(renderer.term, element);
+            if ("return_condition" in renderer && renderer.return_condition) {
+                return conditionMet as K;
+            }
 
-    switch (params.params.type) {
-        case "Field":
-            return element.data[params.params.field] as ReturnValue<K>;
-        case "Value":
-            return params.params.value;
+            const renderToUse = conditionMet ? renderer.on_true : renderer.on_false;
+            if (renderToUse) {
+                return getRendererValue(renderToUse, element);
+            }
+
+            throw new Error("Conditionnal renderer has no fallback");
+        }
+        case "hardcoded":
+        case "from_field": {
+            return getRendererValue(renderer, element);
+        }
         default:
-            return null;
+            throw new Error("Unknown renderer type");
+    }
+}
+
+function getRendererValue<T extends keyof Analysers, K>(
+    renderer: FieldValueRenderer | RawValueRenderer,
+    element: RegistryElement<GetAnalyserVoxel<T>>
+): K {
+    switch (renderer.type) {
+        case "from_field":
+            return element.data[renderer.field] as K;
+        case "hardcoded":
+            return renderer.value as K;
+        default:
+            throw new Error("Unknown renderer type");
     }
 }

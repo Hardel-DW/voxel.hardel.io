@@ -34,11 +34,9 @@ export const global: Unresolved<InterfaceConfiguration> = {
                                 type: "set_value_from_computed_value",
                                 field: "maxLevel"
                             },
-                            value: {
-                                params: {
-                                    type: "Field",
-                                    field: "maxLevel"
-                                }
+                            renderer: {
+                                type: "from_field",
+                                field: "maxLevel"
                             }
                         },
                         {
@@ -59,11 +57,9 @@ export const global: Unresolved<InterfaceConfiguration> = {
                                 type: "set_value_from_computed_value",
                                 field: "weight"
                             },
-                            value: {
-                                params: {
-                                    type: "Field",
-                                    field: "weight"
-                                }
+                            renderer: {
+                                type: "from_field",
+                                field: "weight"
                             }
                         },
                         {
@@ -84,11 +80,9 @@ export const global: Unresolved<InterfaceConfiguration> = {
                                 type: "set_value_from_computed_value",
                                 field: "anvilCost"
                             },
-                            value: {
-                                params: {
-                                    type: "Field",
-                                    field: "anvilCost"
-                                }
+                            renderer: {
+                                type: "from_field",
+                                field: "anvilCost"
                             }
                         }
                     ]
@@ -119,11 +113,9 @@ export const global: Unresolved<InterfaceConfiguration> = {
                         type: "set_value_from_computed_value",
                         field: "mode"
                     },
-                    value: {
-                        params: {
-                            type: "Field",
-                            field: "mode"
-                        }
+                    renderer: {
+                        type: "from_field",
+                        field: "mode"
                     },
                     options: [
                         {

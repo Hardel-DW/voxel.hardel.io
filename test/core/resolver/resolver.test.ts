@@ -20,11 +20,9 @@ describe("Combined Field and Iteration Resolver", () => {
                 min: 0,
                 max: 10,
                 step: 1,
-                value: {
-                    params: {
-                        type: "Value",
-                        value: 3
-                    }
+                renderer: {
+                    type: "hardcoded",
+                    value: 3
                 },
                 action: {
                     type: "set_value",
@@ -45,11 +43,9 @@ describe("Combined Field and Iteration Resolver", () => {
                         max: 100,
                         step: 1,
                         action: { type: "Dynamic", field: "minCostBase" },
-                        value: {
-                            params: {
-                                type: "Field",
-                                field: "minCostBase"
-                            }
+                        renderer: {
+                            type: "from_field",
+                            field: "minCostBase"
                         }
                     },
                     {
@@ -65,11 +61,9 @@ describe("Combined Field and Iteration Resolver", () => {
                             type: "Dynamic",
                             field: "minCostPerLevelAboveFirst"
                         },
-                        value: {
-                            params: {
-                                type: "Field",
-                                field: "minCostPerLevelAboveFirst"
-                            }
+                        renderer: {
+                            type: "from_field",
+                            field: "minCostPerLevelAboveFirst"
                         }
                     }
                 ]
@@ -100,6 +94,17 @@ describe("Combined Field and Iteration Resolver", () => {
                     field: {
                         type: "get_toggle_field",
                         group: "test"
+                    }
+                },
+                renderer: {
+                    type: "conditionnal",
+                    return_condition: true,
+                    term: {
+                        condition: "if_field_is_undefined",
+                        field: {
+                            type: "get_toggle_field",
+                            group: "test"
+                        }
                     }
                 }
             }
@@ -198,15 +203,19 @@ describe("Combined Field and Iteration Resolver", () => {
                                             group: "main.supported"
                                         }
                                     },
-                                    condition: {
-                                        condition: "compare_value_to_field_value",
-                                        field: {
-                                            type: "get_toggle_field",
-                                            group: "main.supported"
-                                        },
-                                        value: {
-                                            type: "get_value_from_context",
-                                            key: "value"
+                                    renderer: {
+                                        type: "conditionnal",
+                                        return_condition: true,
+                                        term: {
+                                            condition: "compare_value_to_field_value",
+                                            field: {
+                                                type: "get_toggle_field",
+                                                group: "main.supported"
+                                            },
+                                            value: {
+                                                type: "get_value_from_context",
+                                                key: "value"
+                                            }
                                         }
                                     }
                                 }
@@ -233,11 +242,15 @@ describe("Combined Field and Iteration Resolver", () => {
                                     },
                                     value: "main.supported.items"
                                 },
-                                condition: {
-                                    condition: "if_field_is_undefined",
-                                    field: {
-                                        type: "get_toggle_field",
-                                        group: "main.supported"
+                                renderer: {
+                                    type: "conditionnal",
+                                    return_condition: true,
+                                    term: {
+                                        condition: "if_field_is_undefined",
+                                        field: {
+                                            type: "get_toggle_field",
+                                            group: "main.supported"
+                                        }
                                     }
                                 }
                             }

@@ -40,10 +40,14 @@ export const technical: Unresolved<InterfaceConfiguration> = {
                         field: "tags",
                         value: "#minecraft:curse"
                     },
-                    condition: {
-                        condition: "contains_in_tags",
-                        field: "tags",
-                        values: ["#minecraft:curse"]
+                    renderer: {
+                        type: "conditionnal",
+                        return_condition: true,
+                        term: {
+                            condition: "contains_in_tags",
+                            field: "tags",
+                            values: ["#minecraft:curse"]
+                        }
                     }
                 },
                 {
@@ -73,10 +77,14 @@ export const technical: Unresolved<InterfaceConfiguration> = {
                         field: "tags",
                         value: "#minecraft:non_treasure"
                     },
-                    condition: {
-                        condition: "contains_in_tags",
-                        field: "tags",
-                        values: ["#minecraft:non_treasure"]
+                    renderer: {
+                        type: "conditionnal",
+                        return_condition: true,
+                        term: {
+                            condition: "contains_in_tags",
+                            field: "tags",
+                            values: ["#minecraft:non_treasure"]
+                        }
                     }
                 },
                 {
@@ -106,10 +114,14 @@ export const technical: Unresolved<InterfaceConfiguration> = {
                         field: "tags",
                         value: "#minecraft:treasure"
                     },
-                    condition: {
-                        condition: "contains_in_tags",
-                        field: "tags",
-                        values: ["#minecraft:treasure"]
+                    renderer: {
+                        type: "conditionnal",
+                        return_condition: true,
+                        term: {
+                            condition: "contains_in_tags",
+                            field: "tags",
+                            values: ["#minecraft:treasure"]
+                        }
                     }
                 },
                 {
@@ -139,10 +151,14 @@ export const technical: Unresolved<InterfaceConfiguration> = {
                         field: "tags",
                         value: "#minecraft:smelts_loot"
                     },
-                    condition: {
-                        condition: "contains_in_tags",
-                        field: "tags",
-                        values: ["#minecraft:smelts_loot"]
+                    renderer: {
+                        type: "conditionnal",
+                        return_condition: true,
+                        term: {
+                            condition: "contains_in_tags",
+                            field: "tags",
+                            values: ["#minecraft:smelts_loot"]
+                        }
                     }
                 },
                 {
@@ -175,10 +191,14 @@ export const technical: Unresolved<InterfaceConfiguration> = {
                                 field: "tags",
                                 value: "#minecraft:prevent_ice_melting"
                             },
-                            condition: {
-                                condition: "contains_in_tags",
-                                field: "tags",
-                                values: ["#minecraft:prevent_ice_melting"]
+                            renderer: {
+                                type: "conditionnal",
+                                return_condition: true,
+                                term: {
+                                    condition: "contains_in_tags",
+                                    field: "tags",
+                                    values: ["#minecraft:prevent_ice_melting"]
+                                }
                             }
                         },
                         {
@@ -208,10 +228,14 @@ export const technical: Unresolved<InterfaceConfiguration> = {
                                 field: "tags",
                                 value: "#minecraft:prevent_infested_block_spawning"
                             },
-                            condition: {
-                                condition: "contains_in_tags",
-                                field: "tags",
-                                values: ["#minecraft:prevent_infested_block_spawning"]
+                            renderer: {
+                                type: "conditionnal",
+                                return_condition: true,
+                                term: {
+                                    condition: "contains_in_tags",
+                                    field: "tags",
+                                    values: ["#minecraft:prevent_infested_block_spawning"]
+                                }
                             }
                         }
                     ]
@@ -246,10 +270,14 @@ export const technical: Unresolved<InterfaceConfiguration> = {
                                 field: "tags",
                                 value: "#minecraft:prevent_bee_spawning"
                             },
-                            condition: {
-                                condition: "contains_in_tags",
-                                field: "tags",
-                                values: ["#minecraft:prevent_bee_spawning"]
+                            renderer: {
+                                type: "conditionnal",
+                                return_condition: true,
+                                term: {
+                                    condition: "contains_in_tags",
+                                    field: "tags",
+                                    values: ["#minecraft:prevent_bee_spawning"]
+                                }
                             }
                         },
                         {
@@ -279,10 +307,14 @@ export const technical: Unresolved<InterfaceConfiguration> = {
                                 field: "tags",
                                 value: "#minecraft:prevent_pot_shattering"
                             },
-                            condition: {
-                                condition: "contains_in_tags",
-                                field: "tags",
-                                values: ["#minecraft:prevent_pot_shattering"]
+                            renderer: {
+                                type: "conditionnal",
+                                return_condition: true,
+                                term: {
+                                    condition: "contains_in_tags",
+                                    field: "tags",
+                                    values: ["#minecraft:prevent_pot_shattering"]
+                                }
                             }
                         }
                     ]
@@ -314,11 +346,9 @@ export const technical: Unresolved<InterfaceConfiguration> = {
                                 type: "set_value_from_computed_value",
                                 field: "minCostBase"
                             },
-                            value: {
-                                params: {
-                                    type: "Field",
-                                    field: "minCostBase"
-                                }
+                            renderer: {
+                                type: "from_field",
+                                field: "minCostBase"
                             }
                         },
                         {
@@ -334,11 +364,9 @@ export const technical: Unresolved<InterfaceConfiguration> = {
                                 type: "set_value_from_computed_value",
                                 field: "minCostPerLevelAboveFirst"
                             },
-                            value: {
-                                params: {
-                                    type: "Field",
-                                    field: "minCostPerLevelAboveFirst"
-                                }
+                            renderer: {
+                                type: "from_field",
+                                field: "minCostPerLevelAboveFirst"
                             }
                         }
                     ]
@@ -356,11 +384,9 @@ export const technical: Unresolved<InterfaceConfiguration> = {
                             max: 100,
                             step: 1,
                             action: { type: "set_value_from_computed_value", field: "maxCostBase" },
-                            value: {
-                                params: {
-                                    type: "Field",
-                                    field: "maxCostBase"
-                                }
+                            renderer: {
+                                type: "from_field",
+                                field: "maxCostBase"
                             }
                         },
                         {
@@ -376,11 +402,9 @@ export const technical: Unresolved<InterfaceConfiguration> = {
                                 type: "set_value_from_computed_value",
                                 field: "maxCostPerLevelAboveFirst"
                             },
-                            value: {
-                                params: {
-                                    type: "Field",
-                                    field: "maxCostPerLevelAboveFirst"
-                                }
+                            renderer: {
+                                type: "from_field",
+                                field: "maxCostPerLevelAboveFirst"
                             }
                         }
                     ]
@@ -401,15 +425,10 @@ export const technical: Unresolved<InterfaceConfiguration> = {
                         type: "toggle_value_in_list",
                         field: "disabledEffects"
                     },
+                    properties: "effects",
                     condition: {
                         condition: "contains_in_value",
                         field: "disabledEffects"
-                    },
-                    value: {
-                        params: {
-                            type: "Field",
-                            field: "effects"
-                        }
                     }
                 }
             ]

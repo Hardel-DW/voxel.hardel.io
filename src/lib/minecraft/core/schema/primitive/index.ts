@@ -31,14 +31,3 @@ export type InterfaceConfiguration = {
     section: TranslateTextType;
     soon?: boolean;
 };
-
-export type ToolRevealElementType = {
-    id: string;
-    title: TranslateTextType;
-    soon?: boolean;
-    image: string;
-    logo: string;
-    href: string;
-    description: TranslateTextType;
-    children: FormComponent[];
-};

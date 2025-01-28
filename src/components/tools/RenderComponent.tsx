@@ -19,8 +19,8 @@ import TextRender from "@/components/tools/elements/text/TextRender.tsx";
 import ToolFlexible from "@/components/tools/elements/ToolFlexible";
 import type { Analysers } from "@/lib/minecraft/core/engine/Analyser";
 import { checkCondition } from "@/lib/minecraft/core/engine/condition";
-import { checkLocks } from "@/lib/minecraft/core/engine/lock/index";
-import { getValue } from "@/lib/minecraft/core/engine/value";
+import { checkLocks } from "@/lib/minecraft/core/engine/renderer/index";
+import { getValue } from "@/lib/minecraft/core/engine/renderer/value";
 import type { FormComponent } from "@/lib/minecraft/core/schema/primitive/component.ts";
 import { getKey } from "@/lib/minecraft/i18n/translations";
 

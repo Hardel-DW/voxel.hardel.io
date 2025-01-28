@@ -1,7 +1,6 @@
-import type { Unresolved } from "@/lib/minecraft/core/engine/resolver/field/type.ts";
 import type { InterfaceConfiguration } from "@/lib/minecraft/core/schema/primitive";
 
-export const supported: Unresolved<InterfaceConfiguration> = {
+export const supported: InterfaceConfiguration = {
     id: "enchant.supported",
     section: { type: "translate", value: "tools.enchantments.section.supported" },
     components: [
@@ -185,20 +184,14 @@ export const supported: Unresolved<InterfaceConfiguration> = {
                                         type: "get_value_from_context",
                                         key: "value"
                                     },
-                                    field: {
-                                        type: "get_toggle_field",
-                                        group: "main.supported"
-                                    }
+                                    field: "$resolver.field$:main.supported"
                                 },
                                 renderer: {
                                     type: "conditionnal",
                                     return_condition: true,
                                     term: {
                                         condition: "compare_value_to_field_value",
-                                        field: {
-                                            type: "get_toggle_field",
-                                            group: "main.supported"
-                                        },
+                                        field: "$resolver.field$:main.supported",
                                         value: {
                                             type: "get_value_from_context",
                                             key: "value"
@@ -216,17 +209,11 @@ export const supported: Unresolved<InterfaceConfiguration> = {
                             image: "/images/tools/cross.webp",
                             action: {
                                 type: "set_undefined",
-                                field: {
-                                    type: "get_toggle_field",
-                                    group: "main.supported"
-                                }
+                                field: "$resolver.field$:main.supported"
                             },
                             hide: {
                                 condition: "compare_to_value",
-                                compare: {
-                                    type: "get_toggle_name",
-                                    group: "main.supported"
-                                },
+                                compare: "$resolver.name$:main.supported",
                                 value: "main.supported.items"
                             },
                             renderer: {
@@ -234,10 +221,7 @@ export const supported: Unresolved<InterfaceConfiguration> = {
                                 return_condition: true,
                                 term: {
                                     condition: "if_field_is_undefined",
-                                    field: {
-                                        type: "get_toggle_field",
-                                        group: "main.supported"
-                                    }
+                                    field: "$resolver.field$:main.supported"
                                 }
                             }
                         }

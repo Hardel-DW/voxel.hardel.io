@@ -1,5 +1,3 @@
-import type { Field } from "../field/type";
-
 type IterationCollectFromPath = {
     type: "collect_from_path";
     registry: string;
@@ -50,7 +48,7 @@ export type IterationResult = {
 
 export type IterationValue = IterationCollectFromPath | IterationStatic | IterationObject | IterationGetRegistryElements;
 export type TemplateReplacer<T> = T extends string
-    ? string | GetValueFromContext | Field
+    ? string | GetValueFromContext
     : T extends object
       ? { [K in keyof T]: TemplateReplacer<T[K]> }
       : T;

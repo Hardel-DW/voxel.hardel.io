@@ -1,8 +1,7 @@
-import type { Unresolved } from "@/lib/minecraft/core/engine/resolver/field/type.ts";
 import type { InterfaceConfiguration } from "@/lib/minecraft/core/schema/primitive";
 import { ADDONS } from "@/lib/minecraft/core/schema/enchant/addons";
 
-export const find: Unresolved<InterfaceConfiguration> = {
+export const find: InterfaceConfiguration = {
     id: "enchant.find",
     section: { type: "translate", value: "tools.enchantments.section.find" },
     components: [

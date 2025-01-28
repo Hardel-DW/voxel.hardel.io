@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { getValue, type ValueRenderer } from "@/lib/minecraft/core/engine/value";
+import { getValue, type ValueRenderer } from "@/lib/minecraft/core/engine/renderer/value";
 import type { RegistryElement } from "@/lib/minecraft/mczip";
 import { Identifier } from "@/lib/minecraft/core/Identifier";
 import type { EnchantmentProps } from "@/lib/minecraft/core/schema/enchant/EnchantmentProps";

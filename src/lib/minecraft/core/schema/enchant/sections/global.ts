@@ -1,7 +1,6 @@
-import type { Unresolved } from "@/lib/minecraft/core/engine/resolver/field/type.ts";
 import type { InterfaceConfiguration } from "@/lib/minecraft/core/schema/primitive";
 
-export const global: Unresolved<InterfaceConfiguration> = {
+export const global: InterfaceConfiguration = {
     id: "enchant.global",
     section: { type: "translate", value: "tools.enchantments.section.global" },
     components: [

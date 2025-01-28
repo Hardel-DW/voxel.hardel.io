@@ -4,7 +4,6 @@ import type { FormComponent } from "@/lib/minecraft/core/schema/primitive/compon
 import type { TranslateTextType } from "@/lib/minecraft/core/schema/primitive/text";
 import type { Lock } from "@/lib/minecraft/core/schema/primitive/component.ts";
 import type { Condition } from "@/lib/minecraft/core/engine/condition";
-import type { Unresolved } from "../../engine/resolver/field/type";
 
 export type SidebarConfig = {
     action: Action;
@@ -14,8 +13,8 @@ export type SidebarConfig = {
 };
 
 export type ToolConfiguration = {
-    interface: Unresolved<InterfaceConfiguration[]>;
-    sidebar: Unresolved<SidebarConfig>;
+    interface: InterfaceConfiguration[];
+    sidebar: SidebarConfig;
     analyser: {
         id: keyof Analysers;
         registries: {

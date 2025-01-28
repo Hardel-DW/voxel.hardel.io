@@ -1,7 +1,6 @@
-import type { Unresolved } from "@/lib/minecraft/core/engine/resolver/field/type.ts";
 import type { InterfaceConfiguration } from "@/lib/minecraft/core/schema/primitive";
 
-export const technical: Unresolved<InterfaceConfiguration> = {
+export const technical: InterfaceConfiguration = {
     id: "enchant.technical",
     section: { type: "translate", value: "tools.enchantments.section.technical" },
     components: [
@@ -420,7 +419,7 @@ export const technical: Unresolved<InterfaceConfiguration> = {
             id: "effects",
             children: [
                 {
-                    type: "Effect",
+                    type: "Property",
                     action: {
                         type: "toggle_value_in_list",
                         field: "disabledEffects"

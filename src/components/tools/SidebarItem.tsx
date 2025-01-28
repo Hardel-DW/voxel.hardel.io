@@ -1,14 +1,14 @@
 import TextComponent from "@/components/tools/elements/text/TextComponent";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/shadcn/tooltip.tsx";
 import type { Analysers, GetAnalyserVoxel } from "@/lib/minecraft/core/engine/Analyser";
-import { checkLocks } from "@/lib/minecraft/core/engine/lock";
-import { resolve } from "@/lib/minecraft/core/engine/resolver/field/resolveField";
+import { checkLocks } from "@/lib/minecraft/core/engine/renderer";
 import type { RegistryElement } from "@/lib/minecraft/mczip.ts";
 import { cn } from "@/lib/utils.ts";
 import { useRef } from "react";
 import translate from "@/lib/minecraft/i18n/translate";
 import { useConfiguratorStore } from "@/lib/store/configuratorStore";
 import { checkCondition } from "@/lib/minecraft/core/engine/condition";
+import { resolve } from "@/lib/minecraft/core/engine/renderer/resolve_field";
 
 export function SidebarItem<T extends keyof Analysers>(props: {
     element: RegistryElement<GetAnalyserVoxel<T>>;

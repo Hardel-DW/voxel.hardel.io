@@ -1,7 +1,6 @@
-import type { Unresolved } from "@/lib/minecraft/core/engine/resolver/field/type.ts";
 import type { ToolRevealElementType } from "@/lib/minecraft/core/schema/primitive/component.ts";
 
-export const dungeon: Unresolved<ToolRevealElementType> = {
+export const dungeon: ToolRevealElementType = {
     id: "enchant.addons.dnt",
     soon: false,
     logo: "/images/addons/logo/dnt.webp",

@@ -1,7 +1,6 @@
-import type { Unresolved } from "@/lib/minecraft/core/engine/resolver/field/type.ts";
 import type { InterfaceConfiguration } from "@/lib/minecraft/core/schema/primitive";
 
-export const exclusive: Unresolved<InterfaceConfiguration> = {
+export const exclusive: InterfaceConfiguration = {
     id: "enchant.exclusive",
     section: { type: "translate", value: "tools.enchantments.section.exclusive" },
     components: [
@@ -44,10 +43,7 @@ export const exclusive: Unresolved<InterfaceConfiguration> = {
                     direction: "horizontal",
                     hide: {
                         condition: "compare_to_value",
-                        compare: {
-                            type: "get_toggle_name",
-                            group: "main.exclusive"
-                        },
+                        compare: "$resolver.name$:main.exclusive",
                         value: "main.exclusive.individual"
                     },
                     children: [
@@ -293,10 +289,7 @@ export const exclusive: Unresolved<InterfaceConfiguration> = {
                     type: "Grid",
                     hide: {
                         condition: "compare_to_value",
-                        compare: {
-                            type: "get_toggle_name",
-                            group: "main.exclusive"
-                        },
+                        compare: "$resolver.name$:main.exclusive",
                         value: "main.exclusive.group"
                     },
                     children: [

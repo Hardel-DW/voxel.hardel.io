@@ -1,7 +1,6 @@
-import type { Unresolved } from "@/lib/minecraft/core/engine/resolver/field/type.ts";
 import type { ToolRevealElementType } from "@/lib/minecraft/core/schema/primitive/component.ts";
 
-export const yggdrasil: Unresolved<ToolRevealElementType> = {
+export const yggdrasil: ToolRevealElementType = {
     id: "enchant.addons.yggdrasil",
     logo: "/images/addons/logo/yggdrasil.webp",
     image: "/images/addons/hero/yggdrasil.png",

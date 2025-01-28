@@ -3,7 +3,7 @@ import type { Condition } from "@/lib/minecraft/core/engine/condition";
 import type { IterationValue, TemplateReplacer } from "@/lib/minecraft/core/engine/resolver/iteration/type";
 import type { TextRenderType, TranslateTextType } from "@/lib/minecraft/core/schema/primitive/text";
 import type { ToggleSection } from "@/lib/minecraft/core/schema/primitive/toggle";
-import type { ValueRenderer } from "@/lib/minecraft/core/engine/value";
+import type { ValueRenderer } from "@/lib/minecraft/core/engine/renderer/value";
 
 // Base type for common component properties
 export type BaseComponent = {

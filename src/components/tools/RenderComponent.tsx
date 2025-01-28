@@ -1,5 +1,5 @@
 import { useConfiguratorStore } from "@/lib/store/configuratorStore";
-import ToolTagViewer from "@/components/tools/elements/ToolTagViewer";
+import ToolTagViewer from "@/components/tools/elements/schema/tags/ToolTagViewer";
 import ToolCategory from "@/components/tools/elements/ToolCategory.tsx";
 import ToolCounter from "@/components/tools/elements/ToolCounter.tsx";
 import ToolInline from "@/components/tools/elements/ToolInlineSlot.tsx";

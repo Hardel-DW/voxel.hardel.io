@@ -86,6 +86,11 @@ export class Identifier {
         return this.namespace;
     }
 
+    public getFileName(extension = false): string {
+        const filename = this.resource.split("/").pop() ?? this.resource;
+        return extension ? `${filename}.json` : filename;
+    }
+
     public toString(): string {
         if (this.tag || this.registry?.startsWith("tags/")) {
             return `#${this.namespace}:${this.resource}`;

@@ -264,8 +264,7 @@ export const exclusive: InterfaceConfiguration = {
                             include: {
                                 namespace: "minecraft",
                                 registry: "enchantment",
-                                path: "exclusive_set",
-                                nested: false
+                                path: "exclusive_set"
                             }
                         }
                     ]

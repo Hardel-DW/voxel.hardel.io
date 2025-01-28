@@ -57,16 +57,17 @@ export type ToolIterationType = BaseComponent & {
     fallback?: FormComponent;
 };
 
+export type TagViewerInclude = {
+    namespace: string;
+    registry: string;
+    path: string;
+};
+
 export type ToolTagViewerType = BaseComponent & {
     type: "TagViewer";
     field?: string;
     registry: string;
-    include?: {
-        namespace: string;
-        registry: string;
-        path: string;
-        nested: boolean;
-    };
+    include?: TagViewerInclude;
 };
 
 export type ToolRevealType = BaseComponent & {

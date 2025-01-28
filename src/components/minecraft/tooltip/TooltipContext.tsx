@@ -1,11 +1,6 @@
-import React, { createContext } from "react";
+import React from "react";
+import { TooltipContext } from "./useTooltip";
 
-type TooltipContextData = {
-    hoveredItem?: string;
-    setHoveredItem: (item?: string) => void;
-};
-
-export const TooltipContext = createContext<TooltipContextData>({} as TooltipContextData);
 export default function TooltipContextProvider({ children }: { children: React.ReactNode }) {
     const [hoveredItem, setHoveredItem] = React.useState<string>();
 

@@ -1,6 +1,6 @@
+import Tabs from "@/components/ui/react/Tabs";
 import type { TranslateTextType } from "@/lib/minecraft/core/schema/primitive/text";
 import translate from "@/lib/minecraft/i18n/translate";
-import Tabs from "@/components/ui/react/Tabs";
 
 export default function ToolSelector(props: {
     title: TranslateTextType | string;

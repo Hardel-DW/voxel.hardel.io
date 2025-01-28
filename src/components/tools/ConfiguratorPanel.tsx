@@ -1,12 +1,12 @@
 import { RenderComponent } from "@/components/tools/RenderComponent.tsx";
 import { TabsList, TabsTrigger } from "@/components/ui/shadcn/tabs.tsx";
 import { resolve } from "@/lib/minecraft/core/engine/renderer/resolve_field";
+import type { FormComponent } from "@/lib/minecraft/core/schema/primitive/component";
+import translate from "@/lib/minecraft/i18n/translate";
+import { useConfiguratorStore } from "@/lib/store/configuratorStore";
 import { cn } from "@/lib/utils.ts";
 import { Tabs, TabsContent } from "@radix-ui/react-tabs";
 import type React from "react";
-import translate from "@/lib/minecraft/i18n/translate";
-import { useConfiguratorStore } from "@/lib/store/configuratorStore";
-import type { FormComponent } from "@/lib/minecraft/core/schema/primitive/component";
 
 export default function ConfiguratorPanel(props: {
     children?: React.ReactNode;

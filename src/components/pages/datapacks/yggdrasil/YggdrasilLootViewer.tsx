@@ -1,6 +1,6 @@
 import type { CollectionEntry } from "astro:content";
 import Button from "@/components/ui/react/Button";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import RewardsModal from "./RewardsModal";
 
 export default function YggdrasilLootViewer(props: {

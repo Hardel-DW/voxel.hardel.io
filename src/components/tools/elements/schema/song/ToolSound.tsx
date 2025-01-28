@@ -1,7 +1,7 @@
+import { useTranslate } from "@/components/useTranslate";
 import { type CategorySound, getCategory, searchSound } from "@/lib/minecraft/net/api/Sound.ts";
 import { cn } from "@/lib/utils.ts";
 import { useEffect, useMemo, useRef, useState } from "react";
-import { useTranslate } from "@/components/useTranslate";
 import { toast } from "sonner";
 
 export default function ToolSound() {

@@ -1,7 +1,7 @@
 import type { TranslateTextType } from "@/lib/minecraft/core/schema/primitive/text";
-import { cn } from "@/lib/utils.ts";
 import translate from "@/lib/minecraft/i18n/translate";
 import { getKey } from "@/lib/minecraft/i18n/translations";
+import { cn } from "@/lib/utils.ts";
 
 export default function ToolSlot(props: {
     title: TranslateTextType | string;

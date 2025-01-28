@@ -1,5 +1,5 @@
-import { useStudioContext } from "@/components/pages/tools/studio/StudioContext.tsx";
 import Blueprint from "@/components/pages/tools/studio/elements/Blueprint.tsx";
+import { useStudioContext } from "@/components/pages/tools/studio/hooks/useStudioContext";
 import type { BlueprintObject } from "@/components/pages/tools/studio/types";
 
 export default function BlueprintsManager(props: {

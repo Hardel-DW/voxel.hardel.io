@@ -1,6 +1,6 @@
-import { useTag } from "@/lib/minecraft/net/api/ComputedTag";
 import { ToolTagCard } from "@/components/tools/elements/schema/tags/ToolTagCard";
 import { useTranslate } from "@/components/useTranslate";
+import { useTag } from "@/lib/minecraft/net/api/ComputedTag";
 
 interface TagLoaderProps {
     registry: string;

@@ -1,15 +1,15 @@
-import type { RegistryElement } from "@/lib/minecraft/mczip.ts";
 import type { Analysers, GetAnalyserVoxel } from "@/lib/minecraft/core/engine/Analyser.ts";
 import type { ActionValue } from "@/lib/minecraft/core/engine/actions";
-import { checkAllOfCondition, type AllOfCondition } from "./generic/AllOfCondition.ts";
-import { checkAnyOfCondition, type AnyOfCondition } from "./generic/AnyOfCondition.ts";
-import { checkInvertedCondition, type InvertedCondition } from "./generic/InvertedCondition.ts";
-import { CheckEqualFieldValueCondition, type ConditionEqualsFieldValue } from "./equals/EqualFieldValueCondition.ts";
-import { CheckEqualConditionString, type ConditionEqualsString } from "./equals/EqualConditionString.ts";
-import { CheckEqualConditionUndefined, type ConditionEqualsUndefined } from "./equals/EqualConditionUndefined.ts";
+import type { RegistryElement } from "@/lib/minecraft/mczip.ts";
 import { CheckContainConditionTags, type ConditionContainTags } from "./contains/ContainConditionTags";
 import { CheckContainConditionValue, type ConditionContainValue } from "./contains/ContainConditionValue";
+import { CheckEqualConditionString, type ConditionEqualsString } from "./equals/EqualConditionString.ts";
+import { CheckEqualConditionUndefined, type ConditionEqualsUndefined } from "./equals/EqualConditionUndefined.ts";
+import { CheckEqualFieldValueCondition, type ConditionEqualsFieldValue } from "./equals/EqualFieldValueCondition.ts";
 import { CheckNamespaceCondition, type ConditionNamespace } from "./equals/EqualNamespace.ts";
+import { type AllOfCondition, checkAllOfCondition } from "./generic/AllOfCondition.ts";
+import { type AnyOfCondition, checkAnyOfCondition } from "./generic/AnyOfCondition.ts";
+import { type InvertedCondition, checkInvertedCondition } from "./generic/InvertedCondition.ts";
 
 export type Condition =
     | ConditionEqualsString

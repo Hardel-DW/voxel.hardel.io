@@ -1,9 +1,9 @@
-import { useConfiguratorStore } from "@/lib/store/configuratorStore";
 import { RenderComponent } from "@/components/tools/RenderComponent";
 import { createIterations } from "@/lib/minecraft/core/engine/resolver/iteration/createIterations.ts";
 import { resolveIterationValue } from "@/lib/minecraft/core/engine/resolver/iteration/resolveIterationValue.ts";
 import type { TemplateReplacer } from "@/lib/minecraft/core/engine/resolver/iteration/type";
 import type { FormComponent, ToolIterationType } from "@/lib/minecraft/core/schema/primitive/component.ts";
+import { useConfiguratorStore } from "@/lib/store/configuratorStore";
 
 export default function ToolIteration(props: ToolIterationType) {
     const store = useConfiguratorStore();

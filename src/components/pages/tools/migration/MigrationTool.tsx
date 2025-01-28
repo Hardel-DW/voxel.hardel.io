@@ -1,7 +1,7 @@
 import { DatapackDropzone } from "@/components/pages/tools/migration/DatapackDropzone";
 import { StatusBox } from "@/components/pages/tools/migration/StatusBox";
 import Button from "@/components/ui/react/Button";
-import { useConfetti } from "@/components/ui/react/Confetti";
+import { useConfetti } from "@/components/ui/react/confetti/useConfetti";
 import { Toaster } from "@/components/ui/shadcn/Sonner";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/shadcn/dialog";
 import { compileDatapack } from "@/lib/minecraft/core/engine/Compiler";

@@ -1,7 +1,7 @@
+import type { Analysers, GetAnalyserVoxel } from "@/lib/minecraft/core/engine/Analyser";
+import type { ParseDatapackResult } from "@/lib/minecraft/core/engine/Parser";
 import type { Action } from "@/lib/minecraft/core/engine/actions";
 import { updateData } from "@/lib/minecraft/core/engine/actions";
-import type { ParseDatapackResult } from "@/lib/minecraft/core/engine/Parser";
-import type { Analysers, GetAnalyserVoxel } from "@/lib/minecraft/core/engine/Analyser";
 
 /**
  * Applies migration actions to a target datapack

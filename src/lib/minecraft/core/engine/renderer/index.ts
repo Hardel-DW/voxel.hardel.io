@@ -1,8 +1,8 @@
-import type { Lock } from "@/lib/minecraft/core/schema/primitive/component";
 import type { Analysers } from "@/lib/minecraft/core/engine/Analyser";
-import { checkCondition } from "@/lib/minecraft/core/engine/condition";
-import type { TranslateTextType } from "@/lib/minecraft/core/schema/primitive/text";
 import type { GetAnalyserVoxel } from "@/lib/minecraft/core/engine/Analyser";
+import { checkCondition } from "@/lib/minecraft/core/engine/condition";
+import type { Lock } from "@/lib/minecraft/core/schema/primitive/component";
+import type { TranslateTextType } from "@/lib/minecraft/core/schema/primitive/text";
 import type { RegistryElement } from "@/lib/minecraft/mczip";
 
 export function checkLocks<T extends keyof Analysers>(

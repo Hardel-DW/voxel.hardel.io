@@ -1,9 +1,9 @@
 import { migrationLog, migrationNamespace } from "@/database/schema";
+import type { Log } from "@/lib/minecraft/core/engine/migrations/types";
+import generateUUID from "@/lib/utils/uuid";
 import { neon } from "@neondatabase/serverless";
 import { eq } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/neon-http";
-import type { Log } from "@/lib/minecraft/core/engine/migrations/types";
-import generateUUID from "@/lib/utils/uuid";
 
 export const database_url = import.meta.env.DATABASE_URL;
 const sql = neon(database_url);

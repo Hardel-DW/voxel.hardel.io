@@ -1,7 +1,7 @@
 import { db } from "@/database/db";
 import { migrationNamespace } from "@/database/schema";
-import { sql } from "drizzle-orm";
 import type { APIRoute } from "astro";
+import { sql } from "drizzle-orm";
 
 export type ResponseNamespaceStats = {
     namespace: string;

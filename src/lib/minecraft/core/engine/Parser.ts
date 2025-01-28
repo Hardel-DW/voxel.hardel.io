@@ -1,3 +1,4 @@
+import type { ConfiguratorConfigFromDatapack } from "@/lib/minecraft/core/Configurator.ts";
 import { Identifier } from "@/lib/minecraft/core/Identifier.ts";
 import { isPresentInTag } from "@/lib/minecraft/core/Tag.ts";
 import {
@@ -15,7 +16,6 @@ import { type RegistryElement, getRegistry, getVoxelConfig, parseZip, readDatapa
 import type { TagType } from "@voxel/definitions";
 import { Logger } from "./migrations/logger";
 import type { Log } from "./migrations/types";
-import type { ConfiguratorConfigFromDatapack } from "@/lib/minecraft/core/Configurator.ts";
 
 interface PackMcmeta {
     pack: {

@@ -1,5 +1,5 @@
-import type { InterfaceConfiguration } from "@/lib/minecraft/core/schema/primitive";
 import { ADDONS } from "@/lib/minecraft/core/schema/enchant/addons";
+import type { InterfaceConfiguration } from "@/lib/minecraft/core/schema/primitive";
 
 export const find: InterfaceConfiguration = {
     id: "enchant.find",

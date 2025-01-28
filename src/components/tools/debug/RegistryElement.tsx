@@ -1,7 +1,7 @@
-import { cn } from "@/lib/utils";
 import type { Analysers } from "@/lib/minecraft/core/engine/Analyser";
 import type { CompileDatapackResult } from "@/lib/minecraft/core/engine/Compiler";
 import { getIdentifierFromCompiler } from "@/lib/minecraft/core/engine/Compiler";
+import { cn } from "@/lib/utils";
 
 interface RegistryElementProps {
     element: CompileDatapackResult<keyof Analysers>;

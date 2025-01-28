@@ -1,11 +1,11 @@
-import { useTranslate } from "@/components/useTranslate";
 import Button from "@/components/ui/react/Button.tsx";
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/shadcn/dialog.tsx";
+import { useTranslate } from "@/components/useTranslate";
 import type { versionedAnalyserCollection } from "@/lib/minecraft/core/engine/Analyser.ts";
 import { compileDatapack } from "@/lib/minecraft/core/engine/Compiler.ts";
 import { generateZip } from "@/lib/minecraft/mczip.ts";
-import { DialogDescription } from "@radix-ui/react-dialog";
 import { useConfiguratorStore } from "@/lib/store/configuratorStore";
+import { DialogDescription } from "@radix-ui/react-dialog";
 
 export default function DownloadButton() {
     const { t } = useTranslate();

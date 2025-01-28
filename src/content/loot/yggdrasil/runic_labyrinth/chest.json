@@ -1,7 +1,7 @@
 {
-	"reference": [
-		"yggdrasil/runic_labyrinth/chest/variant_1",
-		"yggdrasil/runic_labyrinth/chest/variant_2",
-		"yggdrasil/runic_labyrinth/chest/variant_3"
-	]
+    "reference": [
+        "yggdrasil/runic_labyrinth/chest/variant_1",
+        "yggdrasil/runic_labyrinth/chest/variant_2",
+        "yggdrasil/runic_labyrinth/chest/variant_3"
+    ]
 }

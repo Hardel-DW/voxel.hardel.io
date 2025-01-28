@@ -1,6 +1,6 @@
-import { BarChart, Bar, LabelList, XAxis, YAxis, CartesianGrid } from "recharts";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/shadcn/card";
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/shadcn/recharts";
+import { Bar, BarChart, CartesianGrid, LabelList, XAxis, YAxis } from "recharts";
 
 type GroupedData = {
     occurence: number;

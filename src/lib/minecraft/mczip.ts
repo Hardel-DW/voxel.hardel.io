@@ -1,10 +1,10 @@
 import { Identifier } from "@/lib/minecraft/core/Identifier.ts";
 import { voxelDatapacks } from "@/lib/minecraft/voxel/VoxelDatapack.ts";
 import JSZip from "jszip";
-import type { Logger } from "./core/engine/migrations/logger";
 import type { ConfiguratorConfigFromDatapack } from "./core/Configurator";
-import type { CompileDatapackResult } from "./core/engine/Compiler";
 import type { Analysers } from "./core/engine/Analyser";
+import type { CompileDatapackResult } from "./core/engine/Compiler";
+import type { Logger } from "./core/engine/migrations/logger";
 
 export type RegistryElement<RegistryType> = {
     data: RegistryType;

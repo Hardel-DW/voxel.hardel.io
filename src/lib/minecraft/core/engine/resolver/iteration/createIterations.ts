@@ -1,5 +1,5 @@
-import { collectFromPath } from "./collectFromPath";
 import { getRegistry } from "@/lib/minecraft/mczip";
+import { collectFromPath } from "./collectFromPath";
 import type { IterationResult, IterationValue } from "./type";
 
 export function createIterations(valueSet: IterationValue, files: Record<string, Uint8Array>): IterationResult[] {

@@ -1,4 +1,4 @@
-import { useStudioContext } from "@/components/pages/tools/studio/StudioContext.tsx";
+import { useStudioContext } from "@/components/pages/tools/studio/hooks/useStudioContext";
 import type { BaseBlueprintField } from "./Field";
 
 export interface NumberFieldType extends BaseBlueprintField {

@@ -1,9 +1,9 @@
-import { useConfiguratorStore } from "@/lib/store/configuratorStore";
 import Button from "@/components/ui/react/Button.tsx";
 import type { TranslateTextType } from "@/lib/minecraft/core/schema/primitive/text";
 import type { ToggleSection } from "@/lib/minecraft/core/schema/primitive/toggle";
-import { cn } from "@/lib/utils.ts";
 import translate from "@/lib/minecraft/i18n/translate";
+import { useConfiguratorStore } from "@/lib/store/configuratorStore";
+import { cn } from "@/lib/utils.ts";
 import type React from "react";
 
 export default function ToolSection(props: {

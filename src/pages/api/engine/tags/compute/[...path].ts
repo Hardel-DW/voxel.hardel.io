@@ -1,7 +1,7 @@
-import type { APIRoute } from "astro";
-import JSZip from "jszip";
 import { getTagsFromRegistry } from "@/lib/minecraft/core/Tag";
 import type { TagType } from "@voxel/definitions";
+import type { APIRoute } from "astro";
+import JSZip from "jszip";
 
 export const GET: APIRoute = async ({ params, request }) => {
     try {

@@ -1,7 +1,7 @@
 import type { CollectionEntry } from "astro:content";
 import GuideTree from "@/components/pages/guide/content/GuideTree.tsx";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/shadcn/tabs.tsx";
 import NavigationTree from "@/components/pages/guide/content/NavigationTree.tsx";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/shadcn/tabs.tsx";
 
 export type Guides = {
     slug: string;

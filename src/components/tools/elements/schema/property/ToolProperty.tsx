@@ -1,5 +1,5 @@
-import { useTranslate } from "@/components/useTranslate";
 import { ToolPropertyElement } from "@/components/tools/elements/schema/property/ToolPropertyElement";
+import { useTranslate } from "@/components/useTranslate";
 import { type Condition, checkCondition } from "@/lib/minecraft/core/engine/condition";
 import type { RegistryElement } from "@/lib/minecraft/mczip";
 

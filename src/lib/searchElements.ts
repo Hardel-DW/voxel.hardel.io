@@ -1,5 +1,5 @@
-import type { RegistryElement } from "@/lib/minecraft/mczip";
 import type { VoxelElement } from "@/lib/minecraft/core/engine/Analyser";
+import type { RegistryElement } from "@/lib/minecraft/mczip";
 
 function flattenObject(obj: any): string[] {
     const result: string[] = [];

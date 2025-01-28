@@ -1,28 +1,28 @@
-import { useConfiguratorStore } from "@/lib/store/configuratorStore";
-import ToolTagViewer from "@/components/tools/elements/schema/tags/ToolTagViewer";
+import Donation from "@/components/tools/elements/Donation";
 import ToolCategory from "@/components/tools/elements/ToolCategory.tsx";
 import ToolCounter from "@/components/tools/elements/ToolCounter.tsx";
+import ToolFlexible from "@/components/tools/elements/ToolFlexible";
+import ToolGrid from "@/components/tools/elements/ToolGrid";
 import ToolInline from "@/components/tools/elements/ToolInlineSlot.tsx";
 import ToolIteration from "@/components/tools/elements/ToolIteration";
 import ToolRange from "@/components/tools/elements/ToolRange.tsx";
 import ToolScrollable from "@/components/tools/elements/ToolScrollable.tsx";
 import ToolSection from "@/components/tools/elements/ToolSection.tsx";
+import ToolSelector from "@/components/tools/elements/ToolSelector";
 import ToolSlot from "@/components/tools/elements/ToolSlot.tsx";
 import ToolSwitch from "@/components/tools/elements/ToolSwitch.tsx";
 import ToolSwitchSlot from "@/components/tools/elements/ToolSwitchSlot.tsx";
-import Donation from "@/components/tools/elements/Donation";
-import ToolReveal from "@/components/tools/elements/schema/reveal/ToolReveal";
 import ToolProperty from "@/components/tools/elements/schema/property/ToolProperty";
-import ToolSelector from "@/components/tools/elements/ToolSelector";
-import ToolGrid from "@/components/tools/elements/ToolGrid";
+import ToolReveal from "@/components/tools/elements/schema/reveal/ToolReveal";
+import ToolTagViewer from "@/components/tools/elements/schema/tags/ToolTagViewer";
 import TextRender from "@/components/tools/elements/text/TextRender.tsx";
-import ToolFlexible from "@/components/tools/elements/ToolFlexible";
 import type { Analysers } from "@/lib/minecraft/core/engine/Analyser";
 import { checkCondition } from "@/lib/minecraft/core/engine/condition";
 import { checkLocks } from "@/lib/minecraft/core/engine/renderer/index";
+import { getValue } from "@/lib/minecraft/core/engine/renderer/value";
 import type { FormComponent } from "@/lib/minecraft/core/schema/primitive/component.ts";
 import { getKey } from "@/lib/minecraft/i18n/translations";
-import { getValue } from "@/lib/minecraft/core/engine/renderer/value";
+import { useConfiguratorStore } from "@/lib/store/configuratorStore";
 
 export function RenderComponent<T extends keyof Analysers>({ component }: { component: FormComponent }) {
     const store = useConfiguratorStore();

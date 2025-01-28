@@ -1,14 +1,14 @@
-import { useState } from "react";
-import { cn } from "@/lib/utils";
-import { useClickOutside } from "@/lib/hook/useClickOutside";
 import { InnerGlow } from "@/components/tools/artificial/InnerGlow";
 import { RenderAIContent } from "@/components/tools/artificial/RenderAIContent";
-import { useAIStream, type IActionResponse } from "@/lib/hook/useAIStream";
-import { useConfiguratorStore } from "@/lib/store/configuratorStore";
+import { useTranslate } from "@/components/useTranslate";
+import { type IActionResponse, useAIStream } from "@/lib/hook/useAIStream";
+import { useClickOutside } from "@/lib/hook/useClickOutside";
 import { Identifier } from "@/lib/minecraft/core/Identifier";
 import { SplitSequentialAction } from "@/lib/minecraft/core/engine/actions";
+import { useConfiguratorStore } from "@/lib/store/configuratorStore";
+import { cn } from "@/lib/utils";
+import { useState } from "react";
 import type { PropsConfirmationCardAI } from "./ConfirmationCardAI";
-import { useTranslate } from "@/components/useTranslate";
 
 export const Island: React.FC = () => {
     const { t } = useTranslate();

@@ -1,8 +1,8 @@
-import type { APIRoute } from "astro";
-import Stripe from "stripe";
-import { Resend } from "resend";
-import VoxelReceiptEmail, { type EmailProductData } from "emails/marketplace/receipt";
 import { render } from "@react-email/components";
+import type { APIRoute } from "astro";
+import VoxelReceiptEmail, { type EmailProductData } from "emails/marketplace/receipt";
+import { Resend } from "resend";
+import Stripe from "stripe";
 
 if (!import.meta.env.STRIPE_SECRET_KEY) {
     throw new Error("STRIPE_SECRET_KEY is not defined in environment variables");

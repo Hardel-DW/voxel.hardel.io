@@ -40,7 +40,7 @@ export const useComputedTag = (
  * // Fetch sword attribute tag
  * const { data } = useTag('enchantment', 'exclusive_set', 'sword_attribute')
  * // Makes request to: /api/engine/tags/get?registry=enchantment&path=exclusive_set&fileName=sword_attribute&namespace=minecraft
- * 
+ *
  * @param registry - The registry type (e.g., 'enchantment', 'block', etc.)
  * @param path - The tag path (e.g., 'exclusive_set')
  * @param fileName - The tag file name

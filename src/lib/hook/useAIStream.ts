@@ -1,9 +1,9 @@
-import { useState } from "react";
-import { useConfiguratorStore } from "@/lib/store/configuratorStore";
 import { searchRelevantElements } from "@/lib/searchElements";
-import { JSONBuilder } from "../utils/JSONBuilder";
-import type { Action } from "../minecraft/core/engine/actions";
+import { useConfiguratorStore } from "@/lib/store/configuratorStore";
+import { useState } from "react";
 import type { Identifier } from "../minecraft/core/Identifier";
+import type { Action } from "../minecraft/core/engine/actions";
+import { JSONBuilder } from "../utils/JSONBuilder";
 
 interface UseAIStreamReturn {
     streamingText: string;

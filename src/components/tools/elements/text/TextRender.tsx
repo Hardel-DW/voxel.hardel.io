@@ -1,6 +1,6 @@
-import translate from "@/lib/minecraft/i18n/translate";
 import ToolUnorderedList from "@/components/tools/elements/text/ToolUnorderedList";
 import type { TextContent } from "@/lib/minecraft/core/schema/primitive/text";
+import translate from "@/lib/minecraft/i18n/translate";
 
 export default function TextRender({ content }: { content: TextContent[] }) {
     const renderContent = (element: TextContent) => {

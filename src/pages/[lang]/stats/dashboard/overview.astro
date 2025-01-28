@@ -1,17 +1,17 @@
 ---
 import DashboardLayout from "@/components/layouts/DashboardLayout.astro";
+import type { Props as SidebarProps } from "@/components/layouts/compound/sidebar.astro";
+import { DashboardBarChart } from "@/components/pages/stats/DashboardBarChart.tsx";
 import { DashboardInteractiveAreaChart } from "@/components/pages/stats/DashboardInteractiveAreaChart.tsx";
 import { DashboardPieChart } from "@/components/pages/stats/DashboardPieChart.tsx";
-import { DashboardBarChart } from "@/components/pages/stats/DashboardBarChart.tsx";
-import { GET as getMigrationsByDays } from "@/pages/api/stats/migrations";
-import { GET as getVersions } from "@/pages/api/stats/versions";
-import { GET as getNamespaces } from "@/pages/api/stats/namespaces";
-import type { ResponseVersionsStats } from "@/pages/api/stats/versions";
-import type { ResponseNamespaceStats } from "@/pages/api/stats/namespaces";
-import type { ResponseMigrationsByDays } from "@/pages/api/stats/migrations";
-import { snakeToTitleCase } from "@/lib/utils";
 import { getTranslations } from "@/lib/i18n";
-import type { Props as SidebarProps } from "@/components/layouts/compound/sidebar.astro";
+import { snakeToTitleCase } from "@/lib/utils";
+import { GET as getMigrationsByDays } from "@/pages/api/stats/migrations";
+import type { ResponseMigrationsByDays } from "@/pages/api/stats/migrations";
+import { GET as getNamespaces } from "@/pages/api/stats/namespaces";
+import type { ResponseNamespaceStats } from "@/pages/api/stats/namespaces";
+import { GET as getVersions } from "@/pages/api/stats/versions";
+import type { ResponseVersionsStats } from "@/pages/api/stats/versions";
 
 const [migrationsResponse, versionsResponse, namespaceResponse] = await Promise.all([
     getMigrationsByDays(Astro),

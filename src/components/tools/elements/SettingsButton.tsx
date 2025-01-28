@@ -1,6 +1,6 @@
-import { useConfiguratorStore } from "@/lib/store/configuratorStore";
 import Button from "@/components/ui/react/Button.tsx";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/shadcn/popover.tsx";
+import { useConfiguratorStore } from "@/lib/store/configuratorStore";
 
 export default function SettingsButton() {
     const store = useConfiguratorStore();

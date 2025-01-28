@@ -1,4 +1,4 @@
-import { useStudioContext } from "@/components/pages/tools/studio/StudioContext.tsx";
+import { useStudioContext } from "@/components/pages/tools/studio/hooks/useStudioContext";
 import { cn } from "@/lib/utils.ts";
 import type React from "react";
 import { useCallback } from "react";

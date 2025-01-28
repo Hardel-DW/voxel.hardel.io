@@ -1,7 +1,7 @@
-import { useState, useMemo } from "react";
-import type { ReactNode } from "react";
 import type { LanguageCode, TranslationKey } from "@/lib/minecraft/i18n/types";
-import { i18nInstance, TranslateContext } from "./useTranslate";
+import { useMemo, useState } from "react";
+import type { ReactNode } from "react";
+import { TranslateContext, i18nInstance } from "./useTranslate";
 
 export interface TranslateContextType {
     lang: LanguageCode;

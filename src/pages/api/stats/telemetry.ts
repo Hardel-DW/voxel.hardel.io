@@ -1,8 +1,8 @@
-import type { APIRoute } from "astro";
 import { db } from "@/database/db";
 import { telemetry } from "@/database/schema";
-import { eq, sql } from "drizzle-orm";
 import generateUUID from "@/lib/utils/uuid";
+import type { APIRoute } from "astro";
+import { eq, sql } from "drizzle-orm";
 
 export const POST: APIRoute = async ({ request }) => {
     try {

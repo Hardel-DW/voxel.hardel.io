@@ -1,5 +1,5 @@
-import translate from "@/lib/minecraft/i18n/translate";
 import type { TranslateTextType } from "@/lib/minecraft/core/schema/primitive/text";
+import translate from "@/lib/minecraft/i18n/translate";
 
 export default function ToolSwitch(props: {
     title: TranslateTextType | string;

@@ -1,5 +1,5 @@
 import type { ModMetadata } from "@/lib/minecraft/converter";
-import { ModPlatforms, DEFAULT_MOD_METADATA } from "@/lib/minecraft/converter";
+import { DEFAULT_MOD_METADATA, ModPlatforms } from "@/lib/minecraft/converter";
 
 /**
  * Generates TOML content for Forge/NeoForge mods

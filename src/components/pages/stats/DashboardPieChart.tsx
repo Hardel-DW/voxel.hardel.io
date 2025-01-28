@@ -1,7 +1,7 @@
-import * as React from "react";
-import { Label, Pie, PieChart, Cell } from "recharts";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/shadcn/card";
 import { ChartContainer, ChartLegend, ChartLegendContent, ChartTooltip, ChartTooltipContent } from "@/components/ui/shadcn/recharts";
+import * as React from "react";
+import { Cell, Label, Pie, PieChart } from "recharts";
 
 export function DashboardPieChart(props: {
     data: {

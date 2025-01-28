@@ -1,5 +1,5 @@
-import translate from "@/lib/minecraft/i18n/translate";
 import type { TranslateTextType } from "@/lib/minecraft/core/schema/primitive/text";
+import translate from "@/lib/minecraft/i18n/translate";
 import { cn } from "@/lib/utils.ts";
 
 export default function ToolSwitchSlot(props: {

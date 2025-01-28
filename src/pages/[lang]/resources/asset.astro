@@ -1,16 +1,16 @@
 ---
 import { getCollection } from "astro:content";
 import PageLayout from "@/components/layouts/PageLayout.astro";
-import Disclosure from "@/components/ui/Disclosure.astro";
-import { names } from "@/lib/i18n";
-import IconButton from "@/components/ui/IconButton.astro";
-import { getTranslations } from "@/lib/i18n";
 import GroupItem from "@/components/pages/resource/GroupItem.astro";
+import Box from "@/components/ui/Box.astro";
+import Disclosure from "@/components/ui/Disclosure.astro";
+import IconButton from "@/components/ui/IconButton.astro";
 import StripeScript from "@/components/ui/Stripe.astro";
 import Button from "@/components/ui/button.astro";
-import Box from "@/components/ui/Box.astro";
 import { db } from "@/database/db";
 import { product } from "@/database/schema";
+import { names } from "@/lib/i18n";
+import { getTranslations } from "@/lib/i18n";
 import Stripe from "stripe";
 
 const stripe = new Stripe(import.meta.env.STRIPE_SECRET_KEY, {

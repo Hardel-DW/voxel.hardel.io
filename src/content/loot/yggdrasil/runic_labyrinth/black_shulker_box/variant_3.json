@@ -1,36 +1,36 @@
 {
-	"items": [
-		{
-			"id": "minecraft:totem_of_undying",
-			"count": 1
-		},
-		{
-			"id": "minecraft:golden_apple",
-			"count": {
-				"min": 2,
-				"max": 4
-			}
-		},
-		{
-			"id": "minecraft:spectral_arrow",
-			"count": {
-				"min": 16,
-				"max": 32
-			}
-		},
-		{
-			"id": "minecraft:potion",
-			"description": "Strong Healing",
-			"count": 1
-		},
-		{
-			"id": "minecraft:shield",
-			"description": "Enchanté (20-30)",
-			"count": 1
-		},
-		{
-			"id": "minecraft:enchanted_golden_apple",
-			"count": 1
-		}
-	]
+    "items": [
+        {
+            "id": "minecraft:totem_of_undying",
+            "count": 1
+        },
+        {
+            "id": "minecraft:golden_apple",
+            "count": {
+                "min": 2,
+                "max": 4
+            }
+        },
+        {
+            "id": "minecraft:spectral_arrow",
+            "count": {
+                "min": 16,
+                "max": 32
+            }
+        },
+        {
+            "id": "minecraft:potion",
+            "description": "Strong Healing",
+            "count": 1
+        },
+        {
+            "id": "minecraft:shield",
+            "description": "Enchanté (20-30)",
+            "count": 1
+        },
+        {
+            "id": "minecraft:enchanted_golden_apple",
+            "count": 1
+        }
+    ]
 }

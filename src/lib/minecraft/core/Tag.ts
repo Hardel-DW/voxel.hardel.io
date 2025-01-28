@@ -36,7 +36,7 @@ export const tagsToIdentifiers = (tags: string[], registry?: string): Identifier
 };
 
 export const getTagsFromRegistry = (el: TagType): string[] => {
-    return el.values.map((value) => typeof value === "string" ? value : value.id);
+    return el.values.map((value) => (typeof value === "string" ? value : value.id));
 };
 
 export const isTag = (element: RegistryElement<unknown>): element is RegistryElement<TagType> => {

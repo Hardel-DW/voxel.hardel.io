@@ -1,13 +1,13 @@
 ---
-import Navigation from "@/components/layouts/compound/navbar/Navigation.astro";
-import NavigationList from "@/components/layouts/compound/navbar/NavigationList.astro";
-import NavigationDropdown from "@/components/layouts/compound/navbar/NavigationDropdown.astro";
-import ListItem from "@/components/layouts/compound/navbar/ListItem.astro";
+import Internalization from "@/components/layouts/compound/internalization.astro";
 import HeroCard from "@/components/layouts/compound/navbar/HeroCard.astro";
+import ListItem from "@/components/layouts/compound/navbar/ListItem.astro";
+import Navigation from "@/components/layouts/compound/navbar/Navigation.astro";
+import NavigationDropdown from "@/components/layouts/compound/navbar/NavigationDropdown.astro";
+import NavigationList from "@/components/layouts/compound/navbar/NavigationList.astro";
 import Button from "@/components/ui/button.astro";
 import { getTranslations } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
-import Internalization from "@/components/layouts/compound/internalization.astro";
 
 const { translate, lang } = await getTranslations(Astro.url);
 const links = [

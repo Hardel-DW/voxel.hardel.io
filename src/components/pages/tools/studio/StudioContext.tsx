@@ -1,21 +1,6 @@
-import React, { createContext, useCallback, useContext, useMemo, useState } from "react";
+import React, { useCallback, useMemo, useState } from "react";
+import { StudioContext } from "./hooks/useStudioContext";
 import type { AnyGridObject, BlueprintObject, LinkObject, Position, TemporaryLinkObject } from "./types";
-
-type StudioContextType = {
-    gridObjects: AnyGridObject[];
-    createBlueprint: () => void;
-    updateGridObject: (id: string, updates: Partial<AnyGridObject>) => void;
-    removeGridObject: (id: string) => void;
-
-    startLinking: (sourceId: string, sourceFieldId: string, startX: number, startY: number) => void;
-    finishLinking: (targetId: string, targetFieldId: string) => void;
-    isLinking: boolean;
-    updateTemporaryLink: (endPosition: Position) => void;
-    cancelLinking: () => void;
-    updateFieldValue: (objectId: string, fieldId: string, value: any) => void;
-};
-
-const StudioContext = createContext<StudioContextType | undefined>(undefined);
 
 const defaultBlueprints: BlueprintObject[] = [
     {
@@ -192,12 +177,4 @@ export function StudioProvider({ children }: { children: React.ReactNode }) {
             {children}
         </StudioContext.Provider>
     );
-}
-
-export function useStudioContext() {
-    const context = useContext(StudioContext);
-    if (context === undefined) {
-        throw new Error("useStudioContext must be used within a StudioProvider");
-    }
-    return context;
 }

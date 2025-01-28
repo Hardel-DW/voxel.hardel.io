@@ -1,7 +1,7 @@
 import { RenderComponent } from "@/components/tools/RenderComponent.tsx";
-import translate from "@/lib/minecraft/i18n/translate";
 import type { FormComponent } from "@/lib/minecraft/core/schema/primitive/component.ts";
 import type { TranslateTextType } from "@/lib/minecraft/core/schema/primitive/text";
+import translate from "@/lib/minecraft/i18n/translate";
 
 export default function ToolCategory(props: {
     title: TranslateTextType | string;

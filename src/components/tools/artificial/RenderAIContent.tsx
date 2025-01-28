@@ -1,6 +1,6 @@
 import ConfirmationCardAI, { type PropsConfirmationCardAI } from "@/components/tools/artificial/ConfirmationCardAI";
-import type { Identifier } from "@/lib/minecraft/core/Identifier";
 import Reference from "@/components/tools/artificial/Reference";
+import type { Identifier } from "@/lib/minecraft/core/Identifier";
 
 interface Props {
     content: string;

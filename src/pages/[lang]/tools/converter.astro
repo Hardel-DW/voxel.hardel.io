@@ -1,13 +1,13 @@
 ---
-import ShiningStars from "@/components/ui/pattern/ShiningStars.astro";
-import { getTranslations, names } from "@/lib/i18n";
-import CompoundLayout from "@/components/layouts/CompoundLayout.astro";
-import Star from "@/components/ui/star.astro";
-import Button from "@/components/ui/button.astro";
 import { Image } from "astro:assets";
-import DashedPattern from "@/components/ui/pattern/DashedPattern.astro";
-import Walkthrough from "@/components/ui/Walkthrough.astro";
+import CompoundLayout from "@/components/layouts/CompoundLayout.astro";
 import DatapackDropzone from "@/components/pages/tools/converter/DatapackDropzone";
+import Walkthrough from "@/components/ui/Walkthrough.astro";
+import Button from "@/components/ui/button.astro";
+import DashedPattern from "@/components/ui/pattern/DashedPattern.astro";
+import ShiningStars from "@/components/ui/pattern/ShiningStars.astro";
+import Star from "@/components/ui/star.astro";
+import { getTranslations, names } from "@/lib/i18n";
 
 const { lang, translate } = await getTranslations(Astro.url);
 

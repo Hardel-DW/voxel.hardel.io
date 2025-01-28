@@ -1,4 +1,3 @@
-import { create } from "zustand";
 import type { Identifier } from "@/lib/minecraft/core/Identifier";
 import type { Analysers, GetAnalyserVoxel } from "@/lib/minecraft/core/engine/Analyser";
 import type { Action, ActionValue } from "@/lib/minecraft/core/engine/actions";
@@ -7,6 +6,7 @@ import type { Logger } from "@/lib/minecraft/core/engine/migrations/logger";
 import type { ToolConfiguration } from "@/lib/minecraft/core/schema/primitive";
 import type { ToggleSection } from "@/lib/minecraft/core/schema/primitive/toggle";
 import type { RegistryElement } from "@/lib/minecraft/mczip";
+import { create } from "zustand";
 
 export interface ConfiguratorState<T extends keyof Analysers> {
     name: string;

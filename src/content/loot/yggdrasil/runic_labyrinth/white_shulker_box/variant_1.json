@@ -1,58 +1,58 @@
 {
-	"items": [
-		{
-			"id": "minecraft:diamond",
-			"count": {
-				"min": 2,
-				"max": 5
-			}
-		},
-		{
-			"id": "minecraft:emerald",
-			"count": {
-				"min": 3,
-				"max": 8
-			}
-		},
-		{
-			"id": "minecraft:gold_ingot",
-			"count": {
-				"min": 3,
-				"max": 8
-			}
-		},
-		{
-			"id": "minecraft:firework_rocket",
-			"description": "Vol 3",
-			"count": {
-				"min": 8,
-				"max": 16
-			}
-		},
-		{
-			"id": "minecraft:wind_charge",
-			"count": {
-				"min": 4,
-				"max": 12
-			}
-		},
-		{
-			"id": "minecraft:netherite_scrap",
-			"count": {
-				"min": 1,
-				"max": 2
-			}
-		},
-		{
-			"id": "minecraft:ancient_debris",
-			"count": 1
-		},
-		{
-			"id": "minecraft:experience_bottle",
-			"count": {
-				"min": 4,
-				"max": 12
-			}
-		}
-	]
+    "items": [
+        {
+            "id": "minecraft:diamond",
+            "count": {
+                "min": 2,
+                "max": 5
+            }
+        },
+        {
+            "id": "minecraft:emerald",
+            "count": {
+                "min": 3,
+                "max": 8
+            }
+        },
+        {
+            "id": "minecraft:gold_ingot",
+            "count": {
+                "min": 3,
+                "max": 8
+            }
+        },
+        {
+            "id": "minecraft:firework_rocket",
+            "description": "Vol 3",
+            "count": {
+                "min": 8,
+                "max": 16
+            }
+        },
+        {
+            "id": "minecraft:wind_charge",
+            "count": {
+                "min": 4,
+                "max": 12
+            }
+        },
+        {
+            "id": "minecraft:netherite_scrap",
+            "count": {
+                "min": 1,
+                "max": 2
+            }
+        },
+        {
+            "id": "minecraft:ancient_debris",
+            "count": 1
+        },
+        {
+            "id": "minecraft:experience_bottle",
+            "count": {
+                "min": 4,
+                "max": 12
+            }
+        }
+    ]
 }

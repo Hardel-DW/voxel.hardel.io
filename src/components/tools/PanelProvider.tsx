@@ -1,7 +1,7 @@
+import { TranslateProvider } from "@/components/TranslateContext";
 import { TooltipProvider } from "@radix-ui/react-tooltip";
 import type React from "react";
 import { Toaster } from "sonner";
-import { TranslateProvider } from "@/components/TranslateContext";
 
 export default function PanelProvider(props: {
     lang: string;

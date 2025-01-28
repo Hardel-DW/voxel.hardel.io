@@ -1,5 +1,5 @@
-import translate from "@/lib/minecraft/i18n/translate";
 import type { TranslateTextType } from "@/lib/minecraft/core/schema/primitive/text";
+import translate from "@/lib/minecraft/i18n/translate";
 import type { InputHTMLAttributes } from "react";
 
 interface Props extends Omit<InputHTMLAttributes<HTMLInputElement>, "onChange"> {

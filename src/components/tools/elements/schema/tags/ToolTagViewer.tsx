@@ -1,10 +1,10 @@
-import { useConfiguratorStore } from "@/lib/store/configuratorStore";
-import { Identifier } from "@/lib/minecraft/core/Identifier";
-import { compileDatapack, getIdentifierFromCompiler } from "@/lib/minecraft/core/engine/Compiler";
-import { isTag } from "@/lib/minecraft/core/Tag";
 import { TagLoader } from "@/components/tools/elements/schema/tags/TagLoader";
 import { ToolTagCard } from "@/components/tools/elements/schema/tags/ToolTagCard";
+import { Identifier } from "@/lib/minecraft/core/Identifier";
+import { isTag } from "@/lib/minecraft/core/Tag";
+import { compileDatapack, getIdentifierFromCompiler } from "@/lib/minecraft/core/engine/Compiler";
 import type { TagViewerInclude } from "@/lib/minecraft/core/schema/primitive/component";
+import { useConfiguratorStore } from "@/lib/store/configuratorStore";
 
 export default function ToolTagViewer(props: {
     field?: string;

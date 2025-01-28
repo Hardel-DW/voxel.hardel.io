@@ -1,16 +1,16 @@
+import type { ConfiguratorConfigFromDatapack } from "@/lib/minecraft/core/Configurator.ts";
 import type { Compiler } from "@/lib/minecraft/core/engine/Compiler.ts";
 import type { Parser } from "@/lib/minecraft/core/engine/Parser.ts";
+import { ENCHANT_TOOL_CONFIG } from "@/lib/minecraft/core/schema/enchant";
 import {
     DataDrivenToVoxelFormat,
-    enchantmentProperties,
     type EnchantmentProps,
-    VoxelToDataDriven
+    VoxelToDataDriven,
+    enchantmentProperties
 } from "@/lib/minecraft/core/schema/enchant/EnchantmentProps.ts";
-import { ENCHANT_TOOL_CONFIG } from "@/lib/minecraft/core/schema/enchant";
 import type { ToolConfiguration } from "@/lib/minecraft/core/schema/primitive";
-import type { Enchantment } from "@voxel/definitions";
-import type { ConfiguratorConfigFromDatapack } from "@/lib/minecraft/core/Configurator.ts";
 import type { FieldProperties } from "@/lib/minecraft/core/schema/primitive/properties";
+import type { Enchantment } from "@voxel/definitions";
 
 export type DataDrivenElement = Record<string, unknown>;
 export interface VoxelElement extends Record<string, unknown> {

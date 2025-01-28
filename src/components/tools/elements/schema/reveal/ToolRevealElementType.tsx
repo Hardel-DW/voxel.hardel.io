@@ -1,7 +1,7 @@
-import { useTranslate } from "@/components/useTranslate";
 import Button from "@/components/ui/react/Button.tsx";
-import translate from "@/lib/minecraft/i18n/translate";
+import { useTranslate } from "@/components/useTranslate";
 import type { TranslateTextType } from "@/lib/minecraft/core/schema/primitive/text";
+import translate from "@/lib/minecraft/i18n/translate";
 import { cn } from "@/lib/utils.ts";
 import { toast } from "sonner";
 

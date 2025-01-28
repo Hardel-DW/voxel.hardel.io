@@ -1,70 +1,70 @@
 {
-	"items": [
-		{
-			"id": "minecraft:stone_sword",
-			"description": "Peut être enchanté (30% de chance)",
-			"count": 1
-		},
-		{
-			"id": "minecraft:iron_helmet",
-			"description": "Peut être enchanté (30% de chance)",
-			"count": 1
-		},
-		{
-			"id": "minecraft:iron_chestplate",
-			"description": "Peut être enchanté (30% de chance)",
-			"count": 1
-		},
-		{
-			"id": "minecraft:stone_axe",
-			"description": "Peut être enchanté (30% de chance)",
-			"count": 1
-		},
-		{
-			"id": "minecraft:stone_pickaxe",
-			"description": "Peut être enchanté (30% de chance)",
-			"count": 1
-		},
-		{
-			"id": "minecraft:iron_boots",
-			"description": "Peut être enchanté (30% de chance)",
-			"count": 1
-		},
-		{
-			"id": "minecraft:shield",
-			"count": 1
-		},
-		{
-			"id": "minecraft:iron_leggings",
-			"description": "Peut être enchanté (30% de chance)",
-			"count": 1
-		},
-		{
-			"id": "minecraft:chainmail_helmet",
-			"description": "Peut être enchanté (30% de chance)",
-			"count": 1
-		},
-		{
-			"id": "minecraft:stone_shovel",
-			"description": "Peut être enchanté (30% de chance)",
-			"count": 1
-		},
-		{
-			"id": "minecraft:leather_chestplate",
-			"description": "Peut être enchanté (30% de chance)",
-			"count": 1
-		},
-		{
-			"id": "minecraft:bow",
-			"description": "Peut être enchanté (30% de chance)",
-			"count": 1
-		},
-		{
-			"id": "minecraft:arrow",
-			"count": {
-				"min": 4,
-				"max": 16
-			}
-		}
-	]
+    "items": [
+        {
+            "id": "minecraft:stone_sword",
+            "description": "Peut être enchanté (30% de chance)",
+            "count": 1
+        },
+        {
+            "id": "minecraft:iron_helmet",
+            "description": "Peut être enchanté (30% de chance)",
+            "count": 1
+        },
+        {
+            "id": "minecraft:iron_chestplate",
+            "description": "Peut être enchanté (30% de chance)",
+            "count": 1
+        },
+        {
+            "id": "minecraft:stone_axe",
+            "description": "Peut être enchanté (30% de chance)",
+            "count": 1
+        },
+        {
+            "id": "minecraft:stone_pickaxe",
+            "description": "Peut être enchanté (30% de chance)",
+            "count": 1
+        },
+        {
+            "id": "minecraft:iron_boots",
+            "description": "Peut être enchanté (30% de chance)",
+            "count": 1
+        },
+        {
+            "id": "minecraft:shield",
+            "count": 1
+        },
+        {
+            "id": "minecraft:iron_leggings",
+            "description": "Peut être enchanté (30% de chance)",
+            "count": 1
+        },
+        {
+            "id": "minecraft:chainmail_helmet",
+            "description": "Peut être enchanté (30% de chance)",
+            "count": 1
+        },
+        {
+            "id": "minecraft:stone_shovel",
+            "description": "Peut être enchanté (30% de chance)",
+            "count": 1
+        },
+        {
+            "id": "minecraft:leather_chestplate",
+            "description": "Peut être enchanté (30% de chance)",
+            "count": 1
+        },
+        {
+            "id": "minecraft:bow",
+            "description": "Peut être enchanté (30% de chance)",
+            "count": 1
+        },
+        {
+            "id": "minecraft:arrow",
+            "count": {
+                "min": 4,
+                "max": 16
+            }
+        }
+    ]
 }

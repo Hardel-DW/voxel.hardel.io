@@ -1,7 +1,7 @@
+import { RegistryElement } from "@/components/tools/debug/RegistryElement";
 import type { Analysers } from "@/lib/minecraft/core/engine/Analyser";
 import type { CompileDatapackResult } from "@/lib/minecraft/core/engine/Compiler";
 import { getIdentifierFromCompiler } from "@/lib/minecraft/core/engine/Compiler";
-import { RegistryElement } from "@/components/tools/debug/RegistryElement";
 
 interface NamespaceElementProps {
     namespace: string;

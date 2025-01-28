@@ -1,8 +1,8 @@
 import { db } from "@/database/db";
 import { migrationLog } from "@/database/schema";
-import { sql } from "drizzle-orm";
-import type { APIRoute } from "astro";
 import { getDescription } from "@/lib/minecraft/core/Version";
+import type { APIRoute } from "astro";
+import { sql } from "drizzle-orm";
 
 type MonthlyStats = {
     month: string;

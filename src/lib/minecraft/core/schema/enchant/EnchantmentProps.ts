@@ -1,13 +1,13 @@
+import { Identifier } from "@/lib/minecraft/core/Identifier";
+import { tagsToIdentifiers } from "@/lib/minecraft/core/Tag";
 import type { Analysers, VoxelElement } from "@/lib/minecraft/core/engine/Analyser.ts";
 import type { Compiler } from "@/lib/minecraft/core/engine/Compiler.ts";
 import type { Parser, ParserParams } from "@/lib/minecraft/core/engine/Parser.ts";
 import type { SlotRegistryType } from "@/lib/minecraft/core/engine/managers/SlotManager.ts";
-import type { RegistryElement } from "@/lib/minecraft/mczip.ts";
 import type { FieldProperties } from "@/lib/minecraft/core/schema/primitive/properties";
-import type { EffectComponentsRecord, Enchantment, TextComponentType } from "@voxel/definitions";
 import { I18n } from "@/lib/minecraft/i18n/i18n";
-import { tagsToIdentifiers } from "@/lib/minecraft/core/Tag";
-import { Identifier } from "@/lib/minecraft/core/Identifier";
+import type { RegistryElement } from "@/lib/minecraft/mczip.ts";
+import type { EffectComponentsRecord, Enchantment, TextComponentType } from "@voxel/definitions";
 
 const tags_related_to_functionality = [
     new Identifier("minecraft", "tags/enchantment", "curse", true),

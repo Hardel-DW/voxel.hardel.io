@@ -1,21 +1,21 @@
 {
-	"items": [
-		{
-			"id": "minecraft:bow",
-			"description": "Arc légendaire du Crépuscule d'Yggdrasil",
-			"attributes": {
-				"movement_speed": "+115%",
-				"knockback_resistance": "+25%",
-				"jump_strength": "+3",
-				"safe_fall_distance": "+7",
-				"gravity": "+125%"
-			},
-			"properties": {
-				"unbreakable": true,
-				"name": "Twilight of Yggdrasil Bow",
-				"lore": "Arc légendaire forgé dans le crépuscule d'Yggdrasil"
-			},
-			"count": 1
-		}
-	]
+    "items": [
+        {
+            "id": "minecraft:bow",
+            "description": "Arc légendaire du Crépuscule d'Yggdrasil",
+            "attributes": {
+                "movement_speed": "+115%",
+                "knockback_resistance": "+25%",
+                "jump_strength": "+3",
+                "safe_fall_distance": "+7",
+                "gravity": "+125%"
+            },
+            "properties": {
+                "unbreakable": true,
+                "name": "Twilight of Yggdrasil Bow",
+                "lore": "Arc légendaire forgé dans le crépuscule d'Yggdrasil"
+            },
+            "count": 1
+        }
+    ]
 }

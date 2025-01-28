@@ -1,10 +1,10 @@
+import { CodeSection } from "@/components/tools/debug/CodeSection";
+import { RegistrySection } from "@/components/tools/debug/RegistrySection";
 import type { Analysers, versionedAnalyserCollection } from "@/lib/minecraft/core/engine/Analyser.ts";
-import { compileDatapack, getIdentifierFromCompiler, type CompileDatapackResult } from "@/lib/minecraft/core/engine/Compiler.ts";
+import { type CompileDatapackResult, compileDatapack, getIdentifierFromCompiler } from "@/lib/minecraft/core/engine/Compiler.ts";
+import { useConfiguratorStore } from "@/lib/store/configuratorStore";
 import { useState } from "react";
 import { createPortal } from "react-dom";
-import { useConfiguratorStore } from "@/lib/store/configuratorStore";
-import { RegistrySection } from "@/components/tools/debug/RegistrySection";
-import { CodeSection } from "@/components/tools/debug/CodeSection";
 
 export default function DebugConfigurator() {
     const [isDebugging, setIsDebugging] = useState(false);

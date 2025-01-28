@@ -1,6 +1,6 @@
 import type { Analysers, GetAnalyserVoxel } from "@/lib/minecraft/core/engine/Analyser.ts";
+import { type Condition, checkCondition } from "@/lib/minecraft/core/engine/condition";
 import type { RegistryElement } from "@/lib/minecraft/mczip.ts";
-import { checkCondition, type Condition } from "@/lib/minecraft/core/engine/condition";
 
 type ConditionnalValueRendererBase = {
     type: "conditionnal";

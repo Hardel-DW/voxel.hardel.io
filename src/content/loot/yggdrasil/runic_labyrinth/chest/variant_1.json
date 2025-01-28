@@ -1,103 +1,103 @@
 {
-	"items": [
-		{
-			"id": "minecraft:black_concrete",
-			"count": {
-				"min": 8,
-				"max": 16
-			}
-		},
-		{
-			"id": "minecraft:white_concrete",
-			"count": {
-				"min": 8,
-				"max": 16
-			}
-		},
-		{
-			"id": "minecraft:quartz_block",
-			"count": {
-				"min": 4,
-				"max": 12
-			}
-		},
-		{
-			"id": "minecraft:deepslate_tiles",
-			"count": {
-				"min": 8,
-				"max": 24
-			}
-		},
-		{
-			"id": "minecraft:amethyst_block",
-			"count": {
-				"min": 1,
-				"max": 3
-			}
-		},
-		{
-			"id": "minecraft:fire_charge",
-			"count": {
-				"min": 2,
-				"max": 6
-			}
-		},
-		{
-			"id": "minecraft:ender_pearl",
-			"count": {
-				"min": 1,
-				"max": 3
-			}
-		},
-		{
-			"id": "minecraft:music_disc_13",
-			"count": 1
-		},
-		{
-			"id": "minecraft:polished_deepslate",
-			"count": {
-				"min": 8,
-				"max": 24
-			}
-		},
-		{
-			"id": "minecraft:chiseled_quartz_block",
-			"count": {
-				"min": 2,
-				"max": 8
-			}
-		},
-		{
-			"id": "minecraft:calcite",
-			"count": {
-				"min": 8,
-				"max": 16
-			}
-		},
-		{
-			"id": "minecraft:tinted_glass",
-			"count": {
-				"min": 4,
-				"max": 12
-			}
-		},
-		{
-			"id": "minecraft:amethyst_shard",
-			"count": {
-				"min": 4,
-				"max": 12
-			}
-		},
-		{
-			"id": "minecraft:music_disc_wait",
-			"count": 1
-		},
-		{
-			"id": "minecraft:chain",
-			"count": {
-				"min": 4,
-				"max": 16
-			}
-		}
-	]
+    "items": [
+        {
+            "id": "minecraft:black_concrete",
+            "count": {
+                "min": 8,
+                "max": 16
+            }
+        },
+        {
+            "id": "minecraft:white_concrete",
+            "count": {
+                "min": 8,
+                "max": 16
+            }
+        },
+        {
+            "id": "minecraft:quartz_block",
+            "count": {
+                "min": 4,
+                "max": 12
+            }
+        },
+        {
+            "id": "minecraft:deepslate_tiles",
+            "count": {
+                "min": 8,
+                "max": 24
+            }
+        },
+        {
+            "id": "minecraft:amethyst_block",
+            "count": {
+                "min": 1,
+                "max": 3
+            }
+        },
+        {
+            "id": "minecraft:fire_charge",
+            "count": {
+                "min": 2,
+                "max": 6
+            }
+        },
+        {
+            "id": "minecraft:ender_pearl",
+            "count": {
+                "min": 1,
+                "max": 3
+            }
+        },
+        {
+            "id": "minecraft:music_disc_13",
+            "count": 1
+        },
+        {
+            "id": "minecraft:polished_deepslate",
+            "count": {
+                "min": 8,
+                "max": 24
+            }
+        },
+        {
+            "id": "minecraft:chiseled_quartz_block",
+            "count": {
+                "min": 2,
+                "max": 8
+            }
+        },
+        {
+            "id": "minecraft:calcite",
+            "count": {
+                "min": 8,
+                "max": 16
+            }
+        },
+        {
+            "id": "minecraft:tinted_glass",
+            "count": {
+                "min": 4,
+                "max": 12
+            }
+        },
+        {
+            "id": "minecraft:amethyst_shard",
+            "count": {
+                "min": 4,
+                "max": 12
+            }
+        },
+        {
+            "id": "minecraft:music_disc_wait",
+            "count": 1
+        },
+        {
+            "id": "minecraft:chain",
+            "count": {
+                "min": 4,
+                "max": 16
+            }
+        }
+    ]
 }

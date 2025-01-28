@@ -261,26 +261,11 @@ export const exclusive: InterfaceConfiguration = {
                             type: "TagViewer",
                             registry: "tags/enchantment",
                             field: "exclusiveSet",
-                            additional: {
-                                "#minecraft:exclusive_set/armor": [
-                                    "minecraft:protection",
-                                    "minecraft:blast_protection",
-                                    "minecraft:fire_protection",
-                                    "minecraft:projectile_protection"
-                                ],
-                                "#minecraft:exclusive_set/boots": ["minecraft:frost_walker", "minecraft:depth_strider"],
-                                "#minecraft:exclusive_set/bow": ["minecraft:infinity", "minecraft:mending"],
-                                "#minecraft:exclusive_set/crossbow": ["minecraft:multishot", "minecraft:piercing"],
-                                "#minecraft:exclusive_set/damage": [
-                                    "minecraft:sharpness",
-                                    "minecraft:smite",
-                                    "minecraft:bane_of_arthropods",
-                                    "minecraft:impaling",
-                                    "minecraft:density",
-                                    "minecraft:breach"
-                                ],
-                                "#minecraft:mining": ["minecraft:fortune", "minecraft:silk_touch"],
-                                "#minecraft:exclusive_set/riptide": ["minecraft:loyalty", "minecraft:channeling"]
+                            include: {
+                                namespace: "minecraft",
+                                registry: "enchantment",
+                                path: "exclusive_set",
+                                nested: false
                             }
                         }
                     ]

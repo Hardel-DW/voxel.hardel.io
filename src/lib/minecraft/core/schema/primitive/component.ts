@@ -61,7 +61,12 @@ export type ToolTagViewerType = BaseComponent & {
     type: "TagViewer";
     field?: string;
     registry: string;
-    additional?: Record<string, string[]>;
+    include?: {
+        namespace: string;
+        registry: string;
+        path: string;
+        nested: boolean;
+    };
 };
 
 export type ToolRevealType = BaseComponent & {

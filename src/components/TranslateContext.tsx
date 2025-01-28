@@ -1,5 +1,5 @@
 import type { LanguageCode, TranslationKey } from "@/lib/minecraft/i18n/types";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import type { ReactNode } from "react";
 import { TranslateContext, i18nInstance } from "./useTranslate";
 
@@ -16,6 +16,10 @@ interface TranslateProviderProps {
 
 export function TranslateProvider({ children, initialLang }: TranslateProviderProps) {
     const [lang, setLang] = useState<LanguageCode>(initialLang);
+
+    useEffect(() => {
+        i18nInstance.setLanguage(lang);
+    }, [lang]);
 
     const value = useMemo(
         () => ({

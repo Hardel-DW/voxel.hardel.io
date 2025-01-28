@@ -139,6 +139,7 @@ export type ToolCounterType = BaseComponent & {
     max: number;
     step: number;
     action: Action;
+    lock?: Lock[];
     renderer: ValueRenderer;
 };
 
@@ -149,6 +150,7 @@ export type ToolRangeType = BaseComponent & {
     max: number;
     step: number;
     action: Action;
+    lock?: Lock[];
     renderer: ValueRenderer;
 };
 

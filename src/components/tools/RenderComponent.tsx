@@ -37,9 +37,12 @@ export function RenderComponent<T extends keyof Analysers>({ component }: { comp
     switch (component.type) {
         case "Counter": {
             const result = getValue<T, number>(component.renderer, currentElement);
+            const { isLocked, text: lockText } = checkLocks<T>(component.lock, currentElement);
+
             return (
                 <ToolCounter
                     key={getKey(component.title)}
+                    lock={isLocked ? lockText : undefined}
                     value={result}
                     min={component.min}
                     max={component.max}
@@ -69,12 +72,18 @@ export function RenderComponent<T extends keyof Analysers>({ component }: { comp
         }
         case "Range": {
             const result = getValue<T, number>(component.renderer, currentElement);
+            const { isLocked, text: lockText } = checkLocks<T>(component.lock, currentElement);
+
             return (
                 <ToolRange
                     key={getKey(component.label)}
                     id={getKey(component.label)}
+                    lock={isLocked ? lockText : undefined}
                     value={result}
                     label={component.label}
+                    min={component.min}
+                    max={component.max}
+                    step={component.step}
                     onValueChange={(value) => handleChange(component.action, currentElement?.identifier, value)}
                 />
             );

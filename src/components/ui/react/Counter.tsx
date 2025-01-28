@@ -1,3 +1,4 @@
+import { cn } from "@/lib/utils";
 import type React from "react";
 import { useRef, useState } from "react";
 
@@ -6,36 +7,47 @@ interface CounterProps {
     min: number;
     max: number;
     step: number;
+    disabled?: boolean;
     onChange?: (value: number) => void;
 }
 
-export default function Counter({ value, min, max, step, onChange }: CounterProps) {
+export default function Counter({ value, min, max, step, disabled, onChange }: CounterProps) {
     const [isEditing, setIsEditing] = useState(false);
     const [inputValue, setInputValue] = useState(value.toString());
     const inputRef = useRef<HTMLInputElement>(null);
 
     const handleDecrease = () => {
+        if (disabled) return;
+
         const newValue = Math.max(min, value - step);
         onChange?.(newValue);
     };
 
     const handleIncrease = () => {
+        if (disabled) return;
+
         const newValue = Math.min(max, value + step);
         onChange?.(newValue);
     };
 
     const handleValueClick = () => {
+        if (disabled) return;
+
         setIsEditing(true);
         setInputValue(value.toString());
         setTimeout(() => inputRef.current?.focus(), 0);
     };
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (disabled) return;
+
         const numbersOnly = e.target.value.replace(/[^0-9]/g, "");
         setInputValue(numbersOnly);
     };
 
     const handleInputBlur = () => {
+        if (disabled) return;
+
         setIsEditing(false);
         const newValue = Number(inputValue);
         if (!Number.isNaN(newValue)) {
@@ -45,12 +57,16 @@ export default function Counter({ value, min, max, step, onChange }: CounterProp
     };
 
     const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (disabled) return;
+
         if (e.key === "Enter") {
             e.currentTarget.blur();
         }
     };
 
     const handleSpanKeyDown = (e: React.KeyboardEvent<HTMLSpanElement>) => {
+        if (disabled) return;
+
         if (e.key === "Enter" || e.key === " ") {
             handleValueClick();
         }
@@ -78,13 +94,17 @@ export default function Counter({ value, min, max, step, onChange }: CounterProp
                         ref={inputRef}
                         type="custom"
                         value={inputValue}
+                        disabled={disabled}
                         onChange={handleInputChange}
                         onBlur={handleInputBlur}
                         onKeyDown={handleKeyDown}
                         className="w-16 text-center bg-transparent outline-none font-bold text-xl text-white"
                     />
                 ) : (
-                    <span onClick={handleValueClick} onKeyDown={handleSpanKeyDown} className="font-bold text-xl text-white cursor-text">
+                    <span
+                        onClick={handleValueClick}
+                        onKeyDown={handleSpanKeyDown}
+                        className={cn("font-bold text-xl text-white cursor-text", disabled && "cursor-not-allowed")}>
                         {value}
                     </span>
                 )}

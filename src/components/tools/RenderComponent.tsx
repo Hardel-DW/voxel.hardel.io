@@ -84,7 +84,7 @@ export function RenderComponent<T extends keyof Analysers>({ component }: { comp
                     min={component.min}
                     max={component.max}
                     step={component.step}
-                    onValueChange={(value) => handleChange(component.action, currentElement?.identifier, value)}
+                    onChange={(value) => handleChange(component.action, currentElement?.identifier, value)}
                 />
             );
         }

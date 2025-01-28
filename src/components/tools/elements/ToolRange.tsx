@@ -2,9 +2,9 @@ import translate from "@/lib/minecraft/i18n/translate";
 import type { TranslateTextType } from "@/lib/minecraft/core/schema/primitive/text";
 import type { InputHTMLAttributes } from "react";
 
-interface Props extends InputHTMLAttributes<HTMLInputElement> {
+interface Props extends Omit<InputHTMLAttributes<HTMLInputElement>, "onChange"> {
     label?: TranslateTextType | string;
-    onValueChange?: (option: number) => void;
+    onChange?: (option: number) => void;
     value?: number;
     lock?: TranslateTextType | string;
     min?: number;
@@ -12,11 +12,11 @@ interface Props extends InputHTMLAttributes<HTMLInputElement> {
     step?: number;
 }
 
-export default function ToolRange({ id, label, onValueChange, min = 0, max = 100, step = 1, ...props }: Props) {
+export default function ToolRange({ id, label, onChange, min = 0, max = 100, step = 1, ...props }: Props) {
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (props.lock) return;
 
-        onValueChange?.(+e.currentTarget.value);
+        onChange?.(+e.currentTarget.value);
     };
 
     return (

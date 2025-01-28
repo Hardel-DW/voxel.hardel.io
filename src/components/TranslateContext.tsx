@@ -30,7 +30,7 @@ export function TranslateProvider({ children, initialLang }: TranslateProviderPr
                 setLang(newLang);
             },
             t: (key: TranslationKey, ...args: (string | number)[]) => {
-                return i18nInstance.translate(key, ...args);
+                return i18nInstance.translate(key, { lang, args });
             }
         }),
         [lang]

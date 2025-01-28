@@ -14,7 +14,8 @@ export default function ConfiguratorPanel(props: {
 }) {
     const store = useConfiguratorStore();
     if (store.elements.length === 0) return null;
-    const currentElement = store.elements.find((elem) => store.currentElementId && elem.identifier.equals(store.currentElementId));
+    const currentElement = store.getCurrentElement();
+
     if (!currentElement || !store.configuration || !store.toggleSection) return null;
     const resolvedInterface = resolve(store.configuration.interface, store.toggleSection);
 

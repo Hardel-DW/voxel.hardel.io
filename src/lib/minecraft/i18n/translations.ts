@@ -422,6 +422,11 @@ export const translations: LanguageMap = {
         "enchantment.field.mode.name": "Mode",
         "enchantment.field.disabledEffects.name": "Disabled Effects",
 
+        "enchantment.component.tag_viewer.title": "See tags",
+        "enchantment.component.tag_viewer.description": "Display the tags of the enchantment",
+        "enchantment.component.tag_viewer.loading": "Loading tags...",
+        "enchantment.component.tag_viewer.error": "Error loading tags",
+
         "ai.confirmation.accept": "Accept",
         "ai.confirmation.refuse": "Refuse",
         "ai.confirmation.suggestedModification": "Suggested modification",
@@ -843,6 +848,11 @@ export const translations: LanguageMap = {
         "enchantment.field.assignedTags.name": "Tags Assignés",
         "enchantment.field.disabledEffects.name": "Effets Désactivés",
         "enchantment.field.mode.name": "Mode",
+
+        "enchantment.component.tag_viewer.title": "Données Vanilla",
+        "enchantment.component.tag_viewer.description": "Affiche les tags de l'enchantement",
+        "enchantment.component.tag_viewer.loading": "Récupération des tags...",
+        "enchantment.component.tag_viewer.error": "Erreur lors de la récupération des tags",
 
         "ai.confirmation.accept": "Accepter",
         "ai.confirmation.refuse": "Refuser",

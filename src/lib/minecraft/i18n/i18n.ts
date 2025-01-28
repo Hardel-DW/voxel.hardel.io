@@ -29,8 +29,11 @@ export class I18n {
      * i18n.translate('hello %s comment tu vas %s', 'John', 'aujourdhui')
      * // => "Bonjour John comment tu vas aujourdhui"
      */
-    public translate(key: TranslationKey, ...args: (string | number)[]): string {
-        let translation = translations[this.currentLanguage]?.[key];
+    public translate(key: TranslationKey, options?: { lang?: LanguageCode; args?: (string | number)[] }): string {
+        const lang = options?.lang ?? this.currentLanguage;
+        const args = options?.args ?? [];
+
+        let translation = translations[lang]?.[key];
         if (!translation) {
             translation = translations[this.fallbackLanguage]?.[key];
         }

@@ -6,8 +6,8 @@ import type { RegistryElement } from "@/lib/minecraft/mczip.ts";
 import type { FieldProperties } from "@/lib/minecraft/core/schema/primitive/properties";
 import type { EffectComponentsRecord, Enchantment, TextComponentType } from "@voxel/definitions";
 import { I18n } from "@/lib/minecraft/i18n/i18n";
-import { tagsToIdentifiers } from "../../Tag";
-import { Identifier } from "../../Identifier";
+import { tagsToIdentifiers } from "@/lib/minecraft/core/Tag";
+import { Identifier } from "@/lib/minecraft/core/Identifier";
 
 const tags_related_to_functionality = [
     new Identifier("minecraft", "tags/enchantment", "curse", true),
@@ -244,6 +244,7 @@ export const VoxelToDataDriven: Compiler<EnchantmentProps, Enchantment> = (
 
     if (enchant.mode === "soft_delete") {
         enchantment.effects = undefined;
+        enchantment.exclusive_set = undefined;
         tags = [];
     }
 

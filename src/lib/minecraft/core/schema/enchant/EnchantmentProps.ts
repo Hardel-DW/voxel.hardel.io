@@ -243,6 +243,7 @@ export const VoxelToDataDriven: Compiler<EnchantmentProps, Enchantment> = (
     }
 
     if (enchant.mode === "soft_delete") {
+        enchantment.exclusive_set = undefined;
         enchantment.effects = undefined;
         tags = [];
     }

@@ -7,7 +7,6 @@ import type { TranslateTextType } from "@/lib/minecraft/core/schema/primitive/te
 
 export type SidebarConfig = {
     action: Action;
-    description: string;
     enabled?: Condition;
     lock?: Lock[];
 };

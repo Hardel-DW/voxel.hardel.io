@@ -50,8 +50,7 @@ export const ENCHANT_TOOL_CONFIG: ToolConfiguration = {
             condition: "compare_value_to_field_value",
             field: "mode",
             value: "soft_delete"
-        },
-        description: "description"
+        }
     },
     analyser: {
         id: "enchantment",

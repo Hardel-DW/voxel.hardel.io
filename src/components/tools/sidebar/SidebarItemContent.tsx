@@ -2,7 +2,6 @@ import type { RefObject } from "react";
 import { useConfiguratorStore } from "@/lib/store/configuratorStore";
 import { useElementLocks } from "@/lib/store/hooks";
 import { useElementCondition } from "@/lib/store/hooks";
-import { useCallback } from "react";
 import type { Identifier } from "@/lib/minecraft/core/Identifier";
 import translate from "@/lib/minecraft/i18n/translate";
 import type { SidebarConfig } from "@/lib/minecraft/core/schema/primitive";
@@ -19,15 +18,14 @@ export default function SidebarItemContent({
 }) {
     const setCurrentElementId = useConfiguratorStore((state) => state.setCurrentElementId);
     const handleChange = useConfiguratorStore((state) => state.handleChange);
-
     const lockData = useElementLocks(sidebarConfig?.lock, elementId);
     const conditionResult = useElementCondition(sidebarConfig?.enabled, elementId);
     const isEnabled = !sidebarConfig?.enabled ? true : !conditionResult;
 
-    const handleClick = useCallback(() => {
+    const handleClick = () => {
         if (switchRef.current?.contains(document.activeElement)) return;
         setCurrentElementId(elementId);
-    }, [elementId, setCurrentElementId, switchRef.current]);
+    };
 
     const handleSwitch = (checked: boolean) => {
         if (!sidebarConfig?.action) return;

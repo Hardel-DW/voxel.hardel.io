@@ -1,7 +1,7 @@
 import type { Analysers, versionedAnalyserCollection } from "@/lib/minecraft/core/engine/Analyser.ts";
 import { type CompileDatapackResult, compileDatapack, getIdentifierFromCompiler } from "@/lib/minecraft/core/engine/Compiler.ts";
 import { useConfiguratorStore } from "@/lib/store/configuratorStore";
-import { useCallback, useMemo, useState } from "react";
+import { useState } from "react";
 import { createPortal } from "react-dom";
 import DebugPanel from "./DebugPanel";
 
@@ -11,25 +11,24 @@ export default function DebugConfigurator() {
     const [selectedElement, setSelectedElement] = useState<CompileDatapackResult<keyof Analysers>>();
     const [namespaces, setNamespaces] = useState<string[]>([]);
 
-    const groupByRegistry = useCallback(
-        (elements: CompileDatapackResult<keyof Analysers>[]): Record<string, CompileDatapackResult<keyof Analysers>[]> => {
-            const groups: Record<string, CompileDatapackResult<keyof Analysers>[]> = {};
+    const groupByRegistry = (
+        elements: CompileDatapackResult<keyof Analysers>[]
+    ): Record<string, CompileDatapackResult<keyof Analysers>[]> => {
+        const groups: Record<string, CompileDatapackResult<keyof Analysers>[]> = {};
 
-            for (const element of elements) {
-                const identifier = getIdentifierFromCompiler(element);
-                const registry = identifier.getRegistry();
-                if (!registry) continue;
+        for (const element of elements) {
+            const identifier = getIdentifierFromCompiler(element);
+            const registry = identifier.getRegistry();
+            if (!registry) continue;
 
-                if (!groups[registry]) groups[registry] = [];
-                groups[registry].push(element);
-            }
+            if (!groups[registry]) groups[registry] = [];
+            groups[registry].push(element);
+        }
 
-            return groups;
-        },
-        []
-    );
+        return groups;
+    };
 
-    const handleDebugging = useCallback(() => {
+    const handleDebugging = () => {
         const store = useConfiguratorStore.getState();
         if (!store.version || !store.configuration) {
             console.error("Version or configuration is missing");
@@ -51,23 +50,21 @@ export default function DebugConfigurator() {
         setIsDebugging((prev) => !prev);
         setSelectedElement(registries[Object.keys(registries)[0]][0]);
         setNamespaces(Array.from(new Set(assembleDatapack.map((element) => getIdentifierFromCompiler(element).getNamespace()))));
-    }, [groupByRegistry]);
+    };
 
-    const debugPanel = useMemo(() => {
-        if (isDebugging && datapack) {
-            return createPortal(
-                <DebugPanel
-                    selectedElement={selectedElement}
-                    onElementSelect={setSelectedElement}
-                    onClose={handleDebugging}
-                    datapack={datapack}
-                    namespaces={namespaces}
-                />,
-                document.getElementById("portal") as HTMLElement
-            );
-        }
-        return null;
-    }, [isDebugging, datapack, selectedElement, namespaces, handleDebugging]);
+    const debugPanel =
+        isDebugging && datapack
+            ? createPortal(
+                  <DebugPanel
+                      selectedElement={selectedElement}
+                      onElementSelect={setSelectedElement}
+                      onClose={handleDebugging}
+                      datapack={datapack}
+                      namespaces={namespaces}
+                  />,
+                  document.getElementById("portal") as HTMLElement
+              )
+            : null;
 
     return (
         <>

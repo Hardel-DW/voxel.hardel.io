@@ -7,22 +7,16 @@ import { getValue } from "@/lib/minecraft/core/engine/renderer/value";
 import type { Lock } from "@/lib/minecraft/core/schema/primitive/component";
 import type { TranslateTextType } from "@/lib/minecraft/core/schema/primitive/text";
 import { useMemo } from "react";
-// src/lib/store/hooks.ts
 import { useConfiguratorStore } from "./configuratorStore";
 
-// Sélecteur memoïsé pour obtenir un élément spécifique
-const useElement = (elementId?: Identifier) => {
-    return useConfiguratorStore(
-        useMemo(
-            () => (state) => {
-                if (elementId) {
-                    return state.elements.find((elem) => elem.identifier.equals(elementId));
-                }
-                return state.getCurrentElement();
-            },
-            [elementId]
-        )
-    );
+export const useElement = (elementId?: Identifier) => {
+    return useConfiguratorStore((state) => {
+        if (elementId) {
+            return state.elements.find((elem) => elem.identifier.equals(elementId));
+        }
+        if (!state.currentElementId) return undefined;
+        return state.elements.find((elem) => elem.identifier.equals(state.currentElementId));
+    });
 };
 
 export const useElementValue = <T extends keyof Analysers, K>(renderer: ValueRenderer, elementId?: Identifier): K | null => {

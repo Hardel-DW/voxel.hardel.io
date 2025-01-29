@@ -107,7 +107,9 @@ export class Identifier {
         return `voxel/${this.namespace}/${this.registry}/${this.resource}`;
     }
 
-    public equals(other: Identifier): boolean {
+    public equals(other: Identifier | undefined): boolean {
+        if (!other) return false;
+
         return (
             this.getNamespace() === other.getNamespace() &&
             this.getRegistry() === other.getRegistry() &&

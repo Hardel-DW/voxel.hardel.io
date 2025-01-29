@@ -11,8 +11,6 @@ export default function ToolCounter<T extends keyof Analysers>({
     component: ToolCounterType;
 }) {
     const value = useElementValue<T, number>(component.renderer);
-    if (value === null) return null;
-
     const { isLocked, text: lockText } = useElementLocks<T>(component.lock);
 
     const handleChange = useConfiguratorStore((state) => state.handleChange);

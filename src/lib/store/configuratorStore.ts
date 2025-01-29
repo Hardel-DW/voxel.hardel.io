@@ -38,7 +38,7 @@ export interface ConfiguratorState<T extends keyof Analysers> {
 
 const getCurrentElement = <T extends keyof Analysers>(state: ConfiguratorState<T>) => {
     if (!state.currentElementId) return undefined;
-    return state.elements.find((elem) => state.currentElementId && elem.identifier.equals(state.currentElementId));
+    return state.elements.find((elem) => elem.identifier.equals(state.currentElementId));
 };
 
 const createConfiguratorStore = <T extends keyof Analysers>() =>

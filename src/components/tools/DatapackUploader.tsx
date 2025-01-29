@@ -7,7 +7,6 @@ import { toast } from "sonner";
 
 export default function DatapackUploader(props: { tool: keyof Analysers }) {
     const { t } = useTranslate();
-    const store = useConfiguratorStore();
 
     const handleFileUpload = async (files: FileList) => {
         if (files.length === 0) {
@@ -43,6 +42,7 @@ export default function DatapackUploader(props: { tool: keyof Analysers }) {
             description: t("tools.upload.success.description")
         });
 
+        const store = useConfiguratorStore.getState();
         store.setName(result.name);
         store.setFiles(result.files);
         store.setElements(result.elements);
@@ -54,8 +54,6 @@ export default function DatapackUploader(props: { tool: keyof Analysers }) {
         store.setLogger(result.logger);
         store.setIdentifiers(result.identifiers);
     };
-
-    if (store.elements.length > 0) return null;
 
     return (
         <Dropzone

@@ -31,6 +31,7 @@ export function TagLoader({ registry, path, fileName, namespace, values }: TagLo
     if (!data) {
         return <div className="text-center py-6 text-zinc-500 text-sm">{t("enchantment.component.tag_viewer.no_entry")}</div>;
     }
+
     return (
         <div className="space-y-2">
             {data

@@ -1,14 +1,9 @@
 import TriangleWave from "@/components/ui/pattern/TriangleWave.tsx";
 import Button from "@/components/ui/react/Button.tsx";
-import type { TranslateTextType } from "@/lib/minecraft/core/schema/primitive/text";
+import type { ToolDonationType } from "@/lib/minecraft/core/schema/primitive/component";
 import translate from "@/lib/minecraft/i18n/translate";
 
-export default function Donation(props: {
-    title: TranslateTextType | string;
-    link: string;
-    description: TranslateTextType | string;
-    image: string;
-}) {
+export default function Donation({ component }: { component: ToolDonationType }) {
     return (
         <div className="w-full h-96 rounded-2xl border-zinc-900 border relative overflow-hidden">
             <div className="opacity-10">
@@ -87,7 +82,7 @@ export default function Donation(props: {
                                 value: "dialog.footer.donate"
                             })}
                         </Button>
-                        <Button variant="patreon-shimmer" href={props.link} target="_blank" rel="noreferrer">
+                        <Button variant="patreon-shimmer" href={component.link} target="_blank" rel="noreferrer">
                             <img src="/icons/company/patreon.svg" alt="Patreon" className="w-4 h-4" />
                             {translate({
                                 type: "translate",

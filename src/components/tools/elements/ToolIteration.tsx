@@ -5,21 +5,20 @@ import type { TemplateReplacer } from "@/lib/minecraft/core/engine/resolver/iter
 import type { FormComponent, ToolIterationType } from "@/lib/minecraft/core/schema/primitive/component.ts";
 import { useConfiguratorStore } from "@/lib/store/configuratorStore";
 
-export default function ToolIteration(props: ToolIterationType) {
-    const store = useConfiguratorStore();
-    const files = store.files;
-    const iterations = props.values.flatMap((valueSet) => createIterations(valueSet, files));
+export default function ToolIteration({ component }: { component: ToolIterationType }) {
+    const files = useConfiguratorStore((state) => state.files);
+    const iterations = component.values.flatMap((valueSet) => createIterations(valueSet, files));
 
     return (
         <>
             {iterations.map((iteration) => {
-                const resolvedTemplate = JSON.parse(JSON.stringify(props.template), (_, value: TemplateReplacer<FormComponent>) =>
+                const resolvedTemplate = JSON.parse(JSON.stringify(component.template), (_, value: TemplateReplacer<FormComponent>) =>
                     resolveIterationValue(value, iteration.context)
                 );
 
                 return <RenderComponent key={iteration.key} component={resolvedTemplate} />;
             })}
-            {props.fallback && iterations.length === 0 && <RenderComponent key="fallback" component={props.fallback} />}
+            {component.fallback && iterations.length === 0 && <RenderComponent key="fallback" component={component.fallback} />}
         </>
     );
 }

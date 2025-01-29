@@ -1,49 +1,47 @@
-import type { TranslateTextType } from "@/lib/minecraft/core/schema/primitive/text";
+import type { Analysers } from "@/lib/minecraft/core/engine/Analyser";
+import type { ToolRangeType } from "@/lib/minecraft/core/schema/primitive/component";
 import translate from "@/lib/minecraft/i18n/translate";
-import type { InputHTMLAttributes } from "react";
+import { getKey } from "@/lib/minecraft/i18n/translations";
+import { useConfiguratorStore } from "@/lib/store/configuratorStore";
+import { useElementLocks, useElementValue } from "@/lib/store/hooks";
 
-interface Props extends Omit<InputHTMLAttributes<HTMLInputElement>, "onChange"> {
-    label?: TranslateTextType | string;
-    onChange?: (option: number) => void;
-    value?: number;
-    lock?: TranslateTextType | string;
-    min?: number;
-    max?: number;
-    step?: number;
-}
+export default function ToolRange<T extends keyof Analysers>({
+    component
+}: {
+    component: ToolRangeType;
+}) {
+    const value = useElementValue<T, number>(component.renderer);
+    if (value === null) return null;
 
-export default function ToolRange({ id, label, onChange, min = 0, max = 100, step = 1, ...props }: Props) {
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        if (props.lock) return;
+    const { isLocked, text: lockText } = useElementLocks<T>(component.lock);
 
-        onChange?.(+e.currentTarget.value);
-    };
+    const handleChange = useConfiguratorStore((state) => state.handleChange);
+    const currentElementId = useConfiguratorStore((state) => state.currentElementId);
 
     return (
         <div className="relative w-full mt-4">
             <div className="flex justify-between items-center w-full">
-                {props.lock ? (
-                    <span className="text-xs text-zinc-400 font-light line-clamp-2">{translate(props.lock)}</span>
+                {isLocked ? (
+                    <span className="text-xs text-zinc-400 font-light line-clamp-2">{translate(lockText)}</span>
                 ) : (
-                    label && (
-                        <label htmlFor={id} className="block line-clamp-1 text-sm font-medium text-zinc-400 mb-1">
-                            {translate(label)}
+                    component.label && (
+                        <label htmlFor={getKey(component.label)} className="block line-clamp-1 text-sm font-medium text-zinc-400 mb-1">
+                            {translate(component.label)}
                         </label>
                     )
                 )}
-
-                <span className="text-sm font-medium text-zinc-400">{props.value}</span>
+                <span className="text-sm font-medium text-zinc-400">{value}</span>
             </div>
             <input
-                id={id}
+                id={getKey(component.label)}
                 type="range"
-                disabled={!!props.lock}
-                min={min}
-                max={max}
-                step={step}
-                onInput={handleChange}
+                disabled={isLocked}
+                min={component.min}
+                max={component.max}
+                step={component.step}
+                value={value}
+                onChange={(e) => handleChange(component.action, currentElementId, +e.target.value)}
                 className="w-full text-sm font-normal"
-                {...props}
             />
         </div>
     );

@@ -1,74 +1,72 @@
-import Button from "@/components/ui/react/Button.tsx";
+import Button from "@/components/ui/react/Button";
 import { useTranslate } from "@/components/useTranslate";
-import type { TranslateTextType } from "@/lib/minecraft/core/schema/primitive/text";
+import type { ToolRevealElementType as RevealElementType } from "@/lib/minecraft/core/schema/primitive/component";
 import translate from "@/lib/minecraft/i18n/translate";
-import { cn } from "@/lib/utils.ts";
+import { cn } from "@/lib/utils";
+import { memo } from "react";
 import { toast } from "sonner";
 
-export default function ToolRevealElement(props: {
-    isSelect: boolean;
-    title: TranslateTextType | string;
-    soon?: boolean;
-    image: string;
-    href: string;
-    logo: string;
-    description: TranslateTextType | string;
-    onClick: () => void;
-}) {
+interface ToolRevealElementProps {
+    element: RevealElementType;
+    isSelected: boolean;
+    onSelect: () => void;
+}
+
+const ToolRevealElement = memo(function ToolRevealElement({ element, isSelected, onSelect }: ToolRevealElementProps) {
     const { t } = useTranslate();
 
     const handleClick = () => {
-        if (props.soon) {
+        if (element.soon) {
             toast.message(t("generic.soon"), {
                 description: t("tools.toast.soon")
             });
-
             return;
         }
-
-        props.onClick();
+        onSelect();
     };
 
     return (
         <div
             onClick={handleClick}
             onKeyDown={handleClick}
-            className={"transition-all stack group cursor-pointer rounded-2xl border border-zinc-800"}>
+            className="transition-all stack group cursor-pointer rounded-2xl border border-zinc-800">
             <div className="relative z-50 self-start justify-self-end p-4">
                 <Button
                     variant="white-shimmer"
-                    href={props.href}
+                    href={element.href}
                     target="_blank"
                     rel="noopener noreferrer"
                     className={cn({
-                        "opacity-50 hover:opacity-50": props.soon
+                        "opacity-50 hover:opacity-50": element.soon
                     })}>
                     {translate({
                         type: "translate",
-                        value: props.soon ? "generic.soon" : "generic.more"
+                        value: element.soon ? "generic.soon" : "generic.more"
                     })}
                 </Button>
             </div>
             <div className="bg-shadow-bottom rounded-2xl relative z-10" />
             <div
                 className={cn("h-48 w-full rounded-2xl bg-cover bg-center transition", {
-                    "grayscale opacity-50 group-hover:opacity-60": !props.isSelect,
-                    "opacity-100": props.isSelect
+                    "grayscale opacity-50 group-hover:opacity-60": !isSelected,
+                    "opacity-100": isSelected
                 })}
-                style={{ backgroundImage: `url(${props.image})` }}
+                style={{ backgroundImage: `url(${element.image})` }}
             />
             <div className="self-end justify-self-end pb-4 pr-4 w-16 z-20">
-                <img className="self-center" src={props.logo} alt={typeof props.title === "string" ? props.title : "TranslateText"} />
+                <img className="self-center" src={element.logo} alt={typeof element.title === "string" ? element.title : "TranslateText"} />
             </div>
             <div
                 className={cn("p-4 self-end relative z-20", {
-                    "opacity-50": !props.isSelect
+                    "opacity-50": !isSelected
                 })}>
                 <div className="flex flex-col gap-2">
-                    <h1 className="text-3xl font-semibold uppercase tracking-wider">{translate(props.title)}</h1>
-                    <p className="text-zinc-400 font-semibold text-xs">{translate(props.description)}</p>
+                    <h1 className="text-3xl font-semibold uppercase tracking-wider">{translate(element.title)}</h1>
+                    <p className="text-zinc-400 font-semibold text-xs">{translate(element.description)}</p>
                 </div>
             </div>
         </div>
     );
-}
+});
+
+export default ToolRevealElement;

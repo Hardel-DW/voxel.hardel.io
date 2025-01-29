@@ -5,7 +5,6 @@ import { useConfiguratorStore } from "@/lib/store/configuratorStore";
 
 export default function VanillaImportButton() {
     const { t } = useTranslate();
-    const store = useConfiguratorStore();
 
     const handleVanillaImport = async (version: number) => {
         try {
@@ -27,6 +26,7 @@ export default function VanillaImportButton() {
                 return;
             }
 
+            const store = useConfiguratorStore.getState();
             store.setName("Vanilla Enchantment - Voxel Configurator");
             store.setFiles(result.files);
             store.setElements(result.elements);

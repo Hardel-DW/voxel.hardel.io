@@ -6,12 +6,12 @@ export default function TextComponent({
     data: TextComponentType | string;
 }) {
     if (typeof data === "string") {
-        return <div className="rounded-2xl break-words">{data}</div>;
+        return <div className="break-words">{data}</div>;
     }
 
     if (Array.isArray(data)) {
         return (
-            <div className="rounded-2xl break-words">
+            <div className="break-words">
                 {data.map((item, index) => (
                     <span key={index.toString()}>{item.toString()}</span>
                 ))}
@@ -21,7 +21,7 @@ export default function TextComponent({
 
     if (typeof data === "object" && data !== null) {
         if ("fallback" in data) {
-            return <div className="rounded-2xl break-words">{data.fallback}</div>;
+            return <div className="break-words">{data.fallback}</div>;
         }
 
         if ("translate" in data) {
@@ -30,7 +30,7 @@ export default function TextComponent({
             const last = word[word.length - 1];
             const title = last.replace(/_/g, " ").replace(/\b\w/g, (l) => l.toUpperCase());
 
-            return <div className="rounded-2xl break-words">{title}</div>;
+            return <div className="break-words">{title}</div>;
         }
     }
 }

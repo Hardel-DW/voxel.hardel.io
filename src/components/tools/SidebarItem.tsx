@@ -1,62 +1,39 @@
-import TextComponent from "@/components/tools/elements/text/TextComponent";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/shadcn/tooltip.tsx";
-import type { Analysers, GetAnalyserVoxel } from "@/lib/minecraft/core/engine/Analyser";
-import { checkCondition } from "@/lib/minecraft/core/engine/condition";
-import { checkLocks } from "@/lib/minecraft/core/engine/renderer";
-import { resolve } from "@/lib/minecraft/core/engine/renderer/resolve_field";
+import type { Identifier } from "@/lib/minecraft/core/Identifier";
 import translate from "@/lib/minecraft/i18n/translate";
-import type { RegistryElement } from "@/lib/minecraft/mczip.ts";
 import { useConfiguratorStore } from "@/lib/store/configuratorStore";
+import { useElementCondition, useElementLocks } from "@/lib/store/hooks";
 import { cn } from "@/lib/utils.ts";
 import { useRef } from "react";
 
-export function SidebarItem<T extends keyof Analysers>(props: {
-    element: RegistryElement<GetAnalyserVoxel<T>>;
-}) {
-    if (props.element.data?.override?.configurator.hide) {
-        return null;
-    }
-
-    const store = useConfiguratorStore();
+export function SidebarItem({ elementId }: { elementId: Identifier }) {
     const switchRef = useRef<HTMLDivElement>(null);
-    const configuration = store.configuration;
-    const toggleSection = store.toggleSection;
-    const currentElementId = store.currentElementId;
-    const setCurrentElementId = store.setCurrentElementId;
-    const handleChange = store.handleChange;
-    const elements = store.elements;
-
-    if (!currentElementId) return null;
-    const currentElement = elements.find((element) => element.identifier.equals(currentElementId));
-
-    if (!configuration || !toggleSection || !currentElement) return null;
-    const resolvedSidebar = resolve(configuration.sidebar, toggleSection);
-    if (!resolvedSidebar) return null;
-
-    const lock = resolvedSidebar.lock;
-    const lockData = checkLocks(lock, props.element);
-
-    const descriptionField = resolvedSidebar.description;
-    const descriptionValue = props.element.data[descriptionField] as string;
-    const check = resolvedSidebar.enabled ? !checkCondition(resolvedSidebar.enabled, props.element) : true;
+    const configuration = useConfiguratorStore((state) => state.configuration);
+    const currentElementId = useConfiguratorStore((state) => state.currentElementId);
+    const setCurrentElementId = useConfiguratorStore((state) => state.setCurrentElementId);
+    const handleChange = useConfiguratorStore((state) => state.handleChange);
+    const lockData = useElementLocks(configuration?.sidebar.lock, elementId);
+    const conditionResult = useElementCondition(configuration?.sidebar.enabled, elementId);
+    const isEnabled = !configuration?.sidebar.enabled ? true : !conditionResult;
+    const isSelected = currentElementId ? currentElementId.equals(elementId) : false;
 
     const handleClick = () => {
         if (switchRef.current?.contains(document.activeElement)) return;
-        setCurrentElementId(props.element.identifier);
+        setCurrentElementId(elementId);
     };
 
     const handleSwitch = (checked: boolean) => {
-        if (!resolvedSidebar.action) return;
-        handleChange(resolvedSidebar.action, props.element.identifier, checked);
+        if (!configuration?.sidebar.action) return;
+        handleChange(configuration.sidebar.action, elementId, checked);
     };
 
     return (
         <div
             className={cn("odd:bg-black/75 pl-4 pr-2 py-2 rounded-xl", {
-                "ring-1 ring-rose-900": currentElement?.identifier?.equals(props.element.identifier)
+                "ring-1 ring-rose-900": isSelected
             })}>
             <div className="flex items-center justify-between" onClick={handleClick} onKeyDown={handleClick}>
-                <TextComponent data={descriptionValue} />
+                <div className="break-words">{elementId.renderFilename()}</div>
                 <div className="flex items-center gap-8" ref={switchRef}>
                     <Tooltip>
                         <TooltipTrigger asChild>
@@ -65,7 +42,7 @@ export function SidebarItem<T extends keyof Analysers>(props: {
                                     type="checkbox"
                                     name="enable"
                                     disabled={lockData.isLocked}
-                                    checked={check}
+                                    checked={isEnabled}
                                     onChange={(e) => handleSwitch(!e.target.checked)}
                                 />
                             </label>

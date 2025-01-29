@@ -77,23 +77,6 @@ const createConfiguratorStore = <T extends keyof Analysers>() =>
             }
 
             const updatedElement = updateData<T>(action, element, state.version ?? Number.POSITIVE_INFINITY, value);
-
-            if (
-                updatedElement &&
-                state.logger &&
-                state.version &&
-                state.configuration?.analyser.id &&
-                typeof state.configuration?.analyser.id === "string"
-            ) {
-                state.logger.handleActionDifference(
-                    action,
-                    element,
-                    state.version ?? Number.POSITIVE_INFINITY,
-                    state.configuration?.analyser.id as T,
-                    value
-                );
-            }
-
             if (!updatedElement) return;
 
             set((state) => ({
@@ -103,3 +86,8 @@ const createConfiguratorStore = <T extends keyof Analysers>() =>
     }));
 
 export const useConfiguratorStore = createConfiguratorStore<"enchantment">();
+
+export const selectElementById =
+    <T extends keyof Analysers>(id: Identifier) =>
+    (state: ConfiguratorState<T>) =>
+        state.elements.find((e) => e.identifier.equals(id));

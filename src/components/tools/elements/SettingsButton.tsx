@@ -3,7 +3,10 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/shadcn/
 import { useConfiguratorStore } from "@/lib/store/configuratorStore";
 
 export default function SettingsButton() {
-    const store = useConfiguratorStore();
+    const name = useConfiguratorStore((state) => state.name);
+    const setName = useConfiguratorStore((state) => state.setName);
+    const minify = useConfiguratorStore((state) => state.minify);
+    const setMinify = useConfiguratorStore((state) => state.setMinify);
 
     return (
         <Popover>
@@ -21,8 +24,8 @@ export default function SettingsButton() {
                                 type="text"
                                 name="datapackName"
                                 id="datapackName"
-                                value={store.name}
-                                onChange={(e) => store.setName(e.target.value)}
+                                value={name}
+                                onChange={(e) => setName(e.target.value)}
                                 className="bg-zinc-900 border border-zinc-700 rounded-lg px-3 py-2 text-sm text-white"
                                 placeholder="Enter datapack name..."
                             />
@@ -40,8 +43,8 @@ export default function SettingsButton() {
                                     type="checkbox"
                                     name="minify"
                                     id="minify"
-                                    checked={store.minify}
-                                    onChange={(e) => store.setMinify(e.target.checked)}
+                                    checked={minify}
+                                    onChange={(e) => setMinify(e.target.checked)}
                                 />
                             </div>
                         </label>

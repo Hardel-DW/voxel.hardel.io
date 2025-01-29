@@ -2,34 +2,37 @@ import { TagLoader } from "@/components/tools/elements/schema/tags/TagLoader";
 import { ToolTagCard } from "@/components/tools/elements/schema/tags/ToolTagCard";
 import { Identifier } from "@/lib/minecraft/core/Identifier";
 import { isTag } from "@/lib/minecraft/core/Tag";
+import type { Analysers } from "@/lib/minecraft/core/engine/Analyser";
 import { compileDatapack, getIdentifierFromCompiler } from "@/lib/minecraft/core/engine/Compiler";
-import type { TagViewerInclude } from "@/lib/minecraft/core/schema/primitive/component";
+import type { ToolTagViewerType } from "@/lib/minecraft/core/schema/primitive/component";
 import { useConfiguratorStore } from "@/lib/store/configuratorStore";
+import { useElementValue } from "@/lib/store/hooks";
 
-export default function ToolTagViewer(props: {
-    field?: string;
-    registry: string;
-    include?: TagViewerInclude;
+export default function ToolTagViewer<T extends keyof Analysers>({
+    component
+}: {
+    component: ToolTagViewerType;
 }) {
-    const store = useConfiguratorStore();
-    const configuration = store.configuration;
-    const version = store.version;
-    const currentElement = store.getCurrentElement();
+    const fieldValue = component.field ? useElementValue<T, string>({ type: "from_field", field: component.field }) : null;
 
-    if (!configuration || !currentElement || !version) return null;
+    const configuration = useConfiguratorStore((state) => state.configuration);
+    const version = useConfiguratorStore((state) => state.version);
+    const elements = useConfiguratorStore((state) => state.elements);
+    const identifiers = useConfiguratorStore((state) => state.identifiers);
+    const files = useConfiguratorStore((state) => state.files);
 
-    const fieldValue = currentElement.data?.[props.field as keyof typeof currentElement.data];
+    if (!configuration || !version || (component.field && !fieldValue)) return null;
     if (typeof fieldValue !== "string") return null;
 
     const assembleDatapack = compileDatapack({
-        elements: store.elements,
+        elements: elements,
         version: version,
-        identifiers: store.identifiers,
-        files: store.files,
+        identifiers: identifiers,
+        files: files,
         tool: configuration.analyser.id
     });
 
-    const tagIdentifier = Identifier.fromString(fieldValue, props.registry);
+    const tagIdentifier = Identifier.fromString(fieldValue, component.registry);
     const tagData = assembleDatapack.find((element) => getIdentifierFromCompiler(element).equals(tagIdentifier));
     const rawData = tagData?.type !== "deleted" ? tagData?.element : undefined;
 
@@ -42,12 +45,12 @@ export default function ToolTagViewer(props: {
                     <ToolTagCard key={value} value={value} />
                 ))}
 
-                {props.include && tagIdentifier.getNamespace() === "minecraft" && (
+                {component.include && tagIdentifier.getNamespace() === "minecraft" && (
                     <TagLoader
-                        registry={props.include.registry}
-                        path={props.include.path}
+                        registry={component.include.registry}
+                        path={component.include.path}
                         fileName={tagIdentifier.getFileName()}
-                        namespace={props.include.namespace}
+                        namespace={component.include.namespace}
                     />
                 )}
             </div>

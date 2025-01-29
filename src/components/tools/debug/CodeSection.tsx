@@ -3,16 +3,22 @@ import EmptyCodeBlock from "@/components/ui/codeblock/EmptyCodeBlock";
 import { useTranslate } from "@/components/useTranslate";
 import type { Analysers } from "@/lib/minecraft/core/engine/Analyser";
 import { type CompileDatapackResult, getIdentifierFromCompiler } from "@/lib/minecraft/core/engine/Compiler";
+import { useConfiguratorStore } from "@/lib/store/configuratorStore";
+import { useMemo } from "react";
 
 interface CodeSectionProps {
     code: CompileDatapackResult<keyof Analysers> | undefined;
-    name: string;
-    version: number | null;
     onClose: () => void;
 }
 
-export function CodeSection({ code, name, version, onClose }: CodeSectionProps) {
+export function CodeSection({ code, onClose }: CodeSectionProps) {
     const { t } = useTranslate();
+    const storeValues = useMemo(() => {
+        return useConfiguratorStore.getState();
+    }, []);
+
+    const { name, version } = storeValues;
+
     if (!code) return null;
     const identifier = getIdentifierFromCompiler(code);
 

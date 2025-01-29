@@ -1,12 +1,16 @@
 import type { Identifier } from "@/lib/minecraft/core/Identifier";
 import { useConfiguratorStore } from "@/lib/store/configuratorStore";
 import { cn } from "@/lib/utils.ts";
-import { useCallback, useRef } from "react";
+import { useRef } from "react";
 import SidebarItemContent from "./SidebarItemContent";
 
 export function SidebarItem({ elementId }: { elementId: Identifier }) {
     const switchRef = useRef<HTMLDivElement>(null);
-    const isSelected = useConfiguratorStore(useCallback((state) => state.currentElementId?.equals(elementId) ?? false, [elementId]));
+    const isSelected = useConfiguratorStore((state) => {
+        console.count("isSelected");
+        console.log("ElementId", elementId);
+        return state.currentElementId?.equals(elementId) ?? false;
+    });
     const sidebarConfig = useConfiguratorStore((state) => state.configuration?.sidebar);
 
     return (

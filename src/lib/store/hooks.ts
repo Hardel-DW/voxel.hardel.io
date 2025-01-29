@@ -6,7 +6,6 @@ import type { ValueRenderer } from "@/lib/minecraft/core/engine/renderer/value";
 import { getValue } from "@/lib/minecraft/core/engine/renderer/value";
 import type { Lock } from "@/lib/minecraft/core/schema/primitive/component";
 import type { TranslateTextType } from "@/lib/minecraft/core/schema/primitive/text";
-import { useMemo } from "react";
 import { useConfiguratorStore } from "./configuratorStore";
 
 export const useElement = (elementId?: Identifier) => {
@@ -21,11 +20,8 @@ export const useElement = (elementId?: Identifier) => {
 
 export const useElementValue = <T extends keyof Analysers, K>(renderer: ValueRenderer, elementId?: Identifier): K | null => {
     const element = useElement(elementId);
-
-    return useMemo(() => {
-        if (!element) return null;
-        return getValue<T, K>(renderer, element);
-    }, [element, renderer]);
+    if (!element) return null;
+    return getValue<T, K>(renderer, element);
 };
 
 export const useElementCondition = <T extends keyof Analysers>(
@@ -34,11 +30,8 @@ export const useElementCondition = <T extends keyof Analysers>(
     value?: any
 ): boolean => {
     const element = useElement(elementId);
-
-    return useMemo(() => {
-        if (!element || !condition) return false;
-        return checkCondition<T>(condition, element, value);
-    }, [element, condition, value]);
+    if (!element || !condition) return false;
+    return checkCondition<T>(condition, element, value);
 };
 
 export const useElementLocks = <T extends keyof Analysers>(
@@ -46,9 +39,6 @@ export const useElementLocks = <T extends keyof Analysers>(
     elementId?: Identifier
 ): { isLocked: boolean; text?: TranslateTextType } => {
     const element = useElement(elementId);
-
-    return useMemo(() => {
-        if (!element) return { isLocked: false };
-        return checkLocks<T>(locks, element);
-    }, [element, locks]);
+    if (!element) return { isLocked: false };
+    return checkLocks<T>(locks, element);
 };

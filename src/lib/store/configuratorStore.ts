@@ -1,4 +1,4 @@
-import type { Identifier } from "@/lib/minecraft/core/Identifier";
+import { Identifier } from "@/lib/minecraft/core/Identifier";
 import type { Analysers, GetAnalyserVoxel } from "@/lib/minecraft/core/engine/Analyser";
 import type { Action, ActionValue } from "@/lib/minecraft/core/engine/actions";
 import { updateData } from "@/lib/minecraft/core/engine/actions";
@@ -14,12 +14,15 @@ export interface ConfiguratorState<T extends keyof Analysers> {
     logger?: Logger;
     files: Record<string, Uint8Array>;
     elements: RegistryElement<GetAnalyserVoxel<T>>[];
+    currentElement?: RegistryElement<GetAnalyserVoxel<T>>;
     currentElementId?: Identifier;
+    currentElementIdString?: string;
     toggleSection?: Record<string, ToggleSection>;
     configuration: ToolConfiguration | null;
     isJar: boolean;
     version: number | null;
     identifiers: Identifier[];
+    sortedIdentifiers: Identifier[];
     setName: (name: string) => void;
     setMinify: (minify: boolean) => void;
     setLogger: (logger: Logger | undefined) => void;
@@ -32,14 +35,8 @@ export interface ConfiguratorState<T extends keyof Analysers> {
     setIsJar: (isJar: boolean) => void;
     setVersion: (version: number | null) => void;
     handleChange: (action: Action, identifier?: Identifier, value?: ActionValue) => void;
-    setIdentifiers: (identifiers: Identifier[]) => void;
-    getCurrentElement: () => RegistryElement<GetAnalyserVoxel<T>> | undefined;
+    batchUpdate: (updates: Partial<ConfiguratorState<T>>) => void;
 }
-
-const getCurrentElement = <T extends keyof Analysers>(state: ConfiguratorState<T>) => {
-    if (!state.currentElementId) return undefined;
-    return state.elements.find((elem) => elem.identifier.equals(state.currentElementId));
-};
 
 const createConfiguratorStore = <T extends keyof Analysers>() =>
     create<ConfiguratorState<T>>((set, get) => ({
@@ -47,16 +44,29 @@ const createConfiguratorStore = <T extends keyof Analysers>() =>
         minify: true,
         files: {},
         elements: [],
+        elementsMap: new Map(),
         configuration: null,
         isJar: false,
         version: null,
         identifiers: [],
+        sortedIdentifiers: [],
+        currentElement: undefined,
         setName: (name) => set({ name }),
         setMinify: (minify) => set({ minify }),
         setLogger: (logger) => set({ logger }),
         setFiles: (files) => set({ files }),
-        setElements: (elements) => set({ elements }),
-        setCurrentElementId: (currentElementId) => set({ currentElementId }),
+        setElements: (elements) =>
+            set(() => ({
+                elements,
+                sortedIdentifiers: Identifier.sortIdentifier(elements.map((e) => e.identifier)),
+                identifiers: elements.map((e) => e.identifier)
+            })),
+        setCurrentElementId: (id) =>
+            set({
+                currentElementIdString: id?.toString(),
+                currentElementId: id,
+                currentElement: get().elements.find((e) => e.identifier.equals(id))
+            }),
         setToggleSection: (toggleSection) => set({ toggleSection }),
         setConfiguration: (configuration) => set({ configuration }),
         setIsJar: (isJar) => set({ isJar }),
@@ -65,11 +75,9 @@ const createConfiguratorStore = <T extends keyof Analysers>() =>
             set((state) => ({
                 toggleSection: { ...state.toggleSection, [id]: name }
             })),
-        setIdentifiers: (identifiers) => set({ identifiers }),
-        getCurrentElement: () => getCurrentElement(get()),
         handleChange: (action, identifier, value) => {
             const state = get();
-            const element = identifier ? state.elements.find((elem) => elem.identifier.equals(identifier)) : getCurrentElement(state);
+            const element = identifier ? state.elements.find((elem) => elem.identifier.equals(identifier)) : state.currentElement;
 
             if (!element) {
                 console.error("Element not found");
@@ -82,6 +90,21 @@ const createConfiguratorStore = <T extends keyof Analysers>() =>
             set((state) => ({
                 elements: state.elements.map((item) => (item.identifier.equals(updatedElement.identifier) ? updatedElement : item))
             }));
+        },
+        batchUpdate: (updates) => {
+            const elements = updates.elements;
+            if (elements) {
+                updates.sortedIdentifiers = Identifier.sortIdentifier(elements.map((e) => e.identifier));
+                updates.identifiers = elements.map((e) => e.identifier);
+            }
+
+            const currentElementId = updates.currentElementId;
+            if (currentElementId) {
+                updates.currentElementIdString = currentElementId.toString();
+                updates.currentElement = (elements ?? get().elements).find((e) => e.identifier.equals(currentElementId));
+            }
+
+            set(updates);
         }
     }));
 

@@ -26,17 +26,17 @@ export default function VanillaImportButton() {
                 return;
             }
 
-            const store = useConfiguratorStore.getState();
-            store.setName("Vanilla Enchantment - Voxel Configurator");
-            store.setFiles(result.files);
-            store.setElements(result.elements);
-            store.setVersion(result.version);
-            store.setToggleSection(result.toggleSection);
-            store.setCurrentElementId(result.currentElementId);
-            store.setLogger(result.logger);
-            store.setIsJar(result.isJar);
-            store.setConfiguration(result.configuration);
-            store.setIdentifiers(result.identifiers);
+            useConfiguratorStore.getState().batchUpdate({
+                name: "Vanilla Enchantment - Voxel Configurator",
+                files: result.files,
+                elements: result.elements,
+                version: result.version,
+                toggleSection: result.toggleSection,
+                currentElementId: result.currentElementId,
+                isJar: result.isJar,
+                configuration: result.configuration,
+                logger: result.logger
+            });
         } catch (error: unknown) {
             console.error("Failed to import vanilla datapack:", error);
             if (error instanceof Error) {

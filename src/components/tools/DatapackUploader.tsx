@@ -42,17 +42,17 @@ export default function DatapackUploader(props: { tool: keyof Analysers }) {
             description: t("tools.upload.success.description")
         });
 
-        const store = useConfiguratorStore.getState();
-        store.setName(result.name);
-        store.setFiles(result.files);
-        store.setElements(result.elements);
-        store.setVersion(result.version);
-        store.setToggleSection(result.toggleSection);
-        store.setCurrentElementId(result.currentElementId);
-        store.setIsJar(result.isJar);
-        store.setConfiguration(result.configuration);
-        store.setLogger(result.logger);
-        store.setIdentifiers(result.identifiers);
+        useConfiguratorStore.getState().batchUpdate({
+            name: result.name,
+            files: result.files,
+            elements: result.elements,
+            version: result.version,
+            toggleSection: result.toggleSection,
+            currentElementId: result.currentElementId,
+            isJar: result.isJar,
+            configuration: result.configuration,
+            logger: result.logger
+        });
     };
 
     return (

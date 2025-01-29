@@ -5,11 +5,11 @@ import { TabsContent } from "@radix-ui/react-tabs";
 import { RenderComponent } from "./RenderComponent";
 
 export default function ConfiguratorContent(props: { section: InterfaceConfiguration }) {
-    const currentElement = useConfiguratorStore((state) => state.getCurrentElement());
+    const currentNamespace = useConfiguratorStore((state) => state.currentElementId?.getNamespace());
 
     return (
         <TabsContent key={props.section.id} value={props.section.id}>
-            {currentElement?.identifier?.getNamespace() === "minecraft" && (
+            {currentNamespace === "minecraft" && (
                 <div className="text-xs text-zinc-400 text-center font-light mb-4">
                     {translate({ type: "translate", value: "tools.enchantments.vanilla" })}
                 </div>

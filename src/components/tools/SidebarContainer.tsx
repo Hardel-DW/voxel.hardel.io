@@ -1,19 +1,14 @@
 import { Identifier } from "@/lib/minecraft/core/Identifier";
 import { useConfiguratorStore } from "@/lib/store/configuratorStore";
-import { useMemo } from "react";
 import { SidebarItem } from "./SidebarItem";
 
 export const SidebarContainer = () => {
-    const elements = useConfiguratorStore((state) => state.elements);
-
-    const sortedElements = useMemo(() => {
-        return Identifier.sortRegistry(elements.filter((e) => !e.data?.override?.configurator.hide));
-    }, [elements]);
+    const elementIds = useConfiguratorStore((state) => state.elements.map((e) => e.identifier));
 
     return (
         <>
-            {sortedElements.map((element) => (
-                <SidebarItem key={element.identifier.getResource()} elementId={element.identifier} />
+            {Identifier.sortIdentifier(elementIds).map((element) => (
+                <SidebarItem key={element.getResource()} elementId={element} />
             ))}
         </>
     );

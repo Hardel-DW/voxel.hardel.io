@@ -86,8 +86,3 @@ const createConfiguratorStore = <T extends keyof Analysers>() =>
     }));
 
 export const useConfiguratorStore = createConfiguratorStore<"enchantment">();
-
-export const selectElementById =
-    <T extends keyof Analysers>(id: Identifier) =>
-    (state: ConfiguratorState<T>) =>
-        state.elements.find((e) => e.identifier.equals(id));

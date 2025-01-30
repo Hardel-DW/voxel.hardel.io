@@ -1,4 +1,4 @@
-import type { Analysers, GetAnalyserVoxel } from "@/lib/minecraft/core/engine/Analyser";
+import { isRegistryVoxelElement, type Analysers, type GetAnalyserVoxel } from "@/lib/minecraft/core/engine/Analyser";
 import type { ParseDatapackResult } from "@/lib/minecraft/core/engine/Parser";
 import type { Action } from "@/lib/minecraft/core/engine/actions";
 import { updateData } from "@/lib/minecraft/core/engine/actions";
@@ -20,7 +20,8 @@ export async function applyActions<T extends keyof Analysers>(
         let currentElement = modifiedElements[elementIndex];
         for (const action of elementActions) {
             const updatedElement = updateData(action, currentElement, target.version);
-            if (updatedElement) {
+            const voxelElement = isRegistryVoxelElement(updatedElement);
+            if (voxelElement) {
                 currentElement = updatedElement;
             }
         }

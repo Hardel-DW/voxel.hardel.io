@@ -1,4 +1,3 @@
-import type { Analysers, GetAnalyserVoxel } from "@/lib/minecraft/core/engine/Analyser.ts";
 import type { RegistryElement } from "@/lib/minecraft/mczip.ts";
 import type { ActionValue, BaseAction } from ".";
 
@@ -14,11 +13,11 @@ export interface ToggleListValueAction extends BaseAction {
  * - With override mode, converts primitive values to arrays
  * - With remove_if_empty mode, removes the field if the list becomes empty
  */
-export default function ToggleListValueModifier<T extends keyof Analysers>(
+export default function ToggleListValueModifier(
     action: ToggleListValueAction,
-    element: RegistryElement<GetAnalyserVoxel<T>>,
+    element: RegistryElement<Record<string, unknown>>,
     props?: ActionValue
-): RegistryElement<GetAnalyserVoxel<T>> | undefined {
+): RegistryElement<Record<string, unknown>> | undefined {
     const { field } = action;
     const value = action.value ?? props;
     const modes = action.mode || [];

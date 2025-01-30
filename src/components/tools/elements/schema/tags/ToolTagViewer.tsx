@@ -2,18 +2,17 @@ import { TagLoader } from "@/components/tools/elements/schema/tags/TagLoader";
 import { ToolTagCard } from "@/components/tools/elements/schema/tags/ToolTagCard";
 import { Identifier } from "@/lib/minecraft/core/Identifier";
 import { isTag } from "@/lib/minecraft/core/Tag";
-import type { Analysers } from "@/lib/minecraft/core/engine/Analyser";
 import { compileDatapack, getIdentifierFromCompiler } from "@/lib/minecraft/core/engine/Compiler";
 import type { ToolTagViewerType } from "@/lib/minecraft/core/schema/primitive/component";
 import { useConfiguratorStore } from "@/lib/store/configuratorStore";
 import { useElementValue } from "@/lib/store/hooks";
 
-export default function ToolTagViewer<T extends keyof Analysers>({
+export default function ToolTagViewer({
     component
 }: {
     component: ToolTagViewerType;
 }) {
-    const fieldValue = component.field ? useElementValue<T, string>({ type: "from_field", field: component.field }) : null;
+    const fieldValue = component.properties ? useElementValue<string>(component.properties) : null;
 
     const configuration = useConfiguratorStore((state) => state.configuration);
     const version = useConfiguratorStore((state) => state.version);
@@ -21,8 +20,7 @@ export default function ToolTagViewer<T extends keyof Analysers>({
     const identifiers = useConfiguratorStore((state) => state.identifiers);
     const files = useConfiguratorStore((state) => state.files);
 
-    if (!configuration || !version || (component.field && !fieldValue)) return null;
-    if (typeof fieldValue !== "string") return null;
+    if (!configuration || !version || !fieldValue) return null;
 
     const assembleDatapack = compileDatapack({
         elements: elements,

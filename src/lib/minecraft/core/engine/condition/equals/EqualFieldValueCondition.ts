@@ -1,15 +1,14 @@
-import type { Analysers, GetAnalyserVoxel } from "@/lib/minecraft/core/engine/Analyser.ts";
 import type { RegistryElement } from "@/lib/minecraft/mczip.ts";
+import type { BaseCondition } from "@/lib/minecraft/core/engine/condition";
 
-export type ConditionEqualsFieldValue = {
+export interface ConditionEqualsFieldValue extends BaseCondition {
     condition: "compare_value_to_field_value";
-    field: string;
     value: string;
-};
+}
 
-export function CheckEqualFieldValueCondition<T extends keyof Analysers>(
+export function CheckEqualFieldValueCondition(
     condition: ConditionEqualsFieldValue,
-    element: RegistryElement<GetAnalyserVoxel<T>>
+    element: RegistryElement<Record<string, unknown>>
 ): boolean {
     const compared = element.data[condition.field];
     if (!compared) {

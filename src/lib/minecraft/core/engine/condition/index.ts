@@ -1,4 +1,3 @@
-import type { Analysers, GetAnalyserVoxel } from "@/lib/minecraft/core/engine/Analyser.ts";
 import type { ActionValue } from "@/lib/minecraft/core/engine/actions";
 import type { RegistryElement } from "@/lib/minecraft/mczip.ts";
 import { CheckContainConditionTags, type ConditionContainTags } from "./contains/ContainConditionTags";
@@ -11,6 +10,10 @@ import { type AllOfCondition, checkAllOfCondition } from "./generic/AllOfConditi
 import { type AnyOfCondition, checkAnyOfCondition } from "./generic/AnyOfCondition.ts";
 import { type InvertedCondition, checkInvertedCondition } from "./generic/InvertedCondition.ts";
 
+export type BaseCondition = {
+    field: string;
+};
+
 export type Condition =
     | ConditionEqualsString
     | ConditionEqualsUndefined
@@ -22,9 +25,9 @@ export type Condition =
     | AnyOfCondition
     | InvertedCondition;
 
-export function checkCondition<T extends keyof Analysers>(
+export function checkCondition(
     condition: Condition | undefined,
-    element: RegistryElement<GetAnalyserVoxel<T>>,
+    element: RegistryElement<Record<string, unknown>>,
     value?: ActionValue
 ): boolean {
     if (!condition) return true;
@@ -33,21 +36,21 @@ export function checkCondition<T extends keyof Analysers>(
         case "compare_to_value":
             return CheckEqualConditionString(condition);
         case "compare_value_to_field_value":
-            return CheckEqualFieldValueCondition<T>(condition, element);
+            return CheckEqualFieldValueCondition(condition, element);
         case "if_field_is_undefined":
-            return CheckEqualConditionUndefined<T>(condition, element);
+            return CheckEqualConditionUndefined(condition, element);
         case "contains_in_value":
-            return CheckContainConditionValue<T>(condition, element, value);
+            return CheckContainConditionValue(condition, element, value);
         case "contains_in_tags":
-            return CheckContainConditionTags<T>(condition, element);
+            return CheckContainConditionTags(condition, element);
         case "check_namespace":
             return CheckNamespaceCondition(condition, element);
         case "all_of":
-            return checkAllOfCondition<T>(condition, element, value);
+            return checkAllOfCondition(condition, element, value);
         case "any_of":
-            return checkAnyOfCondition<T>(condition, element, value);
+            return checkAnyOfCondition(condition, element, value);
         case "inverted":
-            return checkInvertedCondition<T>(condition, element, value);
+            return checkInvertedCondition(condition, element, value);
         default:
             return false;
     }

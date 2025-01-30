@@ -1,16 +1,15 @@
-import type { Analysers, GetAnalyserVoxel } from "@/lib/minecraft/core/engine/Analyser.ts";
 import type { ActionValue } from "@/lib/minecraft/core/engine/actions";
 import type { RegistryElement } from "@/lib/minecraft/mczip.ts";
+import type { BaseCondition } from "@/lib/minecraft/core/engine/condition";
 
-export type ConditionContainValue = {
+export interface ConditionContainValue extends BaseCondition {
     condition: "contains_in_value";
-    field: string;
     values?: string[];
-};
+}
 
-export function CheckContainConditionValue<T extends keyof Analysers>(
+export function CheckContainConditionValue(
     condition: ConditionContainValue,
-    element: RegistryElement<GetAnalyserVoxel<T>>,
+    element: RegistryElement<Record<string, unknown>>,
     value?: ActionValue
 ): boolean {
     const fieldValue = element.data[condition.field];

@@ -1,21 +1,20 @@
 import Counter from "@/components/ui/react/Counter";
-import type { Analysers } from "@/lib/minecraft/core/engine/Analyser";
 import type { ToolCounterType } from "@/lib/minecraft/core/schema/primitive/component";
 import translate from "@/lib/minecraft/i18n/translate";
 import { useConfiguratorStore } from "@/lib/store/configuratorStore";
 import { useElementLocks, useElementValue } from "@/lib/store/hooks";
 
-export default function ToolCounter<T extends keyof Analysers>({
+export default function ToolCounter({
     component
 }: {
     component: ToolCounterType;
 }) {
-    const value = useElementValue<T, number>(component.renderer);
-    const { isLocked, text: lockText } = useElementLocks<T>(component.lock);
+    const value = useElementValue<number>(component.renderer);
+    if (value === null) return null;
 
+    const { isLocked, text: lockText } = useElementLocks(component.lock);
     const handleChange = useConfiguratorStore((state) => state.handleChange);
     const currentElementId = useConfiguratorStore((state) => state.currentElementId);
-    if (value === null) return null;
 
     const handleValueChange = (newValue: number) => {
         if (component.lock) return;

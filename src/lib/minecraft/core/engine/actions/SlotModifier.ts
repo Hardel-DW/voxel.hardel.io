@@ -1,4 +1,3 @@
-import type { Analysers, GetAnalyserVoxel } from "@/lib/minecraft/core/engine/Analyser.ts";
 import { getManager } from "@/lib/minecraft/core/engine/Manager.ts";
 import { type SlotRegistryType, isArraySlotRegistryType, isSlotRegistryType } from "@/lib/minecraft/core/engine/managers/SlotManager.ts";
 import type { RegistryElement } from "@/lib/minecraft/mczip.ts";
@@ -17,11 +16,11 @@ export interface SlotAction extends BaseAction {
  * @param version - Extra data.
  * @constructor
  */
-export function SlotModifier<T extends keyof Analysers>(
+export function SlotModifier(
     action: SlotAction,
-    element: RegistryElement<GetAnalyserVoxel<T>>,
+    element: RegistryElement<Record<string, unknown>>,
     version: number
-): RegistryElement<GetAnalyserVoxel<T>> | undefined {
+): RegistryElement<Record<string, unknown>> | undefined {
     if (!version) throw new Error("Version is not set in the context");
 
     const shadowCopy = structuredClone(element);

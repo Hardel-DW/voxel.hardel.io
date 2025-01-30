@@ -1,4 +1,3 @@
-import type { Analysers, GetAnalyserVoxel } from "@/lib/minecraft/core/engine/Analyser.ts";
 import type { RegistryElement } from "@/lib/minecraft/mczip.ts";
 import type { ActionValue, BaseAction } from ".";
 
@@ -15,10 +14,10 @@ export interface ListAction extends BaseAction {
  * @param action - The action to perform
  * @param element - The element to modify
  */
-export function AppendListModifier<T extends keyof Analysers>(
+export default function AppendListModifier(
     action: ListAction,
-    element: RegistryElement<GetAnalyserVoxel<T>>
-): RegistryElement<GetAnalyserVoxel<T>> | undefined {
+    element: RegistryElement<Record<string, unknown>>
+): RegistryElement<Record<string, unknown>> | undefined {
     const { value, field, mode, flag } = action;
     const shadowCopy = structuredClone(element);
 

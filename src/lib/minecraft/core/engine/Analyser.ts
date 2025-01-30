@@ -11,6 +11,7 @@ import {
 import type { ToolConfiguration } from "@/lib/minecraft/core/schema/primitive";
 import type { FieldProperties } from "@/lib/minecraft/core/schema/primitive/properties";
 import type { Enchantment } from "@voxel/definitions";
+import type { RegistryElement } from "../../mczip";
 
 export type DataDrivenElement = Record<string, unknown>;
 export interface VoxelElement extends Record<string, unknown> {
@@ -48,6 +49,10 @@ export type VersionRange = {
     min: number;
     max: number;
 };
+
+export function isRegistryVoxelElement<T extends keyof Analysers>(element: any): element is RegistryElement<GetAnalyserVoxel<T>> {
+    return "identifier" in element && "data" in element && "override" in element.data;
+}
 
 export const versionedAnalyserCollection: VersionedAnalysers = {
     enchantment: [

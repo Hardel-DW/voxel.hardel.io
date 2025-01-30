@@ -65,9 +65,9 @@ export type TagViewerInclude = {
 
 export type ToolTagViewerType = BaseComponent & {
     type: "TagViewer";
-    field?: string;
     registry: string;
     include?: TagViewerInclude;
+    properties?: ValueRenderer;
 };
 
 export type ToolRevealType = BaseComponent & {
@@ -174,7 +174,7 @@ export type ToolPropertyType = BaseComponent & {
     type: "Property";
     action: Action;
     condition: Condition;
-    properties: string;
+    properties: ValueRenderer;
 };
 
 // Define non-container components first

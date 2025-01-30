@@ -1,14 +1,13 @@
-import type { Analysers, GetAnalyserVoxel } from "@/lib/minecraft/core/engine/Analyser.ts";
 import type { RegistryElement } from "@/lib/minecraft/mczip.ts";
+import type { BaseCondition } from "@/lib/minecraft/core/engine/condition";
 
-export type ConditionEqualsUndefined = {
+export interface ConditionEqualsUndefined extends BaseCondition {
     condition: "if_field_is_undefined";
-    field: string;
-};
+}
 
-export function CheckEqualConditionUndefined<T extends keyof Analysers>(
+export function CheckEqualConditionUndefined(
     condition: ConditionEqualsUndefined,
-    element: RegistryElement<GetAnalyserVoxel<T>>
+    element: RegistryElement<Record<string, unknown>>
 ): boolean {
     return element.data[condition.field] === undefined;
 }

@@ -1,5 +1,5 @@
 import { Identifier } from "@/lib/minecraft/core/Identifier";
-import type { Analysers, GetAnalyserVoxel } from "@/lib/minecraft/core/engine/Analyser";
+import { isRegistryVoxelElement, type Analysers, type GetAnalyserVoxel } from "@/lib/minecraft/core/engine/Analyser";
 import type { Action, ActionValue } from "@/lib/minecraft/core/engine/actions";
 import { updateData } from "@/lib/minecraft/core/engine/actions";
 import type { Logger } from "@/lib/minecraft/core/engine/migrations/logger";
@@ -84,8 +84,11 @@ const createConfiguratorStore = <T extends keyof Analysers>() =>
                 return;
             }
 
-            const updatedElement = updateData<T>(action, element, state.version ?? Number.POSITIVE_INFINITY, value);
+            const updatedElement = updateData(action, element, state.version ?? Number.POSITIVE_INFINITY, value);
             if (!updatedElement) return;
+
+            const isVoxelElement = isRegistryVoxelElement(updatedElement);
+            if (!isVoxelElement) return;
 
             set((state) => ({
                 elements: state.elements.map((item) => (item.identifier.equals(updatedElement.identifier) ? updatedElement : item))

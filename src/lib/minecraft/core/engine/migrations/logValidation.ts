@@ -97,7 +97,7 @@ export function createDifferenceFromAction<T extends keyof Analysers>(
               ? element.data[field as keyof typeof element.data]
               : undefined;
 
-    const updatedElement = updateData<T>(action, element, version, value);
+    const updatedElement = updateData(action, element, version, value);
     if (!updatedElement) return undefined;
     const currentValue = updatedElement.data[field as keyof typeof updatedElement.data];
     if (!isLogValue(currentValue)) return undefined;

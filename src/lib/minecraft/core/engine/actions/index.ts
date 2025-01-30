@@ -1,10 +1,9 @@
 import type { Identifier } from "@/lib/minecraft/core/Identifier.ts";
-import type { Analysers, GetAnalyserVoxel } from "@/lib/minecraft/core/engine/Analyser.ts";
 import AlternativeModifier, { type AlternativeAction } from "@/lib/minecraft/core/engine/actions/AlternativeModifier.ts";
-import { AppendListModifier, type ListAction } from "@/lib/minecraft/core/engine/actions/AppendListModifier";
+import AppendListModifier, { type ListAction } from "@/lib/minecraft/core/engine/actions/AppendListModifier.ts";
 import { type ComputedAction, ComputedModifier } from "@/lib/minecraft/core/engine/actions/ComputedModifier.ts";
 import MultipleModifier, { type MultipleAction } from "@/lib/minecraft/core/engine/actions/MultipleModifier.ts";
-import { type RemoveKeyAction, RemoveKeyModifier } from "@/lib/minecraft/core/engine/actions/RemoveKeyModifier.ts";
+import RemoveKeyModifier, { type RemoveKeyAction } from "@/lib/minecraft/core/engine/actions/RemoveKeyModifier.ts";
 import RemoveValueFromListModifier, {
     type RemoveValueFromListAction
 } from "@/lib/minecraft/core/engine/actions/RemoveValueFromListModifier.ts";
@@ -34,12 +33,12 @@ export type Action =
     | RemoveValueFromListAction
     | AlternativeAction;
 
-export function updateData<T extends keyof Analysers>(
+export function updateData(
     action: Action,
-    element: RegistryElement<GetAnalyserVoxel<T>>,
+    element: RegistryElement<Record<string, unknown>>,
     version: number,
     value?: ActionValue
-): RegistryElement<GetAnalyserVoxel<T>> | undefined {
+): RegistryElement<Record<string, unknown>> | undefined {
     return (() => {
         switch (action.type) {
             case "set_value_from_computed_value":

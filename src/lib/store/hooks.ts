@@ -1,5 +1,4 @@
 import type { Identifier } from "@/lib/minecraft/core/Identifier";
-import type { Analysers } from "@/lib/minecraft/core/engine/Analyser";
 import { type Condition, checkCondition } from "@/lib/minecraft/core/engine/condition";
 import { checkLocks } from "@/lib/minecraft/core/engine/renderer";
 import type { ValueRenderer } from "@/lib/minecraft/core/engine/renderer/value";
@@ -18,27 +17,20 @@ export const useElement = (elementId?: Identifier) => {
     });
 };
 
-export const useElementValue = <T extends keyof Analysers, K>(renderer: ValueRenderer, elementId?: Identifier): K | null => {
+export const useElementValue = <K>(renderer: ValueRenderer, elementId?: Identifier): K | null => {
     const element = useElement(elementId);
     if (!element) return null;
-    return getValue<T, K>(renderer, element);
+    return getValue<K>(renderer, element);
 };
 
-export const useElementCondition = <T extends keyof Analysers>(
-    condition: Condition | undefined,
-    elementId?: Identifier,
-    value?: any
-): boolean => {
+export const useElementCondition = (condition: Condition | undefined, elementId?: Identifier, value?: any): boolean => {
     const element = useElement(elementId);
     if (!element || !condition) return false;
-    return checkCondition<T>(condition, element, value);
+    return checkCondition(condition, element, value);
 };
 
-export const useElementLocks = <T extends keyof Analysers>(
-    locks: Lock[] | undefined,
-    elementId?: Identifier
-): { isLocked: boolean; text?: TranslateTextType } => {
+export const useElementLocks = (locks: Lock[] | undefined, elementId?: Identifier): { isLocked: boolean; text?: TranslateTextType } => {
     const element = useElement(elementId);
     if (!element) return { isLocked: false };
-    return checkLocks<T>(locks, element);
+    return checkLocks(locks, element);
 };

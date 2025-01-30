@@ -424,7 +424,10 @@ export const technical: InterfaceConfiguration = {
                         type: "toggle_value_in_list",
                         field: "disabledEffects"
                     },
-                    properties: "effects",
+                    properties: {
+                        type: "from_field",
+                        field: "effects"
+                    },
                     condition: {
                         condition: "contains_in_value",
                         field: "disabledEffects"

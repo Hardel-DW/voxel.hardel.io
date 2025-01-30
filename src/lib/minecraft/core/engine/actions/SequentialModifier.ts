@@ -1,4 +1,3 @@
-import type { Analysers, GetAnalyserVoxel } from "@/lib/minecraft/core/engine/Analyser.ts";
 import type { Action, ActionValue } from "@/lib/minecraft/core/engine/actions/index.ts";
 import { updateData } from "@/lib/minecraft/core/engine/actions/index.ts";
 import type { RegistryElement } from "@/lib/minecraft/mczip.ts";
@@ -16,16 +15,16 @@ export interface SequentialAction {
  * @param version - The version of the element
  * @param value
  */
-export default function SequentialModifier<T extends keyof Analysers>(
+export default function SequentialModifier(
     action: SequentialAction,
-    element: RegistryElement<GetAnalyserVoxel<T>>,
+    element: RegistryElement<Record<string, unknown>>,
     version: number,
     value?: ActionValue
-): RegistryElement<GetAnalyserVoxel<T>> | undefined {
+): RegistryElement<Record<string, unknown>> | undefined {
     let currentElement = element;
 
     for (const subAction of action.actions) {
-        const updatedElement = updateData<T>(subAction, currentElement, version, value);
+        const updatedElement = updateData(subAction, currentElement, version, value);
         if (!updatedElement) return undefined;
         currentElement = updatedElement;
     }

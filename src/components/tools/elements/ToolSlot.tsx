@@ -1,4 +1,3 @@
-import type { Analysers } from "@/lib/minecraft/core/engine/Analyser";
 import type { ToolSlotType } from "@/lib/minecraft/core/schema/primitive/component";
 import translate from "@/lib/minecraft/i18n/translate";
 import { getKey } from "@/lib/minecraft/i18n/translations";
@@ -6,15 +5,15 @@ import { useConfiguratorStore } from "@/lib/store/configuratorStore";
 import { useElementLocks, useElementValue } from "@/lib/store/hooks";
 import { cn } from "@/lib/utils";
 
-export default function ToolSlot<T extends keyof Analysers>({
+export default function ToolSlot({
     component
 }: {
     component: ToolSlotType;
 }) {
-    const value = useElementValue<T, boolean>(component.renderer);
+    const value = useElementValue<boolean>(component.renderer);
     if (value === null) return null;
 
-    const { isLocked, text: lockText } = useElementLocks<T>(component.lock);
+    const { isLocked, text: lockText } = useElementLocks(component.lock);
 
     const handleChange = useConfiguratorStore((state) => state.handleChange);
     const currentElementId = useConfiguratorStore((state) => state.currentElementId);

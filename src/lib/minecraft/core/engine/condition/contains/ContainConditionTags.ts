@@ -1,18 +1,14 @@
 import { Identifier } from "@/lib/minecraft/core/Identifier.ts";
-import type { Analysers, GetAnalyserVoxel } from "@/lib/minecraft/core/engine/Analyser.ts";
 import type { RegistryElement } from "@/lib/minecraft/mczip.ts";
+import type { BaseCondition } from "@/lib/minecraft/core/engine/condition";
 
-export type ConditionContainTags = {
+export interface ConditionContainTags extends BaseCondition {
     condition: "contains_in_tags";
-    field: string;
     lock?: boolean;
     values: string[];
-};
+}
 
-export function CheckContainConditionTags<T extends keyof Analysers>(
-    condition: ConditionContainTags,
-    element: RegistryElement<GetAnalyserVoxel<T>>
-): boolean {
+export function CheckContainConditionTags(condition: ConditionContainTags, element: RegistryElement<Record<string, unknown>>): boolean {
     const values = element.data[condition.field];
     if (
         !Array.isArray(values) ||

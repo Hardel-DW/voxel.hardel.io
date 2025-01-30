@@ -1,4 +1,3 @@
-import type { Analysers, GetAnalyserVoxel } from "@/lib/minecraft/core/engine/Analyser.ts";
 import type { RegistryElement } from "@/lib/minecraft/mczip.ts";
 import type { BaseAction } from ".";
 
@@ -15,10 +14,10 @@ export interface UndefinedAction extends BaseAction {
  * @param element - The element to modify.
  * @constructor
  */
-export function UndefinedModifier<T extends keyof Analysers>(
+export function UndefinedModifier(
     action: UndefinedAction,
-    element: RegistryElement<GetAnalyserVoxel<T>>
-): RegistryElement<GetAnalyserVoxel<T>> | undefined {
+    element: RegistryElement<Record<string, unknown>>
+): RegistryElement<Record<string, unknown>> | undefined {
     const { field } = action;
 
     return {

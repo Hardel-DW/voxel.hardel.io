@@ -3,7 +3,7 @@ import type { ToolSectionType } from "@/lib/minecraft/core/schema/primitive/comp
 import translate from "@/lib/minecraft/i18n/translate";
 import { useConfiguratorStore } from "@/lib/store/configuratorStore";
 import { cn } from "@/lib/utils.ts";
-import { RenderComponent } from "../RenderComponent";
+import { RenderComponent } from "@/components/tools/RenderComponent";
 
 export default function ToolSection({
     component

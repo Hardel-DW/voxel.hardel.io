@@ -1,4 +1,3 @@
-import type { Analysers, GetAnalyserVoxel } from "@/lib/minecraft/core/engine/Analyser.ts";
 import type { RegistryElement } from "@/lib/minecraft/mczip.ts";
 import type { ActionValue, BaseAction } from ".";
 
@@ -13,11 +12,11 @@ export interface RemoveValueFromListAction extends BaseAction {
  * - With remove_if_empty mode, removes the field if the list becomes empty
  * Returns undefined if the field is not an array or if the types don't match
  */
-export default function RemoveValueFromListModifier<T extends keyof Analysers>(
+export default function RemoveValueFromListModifier(
     action: RemoveValueFromListAction,
-    element: RegistryElement<GetAnalyserVoxel<T>>,
+    element: RegistryElement<Record<string, unknown>>,
     props?: ActionValue
-): RegistryElement<GetAnalyserVoxel<T>> | undefined {
+): RegistryElement<Record<string, unknown>> | undefined {
     const { field } = action;
     const value = action.value ?? props;
     const modes = action.mode || [];

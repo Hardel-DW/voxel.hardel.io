@@ -260,7 +260,10 @@ export const exclusive: InterfaceConfiguration = {
                         {
                             type: "TagViewer",
                             registry: "tags/enchantment",
-                            field: "exclusiveSet",
+                            properties: {
+                                type: "from_field",
+                                field: "exclusiveSet"
+                            },
                             include: {
                                 namespace: "minecraft",
                                 registry: "enchantment",

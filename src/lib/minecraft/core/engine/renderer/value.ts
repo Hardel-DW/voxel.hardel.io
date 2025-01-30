@@ -1,4 +1,3 @@
-import type { Analysers, GetAnalyserVoxel } from "@/lib/minecraft/core/engine/Analyser.ts";
 import { type Condition, checkCondition } from "@/lib/minecraft/core/engine/condition";
 import type { RegistryElement } from "@/lib/minecraft/mczip.ts";
 
@@ -33,13 +32,10 @@ export type ValueRenderer = ConditionnalValueRenderer | RawValueRenderer | Field
 
 export type ReturnValue<K> = K;
 
-export function getValue<T extends keyof Analysers, K>(
-    renderer: ValueRenderer,
-    element: RegistryElement<GetAnalyserVoxel<T>>
-): ReturnValue<K> {
+export function getValue<K>(renderer: ValueRenderer, element: RegistryElement<Record<string, unknown>>): ReturnValue<K> {
     switch (renderer.type) {
         case "conditionnal": {
-            const conditionMet = checkCondition<T>(renderer.term, element);
+            const conditionMet = checkCondition(renderer.term, element);
             if ("return_condition" in renderer && renderer.return_condition) {
                 return conditionMet as K;
             }
@@ -60,10 +56,7 @@ export function getValue<T extends keyof Analysers, K>(
     }
 }
 
-function getRendererValue<T extends keyof Analysers, K>(
-    renderer: FieldValueRenderer | RawValueRenderer,
-    element: RegistryElement<GetAnalyserVoxel<T>>
-): K {
+function getRendererValue<K>(renderer: FieldValueRenderer | RawValueRenderer, element: RegistryElement<Record<string, unknown>>): K {
     switch (renderer.type) {
         case "from_field":
             return element.data[renderer.field] as K;

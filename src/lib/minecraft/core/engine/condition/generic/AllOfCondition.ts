@@ -1,4 +1,3 @@
-import type { Analysers, GetAnalyserVoxel } from "@/lib/minecraft/core/engine/Analyser.ts";
 import type { ActionValue } from "@/lib/minecraft/core/engine/actions";
 import { type Condition, checkCondition } from "@/lib/minecraft/core/engine/condition";
 import type { RegistryElement } from "@/lib/minecraft/mczip.ts";
@@ -8,9 +7,9 @@ export type AllOfCondition = {
     terms: Condition[];
 };
 
-export function checkAllOfCondition<T extends keyof Analysers>(
+export function checkAllOfCondition(
     condition: AllOfCondition,
-    element: RegistryElement<GetAnalyserVoxel<T>>,
+    element: RegistryElement<Record<string, unknown>>,
     value?: ActionValue
 ): boolean {
     return condition.terms.every((subCondition) => checkCondition(subCondition, element, value));

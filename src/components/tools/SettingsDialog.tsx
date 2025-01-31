@@ -1,5 +1,5 @@
 import { useTranslate } from "@/components/useTranslate";
-import { useConfiguratorStore } from "@/lib/store/configuratorStore";
+import { useConfiguratorStore } from "@/lib/minecraft/core/engine/Store";
 
 export default function SettingsDialog() {
     const { t } = useTranslate();

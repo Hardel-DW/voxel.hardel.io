@@ -1,8 +1,8 @@
 import { useTranslate } from "@/components/useTranslate";
 import type { Condition } from "@/lib/minecraft/core/engine/condition";
 import { stringIdentifierToDisplay } from "@/lib/minecraft/core/Identifier";
-import { useConfiguratorStore } from "@/lib/store/configuratorStore";
-import { useElementCondition } from "@/lib/store/hooks";
+import { useConfiguratorStore } from "@/lib/minecraft/core/engine/Store";
+import { useElementCondition } from "@/lib/minecraft/core/engine/utils/hooks";
 
 interface ToolPropertyElementProps {
     name: string;

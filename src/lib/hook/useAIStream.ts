@@ -1,5 +1,5 @@
 import { searchRelevantElements } from "@/lib/searchElements";
-import { useConfiguratorStore } from "@/lib/store/configuratorStore";
+import { useConfiguratorStore } from "@/lib/minecraft/core/engine/Store";
 import { useState } from "react";
 import { identifierToString, type IdentifierObject } from "@/lib/minecraft/core/Identifier";
 import type { Action } from "@/lib/minecraft/core/engine/actions";

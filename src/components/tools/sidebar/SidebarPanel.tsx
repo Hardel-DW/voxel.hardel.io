@@ -3,7 +3,7 @@ import DownloadButton from "@/components/tools/DownloadButton.tsx";
 import DebugConfigurator from "@/components/tools/debug/DebugConfigurator";
 import SettingsButton from "@/components/tools/sidebar/SettingsButton";
 import { useTranslate } from "@/components/useTranslate";
-import { useConfiguratorStore } from "@/lib/store/configuratorStore";
+import { useConfiguratorStore } from "@/lib/minecraft/core/engine/Store";
 import { cn } from "@/lib/utils.ts";
 import { useRef } from "react";
 

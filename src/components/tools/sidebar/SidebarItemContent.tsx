@@ -1,7 +1,7 @@
 import type { RefObject } from "react";
-import { useConfiguratorStore } from "@/lib/store/configuratorStore";
-import { useElementLocks } from "@/lib/store/hooks";
-import { useElementCondition } from "@/lib/store/hooks";
+import { useConfiguratorStore } from "@/lib/minecraft/core/engine/Store";
+import { useElementLocks } from "@/lib/minecraft/core/engine/utils/hooks";
+import { useElementCondition } from "@/lib/minecraft/core/engine/utils/hooks";
 import { identifierToResourceName } from "@/lib/minecraft/core/Identifier";
 
 export default function SidebarItemContent({ elementId, switchRef }: { elementId: string; switchRef: RefObject<HTMLDivElement | null> }) {

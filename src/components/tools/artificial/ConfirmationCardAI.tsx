@@ -1,7 +1,7 @@
 import { useTranslate } from "@/components/useTranslate";
 import { type Analysers, getAnalyserForVersion } from "@/lib/minecraft/core/engine/Analyser";
 import { type Action, updateData } from "@/lib/minecraft/core/engine/actions";
-import { useConfiguratorStore } from "@/lib/store/configuratorStore";
+import { useConfiguratorStore } from "@/lib/minecraft/core/engine/Store";
 import { useState } from "react";
 import { ValueRenderer, type ValueRendererProps } from "./value/ValueRenderer";
 import { identifierToFilePath } from "@/lib/minecraft/core/Identifier";

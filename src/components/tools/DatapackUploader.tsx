@@ -2,7 +2,7 @@ import Dropzone from "@/components/ui/react/Dropzone.tsx";
 import { useTranslate } from "@/components/useTranslate";
 import type { Analysers } from "@/lib/minecraft/core/engine/Analyser";
 import { parseDatapack } from "@/lib/minecraft/core/engine/Parser.ts";
-import { useConfiguratorStore } from "@/lib/store/configuratorStore";
+import { useConfiguratorStore } from "@/lib/minecraft/core/engine/Store";
 import { toast } from "sonner";
 
 export default function DatapackUploader(props: { tool: keyof Analysers }) {

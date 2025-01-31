@@ -3,7 +3,7 @@ import DatapackUploader from "@/components/tools/DatapackUploader.tsx";
 import { useTranslate } from "@/components/useTranslate";
 import type { FaqType } from "@/content/config.ts";
 import type { Analysers } from "@/lib/minecraft/core/engine/Analyser";
-import { useConfiguratorStore } from "@/lib/store/configuratorStore";
+import { useConfiguratorStore } from "@/lib/minecraft/core/engine/Store";
 import type React from "react";
 
 export default function HelpGuide(props: {

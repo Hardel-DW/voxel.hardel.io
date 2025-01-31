@@ -4,7 +4,7 @@ import { useTranslate } from "@/components/useTranslate";
 import type { Analysers } from "@/lib/minecraft/core/engine/Analyser";
 import { type CompileDatapackResult, getIdentifierFromCompiler } from "@/lib/minecraft/core/engine/Compiler";
 import { identifierToFileName } from "@/lib/minecraft/core/Identifier";
-import { useConfiguratorStore } from "@/lib/store/configuratorStore";
+import { useConfiguratorStore } from "@/lib/minecraft/core/engine/Store";
 
 interface CodeSectionProps {
     code: CompileDatapackResult<keyof Analysers> | undefined;

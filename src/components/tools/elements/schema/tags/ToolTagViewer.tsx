@@ -5,8 +5,8 @@ import { createIdentifierFromString } from "@/lib/minecraft/core/Identifier";
 import { isTag } from "@/lib/minecraft/core/Tag";
 import { getIdentifierFromCompiler } from "@/lib/minecraft/core/engine/Compiler";
 import type { ToolTagViewerType } from "@/lib/minecraft/core/schema/primitive/component";
-import { useConfiguratorStore } from "@/lib/store/configuratorStore";
-import { useElementValue } from "@/lib/store/hooks";
+import { useConfiguratorStore } from "@/lib/minecraft/core/engine/Store";
+import { useElementValue } from "@/lib/minecraft/core/engine/utils/hooks";
 
 export default function ToolTagViewer({
     component

@@ -1,6 +1,6 @@
 import Button from "@/components/ui/react/Button.tsx";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/shadcn/popover.tsx";
-import { useConfiguratorStore } from "@/lib/store/configuratorStore";
+import { useConfiguratorStore } from "@/lib/minecraft/core/engine/Store";
 
 export default function SettingsButton() {
     const name = useConfiguratorStore((state) => state.name);

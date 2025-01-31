@@ -1,4 +1,4 @@
-import { useConfiguratorStore } from "@/lib/store/configuratorStore";
+import { useConfiguratorStore } from "@/lib/minecraft/core/engine/Store";
 import { cn } from "@/lib/utils.ts";
 import { useRef } from "react";
 import SidebarItemContent from "./SidebarItemContent";
@@ -12,10 +12,7 @@ export function SidebarItem({ elementId }: { elementId: string }) {
             className={cn("odd:bg-black/75 pl-4 pr-2 py-2 rounded-xl", {
                 "ring-1 ring-rose-900": isSelected
             })}>
-            <SidebarItemContent
-                elementId={elementId}
-                switchRef={switchRef}
-            />
+            <SidebarItemContent elementId={elementId} switchRef={switchRef} />
         </div>
     );
 }

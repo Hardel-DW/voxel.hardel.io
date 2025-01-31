@@ -5,7 +5,7 @@ import { type IActionResponse, useAIStream } from "@/lib/hook/useAIStream";
 import { useClickOutside } from "@/lib/hook/useClickOutside";
 import { createIdentifierFromString, identifierToString } from "@/lib/minecraft/core/Identifier";
 import { SplitSequentialAction } from "@/lib/minecraft/core/engine/actions";
-import { useConfiguratorStore } from "@/lib/store/configuratorStore";
+import { useConfiguratorStore } from "@/lib/minecraft/core/engine/Store";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
 import type { PropsConfirmationCardAI } from "./ConfirmationCardAI";

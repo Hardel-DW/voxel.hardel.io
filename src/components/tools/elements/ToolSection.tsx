@@ -1,7 +1,7 @@
 import Button from "@/components/ui/react/Button.tsx";
 import type { ToolSectionType } from "@/lib/minecraft/core/schema/primitive/component";
 import translate from "@/lib/minecraft/i18n/translate";
-import { useConfiguratorStore } from "@/lib/store/configuratorStore";
+import { useConfiguratorStore } from "@/lib/minecraft/core/engine/Store";
 import { cn } from "@/lib/utils.ts";
 import { RenderComponent } from "@/components/tools/RenderComponent";
 

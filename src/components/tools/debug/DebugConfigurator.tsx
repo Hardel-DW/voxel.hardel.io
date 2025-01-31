@@ -1,6 +1,6 @@
 import type { Analysers } from "@/lib/minecraft/core/engine/Analyser.ts";
 import { type CompileDatapackResult, getIdentifierFromCompiler } from "@/lib/minecraft/core/engine/Compiler.ts";
-import { useConfiguratorStore } from "@/lib/store/configuratorStore";
+import { useConfiguratorStore } from "@/lib/minecraft/core/engine/Store";
 import { useState } from "react";
 import { createPortal } from "react-dom";
 import DebugPanel from "./DebugPanel";

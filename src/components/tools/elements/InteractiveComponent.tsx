@@ -1,7 +1,7 @@
 import type { ActionValue } from "@/lib/minecraft/core/engine/actions";
 import type { BaseInteractiveComponent, LockRenderer } from "@/lib/minecraft/core/schema/primitive/component";
-import { useConfiguratorStore } from "@/lib/store/configuratorStore";
-import { useElementCondition, useElementLocks, useElementValue } from "@/lib/store/hooks";
+import { useConfiguratorStore } from "@/lib/minecraft/core/engine/Store";
+import { useElementCondition, useElementLocks, useElementValue } from "@/lib/minecraft/core/engine/utils/hooks";
 
 export interface InteractiveProps<T> {
     value: T;
@@ -32,7 +32,6 @@ export const InteractiveComponent = <T extends ActionValue, C extends BaseIntera
             if (lock.isLocked) return;
             handleChange(component.action, currentElementId, newValue);
         };
-
 
         const interactiveProps: InteractiveProps<T> = { value, lock, handleChange: handleValueChange };
 

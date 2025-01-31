@@ -6,8 +6,8 @@ import type { ToolConfiguration } from "@/lib/minecraft/core/schema/primitive";
 import type { ToggleSection } from "@/lib/minecraft/core/schema/primitive/toggle";
 import { create } from "zustand";
 import { sortVoxelElements, type IdentifierObject } from "@/lib/minecraft/core/Identifier";
-import type { ParseDatapackResult } from "../minecraft/core/engine/Parser";
-import { compileDatapack, type CompileDatapackResult } from "../minecraft/core/engine/Compiler";
+import type { ParseDatapackResult } from "./Parser";
+import { compileDatapack, type CompileDatapackResult } from "./Compiler";
 
 export interface ConfiguratorState<T extends keyof Analysers> {
     name: string;

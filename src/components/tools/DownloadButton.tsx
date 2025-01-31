@@ -2,7 +2,7 @@ import Button from "@/components/ui/react/Button.tsx";
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/shadcn/dialog.tsx";
 import { useTranslate } from "@/components/useTranslate";
 import { generateZip } from "@/lib/minecraft/mczip.ts";
-import { useConfiguratorStore } from "@/lib/store/configuratorStore";
+import { useConfiguratorStore } from "@/lib/minecraft/core/engine/Store.ts";
 import { DialogDescription } from "@radix-ui/react-dialog";
 import SettingsDialog from "./SettingsDialog.tsx";
 

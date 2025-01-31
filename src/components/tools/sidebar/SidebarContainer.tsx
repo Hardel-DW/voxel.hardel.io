@@ -1,4 +1,4 @@
-import { useConfiguratorStore } from "@/lib/store/configuratorStore";
+import { useConfiguratorStore } from "@/lib/minecraft/core/engine/Store";
 import { SidebarItem } from "./SidebarItem";
 
 export const SidebarContainer = () => {

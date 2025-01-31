@@ -1,7 +1,7 @@
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/shadcn/dropdown";
 import { useTranslate } from "@/components/useTranslate";
 import { parseDatapack } from "@/lib/minecraft/core/engine/Parser";
-import { useConfiguratorStore } from "@/lib/store/configuratorStore";
+import { useConfiguratorStore } from "@/lib/minecraft/core/engine/Store";
 
 export default function VanillaImportButton() {
     const { t } = useTranslate();

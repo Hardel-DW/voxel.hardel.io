@@ -1,21 +1,10 @@
 import Tabs from "@/components/ui/react/Tabs";
 import type { ToolSelectorType } from "@/lib/minecraft/core/schema/primitive/component";
 import translate from "@/lib/minecraft/i18n/translate";
-import { useConfiguratorStore } from "@/lib/store/configuratorStore";
-import { useElementLocks, useElementValue } from "@/lib/store/hooks";
+import type { InteractiveComponentProps } from "./InteractiveComponent";
 
-export default function ToolSelector({
-    component
-}: {
-    component: ToolSelectorType;
-}) {
-    const value = useElementValue<string>(component.renderer);
-    if (value === null) return null;
-
-    const { isLocked, text: lockText } = useElementLocks(component.lock);
-
-    const handleChange = useConfiguratorStore((state) => state.handleChange);
-    const currentElementId = useConfiguratorStore((state) => state.currentElementId);
+export default function ToolSelector({ component, interactiveProps }: InteractiveComponentProps<string, ToolSelectorType>) {
+    const { value, isLocked, lockText, handleChange } = interactiveProps;
 
     const list = component.options.map((option) => ({
         label: translate(option.label) || "",
@@ -35,12 +24,7 @@ export default function ToolSelector({
                 )}
             </div>
 
-            <Tabs
-                tabs={list}
-                defaultTab={value}
-                onChange={(option) => handleChange(component.action, currentElementId, option)}
-                disabled={isLocked}
-            />
+            <Tabs tabs={list} defaultTab={value} onChange={(option) => handleChange(option)} disabled={isLocked} />
         </div>
     );
 }

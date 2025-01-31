@@ -1,21 +1,10 @@
 import type { ToolRangeType } from "@/lib/minecraft/core/schema/primitive/component";
 import translate from "@/lib/minecraft/i18n/translate";
 import { getKey } from "@/lib/minecraft/i18n/translations";
-import { useConfiguratorStore } from "@/lib/store/configuratorStore";
-import { useElementLocks, useElementValue } from "@/lib/store/hooks";
+import type { InteractiveComponentProps } from "./InteractiveComponent";
 
-export default function ToolRange({
-    component
-}: {
-    component: ToolRangeType;
-}) {
-    const value = useElementValue<number>(component.renderer);
-    if (value === null) return null;
-
-    const { isLocked, text: lockText } = useElementLocks(component.lock);
-
-    const handleChange = useConfiguratorStore((state) => state.handleChange);
-    const currentElementId = useConfiguratorStore((state) => state.currentElementId);
+export default function ToolRange({ component, interactiveProps }: InteractiveComponentProps<number, ToolRangeType>) {
+    const { value, isLocked, lockText, handleChange } = interactiveProps;
 
     return (
         <div className="relative w-full mt-4">
@@ -39,7 +28,7 @@ export default function ToolRange({
                 max={component.max}
                 step={component.step}
                 value={value}
-                onChange={(e) => handleChange(component.action, currentElementId, +e.target.value)}
+                onChange={(e) => handleChange(+e.target.value)}
                 className="w-full text-sm font-normal"
             />
         </div>

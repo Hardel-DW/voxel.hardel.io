@@ -10,6 +10,12 @@ export type BaseComponent = {
     hide?: Condition;
 };
 
+export type BaseInteractiveComponent = BaseComponent & {
+    action: Action;
+    renderer: ValueRenderer;
+    lock?: Lock[];
+};
+
 export type Lock = {
     text: TranslateTextType;
     condition: Condition;
@@ -87,14 +93,11 @@ export type ToolRevealElementType = {
 };
 
 // Interactions Components
-export type ToolSelectorType = BaseComponent & {
+export type ToolSelectorType = BaseInteractiveComponent & {
     type: "Selector";
     title: TranslateTextType;
     description: TranslateTextType;
     options: { label: TranslateTextType; value: string }[];
-    action: Action;
-    renderer: ValueRenderer;
-    lock?: Lock[];
 };
 
 export type ToolDonationType = BaseComponent & {
@@ -105,37 +108,28 @@ export type ToolDonationType = BaseComponent & {
     image: string;
 };
 
-export type ToolSwitchSlotType = BaseComponent & {
+export type ToolSwitchSlotType = BaseInteractiveComponent & {
     type: "SwitchSlot";
     title: TranslateTextType;
     description: TranslateTextType;
     image?: string;
-    action: Action;
-    renderer: ValueRenderer;
-    lock?: Lock[];
 };
 
-export type ToolSwitchType = BaseComponent & {
+export type ToolSwitchType = BaseInteractiveComponent & {
     type: "Switch";
     title: TranslateTextType;
     description: TranslateTextType;
-    action: Action;
-    renderer: ValueRenderer;
-    lock?: Lock[];
 };
 
-export type ToolSlotType = BaseComponent & {
+export type ToolSlotType = BaseInteractiveComponent & {
     type: "Slot";
     description?: TranslateTextType;
     title: TranslateTextType;
     image: string;
     size?: number;
-    action: Action;
-    renderer: ValueRenderer;
-    lock?: Lock[];
 };
 
-export type ToolCounterType = BaseComponent & {
+export type ToolCounterType = BaseInteractiveComponent & {
     type: "Counter";
     title: TranslateTextType;
     short?: TranslateTextType;
@@ -144,30 +138,21 @@ export type ToolCounterType = BaseComponent & {
     min: number;
     max: number;
     step: number;
-    action: Action;
-    lock?: Lock[];
-    renderer: ValueRenderer;
 };
 
-export type ToolRangeType = BaseComponent & {
+export type ToolRangeType = BaseInteractiveComponent & {
     type: "Range";
     label: TranslateTextType;
     min: number;
     max: number;
     step: number;
-    action: Action;
-    lock?: Lock[];
-    renderer: ValueRenderer;
 };
 
-export type ToolInlineType = BaseComponent & {
+export type ToolInlineType = BaseInteractiveComponent & {
     type: "InlineSlot";
     description?: TranslateTextType;
     title: TranslateTextType;
     image: string;
-    action?: Action;
-    renderer: ValueRenderer;
-    lock?: Lock[];
 };
 
 export type ToolPropertyType = BaseComponent & {

@@ -1,25 +1,10 @@
 import Counter from "@/components/ui/react/Counter";
 import type { ToolCounterType } from "@/lib/minecraft/core/schema/primitive/component";
 import translate from "@/lib/minecraft/i18n/translate";
-import { useConfiguratorStore } from "@/lib/store/configuratorStore";
-import { useElementLocks, useElementValue } from "@/lib/store/hooks";
+import type { InteractiveComponentProps } from "./InteractiveComponent";
 
-export default function ToolCounter({
-    component
-}: {
-    component: ToolCounterType;
-}) {
-    const value = useElementValue<number>(component.renderer);
-    if (value === null) return null;
-
-    const { isLocked, text: lockText } = useElementLocks(component.lock);
-    const handleChange = useConfiguratorStore((state) => state.handleChange);
-    const currentElementId = useConfiguratorStore((state) => state.currentElementId);
-
-    const handleValueChange = (newValue: number) => {
-        if (component.lock) return;
-        handleChange(component.action, currentElementId, newValue);
-    };
+export default function ToolCounter({ component, interactiveProps }: InteractiveComponentProps<number, ToolCounterType>) {
+    const { value, isLocked, lockText, handleChange } = interactiveProps;
 
     return (
         <div className="bg-blue-50/5 ring-0 cursor-pointer ring-zinc-700 relative transition-all hover:ring-1 p-6 rounded-xl">
@@ -40,7 +25,7 @@ export default function ToolCounter({
                     min={component.min}
                     max={component.max}
                     step={component.step}
-                    onChange={handleValueChange}
+                    onChange={handleChange}
                     disabled={!!component.lock}
                 />
 

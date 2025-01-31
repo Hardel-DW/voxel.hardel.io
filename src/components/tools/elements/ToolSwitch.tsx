@@ -1,20 +1,9 @@
 import type { ToolSwitchType } from "@/lib/minecraft/core/schema/primitive/component";
 import translate from "@/lib/minecraft/i18n/translate";
-import { useConfiguratorStore } from "@/lib/store/configuratorStore";
-import { useElementLocks, useElementValue } from "@/lib/store/hooks";
+import type { InteractiveComponentProps } from "./InteractiveComponent";
 
-export default function ToolSwitch({
-    component
-}: {
-    component: ToolSwitchType;
-}) {
-    const value = useElementValue<boolean>(component.renderer);
-    if (value === null) return null;
-
-    const { isLocked, text: lockText } = useElementLocks(component.lock);
-
-    const handleChange = useConfiguratorStore((state) => state.handleChange);
-    const currentElementId = useConfiguratorStore((state) => state.currentElementId);
+export default function ToolSwitch({ component, interactiveProps }: InteractiveComponentProps<boolean, ToolSwitchType>) {
+    const { value, isLocked, lockText, handleChange } = interactiveProps;
 
     return (
         <div className="bg-blue-50/5 ring-0 ring-zinc-700 transition-all hover:ring-1 p-6 rounded-xl">
@@ -35,7 +24,7 @@ export default function ToolSwitch({
                         name={translate(component.title) || "No name"}
                         disabled={isLocked}
                         checked={value || isLocked}
-                        onChange={(e) => handleChange(component.action, currentElementId, e.target.checked)}
+                        onChange={(e) => handleChange(e.target.checked)}
                     />
                 </div>
             </label>

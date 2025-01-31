@@ -1,26 +1,10 @@
 import type { ToolInlineType } from "@/lib/minecraft/core/schema/primitive/component";
 import translate from "@/lib/minecraft/i18n/translate";
-import { useConfiguratorStore } from "@/lib/store/configuratorStore";
-import { useElementLocks, useElementValue } from "@/lib/store/hooks";
 import { cn } from "@/lib/utils";
+import type { InteractiveComponentProps } from "./InteractiveComponent";
 
-export default function ToolInlineSlot({
-    component
-}: {
-    component: ToolInlineType;
-}) {
-    const value = useElementValue<boolean>(component.renderer);
-    if (value === null) return null;
-
-    const { isLocked, text: lockText } = useElementLocks(component.lock);
-
-    const handleChange = useConfiguratorStore((state) => state.handleChange);
-    const currentElementId = useConfiguratorStore((state) => state.currentElementId);
-
-    const handleClick = () => {
-        if (isLocked || !component.action) return;
-        handleChange(component.action, currentElementId, !value);
-    };
+export default function ToolInlineSlot({ component, interactiveProps }: InteractiveComponentProps<boolean, ToolInlineType>) {
+    const { value, isLocked, lockText, handleChange } = interactiveProps;
 
     return (
         <div
@@ -29,8 +13,8 @@ export default function ToolInlineSlot({
                 { "ring-1 ring-rose-900": value },
                 { "opacity-50 ring-1 ring-rose-950": isLocked }
             )}
-            onClick={handleClick}
-            onKeyDown={handleClick}>
+            onClick={() => handleChange(!value)}
+            onKeyDown={() => handleChange(!value)}>
             {value && !isLocked && (
                 <div className="absolute z-30 top-0 right-0 p-2 bg-zinc-950/80 rounded-bl-xl rounded-tr-2xl">
                     <img src="/icons/check.svg" alt="checkbox" className="w-6 h-6 invert" />

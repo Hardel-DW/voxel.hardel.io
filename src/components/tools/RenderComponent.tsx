@@ -18,6 +18,7 @@ import ToolTagViewer from "@/components/tools/elements/schema/tags/ToolTagViewer
 import TextRender from "@/components/tools/elements/text/TextRender.tsx";
 import type { FormComponent } from "@/lib/minecraft/core/schema/primitive/component.ts";
 import { BaseComponent } from "./elements/BaseComponent";
+import { InteractiveComponent } from "@/components/tools/elements/InteractiveComponent";
 
 type ComponentMap = {
     [K in FormComponent["type"]]: React.ComponentType<{
@@ -26,13 +27,13 @@ type ComponentMap = {
 };
 
 const COMPONENT_MAP: ComponentMap = {
-    Counter: BaseComponent(ToolCounter),
-    Selector: BaseComponent(ToolSelector),
-    Range: BaseComponent(ToolRange),
-    Switch: BaseComponent(ToolSwitch),
-    Slot: BaseComponent(ToolSlot),
-    SwitchSlot: BaseComponent(ToolSwitchSlot),
-    InlineSlot: BaseComponent(ToolInlineSlot),
+    Counter: InteractiveComponent(ToolCounter),
+    Selector: InteractiveComponent(ToolSelector),
+    Range: InteractiveComponent(ToolRange),
+    Switch: InteractiveComponent(ToolSwitch),
+    Slot: InteractiveComponent(ToolSlot),
+    SwitchSlot: InteractiveComponent(ToolSwitchSlot),
+    InlineSlot: InteractiveComponent(ToolInlineSlot),
     Property: BaseComponent(ToolProperty),
     Donation: BaseComponent(Donation),
     Reveal: BaseComponent(ToolReveal),

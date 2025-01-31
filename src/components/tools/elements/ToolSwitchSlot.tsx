@@ -1,26 +1,10 @@
 import type { ToolSwitchSlotType } from "@/lib/minecraft/core/schema/primitive/component";
 import translate from "@/lib/minecraft/i18n/translate";
-import { useConfiguratorStore } from "@/lib/store/configuratorStore";
-import { useElementLocks, useElementValue } from "@/lib/store/hooks";
 import { cn } from "@/lib/utils";
+import type { InteractiveComponentProps } from "./InteractiveComponent";
 
-export default function ToolSwitchSlot({
-    component
-}: {
-    component: ToolSwitchSlotType;
-}) {
-    const value = useElementValue(component.renderer);
-    if (value === null) return null;
-
-    const { isLocked, text: lockText } = useElementLocks(component.lock);
-
-    const handleChange = useConfiguratorStore((state) => state.handleChange);
-    const currentElementId = useConfiguratorStore((state) => state.currentElementId);
-
-    const handleClick = () => {
-        if (isLocked) return;
-        handleChange(component.action, currentElementId, !value);
-    };
+export default function ToolSwitchSlot({ component, interactiveProps }: InteractiveComponentProps<boolean, ToolSwitchSlotType>) {
+    const { value, isLocked, lockText, handleChange } = interactiveProps;
 
     return (
         <div
@@ -29,8 +13,8 @@ export default function ToolSwitchSlot({
                 { "ring-1 ring-rose-900": value },
                 { "opacity-50 ring-1 ring-rose-950": isLocked }
             )}
-            onClick={handleClick}
-            onKeyDown={handleClick}>
+            onClick={() => handleChange(!value)}
+            onKeyDown={() => handleChange(!value)}>
             <div className="flex items-center justify-between w-full">
                 <div className="flex items-center gap-4">
                     {component.image && (

@@ -1,27 +1,11 @@
 import type { ToolSlotType } from "@/lib/minecraft/core/schema/primitive/component";
 import translate from "@/lib/minecraft/i18n/translate";
 import { getKey } from "@/lib/minecraft/i18n/translations";
-import { useConfiguratorStore } from "@/lib/store/configuratorStore";
-import { useElementLocks, useElementValue } from "@/lib/store/hooks";
 import { cn } from "@/lib/utils";
+import type { InteractiveComponentProps } from "./InteractiveComponent";
 
-export default function ToolSlot({
-    component
-}: {
-    component: ToolSlotType;
-}) {
-    const value = useElementValue<boolean>(component.renderer);
-    if (value === null) return null;
-
-    const { isLocked, text: lockText } = useElementLocks(component.lock);
-
-    const handleChange = useConfiguratorStore((state) => state.handleChange);
-    const currentElementId = useConfiguratorStore((state) => state.currentElementId);
-
-    const handleClick = () => {
-        if (isLocked) return;
-        handleChange(component.action, currentElementId, !value);
-    };
+export default function ToolSlot({ component, interactiveProps }: InteractiveComponentProps<boolean, ToolSlotType>) {
+    const { value, isLocked, lockText, handleChange } = interactiveProps;
 
     return (
         <div
@@ -30,8 +14,8 @@ export default function ToolSlot({
                 { "ring-1 ring-rose-900": value },
                 { "opacity-50 ring-1 ring-rose-950": isLocked }
             )}
-            onClick={handleClick}
-            onKeyDown={handleClick}>
+            onClick={() => handleChange(!value)}
+            onKeyDown={() => handleChange(!value)}>
             {(value || isLocked) && (
                 <div className="absolute p-4 top-0 right-0">
                     <img src="/icons/check.svg" alt="checkbox" className="w-6 h-6 invert" />

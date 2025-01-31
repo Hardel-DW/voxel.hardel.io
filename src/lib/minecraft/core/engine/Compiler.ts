@@ -43,18 +43,18 @@ export function compileDatapack<T extends keyof Analysers>({
     elements,
     version,
     files,
-    tool
+    tool,
+    identifiers
 }: {
     elements: GetAnalyserVoxel<T>[];
     version: number;
     files: Record<string, Uint8Array>;
     tool: T;
+    identifiers: IdentifierObject[];
 }): Array<CompileDatapackResult<T>> {
     const analyserResult = getAnalyserForVersion(tool, version);
     if (!analyserResult) throw new Error("No analyser found for the specified version.");
     const { analyser } = analyserResult;
-
-    const identifiers = elements.map((element) => element.identifier);
 
     /**
      * For each "main element" for example enchantments, will get the corresponding original element.
@@ -131,7 +131,12 @@ export function compileDatapack<T extends keyof Analysers>({
      * If it was there at the beginning and is still there at the end, just keep it.
      * if it wasn't there at the beginning and isn't there at the end, I do nothing.
      */
+    console.log("------------ Compiled Elements ------------");
     const everything = [...compiledElements.map((element) => element.element), ...compiledTags];
+    console.debug(everything);
+    console.log("------------ Identifiers ------------");
+    console.debug(identifiers);
+    console.log("------------------------------------------");
     const result: CompileDatapackResult<T>[] = [];
     const processedIds = new Set<string>();
 

@@ -1,8 +1,6 @@
 import Button from "@/components/ui/react/Button.tsx";
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/shadcn/dialog.tsx";
 import { useTranslate } from "@/components/useTranslate";
-import type { versionedAnalyserCollection } from "@/lib/minecraft/core/engine/Analyser.ts";
-import { compileDatapack } from "@/lib/minecraft/core/engine/Compiler.ts";
 import { generateZip } from "@/lib/minecraft/mczip.ts";
 import { useConfiguratorStore } from "@/lib/store/configuratorStore";
 import { DialogDescription } from "@radix-ui/react-dialog";
@@ -44,15 +42,14 @@ export default function DownloadButton() {
 
     const handleCompile = async () => {
         const store = useConfiguratorStore.getState();
-        const { version, configuration, logger, elements, files, minify, name, isJar } = store;
+        const { version, configuration, logger, files, minify, name, isJar } = store;
 
         if (!version || !configuration || !logger) {
             console.error("Version, configuration or logger is missing");
             return;
         }
 
-        const tool = configuration.analyser.id as keyof typeof versionedAnalyserCollection;
-        const content = compileDatapack({ elements: Array.from(elements.values()), version, files, tool });
+        const content = store.compile();
         const compiledContent = await generateZip(files, content, { minify, logger, includeVoxel: true });
 
         await handleSaveLogs(logger);

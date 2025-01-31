@@ -70,7 +70,8 @@ export default function MigrationTool({ translate, children }: MigrationToolProp
                 elements: Array.from(modifiedTarget.elements.values()),
                 version: modifiedTarget.version,
                 files: modifiedTarget.files,
-                tool: "enchantment"
+                tool: "enchantment",
+                identifiers: modifiedTarget.identifiers
             });
 
             const modifiedDatapack = await generateZip(modifiedTarget.files, finalDatapack, {

@@ -8,6 +8,20 @@ export default function SettingsButton() {
     const minify = useConfiguratorStore((state) => state.minify);
     const setMinify = useConfiguratorStore((state) => state.setMinify);
 
+    const handleClick = () => {
+        const store = useConfiguratorStore.getState();
+        if (!store.version || !store.configuration) {
+            console.error("Version or configuration is missing");
+            return;
+        }
+
+        const assembleDatapack = store.compile();
+        console.info("------------ Datapack ---------------");
+        console.debug(assembleDatapack);
+        console.info("------------- Store ----------------");
+        console.debug(store);
+    };
+
     return (
         <Popover>
             <PopoverTrigger asChild>
@@ -17,8 +31,8 @@ export default function SettingsButton() {
             </PopoverTrigger>
             <PopoverContent align="end">
                 <div>
-                    <p className="text-xs font-semibold mb-4 pb-2 border-b border-zinc-700">External Configuration</p>
-                    <div className="flex flex-col gap-4">
+                    <p className="text-xs font-semibold border-b border-zinc-700">External Configuration</p>
+                    <div className="flex flex-col gap-8">
                         <div className="flex flex-col gap-1">
                             <input
                                 type="text"
@@ -48,6 +62,15 @@ export default function SettingsButton() {
                                 />
                             </div>
                         </label>
+
+                        <div>
+                            <button
+                                type="button"
+                                onClick={handleClick}
+                                className="w-full px-3 py-2 text-sm text-white bg-zinc-950 cursor-pointer hover:bg-zinc-900 transition-colors rounded-lg border border-zinc-700">
+                                Log Developer Data
+                            </button>
+                        </div>
                     </div>
                 </div>
             </PopoverContent>

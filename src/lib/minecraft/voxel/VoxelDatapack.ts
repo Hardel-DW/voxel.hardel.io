@@ -1,5 +1,6 @@
 import type { TagType } from "@voxel/definitions";
 import type { DataDrivenRegistryElement } from "@/lib/minecraft/core/Registry";
+
 const axes: TagType = {
     values: ["#minecraft:axes"]
 };
@@ -14,10 +15,6 @@ const pickaxes: TagType = {
 
 const shovels: TagType = {
     values: ["#minecraft:shovels"]
-};
-
-const axe_sword: TagType = {
-    values: ["#minecraft:enchantable/axe", "#minecraft:enchantable/sword"]
 };
 
 const elytra: TagType = {
@@ -68,9 +65,5 @@ export const voxelDatapacks: DataDrivenRegistryElement<TagType>[] = [
     {
         identifier: { namespace: "voxel", registry: "tags/item", resource: "enchantable/shield" },
         data: shield
-    },
-    {
-        identifier: { namespace: "voxel", registry: "tags/item", resource: "enchantable/axe_sword" },
-        data: axe_sword
     }
 ];

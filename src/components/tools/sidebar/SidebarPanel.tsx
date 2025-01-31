@@ -1,7 +1,7 @@
 import { SidebarContainer } from "@/components/tools/sidebar/SidebarContainer";
 import DownloadButton from "@/components/tools/DownloadButton.tsx";
 import DebugConfigurator from "@/components/tools/debug/DebugConfigurator";
-import SettingsButton from "@/components/tools/elements/SettingsButton.tsx";
+import SettingsButton from "@/components/tools/sidebar/SettingsButton";
 import { useTranslate } from "@/components/useTranslate";
 import { useConfiguratorStore } from "@/lib/store/configuratorStore";
 import { cn } from "@/lib/utils.ts";

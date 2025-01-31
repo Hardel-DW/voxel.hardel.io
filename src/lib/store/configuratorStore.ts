@@ -5,7 +5,9 @@ import type { Logger } from "@/lib/minecraft/core/engine/migrations/logger";
 import type { ToolConfiguration } from "@/lib/minecraft/core/schema/primitive";
 import type { ToggleSection } from "@/lib/minecraft/core/schema/primitive/toggle";
 import { create } from "zustand";
-import { sortVoxelElements } from "@/lib/minecraft/core/Identifier";
+import { sortVoxelElements, type IdentifierObject } from "@/lib/minecraft/core/Identifier";
+import type { ParseDatapackResult } from "../minecraft/core/engine/Parser";
+import { compileDatapack, type CompileDatapackResult } from "../minecraft/core/engine/Compiler";
 
 export interface ConfiguratorState<T extends keyof Analysers> {
     name: string;
@@ -19,8 +21,10 @@ export interface ConfiguratorState<T extends keyof Analysers> {
     isJar: boolean;
     version: number | null;
     sortedIdentifiers: string[];
+    identifiers: IdentifierObject[];
     setName: (name: string) => void;
     setMinify: (minify: boolean) => void;
+    setIdentifiers: (identifiers: IdentifierObject[]) => void;
     setLogger: (logger: Logger | undefined) => void;
     setFiles: (files: Record<string, Uint8Array>) => void;
     setCurrentElementId: (id: string | undefined) => void;
@@ -30,7 +34,8 @@ export interface ConfiguratorState<T extends keyof Analysers> {
     setIsJar: (isJar: boolean) => void;
     setVersion: (version: number | null) => void;
     handleChange: (action: Action, identifier?: string, value?: ActionValue) => void;
-    batchUpdate: (updates: Partial<ConfiguratorState<T>>) => void;
+    setup: (updates: ParseDatapackResult<GetAnalyserVoxel<T>>) => void;
+    compile: () => Array<CompileDatapackResult<T>>;
 }
 
 const createConfiguratorStore = <T extends keyof Analysers>() =>
@@ -43,10 +48,12 @@ const createConfiguratorStore = <T extends keyof Analysers>() =>
         isJar: false,
         version: null,
         sortedIdentifiers: [],
+        identifiers: [],
         setName: (name) => set({ name }),
         setMinify: (minify) => set({ minify }),
         setLogger: (logger) => set({ logger }),
         setFiles: (files) => set({ files }),
+        setIdentifiers: (identifiers) => set({ identifiers }),
         setCurrentElementId: (currentElementId) => set({ currentElementId }),
         setToggleSection: (toggleSection) => set({ toggleSection }),
         setConfiguration: (configuration) => set({ configuration }),
@@ -73,13 +80,21 @@ const createConfiguratorStore = <T extends keyof Analysers>() =>
                 elements: state.elements.set(elementId, updatedElement)
             }));
         },
-        batchUpdate: (updates) => {
-            const elements = updates.elements;
-            if (elements) {
-                updates.sortedIdentifiers = sortVoxelElements(elements);
+        setup: (updates) => set({ ...updates, sortedIdentifiers: sortVoxelElements(updates.elements) }),
+        compile: () => {
+            const { elements, version, files, configuration, identifiers } = get();
+            if (!version || !files || !configuration) {
+                console.error("Version, files or configuration is missing");
+                return [];
             }
 
-            set(updates);
+            return compileDatapack({
+                elements: Array.from(elements.values()),
+                version,
+                files,
+                tool: configuration.analyser.id,
+                identifiers
+            });
         }
     }));
 

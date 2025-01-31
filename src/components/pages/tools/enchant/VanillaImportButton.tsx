@@ -26,17 +26,7 @@ export default function VanillaImportButton() {
                 return;
             }
 
-            useConfiguratorStore.getState().batchUpdate({
-                name: "Vanilla Enchantment - Voxel Configurator",
-                files: result.files,
-                elements: result.elements,
-                version: result.version,
-                toggleSection: result.toggleSection,
-                currentElementId: result.currentElementId,
-                isJar: result.isJar,
-                configuration: result.configuration,
-                logger: result.logger
-            });
+            useConfiguratorStore.getState().setup({ ...result, name: "Vanilla Enchantment - Voxel Configurator" });
         } catch (error: unknown) {
             console.error("Failed to import vanilla datapack:", error);
             if (error instanceof Error) {

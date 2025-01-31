@@ -3,7 +3,7 @@ import { ToolTagCard } from "@/components/tools/elements/schema/tags/ToolTagCard
 import { identifierEquals, identifierToFileName } from "@/lib/minecraft/core/Identifier";
 import { createIdentifierFromString } from "@/lib/minecraft/core/Identifier";
 import { isTag } from "@/lib/minecraft/core/Tag";
-import { compileDatapack, getIdentifierFromCompiler } from "@/lib/minecraft/core/engine/Compiler";
+import { getIdentifierFromCompiler } from "@/lib/minecraft/core/engine/Compiler";
 import type { ToolTagViewerType } from "@/lib/minecraft/core/schema/primitive/component";
 import { useConfiguratorStore } from "@/lib/store/configuratorStore";
 import { useElementValue } from "@/lib/store/hooks";
@@ -16,18 +16,11 @@ export default function ToolTagViewer({
     const fieldValue = component.properties ? useElementValue<string>(component.properties) : null;
     const configuration = useConfiguratorStore((state) => state.configuration);
     const version = useConfiguratorStore((state) => state.version);
-    const elements = useConfiguratorStore((state) => state.elements);
-    const files = useConfiguratorStore((state) => state.files);
+    const compile = useConfiguratorStore((state) => state.compile);
 
     if (!configuration || !version || !fieldValue) return null;
 
-    const assembleDatapack = compileDatapack({
-        elements: Array.from(elements.values()),
-        version: version,
-        files: files,
-        tool: configuration.analyser.id
-    });
-
+    const assembleDatapack = compile();
     const tagIdentifier = createIdentifierFromString(fieldValue, component.registry);
     const tagData = assembleDatapack.find((element) => identifierEquals(getIdentifierFromCompiler(element), tagIdentifier));
     const rawData = tagData?.type !== "deleted" ? tagData?.element : undefined;

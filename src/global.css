@@ -134,21 +134,7 @@
     .pixelated {
         image-rendering: pixelated;
     }
-
-    .tooltip-trigger {
-        anchor-name: --tooltip;
-    }
-
-    .tooltip-content {
-        position: fixed;
-        position-anchor: --tooltip;
-        z-index: 50;
-        max-width: 200px;
-        max-height: 200px;
-        overflow-y: auto;
-        transform: translateY(1rem);
-    }
-
+    
     .shine-text {
         background: linear-gradient(90deg, #ffffff 0%, #ffffff55 50%, #ffffff 100%);
         background-size: 200% 100%;

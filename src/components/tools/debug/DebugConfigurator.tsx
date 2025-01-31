@@ -1,5 +1,5 @@
-import type { Analysers, versionedAnalyserCollection } from "@/lib/minecraft/core/engine/Analyser.ts";
-import { type CompileDatapackResult, compileDatapack, getIdentifierFromCompiler } from "@/lib/minecraft/core/engine/Compiler.ts";
+import type { Analysers } from "@/lib/minecraft/core/engine/Analyser.ts";
+import { type CompileDatapackResult, getIdentifierFromCompiler } from "@/lib/minecraft/core/engine/Compiler.ts";
 import { useConfiguratorStore } from "@/lib/store/configuratorStore";
 import { useState } from "react";
 import { createPortal } from "react-dom";
@@ -35,13 +35,7 @@ export default function DebugConfigurator() {
             return;
         }
 
-        const assembleDatapack = compileDatapack({
-            elements: Array.from(store.elements.values()),
-            version: store.version,
-            files: store.files,
-            tool: store.configuration.analyser.id as keyof typeof versionedAnalyserCollection
-        });
-
+        const assembleDatapack = store.compile();
         const registries = groupByRegistry(assembleDatapack);
         if (!registries) return;
 

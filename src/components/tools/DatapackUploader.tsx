@@ -42,17 +42,7 @@ export default function DatapackUploader(props: { tool: keyof Analysers }) {
             description: t("tools.upload.success.description")
         });
 
-        useConfiguratorStore.getState().batchUpdate({
-            name: result.name,
-            files: result.files,
-            elements: result.elements,
-            version: result.version,
-            toggleSection: result.toggleSection,
-            currentElementId: result.currentElementId,
-            isJar: result.isJar,
-            configuration: result.configuration,
-            logger: result.logger
-        });
+        useConfiguratorStore.getState().setup(result);
     };
 
     return (

@@ -3,7 +3,8 @@ import { useConfiguratorStore } from "@/lib/store/configuratorStore";
 
 export default function SettingsDialog() {
     const { t } = useTranslate();
-    const { name, isJar } = useConfiguratorStore((state) => ({ name: state.name, isJar: state.isJar }));
+    const name = useConfiguratorStore((state) => state.name);
+    const isJar = useConfiguratorStore((state) => state.isJar);
 
     return (
         <>

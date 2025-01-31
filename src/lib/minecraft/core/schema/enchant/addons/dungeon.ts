@@ -92,7 +92,7 @@ export const dungeon: ToolRevealElementType = {
                                     type: "conditionnal",
                                     return_condition: true,
                                     term: {
-                                        condition: "contains_in_tags",
+                                        condition: "contains",
                                         field: "tags",
                                         values: [{ type: "get_value_from_context", key: "tag" }]
                                     }
@@ -209,7 +209,7 @@ export const dungeon: ToolRevealElementType = {
                                     type: "conditionnal",
                                     return_condition: true,
                                     term: {
-                                        condition: "contains_in_tags",
+                                        condition: "contains",
                                         field: "tags",
                                         values: [{ type: "get_value_from_context", key: "tag" }]
                                     }

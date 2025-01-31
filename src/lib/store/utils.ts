@@ -18,9 +18,10 @@ export function getConditionFields(condition: Condition | undefined): string[] {
             return condition.terms.flatMap(getConditionFields);
         case "any_of":
             return condition.terms.flatMap(getConditionFields);
+        case "object":
+            return getConditionFields(condition.terms);
         case "inverted":
             return getConditionFields(condition.terms);
-        case "check_namespace":
         case "compare_to_value":
             return [];
         default:

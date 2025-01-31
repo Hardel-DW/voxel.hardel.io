@@ -7,7 +7,7 @@ export const SidebarContainer = () => {
     return (
         <>
             {elementIds.map((element) => (
-                <SidebarItem key={element.getResource()} elementId={element} />
+                <SidebarItem key={element} elementId={element} />
             ))}
         </>
     );

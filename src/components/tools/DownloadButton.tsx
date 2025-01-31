@@ -44,7 +44,7 @@ export default function DownloadButton() {
 
     const handleCompile = async () => {
         const store = useConfiguratorStore.getState();
-        const { version, configuration, logger, elements, identifiers, files, minify, name, isJar } = store;
+        const { version, configuration, logger, elements, files, minify, name, isJar } = store;
 
         if (!version || !configuration || !logger) {
             console.error("Version, configuration or logger is missing");
@@ -52,7 +52,7 @@ export default function DownloadButton() {
         }
 
         const tool = configuration.analyser.id as keyof typeof versionedAnalyserCollection;
-        const content = compileDatapack({ elements, version, identifiers, files, tool });
+        const content = compileDatapack({ elements: Array.from(elements.values()), version, files, tool });
         const compiledContent = await generateZip(files, content, { minify, logger, includeVoxel: true });
 
         await handleSaveLogs(logger);

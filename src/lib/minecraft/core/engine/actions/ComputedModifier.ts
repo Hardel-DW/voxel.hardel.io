@@ -1,4 +1,3 @@
-import type { RegistryElement } from "@/lib/minecraft/mczip.ts";
 import type { ActionValue, BaseAction } from ".";
 
 export interface ComputedAction extends BaseAction {
@@ -15,27 +14,15 @@ export interface ComputedAction extends BaseAction {
  */
 export function ComputedModifier(
     action: ComputedAction,
-    element: RegistryElement<Record<string, unknown>>,
+    element: Record<string, unknown>,
     value?: ActionValue
-): RegistryElement<Record<string, unknown>> | undefined {
+): Record<string, unknown> | undefined {
     if (value === undefined) return undefined;
     const { field } = action;
 
-    if (action.type === "toggle_value_from_computed_value" && element.data[field] === value) {
-        return {
-            identifier: element.identifier,
-            data: {
-                ...element.data,
-                [field]: undefined
-            }
-        };
+    if (action.type === "toggle_value_from_computed_value" && element[field] === value) {
+        return { ...element, [field]: undefined };
     }
 
-    return {
-        identifier: element.identifier,
-        data: {
-            ...element.data,
-            [field]: value
-        }
-    };
+    return { ...element, [field]: value };
 }

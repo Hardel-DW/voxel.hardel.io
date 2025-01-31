@@ -1,6 +1,13 @@
 import type { Analysers } from "@/lib/minecraft/core/engine/Analyser";
 import type { CompileDatapackResult } from "@/lib/minecraft/core/engine/Compiler";
 import { getIdentifierFromCompiler } from "@/lib/minecraft/core/engine/Compiler";
+import {
+    identifierEquals,
+    identifierToFilePath,
+    identifierToNamespace,
+    identifierToResourceName,
+    identifierToString
+} from "@/lib/minecraft/core/Identifier";
 import { cn } from "@/lib/utils";
 
 interface RegistryElementProps {
@@ -11,11 +18,11 @@ interface RegistryElementProps {
 
 export function RegistryElement({ element, selectedElement, onElementSelect }: RegistryElementProps) {
     const identifier = getIdentifierFromCompiler(element);
-    const isSelected = selectedElement && getIdentifierFromCompiler(selectedElement).equals(identifier);
+    const isSelected = selectedElement && identifierEquals(getIdentifierFromCompiler(selectedElement), identifier);
 
     return (
         <div
-            key={identifier.filePath()}
+            key={identifierToFilePath(identifier)}
             onClick={() => onElementSelect(element)}
             onKeyDown={() => onElementSelect(element)}
             className={cn(
@@ -26,15 +33,15 @@ export function RegistryElement({ element, selectedElement, onElementSelect }: R
                 }
             )}>
             <p className="absolute top-2 right-2 px-2 rounded-2xl bg-zinc-700/50 text-[0.65rem] text-zinc-500">
-                {identifier.renderNamespace()}
+                {identifierToNamespace(identifier.namespace)}
             </p>
             <div
                 className={cn("text-white", {
                     "text-rose-500": isSelected
                 })}>
-                {identifier.renderResource()}
+                {identifierToResourceName(identifier.resource)}
             </div>
-            <small className="text-xs text-gray-400">{identifier.toString()}</small>
+            <small className="text-xs text-gray-400">{identifierToString(identifier)}</small>
         </div>
     );
 }

@@ -29,8 +29,13 @@ export const technical: InterfaceConfiguration = {
                                 value: "tools.disabled_because_vanilla"
                             },
                             condition: {
-                                condition: "check_namespace",
-                                values: "minecraft"
+                                condition: "object",
+                                field: "identifier",
+                                terms: {
+                                    condition: "compare_value_to_field_value",
+                                    field: "namespace",
+                                    value: "minecraft"
+                                }
                             }
                         }
                     ],
@@ -43,7 +48,7 @@ export const technical: InterfaceConfiguration = {
                         type: "conditionnal",
                         return_condition: true,
                         term: {
-                            condition: "contains_in_tags",
+                            condition: "contains",
                             field: "tags",
                             values: ["#minecraft:curse"]
                         }
@@ -66,8 +71,13 @@ export const technical: InterfaceConfiguration = {
                                 value: "tools.disabled_because_vanilla"
                             },
                             condition: {
-                                condition: "check_namespace",
-                                values: "minecraft"
+                                condition: "object",
+                                field: "identifier",
+                                terms: {
+                                    condition: "compare_value_to_field_value",
+                                    field: "namespace",
+                                    value: "minecraft"
+                                }
                             }
                         }
                     ],
@@ -80,7 +90,7 @@ export const technical: InterfaceConfiguration = {
                         type: "conditionnal",
                         return_condition: true,
                         term: {
-                            condition: "contains_in_tags",
+                            condition: "contains",
                             field: "tags",
                             values: ["#minecraft:non_treasure"]
                         }
@@ -103,8 +113,13 @@ export const technical: InterfaceConfiguration = {
                                 value: "tools.disabled_because_vanilla"
                             },
                             condition: {
-                                condition: "check_namespace",
-                                values: "minecraft"
+                                condition: "object",
+                                field: "identifier",
+                                terms: {
+                                    condition: "compare_value_to_field_value",
+                                    field: "namespace",
+                                    value: "minecraft"
+                                }
                             }
                         }
                     ],
@@ -117,7 +132,7 @@ export const technical: InterfaceConfiguration = {
                         type: "conditionnal",
                         return_condition: true,
                         term: {
-                            condition: "contains_in_tags",
+                            condition: "contains",
                             field: "tags",
                             values: ["#minecraft:treasure"]
                         }
@@ -140,8 +155,13 @@ export const technical: InterfaceConfiguration = {
                                 value: "tools.disabled_because_vanilla"
                             },
                             condition: {
-                                condition: "check_namespace",
-                                values: "minecraft"
+                                condition: "object",
+                                field: "identifier",
+                                terms: {
+                                    condition: "compare_value_to_field_value",
+                                    field: "namespace",
+                                    value: "minecraft"
+                                }
                             }
                         }
                     ],
@@ -154,7 +174,7 @@ export const technical: InterfaceConfiguration = {
                         type: "conditionnal",
                         return_condition: true,
                         term: {
-                            condition: "contains_in_tags",
+                            condition: "contains",
                             field: "tags",
                             values: ["#minecraft:smelts_loot"]
                         }
@@ -180,8 +200,13 @@ export const technical: InterfaceConfiguration = {
                                         value: "tools.disabled_because_vanilla"
                                     },
                                     condition: {
-                                        condition: "check_namespace",
-                                        values: "minecraft"
+                                        condition: "object",
+                                        field: "identifier",
+                                        terms: {
+                                            condition: "compare_value_to_field_value",
+                                            field: "namespace",
+                                            value: "minecraft"
+                                        }
                                     }
                                 }
                             ],
@@ -194,7 +219,7 @@ export const technical: InterfaceConfiguration = {
                                 type: "conditionnal",
                                 return_condition: true,
                                 term: {
-                                    condition: "contains_in_tags",
+                                    condition: "contains",
                                     field: "tags",
                                     values: ["#minecraft:prevent_ice_melting"]
                                 }
@@ -217,8 +242,13 @@ export const technical: InterfaceConfiguration = {
                                         value: "tools.disabled_because_vanilla"
                                     },
                                     condition: {
-                                        condition: "check_namespace",
-                                        values: "minecraft"
+                                        condition: "object",
+                                        field: "identifier",
+                                        terms: {
+                                            condition: "compare_value_to_field_value",
+                                            field: "namespace",
+                                            value: "minecraft"
+                                        }
                                     }
                                 }
                             ],
@@ -231,7 +261,7 @@ export const technical: InterfaceConfiguration = {
                                 type: "conditionnal",
                                 return_condition: true,
                                 term: {
-                                    condition: "contains_in_tags",
+                                    condition: "contains",
                                     field: "tags",
                                     values: ["#minecraft:prevent_infested_block_spawning"]
                                 }
@@ -259,8 +289,13 @@ export const technical: InterfaceConfiguration = {
                                         value: "tools.disabled_because_vanilla"
                                     },
                                     condition: {
-                                        condition: "check_namespace",
-                                        values: "minecraft"
+                                        condition: "object",
+                                        field: "identifier",
+                                        terms: {
+                                            condition: "compare_value_to_field_value",
+                                            field: "namespace",
+                                            value: "minecraft"
+                                        }
                                     }
                                 }
                             ],
@@ -273,7 +308,7 @@ export const technical: InterfaceConfiguration = {
                                 type: "conditionnal",
                                 return_condition: true,
                                 term: {
-                                    condition: "contains_in_tags",
+                                    condition: "contains",
                                     field: "tags",
                                     values: ["#minecraft:prevent_bee_spawning"]
                                 }
@@ -296,8 +331,13 @@ export const technical: InterfaceConfiguration = {
                                         value: "tools.disabled_because_vanilla"
                                     },
                                     condition: {
-                                        condition: "check_namespace",
-                                        values: "minecraft"
+                                        condition: "object",
+                                        field: "identifier",
+                                        terms: {
+                                            condition: "compare_value_to_field_value",
+                                            field: "namespace",
+                                            value: "minecraft"
+                                        }
                                     }
                                 }
                             ],
@@ -310,7 +350,7 @@ export const technical: InterfaceConfiguration = {
                                 type: "conditionnal",
                                 return_condition: true,
                                 term: {
-                                    condition: "contains_in_tags",
+                                    condition: "contains",
                                     field: "tags",
                                     values: ["#minecraft:prevent_pot_shattering"]
                                 }
@@ -429,7 +469,7 @@ export const technical: InterfaceConfiguration = {
                         field: "effects"
                     },
                     condition: {
-                        condition: "contains_in_value",
+                        condition: "contains",
                         field: "disabledEffects"
                     }
                 }

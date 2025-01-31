@@ -1,5 +1,4 @@
-import { Identifier } from "@/lib/minecraft/core/Identifier";
-import { getRegistry } from "@/lib/minecraft/mczip";
+import { getRegistry } from "@/lib/minecraft/core/Registry";
 import { describe, expect, it } from "vitest";
 
 describe("Registry System", () => {
@@ -20,7 +19,7 @@ describe("Registry System", () => {
     it("should return all registries with the correct identifier", () => {
         const registries = getRegistry(mockFiles, "tags/enchantment");
         expect(registries).toHaveLength(2);
-        expect(registries[0].identifier).toEqual(new Identifier("enchantplus", "tags/enchantment", "armor"));
-        expect(registries[1].identifier).toEqual(new Identifier("minecraft", "tags/enchantment", "weapon"));
+        expect(registries[0].identifier).toEqual({ namespace: "enchantplus", registry: "tags/enchantment", resource: "armor" });
+        expect(registries[1].identifier).toEqual({ namespace: "minecraft", registry: "tags/enchantment", resource: "weapon" });
     });
 });

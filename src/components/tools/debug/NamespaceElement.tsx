@@ -2,6 +2,7 @@ import { RegistryElement } from "@/components/tools/debug/RegistryElement";
 import type { Analysers } from "@/lib/minecraft/core/engine/Analyser";
 import type { CompileDatapackResult } from "@/lib/minecraft/core/engine/Compiler";
 import { getIdentifierFromCompiler } from "@/lib/minecraft/core/engine/Compiler";
+import { identifierToFilePath } from "@/lib/minecraft/core/Identifier";
 
 interface NamespaceElementProps {
     namespace: string;
@@ -11,7 +12,7 @@ interface NamespaceElementProps {
 }
 
 export function NamespaceElement({ namespace, elements, selectedElement, onElementSelect }: NamespaceElementProps) {
-    if (!elements.some((element) => getIdentifierFromCompiler(element).getNamespace() === namespace)) return null;
+    if (!elements.some((element) => getIdentifierFromCompiler(element).namespace === namespace)) return null;
 
     return (
         <div key={namespace} className="grid grid-cols-2 gap-4 pr-4 bg-black/30 rounded-2xl p-4 mb-4">
@@ -22,10 +23,10 @@ export function NamespaceElement({ namespace, elements, selectedElement, onEleme
             </div>
 
             {elements
-                .filter((element) => getIdentifierFromCompiler(element).getNamespace() === namespace)
+                .filter((element) => getIdentifierFromCompiler(element).namespace === namespace)
                 .map((e) => (
                     <RegistryElement
-                        key={getIdentifierFromCompiler(e).filePath()}
+                        key={identifierToFilePath(getIdentifierFromCompiler(e))}
                         element={e}
                         selectedElement={selectedElement}
                         onElementSelect={onElementSelect}

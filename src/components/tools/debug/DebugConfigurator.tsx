@@ -18,7 +18,7 @@ export default function DebugConfigurator() {
 
         for (const element of elements) {
             const identifier = getIdentifierFromCompiler(element);
-            const registry = identifier.getRegistry();
+            const registry = identifier.registry;
             if (!registry) continue;
 
             if (!groups[registry]) groups[registry] = [];
@@ -36,10 +36,9 @@ export default function DebugConfigurator() {
         }
 
         const assembleDatapack = compileDatapack({
-            elements: store.elements,
+            elements: Array.from(store.elements.values()),
             version: store.version,
             files: store.files,
-            identifiers: store.identifiers,
             tool: store.configuration.analyser.id as keyof typeof versionedAnalyserCollection
         });
 
@@ -49,7 +48,7 @@ export default function DebugConfigurator() {
         setDatapack(registries);
         setIsDebugging((prev) => !prev);
         setSelectedElement(registries[Object.keys(registries)[0]][0]);
-        setNamespaces(Array.from(new Set(assembleDatapack.map((element) => getIdentifierFromCompiler(element).getNamespace()))));
+        setNamespaces(Array.from(new Set(assembleDatapack.map((element) => getIdentifierFromCompiler(element).namespace))));
     };
 
     const debugPanel =

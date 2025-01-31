@@ -1,4 +1,3 @@
-import type { RegistryElement } from "@/lib/minecraft/mczip.ts";
 import type { ActionValue, BaseAction } from ".";
 
 export interface ListAction extends BaseAction {
@@ -14,14 +13,11 @@ export interface ListAction extends BaseAction {
  * @param action - The action to perform
  * @param element - The element to modify
  */
-export default function AppendListModifier(
-    action: ListAction,
-    element: RegistryElement<Record<string, unknown>>
-): RegistryElement<Record<string, unknown>> | undefined {
+export default function AppendListModifier(action: ListAction, element: Record<string, unknown>): Record<string, unknown> | undefined {
     const { value, field, mode, flag } = action;
     const shadowCopy = structuredClone(element);
 
-    const list = (shadowCopy.data[field] as unknown[]) || [];
+    const list = (shadowCopy[field] as unknown[]) || [];
     if (!Array.isArray(list)) {
         return;
     }
@@ -33,11 +29,5 @@ export default function AppendListModifier(
 
     const newList = mode === "prepend" ? [value, ...list] : [...list, value];
 
-    return {
-        identifier: element.identifier,
-        data: {
-            ...element.data,
-            [field]: newList
-        }
-    };
+    return { ...element, [field]: newList };
 }

@@ -1,5 +1,4 @@
 import { type Condition, checkCondition } from "@/lib/minecraft/core/engine/condition";
-import type { RegistryElement } from "@/lib/minecraft/mczip.ts";
 
 type ConditionnalValueRendererBase = {
     type: "conditionnal";
@@ -32,7 +31,7 @@ export type ValueRenderer = ConditionnalValueRenderer | RawValueRenderer | Field
 
 export type ReturnValue<K> = K;
 
-export function getValue<K>(renderer: ValueRenderer, element: RegistryElement<Record<string, unknown>>): ReturnValue<K> {
+export function getValue<K>(renderer: ValueRenderer, element: Record<string, unknown>): ReturnValue<K> {
     switch (renderer.type) {
         case "conditionnal": {
             const conditionMet = checkCondition(renderer.term, element);
@@ -56,10 +55,10 @@ export function getValue<K>(renderer: ValueRenderer, element: RegistryElement<Re
     }
 }
 
-function getRendererValue<K>(renderer: FieldValueRenderer | RawValueRenderer, element: RegistryElement<Record<string, unknown>>): K {
+function getRendererValue<K>(renderer: FieldValueRenderer | RawValueRenderer, element: Record<string, unknown>): K {
     switch (renderer.type) {
         case "from_field":
-            return element.data[renderer.field] as K;
+            return element[renderer.field] as K;
         case "hardcoded":
             return renderer.value as K;
         default:

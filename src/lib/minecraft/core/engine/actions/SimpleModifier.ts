@@ -1,4 +1,3 @@
-import type { RegistryElement } from "@/lib/minecraft/mczip.ts";
 import type { ActionValue, BaseAction } from ".";
 
 export interface SimpleAction extends BaseAction {
@@ -14,27 +13,12 @@ export interface SimpleAction extends BaseAction {
  * @param element - The element to modify.
  * @constructor
  */
-export function SimpleModifier(
-    action: SimpleAction,
-    element: RegistryElement<Record<string, unknown>>
-): RegistryElement<Record<string, unknown>> | undefined {
+export function SimpleModifier(action: SimpleAction, element: Record<string, unknown>): Record<string, unknown> | undefined {
     const { field } = action;
 
-    if (action.type === "toggle_value" && element.data[field] === action.value) {
-        return {
-            identifier: element.identifier,
-            data: {
-                ...element.data,
-                [field]: undefined
-            }
-        };
+    if (action.type === "toggle_value" && element[field] === action.value) {
+        return { ...element, [field]: undefined };
     }
 
-    return {
-        identifier: element.identifier,
-        data: {
-            ...element.data,
-            [field]: action.value
-        }
-    };
+    return { ...element, [field]: action.value };
 }

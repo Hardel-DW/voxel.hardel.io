@@ -1,4 +1,3 @@
-import type { RegistryElement } from "@/lib/minecraft/mczip.ts";
 import type { ActionValue, BaseAction } from ".";
 
 export interface RemoveValueFromListAction extends BaseAction {
@@ -14,9 +13,9 @@ export interface RemoveValueFromListAction extends BaseAction {
  */
 export default function RemoveValueFromListModifier(
     action: RemoveValueFromListAction,
-    element: RegistryElement<Record<string, unknown>>,
+    element: Record<string, unknown>,
     props?: ActionValue
-): RegistryElement<Record<string, unknown>> | undefined {
+): Record<string, unknown> | undefined {
     const { field } = action;
     const value = action.value ?? props;
     const modes = action.mode || [];
@@ -25,7 +24,7 @@ export default function RemoveValueFromListModifier(
         throw new Error("Both props and action.value cannot be undefined");
     }
 
-    const list = element.data[field];
+    const list = element[field];
 
     // Verify that list is an array of strings
     if (!Array.isArray(list) || !list.every((item): item is string => typeof item === "string") || typeof value !== "string") {
@@ -36,10 +35,7 @@ export default function RemoveValueFromListModifier(
 
     // Return modified element
     return {
-        identifier: element.identifier,
-        data: {
-            ...element.data,
-            [field]: modes.includes("remove_if_empty") && newList.length === 0 ? undefined : newList
-        }
+        ...element,
+        [field]: modes.includes("remove_if_empty") && newList.length === 0 ? undefined : newList
     };
 }

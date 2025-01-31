@@ -1,4 +1,3 @@
-import type { RegistryElement } from "@/lib/minecraft/mczip.ts";
 import type { ActionValue, BaseAction } from ".";
 
 export interface ToggleListValueAction extends BaseAction {
@@ -15,9 +14,9 @@ export interface ToggleListValueAction extends BaseAction {
  */
 export default function ToggleListValueModifier(
     action: ToggleListValueAction,
-    element: RegistryElement<Record<string, unknown>>,
+    element: Record<string, unknown>,
     props?: ActionValue
-): RegistryElement<Record<string, unknown>> | undefined {
+): Record<string, unknown> | undefined {
     const { field } = action;
     const value = action.value ?? props;
     const modes = action.mode || [];
@@ -27,17 +26,14 @@ export default function ToggleListValueModifier(
     }
 
     const shadowCopy = structuredClone(element);
-    let list: unknown = shadowCopy.data[field];
+    let list: unknown = shadowCopy[field];
 
     // Handle override mode for primitive values
     if (modes.includes("override") && list !== undefined && !Array.isArray(list)) {
         list = [value as string];
         return {
-            identifier: element.identifier,
-            data: {
-                ...element.data,
-                [field]: list
-            }
+            ...element,
+            [field]: list
         };
     }
 
@@ -56,9 +52,6 @@ export default function ToggleListValueModifier(
 
     return {
         identifier: element.identifier,
-        data: {
-            ...element.data,
-            [field]: modes.includes("remove_if_empty") && newList.length === 0 ? undefined : newList
-        }
+        [field]: modes.includes("remove_if_empty") && newList.length === 0 ? undefined : newList
     };
 }

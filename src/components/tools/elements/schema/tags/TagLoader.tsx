@@ -37,7 +37,7 @@ export function TagLoader({ registry, path, fileName, namespace, values }: TagLo
             {data
                 .filter((value) => values?.includes(value))
                 .map((value) => (
-                    <ToolTagCard key={value} value={value} />
+                    <ToolTagCard key={value} value={value} registry={registry} />
                 ))}
         </div>
     );

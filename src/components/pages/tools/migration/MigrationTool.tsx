@@ -67,9 +67,8 @@ export default function MigrationTool({ translate, children }: MigrationToolProp
             const actions = logToActions(logs);
             const modifiedTarget = await applyActions(target, actions);
             const finalDatapack = compileDatapack({
-                elements: modifiedTarget.elements,
+                elements: Array.from(modifiedTarget.elements.values()),
                 version: modifiedTarget.version,
-                identifiers: modifiedTarget.identifiers,
                 files: modifiedTarget.files,
                 tool: "enchantment"
             });
@@ -136,7 +135,7 @@ export default function MigrationTool({ translate, children }: MigrationToolProp
             return;
         }
 
-        if (result.elements.length === 0) {
+        if (result.elements.size === 0) {
             toast.error(translate["tools.migration.error.invalid_datapack"]);
             setTargetData({
                 version: result.version,

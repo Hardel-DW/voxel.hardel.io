@@ -2,24 +2,17 @@ import type { RefObject } from "react";
 import { useConfiguratorStore } from "@/lib/store/configuratorStore";
 import { useElementLocks } from "@/lib/store/hooks";
 import { useElementCondition } from "@/lib/store/hooks";
-import type { Identifier } from "@/lib/minecraft/core/Identifier";
+import { identifierToResourceName } from "@/lib/minecraft/core/Identifier";
 import translate from "@/lib/minecraft/i18n/translate";
-import type { SidebarConfig } from "@/lib/minecraft/core/schema/primitive";
 import Tooltip from "@/components/ui/react/tooltip";
 
-export default function SidebarItemContent({
-    elementId,
-    sidebarConfig,
-    switchRef
-}: {
-    elementId: Identifier;
-    sidebarConfig?: SidebarConfig;
-    switchRef: RefObject<HTMLDivElement | null>;
-}) {
+export default function SidebarItemContent({ elementId, switchRef }: { elementId: string; switchRef: RefObject<HTMLDivElement | null> }) {
+    const sidebarConfig = useConfiguratorStore((state) => state.configuration?.sidebar);
     const setCurrentElementId = useConfiguratorStore((state) => state.setCurrentElementId);
     const handleChange = useConfiguratorStore((state) => state.handleChange);
     const lockData = useElementLocks(sidebarConfig?.lock, elementId);
     const conditionResult = useElementCondition(sidebarConfig?.enabled, elementId);
+    const element = useConfiguratorStore((state) => state.elements.get(elementId));
     const isEnabled = !sidebarConfig?.enabled ? true : !conditionResult;
 
     const handleClick = () => {
@@ -34,7 +27,7 @@ export default function SidebarItemContent({
 
     return (
         <div className="flex items-center justify-between" onClick={handleClick} onKeyDown={handleClick}>
-            <div className="break-words">{elementId.renderFilename()}</div>
+            <div className="break-words">{element ? identifierToResourceName(element.identifier.resource) : "Error"}</div>
             <div className="flex items-center gap-8" ref={switchRef}>
                 <Tooltip
                     content={

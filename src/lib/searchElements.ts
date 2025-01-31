@@ -1,5 +1,5 @@
 import type { VoxelElement } from "@/lib/minecraft/core/engine/Analyser";
-import type { RegistryElement } from "@/lib/minecraft/mczip";
+import { identifierToFileName, identifierToResourceName } from "@/lib/minecraft/core/Identifier";
 
 function flattenObject(obj: any): string[] {
     const result: string[] = [];
@@ -29,16 +29,16 @@ function flattenObject(obj: any): string[] {
 }
 
 interface ScoredElement {
-    element: RegistryElement<VoxelElement>;
+    element: VoxelElement;
     score: number;
     searchString: string;
 }
 
 export function searchRelevantElements(
-    elements: RegistryElement<VoxelElement>[],
+    elements: VoxelElement[],
     query: string,
     excludeFields: (keyof VoxelElement)[] = []
-): RegistryElement<VoxelElement>[] {
+): VoxelElement[] {
     const searchTerms = query.toLowerCase().split(" ");
 
     const scoredElements = elements.map((element): ScoredElement => {
@@ -46,11 +46,10 @@ export function searchRelevantElements(
 
         // Recherche dans l'identifiant avec une pondération plus élevée
         const identifierStrings = [
-            identifier.getNamespace(),
-            identifier.getResource(),
-            identifier.renderResource(),
-            identifier.renderResourceName(),
-            identifier.renderFilename()
+            identifier.namespace,
+            identifier.resource,
+            identifierToResourceName(identifier.resource),
+            identifierToFileName(identifier.resource)
         ];
 
         const dataStrings = flattenObject(element.data);
@@ -82,10 +81,12 @@ export function searchRelevantElements(
         // Filter out excluded fields from returned element
         const filteredElement = {
             ...element,
-            data: { ...element.data }
-        };
+            override: undefined,
+            identifier: element.identifier
+        } as VoxelElement;
+
         for (const field of excludeFields) {
-            delete filteredElement.data[field];
+            delete filteredElement[field];
         }
 
         return { element: filteredElement, score, searchString };

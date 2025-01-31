@@ -1,9 +1,8 @@
-import { Identifier } from "@/lib/minecraft/core/Identifier.ts";
-import type { RegistryElement } from "@/lib/minecraft/mczip.ts";
 import { getPropertySafely } from "@/lib/utils";
 import type { BaseAction } from ".";
+import { identifierEquals, isIdentifier, type IdentifierObject } from "@/lib/minecraft/core/Identifier";
 
-type ValidType = string | number | Identifier;
+export type ValidType = string | number | IdentifierObject;
 
 export interface MultipleAction extends BaseAction {
     type: "toggle_multiple_values";
@@ -17,7 +16,7 @@ export interface MultipleAction extends BaseAction {
  */
 const checkTypesConsistency = (list1: unknown[], list2: unknown[]): boolean => {
     const getType = (item: unknown): string =>
-        typeof item === "string" || typeof item === "number" ? typeof item : item instanceof Identifier ? "Identifier" : "Invalid";
+        typeof item === "string" || typeof item === "number" ? typeof item : isIdentifier(item) ? "Identifier" : "Invalid";
 
     if (list1.length === 0 || list2.length === 0) return true;
 
@@ -29,29 +28,33 @@ const checkTypesConsistency = (list1: unknown[], list2: unknown[]): boolean => {
  * Check if the value is a valid type
  * @param value - The value to check
  */
-const isValidType = (value: unknown): value is ValidType =>
-    typeof value === "string" || typeof value === "number" || value instanceof Identifier;
+const isValidType = (value: unknown): value is ValidType => typeof value === "string" || typeof value === "number" || isIdentifier(value);
 
 /**
  * Check if the two values are equal
  * @param a - The first value
  * @param b - The second value
  */
-const isValueEqual = (a: ValidType, b: ValidType): boolean =>
-    (typeof a === typeof b && a === b) || (a instanceof Identifier && b instanceof Identifier && a.equals(b));
+const isValueEqual = (a: ValidType, b: ValidType): boolean => {
+    // Handle simple types (string, number) directly
+    if (typeof a === "string" && typeof b === "string") return a === b;
+    if (typeof a === "number" && typeof b === "number") return a === b;
+    
+    // Handle Identifier objects
+    if (isIdentifier(a) && isIdentifier(b)) return identifierEquals(a, b);
+    
+    return false;
+};
 
 /**
  * Modify the field of the element, check if the value is in the list, if it is, he tries to remove all the values from the list, if it is not, he adds them.
  * @param action - The action to perform
  * @param element - The element to modify
  */
-export default function MultipleModifier(
-    action: MultipleAction,
-    element: RegistryElement<Record<string, unknown>>
-): RegistryElement<Record<string, unknown>> | undefined {
+export default function MultipleModifier(action: MultipleAction, element: Record<string, unknown>): Record<string, unknown> | undefined {
     const { field } = action;
 
-    const currentList = getPropertySafely<Record<string, unknown>, Array<ValidType>>(element.data, field, []);
+    const currentList = getPropertySafely<Record<string, unknown>, Array<ValidType>>(element, field, []);
     if (!checkTypesConsistency(action.value, currentList)) {
         throw new Error("The types of the values are not consistent");
     }
@@ -63,11 +66,5 @@ export default function MultipleModifier(
         ? currentList.filter((item) => !validValues.some((value) => isValueEqual(item, value)))
         : [...currentList, ...validValues];
 
-    return {
-        identifier: element.identifier,
-        data: {
-            ...element.data,
-            [field]: newList
-        }
-    };
+    return { ...element, [field]: newList };
 }

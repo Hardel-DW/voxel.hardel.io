@@ -1,147 +1,191 @@
-import type { RegistryElement } from "@/lib/minecraft/mczip.ts";
-import type { OptionalTag } from "@voxel/definitions";
-import { REGISTRY_NAME } from "@voxel/registry";
+import type { VoxelElement } from "./engine/Analyser";
+import type { VoxelRegistryElement } from "./Registry";
 
-export type IdentifierOneToMany = {
-    primary: Identifier;
-    related: Identifier[];
+/**
+ * Represents a Minecraft identifier object structure
+ */
+export type IdentifierObject = {
+    namespace: string;
+    registry: string;
+    resource: string;
 };
-export class Identifier {
-    private readonly namespace: string;
-    private readonly registry: string | undefined;
-    private readonly resource: string;
-    private readonly tag: boolean;
-    private readonly required: boolean;
 
-    public constructor(namespace: string, registry: string | undefined, path: string, isTag = false, isRequired = false) {
-        this.namespace = namespace;
-        this.registry = registry;
-        this.resource = path;
-        this.tag = isTag;
-        this.required = isRequired;
+/**
+ * Creates an IdentifierObject from a string representation
+ * @param identifier - The identifier string (e.g. "minecraft:stone" or "#minecraft:wool")
+ * @param registry - The registry type (e.g. "block", "item")
+ * @returns Created IdentifierObject
+ * @example
+ * const blockId = createIdentifierFromString("minecraft:stone", "block");
+ */
+export function createIdentifierFromString(identifier: string, registry: string): IdentifierObject {
+    const [namespace, resource] = (identifier.startsWith("#") ? identifier.slice(1) : identifier).split(":");
+    return { namespace, registry, resource };
+}
+
+/**
+ * Converts an IdentifierObject to standard string representation
+ * @param identifier - The identifier to convert
+ * @returns String representation
+ * @example
+ * const str = toString({ namespace: "minecraft", registry: "tags/block", resource: "stone" });
+ * // Returns "#minecraft:stone"
+ */
+export function identifierToString(identifier: IdentifierObject): string {
+    if (identifier.registry?.startsWith("tags/")) {
+        return `#${identifier.namespace}:${identifier.resource}`;
     }
+    return `${identifier.namespace}:${identifier.resource}`;
+}
 
-    public static fromString(value: string | OptionalTag, registry?: string): Identifier {
-        const isRequired = typeof value !== "string" ? value.required : true;
-        const parsedValue = Identifier.getValue(value);
-        const isTag = parsedValue.includes("#");
+/**
+ * Compares two identifiers for equality
+ * @param a - First identifier
+ * @param b - Second identifier
+ * @returns True if identifiers are identical
+ * @example
+ * const isSame = equals(id1, id2);
+ */
+export function identifierEquals(a: IdentifierObject, b: IdentifierObject | undefined): boolean {
+    if (!b) return false;
+    return a.namespace === b.namespace && a.registry === b.registry && a.resource === b.resource;
+}
 
-        const [namespace, resource] = (parsedValue.startsWith("#") ? parsedValue.slice(1) : parsedValue).split(":");
-        if (registry) {
-            return new Identifier(namespace, registry, resource, isTag, isRequired);
+/**
+ * Sorts registry elements by resource name
+ * @param elements - Array of registry elements to sort
+ * @returns Sorted array
+ * @example
+ * const sorted = sortRegistry([element1, element2]);
+ */
+export function sortRegistry<T extends VoxelElement>(elements: VoxelRegistryElement<T>[]) {
+    return elements.sort((a, b) =>
+        (a.data.identifier.resource.split("/").pop() ?? "").localeCompare(b.data.identifier.resource.split("/").pop() ?? "")
+    );
+}
+
+/**
+ * Sorts identifiers by namespace and resource
+ * @param elements - Array of identifiers to sort
+ * @returns Sorted array
+ * @example
+ * const sortedIds = sortIdentifiers([id1, id2, id3]);
+ */
+export function sortIdentifiers(elements: IdentifierObject[]) {
+    return elements.sort((a, b) => {
+        const namespaceComparison = a.namespace.localeCompare(b.namespace);
+        if (namespaceComparison === 0) {
+            return (a.resource.split("/").pop() ?? "").localeCompare(b.resource.split("/").pop() ?? "");
         }
+        return namespaceComparison;
+    });
+}
 
-        for (const registry of REGISTRY_NAME) {
-            if (resource.startsWith(registry)) {
-                const newResource = resource.slice(registry.length + 1);
-                return new Identifier(namespace, registry, newResource, isTag, isRequired);
-            }
-        }
+/**
+ * Sorts voxel elements by identifier
+ * @param elements - Map of voxel elements
+ * @returns Sorted array of main identifiers
+ */
+export function sortVoxelElements(elements: Map<string, VoxelElement>): string[] {
+    return Array.from(elements.entries())
+        .sort((a, b) => {
+            const resourceA = a[1].identifier.resource.split("/").pop() ?? "";
+            const resourceB = b[1].identifier.resource.split("/").pop() ?? "";
+            return resourceA.localeCompare(resourceB);
+        })
+        .map(([key]) => key);
+}
 
-        return new Identifier(namespace, undefined, resource, isTag, isRequired);
-    }
+/**
+ * Generates a file path for the identifier
+ * @param identifier - Target identifier
+ * @param basePath - Base path (default: "data")
+ * @returns Full file path
+ * @example
+ * const path = identifierToFilePath(id); // "data/minecraft/block/stone"
+ * const modPath = identifierToFilePath(id, "mod"); // "mod/minecraft/block/stone"
+ */
+export function identifierToFilePath(identifier: IdentifierObject, basePath = "data"): string {
+    return `${basePath}/${identifier.namespace}/${identifier.registry}/${identifier.resource}`;
+}
 
-    public static getValue(tag: string | OptionalTag): string {
-        return typeof tag === "string" ? tag : tag.id;
-    }
+/**
+ * Generates a filename for the identifier
+ * @param identifier - Target identifier
+ * @param extension - Add .json extension (default: false)
+ * @returns Filename
+ * @example
+ * const name = identifierToFileName(id); // "stone"
+ * const fullName = identifierToFileName(id, true); // "stone.json"
+ */
+export function identifierToFileName(resource: string, extension = false): string {
+    const filename = resource.split("/").pop() ?? resource;
+    return extension ? `${filename}.json` : filename;
+}
 
-    public static sortRegistry<T>(elements: RegistryElement<T>[]) {
-        return elements.sort((a, b) =>
-            (a.identifier.getResource().split("/").pop() ?? "").localeCompare(b.identifier.getResource().split("/").pop() ?? "")
-        );
-    }
+/**
+ * Renders namespace for display
+ * @param identifier - Target identifier
+ * @returns Formatted namespace
+ * @example
+ * identifierToNamespace({ namespace: "minecraft" }); // "Minecraft"
+ */
+export function identifierToNamespace(namespace: string): string {
+    return namespace.replace(/_/g, " ").replace(/\b\w/g, (l) => l.toUpperCase());
+}
 
-    public static sortIdentifier(elements: Identifier[]) {
-        return elements.sort((a, b) => {
-            const namespaceComparison = a.getNamespace().localeCompare(b.getNamespace());
-            if (namespaceComparison === 0) {
-                return (a.getResource().split("/").pop() ?? "").localeCompare(b.getResource().split("/").pop() ?? "");
-            }
+/**
+ * Renders resource name from path
+ * @param identifier - Target identifier
+ * @returns Formatted resource name
+ * @example
+ * identifierToResourceName({ resource: "items/weapons/sword" }); // "Sword"
+ * @example
+ * identifierToResourceName({ resource: "items/weapons/fire_sword" }); // "Fire Sword"
+ */
+export function identifierToResourceName(resource: string): string {
+    return resource
+        .split("/")
+        .reduce((_, current) => current)
+        .replace(/_/g, " ")
+        .replace(/\b\w/g, (l) => l.toUpperCase());
+}
 
-            return namespaceComparison;
-        });
-    }
+/**
+ * Renders full resource path for display
+ * @param identifier - Target identifier
+ * @returns Formatted resource path
+ * @example
+ * identifierToResourcePath({ resource: "items/wooden_sword" }); // "Items - Wooden Sword"
+ */
+export function identifierToResourcePath(resource: string): string {
+    return resource
+        .replace(/\//g, " - ")
+        .replace(/_/g, " ")
+        .replace(/\b\w/g, (l) => l.toUpperCase());
+}
 
-    public output(): string | OptionalTag {
-        return this.tag ? { id: this.toString(), required: this.required } : this.toString();
-    }
+/**
+ * Renders string identifier for display
+ * @param string - The identifier string
+ * @returns Formatted text
+ * @example
+ * stringIdentifierToDisplay("minecraft:stone"); // "Stone"
+ */
+export function stringIdentifierToDisplay(identifier: string): string {
+    const { resource } = createIdentifierFromString(identifier, "block");
+    return identifierToResourceName(resource);
+}
 
-    public isTagged(): boolean {
-        return this.tag;
-    }
+export function isIdentifier(value: any): value is IdentifierObject {
+    if (!value || typeof value !== "object") return false;
 
-    public isRequired(): boolean {
-        return this.required;
-    }
-
-    public getResource(): string {
-        return this.resource;
-    }
-
-    public getRegistry(): string | undefined {
-        return this.registry;
-    }
-
-    public getNamespace(): string {
-        return this.namespace;
-    }
-
-    public getFileName(extension = false): string {
-        const filename = this.resource.split("/").pop() ?? this.resource;
-        return extension ? `${filename}.json` : filename;
-    }
-
-    public toString(): string {
-        if (this.tag || this.registry?.startsWith("tags/")) {
-            return `#${this.namespace}:${this.resource}`;
-        }
-
-        return `${this.namespace}:${this.resource}`;
-    }
-
-    public filePath(): string {
-        return `data/${this.namespace}/${this.registry}/${this.resource}`;
-    }
-
-    public voxelFilePath(): string {
-        return `voxel/${this.namespace}/${this.registry}/${this.resource}`;
-    }
-
-    public equals(other: Identifier | undefined): boolean {
-        if (!other) return false;
-
-        return (
-            this.getNamespace() === other.getNamespace() &&
-            this.getRegistry() === other.getRegistry() &&
-            this.getResource() === other.getResource() &&
-            this.isTagged() === other.isTagged()
-        );
-    }
-
-    public render(): string {
-        return (this.resource.split("/")?.pop() ?? this.resource).replace(/_/g, " ").replace(/\b\w/g, (l) => l.toUpperCase());
-    }
-
-    public renderNamespace(): string {
-        return this.namespace.replace(/_/g, " ").replace(/\b\w/g, (l) => l.toUpperCase());
-    }
-
-    public renderResourceName(): string {
-        return this.resource
-            .split("/")
-            .reduce((_, current) => current)
-            .replace(/_/g, " ")
-            .replace(/\b\w/g, (l) => l.toUpperCase());
-    }
-
-    public renderResource(): string {
-        return this.resource
-            .replace(/\//g, " - ")
-            .replace(/_/g, " ")
-            .replace(/\b\w/g, (l) => l.toUpperCase());
-    }
-
-    public renderFilename(): string {
-        return (this.resource.split("/").pop() ?? this.resource).replace(/_/g, " ").replace(/\b\w/g, (l) => l.toUpperCase());
-    }
+    return (
+        "registry" in value &&
+        "namespace" in value &&
+        "resource" in value &&
+        typeof value.registry === "string" &&
+        typeof value.namespace === "string" &&
+        typeof value.resource === "string"
+    );
 }

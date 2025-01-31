@@ -5,7 +5,7 @@ import { TabsContent } from "@radix-ui/react-tabs";
 import { RenderComponent } from "./RenderComponent";
 
 export default function ConfiguratorContent(props: { section: InterfaceConfiguration }) {
-    const currentNamespace = useConfiguratorStore((state) => state.currentElementId?.getNamespace());
+    const currentNamespace = useConfiguratorStore((state) => state.currentElement?.identifier.namespace);
 
     return (
         <TabsContent key={props.section.id} value={props.section.id}>

@@ -1,4 +1,4 @@
-import type { Identifier } from "@/lib/minecraft/core/Identifier.ts";
+import type { IdentifierObject } from "@/lib/minecraft/core/Identifier.ts";
 import AlternativeModifier, { type AlternativeAction } from "@/lib/minecraft/core/engine/actions/AlternativeModifier.ts";
 import AppendListModifier, { type ListAction } from "@/lib/minecraft/core/engine/actions/AppendListModifier.ts";
 import { type ComputedAction, ComputedModifier } from "@/lib/minecraft/core/engine/actions/ComputedModifier.ts";
@@ -12,9 +12,8 @@ import { type SimpleAction, SimpleModifier } from "@/lib/minecraft/core/engine/a
 import { type SlotAction, SlotModifier } from "@/lib/minecraft/core/engine/actions/SlotModifier.ts";
 import ToggleListValueModifier, { type ToggleListValueAction } from "@/lib/minecraft/core/engine/actions/ToggleListValueModifier";
 import { type UndefinedAction, UndefinedModifier } from "@/lib/minecraft/core/engine/actions/UndefinedModifier.ts";
-import type { RegistryElement } from "@/lib/minecraft/mczip.ts";
 
-export type ActionValue = string | number | boolean | Identifier;
+export type ActionValue = string | number | boolean | IdentifierObject;
 export interface BaseAction {
     field: string;
 }
@@ -35,10 +34,10 @@ export type Action =
 
 export function updateData(
     action: Action,
-    element: RegistryElement<Record<string, unknown>>,
+    element: Record<string, unknown>,
     version: number,
     value?: ActionValue
-): RegistryElement<Record<string, unknown>> | undefined {
+): Record<string, unknown> | undefined {
     return (() => {
         switch (action.type) {
             case "set_value_from_computed_value":

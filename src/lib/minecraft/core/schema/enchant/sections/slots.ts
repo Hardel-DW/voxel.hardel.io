@@ -31,7 +31,7 @@ export const slots: InterfaceConfiguration = {
                                 type: "conditionnal",
                                 return_condition: true,
                                 term: {
-                                    condition: "contains_in_value",
+                                    condition: "contains",
                                     field: "slots",
                                     values: ["mainhand", "any", "hand"]
                                 }
@@ -53,7 +53,7 @@ export const slots: InterfaceConfiguration = {
                                 type: "conditionnal",
                                 return_condition: true,
                                 term: {
-                                    condition: "contains_in_value",
+                                    condition: "contains",
                                     field: "slots",
                                     values: ["offhand", "any", "hand"]
                                 }
@@ -80,7 +80,7 @@ export const slots: InterfaceConfiguration = {
                                 type: "conditionnal",
                                 return_condition: true,
                                 term: {
-                                    condition: "contains_in_value",
+                                    condition: "contains",
                                     field: "slots",
                                     values: ["head", "any", "armor"]
                                 }
@@ -102,7 +102,7 @@ export const slots: InterfaceConfiguration = {
                                 type: "conditionnal",
                                 return_condition: true,
                                 term: {
-                                    condition: "contains_in_value",
+                                    condition: "contains",
                                     field: "slots",
                                     values: ["chest", "any", "armor"]
                                 }
@@ -124,7 +124,7 @@ export const slots: InterfaceConfiguration = {
                                 type: "conditionnal",
                                 return_condition: true,
                                 term: {
-                                    condition: "contains_in_value",
+                                    condition: "contains",
                                     field: "slots",
                                     values: ["legs", "any", "armor"]
                                 }
@@ -145,7 +145,7 @@ export const slots: InterfaceConfiguration = {
                             renderer: {
                                 type: "conditionnal",
                                 term: {
-                                    condition: "contains_in_value",
+                                    condition: "contains",
                                     field: "slots",
                                     values: ["feet", "any", "armor"]
                                 },

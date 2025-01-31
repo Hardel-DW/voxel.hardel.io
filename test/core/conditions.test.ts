@@ -1,14 +1,14 @@
 import { describe, it, expect } from "vitest";
 import { checkCondition } from "@/lib/minecraft/core/engine/condition";
 import type { Condition } from "@/lib/minecraft/core/engine/condition";
-import type { RegistryElement } from "@/lib/minecraft/mczip";
-import { Identifier } from "@/lib/minecraft/core/Identifier";
+import type { VoxelRegistryElement } from "@/lib/minecraft/core/Registry";
 import type { EnchantmentProps } from "@/lib/minecraft/core/schema/enchant/EnchantmentProps";
 
 // Mock d'un élément de registre pour les tests
-const createMockElement = (data: Partial<EnchantmentProps> = {}): RegistryElement<EnchantmentProps> => ({
-    identifier: new Identifier("namespace", "enchantment", "foo"),
+const createMockElement = (data: Partial<EnchantmentProps> = {}): VoxelRegistryElement<EnchantmentProps> => ({
+    identifier: "random_identifier",
     data: {
+        identifier: { namespace: "namespace", resource: "enchantment", registry: "foo" },
         description: { translate: "enchantment.test.foo" },
         exclusiveSet: undefined,
         supportedItems: "#minecraft:sword",
@@ -40,7 +40,7 @@ describe("Condition System", () => {
                 value: "#minecraft:sword"
             };
 
-            expect(checkCondition(condition, element)).toBe(true);
+            expect(checkCondition(condition, element.data)).toBe(true);
         });
 
         it("should check undefined equality", () => {
@@ -50,7 +50,7 @@ describe("Condition System", () => {
                 field: "exclusiveSet"
             };
 
-            expect(checkCondition(condition, element)).toBe(true);
+            expect(checkCondition(condition, element.data)).toBe(true);
         });
     });
 
@@ -58,23 +58,23 @@ describe("Condition System", () => {
         it("should check string array contains", () => {
             const element = createMockElement();
             const condition: Condition = {
-                condition: "contains_in_value",
+                condition: "contains",
                 field: "slots",
                 values: ["head"]
             };
 
-            expect(checkCondition(condition, element)).toBe(true);
+            expect(checkCondition(condition, element.data)).toBe(true);
         });
 
         it("should check tags contains", () => {
             const element = createMockElement();
             const condition: Condition = {
-                condition: "contains_in_tags",
+                condition: "contains",
                 field: "tags",
                 values: ["#minecraft:enchantable/bow"]
             };
 
-            expect(checkCondition(condition, element)).toBe(true);
+            expect(checkCondition(condition, element.data)).toBe(true);
         });
     });
 
@@ -90,7 +90,7 @@ describe("Condition System", () => {
                 }
             };
 
-            expect(checkCondition(condition, element)).toBe(true);
+            expect(checkCondition(condition, element.data)).toBe(true);
         });
     });
 
@@ -101,19 +101,19 @@ describe("Condition System", () => {
                 condition: "all_of",
                 terms: [
                     {
-                        condition: "contains_in_value",
+                        condition: "contains",
                         field: "slots",
                         values: ["head"]
                     },
                     {
-                        condition: "contains_in_tags",
+                        condition: "contains",
                         field: "tags",
                         values: ["#minecraft:enchantable/bow"]
                     }
                 ]
             };
 
-            expect(checkCondition(condition, element)).toBe(true);
+            expect(checkCondition(condition, element.data)).toBe(true);
         });
 
         it("should return false if any condition is false", () => {
@@ -122,19 +122,19 @@ describe("Condition System", () => {
                 condition: "all_of",
                 terms: [
                     {
-                        condition: "contains_in_value",
+                        condition: "contains",
                         field: "slots",
                         values: ["head"]
                     },
                     {
-                        condition: "contains_in_tags",
+                        condition: "contains",
                         field: "tags",
                         values: ["#minecraft:enchantable/crossbow"]
                     }
                 ]
             };
 
-            expect(checkCondition(condition, element)).toBe(false);
+            expect(checkCondition(condition, element.data)).toBe(false);
         });
     });
 
@@ -145,19 +145,19 @@ describe("Condition System", () => {
                 condition: "any_of",
                 terms: [
                     {
-                        condition: "contains_in_value",
+                        condition: "contains",
                         field: "slots",
                         values: ["invalid_slot"]
                     },
                     {
-                        condition: "contains_in_tags",
+                        condition: "contains",
                         field: "tags",
                         values: ["#minecraft:enchantable/bow"]
                     }
                 ]
             };
 
-            expect(checkCondition(condition, element)).toBe(true);
+            expect(checkCondition(condition, element.data)).toBe(true);
         });
 
         it("should return false if all conditions are false", () => {
@@ -166,19 +166,19 @@ describe("Condition System", () => {
                 condition: "any_of",
                 terms: [
                     {
-                        condition: "contains_in_value",
+                        condition: "contains",
                         field: "slots",
                         values: ["invalid_slot"]
                     },
                     {
-                        condition: "contains_in_tags",
+                        condition: "contains",
                         field: "tags",
                         values: ["#minecraft:enchantable/crossbow"]
                     }
                 ]
             };
 
-            expect(checkCondition(condition, element)).toBe(false);
+            expect(checkCondition(condition, element.data)).toBe(false);
         });
     });
 
@@ -192,12 +192,12 @@ describe("Condition System", () => {
                         condition: "any_of",
                         terms: [
                             {
-                                condition: "contains_in_value",
+                                condition: "contains",
                                 field: "slots",
                                 values: ["head"]
                             },
                             {
-                                condition: "contains_in_value",
+                                condition: "contains",
                                 field: "slots",
                                 values: ["chest"]
                             }
@@ -206,7 +206,7 @@ describe("Condition System", () => {
                     {
                         condition: "inverted",
                         terms: {
-                            condition: "contains_in_tags",
+                            condition: "contains",
                             field: "tags",
                             values: ["#minecraft:enchantable/crossbow"]
                         }
@@ -214,7 +214,7 @@ describe("Condition System", () => {
                 ]
             };
 
-            expect(checkCondition(condition, element)).toBe(true);
+            expect(checkCondition(condition, element.data)).toBe(true);
         });
     });
 });

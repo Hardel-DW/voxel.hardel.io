@@ -1,14 +1,14 @@
-import type { Identifier } from "@/lib/minecraft/core/Identifier";
+import type { IdentifierObject } from "@/lib/minecraft/core/Identifier";
+import type { VoxelRegistryElement } from "@/lib/minecraft/core/Registry";
 import type { VoxelElement } from "@/lib/minecraft/core/engine/Analyser";
 import type { Action } from "@/lib/minecraft/core/engine/actions";
-import type { RegistryElement } from "@/lib/minecraft/mczip";
 import type { APIContext } from "astro";
 
 export const prerender = false;
 
 interface ArtificialAction {
     action: Action | null;
-    identifier: Identifier | null;
+    identifier: IdentifierObject | null;
     response: string;
     onlyResponse: boolean;
     error?: string;
@@ -20,7 +20,7 @@ export async function POST({ request }: APIContext) {
         const contextPrompt =
             body.elements && body.elements.length > 0
                 ? `Here are the elements, use them as a source of information:\n${body.elements
-                      .map((el: RegistryElement<VoxelElement>) => `${el.identifier}:\n${JSON.stringify(el.data, null, 2)}`)
+                      .map((el: VoxelRegistryElement<VoxelElement>) => `${el.identifier}:\n${JSON.stringify(el.data, null, 2)}`)
                       .join("\n\n")}\n\nUser question: ${body.prompt}`
                 : `User question: ${body.prompt}`;
 

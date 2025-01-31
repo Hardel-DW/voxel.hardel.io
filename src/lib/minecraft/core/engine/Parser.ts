@@ -1,5 +1,4 @@
 import type { ConfiguratorConfigFromDatapack } from "@/lib/minecraft/core/Configurator.ts";
-import { Identifier } from "@/lib/minecraft/core/Identifier.ts";
 import { isPresentInTag } from "@/lib/minecraft/core/Tag.ts";
 import {
     type Analysers,
@@ -12,38 +11,37 @@ import {
 import { calculateInitialToggle } from "@/lib/minecraft/core/engine/managers/InitialToggle.ts";
 import type { ToolConfiguration } from "@/lib/minecraft/core/schema/primitive";
 import type { ToggleSectionMap } from "@/lib/minecraft/core/schema/primitive/toggle";
-import { type RegistryElement, getRegistry, getVoxelConfig, parseZip, readDatapackFile } from "@/lib/minecraft/mczip.ts";
 import type { TagType } from "@voxel/definitions";
 import { Logger } from "./migrations/logger";
 import type { Log } from "./migrations/types";
-
-interface PackMcmeta {
-    pack: {
-        pack_format: number;
-        description: string;
-    };
-}
+import { identifierToString, sortRegistry, type IdentifierObject } from "@/lib/minecraft/core/Identifier.ts";
+import { getRegistry, type DataDrivenRegistryElement, type VoxelRegistryElement } from "../Registry";
+import { getVoxelConfig, parseZip, readDatapackFile } from "@/lib/minecraft/mczip.ts";
+import type { PackMcmeta } from "@/lib/minecraft/core/Datapack.ts";
 
 export interface ParserParams<K extends DataDrivenElement> {
-    element: RegistryElement<K>;
+    element: DataDrivenRegistryElement<K>;
     tags?: string[];
     configurator?: ConfiguratorConfigFromDatapack;
 }
 
-export type Parser<T extends VoxelElement, K extends DataDrivenElement> = (params: ParserParams<K>) => RegistryElement<T>;
+export type Parser<T extends VoxelElement, K extends DataDrivenElement> = (params: ParserParams<K>) => VoxelRegistryElement<T>;
 
-export function parseDatapackElement<T>(files: Record<string, Uint8Array>, config: string): RegistryElement<T>[] {
+export function parseDatapackElement<T extends DataDrivenElement>(
+    files: Record<string, Uint8Array>,
+    config: string
+): DataDrivenRegistryElement<T>[] {
     return getRegistry<T>(files, config);
 }
 
 export interface ParseDatapackResult<T extends VoxelElement> {
     name: string;
     files: Record<string, Uint8Array>;
-    elements: RegistryElement<T>[];
+    elements: Map<string, T>;
     version: number;
-    identifiers: Identifier[];
+    identifiers: IdentifierObject[];
     toggleSection: ToggleSectionMap;
-    currentElementId: Identifier;
+    currentElementId: string;
     isJar: boolean;
     configuration: ToolConfiguration;
     logger: Logger;
@@ -93,8 +91,8 @@ export async function parseDatapack<T extends keyof Analysers>(
     const compiled = mainRegistry.map((element) => {
         const configurator = getVoxelConfig(files, element.identifier);
         const tags = tagsRegistry
-            .filter((tag) => isPresentInTag(tag, element.identifier.toString()))
-            .map((tag) => tag.identifier.toString());
+            .filter((tag) => isPresentInTag(tag, identifierToString(element.identifier)))
+            .map((tag) => identifierToString(tag.identifier));
 
         return analyser.parser({
             element,
@@ -129,11 +127,11 @@ export async function parseDatapack<T extends keyof Analysers>(
     return {
         name,
         files,
-        elements: compiled,
+        elements: new Map(compiled.map((element) => [element.identifier, element.data])),
         version: packFormat,
         toggleSection: initialToggle,
         identifiers: [...mainRegistryIdentifiers, ...tagsRegistryIdentifiers],
-        currentElementId: Identifier.sortRegistry(compiled)[0].identifier,
+        currentElementId: sortRegistry(compiled)[0].identifier,
         isJar,
         configuration: config,
         logger
@@ -144,11 +142,11 @@ export async function parseDatapack<T extends keyof Analysers>(
  * Parse un élément spécifique à partir d'un identifiant et du contexte
  */
 export function parseSpecificElement<T extends keyof Analysers>(
-    identifier: Identifier,
+    identifier: IdentifierObject,
     files: Record<string, Uint8Array>,
     version: number,
     tool: T
-): RegistryElement<GetAnalyserVoxel<T>> | undefined {
+): VoxelRegistryElement<GetAnalyserVoxel<T>> | undefined {
     const dataDrivenElement = readDatapackFile<GetAnalyserMinecraft<T>>(files, identifier);
 
     if (!dataDrivenElement || !version) return undefined;
@@ -159,7 +157,9 @@ export function parseSpecificElement<T extends keyof Analysers>(
         ? parseDatapackElement<TagType>(files, analyserResult.config.analyser.registries.tags)
         : [];
 
-    const tags = tagsRegistry.filter((tag) => isPresentInTag(tag, identifier.toString())).map((tag) => tag.identifier.toString());
+    const tags = tagsRegistry
+        .filter((tag) => isPresentInTag(tag, identifierToString(identifier)))
+        .map((tag) => identifierToString(tag.identifier));
 
     const configurator = getVoxelConfig(files, identifier);
     return analyserResult.analyser.parser({

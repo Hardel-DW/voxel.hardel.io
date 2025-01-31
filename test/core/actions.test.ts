@@ -1,4 +1,3 @@
-import { Identifier } from "@/lib/minecraft/core/Identifier";
 import { updateData } from "@/lib/minecraft/core/engine/actions";
 import type { ListAction } from "@/lib/minecraft/core/engine/actions/AppendListModifier";
 import type { MultipleAction } from "@/lib/minecraft/core/engine/actions/MultipleModifier";
@@ -9,14 +8,15 @@ import type { SimpleAction } from "@/lib/minecraft/core/engine/actions/SimpleMod
 import type { SlotAction } from "@/lib/minecraft/core/engine/actions/SlotModifier";
 import type { ToggleListValueAction } from "@/lib/minecraft/core/engine/actions/ToggleListValueModifier";
 import type { EnchantmentProps } from "@/lib/minecraft/core/schema/enchant/EnchantmentProps";
-import type { RegistryElement } from "@/lib/minecraft/mczip";
+import type { VoxelRegistryElement } from "@/lib/minecraft/core/Registry";
 import type { EffectComponentsRecord } from "@voxel/definitions";
 import { describe, expect, it } from "vitest";
 
 // Mock d'un élément de registre pour les tests
-const createMockElement = (data: Partial<EnchantmentProps> = {}): RegistryElement<EnchantmentProps> => ({
-    identifier: new Identifier("namespace", "enchantment", "foo"),
+const createMockElement = (data: Partial<EnchantmentProps> = {}): VoxelRegistryElement<EnchantmentProps> => ({
+    identifier: "random_identifier",
     data: {
+        identifier: { namespace: "namespace", registry: "enchantment", resource: "foo" },
         description: { translate: "enchantment.test.foo", fallback: "Enchantment Test" },
         exclusiveSet: undefined,
         supportedItems: "#minecraft:sword",
@@ -38,9 +38,10 @@ const createMockElement = (data: Partial<EnchantmentProps> = {}): RegistryElemen
     }
 });
 
-const createComplexMockElement = (data: Partial<EnchantmentProps> = {}): RegistryElement<EnchantmentProps> => ({
-    identifier: new Identifier("enchantplus", "enchantment", "bow/accuracy_shot"),
+const createComplexMockElement = (data: Partial<EnchantmentProps> = {}): VoxelRegistryElement<EnchantmentProps> => ({
+    identifier: "foo",
     data: {
+        identifier: { namespace: "enchantplus", registry: "enchantment", resource: "bow/accuracy_shot" },
         anvilCost: 4,
         description: { translate: "enchantment.test.foo", fallback: "Enchantment Test" },
         disabledEffects: [],
@@ -83,12 +84,12 @@ describe("Action System", () => {
             const action: SimpleAction = {
                 type: "set_value",
                 field: "minCostBase",
-                value: 5
+                value: 20
             };
 
-            const result = updateData(action, element, 48);
+            const result = updateData(action, element.data, 48);
             expect(result).toBeDefined();
-            expect(result?.data.minCostBase).toBe(5);
+            expect(result?.minCostBase).toBe(20);
         });
 
         it("should toggle a value", () => {
@@ -99,10 +100,9 @@ describe("Action System", () => {
                 value: 5
             };
 
-            const result = updateData(action, element, 48);
-
+            const result = updateData(action, element.data, 48);
             expect(result).toBeDefined();
-            expect(result?.data.minCostBase).toBeUndefined();
+            expect(result?.minCostBase).toBeUndefined();
         });
     });
 
@@ -116,10 +116,9 @@ describe("Action System", () => {
                 value: "chest"
             };
 
-            const result = updateData(action, element, 48);
-
+            const result = updateData(action, element.data, 48);
             expect(result).toBeDefined();
-            expect(result?.data.slots).toEqual(["head", "chest"]);
+            expect(result?.slots).toEqual(["head", "chest"]);
         });
 
         it("should prepend to a list", () => {
@@ -131,10 +130,10 @@ describe("Action System", () => {
                 value: "chest"
             };
 
-            const result = updateData(action, element, 48);
+            const result = updateData(action, element.data, 48);
 
             expect(result).toBeDefined();
-            expect(result?.data.slots).toEqual(["chest", "head"]);
+            expect(result?.slots).toEqual(["chest", "head"]);
         });
     });
 
@@ -147,9 +146,9 @@ describe("Action System", () => {
                 value: ["head", "legs"]
             };
 
-            const result = updateData(action, element, 48);
+            const result = updateData(action, element.data, 48);
             expect(result).toBeDefined();
-            expect(result?.data.slots).toEqual(["chest"]);
+            expect(result?.slots).toEqual(["chest"]);
         });
     });
 
@@ -172,11 +171,11 @@ describe("Action System", () => {
                 ]
             };
 
-            const result = updateData(action, element, 48);
+            const result = updateData(action, element.data, 48);
 
             expect(result).toBeDefined();
-            expect(result?.data.min_cost).toBe(5);
-            expect(result?.data.max_cost).toBe(10);
+            expect(result?.min_cost).toBe(5);
+            expect(result?.max_cost).toBe(10);
         });
     });
 
@@ -209,10 +208,10 @@ describe("Action System", () => {
                 value: "minecraft:damage_protection"
             };
 
-            const result = updateData(action, element, 48);
+            const result = updateData(action, element.data, 48);
 
             expect(result).toBeDefined();
-            expect(result?.data.effects).toEqual({
+            expect(result?.effects).toEqual({
                 "minecraft:damage_immunity": [
                     {
                         effect: {
@@ -234,10 +233,10 @@ describe("Action System", () => {
                 value: "head"
             };
 
-            const result = updateData(action, element, 48);
+            const result = updateData(action, element.data, 48);
 
             expect(result).toBeDefined();
-            expect(result?.data.slots).toEqual(["chest"]);
+            expect(result?.slots).toEqual(["chest"]);
         });
 
         it("should remove field if list becomes empty with remove_if_empty mode", () => {
@@ -249,10 +248,10 @@ describe("Action System", () => {
                 mode: ["remove_if_empty"]
             };
 
-            const result = updateData(action, element, 48);
+            const result = updateData(action, element.data, 48);
 
             expect(result).toBeDefined();
-            expect(result?.data.slots).toBeUndefined();
+            expect(result?.slots).toBeUndefined();
         });
 
         it("should convert primitive value to array with override mode", () => {
@@ -267,11 +266,11 @@ describe("Action System", () => {
                 mode: ["override"]
             };
 
-            const result = updateData(action, element, 48);
+            const result = updateData(action, element.data, 48);
 
             expect(result).toBeDefined();
-            expect(Array.isArray(result?.data.exclusiveSet)).toBe(true);
-            expect(result?.data.exclusiveSet).toEqual(["#minecraft:exclusive_set/weapon"]);
+            expect(Array.isArray(result?.exclusiveSet)).toBe(true);
+            expect(result?.exclusiveSet).toEqual(["#minecraft:exclusive_set/weapon"]);
         });
 
         it("should support multiple modes", () => {
@@ -285,10 +284,10 @@ describe("Action System", () => {
                 mode: ["override", "remove_if_empty"]
             };
 
-            const result = updateData(action, element, 48);
+            const result = updateData(action, element.data, 48);
 
             expect(result).toBeDefined();
-            expect(result?.data.exclusiveSet).toEqual(["#minecraft:exclusive_set/armor"]);
+            expect(result?.exclusiveSet).toEqual(["#minecraft:exclusive_set/armor"]);
         });
 
         it("should handle undefined field with override mode", () => {
@@ -302,11 +301,11 @@ describe("Action System", () => {
                 mode: ["override"]
             };
 
-            const result = updateData(action, element, 48);
+            const result = updateData(action, element.data, 48);
 
             expect(result).toBeDefined();
-            expect(Array.isArray(result?.data.exclusiveSet)).toBe(true);
-            expect(result?.data.exclusiveSet).toEqual(["#minecraft:exclusive_set/weapon"]);
+            expect(Array.isArray(result?.exclusiveSet)).toBe(true);
+            expect(result?.exclusiveSet).toEqual(["#minecraft:exclusive_set/weapon"]);
         });
     });
 
@@ -319,10 +318,10 @@ describe("Action System", () => {
                 value: "chest"
             };
 
-            const result = updateData(action, element, 48);
+            const result = updateData(action, element.data, 48);
 
             expect(result).toBeDefined();
-            expect(result?.data.slots).toEqual(["head", "legs"]);
+            expect(result?.slots).toEqual(["head", "legs"]);
         });
 
         it("should remove field if list becomes empty with remove_if_empty mode", () => {
@@ -334,10 +333,10 @@ describe("Action System", () => {
                 mode: ["remove_if_empty"]
             };
 
-            const result = updateData(action, element, 48);
+            const result = updateData(action, element.data, 48);
 
             expect(result).toBeDefined();
-            expect(result?.data.slots).toBeUndefined();
+            expect(result?.slots).toBeUndefined();
         });
 
         it("should handle value from props parameter", () => {
@@ -347,10 +346,10 @@ describe("Action System", () => {
                 field: "slots"
             };
 
-            const result = updateData(action, element, 48, "head");
+            const result = updateData(action, element.data, 48, "head");
 
             expect(result).toBeDefined();
-            expect(result?.data.slots).toEqual(["chest"]);
+            expect(result?.slots).toEqual(["chest"]);
         });
 
         it("should throw error when both value and props are undefined", () => {
@@ -360,7 +359,7 @@ describe("Action System", () => {
                 field: "slots"
             };
 
-            expect(() => updateData(action, element, 48)).toThrow("Both props and action.value cannot be undefined");
+            expect(() => updateData(action, element.data, 48)).toThrow("Both props and action.value cannot be undefined");
         });
 
         it("should handle non-existent value gracefully", () => {
@@ -371,10 +370,10 @@ describe("Action System", () => {
                 value: "legs"
             };
 
-            const result = updateData(action, element, 48);
+            const result = updateData(action, element.data, 48);
 
             expect(result).toBeDefined();
-            expect(result?.data.slots).toEqual(["head", "chest"]);
+            expect(result?.slots).toEqual(["head", "chest"]);
         });
     });
 
@@ -389,10 +388,10 @@ describe("Action System", () => {
                 value: "legs"
             };
 
-            const result = updateData(action, element, 48);
+            const result = updateData(action, element.data, 48);
 
             expect(result).toBeDefined();
-            expect(result?.data.slots).toEqual(["head", "chest", "legs"]);
+            expect(result?.slots).toEqual(["head", "chest", "legs"]);
         });
 
         it("should remove a slot when already present", () => {
@@ -405,10 +404,10 @@ describe("Action System", () => {
                 value: "chest"
             };
 
-            const result = updateData(action, element, 48);
+            const result = updateData(action, element.data, 48);
 
             expect(result).toBeDefined();
-            expect(result?.data.slots).toEqual(["head", "legs"]);
+            expect(result?.slots).toEqual(["head", "legs"]);
         });
 
         it("should handle empty slots array", () => {
@@ -421,10 +420,10 @@ describe("Action System", () => {
                 value: "head"
             };
 
-            const result = updateData(action, element, 48);
+            const result = updateData(action, element.data, 48);
 
             expect(result).toBeDefined();
-            expect(result?.data.slots).toEqual(["head"]);
+            expect(result?.slots).toEqual(["head"]);
         });
 
         it("should throw error for invalid slot value", () => {
@@ -437,7 +436,7 @@ describe("Action System", () => {
                 value: "invalid_slot"
             };
 
-            expect(() => updateData(action, element, 48)).toThrow();
+            expect(() => updateData(action, element.data, 48)).toThrow();
         });
     });
 
@@ -450,9 +449,9 @@ describe("Action System", () => {
             };
 
             // Premier appel - ajoute l'élément
-            const result = updateData(action, element, 48, "minecraft:projectile_spawned");
+            const result = updateData(action, element.data, 48, "minecraft:projectile_spawned");
             expect(result).toBeDefined();
-            expect(result?.data.disabledEffects).toEqual(["minecraft:projectile_spawned"]);
+            expect(result?.disabledEffects).toEqual(["minecraft:projectile_spawned"]);
 
             // Deuxième appel - utilise le résultat du premier appel comme entrée
             if (result === undefined) {
@@ -461,7 +460,7 @@ describe("Action System", () => {
 
             const result2 = updateData(action, result, 48, "minecraft:projectile_spawned");
             expect(result2).toBeDefined();
-            expect(result2?.data.disabledEffects).toEqual([]);
+            expect(result2?.disabledEffects).toEqual([]);
         });
     });
 });
@@ -475,9 +474,9 @@ describe("Action System - Identifier Validation", () => {
             value: 5
         };
 
-        const result = updateData(action, element, 48);
-        expect(result?.identifier).toBeInstanceOf(Identifier);
-        expect(result?.identifier.equals(element.identifier)).toBe(true);
+        const result = updateData(action, element.data, 48);
+        expect(result?.identifier).toBeDefined();
+        expect(element.data.identifier).toEqual(result?.identifier);
     });
 
     it("should maintain Identifier instance through ToggleListValueModifier", () => {
@@ -488,9 +487,9 @@ describe("Action System - Identifier Validation", () => {
             value: "chest"
         };
 
-        const result = updateData(action, element, 48);
-        expect(result?.identifier).toBeInstanceOf(Identifier);
-        expect(result?.identifier.equals(element.identifier)).toBe(true);
+        const result = updateData(action, element.data, 48);
+        expect(result?.identifier).toBeDefined();
+        expect(element.data.identifier).toEqual(result?.identifier);
     });
 
     it("should maintain Identifier instance through SequentialModifier", () => {
@@ -511,9 +510,9 @@ describe("Action System - Identifier Validation", () => {
             ]
         };
 
-        const result = updateData(action, element, 48);
-        expect(result?.identifier).toBeInstanceOf(Identifier);
-        expect(result?.identifier.equals(element.identifier)).toBe(true);
+        const result = updateData(action, element.data, 48);
+        expect(result?.identifier).toBeDefined();
+        expect(element.data.identifier).toEqual(result?.identifier);
     });
 
     it("should maintain Identifier instance through RemoveKeyModifier", () => {
@@ -524,9 +523,9 @@ describe("Action System - Identifier Validation", () => {
             value: "minecraft:projectile_spawned"
         };
 
-        const result = updateData(action, element, 48);
-        expect(result?.identifier).toBeInstanceOf(Identifier);
-        expect(result?.identifier.equals(element.identifier)).toBe(true);
+        const result = updateData(action, element.data, 48);
+        expect(result?.identifier).toBeDefined();
+        expect(element.data.identifier).toEqual(result?.identifier);
     });
 
     it("should maintain Identifier instance through MultipleModifier", () => {
@@ -537,9 +536,9 @@ describe("Action System - Identifier Validation", () => {
             value: ["head", "legs"]
         };
 
-        const result = updateData(action, element, 48);
-        expect(result?.identifier).toBeInstanceOf(Identifier);
-        expect(result?.identifier.equals(element.identifier)).toBe(true);
+        const result = updateData(action, element.data, 48);
+        expect(result?.identifier).toBeDefined();
+        expect(element.data.identifier).toEqual(result?.identifier);
     });
 
     it("should maintain Identifier instance through RemoveValueFromListModifier", () => {
@@ -550,9 +549,9 @@ describe("Action System - Identifier Validation", () => {
             value: "head"
         };
 
-        const result = updateData(action, element, 48);
-        expect(result?.identifier).toBeInstanceOf(Identifier);
-        expect(result?.identifier.equals(element.identifier)).toBe(true);
+        const result = updateData(action, element.data, 48);
+        expect(result?.identifier).toBeDefined();
+        expect(element.data.identifier).toEqual(result?.identifier);
     });
 
     it("should maintain Identifier instance through AppendListModifier", () => {
@@ -564,9 +563,9 @@ describe("Action System - Identifier Validation", () => {
             value: "chest"
         };
 
-        const result = updateData(action, element, 48);
-        expect(result?.identifier).toBeInstanceOf(Identifier);
-        expect(result?.identifier.equals(element.identifier)).toBe(true);
+        const result = updateData(action, element.data, 48);
+        expect(result?.identifier).toBeDefined();
+        expect(element.data.identifier).toEqual(result?.identifier);
     });
 
     it("should maintain Identifier instance through complex chained operations", () => {
@@ -592,9 +591,8 @@ describe("Action System - Identifier Validation", () => {
             ]
         };
 
-        const result = updateData(action, element, 48);
-        expect(result?.identifier).toBeInstanceOf(Identifier);
-        expect(result?.identifier.equals(element.identifier)).toBe(true);
-        expect(result?.identifier.toString()).toBe("enchantplus:bow/accuracy_shot");
+        const result = updateData(action, element.data, 48);
+        expect(result?.identifier).toBeDefined();
+        expect(element.data.identifier).toEqual(result?.identifier);
     });
 });

@@ -1,12 +1,12 @@
 import { describe, it, expect } from "vitest";
 import { getValue, type ValueRenderer } from "@/lib/minecraft/core/engine/renderer/value";
-import type { RegistryElement } from "@/lib/minecraft/mczip";
-import { Identifier } from "@/lib/minecraft/core/Identifier";
+import type { VoxelRegistryElement } from "@/lib/minecraft/core/Registry";
 import type { EnchantmentProps } from "@/lib/minecraft/core/schema/enchant/EnchantmentProps";
 
-const createMockElement = (data: Partial<EnchantmentProps> = {}): RegistryElement<EnchantmentProps> => ({
-    identifier: new Identifier("namespace", "enchantment", "foo"),
+const createMockElement = (data: Partial<EnchantmentProps> = {}): VoxelRegistryElement<EnchantmentProps> => ({
+    identifier: "foo",
     data: {
+        identifier: { namespace: "namespace", resource: "enchantment", registry: "foo" },
         description: { translate: "enchantment.test.foo" },
         exclusiveSet: undefined,
         supportedItems: "#minecraft:sword",
@@ -37,7 +37,7 @@ describe("Value System", () => {
                 value: 42
             };
 
-            expect(getValue(renderer, element)).toBe(42);
+            expect(getValue(renderer, element.data)).toBe(42);
         });
 
         it("should return value from field", () => {
@@ -47,7 +47,7 @@ describe("Value System", () => {
                 field: "maxLevel"
             };
 
-            expect(getValue(renderer, element)).toBe(1);
+            expect(getValue(renderer, element.data)).toBe(1);
         });
 
         it("should return null when condition is false", () => {
@@ -55,13 +55,13 @@ describe("Value System", () => {
             const renderer: ValueRenderer = {
                 type: "conditionnal",
                 term: {
-                    condition: "contains_in_value",
+                    condition: "contains",
                     field: "slots",
                     values: ["invalid_slot"]
                 }
             };
 
-            expect(() => getValue(renderer, element)).toThrow("Conditionnal renderer has no fallback");
+            expect(() => getValue(renderer, element.data)).toThrow("Conditionnal renderer has no fallback");
         });
     });
 
@@ -71,14 +71,14 @@ describe("Value System", () => {
             const renderer: ValueRenderer = {
                 type: "conditionnal",
                 term: {
-                    condition: "contains_in_value",
+                    condition: "contains",
                     field: "slots",
                     values: ["head"]
                 },
                 return_condition: true
             };
 
-            expect(getValue(renderer, element)).toBe(true);
+            expect(getValue(renderer, element.data)).toBe(true);
         });
 
         it("should return false when condition is not met", () => {
@@ -86,14 +86,14 @@ describe("Value System", () => {
             const renderer: ValueRenderer = {
                 type: "conditionnal",
                 term: {
-                    condition: "contains_in_value",
+                    condition: "contains",
                     field: "slots",
                     values: ["invalid_slot"]
                 },
                 return_condition: true
             };
 
-            expect(getValue(renderer, element)).toBe(false);
+            expect(getValue(renderer, element.data)).toBe(false);
         });
 
         it("should return value from on_true when condition is true", () => {
@@ -101,7 +101,7 @@ describe("Value System", () => {
             const renderer: ValueRenderer = {
                 type: "conditionnal",
                 term: {
-                    condition: "contains_in_value",
+                    condition: "contains",
                     field: "slots",
                     values: ["head"]
                 },
@@ -111,7 +111,7 @@ describe("Value System", () => {
                 }
             };
 
-            expect(getValue(renderer, element)).toBe(42);
+            expect(getValue(renderer, element.data)).toBe(42);
         });
 
         it("should return value from on_false when condition is false", () => {
@@ -119,7 +119,7 @@ describe("Value System", () => {
             const renderer: ValueRenderer = {
                 type: "conditionnal",
                 term: {
-                    condition: "contains_in_value",
+                    condition: "contains",
                     field: "slots",
                     values: ["invalid_slot"]
                 },
@@ -129,7 +129,7 @@ describe("Value System", () => {
                 }
             };
 
-            expect(getValue(renderer, element)).toBe(42);
+            expect(getValue(renderer, element.data)).toBe(42);
         });
 
         it("should throw error when no fallback is provided", () => {
@@ -137,13 +137,13 @@ describe("Value System", () => {
             const renderer: ValueRenderer = {
                 type: "conditionnal",
                 term: {
-                    condition: "contains_in_value",
+                    condition: "contains",
                     field: "slots",
                     values: ["invalid_slot"]
                 }
             };
 
-            expect(() => getValue(renderer, element)).toThrow("Conditionnal renderer has no fallback");
+            expect(() => getValue(renderer, element.data)).toThrow("Conditionnal renderer has no fallback");
         });
     });
 
@@ -156,12 +156,12 @@ describe("Value System", () => {
                     condition: "all_of",
                     terms: [
                         {
-                            condition: "contains_in_value",
+                            condition: "contains",
                             field: "slots",
                             values: ["head"]
                         },
                         {
-                            condition: "contains_in_tags",
+                            condition: "contains",
                             field: "tags",
                             values: ["#minecraft:enchantable/bow"]
                         }
@@ -173,7 +173,7 @@ describe("Value System", () => {
                 }
             };
 
-            expect(getValue(renderer, element)).toBe(42);
+            expect(getValue(renderer, element.data)).toBe(42);
         });
 
         it("should handle any_of conditions", () => {
@@ -184,12 +184,12 @@ describe("Value System", () => {
                     condition: "any_of",
                     terms: [
                         {
-                            condition: "contains_in_value",
+                            condition: "contains",
                             field: "slots",
                             values: ["invalid_slot"]
                         },
                         {
-                            condition: "contains_in_tags",
+                            condition: "contains",
                             field: "tags",
                             values: ["#minecraft:enchantable/crossbow"]
                         }
@@ -201,7 +201,7 @@ describe("Value System", () => {
                 }
             };
 
-            expect(() => getValue(renderer, element)).toThrow("Conditionnal renderer has no fallback");
+            expect(() => getValue(renderer, element.data)).toThrow("Conditionnal renderer has no fallback");
         });
     });
 
@@ -213,7 +213,7 @@ describe("Value System", () => {
                 value: 42
             };
 
-            expect(getValue(renderer, element)).toBe(42);
+            expect(getValue(renderer, element.data)).toBe(42);
         });
 
         it("should handle string values", () => {
@@ -223,7 +223,7 @@ describe("Value System", () => {
                 value: "test"
             };
 
-            expect(getValue(renderer, element)).toBe("test");
+            expect(getValue(renderer, element.data)).toBe("test");
         });
     });
 });

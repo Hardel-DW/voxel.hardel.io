@@ -1,21 +1,21 @@
 import { useTranslate } from "@/components/useTranslate";
-import type { Identifier } from "@/lib/minecraft/core/Identifier";
 import { type Analysers, getAnalyserForVersion } from "@/lib/minecraft/core/engine/Analyser";
 import { type Action, updateData } from "@/lib/minecraft/core/engine/actions";
 import { useConfiguratorStore } from "@/lib/store/configuratorStore";
 import { useState } from "react";
 import { ValueRenderer, type ValueRendererProps } from "./value/ValueRenderer";
+import { identifierToFilePath } from "@/lib/minecraft/core/Identifier";
 
 export type PropsConfirmationCardAI = {
     action: Action;
-    identifier: Identifier;
+    identifier: string;
 };
 
 export default function ConfirmationCardAI(props: PropsConfirmationCardAI) {
     const [isTriggered, setIsTriggered] = useState(false);
     const { lang, t } = useTranslate();
     const store = useConfiguratorStore();
-    const element = store.elements.find((element) => element.identifier.equals(props.identifier));
+    const element = store.elements.get(props.identifier);
     const analyserId = store.configuration?.analyser.id;
 
     if (!element) {
@@ -43,7 +43,7 @@ export default function ConfirmationCardAI(props: PropsConfirmationCardAI) {
 
     const { icon, name, type: propertyType } = property[props.action.field];
     const handleChange = store.handleChange;
-    const oldValue = element.data[props.action.field];
+    const oldValue = element[props.action.field];
     const preview = updateData(props.action, element, store.version ?? Number.POSITIVE_INFINITY);
 
     if (!preview) {
@@ -51,7 +51,7 @@ export default function ConfirmationCardAI(props: PropsConfirmationCardAI) {
         return null;
     }
 
-    const newValue = preview.data[props.action.field];
+    const newValue = preview[props.action.field];
 
     const data: ValueRendererProps = {
         type: propertyType,
@@ -81,7 +81,7 @@ export default function ConfirmationCardAI(props: PropsConfirmationCardAI) {
         <div className="group pt-8 starting:translate-y-10 translate-y-0 transition-all duration-300">
             <div className="flex w-full justify-between">
                 <div className="w-fit border-t border-x border-zinc-900 bg-zinc-950 group-hover:border-zinc-800 transition-all duration-300 text-white py-2 px-6 rounded-t-md translate-y-px">
-                    <p className="text-xs">{props.identifier.renderFilename()}</p>
+                    <p className="text-xs">{identifierToFilePath(element.identifier)}</p>
                 </div>
                 {!isTriggered && (
                     <div className="flex gap-2">

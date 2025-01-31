@@ -12,7 +12,7 @@ export default function HelpGuide(props: {
     tool: keyof Analysers;
 }) {
     const { t, lang } = useTranslate();
-    const hasElements = useConfiguratorStore((state) => state.elements.length > 0);
+    const hasElements = useConfiguratorStore((state) => state.elements.size > 0);
     if (hasElements) return null;
 
     return (

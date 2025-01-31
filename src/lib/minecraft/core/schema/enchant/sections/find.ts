@@ -91,7 +91,7 @@ export const find: InterfaceConfiguration = {
                                             value: "tools.enchantments.section.technical.components.reason"
                                         },
                                         condition: {
-                                            condition: "contains_in_tags",
+                                            condition: "contains",
                                             field: "tags",
                                             values: [{ type: "get_value_from_context", key: "lock_value" }]
                                         }
@@ -102,8 +102,13 @@ export const find: InterfaceConfiguration = {
                                             value: "tools.disabled_because_vanilla"
                                         },
                                         condition: {
-                                            condition: "check_namespace",
-                                            values: "minecraft"
+                                            condition: "object",
+                                            field: "identifier",
+                                            terms: {
+                                                condition: "compare_value_to_field_value",
+                                                field: "namespace",
+                                                value: "minecraft"
+                                            }
                                         }
                                     }
                                 ],
@@ -111,7 +116,7 @@ export const find: InterfaceConfiguration = {
                                     type: "conditionnal",
                                     return_condition: true,
                                     term: {
-                                        condition: "contains_in_tags",
+                                        condition: "contains",
                                         field: "tags",
                                         values: [{ type: "get_value_from_context", key: "tag" }]
                                     }

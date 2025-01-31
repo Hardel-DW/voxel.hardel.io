@@ -10,7 +10,7 @@ export default function ConfiguratorPanel(props: {
     children?: React.ReactNode;
     defaultTab: string;
 }) {
-    const hasElements = useConfiguratorStore((state) => state.elements.length > 0);
+    const hasElements = useConfiguratorStore((state) => state.elements.size > 0);
     const configuration = useConfiguratorStore((state) => state.configuration);
     const toggleSection = useConfiguratorStore((state) => state.toggleSection);
     if (!hasElements || !configuration || !toggleSection) return null;

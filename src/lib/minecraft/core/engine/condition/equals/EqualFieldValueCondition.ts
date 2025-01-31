@@ -1,4 +1,3 @@
-import type { RegistryElement } from "@/lib/minecraft/mczip.ts";
 import type { BaseCondition } from "@/lib/minecraft/core/engine/condition";
 
 export interface ConditionEqualsFieldValue extends BaseCondition {
@@ -6,11 +5,8 @@ export interface ConditionEqualsFieldValue extends BaseCondition {
     value: string;
 }
 
-export function CheckEqualFieldValueCondition(
-    condition: ConditionEqualsFieldValue,
-    element: RegistryElement<Record<string, unknown>>
-): boolean {
-    const compared = element.data[condition.field];
+export function CheckEqualFieldValueCondition(condition: ConditionEqualsFieldValue, element: Record<string, unknown>): boolean {
+    const compared = element[condition.field];
     if (!compared) {
         return false;
     }

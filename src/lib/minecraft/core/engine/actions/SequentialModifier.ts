@@ -1,6 +1,5 @@
 import type { Action, ActionValue } from "@/lib/minecraft/core/engine/actions/index.ts";
 import { updateData } from "@/lib/minecraft/core/engine/actions/index.ts";
-import type { RegistryElement } from "@/lib/minecraft/mczip.ts";
 
 export interface SequentialAction {
     type: "sequential";
@@ -17,10 +16,10 @@ export interface SequentialAction {
  */
 export default function SequentialModifier(
     action: SequentialAction,
-    element: RegistryElement<Record<string, unknown>>,
+    element: Record<string, unknown>,
     version: number,
     value?: ActionValue
-): RegistryElement<Record<string, unknown>> | undefined {
+): Record<string, unknown> | undefined {
     let currentElement = element;
 
     for (const subAction of action.actions) {

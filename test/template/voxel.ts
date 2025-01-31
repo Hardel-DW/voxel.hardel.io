@@ -1,6 +1,5 @@
-import { Identifier } from "@/lib/minecraft/core/Identifier";
+import type { VoxelRegistryElement } from "@/lib/minecraft/core/Registry";
 import type { EnchantmentProps } from "@/lib/minecraft/core/schema/enchant/EnchantmentProps";
-import type { RegistryElement } from "@/lib/minecraft/mczip.ts";
 import type { EffectComponentsRecord } from "@voxel/definitions";
 
 const prefiledProperties = {
@@ -22,10 +21,11 @@ const prefiledProperties = {
     effects: {} as EffectComponentsRecord
 };
 
-export const TEMPLATE_ENCHANTMENT: RegistryElement<EnchantmentProps>[] = [
+export const VOXEL_TEMPLATE_ENCHANTMENT: VoxelRegistryElement<EnchantmentProps>[] = [
     {
-        identifier: new Identifier("enchantplus", "enchantment", "bow/accuracy_shot"),
+        identifier: "00000000-0000-0000-0000-000000000000",
         data: {
+            identifier: { namespace: "enchantplus", registry: "enchantment", resource: "bow/accuracy_shot" },
             ...prefiledProperties,
             description: {
                 translate: "enchantment.enchantplus.accuracy_shot",
@@ -42,8 +42,9 @@ export const TEMPLATE_ENCHANTMENT: RegistryElement<EnchantmentProps>[] = [
         }
     },
     {
-        identifier: new Identifier("enchantplus", "enchantment", "boots/agility"),
+        identifier: "00000000-0000-0000-0000-000000000001",
         data: {
+            identifier: { namespace: "enchantplus", registry: "enchantment", resource: "boots/agility" },
             ...prefiledProperties,
             description: {
                 translate: "enchantment.enchantplus.agility",
@@ -62,8 +63,9 @@ export const TEMPLATE_ENCHANTMENT: RegistryElement<EnchantmentProps>[] = [
         }
     },
     {
-        identifier: new Identifier("enchantplus", "enchantment", "elytra/armored"),
+        identifier: "00000000-0000-0000-0000-000000000002",
         data: {
+            identifier: { namespace: "enchantplus", registry: "enchantment", resource: "elytra/armored" },
             ...prefiledProperties,
             description: {
                 translate: "enchantment.enchantplus.armored",
@@ -75,8 +77,9 @@ export const TEMPLATE_ENCHANTMENT: RegistryElement<EnchantmentProps>[] = [
         }
     },
     {
-        identifier: new Identifier("enchantplus", "enchantment", "sword/attack_speed"),
+        identifier: "00000000-0000-0000-0000-000000000003",
         data: {
+            identifier: { namespace: "enchantplus", registry: "enchantment", resource: "sword/attack_speed" },
             ...prefiledProperties,
             description: {
                 translate: "enchantment.enchantplus.attack_speed",
@@ -95,8 +98,9 @@ export const TEMPLATE_ENCHANTMENT: RegistryElement<EnchantmentProps>[] = [
         }
     },
     {
-        identifier: new Identifier("enchantplus", "enchantment", "helmet/auto_feed"),
+        identifier: "00000000-0000-0000-0000-000000000004",
         data: {
+            identifier: { namespace: "enchantplus", registry: "enchantment", resource: "helmet/auto_feed" },
             ...prefiledProperties,
             description: {
                 translate: "enchantment.enchantplus.auto_feed",
@@ -112,8 +116,9 @@ export const TEMPLATE_ENCHANTMENT: RegistryElement<EnchantmentProps>[] = [
         }
     },
     {
-        identifier: new Identifier("enchantplus", "enchantment", "tools/auto_smelt"),
+        identifier: "00000000-0000-0000-0000-000000000005",
         data: {
+            identifier: { namespace: "enchantplus", registry: "enchantment", resource: "tools/auto_smelt" },
             ...prefiledProperties,
             description: {
                 translate: "enchantment.enchantplus.auto_smelt",
@@ -135,8 +140,9 @@ export const TEMPLATE_ENCHANTMENT: RegistryElement<EnchantmentProps>[] = [
         }
     },
     {
-        identifier: new Identifier("enchantplus", "enchantment", "pickaxe/bedrock_breaker"),
+        identifier: "00000000-0000-0000-0000-000000000006",
         data: {
+            identifier: { namespace: "enchantplus", registry: "enchantment", resource: "pickaxe/bedrock_breaker" },
             ...prefiledProperties,
             description: {
                 translate: "enchantment.enchantplus.bedrock_breaker",
@@ -154,8 +160,9 @@ export const TEMPLATE_ENCHANTMENT: RegistryElement<EnchantmentProps>[] = [
         }
     },
     {
-        identifier: new Identifier("enchantplus", "enchantment", "bow/breezing_arrow"),
+        identifier: "00000000-0000-0000-0000-000000000007",
         data: {
+            identifier: { namespace: "enchantplus", registry: "enchantment", resource: "bow/breezing_arrow" },
             ...prefiledProperties,
             description: {
                 translate: "enchantment.enchantplus.breezing_arrow",
@@ -177,8 +184,9 @@ export const TEMPLATE_ENCHANTMENT: RegistryElement<EnchantmentProps>[] = [
         }
     },
     {
-        identifier: new Identifier("enchantplus", "enchantment", "helmet/bright_vision"),
+        identifier: "00000000-0000-0000-0000-000000000008",
         data: {
+            identifier: { namespace: "enchantplus", registry: "enchantment", resource: "helmet/bright_vision" },
             ...prefiledProperties,
             description: {
                 translate: "enchantment.enchantplus.bright_vision",
@@ -193,8 +201,9 @@ export const TEMPLATE_ENCHANTMENT: RegistryElement<EnchantmentProps>[] = [
         }
     },
     {
-        identifier: new Identifier("enchantplus", "enchantment", "chestplate/builder_arm"),
+        identifier: "00000000-0000-0000-0000-000000000009",
         data: {
+            identifier: { namespace: "enchantplus", registry: "enchantment", resource: "chestplate/builder_arm" },
             ...prefiledProperties,
             description: {
                 translate: "enchantment.enchantplus.builder_arm",
@@ -212,8 +221,9 @@ export const TEMPLATE_ENCHANTMENT: RegistryElement<EnchantmentProps>[] = [
         }
     },
     {
-        identifier: new Identifier("enchantplus", "enchantment", "durability/curse_of_breaking"),
+        identifier: "00000000-0000-0000-0000-000000000010",
         data: {
+            identifier: { namespace: "enchantplus", registry: "enchantment", resource: "durability/curse_of_breaking" },
             ...prefiledProperties,
             description: {
                 translate: "enchantment.enchantplus.curse_of_breaking",
@@ -233,8 +243,9 @@ export const TEMPLATE_ENCHANTMENT: RegistryElement<EnchantmentProps>[] = [
         }
     },
     {
-        identifier: new Identifier("enchantplus", "enchantment", "durability/curse_of_enchant"),
+        identifier: "00000000-0000-0000-0000-000000000011",
         data: {
+            identifier: { namespace: "enchantplus", registry: "enchantment", resource: "durability/curse_of_enchant" },
             ...prefiledProperties,
             description: {
                 translate: "enchantment.enchantplus.curse_of_enchant",
@@ -248,8 +259,9 @@ export const TEMPLATE_ENCHANTMENT: RegistryElement<EnchantmentProps>[] = [
         }
     },
     {
-        identifier: new Identifier("enchantplus", "enchantment", "leggings/dwarfed"),
+        identifier: "00000000-0000-0000-0000-000000000012",
         data: {
+            identifier: { namespace: "enchantplus", registry: "enchantment", resource: "leggings/dwarfed" },
             ...prefiledProperties,
             description: {
                 translate: "enchantment.enchantplus.dwarfed",
@@ -270,8 +282,9 @@ export const TEMPLATE_ENCHANTMENT: RegistryElement<EnchantmentProps>[] = [
         }
     },
     {
-        identifier: new Identifier("enchantplus", "enchantment", "bow/echo_shot"),
+        identifier: "00000000-0000-0000-0000-000000000013",
         data: {
+            identifier: { namespace: "enchantplus", registry: "enchantment", resource: "bow/echo_shot" },
             ...prefiledProperties,
             description: {
                 translate: "enchantment.enchantplus.echo_shot",
@@ -298,8 +311,9 @@ export const TEMPLATE_ENCHANTMENT: RegistryElement<EnchantmentProps>[] = [
         }
     },
     {
-        identifier: new Identifier("enchantplus", "enchantment", "bow/eternal_frost"),
+        identifier: "00000000-0000-0000-0000-000000000014",
         data: {
+            identifier: { namespace: "enchantplus", registry: "enchantment", resource: "bow/eternal_frost" },
             ...prefiledProperties,
             description: {
                 translate: "enchantment.enchantplus.eternal_frost",
@@ -330,8 +344,9 @@ export const TEMPLATE_ENCHANTMENT: RegistryElement<EnchantmentProps>[] = [
         }
     },
     {
-        identifier: new Identifier("enchantplus", "enchantment", "bow/explosive_arrow"),
+        identifier: "00000000-0000-0000-0000-000000000015",
         data: {
+            identifier: { namespace: "enchantplus", registry: "enchantment", resource: "bow/explosive_arrow" },
             ...prefiledProperties,
             description: {
                 translate: "enchantment.enchantplus.explosive_arrow",
@@ -350,8 +365,9 @@ export const TEMPLATE_ENCHANTMENT: RegistryElement<EnchantmentProps>[] = [
         }
     },
     {
-        identifier: new Identifier("enchantplus", "enchantment", "leggings/fast_swim"),
+        identifier: "00000000-0000-0000-0000-000000000016",
         data: {
+            identifier: { namespace: "enchantplus", registry: "enchantment", resource: "leggings/fast_swim" },
             ...prefiledProperties,
             description: {
                 translate: "enchantment.enchantplus.fast_swim",
@@ -364,8 +380,9 @@ export const TEMPLATE_ENCHANTMENT: RegistryElement<EnchantmentProps>[] = [
         }
     },
     {
-        identifier: new Identifier("enchantplus", "enchantment", "sword/fear"),
+        identifier: "00000000-0000-0000-0000-000000000017",
         data: {
+            identifier: { namespace: "enchantplus", registry: "enchantment", resource: "sword/fear" },
             ...prefiledProperties,
             description: {
                 translate: "enchantment.enchantplus.fear",
@@ -379,8 +396,9 @@ export const TEMPLATE_ENCHANTMENT: RegistryElement<EnchantmentProps>[] = [
         }
     },
     {
-        identifier: new Identifier("enchantplus", "enchantment", "armor/fury"),
+        identifier: "00000000-0000-0000-0000-000000000018",
         data: {
+            identifier: { namespace: "enchantplus", registry: "enchantment", resource: "armor/fury" },
             ...prefiledProperties,
             description: {
                 translate: "enchantment.enchantplus.fury",
@@ -400,8 +418,9 @@ export const TEMPLATE_ENCHANTMENT: RegistryElement<EnchantmentProps>[] = [
         }
     },
     {
-        identifier: new Identifier("enchantplus", "enchantment", "trident/gungnir_breath"),
+        identifier: "00000000-0000-0000-0000-000000000019",
         data: {
+            identifier: { namespace: "enchantplus", registry: "enchantment", resource: "trident/gungnir_breath" },
             ...prefiledProperties,
             description: {
                 translate: "enchantment.enchantplus.gungnir_breath",
@@ -420,8 +439,9 @@ export const TEMPLATE_ENCHANTMENT: RegistryElement<EnchantmentProps>[] = [
         }
     },
     {
-        identifier: new Identifier("enchantplus", "enchantment", "sword/last_hope"),
+        identifier: "00000000-0000-0000-0000-000000000020",
         data: {
+            identifier: { namespace: "enchantplus", registry: "enchantment", resource: "sword/last_hope" },
             ...prefiledProperties,
             description: {
                 translate: "enchantment.enchantplus.last_hope",
@@ -439,8 +459,9 @@ export const TEMPLATE_ENCHANTMENT: RegistryElement<EnchantmentProps>[] = [
         }
     },
     {
-        identifier: new Identifier("enchantplus", "enchantment", "boots/lava_walker"),
+        identifier: "00000000-0000-0000-0000-000000000021",
         data: {
+            identifier: { namespace: "enchantplus", registry: "enchantment", resource: "boots/lava_walker" },
             ...prefiledProperties,
             description: {
                 translate: "enchantment.enchantplus.lava_walker",
@@ -458,8 +479,9 @@ export const TEMPLATE_ENCHANTMENT: RegistryElement<EnchantmentProps>[] = [
         }
     },
     {
-        identifier: new Identifier("enchantplus", "enchantment", "leggings/leaping"),
+        identifier: "00000000-0000-0000-0000-000000000022",
         data: {
+            identifier: { namespace: "enchantplus", registry: "enchantment", resource: "leggings/leaping" },
             ...prefiledProperties,
             description: {
                 translate: "enchantment.enchantplus.leaping",
@@ -472,8 +494,9 @@ export const TEMPLATE_ENCHANTMENT: RegistryElement<EnchantmentProps>[] = [
         }
     },
     {
-        identifier: new Identifier("enchantplus", "enchantment", "sword/life_steal"),
+        identifier: "00000000-0000-0000-0000-000000000023",
         data: {
+            identifier: { namespace: "enchantplus", registry: "enchantment", resource: "sword/life_steal" },
             ...prefiledProperties,
             description: {
                 translate: "enchantment.enchantplus.life_steal",
@@ -493,8 +516,9 @@ export const TEMPLATE_ENCHANTMENT: RegistryElement<EnchantmentProps>[] = [
         }
     },
     {
-        identifier: new Identifier("enchantplus", "enchantment", "armor/lifeplus"),
+        identifier: "00000000-0000-0000-0000-000000000024",
         data: {
+            identifier: { namespace: "enchantplus", registry: "enchantment", resource: "armor/lifeplus" },
             ...prefiledProperties,
             description: {
                 translate: "enchantment.enchantplus.lifeplus",
@@ -513,8 +537,9 @@ export const TEMPLATE_ENCHANTMENT: RegistryElement<EnchantmentProps>[] = [
         }
     },
     {
-        identifier: new Identifier("enchantplus", "enchantment", "tools/miningplus"),
+        identifier: "00000000-0000-0000-0000-000000000025",
         data: {
+            identifier: { namespace: "enchantplus", registry: "enchantment", resource: "tools/miningplus" },
             ...prefiledProperties,
             description: {
                 translate: "enchantment.enchantplus.miningplus",
@@ -534,8 +559,9 @@ export const TEMPLATE_ENCHANTMENT: RegistryElement<EnchantmentProps>[] = [
         }
     },
     {
-        identifier: new Identifier("enchantplus", "enchantment", "leggings/oversize"),
+        identifier: "00000000-0000-0000-0000-000000000026",
         data: {
+            identifier: { namespace: "enchantplus", registry: "enchantment", resource: "leggings/oversize" },
             ...prefiledProperties,
             description: {
                 translate: "enchantment.enchantplus.oversize",
@@ -559,8 +585,9 @@ export const TEMPLATE_ENCHANTMENT: RegistryElement<EnchantmentProps>[] = [
         }
     },
     {
-        identifier: new Identifier("enchantplus", "enchantment", "sword/poison_aspect"),
+        identifier: "00000000-0000-0000-0000-000000000027",
         data: {
+            identifier: { namespace: "enchantplus", registry: "enchantment", resource: "sword/poison_aspect" },
             ...prefiledProperties,
             description: {
                 translate: "enchantment.enchantplus.poison_aspect",
@@ -580,8 +607,9 @@ export const TEMPLATE_ENCHANTMENT: RegistryElement<EnchantmentProps>[] = [
         }
     },
     {
-        identifier: new Identifier("enchantplus", "enchantment", "sword/pull"),
+        identifier: "00000000-0000-0000-0000-000000000028",
         data: {
+            identifier: { namespace: "enchantplus", registry: "enchantment", resource: "sword/pull" },
             ...prefiledProperties,
             description: {
                 translate: "enchantment.enchantplus.pull",
@@ -605,8 +633,9 @@ export const TEMPLATE_ENCHANTMENT: RegistryElement<EnchantmentProps>[] = [
         }
     },
     {
-        identifier: new Identifier("enchantplus", "enchantment", "sword/reach"),
+        identifier: "00000000-0000-0000-0000-000000000029",
         data: {
+            identifier: { namespace: "enchantplus", registry: "enchantment", resource: "sword/reach" },
             ...prefiledProperties,
             description: {
                 translate: "enchantment.enchantplus.reach",
@@ -628,8 +657,9 @@ export const TEMPLATE_ENCHANTMENT: RegistryElement<EnchantmentProps>[] = [
         }
     },
     {
-        identifier: new Identifier("enchantplus", "enchantment", "bow/rebound"),
+        identifier: "00000000-0000-0000-0000-000000000030",
         data: {
+            identifier: { namespace: "enchantplus", registry: "enchantment", resource: "bow/rebound" },
             ...prefiledProperties,
             description: {
                 translate: "enchantment.enchantplus.rebound",
@@ -653,8 +683,9 @@ export const TEMPLATE_ENCHANTMENT: RegistryElement<EnchantmentProps>[] = [
         }
     },
     {
-        identifier: new Identifier("enchantplus", "enchantment", "hoe/scyther"),
+        identifier: "00000000-0000-0000-0000-000000000031",
         data: {
+            identifier: { namespace: "enchantplus", registry: "enchantment", resource: "hoe/scyther" },
             ...prefiledProperties,
             description: {
                 translate: "enchantment.enchantplus.scyther",
@@ -667,8 +698,9 @@ export const TEMPLATE_ENCHANTMENT: RegistryElement<EnchantmentProps>[] = [
         }
     },
     {
-        identifier: new Identifier("enchantplus", "enchantment", "boots/sky_walk"),
+        identifier: "00000000-0000-0000-0000-000000000032",
         data: {
+            identifier: { namespace: "enchantplus", registry: "enchantment", resource: "boots/sky_walk" },
             ...prefiledProperties,
             description: {
                 translate: "enchantment.enchantplus.disable_for_1.21.2",
@@ -689,8 +721,9 @@ export const TEMPLATE_ENCHANTMENT: RegistryElement<EnchantmentProps>[] = [
         }
     },
     {
-        identifier: new Identifier("enchantplus", "enchantment", "pickaxe/spawner_touch"),
+        identifier: "00000000-0000-0000-0000-000000000033",
         data: {
+            identifier: { namespace: "enchantplus", registry: "enchantment", resource: "pickaxe/spawner_touch" },
             ...prefiledProperties,
             description: {
                 translate: "enchantment.enchantplus.spawner_touch",
@@ -713,8 +746,9 @@ export const TEMPLATE_ENCHANTMENT: RegistryElement<EnchantmentProps>[] = [
         }
     },
     {
-        identifier: new Identifier("enchantplus", "enchantment", "boots/step_assist"),
+        identifier: "00000000-0000-0000-0000-000000000034",
         data: {
+            identifier: { namespace: "enchantplus", registry: "enchantment", resource: "boots/step_assist" },
             ...prefiledProperties,
             description: {
                 translate: "enchantment.enchantplus.step_assist",
@@ -737,8 +771,9 @@ export const TEMPLATE_ENCHANTMENT: RegistryElement<EnchantmentProps>[] = [
         }
     },
     {
-        identifier: new Identifier("enchantplus", "enchantment", "bow/storm_arrow"),
+        identifier: "00000000-0000-0000-0000-000000000035",
         data: {
+            identifier: { namespace: "enchantplus", registry: "enchantment", resource: "bow/storm_arrow" },
             ...prefiledProperties,
             description: {
                 translate: "enchantment.enchantplus.storm_arrow",
@@ -752,8 +787,9 @@ export const TEMPLATE_ENCHANTMENT: RegistryElement<EnchantmentProps>[] = [
         }
     },
     {
-        identifier: new Identifier("enchantplus", "enchantment", "mace/striker"),
+        identifier: "00000000-0000-0000-0000-000000000036",
         data: {
+            identifier: { namespace: "enchantplus", registry: "enchantment", resource: "mace/striker" },
             ...prefiledProperties,
             description: {
                 translate: "enchantment.minecraft.striker",
@@ -777,8 +813,9 @@ export const TEMPLATE_ENCHANTMENT: RegistryElement<EnchantmentProps>[] = [
         }
     },
     {
-        identifier: new Identifier("enchantplus", "enchantment", "sword/tears_of_asflors"),
+        identifier: "00000000-0000-0000-0000-000000000037",
         data: {
+            identifier: { namespace: "enchantplus", registry: "enchantment", resource: "sword/tears_of_asflors" },
             ...prefiledProperties,
             description: {
                 translate: "enchantment.enchantplus.tears_of_asflors",
@@ -798,8 +835,9 @@ export const TEMPLATE_ENCHANTMENT: RegistryElement<EnchantmentProps>[] = [
         }
     },
     {
-        identifier: new Identifier("enchantplus", "enchantment", "mace/teluric_wave"),
+        identifier: "00000000-0000-0000-0000-000000000038",
         data: {
+            identifier: { namespace: "enchantplus", registry: "enchantment", resource: "mace/teluric_wave" },
             ...prefiledProperties,
             description: {
                 translate: "enchantment.enchantplus.teluric_wave",
@@ -818,8 +856,9 @@ export const TEMPLATE_ENCHANTMENT: RegistryElement<EnchantmentProps>[] = [
         }
     },
     {
-        identifier: new Identifier("enchantplus", "enchantment", "axe/timber"),
+        identifier: "00000000-0000-0000-0000-000000000039",
         data: {
+            identifier: { namespace: "enchantplus", registry: "enchantment", resource: "axe/timber" },
             ...prefiledProperties,
             description: {
                 translate: "enchantment.enchantplus.timber",
@@ -840,8 +879,9 @@ export const TEMPLATE_ENCHANTMENT: RegistryElement<EnchantmentProps>[] = [
         }
     },
     {
-        identifier: new Identifier("enchantplus", "enchantment", "pickaxe/vein_miner"),
+        identifier: "00000000-0000-0000-0000-000000000040",
         data: {
+            identifier: { namespace: "enchantplus", registry: "enchantment", resource: "pickaxe/vein_miner" },
             ...prefiledProperties,
             description: {
                 translate: "enchantment.enchantplus.vein_miner",
@@ -867,8 +907,9 @@ export const TEMPLATE_ENCHANTMENT: RegistryElement<EnchantmentProps>[] = [
         }
     },
     {
-        identifier: new Identifier("enchantplus", "enchantment", "armor/venom_protection"),
+        identifier: "00000000-0000-0000-0000-000000000041",
         data: {
+            identifier: { namespace: "enchantplus", registry: "enchantment", resource: "armor/venom_protection" },
             ...prefiledProperties,
             description: {
                 translate: "enchantment.enchantplus.venom_protection",
@@ -887,8 +928,9 @@ export const TEMPLATE_ENCHANTMENT: RegistryElement<EnchantmentProps>[] = [
         }
     },
     {
-        identifier: new Identifier("enchantplus", "enchantment", "helmet/voidless"),
+        identifier: "00000000-0000-0000-0000-000000000042",
         data: {
+            identifier: { namespace: "enchantplus", registry: "enchantment", resource: "helmet/voidless" },
             ...prefiledProperties,
             description: {
                 translate: "enchantment.enchantplus.voidless",
@@ -901,8 +943,9 @@ export const TEMPLATE_ENCHANTMENT: RegistryElement<EnchantmentProps>[] = [
         }
     },
     {
-        identifier: new Identifier("enchantplus", "enchantment", "mace/wind_propulsion"),
+        identifier: "00000000-0000-0000-0000-000000000043",
         data: {
+            identifier: { namespace: "enchantplus", registry: "enchantment", resource: "mace/wind_propulsion" },
             ...prefiledProperties,
             description: {
                 translate: "enchantment.minecraft.wind_propulsion",
@@ -915,8 +958,9 @@ export const TEMPLATE_ENCHANTMENT: RegistryElement<EnchantmentProps>[] = [
         }
     },
     {
-        identifier: new Identifier("enchantplus", "enchantment", "sword/xp_boost"),
+        identifier: "00000000-0000-0000-0000-000000000044",
         data: {
+            identifier: { namespace: "enchantplus", registry: "enchantment", resource: "sword/xp_boost" },
             ...prefiledProperties,
             description: {
                 translate: "enchantment.enchantplus.xp_boost",

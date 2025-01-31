@@ -1,6 +1,7 @@
-import { getRegistry } from "@/lib/minecraft/mczip";
 import { collectFromPath } from "./collectFromPath";
-import type { IterationResult, IterationValue } from "./type";
+import type { IterationResult, IterationValue } from "@/lib/minecraft/core/engine/resolver/iteration/type";
+import { identifierToResourceName, identifierToResourcePath, identifierToString } from "@/lib/minecraft/core/Identifier";
+import { getRegistry } from "@/lib/minecraft/core/Registry";
 
 export function createIterations(valueSet: IterationValue, files: Record<string, Uint8Array>): IterationResult[] {
     if (valueSet.type === "collect_from_path" || valueSet.type === "get_registry_elements") {
@@ -10,12 +11,12 @@ export function createIterations(valueSet: IterationValue, files: Record<string,
                 : getRegistry(files, valueSet.registry);
 
         return elements.map((file) => ({
-            key: file.identifier.toString(),
+            key: identifierToString(file.identifier),
             context: {
-                filename: file.identifier.renderFilename(),
-                resource: file.identifier.renderResource(),
-                namespace: file.identifier.getNamespace(),
-                identifier: file.identifier.toString()
+                filename: identifierToResourceName(file.identifier.resource),
+                resource: identifierToResourcePath(file.identifier.resource),
+                namespace: file.identifier.namespace,
+                identifier: identifierToString(file.identifier)
             }
         }));
     }

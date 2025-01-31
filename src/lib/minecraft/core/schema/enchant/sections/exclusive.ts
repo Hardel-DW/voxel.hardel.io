@@ -169,8 +169,13 @@ export const exclusive: InterfaceConfiguration = {
                                                             value: "tools.disabled_because_vanilla"
                                                         },
                                                         condition: {
-                                                            condition: "check_namespace",
-                                                            values: "minecraft"
+                                                            condition: "object",
+                                                            field: "identifier",
+                                                            terms: {
+                                                                condition: "compare_value_to_field_value",
+                                                                field: "namespace",
+                                                                value: "minecraft"
+                                                            }
                                                         }
                                                     }
                                                 ]
@@ -321,7 +326,7 @@ export const exclusive: InterfaceConfiguration = {
                                     type: "conditionnal",
                                     return_condition: true,
                                     term: {
-                                        condition: "contains_in_tags",
+                                        condition: "contains",
                                         field: "exclusiveSet",
                                         values: [
                                             {

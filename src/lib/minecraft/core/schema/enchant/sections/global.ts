@@ -103,8 +103,13 @@ export const global: InterfaceConfiguration = {
                                 value: "tools.disabled_because_vanilla"
                             },
                             condition: {
-                                condition: "check_namespace",
-                                values: "minecraft"
+                                condition: "object",
+                                field: "identifier",
+                                terms: {
+                                    condition: "compare_value_to_field_value",
+                                    field: "namespace",
+                                    value: "minecraft"
+                                }
                             }
                         }
                     ],

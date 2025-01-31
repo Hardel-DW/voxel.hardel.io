@@ -1,14 +1,14 @@
 import { searchRelevantElements } from "@/lib/searchElements";
 import { useConfiguratorStore } from "@/lib/store/configuratorStore";
 import { useState } from "react";
-import type { Identifier } from "../minecraft/core/Identifier";
-import type { Action } from "../minecraft/core/engine/actions";
-import { JSONBuilder } from "../utils/JSONBuilder";
+import { identifierToString, type IdentifierObject } from "@/lib/minecraft/core/Identifier";
+import type { Action } from "@/lib/minecraft/core/engine/actions";
+import { JSONBuilder } from "@/lib/utils/JSONBuilder";
 
 interface UseAIStreamReturn {
     streamingText: string;
     isStreaming: boolean;
-    reference: Identifier[];
+    reference: IdentifierObject[];
     startStreaming: (prompt: string) => Promise<void>;
     onFinishedStreaming: (object: IActionResponse) => void;
 }
@@ -27,7 +27,7 @@ interface AIResponse {
 export const useAIStream = (onFinishedStreaming: (object: IActionResponse) => void): UseAIStreamReturn => {
     const [streamingText, setStreamingText] = useState("");
     const [isStreaming, setIsStreaming] = useState(false);
-    const [reference, setReference] = useState<Identifier[]>([]);
+    const [reference, setReference] = useState<IdentifierObject[]>([]);
     const elements = useConfiguratorStore((state) => state.elements);
 
     const startStreaming = async (prompt: string) => {
@@ -37,7 +37,7 @@ export const useAIStream = (onFinishedStreaming: (object: IActionResponse) => vo
         setStreamingText("");
 
         try {
-            const relevantElements = searchRelevantElements(elements, prompt, ["effects"]);
+            const relevantElements = searchRelevantElements(Array.from(elements.values()), prompt, ["effects"]);
             setReference(relevantElements.map((el) => el.identifier));
             const response = await fetch("/api/llama", {
                 method: "POST",
@@ -47,7 +47,7 @@ export const useAIStream = (onFinishedStreaming: (object: IActionResponse) => vo
                 body: JSON.stringify({
                     prompt,
                     elements: relevantElements.map((el) => ({
-                        identifier: el.identifier.toString(),
+                        identifier: identifierToString(el.identifier),
                         data: el.data
                     }))
                 })

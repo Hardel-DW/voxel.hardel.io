@@ -2,8 +2,8 @@ import type { Analysers, GetAnalyserVoxel } from "@/lib/minecraft/core/engine/An
 import type { Action, ActionValue } from "@/lib/minecraft/core/engine/actions";
 import { updateData } from "@/lib/minecraft/core/engine/actions";
 import type { LogDifference, LogValue } from "@/lib/minecraft/core/engine/migrations/types";
-import type { RegistryElement } from "@/lib/minecraft/mczip";
 import type { Logger } from "./logger";
+import { identifierToString } from "@/lib/minecraft/core/Identifier";
 
 /**
  * Checks if a value matches the LogValue type
@@ -63,7 +63,7 @@ export function isLogValue(value: unknown): value is LogValue {
  */
 export function createDifferenceFromAction<T extends keyof Analysers>(
     action: Action,
-    element: RegistryElement<GetAnalyserVoxel<T>>,
+    element: GetAnalyserVoxel<T>,
     version: number,
     tool: T,
     logger: Logger,
@@ -87,19 +87,16 @@ export function createDifferenceFromAction<T extends keyof Analysers>(
     }
 
     const field = action.field;
-    const fieldExists = field in element.data;
-    const loggedOriginalValue = logger.getOriginalValue(element.identifier.toString(), String(field));
+    const fieldExists = field in element;
+    const loggedOriginalValue = logger.getOriginalValue(identifierToString(element.identifier), String(field));
 
     const originalValue =
-        loggedOriginalValue !== undefined
-            ? loggedOriginalValue
-            : fieldExists
-              ? element.data[field as keyof typeof element.data]
-              : undefined;
+        loggedOriginalValue !== undefined ? loggedOriginalValue : fieldExists ? element[field as keyof typeof element.data] : undefined;
 
     const updatedElement = updateData(action, element, version, value);
     if (!updatedElement) return undefined;
-    const currentValue = updatedElement.data[field as keyof typeof updatedElement.data];
+    const currentValue = updatedElement[field as keyof typeof updatedElement.data];
+
     if (!isLogValue(currentValue)) return undefined;
 
     if (JSON.stringify(originalValue) === JSON.stringify(currentValue)) {
@@ -107,7 +104,7 @@ export function createDifferenceFromAction<T extends keyof Analysers>(
     }
 
     // Si le champ n'existait pas avant mais existe maintenant
-    if (!fieldExists && field in updatedElement.data) {
+    if (!fieldExists && field in updatedElement) {
         return {
             type: "add",
             path: String(field),
@@ -116,7 +113,7 @@ export function createDifferenceFromAction<T extends keyof Analysers>(
     }
 
     // Si le champ existait avant mais n'existe plus dans updatedElement
-    if (fieldExists && !(field in updatedElement.data)) {
+    if (fieldExists && !(field in updatedElement)) {
         return {
             type: "remove",
             path: String(field)

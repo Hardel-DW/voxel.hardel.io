@@ -11,11 +11,21 @@ import {
 import type { ToolConfiguration } from "@/lib/minecraft/core/schema/primitive";
 import type { FieldProperties } from "@/lib/minecraft/core/schema/primitive/properties";
 import type { Enchantment } from "@voxel/definitions";
-import type { RegistryElement } from "../../mczip";
+import type { IdentifierObject } from "@/lib/minecraft/core/Identifier.ts";
+import type { VoxelRegistryElement } from "../Registry";
 
 export type DataDrivenElement = Record<string, unknown>;
 export interface VoxelElement extends Record<string, unknown> {
     override?: ConfiguratorConfigFromDatapack;
+    identifier: IdentifierObject;
+}
+
+export function isRegistryVoxelElement<T extends keyof Analysers>(element: any): element is VoxelRegistryElement<GetAnalyserVoxel<T>> {
+    return "identifier" in element && "data" in element && typeof element.identifier === "string";
+}
+
+export function isVoxelElement<T extends keyof Analysers>(element: any): element is GetAnalyserVoxel<T> {
+    return "identifier" in element;
 }
 
 export type GetAnalyserVoxel<T extends keyof Analysers> = Analysers[T]["voxel"];
@@ -28,21 +38,20 @@ export type Analysers = {
     };
 };
 
-export interface Analyser<T extends VoxelElement, K extends DataDrivenElement, UseTags extends boolean = false> {
+export interface Analyser<T extends VoxelElement, K extends DataDrivenElement> {
     compiler: Compiler<T, K>;
     parser: Parser<T, K>;
     properties: (lang: string) => FieldProperties;
-    useTags: UseTags;
 }
 
-export type VersionedAnalyser<T extends VoxelElement, K extends DataDrivenElement, UseTags extends boolean = false> = {
-    analyser: Analyser<T, K, UseTags>;
+export type VersionedAnalyser<T extends VoxelElement, K extends DataDrivenElement> = {
+    analyser: Analyser<T, K>;
     range: VersionRange;
     config: ToolConfiguration;
 };
 
 export type VersionedAnalysers = {
-    [Q in keyof Analysers]: Array<VersionedAnalyser<Analysers[Q]["voxel"], Analysers[Q]["minecraft"], boolean>>;
+    [Q in keyof Analysers]: Array<VersionedAnalyser<Analysers[Q]["voxel"], Analysers[Q]["minecraft"]>>;
 };
 
 export type VersionRange = {
@@ -50,18 +59,13 @@ export type VersionRange = {
     max: number;
 };
 
-export function isRegistryVoxelElement<T extends keyof Analysers>(element: any): element is RegistryElement<GetAnalyserVoxel<T>> {
-    return "identifier" in element && "data" in element && "override" in element.data;
-}
-
 export const versionedAnalyserCollection: VersionedAnalysers = {
     enchantment: [
         {
             analyser: {
                 compiler: VoxelToDataDriven,
                 parser: DataDrivenToVoxelFormat,
-                properties: enchantmentProperties,
-                useTags: true
+                properties: enchantmentProperties
             },
             range: { min: 48, max: Number.POSITIVE_INFINITY },
             config: ENCHANT_TOOL_CONFIG
@@ -74,7 +78,7 @@ export function getAnalyserForVersion<T extends keyof Analysers>(
     version: number
 ):
     | {
-          analyser: Analyser<Analysers[T]["voxel"], Analysers[T]["minecraft"], boolean>;
+          analyser: Analyser<Analysers[T]["voxel"], Analysers[T]["minecraft"]>;
           config: ToolConfiguration;
       }
     | undefined {

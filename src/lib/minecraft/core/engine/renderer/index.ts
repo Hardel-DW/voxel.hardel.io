@@ -1,12 +1,8 @@
 import { checkCondition } from "@/lib/minecraft/core/engine/condition";
 import type { Lock } from "@/lib/minecraft/core/schema/primitive/component";
 import type { TranslateTextType } from "@/lib/minecraft/core/schema/primitive/text";
-import type { RegistryElement } from "@/lib/minecraft/mczip";
 
-export function checkLocks(
-    locks: Lock[] | undefined,
-    element: RegistryElement<Record<string, unknown>>
-): { isLocked: boolean; text?: TranslateTextType } {
+export function checkLocks(locks: Lock[] | undefined, element: Record<string, unknown>): { isLocked: boolean; text?: TranslateTextType } {
     if (!locks) return { isLocked: false };
 
     for (const lock of locks) {

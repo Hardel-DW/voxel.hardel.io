@@ -52,7 +52,7 @@ export const yggdrasil: ToolRevealElementType = {
                                 type: "conditionnal",
                                 return_condition: true,
                                 term: {
-                                    condition: "contains_in_tags",
+                                    condition: "contains",
                                     field: "tags",
                                     values: [
                                         "#yggdrasil:equipment/item/bow",
@@ -136,7 +136,7 @@ export const yggdrasil: ToolRevealElementType = {
                                     type: "conditionnal",
                                     return_condition: true,
                                     term: {
-                                        condition: "contains_in_tags",
+                                        condition: "contains",
                                         field: "tags",
                                         values: [{ type: "get_value_from_context", key: "tag" }]
                                     }
@@ -223,7 +223,7 @@ export const yggdrasil: ToolRevealElementType = {
                                     type: "conditionnal",
                                     return_condition: true,
                                     term: {
-                                        condition: "contains_in_tags",
+                                        condition: "contains",
                                         field: "tags",
                                         values: [{ type: "get_value_from_context", key: "tag" }]
                                     }
@@ -265,7 +265,7 @@ export const yggdrasil: ToolRevealElementType = {
                                 type: "conditionnal",
                                 return_condition: true,
                                 term: {
-                                    condition: "contains_in_tags",
+                                    condition: "contains",
                                     field: "tags",
                                     values: ["#yggdrasil:structure/runic_fracture/boss_trial_spawner"]
                                 }
@@ -291,7 +291,7 @@ export const yggdrasil: ToolRevealElementType = {
                                 type: "conditionnal",
                                 return_condition: true,
                                 term: {
-                                    condition: "contains_in_tags",
+                                    condition: "contains",
                                     field: "tags",
                                     values: ["#yggdrasil:structure/runic_fracture/monster_trial_spawner"]
                                 }
@@ -411,7 +411,7 @@ export const yggdrasil: ToolRevealElementType = {
                                     type: "conditionnal",
                                     return_condition: true,
                                     term: {
-                                        condition: "contains_in_tags",
+                                        condition: "contains",
                                         field: "tags",
                                         values: [{ type: "get_value_from_context", key: "tag" }]
                                     }

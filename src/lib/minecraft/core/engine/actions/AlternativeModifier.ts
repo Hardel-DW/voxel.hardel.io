@@ -1,6 +1,5 @@
 import type { Action, ActionValue, BaseAction } from "@/lib/minecraft/core/engine/actions/index.ts";
 import { updateData } from "@/lib/minecraft/core/engine/actions/index.ts";
-import type { RegistryElement } from "@/lib/minecraft/mczip.ts";
 
 export interface AlternativeAction extends BaseAction {
     type: "alternative";
@@ -20,12 +19,12 @@ export interface AlternativeAction extends BaseAction {
  */
 export default function AlternativeModifier(
     action: AlternativeAction,
-    element: RegistryElement<Record<string, unknown>>,
+    element: Record<string, unknown>,
     version: number
-): RegistryElement<Record<string, unknown>> | undefined {
+): Record<string, unknown> | undefined {
     let currentElement = element;
     const { field } = action;
-    const value = element.data[field] as ActionValue | undefined;
+    const value = element[field] as ActionValue | undefined;
     if (value === undefined) return undefined;
 
     for (const subAction of action.cases) {

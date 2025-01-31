@@ -1,4 +1,3 @@
-import type { Identifier } from "@/lib/minecraft/core/Identifier";
 import { type Condition, checkCondition } from "@/lib/minecraft/core/engine/condition";
 import { checkLocks } from "@/lib/minecraft/core/engine/renderer";
 import type { ValueRenderer } from "@/lib/minecraft/core/engine/renderer/value";
@@ -6,80 +5,61 @@ import { getValue } from "@/lib/minecraft/core/engine/renderer/value";
 import type { Lock } from "@/lib/minecraft/core/schema/primitive/component";
 import type { TranslateTextType } from "@/lib/minecraft/core/schema/primitive/text";
 import { useConfiguratorStore } from "./configuratorStore";
-import { useMemo } from "react";
 import { getConditionFields, getLockFields, getRendererFields } from "./utils";
 
-const useElementData = (elementId?: Identifier) => {
+const useElementData = (elementId?: string) => {
     return useConfiguratorStore((state) => {
-        const id = elementId?.toString() ?? state.currentElementId?.toString();
+        const id = elementId ? state.elements.get(elementId) : state.currentElement;
         if (!id) return null;
 
-        return state.elementsById.get(id);
+        return id;
     });
 };
 
-export const useElementValue = <T>(renderer: ValueRenderer, elementId?: Identifier): T | null => {
+export const useElementValue = <T>(renderer: ValueRenderer, elementId?: string): T | null => {
     const element = useElementData(elementId);
     const fields = getRendererFields(renderer);
 
-    const values = useMemo(() => {
-        if (!element) return null;
-        return {
-            identifier: element.identifier,
-            data: fields.reduce(
-                (acc, field) => {
-                    acc[field] = element.data[field];
-                    return acc;
-                },
-                {} as Record<string, any>
-            )
-        };
-    }, [element, fields]);
+    if (!element) return null;
+    const values = fields.reduce(
+        (acc, field) => {
+            acc[field] = element[field];
+            return acc;
+        },
+        {} as Record<string, any>
+    );
 
-    if (!values) return null;
     return getValue<T>(renderer, values);
 };
 
-export const useElementCondition = (condition: Condition | undefined, elementId?: Identifier, value?: any): boolean => {
+export const useElementCondition = (condition: Condition | undefined, elementId?: string, value?: any): boolean => {
     const element = useElementData(elementId);
     const fields = getConditionFields(condition);
 
-    const values = useMemo(() => {
-        if (!element || !condition) return null;
-        return {
-            identifier: element.identifier,
-            data: fields.reduce(
-                (acc, field) => {
-                    acc[field] = element.data[field];
-                    return acc;
-                },
-                {} as Record<string, any>
-            )
-        };
-    }, [element, fields, condition]);
+    if (!element || !condition) return false;
+    const values = fields.reduce(
+        (acc, field) => {
+            acc[field] = element[field];
+            return acc;
+        },
+        {} as Record<string, any>
+    );
 
-    if (!values) return false;
     return checkCondition(condition, values, value);
 };
 
-export const useElementLocks = (locks: Lock[] | undefined, elementId?: Identifier): { isLocked: boolean; text?: TranslateTextType } => {
+export const useElementLocks = (locks: Lock[] | undefined, elementId?: string): { isLocked: boolean; text?: TranslateTextType } => {
     const element = useElementData(elementId);
     const fields = getLockFields(locks ?? []);
 
-    const values = useMemo(() => {
-        if (!element || !locks) return null;
-        return {
-            identifier: element.identifier,
-            data: fields.reduce(
-                (acc, field) => {
-                    acc[field] = element.data[field];
-                    return acc;
-                },
-                {} as Record<string, any>
-            )
-        };
-    }, [element, fields, locks]);
+    if (!element || !locks) return { isLocked: false };
+    const values = fields.reduce(
+        (acc, field) => {
+            acc[field] = element[field];
+            return acc;
+        },
+        {} as Record<string, any>
+    );
 
-    if (!values) return { isLocked: false };
     return checkLocks(locks, values);
 };

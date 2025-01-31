@@ -1,4 +1,4 @@
-import type { Identifier } from "@/lib/minecraft/core/Identifier.ts";
+import { identifierEquals, identifierToFilePath, identifierToString, type IdentifierObject } from "@/lib/minecraft/core/Identifier.ts";
 import {
     type Analysers,
     type DataDrivenElement,
@@ -7,32 +7,33 @@ import {
     type VoxelElement,
     getAnalyserForVersion
 } from "@/lib/minecraft/core/engine/Analyser.ts";
-import { type RegistryElement, readDatapackFile } from "@/lib/minecraft/mczip.ts";
 import type { OptionalTag, TagType } from "@voxel/definitions";
+import { readDatapackFile } from "@/lib/minecraft/mczip";
+import type { DataDrivenRegistryElement } from "@/lib/minecraft/core/Registry";
 
 export type Compiler<T extends VoxelElement, K extends DataDrivenElement> = (
-    element: RegistryElement<T>,
+    element: T,
     original: K,
     config: keyof Analysers
 ) => {
-    element: RegistryElement<K>;
-    tags: Identifier[];
+    element: DataDrivenRegistryElement<K>;
+    tags: IdentifierObject[];
 };
 
 export type CompileDatapackResult<T extends keyof Analysers> = NewOrUpdated<T> | Deleted;
 
 interface NewOrUpdated<T extends keyof Analysers> {
     type: "new" | "updated";
-    element: RegistryElement<GetAnalyserMinecraft<T>> | RegistryElement<TagType>;
+    element: DataDrivenRegistryElement<GetAnalyserMinecraft<T>> | DataDrivenRegistryElement<TagType>;
 }
 
 interface Deleted {
     type: "deleted";
-    identifier: Identifier;
+    identifier: IdentifierObject;
 }
 
-export function getIdentifierFromCompiler(element: CompileDatapackResult<keyof Analysers>): Identifier {
-    return element.type === "deleted" ? element.identifier : element.element?.identifier;
+export function getIdentifierFromCompiler(comp: CompileDatapackResult<keyof Analysers>): IdentifierObject {
+    return comp.type === "deleted" ? comp.identifier : comp.element.identifier;
 }
 
 /**
@@ -42,18 +43,18 @@ export function compileDatapack<T extends keyof Analysers>({
     elements,
     version,
     files,
-    tool,
-    identifiers
+    tool
 }: {
-    elements: RegistryElement<GetAnalyserVoxel<T>>[];
+    elements: GetAnalyserVoxel<T>[];
     version: number;
     files: Record<string, Uint8Array>;
     tool: T;
-    identifiers: Identifier[];
 }): Array<CompileDatapackResult<T>> {
     const analyserResult = getAnalyserForVersion(tool, version);
     if (!analyserResult) throw new Error("No analyser found for the specified version.");
     const { analyser } = analyserResult;
+
+    const identifiers = elements.map((element) => element.identifier);
 
     /**
      * For each "main element" for example enchantments, will get the corresponding original element.
@@ -70,12 +71,12 @@ export function compileDatapack<T extends keyof Analysers>({
      * For each "main element" for example enchantments, will be obtained the corresponding tags.
      * And then will create tags files and add the "main element" to the tags.
      */
-    const registryElements: RegistryElement<TagType>[] = [];
-    const temp: Record<string, { identifier: Identifier; elements: string[] }> = {};
+    const registryElements: DataDrivenRegistryElement<TagType>[] = [];
+    const temp: Record<string, { identifier: IdentifierObject; elements: string[] }> = {};
 
     for (const holder of compiledElements) {
         for (const tags of holder.tags) {
-            const path = tags.filePath();
+            const path = identifierToFilePath(tags);
 
             if (!temp[path]) {
                 temp[path] = {
@@ -84,7 +85,7 @@ export function compileDatapack<T extends keyof Analysers>({
                 };
             }
 
-            temp[path].elements.push(holder.element.identifier.toString());
+            temp[path].elements.push(identifierToString(holder.element.identifier));
         }
     }
 
@@ -135,17 +136,17 @@ export function compileDatapack<T extends keyof Analysers>({
     const processedIds = new Set<string>();
 
     for (const original of identifiers) {
-        const element = everything.find((element) => element.identifier.toString() === original.toString());
+        const element = everything.find((element) => identifierEquals(element.identifier, original));
         if (!element) {
             result.push({ type: "deleted", identifier: original });
         } else {
             result.push({ type: "updated", element });
-            processedIds.add(element.identifier.toString());
+            processedIds.add(identifierToString(element.identifier));
         }
     }
 
     for (const element of everything) {
-        if (!processedIds.has(element.identifier.toString())) {
+        if (!processedIds.has(identifierToString(element.identifier))) {
             result.push({ type: "new", element });
         }
     }

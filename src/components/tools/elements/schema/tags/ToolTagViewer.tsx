@@ -1,6 +1,7 @@
 import { TagLoader } from "@/components/tools/elements/schema/tags/TagLoader";
 import { ToolTagCard } from "@/components/tools/elements/schema/tags/ToolTagCard";
-import { Identifier } from "@/lib/minecraft/core/Identifier";
+import { identifierEquals, identifierToFileName } from "@/lib/minecraft/core/Identifier";
+import { createIdentifierFromString } from "@/lib/minecraft/core/Identifier";
 import { isTag } from "@/lib/minecraft/core/Tag";
 import { compileDatapack, getIdentifierFromCompiler } from "@/lib/minecraft/core/engine/Compiler";
 import type { ToolTagViewerType } from "@/lib/minecraft/core/schema/primitive/component";
@@ -13,25 +14,22 @@ export default function ToolTagViewer({
     component: ToolTagViewerType;
 }) {
     const fieldValue = component.properties ? useElementValue<string>(component.properties) : null;
-
     const configuration = useConfiguratorStore((state) => state.configuration);
     const version = useConfiguratorStore((state) => state.version);
     const elements = useConfiguratorStore((state) => state.elements);
-    const identifiers = useConfiguratorStore((state) => state.identifiers);
     const files = useConfiguratorStore((state) => state.files);
 
     if (!configuration || !version || !fieldValue) return null;
 
     const assembleDatapack = compileDatapack({
-        elements: elements,
+        elements: Array.from(elements.values()),
         version: version,
-        identifiers: identifiers,
         files: files,
         tool: configuration.analyser.id
     });
 
-    const tagIdentifier = Identifier.fromString(fieldValue, component.registry);
-    const tagData = assembleDatapack.find((element) => getIdentifierFromCompiler(element).equals(tagIdentifier));
+    const tagIdentifier = createIdentifierFromString(fieldValue, component.registry);
+    const tagData = assembleDatapack.find((element) => identifierEquals(getIdentifierFromCompiler(element), tagIdentifier));
     const rawData = tagData?.type !== "deleted" ? tagData?.element : undefined;
 
     const initialValues = rawData && isTag(rawData) ? rawData.data.values.map((v) => (typeof v === "string" ? v : v.id)) : [];
@@ -40,14 +38,14 @@ export default function ToolTagViewer({
         <div className="border-zinc-800 border bg-header-cloudy rounded-2xl shadow-black p-4 w-96">
             <div className="space-y-2">
                 {initialValues.map((value) => (
-                    <ToolTagCard key={value} value={value} />
+                    <ToolTagCard key={value} value={value} registry={component.registry} />
                 ))}
 
-                {component.include && tagIdentifier.getNamespace() === "minecraft" && (
+                {component.include && tagIdentifier.namespace === "minecraft" && (
                     <TagLoader
                         registry={component.include.registry}
                         path={component.include.path}
-                        fileName={tagIdentifier.getFileName()}
+                        fileName={identifierToFileName(tagIdentifier.resource)}
                         namespace={component.include.namespace}
                     />
                 )}

@@ -14,6 +14,7 @@ export interface ConfiguratorState<T extends keyof Analysers> {
     logger?: Logger;
     files: Record<string, Uint8Array>;
     elements: RegistryElement<GetAnalyserVoxel<T>>[];
+    elementsById: Map<string, RegistryElement<GetAnalyserVoxel<T>>>;
     currentElement?: RegistryElement<GetAnalyserVoxel<T>>;
     currentElementId?: Identifier;
     currentElementIdString?: string;
@@ -44,7 +45,7 @@ const createConfiguratorStore = <T extends keyof Analysers>() =>
         minify: true,
         files: {},
         elements: [],
-        elementsMap: new Map(),
+        elementsById: new Map(),
         configuration: null,
         isJar: false,
         version: null,
@@ -59,13 +60,14 @@ const createConfiguratorStore = <T extends keyof Analysers>() =>
             set(() => ({
                 elements,
                 sortedIdentifiers: Identifier.sortIdentifier(elements.map((e) => e.identifier)),
-                identifiers: elements.map((e) => e.identifier)
+                identifiers: elements.map((e) => e.identifier),
+                elementsById: new Map(elements.map((e) => [e.identifier.toString(), e]))
             })),
         setCurrentElementId: (id) =>
             set({
                 currentElementIdString: id?.toString(),
                 currentElementId: id,
-                currentElement: get().elements.find((e) => e.identifier.equals(id))
+                currentElement: id ? get().elementsById.get(id.toString()) : undefined
             }),
         setToggleSection: (toggleSection) => set({ toggleSection }),
         setConfiguration: (configuration) => set({ configuration }),
@@ -91,6 +93,7 @@ const createConfiguratorStore = <T extends keyof Analysers>() =>
             if (!isVoxelElement) return;
 
             set((state) => ({
+                elementsById: state.elementsById.set(updatedElement.identifier.toString(), updatedElement),
                 elements: state.elements.map((item) => (item.identifier.equals(updatedElement.identifier) ? updatedElement : item))
             }));
         },
@@ -99,6 +102,7 @@ const createConfiguratorStore = <T extends keyof Analysers>() =>
             if (elements) {
                 updates.sortedIdentifiers = Identifier.sortIdentifier(elements.map((e) => e.identifier));
                 updates.identifiers = elements.map((e) => e.identifier);
+                updates.elementsById = new Map(elements.map((e) => [e.identifier.toString(), e]));
             }
 
             const currentElementId = updates.currentElementId;

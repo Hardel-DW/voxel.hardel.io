@@ -6,61 +6,78 @@ import type { Lock } from "@/lib/minecraft/core/schema/primitive/component";
 import type { TranslateTextType } from "@/lib/minecraft/core/schema/primitive/text";
 import { getCurrentElement, useConfiguratorStore } from "./configuratorStore";
 import { getConditionFields, getLockFields, getRendererFields } from "./utils";
-
-const useElementData = (elementId?: string) => {
-    return useConfiguratorStore((state) => {
-        const id = elementId ? state.elements.get(elementId) : getCurrentElement(state);
-
-        if (!id) return null;
-
-        return id;
-    });
-};
+import { useShallow } from "zustand/shallow";
+import type { VoxelElement } from "../minecraft/core/engine/Analyser";
 
 export const useElementValue = <T>(renderer: ValueRenderer, elementId?: string): T | null => {
-    const element = useElementData(elementId);
-    const fields = getRendererFields(renderer);
+    if (!renderer) return null;
 
-    if (!element) return null;
-    const values = fields.reduce(
-        (acc, field) => {
-            acc[field] = element[field];
-            return acc;
-        },
-        {} as Record<string, any>
+    const fields = getRendererFields(renderer);
+    const element = useConfiguratorStore(
+        useShallow((state): Partial<VoxelElement> | null => {
+            const id = elementId ? state.elements.get(elementId) : getCurrentElement(state);
+            if (!id) return null;
+
+            return fields.reduce(
+                (acc, field) => {
+                    acc[field] = id[field];
+
+                    return acc;
+                },
+                {} as Partial<VoxelElement>
+            );
+        })
     );
 
-    return getValue<T>(renderer, values);
+    if (!element) return null;
+    return getValue<T>(renderer, element);
 };
 
 export const useElementCondition = (condition: Condition | undefined, elementId?: string, value?: any): boolean => {
-    const element = useElementData(elementId);
-    const fields = getConditionFields(condition);
+    if (!condition) return false;
 
-    if (!element || !condition) return false;
-    const values = fields.reduce(
-        (acc, field) => {
-            acc[field] = element[field];
-            return acc;
-        },
-        {} as Record<string, any>
+    const fields = getConditionFields(condition);
+    const element = useConfiguratorStore(
+        useShallow((state): Partial<VoxelElement> | null => {
+            const id = elementId ? state.elements.get(elementId) : getCurrentElement(state);
+            if (!id) return null;
+
+            return fields.reduce(
+                (acc, field) => {
+                    acc[field] = id[field];
+
+                    return acc;
+                },
+                {} as Partial<VoxelElement>
+            );
+        })
     );
 
-    return checkCondition(condition, values, value);
+    if (!element) return false;
+
+    return checkCondition(condition, element, value);
 };
 
 export const useElementLocks = (locks: Lock[] | undefined, elementId?: string): { isLocked: boolean; text?: TranslateTextType } => {
-    const element = useElementData(elementId);
-    const fields = getLockFields(locks ?? []);
+    if (!locks) return { isLocked: false };
 
-    if (!element || !locks) return { isLocked: false };
-    const values = fields.reduce(
-        (acc, field) => {
-            acc[field] = element[field];
-            return acc;
-        },
-        {} as Record<string, any>
+    const fields = getLockFields(locks ?? []);
+    const element = useConfiguratorStore(
+        useShallow((state): Partial<VoxelElement> | null => {
+            const id = elementId ? state.elements.get(elementId) : getCurrentElement(state);
+            if (!id) return null;
+
+            return fields.reduce(
+                (acc, field) => {
+                    acc[field] = id[field];
+
+                    return acc;
+                },
+                {} as Partial<VoxelElement>
+            );
+        })
     );
 
-    return checkLocks(locks, values);
+    if (!element) return { isLocked: false };
+    return checkLocks(locks, element);
 };

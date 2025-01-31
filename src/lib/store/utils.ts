@@ -1,14 +1,6 @@
-import type { Action } from "@/lib/minecraft/core/engine/actions";
 import type { Condition } from "@/lib/minecraft/core/engine/condition";
 import type { ValueRenderer } from "@/lib/minecraft/core/engine/renderer/value";
 import type { Lock } from "@/lib/minecraft/core/schema/primitive/component";
-
-export function getActionFields(action: Action): string[] {
-    if (action.type === "sequential") {
-        return action.actions.flatMap(getActionFields);
-    }
-    return [action.field];
-}
 
 export function getConditionFields(condition: Condition | undefined): string[] {
     if (!condition) return [];
@@ -19,7 +11,7 @@ export function getConditionFields(condition: Condition | undefined): string[] {
         case "any_of":
             return condition.terms.flatMap(getConditionFields);
         case "object":
-            return getConditionFields(condition.terms);
+            return [condition.field];
         case "inverted":
             return getConditionFields(condition.terms);
         case "compare_to_value":

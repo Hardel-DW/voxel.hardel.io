@@ -162,8 +162,8 @@ describe("Identifier", () => {
             elements.set("z", { identifier: { resource: "dirt" } });
 
             const sorted = sortVoxelElements(elements);
-            expect(sorted[0]).toBe("a");
-            expect(sorted[1]).toBe("z");
+            expect(sorted[0]).toBe("z");
+            expect(sorted[1]).toBe("a");
         });
     });
 

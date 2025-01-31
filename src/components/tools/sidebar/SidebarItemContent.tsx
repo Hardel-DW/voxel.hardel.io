@@ -12,8 +12,8 @@ export default function SidebarItemContent({ elementId, switchRef }: { elementId
     const handleChange = useConfiguratorStore((state) => state.handleChange);
     const lockData = useElementLocks(sidebarConfig?.lock, elementId);
     const conditionResult = useElementCondition(sidebarConfig?.enabled, elementId);
-    const element = useConfiguratorStore((state) => state.elements.get(elementId));
-    const isEnabled = !sidebarConfig?.enabled ? true : !conditionResult;
+    const resource = useConfiguratorStore((state) => state.elements.get(elementId)?.identifier.resource);
+    const isEnabled = sidebarConfig?.enabled ? !conditionResult : true;
 
     const handleClick = () => {
         if (switchRef.current?.contains(document.activeElement)) return;
@@ -27,7 +27,7 @@ export default function SidebarItemContent({ elementId, switchRef }: { elementId
 
     return (
         <div className="flex items-center justify-between" onClick={handleClick} onKeyDown={handleClick}>
-            <div className="break-words">{element ? identifierToResourceName(element.identifier.resource) : "Error"}</div>
+            <div className="break-words">{resource ? identifierToResourceName(resource) : "Error"}</div>
             <div className="flex items-center gap-8" ref={switchRef}>
                 <Tooltip
                     content={

@@ -155,11 +155,9 @@ export type ToolInlineType = BaseInteractiveComponent & {
     image: string;
 };
 
-export type ToolPropertyType = BaseComponent & {
+export type ToolPropertyType = BaseInteractiveComponent & {
     type: "Property";
-    action: Action;
     condition: Condition;
-    properties: ValueRenderer;
 };
 
 // Define non-container components first

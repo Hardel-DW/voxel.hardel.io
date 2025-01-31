@@ -19,6 +19,8 @@ import TextRender from "@/components/tools/elements/text/TextRender.tsx";
 import type { FormComponent } from "@/lib/minecraft/core/schema/primitive/component.ts";
 import { BaseComponent } from "./elements/BaseComponent";
 import { InteractiveComponent } from "@/components/tools/elements/InteractiveComponent";
+import ErrorPlaceholder from "./elements/error/Card";
+import ErrorBoundary from "../ui/react/ErrorBoundary";
 
 type ComponentMap = {
     [K in FormComponent["type"]]: React.ComponentType<{
@@ -34,7 +36,7 @@ const COMPONENT_MAP: ComponentMap = {
     Slot: InteractiveComponent(ToolSlot),
     SwitchSlot: InteractiveComponent(ToolSwitchSlot),
     InlineSlot: InteractiveComponent(ToolInlineSlot),
-    Property: BaseComponent(ToolProperty),
+    Property: InteractiveComponent(ToolProperty),
     Donation: BaseComponent(Donation),
     Reveal: BaseComponent(ToolReveal),
     Category: BaseComponent(ToolCategory),
@@ -52,5 +54,9 @@ export function RenderComponent({ component }: { component: FormComponent }) {
         component: typeof component;
     }>;
 
-    return Component ? <Component component={component} /> : null;
+    return Component ? (
+        <ErrorBoundary fallback={(error) => <ErrorPlaceholder error={error} />}>
+            <Component component={component} />
+        </ErrorBoundary>
+    ) : null;
 }

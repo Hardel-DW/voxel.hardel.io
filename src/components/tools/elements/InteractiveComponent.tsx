@@ -2,7 +2,7 @@ import type { ActionValue } from "@/lib/minecraft/core/engine/actions";
 import type { BaseInteractiveComponent } from "@/lib/minecraft/core/schema/primitive/component";
 import type { TranslateTextType } from "@/lib/minecraft/core/schema/primitive/text";
 import { useConfiguratorStore } from "@/lib/store/configuratorStore";
-import { useElementLocks, useElementValue } from "@/lib/store/hooks";
+import { useElementCondition, useElementLocks, useElementValue } from "@/lib/store/hooks";
 
 export interface InteractiveProps<T> {
     value: T;
@@ -23,6 +23,11 @@ export const InteractiveComponent = <T extends ActionValue, C extends BaseIntera
     }>
 ) => {
     const InteractiveComponentWrapper = ({ component }: { component: C }) => {
+        const shouldHide = component.hide && useElementCondition(component.hide);
+        if (shouldHide) {
+            return null;
+        }
+
         const value = useElementValue<T>(component.renderer);
         if (value === null) return null;
 
@@ -31,7 +36,7 @@ export const InteractiveComponent = <T extends ActionValue, C extends BaseIntera
         const currentElementId = useConfiguratorStore((state) => state.currentElementId);
 
         const handleValueChange = (newValue: T) => {
-            if (component.lock) return;
+            if (isLocked) return;
             handleChange(component.action, currentElementId, newValue);
         };
 

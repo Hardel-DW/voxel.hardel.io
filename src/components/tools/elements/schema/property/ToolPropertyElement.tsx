@@ -1,14 +1,19 @@
 import { useTranslate } from "@/components/useTranslate";
+import type { Condition } from "@/lib/minecraft/core/engine/condition";
 import { stringIdentifierToDisplay } from "@/lib/minecraft/core/Identifier";
+import { useConfiguratorStore } from "@/lib/store/configuratorStore";
+import { useElementCondition } from "@/lib/store/hooks";
 
 interface ToolPropertyElementProps {
     name: string;
-    isChecked: boolean;
+    condition: Condition;
     onChange: () => void;
 }
 
-export function ToolPropertyElement({ name, isChecked, onChange }: ToolPropertyElementProps) {
+export function ToolPropertyElement({ name, condition, onChange }: ToolPropertyElementProps) {
     const { t } = useTranslate();
+    const currentElementId = useConfiguratorStore((state) => state.currentElementId);
+    const isChecked = useElementCondition(condition, currentElementId, name);
 
     return (
         <div className="bg-blue-50/5 ring-0 ring-zinc-700 transition-all hover:ring-1 p-6 rounded-xl">
@@ -17,7 +22,7 @@ export function ToolPropertyElement({ name, isChecked, onChange }: ToolPropertyE
                     <span className="text-white line-clamp-1">{stringIdentifierToDisplay(name)}</span>
                     <span className="text-xs text-zinc-400 font-light line-clamp-2">{t(`tools.effects.${name}`)}</span>
                 </div>
-                <input id={name} name={name} type="checkbox" checked={isChecked} onChange={onChange} />
+                <input id={name} name={name} type="checkbox" checked={!isChecked} onChange={onChange} />
             </label>
         </div>
     );

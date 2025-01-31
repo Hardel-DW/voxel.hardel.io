@@ -464,7 +464,7 @@ export const technical: InterfaceConfiguration = {
                         type: "toggle_value_in_list",
                         field: "disabledEffects"
                     },
-                    properties: {
+                    renderer: {
                         type: "from_field",
                         field: "effects"
                     },

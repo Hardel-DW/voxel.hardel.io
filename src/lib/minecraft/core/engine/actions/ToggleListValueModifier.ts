@@ -51,7 +51,7 @@ export default function ToggleListValueModifier(
     const newList = isPresent ? list.filter((item: string) => item !== value) : [...list, value];
 
     return {
-        identifier: element.identifier,
+        ...element,
         [field]: modes.includes("remove_if_empty") && newList.length === 0 ? undefined : newList
     };
 }

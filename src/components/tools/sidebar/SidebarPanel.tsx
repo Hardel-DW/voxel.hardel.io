@@ -6,6 +6,7 @@ import { useTranslate } from "@/components/useTranslate";
 import { useConfiguratorStore } from "@/lib/store/configuratorStore";
 import { cn } from "@/lib/utils.ts";
 import { useRef } from "react";
+import DebugZustand from "./DebugZustand";
 
 export default function SidebarPanel() {
     const widthRef = useRef(350);

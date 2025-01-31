@@ -1,11 +1,11 @@
 import type { InterfaceConfiguration } from "@/lib/minecraft/core/schema/primitive";
 import translate from "@/lib/minecraft/i18n/translate";
-import { useConfiguratorStore } from "@/lib/store/configuratorStore";
+import { getCurrentElement, useConfiguratorStore } from "@/lib/store/configuratorStore";
 import { TabsContent } from "@radix-ui/react-tabs";
 import { RenderComponent } from "./RenderComponent";
 
 export default function ConfiguratorContent(props: { section: InterfaceConfiguration }) {
-    const currentNamespace = useConfiguratorStore((state) => state.currentElement?.identifier.namespace);
+    const currentNamespace = useConfiguratorStore((state) => getCurrentElement(state)?.identifier.namespace);
 
     return (
         <TabsContent key={props.section.id} value={props.section.id}>

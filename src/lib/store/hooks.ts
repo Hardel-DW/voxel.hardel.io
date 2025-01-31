@@ -4,12 +4,13 @@ import type { ValueRenderer } from "@/lib/minecraft/core/engine/renderer/value";
 import { getValue } from "@/lib/minecraft/core/engine/renderer/value";
 import type { Lock } from "@/lib/minecraft/core/schema/primitive/component";
 import type { TranslateTextType } from "@/lib/minecraft/core/schema/primitive/text";
-import { useConfiguratorStore } from "./configuratorStore";
+import { getCurrentElement, useConfiguratorStore } from "./configuratorStore";
 import { getConditionFields, getLockFields, getRendererFields } from "./utils";
 
 const useElementData = (elementId?: string) => {
     return useConfiguratorStore((state) => {
-        const id = elementId ? state.elements.get(elementId) : state.currentElement;
+        const id = elementId ? state.elements.get(elementId) : getCurrentElement(state);
+
         if (!id) return null;
 
         return id;

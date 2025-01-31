@@ -1,4 +1,4 @@
-import { isRegistryVoxelElement, isVoxelElement, type Analysers, type GetAnalyserVoxel } from "@/lib/minecraft/core/engine/Analyser";
+import { isVoxelElement, type Analysers, type GetAnalyserVoxel } from "@/lib/minecraft/core/engine/Analyser";
 import type { Action, ActionValue } from "@/lib/minecraft/core/engine/actions";
 import { updateData } from "@/lib/minecraft/core/engine/actions";
 import type { Logger } from "@/lib/minecraft/core/engine/migrations/logger";
@@ -13,13 +13,11 @@ export interface ConfiguratorState<T extends keyof Analysers> {
     logger?: Logger;
     files: Record<string, Uint8Array>;
     elements: Map<string, GetAnalyserVoxel<T>>;
-    currentElement?: GetAnalyserVoxel<T>;
     currentElementId?: string;
     toggleSection?: Record<string, ToggleSection>;
     configuration: ToolConfiguration | null;
     isJar: boolean;
     version: number | null;
-    identifiers: string[];
     sortedIdentifiers: string[];
     setName: (name: string) => void;
     setMinify: (minify: boolean) => void;
@@ -44,9 +42,7 @@ const createConfiguratorStore = <T extends keyof Analysers>() =>
         configuration: null,
         isJar: false,
         version: null,
-        identifiers: [],
         sortedIdentifiers: [],
-        currentElement: undefined,
         setName: (name) => set({ name }),
         setMinify: (minify) => set({ minify }),
         setLogger: (logger) => set({ logger }),
@@ -59,7 +55,8 @@ const createConfiguratorStore = <T extends keyof Analysers>() =>
         changeToggleValue: (id, name) => set((state) => ({ toggleSection: { ...state.toggleSection, [id]: name } })),
         handleChange: (action, identifier, value) => {
             const state = get();
-            const element = identifier ? state.elements.get(identifier) : state.currentElement;
+            const elementId = identifier ?? state.currentElementId;
+            const element = elementId ? state.elements.get(elementId) : undefined;
 
             if (!element) {
                 console.error("Element not found");
@@ -70,23 +67,16 @@ const createConfiguratorStore = <T extends keyof Analysers>() =>
             if (!updatedElement) return;
 
             const isElementValid = isVoxelElement(updatedElement);
-            if (!isElementValid || !identifier) return;
+            if (!isElementValid || !elementId) return;
 
             set((state) => ({
-                elements: state.elements.set(identifier, updatedElement),
-                currentElement: state.currentElementId === identifier ? updatedElement : state.currentElement
+                elements: state.elements.set(elementId, updatedElement)
             }));
         },
         batchUpdate: (updates) => {
             const elements = updates.elements;
             if (elements) {
                 updates.sortedIdentifiers = sortVoxelElements(elements);
-                updates.identifiers = Array.from(elements.keys());
-            }
-
-            const currentElementId = updates.currentElementId;
-            if (currentElementId) {
-                updates.currentElement = (elements ?? get().elements).get(currentElementId);
             }
 
             set(updates);
@@ -94,3 +84,6 @@ const createConfiguratorStore = <T extends keyof Analysers>() =>
     }));
 
 export const useConfiguratorStore = createConfiguratorStore<"enchantment">();
+
+export const getCurrentElement = <T extends keyof Analysers>(state: ConfiguratorState<T>) =>
+    state.currentElementId ? state.elements.get(state.currentElementId) : undefined;

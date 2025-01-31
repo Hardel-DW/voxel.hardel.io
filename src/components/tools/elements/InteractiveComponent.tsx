@@ -1,13 +1,11 @@
 import type { ActionValue } from "@/lib/minecraft/core/engine/actions";
-import type { BaseInteractiveComponent } from "@/lib/minecraft/core/schema/primitive/component";
-import type { TranslateTextType } from "@/lib/minecraft/core/schema/primitive/text";
+import type { BaseInteractiveComponent, LockRenderer } from "@/lib/minecraft/core/schema/primitive/component";
 import { useConfiguratorStore } from "@/lib/store/configuratorStore";
 import { useElementCondition, useElementLocks, useElementValue } from "@/lib/store/hooks";
 
 export interface InteractiveProps<T> {
     value: T;
-    isLocked: boolean;
-    lockText: TranslateTextType | undefined;
+    lock: LockRenderer;
     handleChange: (newValue: T) => void;
 }
 
@@ -23,29 +21,20 @@ export const InteractiveComponent = <T extends ActionValue, C extends BaseIntera
     }>
 ) => {
     const InteractiveComponentWrapper = ({ component }: { component: C }) => {
-        const shouldHide = component.hide && useElementCondition(component.hide);
-        if (shouldHide) {
-            return null;
-        }
-
+        const shouldHide = useElementCondition(component.hide);
         const value = useElementValue<T>(component.renderer);
-        if (value === null) return null;
-
-        const { isLocked, text: lockText } = useElementLocks(component.lock);
+        const lock = useElementLocks(component.lock);
         const handleChange = useConfiguratorStore((state) => state.handleChange);
         const currentElementId = useConfiguratorStore((state) => state.currentElementId);
+        if (shouldHide || value === null) return null;
 
         const handleValueChange = (newValue: T) => {
-            if (isLocked) return;
+            if (lock.isLocked) return;
             handleChange(component.action, currentElementId, newValue);
         };
 
-        const interactiveProps: InteractiveProps<T> = {
-            value,
-            isLocked,
-            lockText,
-            handleChange: handleValueChange
-        };
+
+        const interactiveProps: InteractiveProps<T> = { value, lock, handleChange: handleValueChange };
 
         return <WrappedComponent component={component} interactiveProps={interactiveProps} />;
     };

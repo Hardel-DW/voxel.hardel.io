@@ -4,14 +4,14 @@ import { cn } from "@/lib/utils";
 import type { InteractiveComponentProps } from "./InteractiveComponent";
 
 export default function ToolSwitchSlot({ component, interactiveProps }: InteractiveComponentProps<boolean, ToolSwitchSlotType>) {
-    const { value, isLocked, lockText, handleChange } = interactiveProps;
+    const { value, lock, handleChange } = interactiveProps;
 
     return (
         <div
             className={cn(
                 "bg-blue-50/5 ring-0 ring-zinc-700 transition-all hover:ring-1 px-6 py-4 rounded-xl cursor-pointer",
                 { "ring-1 ring-rose-900": value },
-                { "opacity-50 ring-1 ring-rose-950": isLocked }
+                { "opacity-50 ring-1 ring-rose-950": lock.isLocked }
             )}
             onClick={() => handleChange(!value)}
             onKeyDown={() => handleChange(!value)}>
@@ -29,8 +29,10 @@ export default function ToolSwitchSlot({ component, interactiveProps }: Interact
                 </div>
 
                 <div className="flex gap-4">
-                    {isLocked && <span className="text-xs text-zinc-400 font-light w-max flex items-center">{translate(lockText)}</span>}
-                    {(value || isLocked) && <img src="/icons/check.svg" alt="checkbox" className="w-6 h-6 invert" />}
+                    {lock.isLocked && (
+                        <span className="text-xs text-zinc-400 font-light w-max flex items-center">{translate(lock.text)}</span>
+                    )}
+                    {(value || lock.isLocked) && <img src="/icons/check.svg" alt="checkbox" className="w-6 h-6 invert" />}
                 </div>
             </div>
         </div>

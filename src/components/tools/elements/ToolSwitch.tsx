@@ -3,7 +3,7 @@ import translate from "@/lib/minecraft/i18n/translate";
 import type { InteractiveComponentProps } from "./InteractiveComponent";
 
 export default function ToolSwitch({ component, interactiveProps }: InteractiveComponentProps<boolean, ToolSwitchType>) {
-    const { value, isLocked, lockText, handleChange } = interactiveProps;
+    const { value, lock, handleChange } = interactiveProps;
 
     return (
         <div className="bg-blue-50/5 ring-0 ring-zinc-700 transition-all hover:ring-1 p-6 rounded-xl">
@@ -11,8 +11,8 @@ export default function ToolSwitch({ component, interactiveProps }: InteractiveC
                 <div className="flex flex-col w-3/4">
                     <span className="text-white line-clamp-1">{translate(component.title)}</span>
                     <span className="text-xs text-zinc-400 font-light line-clamp-2">
-                        {isLocked ? (
-                            <span className="text-xs text-zinc-400 font-light w-max">{translate(lockText)}</span>
+                        {lock.isLocked ? (
+                            <span className="text-xs text-zinc-400 font-light w-max">{translate(lock.text)}</span>
                         ) : (
                             translate(component.description)
                         )}
@@ -22,8 +22,8 @@ export default function ToolSwitch({ component, interactiveProps }: InteractiveC
                     <input
                         type="checkbox"
                         name={translate(component.title) || "No name"}
-                        disabled={isLocked}
-                        checked={value || isLocked}
+                        disabled={lock.isLocked}
+                        checked={value || lock.isLocked}
                         onChange={(e) => handleChange(e.target.checked)}
                     />
                 </div>

@@ -4,13 +4,13 @@ import { getKey } from "@/lib/minecraft/i18n/translations";
 import type { InteractiveComponentProps } from "./InteractiveComponent";
 
 export default function ToolRange({ component, interactiveProps }: InteractiveComponentProps<number, ToolRangeType>) {
-    const { value, isLocked, lockText, handleChange } = interactiveProps;
+    const { value, lock, handleChange } = interactiveProps;
 
     return (
         <div className="relative w-full mt-4">
             <div className="flex justify-between items-center w-full">
-                {isLocked ? (
-                    <span className="text-xs text-zinc-400 font-light line-clamp-2">{translate(lockText)}</span>
+                {lock.isLocked ? (
+                    <span className="text-xs text-zinc-400 font-light line-clamp-2">{translate(lock.text)}</span>
                 ) : (
                     component.label && (
                         <label htmlFor={getKey(component.label)} className="block line-clamp-1 text-sm font-medium text-zinc-400 mb-1">
@@ -23,7 +23,7 @@ export default function ToolRange({ component, interactiveProps }: InteractiveCo
             <input
                 id={getKey(component.label)}
                 type="range"
-                disabled={isLocked}
+                disabled={lock.isLocked}
                 min={component.min}
                 max={component.max}
                 step={component.step}

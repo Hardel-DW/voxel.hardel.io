@@ -21,6 +21,8 @@ export type Lock = {
     condition: Condition;
 };
 
+export type LockRenderer = { isLocked: boolean; text?: TranslateTextType };
+
 // Define container components
 export type ToolGridType = BaseComponent & {
     type: "Grid";

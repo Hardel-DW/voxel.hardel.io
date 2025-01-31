@@ -1,5 +1,4 @@
 import { Component, type ErrorInfo, type ReactNode } from "react";
-import ErrorPlaceholder from "@/components/tools/elements/error/Card";
 
 interface Props {
     children: ReactNode;

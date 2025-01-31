@@ -3,7 +3,7 @@ import { useElementCondition } from "@/lib/store/hooks";
 
 export const BaseComponent = <T extends FormComponent>(WrappedComponent: React.ComponentType<{ component: T }>) => {
     const BaseComponentWrapper = ({ component }: { component: T }) => {
-        const shouldHide = component.hide && useElementCondition(component.hide);
+        const shouldHide = useElementCondition(component.hide);
         if (shouldHide) {
             return null;
         }

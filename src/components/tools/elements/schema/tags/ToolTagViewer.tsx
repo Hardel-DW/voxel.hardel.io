@@ -1,7 +1,6 @@
 import { TagLoader } from "@/components/tools/elements/schema/tags/TagLoader";
 import { ToolTagCard } from "@/components/tools/elements/schema/tags/ToolTagCard";
-import { identifierEquals, identifierToFileName } from "@/lib/minecraft/core/Identifier";
-import { createIdentifierFromString } from "@/lib/minecraft/core/Identifier";
+import { Identifier } from "@/lib/minecraft/core/Identifier";
 import { isTag } from "@/lib/minecraft/core/Tag";
 import { getIdentifierFromCompiler } from "@/lib/minecraft/core/engine/Compiler";
 import type { ToolTagViewerType } from "@/lib/minecraft/core/schema/primitive/component";
@@ -21,8 +20,8 @@ export default function ToolTagViewer({
     if (!configuration || !version || !fieldValue) return null;
 
     const assembleDatapack = compile();
-    const tagIdentifier = createIdentifierFromString(fieldValue, component.registry);
-    const tagData = assembleDatapack.find((element) => identifierEquals(getIdentifierFromCompiler(element), tagIdentifier));
+    const tagIdentifier = Identifier.of(fieldValue, component.registry);
+    const tagData = assembleDatapack.find((element) => new Identifier(getIdentifierFromCompiler(element)).equals(tagIdentifier));
     const rawData = tagData?.type !== "deleted" ? tagData?.element : undefined;
 
     const initialValues = rawData && isTag(rawData) ? rawData.data.values.map((v) => (typeof v === "string" ? v : v.id)) : [];
@@ -38,7 +37,7 @@ export default function ToolTagViewer({
                     <TagLoader
                         registry={component.include.registry}
                         path={component.include.path}
-                        fileName={identifierToFileName(tagIdentifier.resource)}
+                        fileName={new Identifier(tagIdentifier).toFileName()}
                         namespace={component.include.namespace}
                     />
                 )}

@@ -1,5 +1,5 @@
 import { tagsToIdentifiers } from "@/lib/minecraft/core/Tag";
-import type { Analysers, VoxelElement } from "@/lib/minecraft/core/engine/Analyser.ts";
+import type { Analysers } from "@/lib/minecraft/core/engine/Analyser.ts";
 import type { Compiler } from "@/lib/minecraft/core/engine/Compiler.ts";
 import type { Parser, ParserParams } from "@/lib/minecraft/core/engine/Parser.ts";
 import type { SlotRegistryType } from "@/lib/minecraft/core/engine/managers/SlotManager.ts";
@@ -7,8 +7,9 @@ import type { FieldProperties } from "@/lib/minecraft/core/schema/primitive/prop
 import { I18n } from "@/lib/minecraft/i18n/i18n";
 import generateUUID from "@/lib/utils/uuid";
 import type { EffectComponentsRecord, Enchantment, TextComponentType } from "@voxel/definitions";
-import { createIdentifierFromString, identifierEquals, identifierToString, type IdentifierObject } from "@/lib/minecraft/core/Identifier";
+import { Identifier, type IdentifierObject } from "@/lib/minecraft/core/Identifier";
 import type { DataDrivenRegistryElement, VoxelRegistryElement } from "@/lib/minecraft/core/Registry";
+import type { VoxelElement } from "@/lib/minecraft/core/Element";
 
 const tags_related_to_functionality = [
     { namespace: "minecraft", registry: "tags/enchantment", resource: "curse" },
@@ -156,7 +157,7 @@ export const DataDrivenToVoxelFormat: Parser<EnchantmentProps, Enchantment> = ({
 
     const tagsWithoutExclusiveSet = tags.filter((tag) => !(typeof data.exclusive_set === "string" && tag === data.exclusive_set));
     const hasEffects = data.effects && Object.entries(data.effects).length > 0;
-    const tagsRelatedToFunctionality = tags_related_to_functionality.map((tag) => identifierToString(tag));
+    const tagsRelatedToFunctionality = tags_related_to_functionality.map((tag) => new Identifier(tag).toString());
 
     if (!tagsWithoutExclusiveSet.some((tag) => !tagsRelatedToFunctionality.includes(tag))) {
         mode = "only_creative";
@@ -229,14 +230,14 @@ export const VoxelToDataDriven: Compiler<EnchantmentProps, Enchantment> = (
     }
 
     if (enchant.mode === "only_creative") {
-        tags = tags.filter((tag) => tags_related_to_functionality.some((t) => identifierEquals(t, tag)));
+        tags = tags.filter((tag) => tags_related_to_functionality.some((t) => new Identifier(t).equalsObject(tag)));
     }
 
     if (enchant.exclusiveSet) {
         enchantment.exclusive_set = enchant.exclusiveSet;
 
         if (typeof enchant.exclusiveSet === "string") {
-            tags.push(createIdentifierFromString(enchant.exclusiveSet, `tags/${config}`));
+            tags.push(Identifier.of(enchant.exclusiveSet, `tags/${config}`));
         }
     }
 

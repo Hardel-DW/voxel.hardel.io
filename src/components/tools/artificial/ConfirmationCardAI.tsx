@@ -4,7 +4,7 @@ import { type Action, updateData } from "@/lib/minecraft/core/engine/actions";
 import { useConfiguratorStore } from "@/lib/minecraft/core/engine/Store";
 import { useState } from "react";
 import { ValueRenderer, type ValueRendererProps } from "./value/ValueRenderer";
-import { identifierToFilePath } from "@/lib/minecraft/core/Identifier";
+import { Identifier } from "@/lib/minecraft/core/Identifier";
 
 export type PropsConfirmationCardAI = {
     action: Action;
@@ -81,7 +81,7 @@ export default function ConfirmationCardAI(props: PropsConfirmationCardAI) {
         <div className="group pt-8 starting:translate-y-10 translate-y-0 transition-all duration-300">
             <div className="flex w-full justify-between">
                 <div className="w-fit border-t border-x border-zinc-900 bg-zinc-950 group-hover:border-zinc-800 transition-all duration-300 text-white py-2 px-6 rounded-t-md translate-y-px">
-                    <p className="text-xs">{identifierToFilePath(element.identifier)}</p>
+                    <p className="text-xs">{new Identifier(element.identifier).toFilePath()}</p>
                 </div>
                 {!isTriggered && (
                     <div className="flex gap-2">

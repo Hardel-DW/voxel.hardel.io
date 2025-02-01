@@ -3,7 +3,7 @@ import EmptyCodeBlock from "@/components/ui/codeblock/EmptyCodeBlock";
 import { useTranslate } from "@/components/useTranslate";
 import type { Analysers } from "@/lib/minecraft/core/engine/Analyser";
 import { type CompileDatapackResult, getIdentifierFromCompiler } from "@/lib/minecraft/core/engine/Compiler";
-import { identifierToFileName } from "@/lib/minecraft/core/Identifier";
+import { Identifier } from "@/lib/minecraft/core/Identifier";
 import { useConfiguratorStore } from "@/lib/minecraft/core/engine/Store";
 
 interface CodeSectionProps {
@@ -33,11 +33,11 @@ export function CodeSection({ code, onClose }: CodeSectionProps) {
                 {t("tools.debug.quit")}
             </button>
             {code.type !== "deleted" ? (
-                <CodeBlock language="json" title={identifierToFileName(identifier.resource)}>
+                <CodeBlock language="json" title={new Identifier(identifier).toFileName()}>
                     {JSON.stringify(code.element.data, null, 4)}
                 </CodeBlock>
             ) : (
-                <EmptyCodeBlock title={identifierToFileName(identifier.resource)}>This files is deleted.</EmptyCodeBlock>
+                <EmptyCodeBlock title={new Identifier(identifier).toFileName()}>This files is deleted.</EmptyCodeBlock>
             )}
         </div>
     );

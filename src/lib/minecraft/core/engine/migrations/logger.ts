@@ -1,7 +1,7 @@
 import type { Analysers, GetAnalyserVoxel } from "@/lib/minecraft/core/engine/Analyser";
 import type { Action, ActionValue } from "@/lib/minecraft/core/engine/actions";
 import { createDifferenceFromAction } from "@/lib/minecraft/core/engine/migrations/logValidation";
-import type { DatapackInfo, FileLog, FileLogUpdated, Log, LogDifference, LogValue } from "./types";
+import type { DatapackInfo, FileLog, FileLogUpdated, Log, LogDifference, LogValue } from "@/lib/minecraft/core/engine/migrations/types";
 
 export class Logger {
     private readonly log: Log;

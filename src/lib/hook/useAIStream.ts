@@ -1,7 +1,7 @@
 import { searchRelevantElements } from "@/lib/searchElements";
 import { useConfiguratorStore } from "@/lib/minecraft/core/engine/Store";
 import { useState } from "react";
-import { identifierToString, type IdentifierObject } from "@/lib/minecraft/core/Identifier";
+import { Identifier, type IdentifierObject } from "@/lib/minecraft/core/Identifier";
 import type { Action } from "@/lib/minecraft/core/engine/actions";
 import { JSONBuilder } from "@/lib/utils/JSONBuilder";
 
@@ -47,7 +47,7 @@ export const useAIStream = (onFinishedStreaming: (object: IActionResponse) => vo
                 body: JSON.stringify({
                     prompt,
                     elements: relevantElements.map((el) => ({
-                        identifier: identifierToString(el.identifier),
+                        identifier: new Identifier(el.identifier).toString(),
                         data: el.data
                     }))
                 })

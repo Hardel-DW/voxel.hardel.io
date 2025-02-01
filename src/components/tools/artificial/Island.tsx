@@ -3,7 +3,7 @@ import { RenderAIContent } from "@/components/tools/artificial/RenderAIContent";
 import { useTranslate } from "@/components/useTranslate";
 import { type IActionResponse, useAIStream } from "@/lib/hook/useAIStream";
 import { useClickOutside } from "@/lib/hook/useClickOutside";
-import { createIdentifierFromString, identifierToString } from "@/lib/minecraft/core/Identifier";
+import { Identifier } from "@/lib/minecraft/core/Identifier";
 import { SplitSequentialAction } from "@/lib/minecraft/core/engine/actions";
 import { useConfiguratorStore } from "@/lib/minecraft/core/engine/Store";
 import { cn } from "@/lib/utils";
@@ -19,9 +19,9 @@ export const Island: React.FC = () => {
     const store = useConfiguratorStore();
     const { streamingText, isStreaming, startStreaming, reference } = useAIStream((object: IActionResponse) => {
         if (object.action && object.identifier) {
-            const identifier = createIdentifierFromString(object.identifier, "enchantment");
+            const identifier = Identifier.of(object.identifier, "enchantment");
             const actions = SplitSequentialAction(object.action);
-            setCards(actions.map((action) => ({ action, identifier: identifierToString(identifier) })));
+            setCards(actions.map((action) => ({ action, identifier: identifier.toString() })));
         }
     });
     const ref = useClickOutside(() => handleReset());

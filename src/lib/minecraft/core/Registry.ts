@@ -1,5 +1,5 @@
-import type { DataDrivenElement, VoxelElement } from "./engine/Analyser";
-import type { IdentifierObject } from "./Identifier";
+import type { IdentifierObject } from "@/lib/minecraft/core/Identifier";
+import type { DataDrivenElement, VoxelElement } from "@/lib/minecraft/core/Element";
 
 export type VoxelRegistryElement<T extends VoxelElement> = {
     identifier: string;
@@ -50,4 +50,17 @@ export function getRegistry<T extends DataDrivenElement>(
     }
 
     return registries;
+}
+
+/**
+ * Sorts registry elements by resource name
+ * @param elements - Array of registry elements to sort
+ * @returns Sorted array
+ * @example
+ * const sorted = sortRegistry([element1, element2]);
+ */
+export function sortRegistry<T extends VoxelElement>(elements: VoxelRegistryElement<T>[]) {
+    return elements.sort((a, b) =>
+        (a.data.identifier.resource.split("/").pop() ?? "").localeCompare(b.data.identifier.resource.split("/").pop() ?? "")
+    );
 }

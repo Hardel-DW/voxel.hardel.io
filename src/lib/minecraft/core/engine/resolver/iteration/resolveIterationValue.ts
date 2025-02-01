@@ -1,4 +1,4 @@
-import type { InternalIterationResult } from "./type";
+import type { InternalIterationResult } from "@/lib/minecraft/core/engine/resolver/iteration/type";
 
 export function resolveIterationValue(value: any, context: InternalIterationResult | undefined): any {
     if (typeof value === "object" && value?.type === "get_value_from_context") {

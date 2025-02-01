@@ -1,11 +1,11 @@
-import { identifierToFilePath } from "@/lib/minecraft/core/Identifier";
+import { Identifier } from "@/lib/minecraft/core/Identifier";
 import { enchantplusTags, vanillaTags } from "test/template/tags";
 import { DATA_DRIVEN_TEMPLATE_ENCHANTMENT } from "test/template/daata_driven";
 import { voxelDatapacks } from "@/lib/minecraft/voxel/VoxelDatapack";
 
 const enchantmentFiles = DATA_DRIVEN_TEMPLATE_ENCHANTMENT.reduce(
     (files, enchant) => {
-        const filePath = `${identifierToFilePath(enchant.identifier)}.json`;
+        const filePath = `${new Identifier(enchant.identifier).toFilePath()}.json`;
         files[filePath] = new TextEncoder().encode(JSON.stringify(enchant.data, null, 2));
         return files;
     },
@@ -15,7 +15,7 @@ const enchantmentFiles = DATA_DRIVEN_TEMPLATE_ENCHANTMENT.reduce(
 // Generate tag files from all sources
 const tagFiles = [...voxelDatapacks, ...enchantplusTags, ...vanillaTags].reduce(
     (files, tag) => {
-        const filePath = `${identifierToFilePath(tag.identifier)}.json`;
+        const filePath = `${new Identifier(tag.identifier).toFilePath()}.json`;
         files[filePath] = new TextEncoder().encode(JSON.stringify(tag.data, null, 2));
         return files;
     },

@@ -1,5 +1,5 @@
 import type { OptionalTag, TagType } from "@voxel/definitions";
-import { createIdentifierFromString, identifierToString } from "./Identifier";
+import { Identifier } from "./Identifier";
 import type { IdentifierObject } from "./Identifier";
 import type { DataDrivenRegistryElement } from "./Registry";
 
@@ -29,7 +29,7 @@ export const isPresentInTag = (tag: DataDrivenRegistryElement<TagType>, value: s
  * @returns The list of identifiers.
  */
 export const tagsToIdentifiers = (tags: string[], registry: string): IdentifierObject[] => {
-    return tags.map((tag) => createIdentifierFromString(tag, registry));
+    return tags.map((tag) => Identifier.of(tag, registry));
 };
 
 /**
@@ -67,5 +67,5 @@ export const getValue = (tag: string | OptionalTag): string => {
  */
 export const output = (identifier: IdentifierObject, required: boolean): string | OptionalTag => {
     const isTagged = identifier.registry?.startsWith("tags/");
-    return isTagged ? { id: identifierToString(identifier), required } : identifierToString(identifier);
+    return isTagged ? { id: new Identifier(identifier).toString(), required } : new Identifier(identifier).toString();
 };

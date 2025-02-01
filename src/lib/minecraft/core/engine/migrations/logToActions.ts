@@ -1,5 +1,5 @@
 import type { Action, ActionValue } from "@/lib/minecraft/core/engine/actions";
-import type { FileLog, Log, LogDifference, LogValue } from "./types";
+import type { FileLog, Log, LogDifference, LogValue } from "@/lib/minecraft/core/engine/migrations/types";
 
 /**
  * Converts a LogValue to an ActionValue

@@ -1,10 +1,10 @@
 import { voxelDatapacks } from "@/lib/minecraft/voxel/VoxelDatapack.ts";
 import JSZip from "jszip";
-import type { ConfiguratorConfigFromDatapack } from "./core/Configurator";
 import type { Analysers } from "./core/engine/Analyser";
 import type { CompileDatapackResult } from "./core/engine/Compiler";
 import type { Logger } from "./core/engine/migrations/logger";
-import { identifierToFilePath, type IdentifierObject } from "./core/Identifier";
+import { Identifier, type IdentifierObject } from "./core/Identifier";
+import type { ConfiguratorConfigFromDatapack } from "./core/Element";
 
 /**
  * Get the Voxel configuration file, if it exists, il est localisés au même endroit que l'identifier mais pas dans le dossier data mais dans le dosssier voxel.
@@ -15,7 +15,7 @@ export function getVoxelConfig(
     files: Record<string, Uint8Array>,
     identifier: IdentifierObject
 ): ConfiguratorConfigFromDatapack | undefined {
-    const file = `${identifierToFilePath(identifier, "voxel")}.json`;
+    const file = `${new Identifier(identifier).toFilePath("voxel")}.json`;
     if (!(file in files)) return undefined;
     return JSON.parse(new TextDecoder().decode(files[file]));
 }
@@ -37,7 +37,7 @@ export async function parseZip(zipData: Uint8Array): Promise<Record<string, Uint
 }
 
 export function readDatapackFile<T>(datapack: Record<string, Uint8Array>, identifier: IdentifierObject): T | undefined {
-    const file = `${identifierToFilePath(identifier)}.json`;
+    const file = `${new Identifier(identifier).toFilePath()}.json`;
     if (!(file in datapack)) return undefined;
     return JSON.parse(new TextDecoder().decode(datapack[file]));
 }
@@ -57,7 +57,7 @@ export async function generateZip(
 
     for (const file of content) {
         if (file.type === "deleted") {
-            filesToDelete.add(`${identifierToFilePath(file.identifier)}.json`);
+            filesToDelete.add(`${new Identifier(file.identifier).toFilePath()}.json`);
         }
     }
 
@@ -69,13 +69,13 @@ export async function generateZip(
 
     if (includeVoxel) {
         for (const file of voxelDatapacks) {
-            zip.file(`${identifierToFilePath(file.identifier)}.json`, JSON.stringify(file.data, null, minify ? 0 : 4));
+            zip.file(`${new Identifier(file.identifier).toFilePath()}.json`, JSON.stringify(file.data, null, minify ? 0 : 4));
         }
     }
 
     for (const file of content) {
         if (file.type === "deleted") continue;
-        zip.file(`${identifierToFilePath(file.element.identifier)}.json`, JSON.stringify(file.element.data, null, minify ? 0 : 4));
+        zip.file(`${new Identifier(file.element.identifier).toFilePath()}.json`, JSON.stringify(file.element.data, null, minify ? 0 : 4));
     }
 
     if (logger) {

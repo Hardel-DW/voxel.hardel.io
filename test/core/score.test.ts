@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { searchRelevantElements } from "@/lib/searchElements";
-import { identifierToString } from "@/lib/minecraft/core/Identifier";
+import { Identifier } from "@/lib/minecraft/core/Identifier";
 import { VOXEL_TEMPLATE_ENCHANTMENT } from "test/template/voxel";
 
 describe("searchRelevantElements", () => {
@@ -10,7 +10,7 @@ describe("searchRelevantElements", () => {
             "Hello, i want get the fury enchantment"
         );
         expect(results.length).toBeGreaterThan(0);
-        expect(results.map((element) => identifierToString(element.identifier))).toContain("enchantplus:armor/fury");
+        expect(results.map((element) => new Identifier(element.identifier).toString())).toContain("enchantplus:armor/fury");
     });
 
     it("Get accuracy shot enchantment with common prompt", () => {
@@ -19,7 +19,7 @@ describe("searchRelevantElements", () => {
             "I want modify the accuracy shot enchantment and set the max level to 2"
         );
         expect(results.length).toBeGreaterThan(0);
-        expect(results.map((element) => identifierToString(element.identifier))).toContain("enchantplus:bow/accuracy_shot");
+        expect(results.map((element) => new Identifier(element.identifier).toString())).toContain("enchantplus:bow/accuracy_shot");
     });
 
     it("Get fury enchantment with common prompt in french", () => {
@@ -28,7 +28,7 @@ describe("searchRelevantElements", () => {
             "Bonjour, je voudrais obtenir l'enchantement fury"
         );
         expect(results.length).toBeGreaterThan(0);
-        expect(results.map((element) => identifierToString(element.identifier))).toContain("enchantplus:armor/fury");
+        expect(results.map((element) => new Identifier(element.identifier).toString())).toContain("enchantplus:armor/fury");
     });
 
     it("Get accuracy shot enchantment with common prompt in french", () => {
@@ -37,7 +37,7 @@ describe("searchRelevantElements", () => {
             "Je veux modifier l'enchantement accuracy shot et mettre le niveau maximum à 2"
         );
         expect(results.length).toBeGreaterThan(0);
-        expect(results.map((element) => identifierToString(element.identifier))).toContain("enchantplus:bow/accuracy_shot");
+        expect(results.map((element) => new Identifier(element.identifier).toString())).toContain("enchantplus:bow/accuracy_shot");
     });
 
     it("Get accuracy shot enchantment with common prompt in french", () => {
@@ -46,7 +46,7 @@ describe("searchRelevantElements", () => {
             "Je veux modifier l'enchantement accuracy shot et mettre le niveau maximum à 2"
         );
         expect(results.length).toBeGreaterThan(0);
-        expect(results.map((element) => identifierToString(element.identifier))).toContain("enchantplus:bow/accuracy_shot");
+        expect(results.map((element) => new Identifier(element.identifier).toString())).toContain("enchantplus:bow/accuracy_shot");
     });
 
     it("Another test for search element in french", () => {
@@ -56,8 +56,8 @@ describe("searchRelevantElements", () => {
         );
         expect(results.length).toBeGreaterThan(0);
         expect(
-            results.map((element) => identifierToString(element.identifier)),
-            `The result should contain the fury enchantment, actually it contains: ${results.map((element) => identifierToString(element.identifier))}`
+            results.map((element) => new Identifier(element.identifier).toString()),
+            `The result should contain the fury enchantment, actually it contains: ${results.map((element) => new Identifier(element.identifier).toString())}`
         ).toContain("enchantplus:armor/fury");
     });
 
@@ -66,7 +66,7 @@ describe("searchRelevantElements", () => {
             VOXEL_TEMPLATE_ENCHANTMENT.map((element) => element.data),
             "I want get the storm arrow enchantment and the lifeplus enchantment"
         );
-        expect(results.map((element) => identifierToString(element.identifier))).toEqual(
+        expect(results.map((element) => new Identifier(element.identifier).toString())).toEqual(
             expect.arrayContaining(["enchantplus:bow/storm_arrow", "enchantplus:armor/lifeplus"])
         );
     });

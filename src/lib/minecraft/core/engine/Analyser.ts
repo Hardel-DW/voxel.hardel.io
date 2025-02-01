@@ -1,4 +1,3 @@
-import type { ConfiguratorConfigFromDatapack } from "@/lib/minecraft/core/Configurator.ts";
 import type { Compiler } from "@/lib/minecraft/core/engine/Compiler.ts";
 import type { Parser } from "@/lib/minecraft/core/engine/Parser.ts";
 import { ENCHANT_TOOL_CONFIG } from "@/lib/minecraft/core/schema/enchant";
@@ -10,23 +9,8 @@ import {
 } from "@/lib/minecraft/core/schema/enchant/EnchantmentProps.ts";
 import type { ToolConfiguration } from "@/lib/minecraft/core/schema/primitive";
 import type { FieldProperties } from "@/lib/minecraft/core/schema/primitive/properties";
-import type { Enchantment } from "@voxel/definitions";
-import type { IdentifierObject } from "@/lib/minecraft/core/Identifier.ts";
-import type { VoxelRegistryElement } from "../Registry";
-
-export type DataDrivenElement = Record<string, unknown>;
-export interface VoxelElement extends Record<string, unknown> {
-    override?: ConfiguratorConfigFromDatapack;
-    identifier: IdentifierObject;
-}
-
-export function isRegistryVoxelElement<T extends keyof Analysers>(element: any): element is VoxelRegistryElement<GetAnalyserVoxel<T>> {
-    return "identifier" in element && "data" in element && typeof element.identifier === "string";
-}
-
-export function isVoxelElement<T extends keyof Analysers>(element: any): element is GetAnalyserVoxel<T> {
-    return "identifier" in element;
-}
+import type { DataDrivenElement, Enchantment } from "@voxel/definitions";
+import type { VoxelElement } from "@/lib/minecraft/core/Element";
 
 export type GetAnalyserVoxel<T extends keyof Analysers> = Analysers[T]["voxel"];
 export type GetAnalyserMinecraft<T extends keyof Analysers> = Analysers[T]["minecraft"];

@@ -1,6 +1,6 @@
 import { getPropertySafely } from "@/lib/utils";
 import type { BaseAction } from ".";
-import { identifierEquals, isIdentifier, type IdentifierObject } from "@/lib/minecraft/core/Identifier";
+import { Identifier, isIdentifier, type IdentifierObject } from "@/lib/minecraft/core/Identifier";
 
 export type ValidType = string | number | IdentifierObject;
 
@@ -39,10 +39,10 @@ const isValueEqual = (a: ValidType, b: ValidType): boolean => {
     // Handle simple types (string, number) directly
     if (typeof a === "string" && typeof b === "string") return a === b;
     if (typeof a === "number" && typeof b === "number") return a === b;
-    
+
     // Handle Identifier objects
-    if (isIdentifier(a) && isIdentifier(b)) return identifierEquals(a, b);
-    
+    if (isIdentifier(a) && isIdentifier(b)) return new Identifier(a).equalsObject(b);
+
     return false;
 };
 

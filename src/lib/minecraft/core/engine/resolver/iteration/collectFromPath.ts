@@ -1,5 +1,5 @@
+import type { DataDrivenElement } from "@/lib/minecraft/core/Element";
 import { getRegistry, type DataDrivenRegistryElement } from "@/lib/minecraft/core/Registry";
-import type { DataDrivenElement } from "@voxel/definitions";
 
 export function collectFromPath<T extends DataDrivenElement>(
     registry: string,

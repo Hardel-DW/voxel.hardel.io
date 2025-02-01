@@ -1,6 +1,6 @@
-import { collectFromPath } from "./collectFromPath";
+import { collectFromPath } from "@/lib/minecraft/core/engine/resolver/iteration/collectFromPath";
 import type { IterationResult, IterationValue } from "@/lib/minecraft/core/engine/resolver/iteration/type";
-import { identifierToResourceName, identifierToResourcePath, identifierToString } from "@/lib/minecraft/core/Identifier";
+import { Identifier } from "@/lib/minecraft/core/Identifier";
 import { getRegistry } from "@/lib/minecraft/core/Registry";
 
 export function createIterations(valueSet: IterationValue, files: Record<string, Uint8Array>): IterationResult[] {
@@ -11,12 +11,12 @@ export function createIterations(valueSet: IterationValue, files: Record<string,
                 : getRegistry(files, valueSet.registry);
 
         return elements.map((file) => ({
-            key: identifierToString(file.identifier),
+            key: new Identifier(file.identifier).toString(),
             context: {
-                filename: identifierToResourceName(file.identifier.resource),
-                resource: identifierToResourcePath(file.identifier.resource),
+                filename: new Identifier(file.identifier).toResourceName(),
+                resource: new Identifier(file.identifier).toResourcePath(),
                 namespace: file.identifier.namespace,
-                identifier: identifierToString(file.identifier)
+                identifier: new Identifier(file.identifier).toString()
             }
         }));
     }

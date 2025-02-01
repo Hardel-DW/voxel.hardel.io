@@ -1,26 +1,11 @@
 import { describe, it, expect } from "vitest";
-import {
-    createIdentifierFromString,
-    identifierToString,
-    identifierToFilePath,
-    identifierToResourceName,
-    identifierToResourcePath,
-    identifierToNamespace,
-    identifierEquals,
-    sortIdentifiers,
-    sortRegistry,
-    sortVoxelElements,
-    identifierToFileName,
-    isIdentifier,
-    type IdentifierObject
-} from "@/lib/minecraft/core/Identifier";
-import { VOXEL_TEMPLATE_ENCHANTMENT } from "test/template/voxel";
+import { Identifier, isIdentifier } from "@/lib/minecraft/core/Identifier";
 
 describe("Identifier", () => {
-    describe("createIdentifierFromString", () => {
+    describe("Identifier.of", () => {
         it("should create a basic identifier", () => {
-            const result = createIdentifierFromString("minecraft:stone", "block");
-            expect(result).toEqual({
+            const result = Identifier.of("minecraft:stone", "block");
+            expect(result.get()).toEqual({
                 namespace: "minecraft",
                 registry: "block",
                 resource: "stone"
@@ -28,8 +13,8 @@ describe("Identifier", () => {
         });
 
         it("should create identifier from tag", () => {
-            const result = createIdentifierFromString("#minecraft:wool", "tags/block");
-            expect(result).toEqual({
+            const result = Identifier.of("#minecraft:wool", "tags/block");
+            expect(result.get()).toEqual({
                 namespace: "minecraft",
                 registry: "tags/block",
                 resource: "wool"
@@ -37,8 +22,8 @@ describe("Identifier", () => {
         });
 
         it("should handle complex resource paths", () => {
-            const result = createIdentifierFromString("enchantplus:sword/life_steal", "enchantment");
-            expect(result).toEqual({
+            const result = Identifier.of("enchantplus:sword/life_steal", "enchantment");
+            expect(result.get()).toEqual({
                 namespace: "enchantplus",
                 registry: "enchantment",
                 resource: "sword/life_steal"
@@ -46,124 +31,106 @@ describe("Identifier", () => {
         });
     });
 
-    describe("identifierToString", () => {
+    describe("toString", () => {
         it("should convert basic identifier to string", () => {
-            const identifier = { namespace: "minecraft", registry: "block", resource: "stone" };
-            expect(identifierToString(identifier)).toBe("minecraft:stone");
+            const identifier = new Identifier({ namespace: "minecraft", registry: "block", resource: "stone" });
+            expect(identifier.toString()).toBe("minecraft:stone");
         });
 
         it("should convert tag identifier to string", () => {
-            const identifier = { namespace: "minecraft", registry: "tags/block", resource: "wool" };
-            expect(identifierToString(identifier)).toBe("#minecraft:wool");
+            const identifier = new Identifier({ namespace: "minecraft", registry: "tags/block", resource: "wool" });
+            expect(identifier.toString()).toBe("#minecraft:wool");
         });
     });
 
-    describe("identifierEquals", () => {
-        const identifier = { namespace: "minecraft", registry: "block", resource: "stone" };
+    describe("equals", () => {
+        const identifier = new Identifier({ namespace: "minecraft", registry: "block", resource: "stone" });
 
         it("should return true for identical identifiers", () => {
-            const other = { namespace: "minecraft", registry: "block", resource: "stone" };
-            expect(identifierEquals(identifier, other)).toBe(true);
+            const other = new Identifier({ namespace: "minecraft", registry: "block", resource: "stone" });
+            expect(identifier.equals(other)).toBe(true);
         });
 
         it("should return false for different identifiers", () => {
-            const other = { namespace: "minecraft", registry: "block", resource: "dirt" };
-            expect(identifierEquals(identifier, other)).toBe(false);
+            const other = new Identifier({ namespace: "minecraft", registry: "block", resource: "dirt" });
+            expect(identifier.equals(other)).toBe(false);
         });
 
         it("should return false for undefined identifier", () => {
-            expect(identifierEquals(identifier, undefined)).toBe(false);
+            expect(identifier.equals(undefined)).toBe(false);
         });
     });
 
-    describe("identifierToFilePath", () => {
+    describe("toFilePath", () => {
         it("should generate default file path", () => {
-            const identifier = { namespace: "minecraft", registry: "block", resource: "stone" };
-            expect(identifierToFilePath(identifier)).toBe("data/minecraft/block/stone");
+            const identifier = new Identifier({ namespace: "minecraft", registry: "block", resource: "stone" });
+            expect(identifier.toFilePath()).toBe("data/minecraft/block/stone");
         });
 
         it("should generate custom base path", () => {
-            const identifier = { namespace: "minecraft", registry: "block", resource: "stone" };
-            expect(identifierToFilePath(identifier, "assets")).toBe("assets/minecraft/block/stone");
+            const identifier = new Identifier({ namespace: "minecraft", registry: "block", resource: "stone" });
+            expect(identifier.toFilePath("assets")).toBe("assets/minecraft/block/stone");
         });
 
         it("should handle nested resource paths", () => {
-            const identifier = { namespace: "enchantplus", registry: "enchantment", resource: "sword/life_steal" };
-            expect(identifierToFilePath(identifier)).toBe("data/enchantplus/enchantment/sword/life_steal");
+            const identifier = new Identifier({ namespace: "enchantplus", registry: "enchantment", resource: "sword/life_steal" });
+            expect(identifier.toFilePath()).toBe("data/enchantplus/enchantment/sword/life_steal");
         });
     });
 
-    describe("identifierToFileName", () => {
+    describe("toFileName", () => {
+        const identifier = new Identifier({ namespace: "minecraft", registry: "block", resource: "sword/life_steal" });
+
         it("should return filename without extension", () => {
-            expect(identifierToFileName("stone")).toBe("stone");
-            expect(identifierToFileName("sword/life_steal")).toBe("life_steal");
+            expect(identifier.toFileName()).toBe("life_steal");
         });
 
         it("should return filename with extension", () => {
-            expect(identifierToFileName("stone", true)).toBe("stone.json");
-            expect(identifierToFileName("sword/life_steal", true)).toBe("life_steal.json");
+            expect(identifier.toFileName(true)).toBe("life_steal.json");
         });
     });
 
-    describe("identifierToNamespace", () => {
+    describe("toNamespace", () => {
         it("should format namespace", () => {
-            expect(identifierToNamespace("minecraft")).toBe("Minecraft");
-            expect(identifierToNamespace("enchant_plus")).toBe("Enchant Plus");
+            const id1 = new Identifier({ namespace: "minecraft", registry: "block", resource: "stone" });
+            const id2 = new Identifier({ namespace: "enchant_plus", registry: "block", resource: "stone" });
+
+            expect(id1.toNamespace()).toBe("Minecraft");
+            expect(id2.toNamespace()).toBe("Enchant Plus");
         });
     });
 
-    describe("identifierToResourceName", () => {
+    describe("toResourceName", () => {
         it("should format simple resource name", () => {
-            expect(identifierToResourceName("stone")).toBe("Stone");
+            const id = new Identifier({ namespace: "minecraft", registry: "block", resource: "stone" });
+            expect(id.toResourceName()).toBe("Stone");
         });
 
         it("should format complex resource name", () => {
-            expect(identifierToResourceName("items/diamond_sword")).toBe("Diamond Sword");
-            expect(identifierToResourceName("sword/life_steal")).toBe("Life Steal");
+            const id1 = new Identifier({ namespace: "minecraft", registry: "block", resource: "items/diamond_sword" });
+            const id2 = new Identifier({ namespace: "minecraft", registry: "block", resource: "sword/life_steal" });
+
+            expect(id1.toResourceName()).toBe("Diamond Sword");
+            expect(id2.toResourceName()).toBe("Life Steal");
         });
     });
 
-    describe("identifierToResourcePath", () => {
+    describe("toResourcePath", () => {
         it("should format simple path", () => {
-            expect(identifierToResourcePath("stone")).toBe("Stone");
+            const id = new Identifier({ namespace: "minecraft", registry: "block", resource: "stone" });
+            expect(id.toResourcePath()).toBe("Stone");
         });
 
         it("should format complex path", () => {
-            expect(identifierToResourcePath("items/weapons/diamond_sword")).toBe("Items - Weapons - Diamond Sword");
+            const id = new Identifier({ namespace: "minecraft", registry: "block", resource: "items/weapons/diamond_sword" });
+            expect(id.toResourcePath()).toBe("Items - Weapons - Diamond Sword");
         });
     });
 
-    describe("sortIdentifiers", () => {
-        it("should sort by namespace then resource", () => {
-            const identifiers: IdentifierObject[] = [
-                { namespace: "minecraft", registry: "block", resource: "stone" },
-                { namespace: "enchantplus", registry: "enchantment", resource: "power" },
-                { namespace: "minecraft", registry: "block", resource: "dirt" }
-            ];
-
-            const sorted = sortIdentifiers(identifiers);
-            expect(sorted[0].namespace).toBe("enchantplus");
-            expect(sorted[1].resource).toBe("dirt");
-            expect(sorted[2].resource).toBe("stone");
-        });
-    });
-
-    describe("sortRegistry", () => {
-        it("should sort registry elements by resource name", () => {
-            const sorted = sortRegistry(VOXEL_TEMPLATE_ENCHANTMENT);
-            expect(sorted[0].data.identifier.resource).toContain("accuracy_shot");
-        });
-    });
-
-    describe("sortVoxelElements", () => {
-        it("should sort voxel elements by identifier", () => {
-            const elements = new Map();
-            elements.set("a", { identifier: { resource: "stone" } });
-            elements.set("z", { identifier: { resource: "dirt" } });
-
-            const sorted = sortVoxelElements(elements);
-            expect(sorted[0]).toBe("z");
-            expect(sorted[1]).toBe("a");
+    describe("toDisplay", () => {
+        it("should format identifier string for display", () => {
+            expect(Identifier.toDisplay("minecraft:stone")).toBe("Stone");
+            expect(Identifier.toDisplay("minecraft:diamond_sword")).toBe("Diamond Sword");
         });
     });
 

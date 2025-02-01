@@ -8,7 +8,7 @@ import type { SequentialAction } from "@/lib/minecraft/core/engine/actions/Seque
 import type { ToggleListValueAction } from "@/lib/minecraft/core/engine/actions/ToggleListValueModifier";
 import type { ComputedAction } from "@/lib/minecraft/core/engine/actions/ComputedModifier";
 import { createDifferenceFromAction } from "@/lib/minecraft/core/engine/migrations/logValidation";
-import { identifierToString } from "@/lib/minecraft/core/Identifier";
+import { Identifier } from "@/lib/minecraft/core/Identifier";
 
 const createComplexMockElement = (data: Partial<EnchantmentProps> = {}): VoxelRegistryElement<EnchantmentProps> => ({
     identifier: "foo",
@@ -258,7 +258,11 @@ describe("Logger System", () => {
             }
 
             // Log the differences
-            logger.logDifference(identifierToString(element.data.identifier), element.data.identifier.registry || "unknown", difference);
+            logger.logDifference(
+                new Identifier(element.data.identifier).toString(),
+                element.data.identifier.registry || "unknown",
+                difference
+            );
 
             // Verify the logs
             const logs = logger.getLogs();
@@ -347,7 +351,11 @@ describe("Logger System", () => {
                 throw new Error("Failed to create difference");
             }
 
-            logger.logDifference(identifierToString(element.data.identifier), element.data.identifier.registry || "unknown", difference);
+            logger.logDifference(
+                new Identifier(element.data.identifier).toString(),
+                element.data.identifier.registry || "unknown",
+                difference
+            );
 
             const logs = logger.getLogs();
             expect(logs.logs).toHaveLength(1);
@@ -437,7 +445,11 @@ describe("Logger System", () => {
                 throw new Error("Failed to create difference");
             }
 
-            logger.logDifference(identifierToString(element.data.identifier), element.data.identifier.registry || "unknown", difference);
+            logger.logDifference(
+                new Identifier(element.data.identifier).toString(),
+                element.data.identifier.registry || "unknown",
+                difference
+            );
 
             const logs = logger.getLogs();
             expect(logs.logs).toHaveLength(1);
@@ -493,7 +505,11 @@ describe("Logger System", () => {
                 throw new Error("Failed to create difference");
             }
 
-            logger.logDifference(identifierToString(element.data.identifier), element.data.identifier.registry || "unknown", difference);
+            logger.logDifference(
+                new Identifier(element.data.identifier).toString(),
+                element.data.identifier.registry || "unknown",
+                difference
+            );
 
             const logs = logger.getLogs();
             expect(logs.logs).toHaveLength(1);
@@ -519,7 +535,11 @@ describe("Logger System", () => {
                 throw new Error("Failed to create difference");
             }
 
-            logger.logDifference(identifierToString(element.data.identifier), element.data.identifier.registry || "unknown", difference);
+            logger.logDifference(
+                new Identifier(element.data.identifier).toString(),
+                element.data.identifier.registry || "unknown",
+                difference
+            );
 
             const logs = logger.getLogs();
             expect(logs.logs).toHaveLength(1);
@@ -562,7 +582,11 @@ describe("Logger System", () => {
                 throw new Error("Failed to create difference");
             }
 
-            logger.logDifference(identifierToString(element.data.identifier), element.data.identifier.registry || "unknown", difference);
+            logger.logDifference(
+                new Identifier(element.data.identifier).toString(),
+                element.data.identifier.registry || "unknown",
+                difference
+            );
 
             const logs = logger.getLogs();
             expect(logs.logs).toHaveLength(1);
@@ -594,7 +618,11 @@ describe("Logger System", () => {
                 throw new Error("Failed to create difference");
             }
 
-            logger.logDifference(identifierToString(element.data.identifier), element.data.identifier.registry || "unknown", difference);
+            logger.logDifference(
+                new Identifier(element.data.identifier).toString(),
+                element.data.identifier.registry || "unknown",
+                difference
+            );
 
             const logs = logger.getLogs();
             expect(logs.logs).toHaveLength(1);
@@ -649,7 +677,11 @@ describe("Logger System", () => {
                 throw new Error("Failed to create difference");
             }
 
-            logger.logDifference(identifierToString(element.data.identifier), element.data.identifier.registry || "unknown", difference);
+            logger.logDifference(
+                new Identifier(element.data.identifier).toString(),
+                element.data.identifier.registry || "unknown",
+                difference
+            );
 
             const logs = logger.getLogs();
             expect(logs.logs).toHaveLength(1);

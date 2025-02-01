@@ -2,7 +2,7 @@ import { RegistryElement } from "@/components/tools/debug/RegistryElement";
 import type { Analysers } from "@/lib/minecraft/core/engine/Analyser";
 import type { CompileDatapackResult } from "@/lib/minecraft/core/engine/Compiler";
 import { getIdentifierFromCompiler } from "@/lib/minecraft/core/engine/Compiler";
-import { identifierToFilePath } from "@/lib/minecraft/core/Identifier";
+import { Identifier } from "@/lib/minecraft/core/Identifier";
 
 interface NamespaceElementProps {
     namespace: string;
@@ -26,7 +26,7 @@ export function NamespaceElement({ namespace, elements, selectedElement, onEleme
                 .filter((element) => getIdentifierFromCompiler(element).namespace === namespace)
                 .map((e) => (
                     <RegistryElement
-                        key={identifierToFilePath(getIdentifierFromCompiler(e))}
+                        key={new Identifier(getIdentifierFromCompiler(e)).toFilePath()}
                         element={e}
                         selectedElement={selectedElement}
                         onElementSelect={onElementSelect}

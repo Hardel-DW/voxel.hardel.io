@@ -1,5 +1,5 @@
-import type { VoxelElement } from "@/lib/minecraft/core/engine/Analyser";
-import { identifierToFileName, identifierToResourceName } from "@/lib/minecraft/core/Identifier";
+import { Identifier } from "@/lib/minecraft/core/Identifier";
+import type { VoxelElement } from "./minecraft/core/Element";
 
 function flattenObject(obj: any): string[] {
     const result: string[] = [];
@@ -48,8 +48,8 @@ export function searchRelevantElements(
         const identifierStrings = [
             identifier.namespace,
             identifier.resource,
-            identifierToResourceName(identifier.resource),
-            identifierToFileName(identifier.resource)
+            new Identifier(identifier).toResourceName(),
+            new Identifier(identifier).toFileName()
         ];
 
         const dataStrings = flattenObject(element.data);

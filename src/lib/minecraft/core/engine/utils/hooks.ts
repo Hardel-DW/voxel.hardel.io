@@ -4,10 +4,10 @@ import type { ValueRenderer } from "@/lib/minecraft/core/engine/renderer/value";
 import { getValue } from "@/lib/minecraft/core/engine/renderer/value";
 import type { Lock } from "@/lib/minecraft/core/schema/primitive/component";
 import type { TranslateTextType } from "@/lib/minecraft/core/schema/primitive/text";
-import { getCurrentElement, useConfiguratorStore } from "../Store";
-import { getConditionFields, getLockFields, getRendererFields } from "./field_parsing";
+import { getCurrentElement, useConfiguratorStore } from "@/lib/minecraft/core/engine/Store";
+import { getConditionFields, getLockFields, getRendererFields } from "@/lib/minecraft/core/engine/utils/field_parsing";
 import { useShallow } from "zustand/shallow";
-import type { VoxelElement } from "../Analyser";
+import type { VoxelElement } from "@/lib/minecraft/core/Element";
 
 export const useElementValue = <T>(renderer: ValueRenderer, elementId?: string): T | null => {
     if (!renderer) return null;

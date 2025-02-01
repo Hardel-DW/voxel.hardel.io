@@ -2,7 +2,7 @@ import type { RefObject } from "react";
 import { useConfiguratorStore } from "@/lib/minecraft/core/engine/Store";
 import { useElementLocks } from "@/lib/minecraft/core/engine/utils/hooks";
 import { useElementCondition } from "@/lib/minecraft/core/engine/utils/hooks";
-import { identifierToResourceName } from "@/lib/minecraft/core/Identifier";
+import { Identifier } from "@/lib/minecraft/core/Identifier";
 
 export default function SidebarItemContent({ elementId, switchRef }: { elementId: string; switchRef: RefObject<HTMLDivElement | null> }) {
     const sidebarConfig = useConfiguratorStore((state) => state.configuration?.sidebar);
@@ -10,7 +10,7 @@ export default function SidebarItemContent({ elementId, switchRef }: { elementId
     const handleChange = useConfiguratorStore((state) => state.handleChange);
     const lockData = useElementLocks(sidebarConfig?.lock, elementId);
     const conditionResult = useElementCondition(sidebarConfig?.enabled, elementId);
-    const resource = useConfiguratorStore((state) => state.elements.get(elementId)?.identifier.resource);
+    const identifier = useConfiguratorStore((state) => state.elements.get(elementId)?.identifier);
     const isEnabled = sidebarConfig?.enabled ? !conditionResult : true;
 
     const handleClick = () => {
@@ -25,7 +25,7 @@ export default function SidebarItemContent({ elementId, switchRef }: { elementId
 
     return (
         <div className="flex items-center justify-between" onClick={handleClick} onKeyDown={handleClick}>
-            <div className="break-words">{resource ? identifierToResourceName(resource) : "Error"}</div>
+            <div className="break-words">{identifier ? new Identifier(identifier).toResourceName() : "Error"}</div>
             <div className="flex items-center gap-8" ref={switchRef}>
                 <label className="flex items-center justify-between gap-4 tooltip-trigger">
                     <input

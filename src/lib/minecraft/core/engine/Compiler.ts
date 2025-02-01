@@ -1,15 +1,14 @@
-import { identifierEquals, identifierToFilePath, identifierToString, type IdentifierObject } from "@/lib/minecraft/core/Identifier.ts";
+import { Identifier, type IdentifierObject } from "@/lib/minecraft/core/Identifier.ts";
 import {
     type Analysers,
-    type DataDrivenElement,
     type GetAnalyserMinecraft,
     type GetAnalyserVoxel,
-    type VoxelElement,
     getAnalyserForVersion
 } from "@/lib/minecraft/core/engine/Analyser.ts";
 import type { OptionalTag, TagType } from "@voxel/definitions";
 import { readDatapackFile } from "@/lib/minecraft/mczip";
 import type { DataDrivenRegistryElement } from "@/lib/minecraft/core/Registry";
+import type { DataDrivenElement, VoxelElement } from "@/lib/minecraft/core/Element";
 
 export type Compiler<T extends VoxelElement, K extends DataDrivenElement> = (
     element: T,
@@ -76,7 +75,7 @@ export function compileDatapack<T extends keyof Analysers>({
 
     for (const holder of compiledElements) {
         for (const tags of holder.tags) {
-            const path = identifierToFilePath(tags);
+            const path = new Identifier(tags).toFilePath();
 
             if (!temp[path]) {
                 temp[path] = {
@@ -85,7 +84,7 @@ export function compileDatapack<T extends keyof Analysers>({
                 };
             }
 
-            temp[path].elements.push(identifierToString(holder.element.identifier));
+            temp[path].elements.push(new Identifier(holder.element.identifier).toString());
         }
     }
 
@@ -136,17 +135,17 @@ export function compileDatapack<T extends keyof Analysers>({
     const processedIds = new Set<string>();
 
     for (const original of identifiers) {
-        const element = everything.find((element) => identifierEquals(element.identifier, original));
+        const element = everything.find((element) => new Identifier(element.identifier).equalsObject(original));
         if (!element) {
             result.push({ type: "deleted", identifier: original });
         } else {
             result.push({ type: "updated", element });
-            processedIds.add(identifierToString(element.identifier));
+            processedIds.add(new Identifier(element.identifier).toString());
         }
     }
 
     for (const element of everything) {
-        if (!processedIds.has(identifierToString(element.identifier))) {
+        if (!processedIds.has(new Identifier(element.identifier).toString())) {
             result.push({ type: "new", element });
         }
     }

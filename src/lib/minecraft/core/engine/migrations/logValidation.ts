@@ -2,8 +2,8 @@ import type { Analysers, GetAnalyserVoxel } from "@/lib/minecraft/core/engine/An
 import type { Action, ActionValue } from "@/lib/minecraft/core/engine/actions";
 import { updateData } from "@/lib/minecraft/core/engine/actions";
 import type { LogDifference, LogValue } from "@/lib/minecraft/core/engine/migrations/types";
-import type { Logger } from "./logger";
-import { identifierToString } from "@/lib/minecraft/core/Identifier";
+import { Identifier } from "@/lib/minecraft/core/Identifier";
+import type { Logger } from "@/lib/minecraft/core/engine/migrations/logger";
 
 /**
  * Checks if a value matches the LogValue type
@@ -88,7 +88,7 @@ export function createDifferenceFromAction<T extends keyof Analysers>(
 
     const field = action.field;
     const fieldExists = field in element;
-    const loggedOriginalValue = logger.getOriginalValue(identifierToString(element.identifier), String(field));
+    const loggedOriginalValue = logger.getOriginalValue(new Identifier(element.identifier).toString(), String(field));
 
     const originalValue =
         loggedOriginalValue !== undefined ? loggedOriginalValue : fieldExists ? element[field as keyof typeof element.data] : undefined;

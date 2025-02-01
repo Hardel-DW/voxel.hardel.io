@@ -1,13 +1,12 @@
 import { describe, it, expect } from "vitest";
-import { getValue } from "@/lib/minecraft/core/engine/value";
-import type { ValueParams } from "@/lib/minecraft/core/engine/value";
-import type { RegistryElement } from "@/lib/minecraft/mczip";
-import { Identifier } from "@/lib/minecraft/core/Identifier";
+import { getValue, type ValueRenderer } from "@/lib/minecraft/core/engine/renderer/value";
+import type { VoxelRegistryElement } from "@/lib/minecraft/core/Registry";
 import type { EnchantmentProps } from "@/lib/minecraft/core/schema/enchant/EnchantmentProps";
 
-const createMockElement = (data: Partial<EnchantmentProps> = {}): RegistryElement<EnchantmentProps> => ({
-    identifier: new Identifier("namespace", "enchantment", "foo"),
+const createMockElement = (data: Partial<EnchantmentProps> = {}): VoxelRegistryElement<EnchantmentProps> => ({
+    identifier: "foo",
     data: {
+        identifier: { namespace: "namespace", resource: "enchantment", registry: "foo" },
         description: { translate: "enchantment.test.foo" },
         exclusiveSet: undefined,
         supportedItems: "#minecraft:sword",
@@ -31,144 +30,200 @@ const createMockElement = (data: Partial<EnchantmentProps> = {}): RegistryElemen
 
 describe("Value System", () => {
     describe("Simple Value", () => {
-        it("should return value when no condition", () => {
+        it("should return hardcoded value", () => {
             const element = createMockElement();
-            const valueParams: ValueParams<number> = {
-                params: {
-                    type: "Value",
-                    value: 42
-                }
+            const renderer: ValueRenderer = {
+                type: "hardcoded",
+                value: 42
             };
 
-            expect(getValue(valueParams, element)).toBe(42);
+            expect(getValue(renderer, element.data)).toBe(42);
         });
 
-        it("should return value when condition is true", () => {
+        it("should return value from field", () => {
             const element = createMockElement();
-            const valueParams: ValueParams<string> = {
-                params: {
-                    type: "Value",
-                    value: "test"
-                },
-                condition: {
-                    condition: "contains_in_value",
-                    field: "slots",
-                    values: ["head"]
-                }
+            const renderer: ValueRenderer = {
+                type: "from_field",
+                field: "maxLevel"
             };
 
-            expect(getValue(valueParams, element)).toBe("test");
+            expect(getValue(renderer, element.data)).toBe(1);
         });
 
         it("should return null when condition is false", () => {
             const element = createMockElement();
-            const valueParams: ValueParams<string> = {
-                params: {
-                    type: "Value",
-                    value: "test"
-                },
-                condition: {
-                    condition: "contains_in_value",
+            const renderer: ValueRenderer = {
+                type: "conditionnal",
+                term: {
+                    condition: "contains",
                     field: "slots",
                     values: ["invalid_slot"]
                 }
             };
 
-            expect(getValue(valueParams, element)).toBeNull();
+            expect(() => getValue(renderer, element.data)).toThrow("Conditionnal renderer has no fallback");
         });
     });
 
-    describe("Complex conditions", () => {
-        it("should handle nested conditions", () => {
+    describe("Conditional Rendering", () => {
+        it("should return true when condition is met", () => {
             const element = createMockElement();
-            const valueParams: ValueParams<number> = {
-                params: {
-                    type: "Value",
-                    value: 42
+            const renderer: ValueRenderer = {
+                type: "conditionnal",
+                term: {
+                    condition: "contains",
+                    field: "slots",
+                    values: ["head"]
                 },
-                condition: {
+                return_condition: true
+            };
+
+            expect(getValue(renderer, element.data)).toBe(true);
+        });
+
+        it("should return false when condition is not met", () => {
+            const element = createMockElement();
+            const renderer: ValueRenderer = {
+                type: "conditionnal",
+                term: {
+                    condition: "contains",
+                    field: "slots",
+                    values: ["invalid_slot"]
+                },
+                return_condition: true
+            };
+
+            expect(getValue(renderer, element.data)).toBe(false);
+        });
+
+        it("should return value from on_true when condition is true", () => {
+            const element = createMockElement();
+            const renderer: ValueRenderer = {
+                type: "conditionnal",
+                term: {
+                    condition: "contains",
+                    field: "slots",
+                    values: ["head"]
+                },
+                on_true: {
+                    type: "hardcoded",
+                    value: 42
+                }
+            };
+
+            expect(getValue(renderer, element.data)).toBe(42);
+        });
+
+        it("should return value from on_false when condition is false", () => {
+            const element = createMockElement();
+            const renderer: ValueRenderer = {
+                type: "conditionnal",
+                term: {
+                    condition: "contains",
+                    field: "slots",
+                    values: ["invalid_slot"]
+                },
+                on_false: {
+                    type: "hardcoded",
+                    value: 42
+                }
+            };
+
+            expect(getValue(renderer, element.data)).toBe(42);
+        });
+
+        it("should throw error when no fallback is provided", () => {
+            const element = createMockElement();
+            const renderer: ValueRenderer = {
+                type: "conditionnal",
+                term: {
+                    condition: "contains",
+                    field: "slots",
+                    values: ["invalid_slot"]
+                }
+            };
+
+            expect(() => getValue(renderer, element.data)).toThrow("Conditionnal renderer has no fallback");
+        });
+    });
+
+    describe("Complex Conditions", () => {
+        it("should handle all_of conditions", () => {
+            const element = createMockElement();
+            const renderer: ValueRenderer = {
+                type: "conditionnal",
+                term: {
                     condition: "all_of",
                     terms: [
                         {
-                            condition: "contains_in_value",
+                            condition: "contains",
                             field: "slots",
                             values: ["head"]
                         },
                         {
-                            condition: "contains_in_tags",
+                            condition: "contains",
                             field: "tags",
                             values: ["#minecraft:enchantable/bow"]
                         }
                     ]
+                },
+                on_true: {
+                    type: "hardcoded",
+                    value: 42
                 }
             };
 
-            expect(getValue(valueParams, element)).toBe(42);
+            expect(getValue(renderer, element.data)).toBe(42);
         });
 
-        it("should return null for complex false condition", () => {
+        it("should handle any_of conditions", () => {
             const element = createMockElement();
-            const valueParams: ValueParams<number> = {
-                params: {
-                    type: "Value",
-                    value: 42
-                },
-                condition: {
+            const renderer: ValueRenderer = {
+                type: "conditionnal",
+                term: {
                     condition: "any_of",
                     terms: [
                         {
-                            condition: "contains_in_value",
+                            condition: "contains",
                             field: "slots",
                             values: ["invalid_slot"]
                         },
                         {
-                            condition: "contains_in_tags",
+                            condition: "contains",
                             field: "tags",
                             values: ["#minecraft:enchantable/crossbow"]
                         }
                     ]
-                }
-            };
-
-            expect(getValue(valueParams, element)).toBeNull();
-        });
-    });
-
-    describe("Different value types", () => {
-        it("should handle number values", () => {
-            const element = createMockElement();
-            const valueParams: ValueParams<number> = {
-                params: {
-                    type: "Value",
+                },
+                on_true: {
+                    type: "hardcoded",
                     value: 42
                 }
             };
 
-            expect(getValue(valueParams, element)).toBe(42);
+            expect(() => getValue(renderer, element.data)).toThrow("Conditionnal renderer has no fallback");
+        });
+    });
+
+    describe("Different Value Types", () => {
+        it("should handle number values", () => {
+            const element = createMockElement();
+            const renderer: ValueRenderer = {
+                type: "hardcoded",
+                value: 42
+            };
+
+            expect(getValue(renderer, element.data)).toBe(42);
         });
 
         it("should handle string values", () => {
             const element = createMockElement();
-            const valueParams: ValueParams<string> = {
-                params: {
-                    type: "Value",
-                    value: "test"
-                }
+            const renderer: ValueRenderer = {
+                type: "hardcoded",
+                value: "test"
             };
 
-            expect(getValue(valueParams, element)).toBe("test");
-        });
-
-        it("should handle object values", () => {
-            const element = createMockElement();
-            const valueParams: ValueParams<{ key: string }> = {
-                params: {
-                    type: "Value",
-                    value: { key: "test" }
-                }
-            };
-
-            expect(getValue(valueParams, element)).toEqual({ key: "test" });
+            expect(getValue(renderer, element.data)).toBe("test");
         });
     });
 });

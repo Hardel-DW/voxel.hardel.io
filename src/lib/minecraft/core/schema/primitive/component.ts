@@ -1,15 +1,19 @@
 import type { Action } from "@/lib/minecraft/core/engine/actions";
 import type { Condition } from "@/lib/minecraft/core/engine/condition";
+import type { ValueRenderer } from "@/lib/minecraft/core/engine/renderer/value";
 import type { IterationValue, TemplateReplacer } from "@/lib/minecraft/core/engine/resolver/iteration/type";
-import type { ValueParams } from "@/lib/minecraft/core/engine/value";
-import type { ToolRevealElementType } from "@/lib/minecraft/core/schema/primitive/index.ts";
 import type { TextRenderType, TranslateTextType } from "@/lib/minecraft/core/schema/primitive/text";
 import type { ToggleSection } from "@/lib/minecraft/core/schema/primitive/toggle";
-import type { EffectComponentsRecord } from "@voxel/definitions";
 
 // Base type for common component properties
 export type BaseComponent = {
     hide?: Condition;
+};
+
+export type BaseInteractiveComponent = BaseComponent & {
+    action: Action;
+    renderer: ValueRenderer;
+    lock?: Lock[];
 };
 
 export type Lock = {
@@ -17,19 +21,7 @@ export type Lock = {
     condition: Condition;
 };
 
-// Define non-container components first
-type NonContainerComponent =
-    | ToolDonationType
-    | ToolSwitchSlotType
-    | ToolSwitchType
-    | TextRenderType
-    | ToolSlotType
-    | ToolCounterType
-    | ToolRangeType
-    | ToolSelectorType
-    | ToolInlineType
-    | ToolTagViewerType
-    | ToolEffectType;
+export type LockRenderer = { isLocked: boolean; text?: TranslateTextType };
 
 // Define container components
 export type ToolGridType = BaseComponent & {
@@ -65,7 +57,7 @@ export type ToolCategoryType = BaseComponent & {
     children: FormComponent[];
 };
 
-// Non-container components definitions restent les mêmes jusqu'à ToolIterationType
+// Special Components
 export type ToolIterationType = BaseComponent & {
     type: "Iteration";
     values: IterationValue[];
@@ -73,20 +65,41 @@ export type ToolIterationType = BaseComponent & {
     fallback?: FormComponent;
 };
 
-// Non-container components remain the same
+export type TagViewerInclude = {
+    namespace: string;
+    registry: string;
+    path: string;
+};
+
+export type ToolTagViewerType = BaseComponent & {
+    type: "TagViewer";
+    registry: string;
+    include?: TagViewerInclude;
+    properties?: ValueRenderer;
+};
+
 export type ToolRevealType = BaseComponent & {
     type: "Reveal";
     elements: ToolRevealElementType[];
 };
 
-export type ToolSelectorType = BaseComponent & {
+export type ToolRevealElementType = {
+    id: string;
+    title: TranslateTextType;
+    soon?: boolean;
+    image: string;
+    logo: string;
+    href: string;
+    description: TranslateTextType;
+    children: FormComponent[];
+};
+
+// Interactions Components
+export type ToolSelectorType = BaseInteractiveComponent & {
     type: "Selector";
     title: TranslateTextType;
     description: TranslateTextType;
-    action: Action;
-    value: ValueParams<string>;
     options: { label: TranslateTextType; value: string }[];
-    lock?: Lock[];
 };
 
 export type ToolDonationType = BaseComponent & {
@@ -97,37 +110,28 @@ export type ToolDonationType = BaseComponent & {
     image: string;
 };
 
-export type ToolSwitchSlotType = BaseComponent & {
+export type ToolSwitchSlotType = BaseInteractiveComponent & {
     type: "SwitchSlot";
     title: TranslateTextType;
     description: TranslateTextType;
-    action: Action;
-    condition?: Condition;
-    lock?: Lock[];
     image?: string;
 };
 
-export type ToolSwitchType = BaseComponent & {
+export type ToolSwitchType = BaseInteractiveComponent & {
     type: "Switch";
     title: TranslateTextType;
     description: TranslateTextType;
-    action: Action;
-    condition?: Condition;
-    lock?: Lock[];
 };
 
-export type ToolSlotType = BaseComponent & {
+export type ToolSlotType = BaseInteractiveComponent & {
     type: "Slot";
     description?: TranslateTextType;
     title: TranslateTextType;
     image: string;
-    action: Action;
     size?: number;
-    condition?: Condition;
-    lock?: Lock[];
 };
 
-export type ToolCounterType = BaseComponent & {
+export type ToolCounterType = BaseInteractiveComponent & {
     type: "Counter";
     title: TranslateTextType;
     short?: TranslateTextType;
@@ -136,43 +140,42 @@ export type ToolCounterType = BaseComponent & {
     min: number;
     max: number;
     step: number;
-    action: Action;
-    value: ValueParams<number>;
 };
 
-export type ToolRangeType = BaseComponent & {
+export type ToolRangeType = BaseInteractiveComponent & {
     type: "Range";
     label: TranslateTextType;
     min: number;
     max: number;
     step: number;
-    action: Action;
-    value: ValueParams<number>;
 };
 
-export type ToolInlineType = BaseComponent & {
+export type ToolInlineType = BaseInteractiveComponent & {
     type: "InlineSlot";
     description?: TranslateTextType;
     title: TranslateTextType;
     image: string;
-    action?: Action;
-    condition?: Condition;
-    lock?: Lock[];
 };
 
-export type ToolTagViewerType = BaseComponent & {
-    type: "TagViewer";
-    field?: string;
-    registry: string;
-    additional?: Record<string, string[]>;
-};
-
-export type ToolEffectType = BaseComponent & {
-    type: "Effect";
-    action: Action;
+export type ToolPropertyType = BaseInteractiveComponent & {
+    type: "Property";
     condition: Condition;
-    value: ValueParams<EffectComponentsRecord>;
 };
+
+// Define non-container components first
+type NonContainerComponent =
+    | ToolDonationType
+    | ToolSwitchSlotType
+    | ToolSwitchType
+    | TextRenderType
+    | ToolSlotType
+    | ToolCounterType
+    | ToolRangeType
+    | ToolSelectorType
+    | ToolInlineType
+    | ToolTagViewerType
+    | ToolPropertyType;
+
 // Finally, export the complete FormComponent type
 export type FormComponent =
     | NonContainerComponent

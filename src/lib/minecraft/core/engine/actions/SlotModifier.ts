@@ -1,7 +1,5 @@
-import type { Analysers, GetAnalyserVoxel } from "@/lib/minecraft/core/engine/Analyser.ts";
 import { getManager } from "@/lib/minecraft/core/engine/Manager.ts";
 import { type SlotRegistryType, isArraySlotRegistryType, isSlotRegistryType } from "@/lib/minecraft/core/engine/managers/SlotManager.ts";
-import type { RegistryElement } from "@/lib/minecraft/mczip.ts";
 import { isStringArray } from "@/lib/utils.ts";
 import type { ActionValue, BaseAction } from ".";
 
@@ -17,16 +15,12 @@ export interface SlotAction extends BaseAction {
  * @param version - Extra data.
  * @constructor
  */
-export function SlotModifier<T extends keyof Analysers>(
-    action: SlotAction,
-    element: RegistryElement<GetAnalyserVoxel<T>>,
-    version: number
-): RegistryElement<GetAnalyserVoxel<T>> | undefined {
+export function SlotModifier(action: SlotAction, element: Record<string, unknown>, version: number): Record<string, unknown> | undefined {
     if (!version) throw new Error("Version is not set in the context");
 
     const shadowCopy = structuredClone(element);
     const { field } = action;
-    const unformattedValue = shadowCopy.data[field];
+    const unformattedValue = shadowCopy[field];
 
     let value: SlotRegistryType;
     if (typeof action.value === "string" && isSlotRegistryType(action.value)) {
@@ -39,7 +33,7 @@ export function SlotModifier<T extends keyof Analysers>(
     if (isStringArray(unformattedValue) && isArraySlotRegistryType(unformattedValue)) {
         currentValue = unformattedValue;
     } else {
-        throw new Error(`Invalid SlotRegistryType array: ${shadowCopy.data[field]}`);
+        throw new Error(`Invalid SlotRegistryType array: ${shadowCopy[field]}`);
     }
 
     // Utiliser le ManagerSelector pour obtenir le SlotManager approprié
@@ -48,11 +42,5 @@ export function SlotModifier<T extends keyof Analysers>(
         throw new Error(`SlotManager is not available for version ${version}`);
     }
 
-    return {
-        identifier: element.identifier,
-        data: {
-            ...element.data,
-            [field]: slotManager.apply(currentValue, value)
-        }
-    };
+    return { ...element, [field]: slotManager.apply(currentValue, value) };
 }

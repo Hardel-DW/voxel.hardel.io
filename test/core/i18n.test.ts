@@ -55,12 +55,12 @@ describe("I18n", () => {
 
         it("should translate with parameters", () => {
             i18n.setLanguage(ENGLISH_LANG);
-            expect(i18n.translate("generic.hello", "World")).toBe("Hello World");
+            expect(i18n.translate("generic.hello", { args: ["World"] })).toBe("Hello World");
         });
 
         it("should translate with multiple parameters", () => {
             i18n.setLanguage(ENGLISH_LANG);
-            expect(i18n.translate("generic.welcome", "John", "morning")).toBe("Welcome John, good morning");
+            expect(i18n.translate("generic.welcome", { args: ["John", "morning"] })).toBe("Welcome John, good morning");
         });
 
         it("should fallback to English if translation is missing in current language", () => {
@@ -76,19 +76,18 @@ describe("I18n", () => {
 
         it("should handle extra parameters by ignoring them", () => {
             i18n.setLanguage(ENGLISH_LANG);
-            expect(i18n.translate("generic.hello", "World", "extra")).toBe("Hello World");
+            expect(i18n.translate("generic.hello", { args: ["World", "extra"] })).toBe("Hello World");
         });
 
         it("should handle undefined parameters", () => {
             i18n.setLanguage(ENGLISH_LANG);
-            // @ts-expect-error
-            expect(i18n.translate("generic.hello", undefined)).toBe("Hello %s");
+            expect(i18n.translate("generic.hello", { args: undefined })).toBe("Hello %s");
         });
 
         it("should handle null parameters", () => {
             i18n.setLanguage(ENGLISH_LANG);
             // @ts-expect-error
-            expect(i18n.translate("generic.hello", null)).toBe("Hello %s");
+            expect(i18n.translate("generic.hello", { args: null })).toBe("Hello %s");
         });
     });
 
@@ -125,24 +124,24 @@ describe("I18n", () => {
 
         it("should handle numeric parameters", () => {
             i18n.setLanguage(ENGLISH_LANG);
-            expect(i18n.translate("generic.count", 42)).toBe("Count: 42");
+            expect(i18n.translate("generic.count", { args: [42] })).toBe("Count: 42");
         });
 
         it("should handle empty string parameters", () => {
             i18n.setLanguage(ENGLISH_LANG);
-            expect(i18n.translate("generic.hello", "")).toBe("Hello ");
+            expect(i18n.translate("generic.hello", { args: [""] })).toBe("Hello ");
         });
     });
 
     describe("format method behavior", () => {
         it("should handle consecutive placeholders", () => {
             i18n.setLanguage(ENGLISH_LANG);
-            expect(i18n.translate("generic.consecutive", "a", "b")).toBe("a b");
+            expect(i18n.translate("generic.consecutive", { args: ["a", "b"] })).toBe("a b");
         });
 
         it("should handle placeholders at start and end", () => {
             i18n.setLanguage(ENGLISH_LANG);
-            expect(i18n.translate("generic.borders", "start", "end")).toBe("start text end");
+            expect(i18n.translate("generic.borders", { args: ["start", "end"] })).toBe("start text end");
         });
 
         it("should preserve special characters in translation", () => {

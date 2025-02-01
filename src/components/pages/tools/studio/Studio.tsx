@@ -1,7 +1,7 @@
-import { useStudioContext } from "@/components/pages/tools/studio/StudioContext.tsx";
 import BlueprintsManager from "@/components/pages/tools/studio/elements/BlueprintsManager.tsx";
 import LinkManager from "@/components/pages/tools/studio/elements/LinkManager.tsx";
 import TemporaryLinkManager from "@/components/pages/tools/studio/elements/TemporaryLinkManager.tsx";
+import { useStudioContext } from "@/components/pages/tools/studio/hooks/useStudioContext";
 import type { Position } from "@/components/pages/tools/studio/types.ts";
 import { cn } from "@/lib/utils.ts";
 import type React from "react";

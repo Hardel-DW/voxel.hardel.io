@@ -1,8 +1,7 @@
 import type { Analysers, GetAnalyserVoxel } from "@/lib/minecraft/core/engine/Analyser";
 import type { Action, ActionValue } from "@/lib/minecraft/core/engine/actions";
 import { createDifferenceFromAction } from "@/lib/minecraft/core/engine/migrations/logValidation";
-import type { RegistryElement } from "@/lib/minecraft/mczip";
-import type { DatapackInfo, FileLog, FileLogUpdated, Log, LogDifference, LogValue } from "./types";
+import type { DatapackInfo, FileLog, FileLogUpdated, Log, LogDifference, LogValue } from "@/lib/minecraft/core/engine/migrations/types";
 
 export class Logger {
     private readonly log: Log;
@@ -133,14 +132,14 @@ export class Logger {
 
     public handleActionDifference<T extends keyof Analysers>(
         action: Action,
-        element: RegistryElement<GetAnalyserVoxel<T>>,
+        element: GetAnalyserVoxel<T>,
         version: number,
         tool: T,
         value?: ActionValue
     ): void {
         const difference = createDifferenceFromAction(action, element, version, tool, this, value);
         if (difference) {
-            this.logDifference(String(element.identifier), element.identifier.getRegistry() || "unknown", difference);
+            this.logDifference(String(element.identifier), element.identifier.registry || "unknown", difference);
         }
     }
 }

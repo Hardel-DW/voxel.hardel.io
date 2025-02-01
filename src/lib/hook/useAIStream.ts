@@ -1,14 +1,14 @@
-import { useState } from "react";
-import { useConfiguratorStore } from "@/lib/store/configuratorStore";
+import { Identifier, type IdentifierObject } from "@/lib/minecraft/core/Identifier";
+import { useConfiguratorStore } from "@/lib/minecraft/core/engine/Store";
+import type { Action } from "@/lib/minecraft/core/engine/actions";
 import { searchRelevantElements } from "@/lib/searchElements";
-import { JSONBuilder } from "../utils/JSONBuilder";
-import type { Action } from "../minecraft/core/engine/actions";
-import type { Identifier } from "../minecraft/core/Identifier";
+import { JSONBuilder } from "@/lib/utils/JSONBuilder";
+import { useState } from "react";
 
 interface UseAIStreamReturn {
     streamingText: string;
     isStreaming: boolean;
-    reference: Identifier[];
+    reference: IdentifierObject[];
     startStreaming: (prompt: string) => Promise<void>;
     onFinishedStreaming: (object: IActionResponse) => void;
 }
@@ -27,7 +27,7 @@ interface AIResponse {
 export const useAIStream = (onFinishedStreaming: (object: IActionResponse) => void): UseAIStreamReturn => {
     const [streamingText, setStreamingText] = useState("");
     const [isStreaming, setIsStreaming] = useState(false);
-    const [reference, setReference] = useState<Identifier[]>([]);
+    const [reference, setReference] = useState<IdentifierObject[]>([]);
     const elements = useConfiguratorStore((state) => state.elements);
 
     const startStreaming = async (prompt: string) => {
@@ -37,7 +37,7 @@ export const useAIStream = (onFinishedStreaming: (object: IActionResponse) => vo
         setStreamingText("");
 
         try {
-            const relevantElements = searchRelevantElements(elements, prompt, ["effects"]);
+            const relevantElements = searchRelevantElements(Array.from(elements.values()), prompt, ["effects"]);
             setReference(relevantElements.map((el) => el.identifier));
             const response = await fetch("/api/llama", {
                 method: "POST",
@@ -47,7 +47,7 @@ export const useAIStream = (onFinishedStreaming: (object: IActionResponse) => vo
                 body: JSON.stringify({
                     prompt,
                     elements: relevantElements.map((el) => ({
-                        identifier: el.identifier.toString(),
+                        identifier: new Identifier(el.identifier).toString(),
                         data: el.data
                     }))
                 })

@@ -1,8 +1,8 @@
 import Dropzone from "@/components/ui/react/Dropzone";
-import { useState } from "react";
-import DatapackForm from "./DatapackForm";
 import { DEFAULT_MOD_METADATA, extractMetadata } from "@/lib/minecraft/converter";
 import { parseZip } from "@/lib/minecraft/mczip";
+import { useState } from "react";
+import DatapackForm from "./DatapackForm";
 
 interface Props {
     children: React.ReactNode;

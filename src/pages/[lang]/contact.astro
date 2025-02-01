@@ -2,8 +2,8 @@
 import CompoundLayout from "@/components/layouts/CompoundLayout.astro";
 import Button from "@/components/ui/button.astro";
 import DashedPattern from "@/components/ui/pattern/DashedPattern.astro";
-import { getTranslations, names } from "@/lib/i18n";
 import ShiningStars from "@/components/ui/pattern/ShiningStars.astro";
+import { getTranslations, names } from "@/lib/i18n";
 const { translate } = await getTranslations(Astro.url);
 
 export const prerender = true;

@@ -1,7 +1,6 @@
-import type { Unresolved } from "@/lib/minecraft/core/engine/resolver/field/type.ts";
-import type { ToolRevealElementType } from "@/lib/minecraft/core/schema/primitive";
+import type { ToolRevealElementType } from "@/lib/minecraft/core/schema/primitive/component.ts";
 
-export const dungeon: Unresolved<ToolRevealElementType> = {
+export const dungeon: ToolRevealElementType = {
     id: "enchant.addons.dnt",
     soon: false,
     logo: "/images/addons/logo/dnt.webp",
@@ -89,10 +88,14 @@ export const dungeon: Unresolved<ToolRevealElementType> = {
                                         key: "tag"
                                     }
                                 },
-                                condition: {
-                                    condition: "contains_in_tags",
-                                    field: "tags",
-                                    values: [{ type: "get_value_from_context", key: "tag" }]
+                                renderer: {
+                                    type: "conditionnal",
+                                    return_condition: true,
+                                    term: {
+                                        condition: "contains",
+                                        field: "tags",
+                                        values: [{ type: "get_value_from_context", key: "tag" }]
+                                    }
                                 }
                             }
                         }
@@ -202,10 +205,14 @@ export const dungeon: Unresolved<ToolRevealElementType> = {
                                         key: "tag"
                                     }
                                 },
-                                condition: {
-                                    condition: "contains_in_tags",
-                                    field: "tags",
-                                    values: [{ type: "get_value_from_context", key: "tag" }]
+                                renderer: {
+                                    type: "conditionnal",
+                                    return_condition: true,
+                                    term: {
+                                        condition: "contains",
+                                        field: "tags",
+                                        values: [{ type: "get_value_from_context", key: "tag" }]
+                                    }
                                 }
                             }
                         }

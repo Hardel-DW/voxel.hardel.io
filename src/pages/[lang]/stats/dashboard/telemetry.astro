@@ -1,7 +1,7 @@
 ---
 import DashboardLayout from "@/components/layouts/DashboardLayout.astro";
-import { getTranslations } from "@/lib/i18n";
 import type { Props as SidebarProps } from "@/components/layouts/compound/sidebar.astro";
+import { getTranslations } from "@/lib/i18n";
 import { GET as getTelemetry } from "@/pages/api/stats/telemetry";
 
 const { translate } = await getTranslations(Astro.url);

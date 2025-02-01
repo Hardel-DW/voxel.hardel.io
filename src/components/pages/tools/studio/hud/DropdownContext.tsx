@@ -1,5 +1,6 @@
 import type React from "react";
-import { createContext, useContext, useState } from "react";
+import { useState } from "react";
+import { DropdownContext } from "./useDropdown";
 
 export interface DropdownContextType {
     openDropdowns: Set<string>;
@@ -7,8 +8,6 @@ export interface DropdownContextType {
     closeDropdown: (id: string) => void;
     isOpen: (id: string) => boolean;
 }
-
-const DropdownContext = createContext<DropdownContextType | undefined>(undefined);
 
 export function DropdownProvider({ children }: { children: React.ReactNode }) {
     const [openDropdowns, setOpenDropdowns] = useState<Set<string>>(new Set());
@@ -52,12 +51,4 @@ export function DropdownProvider({ children }: { children: React.ReactNode }) {
     };
 
     return <DropdownContext.Provider value={{ openDropdowns, toggleDropdown, closeDropdown, isOpen }}>{children}</DropdownContext.Provider>;
-}
-
-export function useDropdown() {
-    const context = useContext(DropdownContext);
-    if (context === undefined) {
-        throw new Error("useDropdown doit être utilisé à l'intérieur d'un DropdownProvider");
-    }
-    return context;
 }

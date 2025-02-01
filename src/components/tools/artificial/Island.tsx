@@ -1,14 +1,14 @@
-import { useState } from "react";
-import { cn } from "@/lib/utils";
-import { useClickOutside } from "@/lib/hook/useClickOutside";
 import { InnerGlow } from "@/components/tools/artificial/InnerGlow";
 import { RenderAIContent } from "@/components/tools/artificial/RenderAIContent";
-import { useAIStream, type IActionResponse } from "@/lib/hook/useAIStream";
-import { useConfiguratorStore } from "@/lib/store/configuratorStore";
-import { Identifier } from "@/lib/minecraft/core/Identifier";
-import { SplitSequentialAction } from "@/lib/minecraft/core/engine/actions";
-import type { PropsConfirmationCardAI } from "./ConfirmationCardAI";
 import { useTranslate } from "@/components/useTranslate";
+import { type IActionResponse, useAIStream } from "@/lib/hook/useAIStream";
+import { useClickOutside } from "@/lib/hook/useClickOutside";
+import { Identifier } from "@/lib/minecraft/core/Identifier";
+import { useConfiguratorStore } from "@/lib/minecraft/core/engine/Store";
+import { SplitSequentialAction } from "@/lib/minecraft/core/engine/actions";
+import { cn } from "@/lib/utils";
+import { useState } from "react";
+import type { PropsConfirmationCardAI } from "./ConfirmationCardAI";
 
 export const Island: React.FC = () => {
     const { t } = useTranslate();
@@ -19,9 +19,9 @@ export const Island: React.FC = () => {
     const store = useConfiguratorStore();
     const { streamingText, isStreaming, startStreaming, reference } = useAIStream((object: IActionResponse) => {
         if (object.action && object.identifier) {
-            const identifier = Identifier.fromString(object.identifier, "enchantment");
+            const identifier = Identifier.of(object.identifier, "enchantment");
             const actions = SplitSequentialAction(object.action);
-            setCards(actions.map((action) => ({ action, identifier })));
+            setCards(actions.map((action) => ({ action, identifier: identifier.toString() })));
         }
     });
     const ref = useClickOutside(() => handleReset());
@@ -58,7 +58,7 @@ export const Island: React.FC = () => {
         setIsExpanded(!isExpanded);
     };
 
-    if (store.elements.length === 0) return null;
+    if (store.elements.size === 0) return null;
 
     return (
         <>

@@ -1,7 +1,7 @@
 import { db } from "@/database/db";
 import { migrationLog } from "@/database/schema";
-import { sql } from "drizzle-orm";
 import type { APIRoute } from "astro";
+import { sql } from "drizzle-orm";
 
 export type ResponseMigrationsByDays = {
     date: string;

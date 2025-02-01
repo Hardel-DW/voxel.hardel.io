@@ -1,6 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { resolveField } from "@/lib/minecraft/core/engine/resolver/field/resolveField";
-import type { ToggleField, ToggleName } from "@/lib/minecraft/core/engine/resolver/field/type";
+import { resolveField } from "@/lib/minecraft/core/engine/renderer/resolve_field";
 import type { ToggleSectionMap } from "@/lib/minecraft/core/schema/primitive/toggle";
 
 describe("Field Resolver", () => {
@@ -58,34 +57,22 @@ describe("Field Resolver", () => {
 
     describe("Toggle field resolution", () => {
         it("should resolve toggle field", () => {
-            const input: ToggleField = {
-                type: "get_toggle_field",
-                group: "effects"
-            };
+            const input = "$resolver.field$:effects";
             expect(resolveField(input, context)).toBe("minecraft:strength");
         });
 
         it("should resolve toggle name", () => {
-            const input: ToggleName = {
-                type: "get_toggle_name",
-                group: "effects"
-            };
+            const input = "$resolver.name$:effects";
             expect(resolveField(input, context)).toBe("Strength");
         });
 
         it("should throw error for missing toggle section", () => {
-            const input: ToggleField = {
-                type: "get_toggle_field",
-                group: "effects"
-            };
+            const input = "$resolver.field$:effects";
             expect(() => resolveField(input, {})).toThrow("no toggle section provided");
         });
 
         it("should throw error for unknown toggle group", () => {
-            const input: ToggleField = {
-                type: "get_toggle_field",
-                group: "unknown"
-            };
+            const input = "$resolver.field$:unknown";
             expect(() => resolveField(input, context)).toThrow("Toggle field not found for group: unknown");
         });
     });
@@ -94,20 +81,9 @@ describe("Field Resolver", () => {
         it("should resolve nested toggle fields", () => {
             const input = {
                 name: "Test",
-                effect: {
-                    type: "get_toggle_field",
-                    group: "effects"
-                },
-                display: {
-                    type: "get_toggle_name",
-                    group: "effects"
-                },
-                values: [
-                    {
-                        type: "get_toggle_field",
-                        group: "damage"
-                    }
-                ]
+                effect: "$resolver.field$:effects",
+                display: "$resolver.name$:effects",
+                values: ["$resolver.field$:damage"]
             };
 
             const expected = {
@@ -122,18 +98,7 @@ describe("Field Resolver", () => {
 
         it("should handle mixed content arrays", () => {
             const input = {
-                effects: [
-                    {
-                        type: "get_toggle_field",
-                        group: "effects"
-                    },
-                    "static_value",
-                    42,
-                    {
-                        type: "get_toggle_name",
-                        group: "damage"
-                    }
-                ]
+                effects: ["$resolver.field$:effects", "static_value", 42, "$resolver.name$:damage"]
             };
 
             const expected = {

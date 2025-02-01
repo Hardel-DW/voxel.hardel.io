@@ -1,18 +1,17 @@
+import { RenderComponent } from "@/components/tools/RenderComponent";
+import type { ToolScrollableType } from "@/lib/minecraft/core/schema/primitive/component";
 import { cn } from "@/lib/utils.ts";
-import type React from "react";
 
-export default function ToolScrollable(props: {
-    children?: React.ReactNode;
-    height?: number;
-    className?: string;
-}) {
+export default function ToolScrollable({ component }: { component: ToolScrollableType }) {
     return (
         <div
-            className={cn("overflow-y-auto flex-1 p-px", props.className)}
+            className={cn("overflow-y-auto flex-1 p-px")}
             style={{
-                height: props.height ? `${props.height}px` : "300px"
+                height: component.height ? `${component.height}px` : "300px"
             }}>
-            <div>{props.children}</div>
+            {component.children.map((child, index) => (
+                <RenderComponent key={index.toString()} component={child} />
+            ))}
         </div>
     );
 }

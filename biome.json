@@ -23,6 +23,9 @@
             "complexity": {
                 "noBannedTypes": "off"
             },
+            "nursery": {
+                "useComponentExportOnlyModules": "warn"
+            },
             "recommended": true
         }
     },

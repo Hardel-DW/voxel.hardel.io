@@ -1,5 +1,5 @@
-import { useStudioContext } from "@/components/pages/tools/studio/StudioContext.tsx";
 import Link from "@/components/pages/tools/studio/elements/Link.tsx";
+import { useStudioContext } from "@/components/pages/tools/studio/hooks/useStudioContext";
 import type { TemporaryLinkObject } from "@/components/pages/tools/studio/types";
 import { getFieldPosition } from "@/components/pages/tools/studio/utils.ts";
 

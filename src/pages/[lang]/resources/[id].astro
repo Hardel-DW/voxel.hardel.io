@@ -1,15 +1,15 @@
 ---
 import { getCollection, render } from "astro:content";
 import CompoundLayout from "@/components/layouts/CompoundLayout.astro";
-import Button from "@/components/ui/button.astro";
-import { getTranslations } from "@/lib/i18n";
-import ShiningStars from "@/components/ui/pattern/ShiningStars.astro";
-import Star from "@/components/ui/star.astro";
-import TriangleWave from "@/components/ui/pattern/TriangleWave";
 import MarketplaceCard from "@/components/pages/resource/MarketplaceCard.astro";
 import StripeScript from "@/components/ui/Stripe.astro";
+import Button from "@/components/ui/button.astro";
+import ShiningStars from "@/components/ui/pattern/ShiningStars.astro";
+import TriangleWave from "@/components/ui/pattern/TriangleWave";
+import Star from "@/components/ui/star.astro";
 import { db } from "@/database/db";
 import { product } from "@/database/schema";
+import { getTranslations } from "@/lib/i18n";
 import Stripe from "stripe";
 
 export const prerender = true;

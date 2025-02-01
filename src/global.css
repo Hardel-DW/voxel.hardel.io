@@ -134,7 +134,7 @@
     .pixelated {
         image-rendering: pixelated;
     }
-
+    
     .shine-text {
         background: linear-gradient(90deg, #ffffff 0%, #ffffff55 50%, #ffffff 100%);
         background-size: 200% 100%;

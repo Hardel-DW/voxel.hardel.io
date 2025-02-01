@@ -1,5 +1,5 @@
 import type React from "react";
-import { useDropdown } from "./DropdownContext";
+import { useDropdown } from "./useDropdown";
 
 interface DropdownTriggerProps {
     dropdownId: string;

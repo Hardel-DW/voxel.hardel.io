@@ -1,7 +1,8 @@
+import { isRegistryVoxelElement } from "@/lib/minecraft/core/Element";
+import type { Analysers, GetAnalyserVoxel } from "@/lib/minecraft/core/engine/Analyser";
+import type { ParseDatapackResult } from "@/lib/minecraft/core/engine/Parser";
 import type { Action } from "@/lib/minecraft/core/engine/actions";
 import { updateData } from "@/lib/minecraft/core/engine/actions";
-import type { ParseDatapackResult } from "@/lib/minecraft/core/engine/Parser";
-import type { Analysers, GetAnalyserVoxel } from "@/lib/minecraft/core/engine/Analyser";
 
 /**
  * Applies migration actions to a target datapack
@@ -10,21 +11,22 @@ export async function applyActions<T extends keyof Analysers>(
     target: ParseDatapackResult<GetAnalyserVoxel<T>>,
     actions: Map<string, Action[]>
 ): Promise<ParseDatapackResult<GetAnalyserVoxel<T>>> {
-    const modifiedElements = [...target.elements];
+    const modifiedElements = new Map(target.elements);
 
     // Apply each action to the corresponding element
     for (const [identifier, elementActions] of actions) {
-        const elementIndex = modifiedElements.findIndex((element) => element.identifier.toString() === identifier);
-        if (elementIndex === -1) continue;
+        const element = modifiedElements.get(identifier);
+        if (!element) continue;
 
-        let currentElement = modifiedElements[elementIndex];
+        let currentElement = element;
         for (const action of elementActions) {
             const updatedElement = updateData(action, currentElement, target.version);
-            if (updatedElement) {
-                currentElement = updatedElement;
+            const voxelElement = isRegistryVoxelElement(updatedElement);
+            if (voxelElement) {
+                currentElement = updatedElement.data;
             }
         }
-        modifiedElements[elementIndex] = currentElement;
+        modifiedElements.set(identifier, currentElement);
     }
 
     return {

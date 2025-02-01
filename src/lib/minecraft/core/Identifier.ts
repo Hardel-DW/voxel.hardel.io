@@ -1,125 +1,92 @@
-import type { RegistryElement } from "@/lib/minecraft/mczip.ts";
-import type { OptionalTag } from "@voxel/definitions";
-import { REGISTRY_NAME } from "@voxel/registry";
-
-export type IdentifierOneToMany = {
-    primary: Identifier;
-    related: Identifier[];
+/**
+ * Represents a Minecraft identifier object structure
+ */
+export type IdentifierObject = {
+    namespace: string;
+    registry: string;
+    resource: string;
 };
+
 export class Identifier {
-    private readonly namespace: string;
-    private readonly registry: string | undefined;
-    private readonly resource: string;
-    private readonly tag: boolean;
-    private readonly required: boolean;
+    readonly namespace: string;
+    readonly registry: string;
+    readonly resource: string;
 
-    public constructor(namespace: string, registry: string | undefined, path: string, isTag = false, isRequired = false) {
-        this.namespace = namespace;
-        this.registry = registry;
-        this.resource = path;
-        this.tag = isTag;
-        this.required = isRequired;
+    constructor(identifier: IdentifierObject) {
+        this.namespace = identifier.namespace;
+        this.registry = identifier.registry;
+        this.resource = identifier.resource;
     }
 
-    public static fromString(value: string | OptionalTag, registry?: string): Identifier {
-        const isRequired = typeof value !== "string" ? value.required : true;
-        const parsedValue = Identifier.getValue(value);
-        const isTag = parsedValue.includes("#");
-
-        const [namespace, resource] = (parsedValue.startsWith("#") ? parsedValue.slice(1) : parsedValue).split(":");
-        if (registry) {
-            return new Identifier(namespace, registry, resource, isTag, isRequired);
-        }
-
-        for (const registry of REGISTRY_NAME) {
-            if (resource.startsWith(registry)) {
-                const newResource = resource.slice(registry.length + 1);
-                return new Identifier(namespace, registry, newResource, isTag, isRequired);
-            }
-        }
-
-        return new Identifier(namespace, undefined, resource, isTag, isRequired);
+    static of(identifier: string, registry: string) {
+        const [namespace, resource] = (identifier.startsWith("#") ? identifier.slice(1) : identifier).split(":");
+        return new Identifier({ namespace, registry, resource });
     }
 
-    public static getValue(tag: string | OptionalTag): string {
-        return typeof tag === "string" ? tag : tag.id;
+    get(): IdentifierObject {
+        return { namespace: this.namespace, registry: this.registry, resource: this.resource };
     }
 
-    public static sortRegistry<T>(elements: RegistryElement<T>[]) {
-        return elements.sort((a, b) =>
-            (a.identifier.getResource().split("/").pop() ?? "").localeCompare(b.identifier.getResource().split("/").pop() ?? "")
-        );
-    }
-
-    public static sortIdentifier(elements: Identifier[]) {
-        return elements.sort((a, b) => {
-            const namespaceComparison = a.getNamespace().localeCompare(b.getNamespace());
-            if (namespaceComparison === 0) {
-                return (a.getResource().split("/").pop() ?? "").localeCompare(b.getResource().split("/").pop() ?? "");
-            }
-
-            return namespaceComparison;
-        });
-    }
-
-    public output(): string | OptionalTag {
-        return this.tag ? { id: this.toString(), required: this.required } : this.toString();
-    }
-
-    public isTagged(): boolean {
-        return this.tag;
-    }
-
-    public isRequired(): boolean {
-        return this.required;
-    }
-
-    public getResource(): string {
-        return this.resource;
-    }
-
-    public getRegistry(): string | undefined {
-        return this.registry;
-    }
-
-    public getNamespace(): string {
-        return this.namespace;
-    }
-
-    public toString(): string {
-        if (this.tag || this.registry?.startsWith("tags/")) {
+    toString() {
+        if (this.registry?.startsWith("tags/")) {
             return `#${this.namespace}:${this.resource}`;
         }
-
         return `${this.namespace}:${this.resource}`;
     }
 
-    public filePath(): string {
-        return `data/${this.namespace}/${this.registry}/${this.resource}`;
+    equals(other: Identifier | undefined) {
+        if (!other) return false;
+        return this.namespace === other.namespace && this.registry === other.registry && this.resource === other.resource;
     }
 
-    public voxelFilePath(): string {
-        return `voxel/${this.namespace}/${this.registry}/${this.resource}`;
+    equalsObject(other: IdentifierObject | undefined) {
+        if (!other) return false;
+        return this.namespace === other.namespace && this.registry === other.registry && this.resource === other.resource;
     }
 
-    public equals(other: Identifier): boolean {
-        return (
-            this.getNamespace() === other.getNamespace() &&
-            this.getRegistry() === other.getRegistry() &&
-            this.getResource() === other.getResource() &&
-            this.isTagged() === other.isTagged()
-        );
+    /**
+     * Generates a file path for the identifier
+     * @param basePath - Base path (default: "data")
+     * @returns Full file path
+     * @example
+     * const path = id.toFilePath(); // "data/minecraft/block/stone"
+     * const modPath = id.toFilePath("mod"); // "mod/minecraft/block/stone"
+     */
+    toFilePath(basePath = "data"): string {
+        return `${basePath}/${this.namespace}/${this.registry}/${this.resource}`;
     }
 
-    public render(): string {
-        return (this.resource.split("/")?.pop() ?? this.resource).replace(/_/g, " ").replace(/\b\w/g, (l) => l.toUpperCase());
+    /**
+     * Generates a filename for the identifier
+     * @param extension - Add .json extension (default: false)
+     * @returns Filename
+     * @example
+     * const name = id.toFileName(); // "stone"
+     * const fullName = id.toFileName(true); // "stone.json"
+     */
+    toFileName(extension = false): string {
+        const filename = this.resource.split("/").pop() ?? this.resource;
+        return extension ? `${filename}.json` : filename;
     }
 
-    public renderNamespace(): string {
+    /**
+     * Renders namespace for display
+     * @returns Formatted namespace
+     * @example
+     * id.toNamespace(); // "Minecraft"
+     */
+    toNamespace(): string {
         return this.namespace.replace(/_/g, " ").replace(/\b\w/g, (l) => l.toUpperCase());
     }
 
-    public renderResourceName(): string {
+    /**
+     * Renders resource name from path
+     * @returns Formatted resource name
+     * @example
+     * id.toResourceName(); // "Sword" (from "items/weapons/sword")
+     * id.toResourceName(); // "Fire Sword" (from "items/weapons/fire_sword")
+     */
+    toResourceName(): string {
         return this.resource
             .split("/")
             .reduce((_, current) => current)
@@ -127,14 +94,40 @@ export class Identifier {
             .replace(/\b\w/g, (l) => l.toUpperCase());
     }
 
-    public renderResource(): string {
+    /**
+     * Renders full resource path for display
+     * @returns Formatted resource path
+     * @example
+     * id.toResourcePath(); // "Items - Wooden Sword" (from "items/wooden_sword")
+     */
+    toResourcePath(): string {
         return this.resource
             .replace(/\//g, " - ")
             .replace(/_/g, " ")
             .replace(/\b\w/g, (l) => l.toUpperCase());
     }
 
-    public renderFilename(): string {
-        return (this.resource.split("/").pop() ?? this.resource).replace(/_/g, " ").replace(/\b\w/g, (l) => l.toUpperCase());
+    /**
+     * Renders string identifier for display
+     * @param identifier - The identifier string
+     * @returns Formatted text
+     * @example
+     * Identifier.toDisplay("minecraft:stone"); // "Stone"
+     */
+    static toDisplay(identifier: string): string {
+        return Identifier.of(identifier, "none").toResourceName();
     }
+}
+
+export function isIdentifier(value: any): value is IdentifierObject {
+    if (!value || typeof value !== "object") return false;
+
+    return (
+        "registry" in value &&
+        "namespace" in value &&
+        "resource" in value &&
+        typeof value.registry === "string" &&
+        typeof value.namespace === "string" &&
+        typeof value.resource === "string"
+    );
 }

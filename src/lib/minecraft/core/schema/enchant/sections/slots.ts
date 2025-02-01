@@ -1,7 +1,6 @@
-import type { Unresolved } from "@/lib/minecraft/core/engine/resolver/field/type.ts";
 import type { InterfaceConfiguration } from "@/lib/minecraft/core/schema/primitive";
 
-export const slots: Unresolved<InterfaceConfiguration> = {
+export const slots: InterfaceConfiguration = {
     id: "enchant.slots",
     section: { type: "translate", value: "tools.enchantments.section.slots" },
     components: [
@@ -28,10 +27,14 @@ export const slots: Unresolved<InterfaceConfiguration> = {
                                 field: "slots",
                                 value: "mainhand"
                             },
-                            condition: {
-                                condition: "contains_in_value",
-                                field: "slots",
-                                values: ["mainhand", "any", "hand"]
+                            renderer: {
+                                type: "conditionnal",
+                                return_condition: true,
+                                term: {
+                                    condition: "contains",
+                                    field: "slots",
+                                    values: ["mainhand", "any", "hand"]
+                                }
                             }
                         },
                         {
@@ -46,10 +49,14 @@ export const slots: Unresolved<InterfaceConfiguration> = {
                                 field: "slots",
                                 value: "offhand"
                             },
-                            condition: {
-                                condition: "contains_in_value",
-                                field: "slots",
-                                values: ["offhand", "any", "hand"]
+                            renderer: {
+                                type: "conditionnal",
+                                return_condition: true,
+                                term: {
+                                    condition: "contains",
+                                    field: "slots",
+                                    values: ["offhand", "any", "hand"]
+                                }
                             }
                         }
                     ]
@@ -69,10 +76,14 @@ export const slots: Unresolved<InterfaceConfiguration> = {
                                 field: "slots",
                                 value: "head"
                             },
-                            condition: {
-                                condition: "contains_in_value",
-                                field: "slots",
-                                values: ["head", "any", "armor"]
+                            renderer: {
+                                type: "conditionnal",
+                                return_condition: true,
+                                term: {
+                                    condition: "contains",
+                                    field: "slots",
+                                    values: ["head", "any", "armor"]
+                                }
                             }
                         },
                         {
@@ -87,10 +98,14 @@ export const slots: Unresolved<InterfaceConfiguration> = {
                                 field: "slots",
                                 value: "chest"
                             },
-                            condition: {
-                                condition: "contains_in_value",
-                                field: "slots",
-                                values: ["chest", "any", "armor"]
+                            renderer: {
+                                type: "conditionnal",
+                                return_condition: true,
+                                term: {
+                                    condition: "contains",
+                                    field: "slots",
+                                    values: ["chest", "any", "armor"]
+                                }
                             }
                         },
                         {
@@ -105,10 +120,14 @@ export const slots: Unresolved<InterfaceConfiguration> = {
                                 field: "slots",
                                 value: "legs"
                             },
-                            condition: {
-                                condition: "contains_in_value",
-                                field: "slots",
-                                values: ["legs", "any", "armor"]
+                            renderer: {
+                                type: "conditionnal",
+                                return_condition: true,
+                                term: {
+                                    condition: "contains",
+                                    field: "slots",
+                                    values: ["legs", "any", "armor"]
+                                }
                             }
                         },
                         {
@@ -123,10 +142,14 @@ export const slots: Unresolved<InterfaceConfiguration> = {
                                 field: "slots",
                                 value: "feet"
                             },
-                            condition: {
-                                condition: "contains_in_value",
-                                field: "slots",
-                                values: ["feet", "any", "armor"]
+                            renderer: {
+                                type: "conditionnal",
+                                term: {
+                                    condition: "contains",
+                                    field: "slots",
+                                    values: ["feet", "any", "armor"]
+                                },
+                                return_condition: true
                             }
                         }
                     ]

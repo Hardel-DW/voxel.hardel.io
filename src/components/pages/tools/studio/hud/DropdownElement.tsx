@@ -1,5 +1,5 @@
-import { useDropdown } from "@/components/pages/tools/studio/hud/DropdownContext.tsx";
 import type React from "react";
+import { useDropdown } from "./useDropdown";
 
 interface DropdownElementProps extends React.PropsWithChildren<React.HTMLProps<HTMLDivElement>> {
     icons?: string;

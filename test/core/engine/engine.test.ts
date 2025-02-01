@@ -1,4 +1,3 @@
-import { Identifier } from "@/lib/minecraft/core/Identifier";
 import { getAnalyserForVersion } from "@/lib/minecraft/core/engine/Analyser";
 import { parseSpecificElement } from "@/lib/minecraft/core/engine/Parser";
 import { describe, expect, it } from "vitest";
@@ -138,7 +137,7 @@ describe("Engine System", () => {
 
     describe("Parser", () => {
         it("should parse specific element", async () => {
-            const attackSpeedEnchantment = new Identifier("minecraft", "enchantment", "attack_speed");
+            const attackSpeedEnchantment = { namespace: "minecraft", registry: "enchantment", resource: "attack_speed" };
 
             const element = parseSpecificElement<"enchantment">(attackSpeedEnchantment, mockFiles, 48, "enchantment");
 

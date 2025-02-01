@@ -1,11 +1,8 @@
-import type { Analysers, GetAnalyserVoxel } from "@/lib/minecraft/core/engine/Analyser.ts";
-import type { Action, ActionValue } from "@/lib/minecraft/core/engine/actions/index.ts";
+import type { Action, ActionValue, BaseAction } from "@/lib/minecraft/core/engine/actions/index.ts";
 import { updateData } from "@/lib/minecraft/core/engine/actions/index.ts";
-import type { RegistryElement } from "@/lib/minecraft/mczip.ts";
 
-export interface AlternativeAction {
+export interface AlternativeAction extends BaseAction {
     type: "alternative";
-    field: string;
     cases: {
         when: ActionValue;
         do: Action;
@@ -20,19 +17,19 @@ export interface AlternativeAction {
  * @param version - The version of the element
  * @param value
  */
-export default function AlternativeModifier<T extends keyof Analysers>(
+export default function AlternativeModifier(
     action: AlternativeAction,
-    element: RegistryElement<GetAnalyserVoxel<T>>,
+    element: Record<string, unknown>,
     version: number
-): RegistryElement<GetAnalyserVoxel<T>> | undefined {
+): Record<string, unknown> | undefined {
     let currentElement = element;
     const { field } = action;
-    const value = element.data[field] as ActionValue | undefined;
+    const value = element[field] as ActionValue | undefined;
     if (value === undefined) return undefined;
 
     for (const subAction of action.cases) {
         if (subAction.when === value) {
-            const updatedElement = updateData<T>(subAction.do, currentElement, version, value);
+            const updatedElement = updateData(subAction.do, currentElement, version, value);
             if (!updatedElement) return undefined;
             currentElement = updatedElement;
         }

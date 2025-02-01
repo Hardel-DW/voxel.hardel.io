@@ -27,7 +27,11 @@ export default defineConfig({
         plugins: [tailwindcss()]
     },
     integrations: [
-        react(),
+        react({
+            babel: {
+                plugins: [["babel-plugin-react-compiler"]]
+            }
+        }),
         mdx(),
         sitemap({
             filter: (page) => {

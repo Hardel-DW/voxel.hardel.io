@@ -1,5 +1,3 @@
-import type { Analysers, GetAnalyserVoxel } from "@/lib/minecraft/core/engine/Analyser.ts";
-import type { RegistryElement } from "@/lib/minecraft/mczip.ts";
 import type { ActionValue, BaseAction } from ".";
 
 export interface ComputedAction extends BaseAction {
@@ -14,29 +12,17 @@ export interface ComputedAction extends BaseAction {
  * @param element - The element to modify
  * @param value - The computed value to use
  */
-export function ComputedModifier<T extends keyof Analysers>(
+export function ComputedModifier(
     action: ComputedAction,
-    element: RegistryElement<GetAnalyserVoxel<T>>,
+    element: Record<string, unknown>,
     value?: ActionValue
-): RegistryElement<GetAnalyserVoxel<T>> | undefined {
+): Record<string, unknown> | undefined {
     if (value === undefined) return undefined;
     const { field } = action;
 
-    if (action.type === "toggle_value_from_computed_value" && element.data[field] === value) {
-        return {
-            identifier: element.identifier,
-            data: {
-                ...element.data,
-                [field]: undefined
-            }
-        };
+    if (action.type === "toggle_value_from_computed_value" && element[field] === value) {
+        return { ...element, [field]: undefined };
     }
 
-    return {
-        identifier: element.identifier,
-        data: {
-            ...element.data,
-            [field]: value
-        }
-    };
+    return { ...element, [field]: value };
 }

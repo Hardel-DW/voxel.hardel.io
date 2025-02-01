@@ -1,92 +1,92 @@
 {
-	"items": [
-		{
-			"id": "minecraft:cooked_beef",
-			"count": {
-				"min": 3,
-				"max": 8
-			}
-		},
-		{
-			"id": "minecraft:golden_carrot",
-			"count": {
-				"min": 2,
-				"max": 6
-			}
-		},
-		{
-			"id": "minecraft:bread",
-			"count": {
-				"min": 4,
-				"max": 8
-			}
-		},
-		{
-			"id": "minecraft:baked_potato",
-			"count": {
-				"min": 3,
-				"max": 8
-			}
-		},
-		{
-			"id": "minecraft:sweet_berries",
-			"count": {
-				"min": 4,
-				"max": 12
-			}
-		},
-		{
-			"id": "minecraft:cookie",
-			"count": {
-				"min": 4,
-				"max": 8
-			}
-		},
-		{
-			"id": "minecraft:apple",
-			"count": {
-				"min": 2,
-				"max": 6
-			}
-		},
-		{
-			"id": "minecraft:cooked_salmon",
-			"count": {
-				"min": 2,
-				"max": 6
-			}
-		},
-		{
-			"id": "minecraft:mushroom_stew",
-			"count": {
-				"min": 1,
-				"max": 3
-			}
-		},
-		{
-			"id": "minecraft:honey_bottle",
-			"count": {
-				"min": 1,
-				"max": 4
-			}
-		},
-		{
-			"id": "minecraft:glow_berries",
-			"count": {
-				"min": 3,
-				"max": 8
-			}
-		},
-		{
-			"id": "minecraft:pumpkin_pie",
-			"count": {
-				"min": 1,
-				"max": 4
-			}
-		},
-		{
-			"id": "minecraft:rabbit_stew",
-			"count": 1
-		}
-	]
+    "items": [
+        {
+            "id": "minecraft:cooked_beef",
+            "count": {
+                "min": 3,
+                "max": 8
+            }
+        },
+        {
+            "id": "minecraft:golden_carrot",
+            "count": {
+                "min": 2,
+                "max": 6
+            }
+        },
+        {
+            "id": "minecraft:bread",
+            "count": {
+                "min": 4,
+                "max": 8
+            }
+        },
+        {
+            "id": "minecraft:baked_potato",
+            "count": {
+                "min": 3,
+                "max": 8
+            }
+        },
+        {
+            "id": "minecraft:sweet_berries",
+            "count": {
+                "min": 4,
+                "max": 12
+            }
+        },
+        {
+            "id": "minecraft:cookie",
+            "count": {
+                "min": 4,
+                "max": 8
+            }
+        },
+        {
+            "id": "minecraft:apple",
+            "count": {
+                "min": 2,
+                "max": 6
+            }
+        },
+        {
+            "id": "minecraft:cooked_salmon",
+            "count": {
+                "min": 2,
+                "max": 6
+            }
+        },
+        {
+            "id": "minecraft:mushroom_stew",
+            "count": {
+                "min": 1,
+                "max": 3
+            }
+        },
+        {
+            "id": "minecraft:honey_bottle",
+            "count": {
+                "min": 1,
+                "max": 4
+            }
+        },
+        {
+            "id": "minecraft:glow_berries",
+            "count": {
+                "min": 3,
+                "max": 8
+            }
+        },
+        {
+            "id": "minecraft:pumpkin_pie",
+            "count": {
+                "min": 1,
+                "max": 4
+            }
+        },
+        {
+            "id": "minecraft:rabbit_stew",
+            "count": 1
+        }
+    ]
 }

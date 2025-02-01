@@ -1,10 +1,10 @@
-import { useTranslate } from "@/components/useTranslate";
-import { useConfiguratorStore } from "@/lib/store/configuratorStore";
-import DatapackUploader from "@/components/tools/DatapackUploader.tsx";
-import type { FaqType } from "@/content/config.ts";
-import type React from "react";
-import type { Analysers } from "@/lib/minecraft/core/engine/Analyser";
 import VanillaImportButton from "@/components/pages/tools/enchant/VanillaImportButton";
+import DatapackUploader from "@/components/tools/DatapackUploader.tsx";
+import { useTranslate } from "@/components/useTranslate";
+import type { FaqType } from "@/content/config.ts";
+import type { Analysers } from "@/lib/minecraft/core/engine/Analyser";
+import { useConfiguratorStore } from "@/lib/minecraft/core/engine/Store";
+import type React from "react";
 
 export default function HelpGuide(props: {
     faq?: FaqType[];
@@ -12,10 +12,8 @@ export default function HelpGuide(props: {
     tool: keyof Analysers;
 }) {
     const { t, lang } = useTranslate();
-    const store = useConfiguratorStore();
-    const elements = store.elements;
-
-    if (elements.length > 0) return null;
+    const hasElements = useConfiguratorStore((state) => state.elements.size > 0);
+    if (hasElements) return null;
 
     return (
         <>

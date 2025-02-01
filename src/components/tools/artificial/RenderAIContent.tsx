@@ -1,12 +1,12 @@
 import ConfirmationCardAI, { type PropsConfirmationCardAI } from "@/components/tools/artificial/ConfirmationCardAI";
-import type { Identifier } from "@/lib/minecraft/core/Identifier";
 import Reference from "@/components/tools/artificial/Reference";
+import { Identifier, type IdentifierObject } from "@/lib/minecraft/core/Identifier";
 
 interface Props {
     content: string;
     isStreaming: boolean;
     cards: PropsConfirmationCardAI[];
-    reference: Identifier[];
+    reference: IdentifierObject[];
 }
 
 export const RenderAIContent: React.FC<Props> = (props) => {
@@ -23,7 +23,7 @@ export const RenderAIContent: React.FC<Props> = (props) => {
                     {props.reference.length > 0 && (
                         <div className="flex gap-x-2 items-center text-xs">
                             {props.reference.map((reference) => (
-                                <Reference key={reference.toString()} reference={reference} />
+                                <Reference key={new Identifier(reference).toString()} reference={reference} />
                             ))}
                         </div>
                     )}
@@ -38,7 +38,7 @@ export const RenderAIContent: React.FC<Props> = (props) => {
             {props.cards.length > 0 && (
                 <div className="flex flex-col gap-4">
                     {props.cards.map((card) => (
-                        <ConfirmationCardAI key={card.identifier.toString()} {...card} />
+                        <ConfirmationCardAI key={card.identifier} {...card} />
                     ))}
                 </div>
             )}

@@ -183,7 +183,6 @@ export const translations: LanguageMap = {
         "tools.enchantments.section.supported.components.shield.title": "Shield",
         "tools.enchantments.section.supported.components.weapon.title": "Weapon",
         "tools.enchantments.section.supported.components.melee.title": "Weapon + Trident",
-        "tools.enchantments.section.supported.components.axe_sword.title": "Axe + Sword",
         "tools.enchantments.section.supported.components.head_armor.title": "Helmet",
         "tools.enchantments.section.supported.components.chest_armor.title": "Chestplate",
         "tools.enchantments.section.supported.components.leg_armor.title": "Leggings",
@@ -422,6 +421,11 @@ export const translations: LanguageMap = {
         "enchantment.field.mode.name": "Mode",
         "enchantment.field.disabledEffects.name": "Disabled Effects",
 
+        "enchantment.component.tag_viewer.title": "See tags",
+        "enchantment.component.tag_viewer.description": "Display the tags of the enchantment",
+        "enchantment.component.tag_viewer.loading": "Loading tags...",
+        "enchantment.component.tag_viewer.error": "Error loading tags",
+
         "ai.confirmation.accept": "Accept",
         "ai.confirmation.refuse": "Refuse",
         "ai.confirmation.suggestedModification": "Suggested modification",
@@ -593,7 +597,6 @@ export const translations: LanguageMap = {
         "tools.enchantments.section.supported.components.shield.title": "Bouclier",
         "tools.enchantments.section.supported.components.weapon.title": "Arme",
         "tools.enchantments.section.supported.components.melee.title": "Arme + Trident",
-        "tools.enchantments.section.supported.components.axe_sword.title": "Hache + Épée",
         "tools.enchantments.section.supported.components.head_armor.title": "Casque",
         "tools.enchantments.section.supported.components.chest_armor.title": "Plastron",
         "tools.enchantments.section.supported.components.leg_armor.title": "Jambières",
@@ -843,6 +846,11 @@ export const translations: LanguageMap = {
         "enchantment.field.assignedTags.name": "Tags Assignés",
         "enchantment.field.disabledEffects.name": "Effets Désactivés",
         "enchantment.field.mode.name": "Mode",
+
+        "enchantment.component.tag_viewer.title": "Données Vanilla",
+        "enchantment.component.tag_viewer.description": "Affiche les tags de l'enchantement",
+        "enchantment.component.tag_viewer.loading": "Récupération des tags...",
+        "enchantment.component.tag_viewer.error": "Erreur lors de la récupération des tags",
 
         "ai.confirmation.accept": "Accepter",
         "ai.confirmation.refuse": "Refuser",

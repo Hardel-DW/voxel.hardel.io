@@ -1,7 +1,6 @@
-import type { Unresolved } from "@/lib/minecraft/core/engine/resolver/field/type.ts";
 import type { InterfaceConfiguration } from "@/lib/minecraft/core/schema/primitive";
 
-export const exclusive: Unresolved<InterfaceConfiguration> = {
+export const exclusive: InterfaceConfiguration = {
     id: "enchant.exclusive",
     section: { type: "translate", value: "tools.enchantments.section.exclusive" },
     components: [
@@ -44,10 +43,7 @@ export const exclusive: Unresolved<InterfaceConfiguration> = {
                     direction: "horizontal",
                     hide: {
                         condition: "compare_to_value",
-                        compare: {
-                            type: "get_toggle_name",
-                            group: "main.exclusive"
-                        },
+                        compare: "$resolver.name$:main.exclusive",
                         value: "main.exclusive.individual"
                     },
                     children: [
@@ -157,10 +153,14 @@ export const exclusive: Unresolved<InterfaceConfiguration> = {
                                                         }
                                                     ]
                                                 },
-                                                condition: {
-                                                    condition: "compare_value_to_field_value",
-                                                    field: "exclusiveSet",
-                                                    value: { type: "get_value_from_context", key: "value" }
+                                                renderer: {
+                                                    type: "conditionnal",
+                                                    return_condition: true,
+                                                    term: {
+                                                        condition: "compare_value_to_field_value",
+                                                        field: "exclusiveSet",
+                                                        value: { type: "get_value_from_context", key: "value" }
+                                                    }
                                                 },
                                                 lock: [
                                                     {
@@ -169,8 +169,13 @@ export const exclusive: Unresolved<InterfaceConfiguration> = {
                                                             value: "tools.disabled_because_vanilla"
                                                         },
                                                         condition: {
-                                                            condition: "check_namespace",
-                                                            values: "minecraft"
+                                                            condition: "object",
+                                                            field: "identifier",
+                                                            terms: {
+                                                                condition: "compare_value_to_field_value",
+                                                                field: "namespace",
+                                                                value: "minecraft"
+                                                            }
                                                         }
                                                     }
                                                 ]
@@ -237,12 +242,16 @@ export const exclusive: Unresolved<InterfaceConfiguration> = {
                                                                 }
                                                             ]
                                                         },
-                                                        condition: {
-                                                            condition: "compare_value_to_field_value",
-                                                            field: "exclusiveSet",
-                                                            value: {
-                                                                type: "get_value_from_context",
-                                                                key: "identifier"
+                                                        renderer: {
+                                                            type: "conditionnal",
+                                                            return_condition: true,
+                                                            term: {
+                                                                condition: "compare_value_to_field_value",
+                                                                field: "exclusiveSet",
+                                                                value: {
+                                                                    type: "get_value_from_context",
+                                                                    key: "identifier"
+                                                                }
                                                             }
                                                         }
                                                     }
@@ -256,27 +265,14 @@ export const exclusive: Unresolved<InterfaceConfiguration> = {
                         {
                             type: "TagViewer",
                             registry: "tags/enchantment",
-                            field: "exclusiveSet",
-                            additional: {
-                                "#minecraft:exclusive_set/armor": [
-                                    "minecraft:protection",
-                                    "minecraft:blast_protection",
-                                    "minecraft:fire_protection",
-                                    "minecraft:projectile_protection"
-                                ],
-                                "#minecraft:exclusive_set/boots": ["minecraft:frost_walker", "minecraft:depth_strider"],
-                                "#minecraft:exclusive_set/bow": ["minecraft:infinity", "minecraft:mending"],
-                                "#minecraft:exclusive_set/crossbow": ["minecraft:multishot", "minecraft:piercing"],
-                                "#minecraft:exclusive_set/damage": [
-                                    "minecraft:sharpness",
-                                    "minecraft:smite",
-                                    "minecraft:bane_of_arthropods",
-                                    "minecraft:impaling",
-                                    "minecraft:density",
-                                    "minecraft:breach"
-                                ],
-                                "#minecraft:mining": ["minecraft:fortune", "minecraft:silk_touch"],
-                                "#minecraft:exclusive_set/riptide": ["minecraft:loyalty", "minecraft:channeling"]
+                            properties: {
+                                type: "from_field",
+                                field: "exclusiveSet"
+                            },
+                            include: {
+                                namespace: "minecraft",
+                                registry: "enchantment",
+                                path: "exclusive_set"
                             }
                         }
                     ]
@@ -285,10 +281,7 @@ export const exclusive: Unresolved<InterfaceConfiguration> = {
                     type: "Grid",
                     hide: {
                         condition: "compare_to_value",
-                        compare: {
-                            type: "get_toggle_name",
-                            group: "main.exclusive"
-                        },
+                        compare: "$resolver.name$:main.exclusive",
                         value: "main.exclusive.group"
                     },
                     children: [
@@ -329,15 +322,19 @@ export const exclusive: Unresolved<InterfaceConfiguration> = {
                                         }
                                     ]
                                 },
-                                condition: {
-                                    condition: "contains_in_tags",
-                                    field: "exclusiveSet",
-                                    values: [
-                                        {
-                                            type: "get_value_from_context",
-                                            key: "identifier"
-                                        }
-                                    ]
+                                renderer: {
+                                    type: "conditionnal",
+                                    return_condition: true,
+                                    term: {
+                                        condition: "contains",
+                                        field: "exclusiveSet",
+                                        values: [
+                                            {
+                                                type: "get_value_from_context",
+                                                key: "identifier"
+                                            }
+                                        ]
+                                    }
                                 }
                             }
                         }

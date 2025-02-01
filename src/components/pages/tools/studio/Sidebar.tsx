@@ -1,4 +1,4 @@
-import { useStudioContext } from "@/components/pages/tools/studio/StudioContext.tsx";
+import { useStudioContext } from "@/components/pages/tools/studio/hooks/useStudioContext";
 import BaseComponent from "@/components/pages/tools/studio/hud/BaseComponent";
 import DropdownContent from "@/components/pages/tools/studio/hud/DropdownContent.tsx";
 import { DropdownProvider } from "@/components/pages/tools/studio/hud/DropdownContext.tsx";

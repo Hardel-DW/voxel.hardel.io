@@ -1,0 +1,38 @@
+import type { IdentifierObject } from "@/lib/minecraft/core/Identifier";
+import type { VoxelRegistryElement } from "@/lib/minecraft/core/Registry";
+import type { Analysers, GetAnalyserVoxel } from "@/lib/minecraft/core/engine/Analyser";
+
+export type DataDrivenElement = Record<string, unknown>;
+export interface VoxelElement extends Record<string, unknown> {
+    override?: ConfiguratorConfigFromDatapack;
+    identifier: IdentifierObject;
+}
+
+export type ConfiguratorConfigFromDatapack = {
+    configurator: {
+        hide: boolean;
+    };
+};
+
+export function isRegistryVoxelElement<T extends keyof Analysers>(element: any): element is VoxelRegistryElement<GetAnalyserVoxel<T>> {
+    return "identifier" in element && "data" in element && typeof element.identifier === "string";
+}
+
+export function isVoxelElement<T extends keyof Analysers>(element: any): element is GetAnalyserVoxel<T> {
+    return "identifier" in element;
+}
+
+/**
+ * Sorts voxel elements by identifier
+ * @param elements - Map of voxel elements
+ * @returns Sorted array of main identifiers
+ */
+export function sortVoxelElements(elements: Map<string, VoxelElement>): string[] {
+    return Array.from(elements.entries())
+        .sort((a, b) => {
+            const resourceA = a[1].identifier.resource.split("/").pop() ?? "";
+            const resourceB = b[1].identifier.resource.split("/").pop() ?? "";
+            return resourceA.localeCompare(resourceB);
+        })
+        .map(([key]) => key);
+}

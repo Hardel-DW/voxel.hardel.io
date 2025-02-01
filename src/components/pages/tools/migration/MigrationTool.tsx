@@ -1,7 +1,7 @@
 import { DatapackDropzone } from "@/components/pages/tools/migration/DatapackDropzone";
 import { StatusBox } from "@/components/pages/tools/migration/StatusBox";
 import Button from "@/components/ui/react/Button";
-import { useConfetti } from "@/components/ui/react/Confetti";
+import { useConfetti } from "@/components/ui/react/confetti/useConfetti";
 import { Toaster } from "@/components/ui/shadcn/Sonner";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/shadcn/dialog";
 import { compileDatapack } from "@/lib/minecraft/core/engine/Compiler";
@@ -67,11 +67,11 @@ export default function MigrationTool({ translate, children }: MigrationToolProp
             const actions = logToActions(logs);
             const modifiedTarget = await applyActions(target, actions);
             const finalDatapack = compileDatapack({
-                elements: modifiedTarget.elements,
+                elements: Array.from(modifiedTarget.elements.values()),
                 version: modifiedTarget.version,
-                identifiers: modifiedTarget.identifiers,
                 files: modifiedTarget.files,
-                tool: "enchantment"
+                tool: "enchantment",
+                identifiers: modifiedTarget.identifiers
             });
 
             const modifiedDatapack = await generateZip(modifiedTarget.files, finalDatapack, {
@@ -136,7 +136,7 @@ export default function MigrationTool({ translate, children }: MigrationToolProp
             return;
         }
 
-        if (result.elements.length === 0) {
+        if (result.elements.size === 0) {
             toast.error(translate["tools.migration.error.invalid_datapack"]);
             setTargetData({
                 version: result.version,

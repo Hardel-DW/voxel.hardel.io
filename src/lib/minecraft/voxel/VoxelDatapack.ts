@@ -1,5 +1,4 @@
-import { Identifier } from "@/lib/minecraft/core/Identifier.ts";
-import type { RegistryElement } from "@/lib/minecraft/mczip.ts";
+import type { DataDrivenRegistryElement } from "@/lib/minecraft/core/Registry";
 import type { TagType } from "@voxel/definitions";
 
 const axes: TagType = {
@@ -18,10 +17,6 @@ const shovels: TagType = {
     values: ["#minecraft:shovels"]
 };
 
-const axe_sword: TagType = {
-    values: ["#minecraft:axes", "#minecraft:enchantable/sword"]
-};
-
 const elytra: TagType = {
     values: ["minecraft:elytra"]
 };
@@ -38,41 +33,37 @@ const shield: TagType = {
     values: ["minecraft:shield"]
 };
 
-export const voxelDatapacks: RegistryElement<TagType>[] = [
+export const voxelDatapacks: DataDrivenRegistryElement<TagType>[] = [
     {
-        identifier: new Identifier("voxel", "tags/item", "enchantable/axes"),
+        identifier: { namespace: "voxel", registry: "tags/item", resource: "enchantable/axes" },
         data: axes
     },
     {
-        identifier: new Identifier("voxel", "tags/item", "enchantable/hoes"),
+        identifier: { namespace: "voxel", registry: "tags/item", resource: "enchantable/hoes" },
         data: hoes
     },
     {
-        identifier: new Identifier("voxel", "tags/item", "enchantable/pickaxes"),
+        identifier: { namespace: "voxel", registry: "tags/item", resource: "enchantable/pickaxes" },
         data: pickaxes
     },
     {
-        identifier: new Identifier("voxel", "tags/item", "enchantable/shovels"),
+        identifier: { namespace: "voxel", registry: "tags/item", resource: "enchantable/shovels" },
         data: shovels
     },
     {
-        identifier: new Identifier("voxel", "tags/item", "enchantable/elytra"),
+        identifier: { namespace: "voxel", registry: "tags/item", resource: "enchantable/elytra" },
         data: elytra
     },
     {
-        identifier: new Identifier("voxel", "tags/item", "enchantable/melee"),
+        identifier: { namespace: "voxel", registry: "tags/item", resource: "enchantable/melee" },
         data: melee
     },
     {
-        identifier: new Identifier("voxel", "tags/item", "enchantable/range"),
+        identifier: { namespace: "voxel", registry: "tags/item", resource: "enchantable/range" },
         data: range
     },
     {
-        identifier: new Identifier("voxel", "tags/item", "enchantable/shield"),
+        identifier: { namespace: "voxel", registry: "tags/item", resource: "enchantable/shield" },
         data: shield
-    },
-    {
-        identifier: new Identifier("voxel", "tags/item", "enchantable/axe_sword"),
-        data: axe_sword
     }
 ];

@@ -1,44 +1,21 @@
-import { useTranslate } from "@/components/useTranslate";
 import Button from "@/components/ui/react/Button.tsx";
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/shadcn/dialog.tsx";
-import type { versionedAnalyserCollection } from "@/lib/minecraft/core/engine/Analyser.ts";
-import { compileDatapack } from "@/lib/minecraft/core/engine/Compiler.ts";
+import { useTranslate } from "@/components/useTranslate";
+import { useConfiguratorStore } from "@/lib/minecraft/core/engine/Store.ts";
 import { generateZip } from "@/lib/minecraft/mczip.ts";
 import { DialogDescription } from "@radix-ui/react-dialog";
-import { useConfiguratorStore } from "@/lib/store/configuratorStore";
+import SettingsDialog from "./SettingsDialog.tsx";
 
 export default function DownloadButton() {
     const { t } = useTranslate();
-    const store = useConfiguratorStore();
-    const isJar = store.isJar;
-    const name = store.name;
 
-    const handleCompile = async () => {
-        if (!store.version || !store.configuration || !store.logger) {
-            console.error("Version, configuration or logger is missing");
-            return;
-        }
-
-        const content = compileDatapack({
-            elements: store.elements,
-            version: store.version,
-            identifiers: store.identifiers,
-            files: store.files,
-            tool: store.configuration.analyser.id as keyof typeof versionedAnalyserCollection
-        });
-
-        const compiledContent = await generateZip(store.files, content, {
-            minify: store.minify,
-            logger: store.logger,
-            includeVoxel: true
-        });
-
+    const handleSaveLogs = async (logger: any) => {
         try {
             const response = await fetch("/api/migrations/log", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
-                    logs: store.logger.getLogs()
+                    logs: logger.getLogs()
                 })
             });
 
@@ -48,18 +25,35 @@ export default function DownloadButton() {
         } catch (error) {
             console.error("Error saving migration log:", error);
         }
+    };
 
-        // Télécharger le fichier
-        const fileExtension = store.isJar ? "jar" : "zip";
+    const handleDownloadFile = (compiledContent: Uint8Array, name: string, isJar: boolean) => {
+        const fileExtension = isJar ? "jar" : "zip";
         const blob = new Blob([compiledContent], {
             type: `application/${fileExtension}`
         });
         const url = URL.createObjectURL(blob);
         const a = document.createElement("a");
         a.href = url;
-        a.download = `${store.name}.${store.isJar ? "jar" : "zip"}`;
+        a.download = `${name}.${fileExtension}`;
         a.click();
         URL.revokeObjectURL(url);
+    };
+
+    const handleCompile = async () => {
+        const store = useConfiguratorStore.getState();
+        const { version, configuration, logger, files, minify, name, isJar } = store;
+
+        if (!version || !configuration || !logger) {
+            console.error("Version, configuration or logger is missing");
+            return;
+        }
+
+        const content = store.compile();
+        const compiledContent = await generateZip(files, content, { minify, logger, includeVoxel: true });
+
+        await handleSaveLogs(logger);
+        handleDownloadFile(compiledContent, name, isJar);
     };
 
     return (
@@ -77,18 +71,7 @@ export default function DownloadButton() {
                         {t("dialog.success.title")}
                     </DialogTitle>
                     <DialogDescription>{t("dialog.success.description")}</DialogDescription>
-                    <div className="py-2">
-                        <span className="font-semibold text-zinc-400">{`${name}.${isJar ? "jar" : "zip"}`}</span>
-                    </div>
-                    <div className="h-1 w-full bg-zinc-700 rounded-full" />
-                    <div className="pt-8">
-                        <h4 className="font-semibold">{t("dialog.success.additional_info_title")}</h4>
-                        <ul className="list-disc list-inside pt-4 space-y-2 pl-4">
-                            <li>
-                                <span className="font-light">{t("dialog.success.additional_info")}</span>
-                            </li>
-                        </ul>
-                    </div>
+                    <SettingsDialog />
                 </DialogHeader>
                 <DialogFooter className="pt-4 flex items-end justify-between">
                     <div>

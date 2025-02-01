@@ -1,18 +1,13 @@
-import { createContext, useState, useMemo } from "react";
-import type { ReactNode } from "react";
 import type { LanguageCode, TranslationKey } from "@/lib/minecraft/i18n/types";
-import { I18n } from "@/lib/minecraft/i18n/i18n";
+import { useEffect, useMemo, useState } from "react";
+import type { ReactNode } from "react";
+import { TranslateContext, i18nInstance } from "./useTranslate";
 
-// Créer l'instance i18n en dehors du composant pour éviter les re-créations
-export const i18nInstance = new I18n();
-
-interface TranslateContextType {
+export interface TranslateContextType {
     lang: LanguageCode;
     setLang: (lang: LanguageCode) => void;
     t: (key: TranslationKey, ...args: (string | number)[]) => string;
 }
-
-export const TranslateContext = createContext<TranslateContextType | undefined>(undefined);
 
 interface TranslateProviderProps {
     children: ReactNode;
@@ -22,6 +17,10 @@ interface TranslateProviderProps {
 export function TranslateProvider({ children, initialLang }: TranslateProviderProps) {
     const [lang, setLang] = useState<LanguageCode>(initialLang);
 
+    useEffect(() => {
+        i18nInstance.setLanguage(lang);
+    }, [lang]);
+
     const value = useMemo(
         () => ({
             lang,
@@ -30,7 +29,7 @@ export function TranslateProvider({ children, initialLang }: TranslateProviderPr
                 setLang(newLang);
             },
             t: (key: TranslationKey, ...args: (string | number)[]) => {
-                return i18nInstance.translate(key, ...args);
+                return i18nInstance.translate(key, { lang, args });
             }
         }),
         [lang]

@@ -1,44 +1,44 @@
 {
-	"items": [
-		{
-			"id": "minecraft:enchanted_book",
-			"description": "Non Treasure (20-30)",
-			"count": 1
-		},
-		{
-			"id": "minecraft:dragon_breath",
-			"count": {
-				"min": 1,
-				"max": 3
-			}
-		},
-		{
-			"id": "minecraft:experience_bottle",
-			"count": {
-				"min": 8,
-				"max": 16
-			}
-		},
-		{
-			"id": "minecraft:lapis_lazuli",
-			"count": {
-				"min": 8,
-				"max": 24
-			}
-		},
-		{
-			"id": "minecraft:bookshelf",
-			"count": {
-				"min": 2,
-				"max": 4
-			}
-		},
-		{
-			"id": "minecraft:amethyst_block",
-			"count": {
-				"min": 2,
-				"max": 6
-			}
-		}
-	]
+    "items": [
+        {
+            "id": "minecraft:enchanted_book",
+            "description": "Non Treasure (20-30)",
+            "count": 1
+        },
+        {
+            "id": "minecraft:dragon_breath",
+            "count": {
+                "min": 1,
+                "max": 3
+            }
+        },
+        {
+            "id": "minecraft:experience_bottle",
+            "count": {
+                "min": 8,
+                "max": 16
+            }
+        },
+        {
+            "id": "minecraft:lapis_lazuli",
+            "count": {
+                "min": 8,
+                "max": 24
+            }
+        },
+        {
+            "id": "minecraft:bookshelf",
+            "count": {
+                "min": 2,
+                "max": 4
+            }
+        },
+        {
+            "id": "minecraft:amethyst_block",
+            "count": {
+                "min": 2,
+                "max": 6
+            }
+        }
+    ]
 }

@@ -195,15 +195,15 @@ describe("Iteration System", () => {
             const result = collectFromPath("enchantment", mockFiles, "combat");
 
             expect(result).toHaveLength(2);
-            expect(result.some((r) => r.identifier.getResource().includes("sharpness"))).toBe(true);
-            expect(result.some((r) => r.identifier.getResource().includes("power"))).toBe(true);
+            expect(result.some((r) => r.identifier.resource.includes("sharpness"))).toBe(true);
+            expect(result.some((r) => r.identifier.resource.includes("power"))).toBe(true);
         });
 
         it("should exclude specified namespaces", () => {
             const result = collectFromPath("enchantment", mockFiles, "combat", ["custom"]);
 
             expect(result).toHaveLength(1);
-            expect(result[0].identifier.getResource()).toContain("sharpness");
+            expect(result[0].identifier.resource).toContain("sharpness");
         });
 
         it("should return empty array for non-matching path", () => {

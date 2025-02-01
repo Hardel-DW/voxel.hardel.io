@@ -1,6 +1,6 @@
-import { cn } from "@/lib/utils";
-import { getMinecraftVersion } from "@/lib/minecraft/core/Version";
 import Button from "@/components/ui/react/Button";
+import { getMinecraftVersion } from "@/lib/minecraft/core/Version";
+import { cn } from "@/lib/utils";
 
 interface StatusBoxProps {
     files: FileList;

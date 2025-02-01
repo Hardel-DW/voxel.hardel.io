@@ -1,4 +1,4 @@
-import { TooltipContext } from "@/components/minecraft/tooltip/TooltipContext";
+import { TooltipContext } from "@/components/minecraft/tooltip/useTooltip";
 import { clsx } from "@/lib/utils";
 import { useContext, useEffect, useRef, useState } from "react";
 

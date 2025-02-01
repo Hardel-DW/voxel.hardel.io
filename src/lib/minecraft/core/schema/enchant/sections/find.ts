@@ -1,8 +1,7 @@
-import type { Unresolved } from "@/lib/minecraft/core/engine/resolver/field/type.ts";
-import type { InterfaceConfiguration } from "@/lib/minecraft/core/schema/primitive";
 import { ADDONS } from "@/lib/minecraft/core/schema/enchant/addons";
+import type { InterfaceConfiguration } from "@/lib/minecraft/core/schema/primitive";
 
-export const find: Unresolved<InterfaceConfiguration> = {
+export const find: InterfaceConfiguration = {
     id: "enchant.find",
     section: { type: "translate", value: "tools.enchantments.section.find" },
     components: [
@@ -92,7 +91,7 @@ export const find: Unresolved<InterfaceConfiguration> = {
                                             value: "tools.enchantments.section.technical.components.reason"
                                         },
                                         condition: {
-                                            condition: "contains_in_tags",
+                                            condition: "contains",
                                             field: "tags",
                                             values: [{ type: "get_value_from_context", key: "lock_value" }]
                                         }
@@ -103,15 +102,24 @@ export const find: Unresolved<InterfaceConfiguration> = {
                                             value: "tools.disabled_because_vanilla"
                                         },
                                         condition: {
-                                            condition: "check_namespace",
-                                            values: "minecraft"
+                                            condition: "object",
+                                            field: "identifier",
+                                            terms: {
+                                                condition: "compare_value_to_field_value",
+                                                field: "namespace",
+                                                value: "minecraft"
+                                            }
                                         }
                                     }
                                 ],
-                                condition: {
-                                    condition: "contains_in_tags",
-                                    field: "tags",
-                                    values: [{ type: "get_value_from_context", key: "tag" }]
+                                renderer: {
+                                    type: "conditionnal",
+                                    return_condition: true,
+                                    term: {
+                                        condition: "contains",
+                                        field: "tags",
+                                        values: [{ type: "get_value_from_context", key: "tag" }]
+                                    }
                                 }
                             }
                         }

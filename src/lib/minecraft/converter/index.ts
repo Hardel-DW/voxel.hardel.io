@@ -1,9 +1,9 @@
-import { generateZip } from "@/lib/minecraft/mczip";
-import { parseZip } from "@/lib/minecraft/mczip";
 import { generateFabricMod } from "@/lib/minecraft/converter/fabric";
 import { generateForgeMods } from "@/lib/minecraft/converter/forge-neoforge";
 import { generateQuiltMod } from "@/lib/minecraft/converter/quilt";
 import { getMinecraftVersion } from "@/lib/minecraft/core/Version";
+import { generateZip } from "@/lib/minecraft/mczip";
+import { parseZip } from "@/lib/minecraft/mczip";
 
 /**
  * Supported Minecraft mod platforms for conversion

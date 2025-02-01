@@ -2,17 +2,18 @@ import { describe, it, expect } from "vitest";
 import { Logger } from "@/lib/minecraft/core/engine/migrations/logger";
 import type { DatapackInfo, FileLog, Log, LogDifference } from "@/lib/minecraft/core/engine/migrations/types";
 import type { EnchantmentProps } from "@/lib/minecraft/core/schema/enchant/EnchantmentProps";
-import { Identifier } from "@/lib/minecraft/core/Identifier";
 import type { EffectComponentsRecord } from "@voxel/definitions";
-import type { RegistryElement } from "@/lib/minecraft/mczip";
+import type { VoxelRegistryElement } from "@/lib/minecraft/core/Registry";
 import type { SequentialAction } from "@/lib/minecraft/core/engine/actions/SequentialModifier";
 import type { ToggleListValueAction } from "@/lib/minecraft/core/engine/actions/ToggleListValueModifier";
 import type { ComputedAction } from "@/lib/minecraft/core/engine/actions/ComputedModifier";
 import { createDifferenceFromAction } from "@/lib/minecraft/core/engine/migrations/logValidation";
+import { Identifier } from "@/lib/minecraft/core/Identifier";
 
-const createComplexMockElement = (data: Partial<EnchantmentProps> = {}): RegistryElement<EnchantmentProps> => ({
-    identifier: new Identifier("enchantplus", "enchantment", "bow/accuracy_shot"),
+const createComplexMockElement = (data: Partial<EnchantmentProps> = {}): VoxelRegistryElement<EnchantmentProps> => ({
+    identifier: "foo",
     data: {
+        identifier: { namespace: "enchantplus", registry: "enchantment", resource: "bow/accuracy_shot" },
         anvilCost: 4,
         description: { translate: "enchantment.test.foo", fallback: "Enchantment Test" },
         disabledEffects: [],
@@ -251,13 +252,17 @@ describe("Logger System", () => {
                 ]
             };
 
-            const difference = createDifferenceFromAction(sequentialAction, element, 48, "enchantment", logger);
+            const difference = createDifferenceFromAction(sequentialAction, element.data, 48, "enchantment", logger);
             if (!difference) {
                 throw new Error("Failed to create difference");
             }
 
             // Log the differences
-            logger.logDifference(element.identifier.toString(), element.identifier.getRegistry() || "unknown", difference);
+            logger.logDifference(
+                new Identifier(element.data.identifier).toString(),
+                element.data.identifier.registry || "unknown",
+                difference
+            );
 
             // Verify the logs
             const logs = logger.getLogs();
@@ -341,12 +346,16 @@ describe("Logger System", () => {
             const logger = new Logger("test-id", "2024-03-20", 48, false, mockDatapackInfo, existingLog);
             const element = createComplexMockElement();
 
-            const difference = createDifferenceFromAction(actions, element, 48, "enchantment", logger);
+            const difference = createDifferenceFromAction(actions, element.data, 48, "enchantment", logger);
             if (!difference) {
                 throw new Error("Failed to create difference");
             }
 
-            logger.logDifference(element.identifier.toString(), element.identifier.getRegistry() || "unknown", difference);
+            logger.logDifference(
+                new Identifier(element.data.identifier).toString(),
+                element.data.identifier.registry || "unknown",
+                difference
+            );
 
             const logs = logger.getLogs();
             expect(logs.logs).toHaveLength(1);
@@ -431,12 +440,16 @@ describe("Logger System", () => {
             };
 
             const logger = new Logger("test-id", "2024-03-20", 48, false, mockDatapackInfo, existingLog);
-            const difference = createDifferenceFromAction(actions, element, 48, "enchantment", logger);
+            const difference = createDifferenceFromAction(actions, element.data, 48, "enchantment", logger);
             if (!difference) {
                 throw new Error("Failed to create difference");
             }
 
-            logger.logDifference(element.identifier.toString(), element.identifier.getRegistry() || "unknown", difference);
+            logger.logDifference(
+                new Identifier(element.data.identifier).toString(),
+                element.data.identifier.registry || "unknown",
+                difference
+            );
 
             const logs = logger.getLogs();
             expect(logs.logs).toHaveLength(1);
@@ -487,12 +500,16 @@ describe("Logger System", () => {
             };
 
             const logger = new Logger("test-id", "2024-03-20", 48, false, mockDatapackInfo);
-            const difference = createDifferenceFromAction(action, element, 48, "enchantment", logger);
+            const difference = createDifferenceFromAction(action, element.data, 48, "enchantment", logger);
             if (!difference) {
                 throw new Error("Failed to create difference");
             }
 
-            logger.logDifference(element.identifier.toString(), element.identifier.getRegistry() || "unknown", difference);
+            logger.logDifference(
+                new Identifier(element.data.identifier).toString(),
+                element.data.identifier.registry || "unknown",
+                difference
+            );
 
             const logs = logger.getLogs();
             expect(logs.logs).toHaveLength(1);
@@ -513,12 +530,16 @@ describe("Logger System", () => {
             };
 
             // Test avec une valeur optionnelle différente
-            const difference = createDifferenceFromAction(action, element, 48, "enchantment", logger, "#minecraft:override_tag");
+            const difference = createDifferenceFromAction(action, element.data, 48, "enchantment", logger, "#minecraft:override_tag");
             if (!difference) {
                 throw new Error("Failed to create difference");
             }
 
-            logger.logDifference(element.identifier.toString(), element.identifier.getRegistry() || "unknown", difference);
+            logger.logDifference(
+                new Identifier(element.data.identifier).toString(),
+                element.data.identifier.registry || "unknown",
+                difference
+            );
 
             const logs = logger.getLogs();
             expect(logs.logs).toHaveLength(1);
@@ -556,12 +577,16 @@ describe("Logger System", () => {
             };
 
             const optionalValue = 5;
-            const difference = createDifferenceFromAction(action, element, 48, "enchantment", logger, optionalValue);
+            const difference = createDifferenceFromAction(action, element.data, 48, "enchantment", logger, optionalValue);
             if (!difference) {
                 throw new Error("Failed to create difference");
             }
 
-            logger.logDifference(element.identifier.toString(), element.identifier.getRegistry() || "unknown", difference);
+            logger.logDifference(
+                new Identifier(element.data.identifier).toString(),
+                element.data.identifier.registry || "unknown",
+                difference
+            );
 
             const logs = logger.getLogs();
             expect(logs.logs).toHaveLength(1);
@@ -588,12 +613,16 @@ describe("Logger System", () => {
             };
 
             const optionalValue = "#minecraft:axes";
-            const difference = createDifferenceFromAction(action, element, 48, "enchantment", logger, optionalValue);
+            const difference = createDifferenceFromAction(action, element.data, 48, "enchantment", logger, optionalValue);
             if (!difference) {
                 throw new Error("Failed to create difference");
             }
 
-            logger.logDifference(element.identifier.toString(), element.identifier.getRegistry() || "unknown", difference);
+            logger.logDifference(
+                new Identifier(element.data.identifier).toString(),
+                element.data.identifier.registry || "unknown",
+                difference
+            );
 
             const logs = logger.getLogs();
             expect(logs.logs).toHaveLength(1);
@@ -621,7 +650,7 @@ describe("Logger System", () => {
 
             // Using the same value as current to trigger removal
             const optionalValue = "#voxel:enchantable/range";
-            const difference = createDifferenceFromAction(action, element, 48, "enchantment", logger, optionalValue);
+            const difference = createDifferenceFromAction(action, element.data, 48, "enchantment", logger, optionalValue);
 
             // Si la différence est undefined, c'est normal car la valeur est supprimée
             expect(difference).toBeUndefined();
@@ -643,12 +672,16 @@ describe("Logger System", () => {
 
             // Utilisons une valeur différente
             const optionalValue = "#minecraft:different_value";
-            const difference = createDifferenceFromAction(action, element, 48, "enchantment", logger, optionalValue);
+            const difference = createDifferenceFromAction(action, element.data, 48, "enchantment", logger, optionalValue);
             if (!difference) {
                 throw new Error("Failed to create difference");
             }
 
-            logger.logDifference(element.identifier.toString(), element.identifier.getRegistry() || "unknown", difference);
+            logger.logDifference(
+                new Identifier(element.data.identifier).toString(),
+                element.data.identifier.registry || "unknown",
+                difference
+            );
 
             const logs = logger.getLogs();
             expect(logs.logs).toHaveLength(1);

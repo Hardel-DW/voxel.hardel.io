@@ -1,5 +1,3 @@
-import type { Analysers, GetAnalyserVoxel } from "@/lib/minecraft/core/engine/Analyser.ts";
-import type { RegistryElement } from "@/lib/minecraft/mczip.ts";
 import type { ActionValue, BaseAction } from ".";
 
 export interface ToggleListValueAction extends BaseAction {
@@ -14,11 +12,11 @@ export interface ToggleListValueAction extends BaseAction {
  * - With override mode, converts primitive values to arrays
  * - With remove_if_empty mode, removes the field if the list becomes empty
  */
-export default function ToggleListValueModifier<T extends keyof Analysers>(
+export default function ToggleListValueModifier(
     action: ToggleListValueAction,
-    element: RegistryElement<GetAnalyserVoxel<T>>,
+    element: Record<string, unknown>,
     props?: ActionValue
-): RegistryElement<GetAnalyserVoxel<T>> | undefined {
+): Record<string, unknown> | undefined {
     const { field } = action;
     const value = action.value ?? props;
     const modes = action.mode || [];
@@ -28,17 +26,14 @@ export default function ToggleListValueModifier<T extends keyof Analysers>(
     }
 
     const shadowCopy = structuredClone(element);
-    let list: unknown = shadowCopy.data[field];
+    let list: unknown = shadowCopy[field];
 
     // Handle override mode for primitive values
     if (modes.includes("override") && list !== undefined && !Array.isArray(list)) {
         list = [value as string];
         return {
-            identifier: element.identifier,
-            data: {
-                ...element.data,
-                [field]: list
-            }
+            ...element,
+            [field]: list
         };
     }
 
@@ -56,10 +51,7 @@ export default function ToggleListValueModifier<T extends keyof Analysers>(
     const newList = isPresent ? list.filter((item: string) => item !== value) : [...list, value];
 
     return {
-        identifier: element.identifier,
-        data: {
-            ...element.data,
-            [field]: modes.includes("remove_if_empty") && newList.length === 0 ? undefined : newList
-        }
+        ...element,
+        [field]: modes.includes("remove_if_empty") && newList.length === 0 ? undefined : newList
     };
 }

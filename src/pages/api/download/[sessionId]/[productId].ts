@@ -1,8 +1,8 @@
-import type { APIRoute } from "astro";
-import Stripe from "stripe";
-import { eq } from "drizzle-orm";
 import { db } from "@/database/db";
 import { product } from "@/database/schema";
+import type { APIRoute } from "astro";
+import { eq } from "drizzle-orm";
+import Stripe from "stripe";
 
 export const prerender = false;
 

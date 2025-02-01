@@ -1,23 +1,25 @@
-import type { Analysers, VoxelElement } from "@/lib/minecraft/core/engine/Analyser.ts";
+import type { VoxelElement } from "@/lib/minecraft/core/Element";
+import { Identifier, type IdentifierObject } from "@/lib/minecraft/core/Identifier";
+import type { DataDrivenRegistryElement, VoxelRegistryElement } from "@/lib/minecraft/core/Registry";
+import { tagsToIdentifiers } from "@/lib/minecraft/core/Tag";
+import type { Analysers } from "@/lib/minecraft/core/engine/Analyser.ts";
 import type { Compiler } from "@/lib/minecraft/core/engine/Compiler.ts";
 import type { Parser, ParserParams } from "@/lib/minecraft/core/engine/Parser.ts";
 import type { SlotRegistryType } from "@/lib/minecraft/core/engine/managers/SlotManager.ts";
-import type { RegistryElement } from "@/lib/minecraft/mczip.ts";
 import type { FieldProperties } from "@/lib/minecraft/core/schema/primitive/properties";
-import type { EffectComponentsRecord, Enchantment, TextComponentType } from "@voxel/definitions";
 import { I18n } from "@/lib/minecraft/i18n/i18n";
-import { tagsToIdentifiers } from "../../Tag";
-import { Identifier } from "../../Identifier";
+import generateUUID from "@/lib/utils/uuid";
+import type { EffectComponentsRecord, Enchantment, TextComponentType } from "@voxel/definitions";
 
 const tags_related_to_functionality = [
-    new Identifier("minecraft", "tags/enchantment", "curse", true),
-    new Identifier("minecraft", "tags/enchantment", "double_trade_price", true),
-    new Identifier("minecraft", "tags/enchantment", "prevents_bee_spawns_when_mining", true),
-    new Identifier("minecraft", "tags/enchantment", "prevents_decorated_pot_shattering", true),
-    new Identifier("minecraft", "tags/enchantment", "prevents_ice_melting", true),
-    new Identifier("minecraft", "tags/enchantment", "prevents_infested_spawns", true),
-    new Identifier("minecraft", "tags/enchantment", "smelts_loot", true),
-    new Identifier("minecraft", "tags/enchantment", "tooltip_order", true)
+    { namespace: "minecraft", registry: "tags/enchantment", resource: "curse" },
+    { namespace: "minecraft", registry: "tags/enchantment", resource: "double_trade_price" },
+    { namespace: "minecraft", registry: "tags/enchantment", resource: "prevents_bee_spawns_when_mining" },
+    { namespace: "minecraft", registry: "tags/enchantment", resource: "prevents_decorated_pot_shattering" },
+    { namespace: "minecraft", registry: "tags/enchantment", resource: "prevents_ice_melting" },
+    { namespace: "minecraft", registry: "tags/enchantment", resource: "prevents_infested_spawns" },
+    { namespace: "minecraft", registry: "tags/enchantment", resource: "smelts_loot" },
+    { namespace: "minecraft", registry: "tags/enchantment", resource: "tooltip_order" }
 ];
 
 export const enchantmentProperties = (lang: string): FieldProperties => {
@@ -129,8 +131,10 @@ export const DataDrivenToVoxelFormat: Parser<EnchantmentProps, Enchantment> = ({
     element,
     tags = [],
     configurator
-}: ParserParams<Enchantment>): RegistryElement<EnchantmentProps> => {
-    const data = structuredClone(element.data);
+}: ParserParams<Enchantment>): VoxelRegistryElement<EnchantmentProps> => {
+    const clone = structuredClone(element);
+    const data = clone.data;
+
     const description = data.description;
     const maxLevel = data.max_level;
     const weight = data.weight;
@@ -153,7 +157,7 @@ export const DataDrivenToVoxelFormat: Parser<EnchantmentProps, Enchantment> = ({
 
     const tagsWithoutExclusiveSet = tags.filter((tag) => !(typeof data.exclusive_set === "string" && tag === data.exclusive_set));
     const hasEffects = data.effects && Object.entries(data.effects).length > 0;
-    const tagsRelatedToFunctionality = tags_related_to_functionality.map((tag) => tag.toString());
+    const tagsRelatedToFunctionality = tags_related_to_functionality.map((tag) => new Identifier(tag).toString());
 
     if (!tagsWithoutExclusiveSet.some((tag) => !tagsRelatedToFunctionality.includes(tag))) {
         mode = "only_creative";
@@ -164,8 +168,9 @@ export const DataDrivenToVoxelFormat: Parser<EnchantmentProps, Enchantment> = ({
     }
 
     return {
-        identifier: element.identifier,
+        identifier: generateUUID(),
         data: {
+            identifier: element.identifier,
             description,
             exclusiveSet,
             supportedItems,
@@ -194,15 +199,15 @@ export const DataDrivenToVoxelFormat: Parser<EnchantmentProps, Enchantment> = ({
  * @param original
  */
 export const VoxelToDataDriven: Compiler<EnchantmentProps, Enchantment> = (
-    element: RegistryElement<EnchantmentProps>,
+    element: EnchantmentProps,
     original: Enchantment,
     config: keyof Analysers
 ): {
-    element: RegistryElement<Enchantment>;
-    tags: Identifier[];
+    element: DataDrivenRegistryElement<Enchantment>;
+    tags: IdentifierObject[];
 } => {
     const enchantment = structuredClone(original);
-    const enchant = structuredClone(element.data);
+    const enchant = structuredClone(element);
     let tags = [...tagsToIdentifiers(enchant.tags, `tags/${config}`)];
 
     enchantment.max_level = enchant.maxLevel;
@@ -225,14 +230,14 @@ export const VoxelToDataDriven: Compiler<EnchantmentProps, Enchantment> = (
     }
 
     if (enchant.mode === "only_creative") {
-        tags = tags.filter((tag) => tags_related_to_functionality.some((t) => t.toString() === tag.toString()));
+        tags = tags.filter((tag) => tags_related_to_functionality.some((t) => new Identifier(t).equalsObject(tag)));
     }
 
     if (enchant.exclusiveSet) {
         enchantment.exclusive_set = enchant.exclusiveSet;
 
         if (typeof enchant.exclusiveSet === "string") {
-            tags.push(Identifier.fromString(enchant.exclusiveSet, `tags/${config}`));
+            tags.push(Identifier.of(enchant.exclusiveSet, `tags/${config}`));
         }
     }
 
@@ -245,6 +250,7 @@ export const VoxelToDataDriven: Compiler<EnchantmentProps, Enchantment> = (
     if (enchant.mode === "soft_delete") {
         enchantment.exclusive_set = undefined;
         enchantment.effects = undefined;
+        enchantment.exclusive_set = undefined;
         tags = [];
     }
 

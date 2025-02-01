@@ -1,7 +1,8 @@
-import { cn } from "@/lib/utils";
+import { Identifier } from "@/lib/minecraft/core/Identifier";
 import type { Analysers } from "@/lib/minecraft/core/engine/Analyser";
 import type { CompileDatapackResult } from "@/lib/minecraft/core/engine/Compiler";
 import { getIdentifierFromCompiler } from "@/lib/minecraft/core/engine/Compiler";
+import { cn } from "@/lib/utils";
 
 interface RegistryElementProps {
     element: CompileDatapackResult<keyof Analysers>;
@@ -11,11 +12,11 @@ interface RegistryElementProps {
 
 export function RegistryElement({ element, selectedElement, onElementSelect }: RegistryElementProps) {
     const identifier = getIdentifierFromCompiler(element);
-    const isSelected = selectedElement && getIdentifierFromCompiler(selectedElement).equals(identifier);
+    const isSelected = selectedElement && new Identifier(getIdentifierFromCompiler(selectedElement)).equalsObject(identifier);
 
     return (
         <div
-            key={identifier.filePath()}
+            key={new Identifier(identifier).toFilePath()}
             onClick={() => onElementSelect(element)}
             onKeyDown={() => onElementSelect(element)}
             className={cn(
@@ -26,15 +27,15 @@ export function RegistryElement({ element, selectedElement, onElementSelect }: R
                 }
             )}>
             <p className="absolute top-2 right-2 px-2 rounded-2xl bg-zinc-700/50 text-[0.65rem] text-zinc-500">
-                {identifier.renderNamespace()}
+                {new Identifier(identifier).toNamespace()}
             </p>
             <div
                 className={cn("text-white", {
                     "text-rose-500": isSelected
                 })}>
-                {identifier.renderResource()}
+                {new Identifier(identifier).toResourceName()}
             </div>
-            <small className="text-xs text-gray-400">{identifier.toString()}</small>
+            <small className="text-xs text-gray-400">{new Identifier(identifier).toString()}</small>
         </div>
     );
 }

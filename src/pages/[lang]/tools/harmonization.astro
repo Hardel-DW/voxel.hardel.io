@@ -1,9 +1,9 @@
 ---
 import PageLayout from "@/components/layouts/PageLayout.astro";
 import Dropzone from "@/components/ui/Dropzone.astro";
+import IconButton from "@/components/ui/IconButton.astro";
 import Star from "@/components/ui/star.astro";
 import { getTranslations, names } from "@/lib/i18n";
-import IconButton from "@/components/ui/IconButton.astro";
 
 const { translate } = await getTranslations(Astro.url);
 export const prerender = true;

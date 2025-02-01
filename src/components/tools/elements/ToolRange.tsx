@@ -1,34 +1,35 @@
+import type { ToolRangeType } from "@/lib/minecraft/core/schema/primitive/component";
 import translate from "@/lib/minecraft/i18n/translate";
-import type { TranslateTextType } from "@/lib/minecraft/core/schema/primitive/text";
-import type { InputHTMLAttributes } from "react";
+import { getKey } from "@/lib/minecraft/i18n/translations";
+import type { InteractiveComponentProps } from "./InteractiveComponent";
 
-interface Props extends InputHTMLAttributes<HTMLInputElement> {
-    label?: TranslateTextType | string;
-    onValueChange?: (option: number) => void;
-    value?: number;
-}
+export default function ToolRange({ component, interactiveProps }: InteractiveComponentProps<number, ToolRangeType>) {
+    const { value, lock, handleChange } = interactiveProps;
 
-export default function ToolRange({ id, label, onValueChange, ...props }: Props) {
     return (
         <div className="relative w-full mt-4">
             <div className="flex justify-between items-center w-full">
-                {label && (
-                    <label htmlFor={id} className="block line-clamp-1 text-sm font-medium text-zinc-400 mb-1">
-                        {translate(label)}
-                    </label>
+                {lock.isLocked ? (
+                    <span className="text-xs text-zinc-400 font-light line-clamp-2">{translate(lock.text)}</span>
+                ) : (
+                    component.label && (
+                        <label htmlFor={getKey(component.label)} className="block line-clamp-1 text-sm font-medium text-zinc-400 mb-1">
+                            {translate(component.label)}
+                        </label>
+                    )
                 )}
-
-                <span className="text-sm font-medium text-zinc-400">{props.value}</span>
+                <span className="text-sm font-medium text-zinc-400">{value}</span>
             </div>
             <input
-                id={id}
+                id={getKey(component.label)}
                 type="range"
-                min={0}
-                max={100}
-                step={1}
-                onInput={(e) => onValueChange?.(+e.currentTarget.value)}
+                disabled={lock.isLocked}
+                min={component.min}
+                max={component.max}
+                step={component.step}
+                value={value}
+                onChange={(e) => handleChange(+e.target.value)}
                 className="w-full text-sm font-normal"
-                {...props}
             />
         </div>
     );

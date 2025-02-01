@@ -1,11 +1,10 @@
 import { calculateInitialToggle } from "@/lib/minecraft/core/engine/managers/InitialToggle";
-import type { Unresolved } from "@/lib/minecraft/core/engine/resolver/field/type";
 import type { InterfaceConfiguration } from "@/lib/minecraft/core/schema/primitive";
 import { describe, expect, test } from "vitest";
 
 describe("Search all initial toggle sections", () => {
     test("should return correct initial toggle for one section", () => {
-        const interfaces: Unresolved<InterfaceConfiguration>[] = [
+        const interfaces: InterfaceConfiguration[] = [
             {
                 id: "lorem",
                 section: "Lorem ipsum",
@@ -31,7 +30,7 @@ describe("Search all initial toggle sections", () => {
     });
 
     test("should return correct initial toggle for multiple sections", () => {
-        const interfaces: Unresolved<InterfaceConfiguration>[] = [
+        const interfaces: InterfaceConfiguration[] = [
             {
                 id: "supported",
                 section: "Lorem ipsum",

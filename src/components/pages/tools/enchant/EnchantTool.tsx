@@ -1,7 +1,7 @@
 import HelpGuide from "@/components/pages/tools/enchant/HelpGuide.tsx";
 import ConfiguratorPanel from "@/components/tools/ConfiguratorPanel.tsx";
 import PanelProvider from "@/components/tools/PanelProvider.tsx";
-import SidebarPanel from "@/components/tools/SidebarPanel.tsx";
+import SidebarPanel from "@/components/tools/sidebar/SidebarPanel";
 import type { FaqType } from "@/content/config.ts";
 import type React from "react";
 

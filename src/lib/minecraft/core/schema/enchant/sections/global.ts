@@ -1,7 +1,6 @@
-import type { Unresolved } from "@/lib/minecraft/core/engine/resolver/field/type.ts";
 import type { InterfaceConfiguration } from "@/lib/minecraft/core/schema/primitive";
 
-export const global: Unresolved<InterfaceConfiguration> = {
+export const global: InterfaceConfiguration = {
     id: "enchant.global",
     section: { type: "translate", value: "tools.enchantments.section.global" },
     components: [
@@ -34,11 +33,9 @@ export const global: Unresolved<InterfaceConfiguration> = {
                                 type: "set_value_from_computed_value",
                                 field: "maxLevel"
                             },
-                            value: {
-                                params: {
-                                    type: "Field",
-                                    field: "maxLevel"
-                                }
+                            renderer: {
+                                type: "from_field",
+                                field: "maxLevel"
                             }
                         },
                         {
@@ -59,11 +56,9 @@ export const global: Unresolved<InterfaceConfiguration> = {
                                 type: "set_value_from_computed_value",
                                 field: "weight"
                             },
-                            value: {
-                                params: {
-                                    type: "Field",
-                                    field: "weight"
-                                }
+                            renderer: {
+                                type: "from_field",
+                                field: "weight"
                             }
                         },
                         {
@@ -84,11 +79,9 @@ export const global: Unresolved<InterfaceConfiguration> = {
                                 type: "set_value_from_computed_value",
                                 field: "anvilCost"
                             },
-                            value: {
-                                params: {
-                                    type: "Field",
-                                    field: "anvilCost"
-                                }
+                            renderer: {
+                                type: "from_field",
+                                field: "anvilCost"
                             }
                         }
                     ]
@@ -110,8 +103,13 @@ export const global: Unresolved<InterfaceConfiguration> = {
                                 value: "tools.disabled_because_vanilla"
                             },
                             condition: {
-                                condition: "check_namespace",
-                                values: "minecraft"
+                                condition: "object",
+                                field: "identifier",
+                                terms: {
+                                    condition: "compare_value_to_field_value",
+                                    field: "namespace",
+                                    value: "minecraft"
+                                }
                             }
                         }
                     ],
@@ -119,11 +117,9 @@ export const global: Unresolved<InterfaceConfiguration> = {
                         type: "set_value_from_computed_value",
                         field: "mode"
                     },
-                    value: {
-                        params: {
-                            type: "Field",
-                            field: "mode"
-                        }
+                    renderer: {
+                        type: "from_field",
+                        field: "mode"
                     },
                     options: [
                         {

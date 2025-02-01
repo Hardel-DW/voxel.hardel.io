@@ -1,5 +1,5 @@
 import type { FileLog } from "@/lib/minecraft/core/engine/migrations/types";
-import { pgTable, text, timestamp, varchar, boolean, integer, json } from "drizzle-orm/pg-core";
+import { boolean, integer, json, pgTable, text, timestamp, varchar } from "drizzle-orm/pg-core";
 
 export const userTable = pgTable("user", {
     id: text("id").primaryKey(),

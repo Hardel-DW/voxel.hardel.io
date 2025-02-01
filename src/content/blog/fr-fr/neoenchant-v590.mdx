@@ -4,7 +4,7 @@ title: "NeoEnchant - Version 5.9.0"
 snippet: "La mise a jour de 5.9, ajoutant 6 nouveaux enchantments dont un trés attendu et de l'équilibrage."
 image: {
     src: "/images/background/blog/hero-ne.webp",
-    alt: "NeoEnchant - 5.9.0"
+    alt: "NeoEnchant - 5.9"
 }
 authors: ["hardel"]
 publishDate: "2025-01-19"
@@ -245,6 +245,60 @@ NeoEnchant 5.9.0, intégres aussi la compatibilité avec Yggdrasil V4.0.0 avec s
             </ChangelogItem>
             <ChangelogItem title="Particules">
                 Les particules d'effet de potion ont été supprimées pour une meilleure expérience visuelle.
+            </ChangelogItem>
+        </ChangelogSection>
+    </ChangelogContainer>
+
+    <ChangelogContainer
+        title="Oversize"
+        citation="Les effets négatifs sont supprimés, sont imposantes tailles est déjà un handicap lorsque vous portez cette enchantment."
+        stats={{
+            maxLevel: 3,
+            anvilCost: 2,
+            weight: 5
+        }}
+        applicable={{ name: "Jambières", asset: "leggings" }}
+    >
+        <ChangelogSection>
+            <ChangelogItem title="Malus de dégats">
+                L'effet est supprimé
+            </ChangelogItem>
+            <ChangelogItem title="Malus de vitesse de déplacement">
+                L'effet est supprimé
+            </ChangelogItem>
+        </ChangelogSection>
+    </ChangelogContainer>
+
+    <ChangelogContainer
+        title="Mining+"
+        citation="L'effet possédez parfois quelque probléme en multijoueur, lorsque plusieurs joueurs l'utiliser simultanément et l'enchantement a globalement était optimisés en performance."
+        stats={{
+            maxLevel: 3,
+            anvilCost: 2,
+            weight: 5
+        }}
+        applicable={{ name: "Outils", asset: "mining" }}
+    >
+        <ChangelogSection>
+            <ChangelogItem title="Performance et Bug Fixes">
+                L'enchant est maintenant bien syncronisés peut importe le nombre de joueur,
+            </ChangelogItem>
+        </ChangelogSection>
+    </ChangelogContainer>
+
+        <ChangelogContainer
+        title="Auto-Smelt"
+        citation="C'était trés demander, maintenant l'enchantement donne de l'expérience uniquement quand l'effet ne se déclenche pas, les minerais de diamant, d'emeraude donne maintenant leurs expérience, mais les minerais transformés ne donnent pas d'expérience comme le fer, l'or."
+        stats={{
+            maxLevel: 3,
+            anvilCost: 2,
+            weight: 5
+        }}
+        applicable={{ name: "Outils", asset: "mining" }}
+    >
+        <ChangelogSection>
+            <ChangelogItem title="Expérience">
+                L'enchantement donne maintenant de l'expérience uniquement quand l'effet ne se déclenche pas
             </ChangelogItem>
         </ChangelogSection>
     </ChangelogContainer>

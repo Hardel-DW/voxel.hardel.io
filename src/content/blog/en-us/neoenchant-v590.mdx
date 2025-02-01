@@ -248,6 +248,60 @@ NeoEnchant 5.9.0 also includes compatibility with Yggdrasil V4.0.0 with its new 
             </ChangelogItem>
         </ChangelogSection>
     </ChangelogContainer>
+
+    <ChangelogContainer
+        title="Oversize"
+        citation="Negative effects have been removed, as its imposing size is already a handicap when wearing this enchantment."
+        stats={{
+            maxLevel: 3,
+            anvilCost: 2,
+            weight: 5
+        }}
+        applicable={{ name: "Leggings", asset: "leggings" }}
+    >
+        <ChangelogSection>
+            <ChangelogItem title="Damage Penalty">
+                The effect has been removed
+            </ChangelogItem>
+            <ChangelogItem title="Movement Speed Penalty">
+                The effect has been removed
+            </ChangelogItem>
+        </ChangelogSection>
+    </ChangelogContainer>
+
+    <ChangelogContainer
+        title="Mining+"
+        citation="The effect sometimes had issues in multiplayer when multiple players used it simultaneously, and the enchantment has been globally optimized for better performance."
+        stats={{
+            maxLevel: 3,
+            anvilCost: 2,
+            weight: 5
+        }}
+        applicable={{ name: "Tools", asset: "mining" }}
+    >
+        <ChangelogSection>
+            <ChangelogItem title="Performance and Bug Fixes">
+                The enchantment is now properly synchronized regardless of the number of players
+            </ChangelogItem>
+        </ChangelogSection>
+    </ChangelogContainer>
+
+    <ChangelogContainer
+        title="Auto-Smelt"
+        citation="This was highly requested - now the enchantment only gives experience when the effect doesn't trigger. Diamond and emerald ores now give their experience, but transformed ores like iron and gold don't give experience."
+        stats={{
+            maxLevel: 3,
+            anvilCost: 2,
+            weight: 5
+        }}
+        applicable={{ name: "Tools", asset: "mining" }}
+    >
+        <ChangelogSection>
+            <ChangelogItem title="Experience">
+                The enchantment now only gives experience when the smelting effect doesn't trigger
+            </ChangelogItem>
+        </ChangelogSection>
+    </ChangelogContainer>
 </Changelog>
 
 <Star />

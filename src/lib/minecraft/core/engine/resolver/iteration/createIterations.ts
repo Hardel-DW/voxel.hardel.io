@@ -1,7 +1,7 @@
-import { collectFromPath } from "@/lib/minecraft/core/engine/resolver/iteration/collectFromPath";
-import type { IterationResult, IterationValue } from "@/lib/minecraft/core/engine/resolver/iteration/type";
 import { Identifier } from "@/lib/minecraft/core/Identifier";
 import { getRegistry } from "@/lib/minecraft/core/Registry";
+import { collectFromPath } from "@/lib/minecraft/core/engine/resolver/iteration/collectFromPath";
+import type { IterationResult, IterationValue } from "@/lib/minecraft/core/engine/resolver/iteration/type";
 
 export function createIterations(valueSet: IterationValue, files: Record<string, Uint8Array>): IterationResult[] {
     if (valueSet.type === "collect_from_path" || valueSet.type === "get_registry_elements") {

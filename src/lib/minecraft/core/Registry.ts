@@ -1,5 +1,5 @@
-import type { IdentifierObject } from "@/lib/minecraft/core/Identifier";
 import type { DataDrivenElement, VoxelElement } from "@/lib/minecraft/core/Element";
+import type { IdentifierObject } from "@/lib/minecraft/core/Identifier";
 
 export type VoxelRegistryElement<T extends VoxelElement> = {
     identifier: string;

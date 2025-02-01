@@ -1,8 +1,8 @@
-import type { RefObject } from "react";
+import { Identifier } from "@/lib/minecraft/core/Identifier";
 import { useConfiguratorStore } from "@/lib/minecraft/core/engine/Store";
 import { useElementLocks } from "@/lib/minecraft/core/engine/utils/hooks";
 import { useElementCondition } from "@/lib/minecraft/core/engine/utils/hooks";
-import { Identifier } from "@/lib/minecraft/core/Identifier";
+import type { RefObject } from "react";
 
 export default function SidebarItemContent({ elementId, switchRef }: { elementId: string; switchRef: RefObject<HTMLDivElement | null> }) {
     const sidebarConfig = useConfiguratorStore((state) => state.configuration?.sidebar);

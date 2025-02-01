@@ -1,7 +1,7 @@
+import { Identifier } from "@/lib/minecraft/core/Identifier";
 import type { Analysers } from "@/lib/minecraft/core/engine/Analyser";
 import type { CompileDatapackResult } from "@/lib/minecraft/core/engine/Compiler";
 import { getIdentifierFromCompiler } from "@/lib/minecraft/core/engine/Compiler";
-import { Identifier } from "@/lib/minecraft/core/Identifier";
 import { cn } from "@/lib/utils";
 
 interface RegistryElementProps {

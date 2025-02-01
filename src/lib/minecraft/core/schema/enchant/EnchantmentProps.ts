@@ -1,3 +1,6 @@
+import type { VoxelElement } from "@/lib/minecraft/core/Element";
+import { Identifier, type IdentifierObject } from "@/lib/minecraft/core/Identifier";
+import type { DataDrivenRegistryElement, VoxelRegistryElement } from "@/lib/minecraft/core/Registry";
 import { tagsToIdentifiers } from "@/lib/minecraft/core/Tag";
 import type { Analysers } from "@/lib/minecraft/core/engine/Analyser.ts";
 import type { Compiler } from "@/lib/minecraft/core/engine/Compiler.ts";
@@ -7,9 +10,6 @@ import type { FieldProperties } from "@/lib/minecraft/core/schema/primitive/prop
 import { I18n } from "@/lib/minecraft/i18n/i18n";
 import generateUUID from "@/lib/utils/uuid";
 import type { EffectComponentsRecord, Enchantment, TextComponentType } from "@voxel/definitions";
-import { Identifier, type IdentifierObject } from "@/lib/minecraft/core/Identifier";
-import type { DataDrivenRegistryElement, VoxelRegistryElement } from "@/lib/minecraft/core/Registry";
-import type { VoxelElement } from "@/lib/minecraft/core/Element";
 
 const tags_related_to_functionality = [
     { namespace: "minecraft", registry: "tags/enchantment", resource: "curse" },

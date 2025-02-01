@@ -1,5 +1,5 @@
-import type { BaseCondition } from "@/lib/minecraft/core/engine/condition";
 import type { ActionValue } from "@/lib/minecraft/core/engine/actions";
+import type { BaseCondition } from "@/lib/minecraft/core/engine/condition";
 
 export interface ConditionContain extends BaseCondition {
     condition: "contains";

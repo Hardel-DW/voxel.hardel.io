@@ -1,4 +1,5 @@
 import Donation from "@/components/tools/elements/Donation";
+import { InteractiveComponent } from "@/components/tools/elements/InteractiveComponent";
 import ToolCategory from "@/components/tools/elements/ToolCategory.tsx";
 import ToolCounter from "@/components/tools/elements/ToolCounter.tsx";
 import ToolFlexible from "@/components/tools/elements/ToolFlexible";
@@ -17,10 +18,9 @@ import ToolReveal from "@/components/tools/elements/schema/reveal/ToolReveal";
 import ToolTagViewer from "@/components/tools/elements/schema/tags/ToolTagViewer";
 import TextRender from "@/components/tools/elements/text/TextRender.tsx";
 import type { FormComponent } from "@/lib/minecraft/core/schema/primitive/component.ts";
-import { BaseComponent } from "./elements/BaseComponent";
-import { InteractiveComponent } from "@/components/tools/elements/InteractiveComponent";
-import ErrorPlaceholder from "./elements/error/Card";
 import ErrorBoundary from "../ui/react/ErrorBoundary";
+import { BaseComponent } from "./elements/BaseComponent";
+import ErrorPlaceholder from "./elements/error/Card";
 
 type ComponentMap = {
     [K in FormComponent["type"]]: React.ComponentType<{

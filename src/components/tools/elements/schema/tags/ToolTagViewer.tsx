@@ -3,9 +3,9 @@ import { ToolTagCard } from "@/components/tools/elements/schema/tags/ToolTagCard
 import { Identifier } from "@/lib/minecraft/core/Identifier";
 import { isTag } from "@/lib/minecraft/core/Tag";
 import { getIdentifierFromCompiler } from "@/lib/minecraft/core/engine/Compiler";
-import type { ToolTagViewerType } from "@/lib/minecraft/core/schema/primitive/component";
 import { useConfiguratorStore } from "@/lib/minecraft/core/engine/Store";
 import { useElementValue } from "@/lib/minecraft/core/engine/utils/hooks";
+import type { ToolTagViewerType } from "@/lib/minecraft/core/schema/primitive/component";
 
 export default function ToolTagViewer({
     component

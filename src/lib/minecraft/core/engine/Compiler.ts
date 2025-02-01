@@ -1,14 +1,14 @@
+import type { DataDrivenElement, VoxelElement } from "@/lib/minecraft/core/Element";
 import { Identifier, type IdentifierObject } from "@/lib/minecraft/core/Identifier.ts";
+import type { DataDrivenRegistryElement } from "@/lib/minecraft/core/Registry";
 import {
     type Analysers,
     type GetAnalyserMinecraft,
     type GetAnalyserVoxel,
     getAnalyserForVersion
 } from "@/lib/minecraft/core/engine/Analyser.ts";
-import type { OptionalTag, TagType } from "@voxel/definitions";
 import { readDatapackFile } from "@/lib/minecraft/mczip";
-import type { DataDrivenRegistryElement } from "@/lib/minecraft/core/Registry";
-import type { DataDrivenElement, VoxelElement } from "@/lib/minecraft/core/Element";
+import type { OptionalTag, TagType } from "@voxel/definitions";
 
 export type Compiler<T extends VoxelElement, K extends DataDrivenElement> = (
     element: T,

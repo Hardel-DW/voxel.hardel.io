@@ -1,9 +1,9 @@
+import { Identifier } from "@/lib/minecraft/core/Identifier";
 import type { Analysers, GetAnalyserVoxel } from "@/lib/minecraft/core/engine/Analyser";
 import type { Action, ActionValue } from "@/lib/minecraft/core/engine/actions";
 import { updateData } from "@/lib/minecraft/core/engine/actions";
-import type { LogDifference, LogValue } from "@/lib/minecraft/core/engine/migrations/types";
-import { Identifier } from "@/lib/minecraft/core/Identifier";
 import type { Logger } from "@/lib/minecraft/core/engine/migrations/logger";
+import type { LogDifference, LogValue } from "@/lib/minecraft/core/engine/migrations/types";
 
 /**
  * Checks if a value matches the LogValue type

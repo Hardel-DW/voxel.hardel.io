@@ -1,9 +1,9 @@
 import CodeBlock from "@/components/ui/codeblock/CodeBlock";
 import EmptyCodeBlock from "@/components/ui/codeblock/EmptyCodeBlock";
 import { useTranslate } from "@/components/useTranslate";
+import { Identifier } from "@/lib/minecraft/core/Identifier";
 import type { Analysers } from "@/lib/minecraft/core/engine/Analyser";
 import { type CompileDatapackResult, getIdentifierFromCompiler } from "@/lib/minecraft/core/engine/Compiler";
-import { Identifier } from "@/lib/minecraft/core/Identifier";
 import { useConfiguratorStore } from "@/lib/minecraft/core/engine/Store";
 
 interface CodeSectionProps {

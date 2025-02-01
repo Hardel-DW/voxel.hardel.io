@@ -1,3 +1,4 @@
+import type { VoxelElement } from "@/lib/minecraft/core/Element";
 import type { Compiler } from "@/lib/minecraft/core/engine/Compiler.ts";
 import type { Parser } from "@/lib/minecraft/core/engine/Parser.ts";
 import { ENCHANT_TOOL_CONFIG } from "@/lib/minecraft/core/schema/enchant";
@@ -10,7 +11,6 @@ import {
 import type { ToolConfiguration } from "@/lib/minecraft/core/schema/primitive";
 import type { FieldProperties } from "@/lib/minecraft/core/schema/primitive/properties";
 import type { DataDrivenElement, Enchantment } from "@voxel/definitions";
-import type { VoxelElement } from "@/lib/minecraft/core/Element";
 
 export type GetAnalyserVoxel<T extends keyof Analysers> = Analysers[T]["voxel"];
 export type GetAnalyserMinecraft<T extends keyof Analysers> = Analysers[T]["minecraft"];

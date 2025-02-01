@@ -1,6 +1,6 @@
+import { Identifier, type IdentifierObject, isIdentifier } from "@/lib/minecraft/core/Identifier";
 import { getPropertySafely } from "@/lib/utils";
 import type { BaseAction } from ".";
-import { Identifier, isIdentifier, type IdentifierObject } from "@/lib/minecraft/core/Identifier";
 
 export type ValidType = string | number | IdentifierObject;
 

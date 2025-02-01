@@ -1,5 +1,5 @@
-import type { TagType } from "@voxel/definitions";
 import type { DataDrivenRegistryElement } from "@/lib/minecraft/core/Registry";
+import type { TagType } from "@voxel/definitions";
 
 const axes: TagType = {
     values: ["#minecraft:axes"]

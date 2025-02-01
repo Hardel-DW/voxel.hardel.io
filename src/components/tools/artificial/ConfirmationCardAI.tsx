@@ -1,10 +1,10 @@
 import { useTranslate } from "@/components/useTranslate";
+import { Identifier } from "@/lib/minecraft/core/Identifier";
 import { type Analysers, getAnalyserForVersion } from "@/lib/minecraft/core/engine/Analyser";
-import { type Action, updateData } from "@/lib/minecraft/core/engine/actions";
 import { useConfiguratorStore } from "@/lib/minecraft/core/engine/Store";
+import { type Action, updateData } from "@/lib/minecraft/core/engine/actions";
 import { useState } from "react";
 import { ValueRenderer, type ValueRendererProps } from "./value/ValueRenderer";
-import { Identifier } from "@/lib/minecraft/core/Identifier";
 
 export type PropsConfirmationCardAI = {
     action: Action;

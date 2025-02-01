@@ -1,5 +1,5 @@
 import type { DataDrivenElement } from "@/lib/minecraft/core/Element";
-import { getRegistry, type DataDrivenRegistryElement } from "@/lib/minecraft/core/Registry";
+import { type DataDrivenRegistryElement, getRegistry } from "@/lib/minecraft/core/Registry";
 
 export function collectFromPath<T extends DataDrivenElement>(
     registry: string,

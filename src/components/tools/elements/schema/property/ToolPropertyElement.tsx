@@ -1,7 +1,7 @@
 import { useTranslate } from "@/components/useTranslate";
-import type { Condition } from "@/lib/minecraft/core/engine/condition";
 import { Identifier } from "@/lib/minecraft/core/Identifier";
 import { useConfiguratorStore } from "@/lib/minecraft/core/engine/Store";
+import type { Condition } from "@/lib/minecraft/core/engine/condition";
 import { useElementCondition } from "@/lib/minecraft/core/engine/utils/hooks";
 
 interface ToolPropertyElementProps {

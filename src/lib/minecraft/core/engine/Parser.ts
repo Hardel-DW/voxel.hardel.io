@@ -1,3 +1,7 @@
+import type { PackMcmeta } from "@/lib/minecraft/core/Datapack.ts";
+import type { ConfiguratorConfigFromDatapack, DataDrivenElement, VoxelElement } from "@/lib/minecraft/core/Element";
+import { Identifier, type IdentifierObject } from "@/lib/minecraft/core/Identifier.ts";
+import { type DataDrivenRegistryElement, type VoxelRegistryElement, getRegistry, sortRegistry } from "@/lib/minecraft/core/Registry";
 import { isPresentInTag } from "@/lib/minecraft/core/Tag.ts";
 import {
     type Analysers,
@@ -5,17 +9,13 @@ import {
     type GetAnalyserVoxel,
     getAnalyserForVersion
 } from "@/lib/minecraft/core/engine/Analyser.ts";
-import type { DataDrivenElement, VoxelElement, ConfiguratorConfigFromDatapack } from "@/lib/minecraft/core/Element";
 import { calculateInitialToggle } from "@/lib/minecraft/core/engine/managers/InitialToggle.ts";
 import type { ToolConfiguration } from "@/lib/minecraft/core/schema/primitive";
 import type { ToggleSectionMap } from "@/lib/minecraft/core/schema/primitive/toggle";
+import { getVoxelConfig, parseZip, readDatapackFile } from "@/lib/minecraft/mczip.ts";
 import type { TagType } from "@voxel/definitions";
 import { Logger } from "./migrations/logger";
 import type { Log } from "./migrations/types";
-import { Identifier, type IdentifierObject } from "@/lib/minecraft/core/Identifier.ts";
-import { getRegistry, sortRegistry, type DataDrivenRegistryElement, type VoxelRegistryElement } from "@/lib/minecraft/core/Registry";
-import { getVoxelConfig, parseZip, readDatapackFile } from "@/lib/minecraft/mczip.ts";
-import type { PackMcmeta } from "@/lib/minecraft/core/Datapack.ts";
 
 export interface ParserParams<K extends DataDrivenElement> {
     element: DataDrivenRegistryElement<K>;

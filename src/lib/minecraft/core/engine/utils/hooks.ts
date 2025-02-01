@@ -1,13 +1,13 @@
+import type { VoxelElement } from "@/lib/minecraft/core/Element";
+import { getCurrentElement, useConfiguratorStore } from "@/lib/minecraft/core/engine/Store";
 import { type Condition, checkCondition } from "@/lib/minecraft/core/engine/condition";
 import { checkLocks } from "@/lib/minecraft/core/engine/renderer";
 import type { ValueRenderer } from "@/lib/minecraft/core/engine/renderer/value";
 import { getValue } from "@/lib/minecraft/core/engine/renderer/value";
+import { getConditionFields, getLockFields, getRendererFields } from "@/lib/minecraft/core/engine/utils/field_parsing";
 import type { Lock } from "@/lib/minecraft/core/schema/primitive/component";
 import type { TranslateTextType } from "@/lib/minecraft/core/schema/primitive/text";
-import { getCurrentElement, useConfiguratorStore } from "@/lib/minecraft/core/engine/Store";
-import { getConditionFields, getLockFields, getRendererFields } from "@/lib/minecraft/core/engine/utils/field_parsing";
 import { useShallow } from "zustand/shallow";
-import type { VoxelElement } from "@/lib/minecraft/core/Element";
 
 export const useElementValue = <T>(renderer: ValueRenderer, elementId?: string): T | null => {
     if (!renderer) return null;

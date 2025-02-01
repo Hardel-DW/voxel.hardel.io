@@ -1,10 +1,10 @@
 import { voxelDatapacks } from "@/lib/minecraft/voxel/VoxelDatapack.ts";
 import JSZip from "jszip";
+import type { ConfiguratorConfigFromDatapack } from "./core/Element";
+import { Identifier, type IdentifierObject } from "./core/Identifier";
 import type { Analysers } from "./core/engine/Analyser";
 import type { CompileDatapackResult } from "./core/engine/Compiler";
 import type { Logger } from "./core/engine/migrations/logger";
-import { Identifier, type IdentifierObject } from "./core/Identifier";
-import type { ConfiguratorConfigFromDatapack } from "./core/Element";
 
 /**
  * Get the Voxel configuration file, if it exists, il est localisés au même endroit que l'identifier mais pas dans le dossier data mais dans le dosssier voxel.

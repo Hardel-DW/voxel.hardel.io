@@ -1,6 +1,6 @@
 import type { IdentifierObject } from "@/lib/minecraft/core/Identifier";
-import type { Analysers, GetAnalyserVoxel } from "@/lib/minecraft/core/engine/Analyser";
 import type { VoxelRegistryElement } from "@/lib/minecraft/core/Registry";
+import type { Analysers, GetAnalyserVoxel } from "@/lib/minecraft/core/engine/Analyser";
 
 export type DataDrivenElement = Record<string, unknown>;
 export interface VoxelElement extends Record<string, unknown> {

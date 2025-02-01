@@ -1,7 +1,7 @@
-import type { ActionValue } from "@/lib/minecraft/core/engine/actions";
-import type { BaseInteractiveComponent, LockRenderer } from "@/lib/minecraft/core/schema/primitive/component";
 import { useConfiguratorStore } from "@/lib/minecraft/core/engine/Store";
+import type { ActionValue } from "@/lib/minecraft/core/engine/actions";
 import { useElementCondition, useElementLocks, useElementValue } from "@/lib/minecraft/core/engine/utils/hooks";
+import type { BaseInteractiveComponent, LockRenderer } from "@/lib/minecraft/core/schema/primitive/component";
 
 export interface InteractiveProps<T> {
     value: T;

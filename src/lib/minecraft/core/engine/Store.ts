@@ -1,14 +1,14 @@
+import { isVoxelElement, sortVoxelElements } from "@/lib/minecraft/core/Element";
+import type { IdentifierObject } from "@/lib/minecraft/core/Identifier";
 import type { Analysers, GetAnalyserVoxel } from "@/lib/minecraft/core/engine/Analyser";
+import { type CompileDatapackResult, compileDatapack } from "@/lib/minecraft/core/engine/Compiler";
+import type { ParseDatapackResult } from "@/lib/minecraft/core/engine/Parser";
 import type { Action, ActionValue } from "@/lib/minecraft/core/engine/actions";
 import { updateData } from "@/lib/minecraft/core/engine/actions";
 import type { Logger } from "@/lib/minecraft/core/engine/migrations/logger";
 import type { ToolConfiguration } from "@/lib/minecraft/core/schema/primitive";
 import type { ToggleSection } from "@/lib/minecraft/core/schema/primitive/toggle";
 import { create } from "zustand";
-import type { IdentifierObject } from "@/lib/minecraft/core/Identifier";
-import type { ParseDatapackResult } from "@/lib/minecraft/core/engine/Parser";
-import { compileDatapack, type CompileDatapackResult } from "@/lib/minecraft/core/engine/Compiler";
-import { isVoxelElement, sortVoxelElements } from "@/lib/minecraft/core/Element";
 
 export interface ConfiguratorState<T extends keyof Analysers> {
     name: string;

@@ -1,5 +1,5 @@
-import type { FormComponent } from "@/lib/minecraft/core/schema/primitive/component";
 import { useElementCondition } from "@/lib/minecraft/core/engine/utils/hooks";
+import type { FormComponent } from "@/lib/minecraft/core/schema/primitive/component";
 
 export const BaseComponent = <T extends FormComponent>(WrappedComponent: React.ComponentType<{ component: T }>) => {
     const BaseComponentWrapper = ({ component }: { component: T }) => {

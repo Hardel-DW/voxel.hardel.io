@@ -6,7 +6,7 @@ import { CheckEqualFieldValueCondition, type ConditionEqualsFieldValue } from ".
 import { type AllOfCondition, checkAllOfCondition } from "./generic/AllOfCondition.ts";
 import { type AnyOfCondition, checkAnyOfCondition } from "./generic/AnyOfCondition.ts";
 import { type InvertedCondition, checkInvertedCondition } from "./generic/InvertedCondition.ts";
-import { checkObjectCondition, type ObjectCondition } from "./generic/ObjectCondition.ts";
+import { type ObjectCondition, checkObjectCondition } from "./generic/ObjectCondition.ts";
 
 export type BaseCondition = {
     field: string;

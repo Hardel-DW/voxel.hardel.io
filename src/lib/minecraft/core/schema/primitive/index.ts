@@ -24,6 +24,7 @@ export type ToolConfiguration = {
 };
 
 export type InterfaceConfiguration = {
+    disabled?: boolean;
     id: string;
     components: FormComponent[];
     section: TranslateTextType;

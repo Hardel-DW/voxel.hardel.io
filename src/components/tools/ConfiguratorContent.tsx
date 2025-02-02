@@ -15,7 +15,14 @@ export default function ConfiguratorContent(props: { section: InterfaceConfigura
                 </div>
             )}
 
-            <div className="flex items flex-col gap-4">
+            <div className="flex items flex-col gap-4 relative">
+                {props.section.disabled && (
+                    <div className="absolute inset-0 bg-black/10 backdrop-blur-sm flex flex-col items-center justify-center gap-4">
+                        <img src="/icons/tools/lock.svg" alt="Lock" className="w-48 h-48 invert-50" />
+                        <div className="text-2xl text-zinc-400 text-center font-light mb-4">Temporarily disabled - Come back soon!</div>
+                    </div>
+                )}
+
                 {props.section.components.map((component, index) => (
                     <RenderComponent key={index.toString()} component={component} />
                 ))}

@@ -1,6 +1,7 @@
 import type { InterfaceConfiguration } from "@/lib/minecraft/core/schema/primitive";
 
 export const exclusive: InterfaceConfiguration = {
+    disabled: true,
     id: "enchant.exclusive",
     section: { type: "translate", value: "tools.enchantments.section.exclusive" },
     components: [

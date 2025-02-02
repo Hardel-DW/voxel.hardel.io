@@ -74,6 +74,10 @@ export async function generateZip(
     }
 
     for (const file of content) {
+        if (file.type === "deleted" && file.identifier.registry.startsWith("tags")) {
+            zip.file(`${new Identifier(file.identifier).toFilePath()}.json`, JSON.stringify({ values: [] }, null, minify ? 0 : 4));
+            continue;
+        }
         if (file.type === "deleted") continue;
         zip.file(`${new Identifier(file.element.identifier).toFilePath()}.json`, JSON.stringify(file.element.data, null, minify ? 0 : 4));
     }

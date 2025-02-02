@@ -85,10 +85,6 @@ export const enchantmentProperties = (lang: string): FieldProperties => {
             name: t("enchantment.field.tags.name"),
             type: "array"
         },
-        assignedTags: {
-            name: t("enchantment.field.assignedTags.name"),
-            type: "tags"
-        },
         mode: {
             name: t("enchantment.field.mode.name"),
             type: "string"
@@ -117,7 +113,6 @@ export interface EnchantmentProps extends VoxelElement {
     effects: EffectComponentsRecord | undefined;
     slots: SlotRegistryType[];
     tags: string[];
-    assignedTags: string[];
     mode: "normal" | "soft_delete" | "only_creative";
     disabledEffects: string[];
 }
@@ -148,12 +143,7 @@ export const DataDrivenToVoxelFormat: Parser<EnchantmentProps, Enchantment> = ({
     const primaryItems = data.primary_items;
     const effects = data.effects;
     const slots = data.slots;
-    const assignedTags = [];
     let mode: "normal" | "soft_delete" | "only_creative" = "normal";
-
-    if (typeof exclusiveSet === "string") {
-        assignedTags.push(exclusiveSet);
-    }
 
     const tagsWithoutExclusiveSet = tags.filter((tag) => !(typeof data.exclusive_set === "string" && tag === data.exclusive_set));
     const hasEffects = data.effects && Object.entries(data.effects).length > 0;
@@ -186,7 +176,6 @@ export const DataDrivenToVoxelFormat: Parser<EnchantmentProps, Enchantment> = ({
             tags,
             slots,
             mode,
-            assignedTags,
             disabledEffects: [],
             override: configurator
         }
@@ -208,7 +197,13 @@ export const VoxelToDataDriven: Compiler<EnchantmentProps, Enchantment> = (
 } => {
     const enchantment = structuredClone(original);
     const enchant = structuredClone(element);
-    let tags = [...tagsToIdentifiers(enchant.tags, `tags/${config}`)];
+    const tagRegistry = `tags/${config}`;
+    let tags = [...tagsToIdentifiers(enchant.tags, tagRegistry)];
+
+    const originalExlusiveSetTags = original.exclusive_set;
+    if (originalExlusiveSetTags && typeof originalExlusiveSetTags === "string") {
+        tags = tags.filter((tag) => !Identifier.of(originalExlusiveSetTags, tagRegistry).equalsObject(tag));
+    }
 
     enchantment.max_level = enchant.maxLevel;
     enchantment.weight = enchant.weight;
@@ -237,7 +232,7 @@ export const VoxelToDataDriven: Compiler<EnchantmentProps, Enchantment> = (
         enchantment.exclusive_set = enchant.exclusiveSet;
 
         if (typeof enchant.exclusiveSet === "string") {
-            tags.push(Identifier.of(enchant.exclusiveSet, `tags/${config}`));
+            tags.push(Identifier.of(enchant.exclusiveSet, tagRegistry));
         }
     }
 
@@ -250,7 +245,6 @@ export const VoxelToDataDriven: Compiler<EnchantmentProps, Enchantment> = (
     if (enchant.mode === "soft_delete") {
         enchantment.exclusive_set = undefined;
         enchantment.effects = undefined;
-        enchantment.exclusive_set = undefined;
         tags = [];
     }
 

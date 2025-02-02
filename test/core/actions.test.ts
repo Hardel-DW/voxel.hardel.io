@@ -29,7 +29,6 @@ const createMockElement = (data: Partial<EnchantmentProps> = {}): VoxelRegistryE
         maxCostBase: 10,
         maxCostPerLevelAboveFirst: 10,
         effects: undefined,
-        assignedTags: [],
         slots: [],
         tags: [],
         mode: "normal",
@@ -61,7 +60,6 @@ const createComplexMockElement = (data: Partial<EnchantmentProps> = {}): VoxelRe
         mode: "normal",
         minCostPerLevelAboveFirst: 1,
         maxCostBase: 10,
-        assignedTags: ["exclusiveSet"],
         maxCostPerLevelAboveFirst: 10,
         primaryItems: undefined,
         supportedItems: "#voxel:enchantable/range",
@@ -462,6 +460,10 @@ describe("Action System", () => {
             expect(result2).toBeDefined();
             expect(result2?.disabledEffects).toEqual([]);
         });
+    });
+
+    describe("Assignd Tags Toggled", () => {
+        it("should toggle a value in a list", () => {});
     });
 });
 

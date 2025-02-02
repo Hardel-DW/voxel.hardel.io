@@ -82,6 +82,7 @@ export async function generateZip(
         const logs = logger.getLogs();
         const updatedLogs = {
             ...logs,
+            engine: logger.getEngine(),
             isMinified: minify
         };
 

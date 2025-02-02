@@ -76,7 +76,7 @@ export default function MigrationTool({ translate, children }: MigrationToolProp
 
             const modifiedDatapack = await generateZip(modifiedTarget.files, finalDatapack, {
                 minify: modifiedTarget.logger.getLogs().isMinified,
-                logger: Logger.fromLog(logs),
+                logger: new Logger(logs),
                 includeVoxel: true
             });
 

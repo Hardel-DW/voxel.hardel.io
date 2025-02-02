@@ -1,29 +1,29 @@
+import { Identifier } from "@/lib/minecraft/core/Identifier";
+import { ENGINE_VERSION } from "@/lib/minecraft/core/Version";
 import type { Analysers, GetAnalyserVoxel } from "@/lib/minecraft/core/engine/Analyser";
 import type { Action, ActionValue } from "@/lib/minecraft/core/engine/actions";
 import { createDifferenceFromAction } from "@/lib/minecraft/core/engine/migrations/logValidation";
-import type { DatapackInfo, FileLog, FileLogUpdated, Log, LogDifference, LogValue } from "@/lib/minecraft/core/engine/migrations/types";
+import type { FileLog, FileLogUpdated, Log, LogDifference, LogValue } from "@/lib/minecraft/core/engine/migrations/types";
 
 export class Logger {
     private readonly log: Log;
+    private readonly engine: number;
 
-    public static fromLog(log: Log): Logger {
-        return new Logger(log.id, log.date, log.version, log.isModded, log.datapack, log);
+    constructor(log: Log, engine: number = ENGINE_VERSION) {
+        this.log = log;
+        this.engine = engine;
     }
 
-    constructor(id: string, date: string, version: number, isModded: boolean, datapack: DatapackInfo, existingLog?: Log) {
-        if (existingLog) {
-            this.log = existingLog;
-        } else {
-            this.log = {
-                id,
-                date,
-                version,
-                isModded,
-                datapack,
-                isMinified: true,
-                logs: []
-            };
-        }
+    public getEngine(): number {
+        return this.engine;
+    }
+
+    public getVersion(): number {
+        return this.log.version;
+    }
+
+    public getLogs(): Log {
+        return this.log;
     }
 
     // Trouve ou crée un FileLog pour un identifiant donné
@@ -115,11 +115,6 @@ export class Logger {
         }
     }
 
-    // Récupère les logs
-    public getLogs(): Log {
-        return this.log;
-    }
-
     // Ajouter une nouvelle méthode pour récupérer la valeur originale
     public getOriginalValue(identifier: string, field: string): LogValue | undefined {
         const fileLog = this.log.logs.find((log) => log.identifier === identifier);
@@ -139,7 +134,7 @@ export class Logger {
     ): void {
         const difference = createDifferenceFromAction(action, element, version, tool, this, value);
         if (difference) {
-            this.logDifference(String(element.identifier), element.identifier.registry || "unknown", difference);
+            this.logDifference(new Identifier(element.identifier).toString(), element.identifier.registry || "unknown", difference);
         }
     }
 }

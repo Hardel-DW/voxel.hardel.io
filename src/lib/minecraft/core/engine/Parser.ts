@@ -111,15 +111,23 @@ export async function parseDatapack<T extends keyof Analysers>(
         day: "2-digit"
     }).format(new Date());
 
-    let logger: Logger = new Logger(id, date, packFormat, isJar, {
-        name,
-        description,
-        namespaces
+    let logger: Logger = new Logger({
+        id,
+        date,
+        version: packFormat,
+        isModded: isJar,
+        datapack: {
+            name,
+            description,
+            namespaces
+        },
+        isMinified: true,
+        logs: []
     });
 
     if (logFile) {
         const existingLog: Log = JSON.parse(new TextDecoder().decode(logFile));
-        logger = new Logger(existingLog.id, existingLog.date, existingLog.version, existingLog.isModded, existingLog.datapack, existingLog);
+        logger = new Logger(existingLog);
     }
 
     return {

@@ -71,12 +71,21 @@ const createConfiguratorStore = <T extends keyof Analysers>() =>
                 return;
             }
 
-            console.log("action", action);
             const updatedElement = updateData(action, element, state.version ?? Number.POSITIVE_INFINITY, value);
             if (!updatedElement) return;
 
             const isElementValid = isVoxelElement(updatedElement);
             if (!isElementValid || !elementId) return;
+
+            if (state.logger && state.version && typeof state.configuration?.analyser.id === "string") {
+                state.logger.handleActionDifference(
+                    action,
+                    element,
+                    state.version ?? Number.POSITIVE_INFINITY,
+                    state.configuration?.analyser.id as T,
+                    value
+                );
+            }
 
             set((state) => ({
                 elements: state.elements.set(elementId, updatedElement)

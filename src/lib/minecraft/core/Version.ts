@@ -18,6 +18,11 @@ const PACK_VERSION = {
 };
 
 /**
+ * The version of the engine
+ */
+export const ENGINE_VERSION = 1;
+
+/**
  * Get the Minecraft version from the pack format
  * @example 1.21.1
  * @param packFormat - The pack format

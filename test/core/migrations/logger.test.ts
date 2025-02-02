@@ -63,48 +63,48 @@ const createMockLog = (logs: FileLog[]): Log => ({
     logs
 });
 
-describe("Logger System", () => {
-    const mockDatapackInfo: DatapackInfo = {
-        name: "Test Datapack",
-        description: "A test datapack",
-        namespaces: ["minecraft", "test"]
-    };
+const mockDatapackInfo: DatapackInfo = {
+    name: "Test Datapack",
+    description: "A test datapack",
+    namespaces: ["minecraft", "test"]
+};
 
+const existingLog = (): Log => ({
+    id: "test-id",
+    date: "2024-03-20",
+    version: 48,
+    isModded: false,
+    datapack: mockDatapackInfo,
+    isMinified: false,
+    logs: []
+});
+
+describe("Logger System", () => {
     describe("Logger initialization", () => {
         it("should create a new logger with initial state", () => {
-            const logger = new Logger("test-id", "2024-03-20", 12, false, mockDatapackInfo);
+            const logger = new Logger(existingLog());
             const logs = logger.getLogs();
 
             expect(logs).toMatchObject({
                 id: "test-id",
                 date: "2024-03-20",
-                version: 12,
+                version: 48,
                 isModded: false,
                 datapack: mockDatapackInfo,
-                isMinified: true,
+                isMinified: false,
                 logs: []
             });
         });
 
         it("should initialize from existing log", () => {
-            const existingLog = {
-                id: "existing-id",
-                date: "2024-03-19",
-                version: 11,
-                isModded: true,
-                datapack: mockDatapackInfo,
-                isMinified: false,
-                logs: []
-            };
-
-            const logger = new Logger("new-id", "2024-03-20", 12, false, mockDatapackInfo, existingLog);
-            expect(logger.getLogs()).toEqual(existingLog);
+            const logger = new Logger(existingLog());
+            expect(logger.getLogs()).toEqual(existingLog());
         });
     });
 
     describe("Logging differences", () => {
         it("should log a new difference", () => {
-            const logger = new Logger("test-id", "2024-03-20", 12, false, mockDatapackInfo);
+            const logger = new Logger(existingLog());
             const difference: LogDifference = {
                 type: "set",
                 path: "effects.strength.level",
@@ -125,7 +125,7 @@ describe("Logger System", () => {
         });
 
         it("should update existing difference", () => {
-            const logger = new Logger("test-id", "2024-03-20", 12, false, mockDatapackInfo);
+            const logger = new Logger(existingLog());
             const initialDifference: LogDifference = {
                 type: "set",
                 path: "effects.strength.level",
@@ -152,7 +152,7 @@ describe("Logger System", () => {
         });
 
         it("should remove difference when type is remove", () => {
-            const logger = new Logger("test-id", "2024-03-20", 12, false, mockDatapackInfo);
+            const logger = new Logger(existingLog());
             const initialDifference: LogDifference = {
                 type: "set",
                 path: "effects.strength.level",
@@ -178,7 +178,7 @@ describe("Logger System", () => {
 
     describe("Logging file operations", () => {
         it("should log file deletion", () => {
-            const logger = new Logger("test-id", "2024-03-20", 12, false, mockDatapackInfo);
+            const logger = new Logger(existingLog());
 
             logger.logDeletion("minecraft:strength", "enchantment");
 
@@ -192,7 +192,7 @@ describe("Logger System", () => {
         });
 
         it("should log file addition", () => {
-            const logger = new Logger("test-id", "2024-03-20", 12, false, mockDatapackInfo);
+            const logger = new Logger(existingLog());
             const newValue = {
                 id: "minecraft:strength",
                 max_level: 5,
@@ -212,7 +212,7 @@ describe("Logger System", () => {
         });
 
         it("should update existing file log when status changes", () => {
-            const logger = new Logger("test-id", "2024-03-20", 12, false, mockDatapackInfo);
+            const logger = new Logger(existingLog());
 
             // D'abord on ajoute un fichier
             logger.logAddition("minecraft:strength", "enchantment", { id: "minecraft:strength" });
@@ -232,7 +232,7 @@ describe("Logger System", () => {
 
     describe("Logging sequential actions", () => {
         it("should log multiple differences from sequential actions", () => {
-            const logger = new Logger("test-id", "2024-03-20", 48, false, mockDatapackInfo);
+            const logger = new Logger(existingLog());
             const element = createComplexMockElement();
 
             // Simulate the sequential action with two modifications
@@ -303,7 +303,7 @@ describe("Logger System", () => {
         });
 
         it("should add a new value to existing list, wihout removing the old original value", () => {
-            const existingLog = createMockLog([
+            const existingLogWithDifferences = createMockLog([
                 {
                     identifier: "enchantplus:bow/accuracy_shot",
                     registry: "enchantment",
@@ -343,10 +343,10 @@ describe("Logger System", () => {
                 value: "minecraft:sharpness"
             };
 
-            const logger = new Logger("test-id", "2024-03-20", 48, false, mockDatapackInfo, existingLog);
+            const logger = new Logger(existingLogWithDifferences);
             const element = createComplexMockElement();
 
-            const difference = createDifferenceFromAction(actions, element.data, 48, "enchantment", logger);
+            const difference = createDifferenceFromAction(actions, element.data, logger.getVersion(), "enchantment", logger);
             if (!difference) {
                 throw new Error("Failed to create difference");
             }
@@ -388,7 +388,7 @@ describe("Logger System", () => {
 
         it("should remove a value from existing list, wihout removing the old original value", () => {
             const element = createComplexMockElement({ exclusiveSet: "#minecraft:new_tag" });
-            const existingLog = createMockLog([
+            const existingLogWithDifferences = createMockLog([
                 {
                     identifier: "enchantplus:bow/accuracy_shot",
                     registry: "enchantment",
@@ -439,8 +439,8 @@ describe("Logger System", () => {
                 ]
             };
 
-            const logger = new Logger("test-id", "2024-03-20", 48, false, mockDatapackInfo, existingLog);
-            const difference = createDifferenceFromAction(actions, element.data, 48, "enchantment", logger);
+            const logger = new Logger(existingLogWithDifferences);
+            const difference = createDifferenceFromAction(actions, element.data, logger.getVersion(), "enchantment", logger);
             if (!difference) {
                 throw new Error("Failed to create difference");
             }
@@ -487,8 +487,8 @@ describe("Logger System", () => {
                 field: "exclusiveSet"
             };
 
-            const logger = new Logger("test-id", "2024-03-20", 48, false, mockDatapackInfo);
-            const difference = createDifferenceFromAction(action, element.data, 48, "enchantment", logger);
+            const logger = new Logger(existingLog());
+            const difference = createDifferenceFromAction(action, element.data, logger.getVersion(), "enchantment", logger);
             if (!difference) {
                 throw new Error("Failed to create difference");
             }
@@ -509,7 +509,7 @@ describe("Logger System", () => {
 
     describe("Logging with optional value parameter", () => {
         it("should handle toggle list value with optional value parameter", () => {
-            const logger = new Logger("test-id", "2024-03-20", 48, false, mockDatapackInfo);
+            const logger = new Logger(existingLog());
             const element = createComplexMockElement();
 
             const action: ToggleListValueAction = {
@@ -518,7 +518,14 @@ describe("Logger System", () => {
             };
 
             // Test avec une valeur optionnelle différente
-            const difference = createDifferenceFromAction(action, element.data, 48, "enchantment", logger, "#minecraft:override_tag");
+            const difference = createDifferenceFromAction(
+                action,
+                element.data,
+                logger.getVersion(),
+                "enchantment",
+                logger,
+                "#minecraft:override_tag"
+            );
             if (!difference) {
                 throw new Error("Failed to create difference");
             }
@@ -556,7 +563,7 @@ describe("Logger System", () => {
         });
 
         it("should handle set_value_from_computed_value action with optional value parameter", () => {
-            const logger = new Logger("test-id", "2024-03-20", 48, false, mockDatapackInfo);
+            const logger = new Logger(existingLog());
             const element = createComplexMockElement();
 
             const action: ComputedAction = {
@@ -565,7 +572,7 @@ describe("Logger System", () => {
             };
 
             const optionalValue = 5;
-            const difference = createDifferenceFromAction(action, element.data, 48, "enchantment", logger, optionalValue);
+            const difference = createDifferenceFromAction(action, element.data, logger.getVersion(), "enchantment", logger, optionalValue);
             if (!difference) {
                 throw new Error("Failed to create difference");
             }
@@ -592,7 +599,7 @@ describe("Logger System", () => {
         });
 
         it("should handle toggle_value_from_computed_value action with optional value parameter", () => {
-            const logger = new Logger("test-id", "2024-03-20", 48, false, mockDatapackInfo);
+            const logger = new Logger(existingLog());
             const element = createComplexMockElement();
 
             const action: ComputedAction = {
@@ -601,7 +608,7 @@ describe("Logger System", () => {
             };
 
             const optionalValue = "#minecraft:axes";
-            const difference = createDifferenceFromAction(action, element.data, 48, "enchantment", logger, optionalValue);
+            const difference = createDifferenceFromAction(action, element.data, logger.getVersion(), "enchantment", logger, optionalValue);
             if (!difference) {
                 throw new Error("Failed to create difference");
             }
@@ -628,7 +635,7 @@ describe("Logger System", () => {
         });
 
         it("should handle toggle_value_from_computed_value action that removes value", () => {
-            const logger = new Logger("test-id", "2024-03-20", 48, false, mockDatapackInfo);
+            const logger = new Logger(existingLog());
             const element = createComplexMockElement();
 
             const action: ComputedAction = {
@@ -638,7 +645,7 @@ describe("Logger System", () => {
 
             // Using the same value as current to trigger removal
             const optionalValue = "#voxel:enchantable/range";
-            const difference = createDifferenceFromAction(action, element.data, 48, "enchantment", logger, optionalValue);
+            const difference = createDifferenceFromAction(action, element.data, logger.getVersion(), "enchantment", logger, optionalValue);
 
             // Si la différence est undefined, c'est normal car la valeur est supprimée
             expect(difference).toBeUndefined();
@@ -650,7 +657,7 @@ describe("Logger System", () => {
 
         // Ajoutons un test pour vérifier le comportement quand la valeur est différente
         it("should handle toggle_value_from_computed_value action with different value", () => {
-            const logger = new Logger("test-id", "2024-03-20", 48, false, mockDatapackInfo);
+            const logger = new Logger(existingLog());
             const element = createComplexMockElement();
 
             const action: ComputedAction = {
@@ -660,7 +667,7 @@ describe("Logger System", () => {
 
             // Utilisons une valeur différente
             const optionalValue = "#minecraft:different_value";
-            const difference = createDifferenceFromAction(action, element.data, 48, "enchantment", logger, optionalValue);
+            const difference = createDifferenceFromAction(action, element.data, logger.getVersion(), "enchantment", logger, optionalValue);
             if (!difference) {
                 throw new Error("Failed to create difference");
             }

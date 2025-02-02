@@ -417,7 +417,6 @@ export const translations: LanguageMap = {
         "enchantment.field.effects.name": "Effects",
         "enchantment.field.slots.name": "Slots",
         "enchantment.field.tags.name": "Tags",
-        "enchantment.field.assignedTags.name": "Assigned Tags",
         "enchantment.field.mode.name": "Mode",
         "enchantment.field.disabledEffects.name": "Disabled Effects",
 
@@ -843,7 +842,6 @@ export const translations: LanguageMap = {
         "enchantment.field.effects.name": "Effets",
         "enchantment.field.slots.name": "Emplacements",
         "enchantment.field.tags.name": "Tags",
-        "enchantment.field.assignedTags.name": "Tags Assignés",
         "enchantment.field.disabledEffects.name": "Effets Désactivés",
         "enchantment.field.mode.name": "Mode",
 

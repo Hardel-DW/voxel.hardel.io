@@ -16,7 +16,6 @@ const prefiledProperties = {
     mode: "normal" as const,
     slots: [],
     tags: [],
-    assignedTags: [],
     disabledEffects: [],
     effects: {} as EffectComponentsRecord
 };
@@ -93,8 +92,7 @@ export const VOXEL_TEMPLATE_ENCHANTMENT: VoxelRegistryElement<EnchantmentProps>[
                 "#yggdrasil:equipment/item/sword",
                 "#yggdrasil:structure/alfheim_tree/random_loot"
             ],
-            slots: ["mainhand"],
-            assignedTags: ["#enchantplus:exclusive_set/sword_attribute"]
+            slots: ["mainhand"]
         }
     },
     {
@@ -155,8 +153,7 @@ export const VOXEL_TEMPLATE_ENCHANTMENT: VoxelRegistryElement<EnchantmentProps>[
                 "#yggdrasil:structure/asflors/rare",
                 "#yggdrasil:structure/runic_fracture/trial_spawner"
             ],
-            slots: ["mainhand"],
-            assignedTags: ["#enchantplus:exclusive_set/mining"]
+            slots: ["mainhand"]
         }
     },
     {
@@ -179,8 +176,7 @@ export const VOXEL_TEMPLATE_ENCHANTMENT: VoxelRegistryElement<EnchantmentProps>[
                 "#yggdrasil:structure/runic_fracture/monster_trial_spawner",
                 "#yggdrasil:structure/runic_labyrinth/ominous_vault"
             ],
-            slots: ["mainhand", "offhand"],
-            assignedTags: ["#enchantplus:exclusive_set/bow"]
+            slots: ["mainhand", "offhand"]
         }
     },
     {
@@ -195,7 +191,6 @@ export const VOXEL_TEMPLATE_ENCHANTMENT: VoxelRegistryElement<EnchantmentProps>[
             supportedItems: "#minecraft:enchantable/head_armor",
             tags: ["#minecraft:non_treasure"],
             slots: ["head"],
-            assignedTags: [],
             disabledEffects: [],
             mode: "normal"
         }
@@ -238,8 +233,7 @@ export const VOXEL_TEMPLATE_ENCHANTMENT: VoxelRegistryElement<EnchantmentProps>[
                 "#yggdrasil:structure/alfheim_tree/random_loot",
                 "#yggdrasil:structure/asflors/common"
             ],
-            slots: ["any"],
-            assignedTags: ["#enchantplus:exclusive_set/durability"]
+            slots: ["any"]
         }
     },
     {
@@ -254,8 +248,7 @@ export const VOXEL_TEMPLATE_ENCHANTMENT: VoxelRegistryElement<EnchantmentProps>[
             exclusiveSet: "#enchantplus:exclusive_set/durability",
             supportedItems: "#minecraft:enchantable/durability",
             tags: ["#minecraft:curse", "#minecraft:on_random_loot"],
-            slots: ["any"],
-            assignedTags: ["#enchantplus:exclusive_set/durability"]
+            slots: ["any"]
         }
     },
     {
@@ -277,8 +270,7 @@ export const VOXEL_TEMPLATE_ENCHANTMENT: VoxelRegistryElement<EnchantmentProps>[
                 "#yggdrasil:structure/runic_labyrinth/ominous_vault",
                 "#yggdrasil:structure/runic_labyrinth/vault"
             ],
-            slots: ["legs"],
-            assignedTags: ["#enchantplus:exclusive_set/size"]
+            slots: ["legs"]
         }
     },
     {
@@ -306,8 +298,7 @@ export const VOXEL_TEMPLATE_ENCHANTMENT: VoxelRegistryElement<EnchantmentProps>[
                 "#yggdrasil:structure/runic_labyrinth/twilight_of_yggdrasil_bow",
                 "#yggdrasil:structure/runic_labyrinth/vault"
             ],
-            slots: ["mainhand", "offhand"],
-            assignedTags: ["#enchantplus:exclusive_set/bow"]
+            slots: ["mainhand", "offhand"]
         }
     },
     {
@@ -339,8 +330,7 @@ export const VOXEL_TEMPLATE_ENCHANTMENT: VoxelRegistryElement<EnchantmentProps>[
                 "#yggdrasil:structure/runic_labyrinth/twilight_of_yggdrasil_bow",
                 "#yggdrasil:structure/runic_labyrinth/vault"
             ],
-            slots: ["mainhand", "offhand"],
-            assignedTags: ["#enchantplus:exclusive_set/bow"]
+            slots: ["mainhand", "offhand"]
         }
     },
     {
@@ -360,8 +350,7 @@ export const VOXEL_TEMPLATE_ENCHANTMENT: VoxelRegistryElement<EnchantmentProps>[
                 "#yggdrasil:structure/alfheim_tree/random_loot",
                 "#yggdrasil:structure/runic_labyrinth/ominous_vault"
             ],
-            slots: ["mainhand", "offhand"],
-            assignedTags: ["#enchantplus:exclusive_set/bow"]
+            slots: ["mainhand", "offhand"]
         }
     },
     {
@@ -375,8 +364,7 @@ export const VOXEL_TEMPLATE_ENCHANTMENT: VoxelRegistryElement<EnchantmentProps>[
             },
             supportedItems: "#minecraft:enchantable/leg_armor",
             tags: ["#minecraft:treasure", "#yggdrasil:structure/alfheim_tree/random_loot"],
-            slots: ["legs"],
-            assignedTags: []
+            slots: ["legs"]
         }
     },
     {
@@ -391,8 +379,7 @@ export const VOXEL_TEMPLATE_ENCHANTMENT: VoxelRegistryElement<EnchantmentProps>[
             exclusiveSet: "#enchantplus:exclusive_set/sword_effect",
             supportedItems: "#minecraft:enchantable/sword",
             tags: ["#enchantplus:exclusive_set/sword_effect", "#minecraft:non_treasure"],
-            slots: ["hand"],
-            assignedTags: ["#enchantplus:exclusive_set/sword_effect"]
+            slots: ["hand"]
         }
     },
     {
@@ -413,8 +400,7 @@ export const VOXEL_TEMPLATE_ENCHANTMENT: VoxelRegistryElement<EnchantmentProps>[
                 "#yggdrasil:structure/alfheim_tree/random_loot",
                 "#yggdrasil:structure/runic_labyrinth/library"
             ],
-            slots: ["armor"],
-            assignedTags: ["#enchantplus:exclusive_set/armor"]
+            slots: ["armor"]
         }
     },
     {
@@ -434,8 +420,7 @@ export const VOXEL_TEMPLATE_ENCHANTMENT: VoxelRegistryElement<EnchantmentProps>[
                 "#yggdrasil:equipment/item/sword",
                 "#yggdrasil:structure/alfheim_tree/random_loot"
             ],
-            slots: ["mainhand", "offhand"],
-            assignedTags: ["#enchantplus:exclusive_set/trident"]
+            slots: ["mainhand", "offhand"]
         }
     },
     {
@@ -454,8 +439,7 @@ export const VOXEL_TEMPLATE_ENCHANTMENT: VoxelRegistryElement<EnchantmentProps>[
                 "#yggdrasil:structure/asflors/stand",
                 "#yggdrasil:structure/runic_fracture/boss_trial_spawner"
             ],
-            slots: ["mainhand"],
-            assignedTags: ["#enchantplus:exclusive_set/sword_effect"]
+            slots: ["mainhand"]
         }
     },
     {
@@ -474,8 +458,7 @@ export const VOXEL_TEMPLATE_ENCHANTMENT: VoxelRegistryElement<EnchantmentProps>[
                 "#yggdrasil:structure/alfheim_tree/ominous_vault",
                 "#yggdrasil:structure/alfheim_tree/random_loot"
             ],
-            slots: ["feet"],
-            assignedTags: ["#minecraft:exclusive_set/boots"]
+            slots: ["feet"]
         }
     },
     {
@@ -489,8 +472,7 @@ export const VOXEL_TEMPLATE_ENCHANTMENT: VoxelRegistryElement<EnchantmentProps>[
             },
             supportedItems: "#minecraft:enchantable/leg_armor",
             tags: ["#minecraft:non_treasure", "#yggdrasil:structure/alfheim_tree/random_loot"],
-            slots: ["legs"],
-            assignedTags: []
+            slots: ["legs"]
         }
     },
     {
@@ -511,8 +493,7 @@ export const VOXEL_TEMPLATE_ENCHANTMENT: VoxelRegistryElement<EnchantmentProps>[
                 "#yggdrasil:structure/alfheim_tree/random_loot",
                 "#yggdrasil:structure/runic_labyrinth/vault"
             ],
-            slots: ["mainhand"],
-            assignedTags: ["#enchantplus:exclusive_set/sword_effect"]
+            slots: ["mainhand"]
         }
     },
     {
@@ -532,8 +513,7 @@ export const VOXEL_TEMPLATE_ENCHANTMENT: VoxelRegistryElement<EnchantmentProps>[
                 "#yggdrasil:equipment/item/chestplate",
                 "#yggdrasil:structure/alfheim_tree/random_loot"
             ],
-            slots: ["armor"],
-            assignedTags: ["#enchantplus:exclusive_set/armor"]
+            slots: ["armor"]
         }
     },
     {
@@ -554,8 +534,7 @@ export const VOXEL_TEMPLATE_ENCHANTMENT: VoxelRegistryElement<EnchantmentProps>[
                 "#yggdrasil:structure/alfheim_tree/trial_spawner",
                 "#yggdrasil:structure/alfheim_tree/vault"
             ],
-            slots: ["mainhand"],
-            assignedTags: ["#enchantplus:exclusive_set/mining"]
+            slots: ["mainhand"]
         }
     },
     {
@@ -580,8 +559,7 @@ export const VOXEL_TEMPLATE_ENCHANTMENT: VoxelRegistryElement<EnchantmentProps>[
                 "#yggdrasil:structure/runic_labyrinth/ominous_vault",
                 "#yggdrasil:structure/runic_labyrinth/vault"
             ],
-            slots: ["legs"],
-            assignedTags: ["#enchantplus:exclusive_set/size"]
+            slots: ["legs"]
         }
     },
     {
@@ -602,8 +580,7 @@ export const VOXEL_TEMPLATE_ENCHANTMENT: VoxelRegistryElement<EnchantmentProps>[
                 "#yggdrasil:equipment/item/sword",
                 "#yggdrasil:structure/alfheim_tree/random_loot"
             ],
-            slots: ["mainhand"],
-            assignedTags: ["#enchantplus:exclusive_set/aspect"]
+            slots: ["mainhand"]
         }
     },
     {
@@ -628,8 +605,7 @@ export const VOXEL_TEMPLATE_ENCHANTMENT: VoxelRegistryElement<EnchantmentProps>[
                 "#yggdrasil:structure/runic_labyrinth/shulker",
                 "#yggdrasil:structure/runic_labyrinth/vault"
             ],
-            slots: ["mainhand"],
-            assignedTags: ["#enchantplus:exclusive_set/sword_effect"]
+            slots: ["mainhand"]
         }
     },
     {
@@ -652,8 +628,7 @@ export const VOXEL_TEMPLATE_ENCHANTMENT: VoxelRegistryElement<EnchantmentProps>[
                 "#yggdrasil:structure/alfheim_tree/trial_spawner",
                 "#yggdrasil:structure/alfheim_tree/vault"
             ],
-            slots: ["mainhand"],
-            assignedTags: ["#enchantplus:exclusive_set/sword_attribute"]
+            slots: ["mainhand"]
         }
     },
     {
@@ -678,8 +653,7 @@ export const VOXEL_TEMPLATE_ENCHANTMENT: VoxelRegistryElement<EnchantmentProps>[
                 "#yggdrasil:structure/runic_labyrinth/twilight_of_yggdrasil_bow",
                 "#yggdrasil:structure/runic_labyrinth/vault"
             ],
-            slots: ["mainhand", "offhand"],
-            assignedTags: []
+            slots: ["mainhand", "offhand"]
         }
     },
     {
@@ -693,8 +667,7 @@ export const VOXEL_TEMPLATE_ENCHANTMENT: VoxelRegistryElement<EnchantmentProps>[
             },
             supportedItems: "#voxel:enchantable/hoes",
             tags: ["#minecraft:non_treasure", "#yggdrasil:structure/alfheim_tree/trial_spawner", "#yggdrasil:structure/alfheim_tree/vault"],
-            slots: ["mainhand"],
-            assignedTags: []
+            slots: ["mainhand"]
         }
     },
     {
@@ -716,8 +689,7 @@ export const VOXEL_TEMPLATE_ENCHANTMENT: VoxelRegistryElement<EnchantmentProps>[
                 "#yggdrasil:structure/alfheim_tree/vault",
                 "#yggdrasil:structure/runic_labyrinth/library"
             ],
-            slots: ["feet"],
-            assignedTags: ["#minecraft:exclusive_set/boots"]
+            slots: ["feet"]
         }
     },
     {
@@ -741,8 +713,7 @@ export const VOXEL_TEMPLATE_ENCHANTMENT: VoxelRegistryElement<EnchantmentProps>[
                 "#yggdrasil:structure/runic_labyrinth/shulker",
                 "#yggdrasil:structure/runic_labyrinth/vault"
             ],
-            slots: ["mainhand"],
-            assignedTags: ["#enchantplus:exclusive_set/mining"]
+            slots: ["mainhand"]
         }
     },
     {
@@ -766,8 +737,7 @@ export const VOXEL_TEMPLATE_ENCHANTMENT: VoxelRegistryElement<EnchantmentProps>[
                 "#yggdrasil:structure/runic_labyrinth/shulker",
                 "#yggdrasil:structure/runic_labyrinth/vault"
             ],
-            slots: ["feet"],
-            assignedTags: ["#minecraft:exclusive_set/boots"]
+            slots: ["feet"]
         }
     },
     {
@@ -782,8 +752,7 @@ export const VOXEL_TEMPLATE_ENCHANTMENT: VoxelRegistryElement<EnchantmentProps>[
             exclusiveSet: "#enchantplus:exclusive_set/bow",
             supportedItems: "#voxel:enchantable/range",
             tags: ["#enchantplus:exclusive_set/bow", "#yggdrasil:equipment/item/bow", "#yggdrasil:structure/runic_labyrinth/ominous_vault"],
-            slots: ["mainhand", "offhand"],
-            assignedTags: ["#enchantplus:exclusive_set/bow"]
+            slots: ["mainhand", "offhand"]
         }
     },
     {
@@ -808,8 +777,7 @@ export const VOXEL_TEMPLATE_ENCHANTMENT: VoxelRegistryElement<EnchantmentProps>[
                 "#yggdrasil:structure/runic_labyrinth/shulker",
                 "#yggdrasil:structure/runic_labyrinth/vault"
             ],
-            slots: ["mainhand"],
-            assignedTags: []
+            slots: ["mainhand"]
         }
     },
     {
@@ -830,8 +798,7 @@ export const VOXEL_TEMPLATE_ENCHANTMENT: VoxelRegistryElement<EnchantmentProps>[
                 "#yggdrasil:structure/asflors/ominous_vault",
                 "#yggdrasil:structure/asflors/vault"
             ],
-            slots: ["mainhand"],
-            assignedTags: ["#enchantplus:exclusive_set/sword_effect"]
+            slots: ["mainhand"]
         }
     },
     {
@@ -851,10 +818,10 @@ export const VOXEL_TEMPLATE_ENCHANTMENT: VoxelRegistryElement<EnchantmentProps>[
                 "#yggdrasil:structure/generic/trial_spawner",
                 "#yggdrasil:structure/runic_labyrinth/library"
             ],
-            slots: ["mainhand"],
-            assignedTags: ["#enchantplus:exclusive_set/mace"]
+            slots: ["mainhand"]
         }
     },
+
     {
         identifier: "00000000-0000-0000-0000-000000000039",
         data: {
@@ -874,8 +841,7 @@ export const VOXEL_TEMPLATE_ENCHANTMENT: VoxelRegistryElement<EnchantmentProps>[
                 "#yggdrasil:structure/runic_labyrinth/shulker",
                 "#yggdrasil:structure/runic_labyrinth/vault"
             ],
-            slots: ["mainhand"],
-            assignedTags: []
+            slots: ["mainhand"]
         }
     },
     {
@@ -902,8 +868,7 @@ export const VOXEL_TEMPLATE_ENCHANTMENT: VoxelRegistryElement<EnchantmentProps>[
                 "#yggdrasil:structure/runic_labyrinth/shulker",
                 "#yggdrasil:structure/runic_labyrinth/vault"
             ],
-            slots: ["mainhand"],
-            assignedTags: ["#enchantplus:exclusive_set/mining"]
+            slots: ["mainhand"]
         }
     },
     {
@@ -923,10 +888,10 @@ export const VOXEL_TEMPLATE_ENCHANTMENT: VoxelRegistryElement<EnchantmentProps>[
                 "#yggdrasil:structure/alfheim_tree/random_loot",
                 "#yggdrasil:structure/runic_labyrinth/library"
             ],
-            slots: ["armor"],
-            assignedTags: ["#minecraft:exclusive_set/armor"]
+            slots: ["armor"]
         }
     },
+
     {
         identifier: "00000000-0000-0000-0000-000000000042",
         data: {
@@ -938,8 +903,7 @@ export const VOXEL_TEMPLATE_ENCHANTMENT: VoxelRegistryElement<EnchantmentProps>[
             },
             supportedItems: "#minecraft:enchantable/head_armor",
             tags: ["#yggdrasil:structure/alfheim_tree/ominous_vault", "#yggdrasil:structure/runic_labyrinth/ominous_vault"],
-            slots: ["head"],
-            assignedTags: []
+            slots: ["head"]
         }
     },
     {
@@ -953,8 +917,7 @@ export const VOXEL_TEMPLATE_ENCHANTMENT: VoxelRegistryElement<EnchantmentProps>[
             },
             supportedItems: "#minecraft:enchantable/mace",
             tags: ["#minecraft:non_treasure", "#yggdrasil:structure/alfheim_tree/trial_spawner", "#yggdrasil:structure/alfheim_tree/vault"],
-            slots: ["mainhand"],
-            assignedTags: []
+            slots: ["mainhand"]
         }
     },
     {
@@ -976,8 +939,7 @@ export const VOXEL_TEMPLATE_ENCHANTMENT: VoxelRegistryElement<EnchantmentProps>[
                 "#yggdrasil:structure/generic/trial_spawner",
                 "#yggdrasil:structure/runic_labyrinth/library"
             ],
-            slots: ["mainhand"],
-            assignedTags: ["#enchantplus:exclusive_set/sword_exp"]
+            slots: ["mainhand"]
         }
     }
 ];

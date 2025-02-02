@@ -9,6 +9,7 @@ import type { ToggleListValueAction } from "@/lib/minecraft/core/engine/actions/
 import type { ComputedAction } from "@/lib/minecraft/core/engine/actions/ComputedModifier";
 import { createDifferenceFromAction } from "@/lib/minecraft/core/engine/migrations/logValidation";
 import { Identifier } from "@/lib/minecraft/core/Identifier";
+import type { SimpleAction } from "@/lib/minecraft/core/engine/actions/SimpleModifier";
 
 const createComplexMockElement = (data: Partial<EnchantmentProps> = {}): VoxelRegistryElement<EnchantmentProps> => ({
     identifier: "foo",
@@ -33,7 +34,6 @@ const createComplexMockElement = (data: Partial<EnchantmentProps> = {}): VoxelRe
         minCostBase: 1,
         minCostPerLevelAboveFirst: 1,
         maxCostBase: 10,
-        assignedTags: ["exclusiveSet"],
         maxCostPerLevelAboveFirst: 10,
         primaryItems: undefined,
         supportedItems: "#voxel:enchantable/range",
@@ -387,7 +387,7 @@ describe("Logger System", () => {
         });
 
         it("should remove a value from existing list, wihout removing the old original value", () => {
-            const element = createComplexMockElement({ exclusiveSet: "#minecraft:new_tag", assignedTags: ["exclusiveSet"] });
+            const element = createComplexMockElement({ exclusiveSet: "#minecraft:new_tag" });
             const existingLog = createMockLog([
                 {
                     identifier: "enchantplus:bow/accuracy_shot",
@@ -481,22 +481,10 @@ describe("Logger System", () => {
 
         it("Shouldn't log if value equals original value", () => {
             const element = createComplexMockElement();
-            const action: SequentialAction = {
-                type: "sequential",
-                actions: [
-                    {
-                        type: "toggle_value",
-                        value: "#minecraft:exclusive_set/armor",
-                        field: "exclusiveSet"
-                    },
-                    {
-                        type: "list_operation",
-                        field: "assignedTags",
-                        value: "exclusiveSet",
-                        mode: "append",
-                        flag: ["not_duplicate"]
-                    }
-                ]
+            const action: SimpleAction = {
+                type: "toggle_value",
+                value: "#minecraft:exclusive_set/armor",
+                field: "exclusiveSet"
             };
 
             const logger = new Logger("test-id", "2024-03-20", 48, false, mockDatapackInfo);

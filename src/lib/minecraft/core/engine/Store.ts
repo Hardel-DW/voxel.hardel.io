@@ -71,6 +71,7 @@ const createConfiguratorStore = <T extends keyof Analysers>() =>
                 return;
             }
 
+            console.log("action", action);
             const updatedElement = updateData(action, element, state.version ?? Number.POSITIVE_INFINITY, value);
             if (!updatedElement) return;
 

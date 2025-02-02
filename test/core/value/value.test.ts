@@ -19,7 +19,6 @@ const createMockElement = (data: Partial<EnchantmentProps> = {}): VoxelRegistryE
         maxCostBase: 10,
         maxCostPerLevelAboveFirst: 10,
         effects: undefined,
-        assignedTags: [],
         mode: "normal",
         slots: ["head", "chest"],
         tags: ["#minecraft:enchantable/bow", "#minecraft:enchantable/armor"],

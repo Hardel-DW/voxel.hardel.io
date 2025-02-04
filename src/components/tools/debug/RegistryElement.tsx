@@ -1,13 +1,12 @@
 import { Identifier } from "@/lib/minecraft/core/Identifier";
-import type { Analysers } from "@/lib/minecraft/core/engine/Analyser";
 import type { CompileDatapackResult } from "@/lib/minecraft/core/engine/Compiler";
 import { getIdentifierFromCompiler } from "@/lib/minecraft/core/engine/Compiler";
 import { cn } from "@/lib/utils";
 
 interface RegistryElementProps {
-    element: CompileDatapackResult<keyof Analysers>;
-    selectedElement: CompileDatapackResult<keyof Analysers> | undefined;
-    onElementSelect: (element: CompileDatapackResult<keyof Analysers>) => void;
+    element: CompileDatapackResult;
+    selectedElement: CompileDatapackResult | undefined;
+    onElementSelect: (element: CompileDatapackResult) => void;
 }
 
 export function RegistryElement({ element, selectedElement, onElementSelect }: RegistryElementProps) {

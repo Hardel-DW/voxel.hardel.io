@@ -1,7 +1,6 @@
 import type { InterfaceConfiguration } from "@/lib/minecraft/core/schema/primitive";
 
 export const exclusive: InterfaceConfiguration = {
-    disabled: true,
     id: "enchant.exclusive",
     section: { type: "translate", value: "tools.enchantments.section.exclusive" },
     components: [
@@ -135,12 +134,25 @@ export const exclusive: InterfaceConfiguration = {
                                                     key: "image"
                                                 },
                                                 action: {
-                                                    type: "toggle_value",
-                                                    value: {
-                                                        type: "get_value_from_context",
-                                                        key: "value"
-                                                    },
-                                                    field: "exclusiveSet"
+                                                    type: "sequential",
+                                                    actions: [
+                                                        {
+                                                            type: "remove_value_from_list",
+                                                            field: "tags",
+                                                            value: {
+                                                                type: "get_value_from_context",
+                                                                key: "value"
+                                                            }
+                                                        },
+                                                        {
+                                                            type: "toggle_value",
+                                                            value: {
+                                                                type: "get_value_from_context",
+                                                                key: "value"
+                                                            },
+                                                            field: "exclusiveSet"
+                                                        }
+                                                    ]
                                                 },
                                                 renderer: {
                                                     type: "conditionnal",
@@ -211,13 +223,26 @@ export const exclusive: InterfaceConfiguration = {
                                                         },
                                                         image: "/icons/logo.svg",
                                                         action: {
-                                                            type: "toggle_value",
-                                                            value: {
-                                                                type: "get_value_from_context",
-                                                                key: "identifier"
-                                                            },
-                                                            field: "exclusiveSet",
-                                                            mode: "toggle"
+                                                            type: "sequential",
+                                                            actions: [
+                                                                {
+                                                                    type: "remove_value_from_list",
+                                                                    field: "tags",
+                                                                    value: {
+                                                                        type: "get_value_from_context",
+                                                                        key: "identifier"
+                                                                    }
+                                                                },
+                                                                {
+                                                                    type: "toggle_value",
+                                                                    value: {
+                                                                        type: "get_value_from_context",
+                                                                        key: "identifier"
+                                                                    },
+                                                                    field: "exclusiveSet",
+                                                                    mode: "toggle"
+                                                                }
+                                                            ]
                                                         },
                                                         renderer: {
                                                             type: "conditionnal",
@@ -281,13 +306,27 @@ export const exclusive: InterfaceConfiguration = {
                                     key: "namespace"
                                 },
                                 action: {
-                                    type: "toggle_value_in_list",
-                                    field: "exclusiveSet",
-                                    mode: ["remove_if_empty", "override"],
-                                    value: {
-                                        type: "get_value_from_context",
-                                        key: "identifier"
-                                    }
+                                    type: "sequential",
+                                    actions: [
+                                        {
+                                            type: "remove_value_from_list",
+                                            field: "tags",
+                                            value: {
+                                                type: "get_value_from_field",
+                                                field: "exclusiveSet"
+                                            },
+                                            mode: ["if_type_string"]
+                                        },
+                                        {
+                                            type: "toggle_value_in_list",
+                                            field: "exclusiveSet",
+                                            mode: ["remove_if_empty", "override"],
+                                            value: {
+                                                type: "get_value_from_context",
+                                                key: "identifier"
+                                            }
+                                        }
+                                    ]
                                 },
                                 renderer: {
                                     type: "conditionnal",

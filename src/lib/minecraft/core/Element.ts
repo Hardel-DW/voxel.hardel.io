@@ -1,5 +1,4 @@
 import type { IdentifierObject } from "@/lib/minecraft/core/Identifier";
-import type { VoxelRegistryElement } from "@/lib/minecraft/core/Registry";
 import type { Analysers, GetAnalyserVoxel } from "@/lib/minecraft/core/engine/Analyser";
 
 export type DataDrivenElement = Record<string, unknown>;
@@ -7,6 +6,16 @@ export interface VoxelElement extends Record<string, unknown> {
     override?: ConfiguratorConfigFromDatapack;
     identifier: IdentifierObject;
 }
+
+export type VoxelRegistryElement<T extends VoxelElement> = {
+    identifier: string;
+    data: T;
+};
+
+export type DataDrivenRegistryElement<T extends DataDrivenElement> = {
+    identifier: IdentifierObject;
+    data: T;
+};
 
 export type ConfiguratorConfigFromDatapack = {
     configurator: {

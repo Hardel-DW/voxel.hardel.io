@@ -1,5 +1,4 @@
 import { isVoxelElement, sortVoxelElements } from "@/lib/minecraft/core/Element";
-import type { IdentifierObject } from "@/lib/minecraft/core/Identifier";
 import type { Analysers, GetAnalyserVoxel } from "@/lib/minecraft/core/engine/Analyser";
 import { type CompileDatapackResult, compileDatapack } from "@/lib/minecraft/core/engine/Compiler";
 import type { ParseDatapackResult } from "@/lib/minecraft/core/engine/Parser";
@@ -18,14 +17,12 @@ export interface ConfiguratorState<T extends keyof Analysers> {
     elements: Map<string, GetAnalyserVoxel<T>>;
     currentElementId?: string;
     toggleSection?: Record<string, ToggleSection>;
-    configuration: ToolConfiguration | null;
+    config: ToolConfiguration | null;
     isJar: boolean;
     version: number | null;
     sortedIdentifiers: string[];
-    identifiers: IdentifierObject[];
     setName: (name: string) => void;
     setMinify: (minify: boolean) => void;
-    setIdentifiers: (identifiers: IdentifierObject[]) => void;
     setLogger: (logger: Logger | undefined) => void;
     setFiles: (files: Record<string, Uint8Array>) => void;
     setCurrentElementId: (id: string | undefined) => void;
@@ -36,7 +33,7 @@ export interface ConfiguratorState<T extends keyof Analysers> {
     setVersion: (version: number | null) => void;
     handleChange: (action: Action, identifier?: string, value?: ActionValue) => void;
     setup: (updates: ParseDatapackResult<GetAnalyserVoxel<T>>) => void;
-    compile: () => Array<CompileDatapackResult<T>>;
+    compile: () => Array<CompileDatapackResult>;
 }
 
 const createConfiguratorStore = <T extends keyof Analysers>() =>
@@ -45,19 +42,17 @@ const createConfiguratorStore = <T extends keyof Analysers>() =>
         minify: true,
         files: {},
         elements: new Map(),
-        configuration: null,
+        config: null,
         isJar: false,
         version: null,
         sortedIdentifiers: [],
-        identifiers: [],
         setName: (name) => set({ name }),
         setMinify: (minify) => set({ minify }),
         setLogger: (logger) => set({ logger }),
         setFiles: (files) => set({ files }),
-        setIdentifiers: (identifiers) => set({ identifiers }),
         setCurrentElementId: (currentElementId) => set({ currentElementId }),
         setToggleSection: (toggleSection) => set({ toggleSection }),
-        setConfiguration: (configuration) => set({ configuration }),
+        setConfiguration: (configuration) => set({ config: configuration }),
         setIsJar: (isJar) => set({ isJar }),
         setVersion: (version) => set({ version }),
         changeToggleValue: (id, name) => set((state) => ({ toggleSection: { ...state.toggleSection, [id]: name } })),
@@ -77,12 +72,12 @@ const createConfiguratorStore = <T extends keyof Analysers>() =>
             const isElementValid = isVoxelElement(updatedElement);
             if (!isElementValid || !elementId) return;
 
-            if (state.logger && state.version && typeof state.configuration?.analyser.id === "string") {
+            if (state.logger && state.version && typeof state.config?.analyser.id === "string") {
                 state.logger.handleActionDifference(
                     action,
                     element,
                     state.version ?? Number.POSITIVE_INFINITY,
-                    state.configuration?.analyser.id as T,
+                    state.config?.analyser.id as T,
                     value
                 );
             }
@@ -93,19 +88,13 @@ const createConfiguratorStore = <T extends keyof Analysers>() =>
         },
         setup: (updates) => set({ ...updates, sortedIdentifiers: sortVoxelElements(updates.elements) }),
         compile: () => {
-            const { elements, version, files, configuration, identifiers } = get();
+            const { elements, version, files, config: configuration } = get();
             if (!version || !files || !configuration) {
                 console.error("Version, files or configuration is missing");
                 return [];
             }
 
-            return compileDatapack({
-                elements: Array.from(elements.values()),
-                version,
-                files,
-                tool: configuration.analyser.id,
-                identifiers
-            });
+            return compileDatapack({ elements: Array.from(elements.values()), version, files, tool: configuration.analyser.id });
         }
     }));
 

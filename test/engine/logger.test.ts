@@ -3,7 +3,7 @@ import { Logger } from "@/lib/minecraft/core/engine/migrations/logger";
 import type { DatapackInfo, FileLog, Log, LogDifference } from "@/lib/minecraft/core/engine/migrations/types";
 import type { EnchantmentProps } from "@/lib/minecraft/core/schema/enchant/EnchantmentProps";
 import type { EffectComponentsRecord } from "@voxel/definitions";
-import type { VoxelRegistryElement } from "@/lib/minecraft/core/Registry";
+import type { VoxelRegistryElement } from "@/lib/minecraft/core/Element";
 import type { SequentialAction } from "@/lib/minecraft/core/engine/actions/SequentialModifier";
 import type { ToggleListValueAction } from "@/lib/minecraft/core/engine/actions/ToggleListValueModifier";
 import type { ComputedAction } from "@/lib/minecraft/core/engine/actions/ComputedModifier";

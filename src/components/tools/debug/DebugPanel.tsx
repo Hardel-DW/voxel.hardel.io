@@ -1,13 +1,12 @@
 import { CodeSection } from "@/components/tools/debug/CodeSection";
 import { RegistrySection } from "@/components/tools/debug/RegistrySection";
-import type { Analysers } from "@/lib/minecraft/core/engine/Analyser";
 import type { CompileDatapackResult } from "@/lib/minecraft/core/engine/Compiler";
 
 type Props = {
-    selectedElement: CompileDatapackResult<keyof Analysers> | undefined;
-    onElementSelect: (element: CompileDatapackResult<keyof Analysers>) => void;
+    selectedElement: CompileDatapackResult | undefined;
+    onElementSelect: (element: CompileDatapackResult) => void;
     onClose: () => void;
-    datapack: Record<string, CompileDatapackResult<keyof Analysers>[]>;
+    datapack: Record<string, CompileDatapackResult[]>;
     namespaces: string[];
 };
 

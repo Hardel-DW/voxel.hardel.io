@@ -1,4 +1,4 @@
-import type { VoxelRegistryElement } from "@/lib/minecraft/core/Registry";
+import type { VoxelRegistryElement } from "@/lib/minecraft/core/Element";
 import type { EnchantmentProps } from "@/lib/minecraft/core/schema/enchant/EnchantmentProps";
 import type { EffectComponentsRecord } from "@voxel/definitions";
 
@@ -31,15 +31,31 @@ export const VOXEL_TEMPLATE_ENCHANTMENT: VoxelRegistryElement<EnchantmentProps>[
                 fallback: "Accuracy Shot"
             },
             supportedItems: "#voxel:enchantable/range",
+            exclusiveSet: "#enchantplus:exclusive_set/bow",
             tags: [
                 "#minecraft:non_treasure",
                 "#yggdrasil:structure/alfheim_tree/ominous_vault",
                 "#yggdrasil:structure/alfheim_tree/random_loot",
                 "#yggdrasil:structure/asflors/common"
             ],
-            slots: ["mainhand", "offhand"]
+            disabledEffects: ["minecraft:damage"],
+            slots: ["mainhand", "offhand"],
+            effects: {
+                "minecraft:projectile_spawned": [
+                    {
+                        effect: "minecraft:run_function",
+                        function: "enchantplus:actions/accuracy_shot/on_shoot"
+                    }
+                ],
+                "minecraft:damage": [
+                    {
+                        amount: 1
+                    }
+                ]
+            } as any as EffectComponentsRecord
         }
     },
+
     {
         identifier: "00000000-0000-0000-0000-000000000001",
         data: {
@@ -49,6 +65,7 @@ export const VOXEL_TEMPLATE_ENCHANTMENT: VoxelRegistryElement<EnchantmentProps>[
                 translate: "enchantment.enchantplus.agility",
                 fallback: "Agility"
             },
+            mode: "only_creative",
             supportedItems: "#minecraft:enchantable/foot_armor",
             tags: [
                 "#minecraft:non_treasure",
@@ -70,8 +87,19 @@ export const VOXEL_TEMPLATE_ENCHANTMENT: VoxelRegistryElement<EnchantmentProps>[
                 translate: "enchantment.enchantplus.armored",
                 fallback: "Armored"
             },
+            mode: "soft_delete",
             supportedItems: "#voxel:enchantable/elytra",
-            tags: ["#yggdrasil:structure/alfheim_tree/ominous_vault", "#yggdrasil:structure/runic_labyrinth/ominous_vault"],
+            tags: [
+                "#yggdrasil:structure/alfheim_tree/ominous_vault",
+                "#yggdrasil:structure/runic_labyrinth/ominous_vault",
+                "#minecraft:double_trade_price",
+                "#minecraft:prevents_bee_spawns_when_mining",
+                "#minecraft:on_random_loot",
+                "#minecraft:on_traded_equipment",
+                "#minecraft:tradeable",
+                "#minecraft:non_treasure",
+                "#minecraft:treasure"
+            ],
             slots: ["chest"]
         }
     },

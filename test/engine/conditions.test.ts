@@ -1,7 +1,7 @@
 import { describe, it, expect } from "vitest";
 import { checkCondition } from "@/lib/minecraft/core/engine/condition";
 import type { Condition } from "@/lib/minecraft/core/engine/condition";
-import type { VoxelRegistryElement } from "@/lib/minecraft/core/Registry";
+import type { VoxelRegistryElement } from "@/lib/minecraft/core/Element";
 import type { EnchantmentProps } from "@/lib/minecraft/core/schema/enchant/EnchantmentProps";
 
 // Mock d'un élément de registre pour les tests

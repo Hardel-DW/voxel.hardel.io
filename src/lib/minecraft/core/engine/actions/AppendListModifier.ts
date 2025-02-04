@@ -1,4 +1,4 @@
-import type { ActionValue, BaseAction } from ".";
+import { type ActionValue, type BaseAction, getFieldValue } from ".";
 
 export interface ListAction extends BaseAction {
     type: "list_operation";
@@ -15,6 +15,7 @@ export interface ListAction extends BaseAction {
  */
 export default function AppendListModifier(action: ListAction, element: Record<string, unknown>): Record<string, unknown> | undefined {
     const { value, field, mode, flag } = action;
+    const computedValue = getFieldValue(value);
     const shadowCopy = structuredClone(element);
 
     const list = (shadowCopy[field] as unknown[]) || [];
@@ -23,11 +24,11 @@ export default function AppendListModifier(action: ListAction, element: Record<s
     }
 
     // Check if we should prevent duplicates
-    if (flag?.includes("not_duplicate") && list.includes(value)) {
+    if (flag?.includes("not_duplicate") && list.includes(computedValue)) {
         return element;
     }
 
-    const newList = mode === "prepend" ? [value, ...list] : [...list, value];
+    const newList = mode === "prepend" ? [computedValue, ...list] : [...list, computedValue];
 
     return { ...element, [field]: newList };
 }

@@ -1,13 +1,12 @@
-import type { Analysers } from "@/lib/minecraft/core/engine/Analyser";
 import type { CompileDatapackResult } from "@/lib/minecraft/core/engine/Compiler";
 import { NamespaceElement } from "./NamespaceElement";
 
 interface RegistryListProps {
     registry: string;
-    elements: CompileDatapackResult<keyof Analysers>[];
+    elements: CompileDatapackResult[];
     namespaces: string[];
-    selectedElement: CompileDatapackResult<keyof Analysers> | undefined;
-    onElementSelect: (element: CompileDatapackResult<keyof Analysers>) => void;
+    selectedElement: CompileDatapackResult | undefined;
+    onElementSelect: (element: CompileDatapackResult) => void;
 }
 
 export function RegistrySection({ registry, elements, namespaces, selectedElement, onElementSelect }: RegistryListProps) {

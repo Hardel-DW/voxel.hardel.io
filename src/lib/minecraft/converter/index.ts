@@ -1,9 +1,8 @@
 import { generateFabricMod } from "@/lib/minecraft/converter/fabric";
 import { generateForgeMods } from "@/lib/minecraft/converter/forge-neoforge";
 import { generateQuiltMod } from "@/lib/minecraft/converter/quilt";
-import { getMinecraftVersion } from "@/lib/minecraft/core/Version";
-import { generateZip } from "@/lib/minecraft/mczip";
-import { parseZip } from "@/lib/minecraft/mczip";
+import Datapack from "@/lib/minecraft/core/Datapack";
+import { parseZip } from "@/lib/minecraft/core/engine/utils/zip";
 
 /**
  * Supported Minecraft mod platforms for conversion
@@ -62,10 +61,7 @@ export const DEFAULT_MOD_METADATA: ModMetadata = {
  * @returns Promise resolving with resulting ZIP as Uint8Array
  */
 export async function convertDatapack(datapackZip: File, platforms: ModPlatforms[], metadata?: ModMetadata): Promise<Uint8Array> {
-    const arrayBuffer = await datapackZip.arrayBuffer();
-    const files = await parseZip(new Uint8Array(arrayBuffer));
-
-    // Si metadata est fourni, l'utiliser, sinon extraire du fichier
+    const files = await parseZip(new Uint8Array(await datapackZip.arrayBuffer()));
     const finalMetadata = metadata || extractMetadata(files, datapackZip.name.replace(/\.zip$/i, ""));
     const modFiles = generateModFiles(finalMetadata, platforms);
 
@@ -74,7 +70,7 @@ export async function convertDatapack(datapackZip: File, platforms: ModPlatforms
         ...Object.fromEntries(Object.entries(modFiles).map(([path, content]) => [path, new TextEncoder().encode(content)]))
     };
 
-    return generateZip(allFiles, [], { minify: true, includeVoxel: false });
+    return new Datapack(allFiles).generate([], { isMinified: true });
 }
 
 function generateModFiles(metadata: ModMetadata, platforms: ModPlatforms[]) {
@@ -111,29 +107,24 @@ function generateModFiles(metadata: ModMetadata, platforms: ModPlatforms[]) {
  * @returns Extracted metadata combined with default values
  */
 export function extractMetadata(files: Record<string, Uint8Array>, modName: string): ModMetadata {
-    const packMeta = files["pack.mcmeta"];
+    const iconEntry = Object.keys(files).find((path) => path.match(/^[^/]+\.png$/i));
     let metadata: Partial<ModMetadata> = {};
 
-    if (packMeta) {
-        try {
-            const { pack } = JSON.parse(new TextDecoder().decode(packMeta));
-            const packFormat = pack.pack_format;
-            metadata = {
-                description: typeof pack.description === "object" ? pack.description.text || "" : pack.description || "",
-                version: packFormat ? getMinecraftVersion(packFormat) : "Unknown"
-            };
-        } catch (error) {
-            console.error("Error parsing pack.mcmeta", error);
-        }
+    try {
+        const datapack = new Datapack(files);
+        metadata = {
+            description: datapack.getDescription(DEFAULT_MOD_METADATA.description),
+            version: datapack.getVersion()
+        };
+    } catch (error) {
+        console.error("Error parsing pack.mcmeta", error);
     }
-
-    const iconEntry = Object.keys(files).find((path) => path.match(/^[^/]+\.png$/i));
 
     return {
         ...DEFAULT_MOD_METADATA,
         ...metadata,
-        id: modName.toLowerCase().replace(/[^a-z0-9_]/g, "_"), // Create safe mod ID from name
-        name: modName, // Use zip filename as mod name
+        id: modName.toLowerCase().replace(/[^a-z0-9_]/g, "_"),
+        name: modName,
         authors: metadata.authors || DEFAULT_MOD_METADATA.authors,
         icon: iconEntry?.split("/").pop()
     };

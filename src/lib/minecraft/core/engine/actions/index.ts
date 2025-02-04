@@ -13,7 +13,12 @@ import { type SlotAction, SlotModifier } from "@/lib/minecraft/core/engine/actio
 import ToggleListValueModifier, { type ToggleListValueAction } from "@/lib/minecraft/core/engine/actions/ToggleListValueModifier";
 import { type UndefinedAction, UndefinedModifier } from "@/lib/minecraft/core/engine/actions/UndefinedModifier.ts";
 
-export type ActionValue = string | number | boolean | IdentifierObject;
+export type ActionValue = string | number | boolean | IdentifierObject | GetValueField;
+type GetValueField = {
+    type: "get_value_from_field";
+    field: string;
+};
+
 export interface BaseAction {
     field: string;
 }
@@ -78,4 +83,17 @@ export function SplitSequentialAction(action: Action): Action[] {
         return action.actions.flatMap((subAction) => SplitSequentialAction(subAction));
     }
     return [action];
+}
+
+/**
+ * Get the field value from the action value
+ * @param value - The action value
+ * @returns The field value
+ */
+export function getFieldValue(value: ActionValue): ActionValue {
+    if (typeof value === "object" && "type" in value && value.type === "get_value_from_field") {
+        return value.field;
+    }
+
+    return value;
 }

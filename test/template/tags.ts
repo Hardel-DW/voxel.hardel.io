@@ -1,5 +1,5 @@
 import type { TagType } from "@voxel/definitions";
-import type { DataDrivenRegistryElement } from "@/lib/minecraft/core/Registry";
+import type { DataDrivenRegistryElement } from "@/lib/minecraft/core/Element";
 
 export const enchantplusTags: DataDrivenRegistryElement<TagType>[] = [
     {

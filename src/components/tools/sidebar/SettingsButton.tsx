@@ -10,7 +10,7 @@ export default function SettingsButton() {
 
     const handleClick = () => {
         const store = useConfiguratorStore.getState();
-        if (!store.version || !store.configuration) {
+        if (!store.version || !store.config) {
             console.error("Version or configuration is missing");
             return;
         }

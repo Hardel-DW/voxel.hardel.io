@@ -1,5 +1,6 @@
 import VanillaImportButton from "@/components/pages/tools/enchant/VanillaImportButton";
 import DatapackUploader from "@/components/tools/DatapackUploader.tsx";
+import ToastBoundary from "@/components/tools/elements/error/ToastBoundary";
 import { useTranslate } from "@/components/useTranslate";
 import type { FaqType } from "@/content/config.ts";
 import type { Analysers } from "@/lib/minecraft/core/engine/Analyser";
@@ -16,7 +17,7 @@ export default function HelpGuide(props: {
     if (hasElements) return null;
 
     return (
-        <>
+        <ToastBoundary i18n={t}>
             <div className="mt-8 xl:mt-0 w-full flex justify-center">
                 <div className="mx-auto w-11/12 md:w-3/4">{props.children}</div>
             </div>
@@ -80,6 +81,6 @@ export default function HelpGuide(props: {
                     </div>
                 </div>
             </section>
-        </>
+        </ToastBoundary>
     );
 }

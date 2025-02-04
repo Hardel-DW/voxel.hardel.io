@@ -1,6 +1,6 @@
 import { TabsList, TabsTrigger } from "@/components/ui/shadcn/tabs.tsx";
 import { useConfiguratorStore } from "@/lib/minecraft/core/engine/Store";
-import { resolve } from "@/lib/minecraft/core/engine/renderer/resolve_field";
+import { resolve } from "@/lib/minecraft/core/engine/renderer/resolve";
 import translate from "@/lib/minecraft/i18n/translate";
 import { Tabs } from "@radix-ui/react-tabs";
 import type React from "react";
@@ -11,7 +11,7 @@ export default function ConfiguratorPanel(props: {
     defaultTab: string;
 }) {
     const hasElements = useConfiguratorStore((state) => state.elements.size > 0);
-    const configuration = useConfiguratorStore((state) => state.configuration);
+    const configuration = useConfiguratorStore((state) => state.config);
     const toggleSection = useConfiguratorStore((state) => state.toggleSection);
     if (!hasElements || !configuration || !toggleSection) return null;
 

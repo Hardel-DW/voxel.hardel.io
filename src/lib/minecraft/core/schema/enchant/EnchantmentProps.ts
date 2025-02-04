@@ -1,6 +1,6 @@
 import type { VoxelElement } from "@/lib/minecraft/core/Element";
+import type { DataDrivenRegistryElement, VoxelRegistryElement } from "@/lib/minecraft/core/Element";
 import { Identifier, type IdentifierObject } from "@/lib/minecraft/core/Identifier";
-import type { DataDrivenRegistryElement, VoxelRegistryElement } from "@/lib/minecraft/core/Registry";
 import { tagsToIdentifiers } from "@/lib/minecraft/core/Tag";
 import type { Analysers } from "@/lib/minecraft/core/engine/Analyser.ts";
 import type { Compiler } from "@/lib/minecraft/core/engine/Compiler.ts";
@@ -143,13 +143,13 @@ export const DataDrivenToVoxelFormat: Parser<EnchantmentProps, Enchantment> = ({
     const primaryItems = data.primary_items;
     const effects = data.effects;
     const slots = data.slots;
-    let mode: "normal" | "soft_delete" | "only_creative" = "normal";
 
     const tagsWithoutExclusiveSet = tags.filter((tag) => !(typeof data.exclusive_set === "string" && tag === data.exclusive_set));
     const hasEffects = data.effects && Object.entries(data.effects).length > 0;
-    const tagsRelatedToFunctionality = tags_related_to_functionality.map((tag) => new Identifier(tag).toString());
 
-    if (!tagsWithoutExclusiveSet.some((tag) => !tagsRelatedToFunctionality.includes(tag))) {
+    let mode: "normal" | "soft_delete" | "only_creative" = "normal";
+    const tagsRelatedToFunctionality = tags_related_to_functionality.map((tag) => new Identifier(tag).toString());
+    if (tagsWithoutExclusiveSet.every((tag) => tagsRelatedToFunctionality.includes(tag))) {
         mode = "only_creative";
     }
 
@@ -173,7 +173,7 @@ export const DataDrivenToVoxelFormat: Parser<EnchantmentProps, Enchantment> = ({
             maxCostBase,
             maxCostPerLevelAboveFirst,
             effects,
-            tags,
+            tags: tagsWithoutExclusiveSet,
             slots,
             mode,
             disabledEffects: [],
@@ -189,32 +189,30 @@ export const DataDrivenToVoxelFormat: Parser<EnchantmentProps, Enchantment> = ({
  */
 export const VoxelToDataDriven: Compiler<EnchantmentProps, Enchantment> = (
     element: EnchantmentProps,
-    original: Enchantment,
     config: keyof Analysers
 ): {
     element: DataDrivenRegistryElement<Enchantment>;
     tags: IdentifierObject[];
 } => {
-    const enchantment = structuredClone(original);
+    const enchantment = {} as Enchantment;
     const enchant = structuredClone(element);
     const tagRegistry = `tags/${config}`;
     let tags = [...tagsToIdentifiers(enchant.tags, tagRegistry)];
 
-    const originalExlusiveSetTags = original.exclusive_set;
-    if (originalExlusiveSetTags && typeof originalExlusiveSetTags === "string") {
-        tags = tags.filter((tag) => !Identifier.of(originalExlusiveSetTags, tagRegistry).equalsObject(tag));
-    }
-
     enchantment.max_level = enchant.maxLevel;
     enchantment.weight = enchant.weight;
     enchantment.anvil_cost = enchant.anvilCost;
-    enchantment.min_cost.base = enchant.minCostBase;
-    enchantment.min_cost.per_level_above_first = enchant.minCostPerLevelAboveFirst;
-    enchantment.max_cost.base = enchant.maxCostBase;
-    enchantment.max_cost.per_level_above_first = enchant.maxCostPerLevelAboveFirst;
     enchantment.supported_items = enchant.supportedItems;
     enchantment.slots = enchant.slots;
     enchantment.effects = enchant.effects;
+    enchantment.min_cost = {
+        base: enchant.minCostBase,
+        per_level_above_first: enchant.minCostPerLevelAboveFirst
+    };
+    enchantment.max_cost = {
+        base: enchant.maxCostBase,
+        per_level_above_first: enchant.maxCostPerLevelAboveFirst
+    };
 
     if (enchant.primaryItems) {
         enchantment.primary_items = enchant.primaryItems;

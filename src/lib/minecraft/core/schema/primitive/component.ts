@@ -1,7 +1,7 @@
 import type { Action } from "@/lib/minecraft/core/engine/actions";
 import type { Condition } from "@/lib/minecraft/core/engine/condition";
+import type { IterationValue, TemplateReplacer } from "@/lib/minecraft/core/engine/renderer/iteration/type";
 import type { ValueRenderer } from "@/lib/minecraft/core/engine/renderer/value";
-import type { IterationValue, TemplateReplacer } from "@/lib/minecraft/core/engine/resolver/iteration/type";
 import type { TextRenderType, TranslateTextType } from "@/lib/minecraft/core/schema/primitive/text";
 import type { ToggleSection } from "@/lib/minecraft/core/schema/primitive/toggle";
 

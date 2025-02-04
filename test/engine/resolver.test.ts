@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { resolveField } from "@/lib/minecraft/core/engine/renderer/resolve_field";
+import { resolveField } from "@/lib/minecraft/core/engine/renderer/resolve";
 import type { ToggleSectionMap } from "@/lib/minecraft/core/schema/primitive/toggle";
 
 describe("Field Resolver", () => {

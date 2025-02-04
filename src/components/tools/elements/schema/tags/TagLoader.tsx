@@ -13,6 +13,7 @@ interface TagLoaderProps {
 export function TagLoader({ registry, path, fileName, namespace, values }: TagLoaderProps) {
     const { data, isLoading, error } = useTag(registry, path, fileName, { namespace });
     const { t } = useTranslate();
+    const filteredData = data?.filter((value) => !values?.includes(value));
 
     if (isLoading) {
         return (
@@ -21,7 +22,11 @@ export function TagLoader({ registry, path, fileName, namespace, values }: TagLo
                     <h2 className="text-zinc-200 text-sm">{t("enchantment.component.tag_viewer.title")}</h2>
                     <p className="text-zinc-500 text-sm">{t("enchantment.component.tag_viewer.loading")}</p>
                 </div>
-                <div className="w-16 h-16 bg-zinc-800 rounded-full animate-pulse" />
+                <div className="flex flex-row gap-2">
+                    <div className="size-3 rounded-full bg-zinc-700 animate-bounce delay-700" />
+                    <div className="size-3 rounded-full bg-zinc-700 animate-bounce delay-300" />
+                    <div className="size-3 rounded-full bg-zinc-700 animate-bounce delay-700" />
+                </div>
             </div>
         );
     }
@@ -34,11 +39,9 @@ export function TagLoader({ registry, path, fileName, namespace, values }: TagLo
 
     return (
         <div className="space-y-2">
-            {data
-                .filter((value) => values?.includes(value))
-                .map((value) => (
-                    <ToolTagCard key={value} value={value} registry={registry} />
-                ))}
+            {filteredData?.map((value) => (
+                <ToolTagCard key={value} value={value} registry={registry} />
+            ))}
         </div>
     );
 }

@@ -4,14 +4,16 @@ import Button from "@/components/ui/react/Button";
 import { useConfetti } from "@/components/ui/react/confetti/useConfetti";
 import { Toaster } from "@/components/ui/shadcn/Sonner";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/shadcn/dialog";
+import Datapack from "@/lib/minecraft/core/Datapack";
 import { compileDatapack } from "@/lib/minecraft/core/engine/Compiler";
 import { parseDatapack } from "@/lib/minecraft/core/engine/Parser";
 import { applyActions } from "@/lib/minecraft/core/engine/migrations/applyActions";
 import { logToActions } from "@/lib/minecraft/core/engine/migrations/logToActions";
 import { Logger } from "@/lib/minecraft/core/engine/migrations/logger";
 import type { Log } from "@/lib/minecraft/core/engine/migrations/types";
-import { generateZip } from "@/lib/minecraft/mczip";
+import { voxelDatapacks } from "@/lib/minecraft/voxel/VoxelDatapack";
 import { trackEvent } from "@/lib/server/telemetry";
+import { downloadArchive } from "@/lib/utils/download";
 import type React from "react";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
@@ -24,7 +26,7 @@ interface MigrationToolProps {
 interface DatapackInfo {
     version: number;
     name: string;
-    isJar: boolean;
+    isModded: boolean;
     status: "success" | "error";
     reason?: string;
 }
@@ -44,8 +46,8 @@ export default function MigrationTool({ translate, children }: MigrationToolProp
     const handleMigration = async () => {
         if (!sourceFiles || !targetFiles) return;
         toast.info(translate["tools.migration.processing"]);
-        const source = await parseDatapack("enchantment", sourceFiles);
-        const target = await parseDatapack("enchantment", targetFiles);
+        const source = await parseDatapack("enchantment", sourceFiles[0]);
+        const target = await parseDatapack("enchantment", targetFiles[0]);
         if (typeof source === "string") {
             toast.error(translate[source]);
             return;
@@ -70,24 +72,16 @@ export default function MigrationTool({ translate, children }: MigrationToolProp
                 elements: Array.from(modifiedTarget.elements.values()),
                 version: modifiedTarget.version,
                 files: modifiedTarget.files,
-                tool: "enchantment",
-                identifiers: modifiedTarget.identifiers
+                tool: "enchantment"
             });
 
-            const modifiedDatapack = await generateZip(modifiedTarget.files, finalDatapack, {
-                minify: modifiedTarget.logger.getLogs().isMinified,
+            const modifiedDatapack = await new Datapack(modifiedTarget.files).generate(finalDatapack, {
+                isMinified: modifiedTarget.logger.getLogs().isMinified,
                 logger: new Logger(logs),
-                includeVoxel: true
+                include: voxelDatapacks
             });
 
-            const blob = new Blob([modifiedDatapack], { type: "application/zip" });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement("a");
-            a.href = url;
-            a.download = `Migrated-${target.name}.${target.isJar ? "jar" : "zip"}`;
-            a.click();
-            URL.revokeObjectURL(url);
-
+            downloadArchive(modifiedDatapack, `Migrated-${target.name}`, target.isModded);
             toast.success(translate["tools.migration.success"]);
             await trackEvent("migrated_datapack");
             setIsDialogOpen(true);
@@ -106,7 +100,7 @@ export default function MigrationTool({ translate, children }: MigrationToolProp
     };
 
     const handleSourceUpload = async (files: FileList) => {
-        const result = await parseDatapack("enchantment", files);
+        const result = await parseDatapack("enchantment", files[0]);
         if (typeof result === "string") {
             toast.error(translate[result]);
             return;
@@ -117,7 +111,7 @@ export default function MigrationTool({ translate, children }: MigrationToolProp
             setSourceData({
                 version: result.version,
                 name: result.name,
-                isJar: result.isJar,
+                isModded: result.isModded,
                 status: "error",
                 reason: translate["tools.migration.error.invalid_datapack"]
             });
@@ -126,11 +120,11 @@ export default function MigrationTool({ translate, children }: MigrationToolProp
         }
 
         setSourceFiles(files);
-        setSourceData({ version: result.version, name: result.name, isJar: result.isJar, status: "success" });
+        setSourceData({ version: result.version, name: result.name, isModded: result.isModded, status: "success" });
     };
 
     const handleTargetUpload = async (files: FileList) => {
-        const result = await parseDatapack("enchantment", files);
+        const result = await parseDatapack("enchantment", files[0]);
         if (typeof result === "string") {
             toast.error(translate[result]);
             return;
@@ -141,7 +135,7 @@ export default function MigrationTool({ translate, children }: MigrationToolProp
             setTargetData({
                 version: result.version,
                 name: result.name,
-                isJar: result.isJar,
+                isModded: result.isModded,
                 status: "error",
                 reason: translate["tools.migration.error.invalid_datapack"]
             });
@@ -150,7 +144,7 @@ export default function MigrationTool({ translate, children }: MigrationToolProp
         }
 
         setTargetFiles(files);
-        setTargetData({ version: result.version, name: result.name, isJar: result.isJar, status: "success" });
+        setTargetData({ version: result.version, name: result.name, isModded: result.isModded, status: "success" });
     };
 
     return (
@@ -169,7 +163,7 @@ export default function MigrationTool({ translate, children }: MigrationToolProp
                         <DialogDescription>{translate["dialog.success.description"]}</DialogDescription>
                         <div className="py-2">
                             <span className="font-semibold text-zinc-400">
-                                {targetData && `${targetData.name}.${targetData.isJar ? "jar" : "zip"}`}
+                                {targetData && `${targetData.name}.${targetData.isModded ? "jar" : "zip"}`}
                             </span>
                         </div>
                         <div className="h-1 w-full bg-zinc-700 rounded-full" />

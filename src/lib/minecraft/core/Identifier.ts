@@ -53,7 +53,7 @@ export class Identifier {
      * const modPath = id.toFilePath("mod"); // "mod/minecraft/block/stone"
      */
     toFilePath(basePath = "data"): string {
-        return `${basePath}/${this.namespace}/${this.registry}/${this.resource}`;
+        return `${basePath}/${this.namespace}/${this.registry}/${this.resource}.json`;
     }
 
     /**
@@ -119,6 +119,11 @@ export class Identifier {
     }
 }
 
+/**
+ * Checks if a value is an identifier object
+ * @param value - The value to check
+ * @returns Whether the value is an identifier object
+ */
 export function isIdentifier(value: any): value is IdentifierObject {
     if (!value || typeof value !== "object") return false;
 

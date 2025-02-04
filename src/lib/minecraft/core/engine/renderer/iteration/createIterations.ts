@@ -1,14 +1,14 @@
+import Datapack from "@/lib/minecraft/core/Datapack";
 import { Identifier } from "@/lib/minecraft/core/Identifier";
-import { getRegistry } from "@/lib/minecraft/core/Registry";
-import { collectFromPath } from "@/lib/minecraft/core/engine/resolver/iteration/collectFromPath";
-import type { IterationResult, IterationValue } from "@/lib/minecraft/core/engine/resolver/iteration/type";
+import { collectFromPath } from "@/lib/minecraft/core/engine/renderer/iteration/collectFromPath";
+import type { IterationResult, IterationValue } from "@/lib/minecraft/core/engine/renderer/iteration/type";
 
 export function createIterations(valueSet: IterationValue, files: Record<string, Uint8Array>): IterationResult[] {
     if (valueSet.type === "collect_from_path" || valueSet.type === "get_registry_elements") {
         const elements =
             valueSet.type === "collect_from_path"
                 ? collectFromPath(valueSet.registry, files, valueSet.path, valueSet.exclude_namespace)
-                : getRegistry(files, valueSet.registry);
+                : new Datapack(files).getRegistry(valueSet.registry);
 
         return elements.map((file) => ({
             key: new Identifier(file.identifier).toString(),

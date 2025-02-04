@@ -1,4 +1,4 @@
-import type { ActionValue, BaseAction } from ".";
+import { type ActionValue, type BaseAction, getFieldValue } from ".";
 
 export interface SimpleAction extends BaseAction {
     type: "set_value" | "toggle_value";
@@ -15,10 +15,11 @@ export interface SimpleAction extends BaseAction {
  */
 export function SimpleModifier(action: SimpleAction, element: Record<string, unknown>): Record<string, unknown> | undefined {
     const { field } = action;
+    const value = getFieldValue(action.value);
 
-    if (action.type === "toggle_value" && element[field] === action.value) {
+    if (action.type === "toggle_value" && element[field] === value) {
         return { ...element, [field]: undefined };
     }
 
-    return { ...element, [field]: action.value };
+    return { ...element, [field]: value };
 }

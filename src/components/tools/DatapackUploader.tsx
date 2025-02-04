@@ -1,48 +1,35 @@
 import Dropzone from "@/components/ui/react/Dropzone.tsx";
 import { useTranslate } from "@/components/useTranslate";
+import useAsyncError from "@/lib/hook/useAsyncError";
 import type { Analysers } from "@/lib/minecraft/core/engine/Analyser";
 import { parseDatapack } from "@/lib/minecraft/core/engine/Parser.ts";
 import { useConfiguratorStore } from "@/lib/minecraft/core/engine/Store";
+import { DatapackError } from "@/lib/minecraft/core/errors/DatapackError";
+import type { TranslationKey } from "@/lib/minecraft/i18n/translations";
 import { toast } from "sonner";
 
 export default function DatapackUploader(props: { tool: keyof Analysers }) {
+    const throwError = useAsyncError();
     const { t } = useTranslate();
 
     const handleFileUpload = async (files: FileList) => {
-        if (files.length === 0) {
-            toast.error(t("tools.enchantments.warning.no_file"), {
-                description: t("tools.enchantments.warning.no_file")
+        try {
+            if (files.length === 0) throw new DatapackError("tools.enchantments.warning.no_file");
+            if (files.length > 1) throw new DatapackError("tools.enchantments.warning.multiple_files");
+            if (!files[0].name.endsWith(".zip") && !files[0].name.endsWith(".jar"))
+                throw new DatapackError("tools.enchantments.warning.invalid_file");
+
+            const result = await parseDatapack(props.tool, files[0]);
+            toast.success(t("tools.upload.success"), {
+                description: t("tools.upload.success.description")
             });
-            return;
+
+            useConfiguratorStore.getState().setup(result);
+        } catch (e: unknown) {
+            if (e instanceof DatapackError) {
+                throwError(e.message as TranslationKey);
+            }
         }
-
-        if (files.length > 1) {
-            toast.error(t("tools.enchantments.warning.multiple_files"), {
-                description: t("tools.enchantments.warning.multiple_files")
-            });
-            return;
-        }
-
-        if (!files[0].name.endsWith(".zip") && !files[0].name.endsWith(".jar")) {
-            toast.error(t("tools.enchantments.warning.invalid_file"), {
-                description: t("tools.enchantments.warning.invalid_file")
-            });
-            return;
-        }
-
-        const result = await parseDatapack(props.tool, files);
-        if (typeof result === "string") {
-            toast.error(t("generic.error"), {
-                description: t(result)
-            });
-            return;
-        }
-
-        toast.success(t("tools.upload.success"), {
-            description: t("tools.upload.success.description")
-        });
-
-        useConfiguratorStore.getState().setup(result);
     };
 
     return (

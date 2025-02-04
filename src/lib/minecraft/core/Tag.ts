@@ -1,7 +1,8 @@
-import type { OptionalTag, TagType } from "@voxel/definitions";
-import { Identifier } from "./Identifier";
-import type { IdentifierObject } from "./Identifier";
-import type { DataDrivenRegistryElement } from "./Registry";
+import type { DataDrivenRegistryElement } from "@/lib/minecraft/core/Element";
+import { Identifier } from "@/lib/minecraft/core/Identifier";
+import type { IdentifierObject } from "@/lib/minecraft/core/Identifier";
+import type { Compiler } from "@/lib/minecraft/core/engine/Compiler";
+import type { TagType } from "@voxel/definitions";
 
 /**
  * Searches for a tag in a list of tags.
@@ -47,25 +48,72 @@ export const getTagsFromRegistry = (el: TagType): string[] => {
  * @returns Whether the element is a tag.
  */
 export const isTag = (element: DataDrivenRegistryElement<any>): element is DataDrivenRegistryElement<TagType> => {
-    return element.identifier.registry?.startsWith("tags/");
+    return element?.identifier?.registry?.startsWith("tags/") ?? false;
 };
 
 /**
- * Get the value of a tag.
- * @param tag - The tag to get the value from.
- * @returns The value of the tag.
+ * Merge two tags.
+ * @param a - The first tag.
+ * @param b - The second tag.
+ * @returns The merged tag.
  */
-export const getValue = (tag: string | OptionalTag): string => {
-    return typeof tag === "string" ? tag : tag.id;
+export const mergeTags = (a: TagType, b: TagType): TagType => {
+    return {
+        values: Array.from(new Set([...a.values, ...b.values]))
+    };
+};
+
+export const mergeDataDrivenRegistryElement = (
+    a: DataDrivenRegistryElement<TagType>[],
+    b: DataDrivenRegistryElement<TagType>[]
+): DataDrivenRegistryElement<TagType>[] => {
+    const response = new Map<string, DataDrivenRegistryElement<TagType>>();
+
+    for (const tag of a) {
+        const key = new Identifier(tag.identifier).toFilePath();
+        response.set(key, tag);
+    }
+
+    for (const tag of b) {
+        const key = new Identifier(tag.identifier).toFilePath();
+        const existing = response.get(key);
+        if (existing) {
+            response.set(key, {
+                identifier: existing.identifier,
+                data: mergeTags(existing.data, tag.data)
+            });
+        } else {
+            response.set(key, tag);
+        }
+    }
+
+    return Array.from(response.values());
 };
 
 /**
- * Output a tag.
- * @param identifier - The identifier of the tag.
- * @param required - Whether the tag is required.
+ * Create a tag from a list of main elements like "enchantment".
+ * @param elements - The elements to create the tag from.
  * @returns The tag.
  */
-export const output = (identifier: IdentifierObject, required: boolean): string | OptionalTag => {
-    const isTagged = identifier.registry?.startsWith("tags/");
-    return isTagged ? { id: new Identifier(identifier).toString(), required } : new Identifier(identifier).toString();
+export const createTagFromElement = (elements: ReturnType<Compiler>[]) => {
+    const tags: DataDrivenRegistryElement<TagType>[] = [];
+    const temp: Map<string, { identifier: IdentifierObject; elements: string[] }> = new Map();
+
+    for (const element of elements) {
+        for (const tags of element.tags) {
+            const path = new Identifier(tags).toFilePath();
+
+            if (!temp.has(path)) temp.set(path, { identifier: tags, elements: [] });
+            temp.get(path)?.elements.push(new Identifier(element.element.identifier).toString());
+        }
+    }
+
+    for (const path of temp.keys()) {
+        const value = temp.get(path);
+        if (!value) continue;
+
+        tags.push({ identifier: value.identifier, data: { values: value.elements } });
+    }
+
+    return tags;
 };

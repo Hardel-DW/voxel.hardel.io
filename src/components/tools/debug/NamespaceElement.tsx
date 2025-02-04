@@ -1,14 +1,13 @@
 import { RegistryElement } from "@/components/tools/debug/RegistryElement";
 import { Identifier } from "@/lib/minecraft/core/Identifier";
-import type { Analysers } from "@/lib/minecraft/core/engine/Analyser";
 import type { CompileDatapackResult } from "@/lib/minecraft/core/engine/Compiler";
 import { getIdentifierFromCompiler } from "@/lib/minecraft/core/engine/Compiler";
 
 interface NamespaceElementProps {
     namespace: string;
-    elements: CompileDatapackResult<keyof Analysers>[];
-    selectedElement: CompileDatapackResult<keyof Analysers> | undefined;
-    onElementSelect: (element: CompileDatapackResult<keyof Analysers>) => void;
+    elements: CompileDatapackResult[];
+    selectedElement: CompileDatapackResult | undefined;
+    onElementSelect: (element: CompileDatapackResult) => void;
 }
 
 export function NamespaceElement({ namespace, elements, selectedElement, onElementSelect }: NamespaceElementProps) {

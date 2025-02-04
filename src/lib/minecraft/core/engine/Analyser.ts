@@ -1,13 +1,10 @@
 import type { VoxelElement } from "@/lib/minecraft/core/Element";
 import type { Compiler } from "@/lib/minecraft/core/engine/Compiler.ts";
 import type { Parser } from "@/lib/minecraft/core/engine/Parser.ts";
+import { DatapackError } from "@/lib/minecraft/core/errors/DatapackError";
 import { ENCHANT_TOOL_CONFIG } from "@/lib/minecraft/core/schema/enchant";
-import {
-    DataDrivenToVoxelFormat,
-    type EnchantmentProps,
-    VoxelToDataDriven,
-    enchantmentProperties
-} from "@/lib/minecraft/core/schema/enchant/EnchantmentProps.ts";
+import { DataDrivenToVoxelFormat, type EnchantmentProps, VoxelToDataDriven } from "@/lib/minecraft/core/schema/enchant/EnchantmentProps.ts";
+import { enchantmentProperties } from "@/lib/minecraft/core/schema/enchant/EnchantmentProps.ts";
 import type { ToolConfiguration } from "@/lib/minecraft/core/schema/primitive";
 import type { FieldProperties } from "@/lib/minecraft/core/schema/primitive/properties";
 import type { DataDrivenElement, Enchantment } from "@voxel/definitions";
@@ -60,14 +57,12 @@ export const versionedAnalyserCollection: VersionedAnalysers = {
 export function getAnalyserForVersion<T extends keyof Analysers>(
     type: T,
     version: number
-):
-    | {
-          analyser: Analyser<Analysers[T]["voxel"], Analysers[T]["minecraft"]>;
-          config: ToolConfiguration;
-      }
-    | undefined {
+): {
+    analyser: Analyser<Analysers[T]["voxel"], Analysers[T]["minecraft"]>;
+    config: ToolConfiguration;
+} {
     const versionedAnalysers = versionedAnalyserCollection[type];
-    if (!versionedAnalysers) return undefined;
+    if (!versionedAnalysers) throw new DatapackError("tools.error.no_analyser");
 
     for (const entry of versionedAnalysers) {
         if (version >= entry.range.min && version <= entry.range.max) {
@@ -75,5 +70,5 @@ export function getAnalyserForVersion<T extends keyof Analysers>(
         }
     }
 
-    return undefined;
+    throw new DatapackError("tools.error.no_analyser");
 }

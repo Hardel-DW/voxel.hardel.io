@@ -137,4 +137,8 @@ export class Logger {
             this.logDifference(new Identifier(element.identifier).toString(), element.identifier.registry || "unknown", difference);
         }
     }
+
+    public serialize(minified = false) {
+        return JSON.stringify({ ...this.getLogs(), engine: this.getEngine() }, null, minified ? 0 : 4);
+    }
 }

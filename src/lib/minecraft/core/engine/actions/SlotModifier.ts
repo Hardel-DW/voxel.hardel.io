@@ -1,7 +1,7 @@
 import { getManager } from "@/lib/minecraft/core/engine/Manager.ts";
 import { type SlotRegistryType, isArraySlotRegistryType, isSlotRegistryType } from "@/lib/minecraft/core/engine/managers/SlotManager.ts";
 import { isStringArray } from "@/lib/utils.ts";
-import type { ActionValue, BaseAction } from ".";
+import { type ActionValue, type BaseAction, getFieldValue } from ".";
 
 export interface SlotAction extends BaseAction {
     type: "set_computed_slot";
@@ -20,20 +20,21 @@ export function SlotModifier(action: SlotAction, element: Record<string, unknown
 
     const shadowCopy = structuredClone(element);
     const { field } = action;
+    const computedValue = getFieldValue(action.value);
     const unformattedValue = shadowCopy[field];
 
     let value: SlotRegistryType;
-    if (typeof action.value === "string" && isSlotRegistryType(action.value)) {
-        value = action.value;
+    if (typeof computedValue === "string" && isSlotRegistryType(computedValue)) {
+        value = computedValue;
     } else {
-        throw new Error(`Invalid SlotRegistryType: ${action.value}`);
+        throw new Error(`Invalid SlotRegistryType: ${computedValue}`);
     }
 
     let currentValue: SlotRegistryType[];
     if (isStringArray(unformattedValue) && isArraySlotRegistryType(unformattedValue)) {
         currentValue = unformattedValue;
     } else {
-        throw new Error(`Invalid SlotRegistryType array: ${shadowCopy[field]}`);
+        throw new Error(`Invalid SlotRegistryType array: ${unformattedValue}`);
     }
 
     // Utiliser le ManagerSelector pour obtenir le SlotManager approprié

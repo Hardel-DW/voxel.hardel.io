@@ -1,4 +1,3 @@
-import type { Analysers } from "@/lib/minecraft/core/engine/Analyser.ts";
 import { type CompileDatapackResult, getIdentifierFromCompiler } from "@/lib/minecraft/core/engine/Compiler.ts";
 import { useConfiguratorStore } from "@/lib/minecraft/core/engine/Store";
 import { useState } from "react";
@@ -7,14 +6,12 @@ import DebugPanel from "./DebugPanel";
 
 export default function DebugConfigurator() {
     const [isDebugging, setIsDebugging] = useState(false);
-    const [datapack, setDatapack] = useState<Record<string, CompileDatapackResult<keyof Analysers>[]>>();
-    const [selectedElement, setSelectedElement] = useState<CompileDatapackResult<keyof Analysers>>();
+    const [datapack, setDatapack] = useState<Record<string, CompileDatapackResult[]>>();
+    const [selectedElement, setSelectedElement] = useState<CompileDatapackResult>();
     const [namespaces, setNamespaces] = useState<string[]>([]);
 
-    const groupByRegistry = (
-        elements: CompileDatapackResult<keyof Analysers>[]
-    ): Record<string, CompileDatapackResult<keyof Analysers>[]> => {
-        const groups: Record<string, CompileDatapackResult<keyof Analysers>[]> = {};
+    const groupByRegistry = (elements: CompileDatapackResult[]): Record<string, CompileDatapackResult[]> => {
+        const groups: Record<string, CompileDatapackResult[]> = {};
 
         for (const element of elements) {
             const identifier = getIdentifierFromCompiler(element);
@@ -30,7 +27,7 @@ export default function DebugConfigurator() {
 
     const handleDebugging = () => {
         const store = useConfiguratorStore.getState();
-        if (!store.version || !store.configuration) {
+        if (!store.version || !store.config) {
             console.error("Version or configuration is missing");
             return;
         }

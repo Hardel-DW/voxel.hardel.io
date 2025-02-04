@@ -8,7 +8,7 @@ import type { SimpleAction } from "@/lib/minecraft/core/engine/actions/SimpleMod
 import type { SlotAction } from "@/lib/minecraft/core/engine/actions/SlotModifier";
 import type { ToggleListValueAction } from "@/lib/minecraft/core/engine/actions/ToggleListValueModifier";
 import type { EnchantmentProps } from "@/lib/minecraft/core/schema/enchant/EnchantmentProps";
-import type { VoxelRegistryElement } from "@/lib/minecraft/core/Registry";
+import type { VoxelRegistryElement } from "@/lib/minecraft/core/Element";
 import type { EffectComponentsRecord } from "@voxel/definitions";
 import { describe, expect, it } from "vitest";
 

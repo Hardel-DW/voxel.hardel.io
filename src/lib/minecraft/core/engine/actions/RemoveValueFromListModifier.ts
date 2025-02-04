@@ -1,8 +1,8 @@
-import type { ActionValue, BaseAction } from ".";
+import { type ActionValue, type BaseAction, getFieldValue } from ".";
 
 export interface RemoveValueFromListAction extends BaseAction {
     type: "remove_value_from_list";
-    mode?: "remove_if_empty"[];
+    mode?: ("remove_if_empty" | "if_type_string")[];
     value?: ActionValue;
 }
 
@@ -20,18 +20,22 @@ export default function RemoveValueFromListModifier(
     const value = action.value ?? props;
     const modes = action.mode || [];
 
-    if (value === undefined && action.value === undefined) {
+    if (value === undefined) {
         throw new Error("Both props and action.value cannot be undefined");
     }
 
-    const list = element[field];
-
-    // Verify that list is an array of strings
-    if (!Array.isArray(list) || !list.every((item): item is string => typeof item === "string") || typeof value !== "string") {
-        return undefined;
+    if (modes.includes("if_type_string") && typeof value !== "string") {
+        return element;
     }
 
-    const newList = list.filter((item) => item !== value);
+    const list = element[field];
+    const computedValue = getFieldValue(value);
+    // Verify that list is an array of strings
+    if (!Array.isArray(list) || !list.every((item): item is string => typeof item === "string") || typeof computedValue !== "string") {
+        return element;
+    }
+
+    const newList = list.filter((item) => item !== computedValue);
 
     // Return modified element
     return {

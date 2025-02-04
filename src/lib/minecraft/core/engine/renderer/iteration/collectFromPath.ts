@@ -1,5 +1,6 @@
+import Datapack from "@/lib/minecraft/core/Datapack";
 import type { DataDrivenElement } from "@/lib/minecraft/core/Element";
-import { type DataDrivenRegistryElement, getRegistry } from "@/lib/minecraft/core/Registry";
+import type { DataDrivenRegistryElement } from "@/lib/minecraft/core/Element";
 
 export function collectFromPath<T extends DataDrivenElement>(
     registry: string,
@@ -7,7 +8,7 @@ export function collectFromPath<T extends DataDrivenElement>(
     path: string,
     exclude_namespace?: string[]
 ): DataDrivenRegistryElement<T>[] {
-    const content = getRegistry<T>(files, registry);
+    const content = new Datapack(files).getRegistry<T>(registry);
     return content.filter((element) => {
         const matchesPath = element.identifier.resource.startsWith(path);
         if (!matchesPath) return false;

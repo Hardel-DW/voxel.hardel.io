@@ -12,7 +12,6 @@ export default function EnchantTool(props: {
 }) {
     return (
         <PanelProvider lang={props.lang}>
-            {/* <Island /> */}
             <section className="flex relative h-dvh overflow-y-hidden">
                 <SidebarPanel />
 

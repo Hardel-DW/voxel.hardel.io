@@ -1,4 +1,4 @@
-import type { Action, ActionValue, BaseAction } from "@/lib/minecraft/core/engine/actions/index.ts";
+import { type Action, type ActionValue, type BaseAction, getFieldValue } from "@/lib/minecraft/core/engine/actions/index.ts";
 import { updateData } from "@/lib/minecraft/core/engine/actions/index.ts";
 
 export interface AlternativeAction extends BaseAction {
@@ -26,9 +26,10 @@ export default function AlternativeModifier(
     const { field } = action;
     const value = element[field] as ActionValue | undefined;
     if (value === undefined) return undefined;
+    const computedValue = getFieldValue(value);
 
     for (const subAction of action.cases) {
-        if (subAction.when === value) {
+        if (subAction.when === computedValue) {
             const updatedElement = updateData(subAction.do, currentElement, version, value);
             if (!updatedElement) return undefined;
             currentElement = updatedElement;

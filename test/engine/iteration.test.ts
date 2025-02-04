@@ -1,12 +1,13 @@
-import { collectFromPath } from "@/lib/minecraft/core/engine/resolver/iteration/collectFromPath";
-import { createIterations } from "@/lib/minecraft/core/engine/resolver/iteration/createIterations";
-import { resolveIterationValue } from "@/lib/minecraft/core/engine/resolver/iteration/resolveIterationValue";
-import type { IterationValue } from "@/lib/minecraft/core/engine/resolver/iteration/type";
+import { collectFromPath } from "@/lib/minecraft/core/engine/renderer/iteration/collectFromPath";
+import { createIterations } from "@/lib/minecraft/core/engine/renderer/iteration/createIterations";
+import { resolveIterationValue } from "@/lib/minecraft/core/engine/renderer/iteration/resolveIterationValue";
+import type { IterationValue } from "@/lib/minecraft/core/engine/renderer/iteration/type";
 import { describe, expect, it } from "vitest";
 
 describe("Iteration System", () => {
     describe("createIterations", () => {
         const mockFiles = {
+            "pack.mcmeta": new TextEncoder().encode(JSON.stringify({ pack: { pack_format: 61, description: "lorem ipsum" } })),
             "data/minecraft/enchantment/combat/sharpness.json": new TextEncoder().encode(
                 JSON.stringify({ id: "minecraft:sharpness", level: 5 })
             ),
@@ -184,6 +185,7 @@ describe("Iteration System", () => {
 
     describe("collectFromPath", () => {
         const mockFiles = {
+            "pack.mcmeta": new TextEncoder().encode(JSON.stringify({ pack: { pack_format: 61, description: "lorem ipsum" } })),
             "data/minecraft/enchantment/combat/sharpness.json": new TextEncoder().encode(JSON.stringify({ id: "minecraft:sharpness" })),
             "data/minecraft/enchantment/protection/fire.json": new TextEncoder().encode(
                 JSON.stringify({ id: "minecraft:fire_protection" })

@@ -1,36 +1,36 @@
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/shadcn/dropdown";
 import { useTranslate } from "@/components/useTranslate";
+import useAsyncError from "@/lib/hook/useAsyncError";
 import { parseDatapack } from "@/lib/minecraft/core/engine/Parser";
 import { useConfiguratorStore } from "@/lib/minecraft/core/engine/Store";
+import { DatapackError } from "@/lib/minecraft/core/errors/DatapackError";
+import type { TranslationKey } from "@/lib/minecraft/i18n/translations";
 
 export default function VanillaImportButton() {
     const { t } = useTranslate();
+    const throwError = useAsyncError();
 
     const handleVanillaImport = async (version: number) => {
         try {
             const response = await fetch(`/api/preset/${version}`);
-            if (!response.ok) throw new Error("Failed to fetch datapack");
+            if (!response.ok) throw new DatapackError("tools.error.failed_to_fetch_datapack");
 
             const blob = await response.blob();
-            const file = new File([blob], `enchantment-${version}.zip`, {
-                type: "application/zip"
-            });
+            const file = new File([blob], `Enchantment-${version}.zip`, { type: "application/zip" });
 
             const dataTransfer = new DataTransfer();
             dataTransfer.items.add(file);
             const fileList = dataTransfer.files;
-            const result = await parseDatapack("enchantment", fileList);
+            const result = await parseDatapack("enchantment", fileList[0]);
 
             if (typeof result === "string") {
-                console.error("Error parsing datapack:", result);
-                return;
+                throw new DatapackError("tools.error.failed_to_parse_datapack");
             }
 
             useConfiguratorStore.getState().setup({ ...result, name: "Vanilla Enchantment - Voxel Configurator" });
-        } catch (error: unknown) {
-            console.error("Failed to import vanilla datapack:", error);
-            if (error instanceof Error) {
-                console.error("Error stack:", error.stack);
+        } catch (e: unknown) {
+            if (e instanceof DatapackError) {
+                throwError(e.message as TranslationKey);
             }
         }
     };

@@ -1,5 +1,5 @@
-import { getRegistry } from "@/lib/minecraft/core/Registry";
 import { describe, expect, it } from "vitest";
+import Datapack from "@/lib/minecraft/core/Datapack";
 
 describe("Registry System", () => {
     const mockFiles = {
@@ -12,12 +12,14 @@ describe("Registry System", () => {
     };
 
     it("should return all registries", () => {
-        const registries = getRegistry(mockFiles, "enchantment");
+        const datapack = new Datapack(mockFiles);
+        const registries = datapack.getRegistry("enchantment");
         expect(registries).toHaveLength(2);
     });
 
     it("should return all registries with the correct identifier", () => {
-        const registries = getRegistry(mockFiles, "tags/enchantment");
+        const datapack = new Datapack(mockFiles);
+        const registries = datapack.getRegistry("tags/enchantment");
         expect(registries).toHaveLength(2);
         expect(registries[0].identifier).toEqual({ namespace: "enchantplus", registry: "tags/enchantment", resource: "armor" });
         expect(registries[1].identifier).toEqual({ namespace: "minecraft", registry: "tags/enchantment", resource: "weapon" });

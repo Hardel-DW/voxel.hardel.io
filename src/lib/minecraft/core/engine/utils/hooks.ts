@@ -4,7 +4,7 @@ import { type Condition, checkCondition } from "@/lib/minecraft/core/engine/cond
 import { checkLocks } from "@/lib/minecraft/core/engine/renderer";
 import type { ValueRenderer } from "@/lib/minecraft/core/engine/renderer/value";
 import { getValue } from "@/lib/minecraft/core/engine/renderer/value";
-import { getConditionFields, getLockFields, getRendererFields } from "@/lib/minecraft/core/engine/utils/field_parsing";
+import { getConditionFields, getLockFields, getRendererFields } from "@/lib/minecraft/core/engine/utils/field";
 import type { Lock } from "@/lib/minecraft/core/schema/primitive/component";
 import type { TranslateTextType } from "@/lib/minecraft/core/schema/primitive/text";
 import { useShallow } from "zustand/shallow";

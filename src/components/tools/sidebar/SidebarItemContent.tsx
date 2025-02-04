@@ -5,7 +5,7 @@ import { useElementCondition } from "@/lib/minecraft/core/engine/utils/hooks";
 import type { RefObject } from "react";
 
 export default function SidebarItemContent({ elementId, switchRef }: { elementId: string; switchRef: RefObject<HTMLDivElement | null> }) {
-    const sidebarConfig = useConfiguratorStore((state) => state.configuration?.sidebar);
+    const sidebarConfig = useConfiguratorStore((state) => state.config?.sidebar);
     const setCurrentElementId = useConfiguratorStore((state) => state.setCurrentElementId);
     const handleChange = useConfiguratorStore((state) => state.handleChange);
     const lockData = useElementLocks(sidebarConfig?.lock, elementId);

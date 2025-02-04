@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
 import { getValue, type ValueRenderer } from "@/lib/minecraft/core/engine/renderer/value";
-import type { VoxelRegistryElement } from "@/lib/minecraft/core/Registry";
+import type { VoxelRegistryElement } from "@/lib/minecraft/core/Element";
 import type { EnchantmentProps } from "@/lib/minecraft/core/schema/enchant/EnchantmentProps";
 
 const createMockElement = (data: Partial<EnchantmentProps> = {}): VoxelRegistryElement<EnchantmentProps> => ({

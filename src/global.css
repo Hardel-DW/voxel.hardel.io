@@ -53,6 +53,7 @@
     --animate-shimmer: shimmer 2s linear infinite;
     --animate-progress: progress 5s linear;
 
+
     @keyframes shimmer {
         from {
             background-position: 0 0;
@@ -129,6 +130,7 @@
         }
     }
 }
+
 
 @layer utilities {
     .pixelated {

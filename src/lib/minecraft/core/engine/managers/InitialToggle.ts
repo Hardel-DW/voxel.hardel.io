@@ -1,4 +1,4 @@
-import { resolve } from "@/lib/minecraft/core/engine/renderer/resolve_field";
+import { resolve } from "@/lib/minecraft/core/engine/renderer/resolve";
 import type { InterfaceConfiguration } from "@/lib/minecraft/core/schema/primitive";
 import type { ToolSectionType } from "@/lib/minecraft/core/schema/primitive/component";
 import type { ToggleSectionMap } from "@/lib/minecraft/core/schema/primitive/toggle";

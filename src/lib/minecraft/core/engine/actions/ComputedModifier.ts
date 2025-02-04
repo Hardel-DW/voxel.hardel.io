@@ -1,4 +1,4 @@
-import type { ActionValue, BaseAction } from ".";
+import { type ActionValue, type BaseAction, getFieldValue } from ".";
 
 export interface ComputedAction extends BaseAction {
     type: "set_value_from_computed_value" | "toggle_value_from_computed_value";
@@ -19,10 +19,11 @@ export function ComputedModifier(
 ): Record<string, unknown> | undefined {
     if (value === undefined) return undefined;
     const { field } = action;
+    const computedValue = getFieldValue(value);
 
-    if (action.type === "toggle_value_from_computed_value" && element[field] === value) {
+    if (action.type === "toggle_value_from_computed_value" && element[field] === computedValue) {
         return { ...element, [field]: undefined };
     }
 
-    return { ...element, [field]: value };
+    return { ...element, [field]: computedValue };
 }

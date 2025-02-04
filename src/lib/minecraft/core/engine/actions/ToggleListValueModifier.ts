@@ -1,4 +1,4 @@
-import type { ActionValue, BaseAction } from ".";
+import { type ActionValue, type BaseAction, getFieldValue } from ".";
 
 export interface ToggleListValueAction extends BaseAction {
     type: "toggle_value_in_list";
@@ -21,16 +21,17 @@ export default function ToggleListValueModifier(
     const value = action.value ?? props;
     const modes = action.mode || [];
 
-    if (value === undefined && action.value === undefined) {
+    if (value === undefined) {
         throw new Error("Both props and action.value cannot be undefined");
     }
 
+    const computedValue = getFieldValue(value);
     const shadowCopy = structuredClone(element);
     let list: unknown = shadowCopy[field];
 
     // Handle override mode for primitive values
     if (modes.includes("override") && list !== undefined && !Array.isArray(list)) {
-        list = [value as string];
+        list = [computedValue];
         return {
             ...element,
             [field]: list
@@ -43,12 +44,16 @@ export default function ToggleListValueModifier(
     }
 
     // Type guard to ensure list is string[]
-    if (!Array.isArray(list) || !list.every((item: unknown): item is string => typeof item === "string") || typeof value !== "string") {
+    if (
+        !Array.isArray(list) ||
+        !list.every((item: unknown): item is string => typeof item === "string") ||
+        typeof computedValue !== "string"
+    ) {
         return;
     }
 
-    const isPresent = list.includes(value);
-    const newList = isPresent ? list.filter((item: string) => item !== value) : [...list, value];
+    const isPresent = list.includes(computedValue);
+    const newList = isPresent ? list.filter((item: string) => item !== computedValue) : [...list, computedValue];
 
     return {
         ...element,

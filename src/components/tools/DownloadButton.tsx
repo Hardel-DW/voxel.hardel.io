@@ -1,65 +1,31 @@
 import Button from "@/components/ui/react/Button.tsx";
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/shadcn/dialog.tsx";
 import { useTranslate } from "@/components/useTranslate";
+import Datapack from "@/lib/minecraft/core/Datapack.ts";
 import { useConfiguratorStore } from "@/lib/minecraft/core/engine/Store.ts";
-import { generateZip } from "@/lib/minecraft/mczip.ts";
+import { voxelDatapacks } from "@/lib/minecraft/voxel/VoxelDatapack.ts";
+import { saveLogs } from "@/lib/server/telemetry.ts";
+import { downloadArchive } from "@/lib/utils/download.ts";
 import { DialogDescription } from "@radix-ui/react-dialog";
 import SettingsDialog from "./SettingsDialog.tsx";
 
 export default function DownloadButton() {
     const { t } = useTranslate();
 
-    const handleSaveLogs = async (logger: any) => {
-        try {
-            const response = await fetch("/api/migrations/log", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    logs: logger.getLogs()
-                })
-            });
-
-            if (!response.ok) {
-                throw new Error(`Failed to save migration log: ${response.statusText}`);
-            }
-        } catch (error) {
-            console.error("Error saving migration log:", error);
-        }
-    };
-
-    const handleDownloadFile = (compiledContent: Uint8Array, name: string, isJar: boolean) => {
-        const fileExtension = isJar ? "jar" : "zip";
-        const blob = new Blob([compiledContent], {
-            type: `application/${fileExtension}`
-        });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement("a");
-        a.href = url;
-        a.download = `${name}.${fileExtension}`;
-        a.click();
-        URL.revokeObjectURL(url);
-    };
-
-    const handleCompile = async () => {
+    const handleClick = async () => {
         const store = useConfiguratorStore.getState();
-        const { version, configuration, logger, files, minify, name, isJar } = store;
-
-        if (!version || !configuration || !logger) {
-            console.error("Version, configuration or logger is missing");
-            return;
-        }
+        const { logger, files, minify, name, isJar } = store;
 
         const content = store.compile();
-        const compiledContent = await generateZip(files, content, { minify, logger, includeVoxel: true });
-
-        await handleSaveLogs(logger);
-        handleDownloadFile(compiledContent, name, isJar);
+        const compiledContent = await new Datapack(files).generate(content, { isMinified: minify, logger, include: voxelDatapacks });
+        await saveLogs({ logs: logger?.getLogs() });
+        downloadArchive(compiledContent, name, isJar);
     };
 
     return (
         <Dialog>
             <DialogTrigger asChild>
-                <Button type="button" className="w-full" variant="white-shimmer" onClick={handleCompile} onKeyDown={handleCompile}>
+                <Button type="button" className="w-full" variant="white-shimmer" onClick={handleClick} onKeyDown={handleClick}>
                     {t("tools.download")}
                     <span className="text-xs ml-2">(.zip)</span>
                 </Button>

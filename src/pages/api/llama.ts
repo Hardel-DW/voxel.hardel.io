@@ -1,6 +1,6 @@
 import type { VoxelElement } from "@/lib/minecraft/core/Element";
+import type { VoxelRegistryElement } from "@/lib/minecraft/core/Element";
 import type { IdentifierObject } from "@/lib/minecraft/core/Identifier";
-import type { VoxelRegistryElement } from "@/lib/minecraft/core/Registry";
 import type { Action } from "@/lib/minecraft/core/engine/actions";
 import type { APIContext } from "astro";
 

@@ -1,9 +1,6 @@
-import type { DataDrivenRegistryElement } from "@/lib/minecraft/core/Registry";
-import type { Enchantment } from "@voxel/definitions";
-
-export type ModifiedEnchantment = Omit<Enchantment, "effects"> & {
-    effects: Record<string, any>;
-};
+import type { DataDrivenRegistryElement } from "@/lib/minecraft/core/Element";
+import type { EnchantmentProps } from "@/lib/minecraft/core/schema/enchant/EnchantmentProps";
+import type { EffectComponentsRecord, Enchantment, SlotRegistryType } from "@voxel/definitions";
 
 const baseEnchantment = {
     weight: 2,
@@ -19,7 +16,18 @@ const baseEnchantment = {
     }
 };
 
-export const DATA_DRIVEN_TEMPLATE_ENCHANTMENT: DataDrivenRegistryElement<ModifiedEnchantment>[] = [
+const advancedBaseEnchantment = {
+    ...baseEnchantment,
+    effects: {} as EffectComponentsRecord,
+    description: {
+        translate: "enchantment.enchantplus.accuracy_shot",
+        fallback: "Accuracy Shot"
+    },
+    slots: ["mainhand", "offhand"] as SlotRegistryType[],
+    supported_items: "#voxel:enchantable/range"
+};
+
+export const DATA_DRIVEN_TEMPLATE_ENCHANTMENT: DataDrivenRegistryElement<Enchantment>[] = [
     {
         identifier: { namespace: "enchantplus", registry: "enchantment", resource: "bow/accuracy_shot" },
         data: {
@@ -39,7 +47,7 @@ export const DATA_DRIVEN_TEMPLATE_ENCHANTMENT: DataDrivenRegistryElement<Modifie
                         }
                     }
                 ]
-            }
+            } as EffectComponentsRecord
         }
     },
     {
@@ -65,7 +73,7 @@ export const DATA_DRIVEN_TEMPLATE_ENCHANTMENT: DataDrivenRegistryElement<Modifie
                         operation: "add_multiplied_total"
                     }
                 ]
-            }
+            } as any as EffectComponentsRecord
         }
     },
     {
@@ -96,7 +104,7 @@ export const DATA_DRIVEN_TEMPLATE_ENCHANTMENT: DataDrivenRegistryElement<Modifie
                         }
                     }
                 ]
-            },
+            } as any as EffectComponentsRecord,
             slots: ["chest"],
             supported_items: "#voxel:enchantable/elytra",
             weight: 1
@@ -112,7 +120,7 @@ export const DATA_DRIVEN_TEMPLATE_ENCHANTMENT: DataDrivenRegistryElement<Modifie
             },
             supported_items: "#voxel:enchantable/hoes",
             slots: ["mainhand"],
-            effects: {}
+            effects: {} as any as EffectComponentsRecord
         }
     },
     {
@@ -142,7 +150,7 @@ export const DATA_DRIVEN_TEMPLATE_ENCHANTMENT: DataDrivenRegistryElement<Modifie
                         }
                     }
                 ]
-            }
+            } as any as EffectComponentsRecord
         }
     },
     {
@@ -176,7 +184,7 @@ export const DATA_DRIVEN_TEMPLATE_ENCHANTMENT: DataDrivenRegistryElement<Modifie
                         }
                     }
                 ]
-            },
+            } as any as EffectComponentsRecord,
             primary_items: "#minecraft:enchantable/sword",
             slots: ["mainhand"],
             exclusive_set: "#enchantplus:exclusive_set/aspect",
@@ -184,3 +192,139 @@ export const DATA_DRIVEN_TEMPLATE_ENCHANTMENT: DataDrivenRegistryElement<Modifie
         }
     }
 ];
+
+export const VOXEL_ELEMENTS: EnchantmentProps[] = [
+    {
+        identifier: { namespace: "enchantplus", registry: "enchantment", resource: "bow/accuracy_shot" },
+        description: {
+            translate: "enchantment.enchantplus.accuracy_shot",
+            fallback: "Accuracy Shot"
+        },
+        maxLevel: 1,
+        weight: 2,
+        anvilCost: 4,
+        minCostBase: 20,
+        minCostPerLevelAboveFirst: 9,
+        maxCostBase: 65,
+        maxCostPerLevelAboveFirst: 9,
+        exclusiveSet: "",
+        primaryItems: "",
+        mode: "normal" as const,
+        disabledEffects: [],
+        effects: {} as EffectComponentsRecord,
+        supportedItems: "#voxel:enchantable/range",
+        tags: [
+            "minecraft:non_treasure",
+            "yggdrasil:structure/alfheim_tree/ominous_vault",
+            "yggdrasil:structure/alfheim_tree/random_loot",
+            "yggdrasil:structure/asflors/common"
+        ],
+
+        slots: ["mainhand", "offhand"]
+    },
+    {
+        identifier: { namespace: "enchantplus", registry: "enchantment", resource: "boots/agility" },
+        description: {
+            translate: "enchantment.enchantplus.agility",
+            fallback: "Agility"
+        },
+        maxLevel: 1,
+        weight: 2,
+        anvilCost: 4,
+        minCostBase: 20,
+        minCostPerLevelAboveFirst: 9,
+        maxCostBase: 65,
+        maxCostPerLevelAboveFirst: 9,
+        exclusiveSet: "",
+        primaryItems: "",
+        mode: "normal" as const,
+        disabledEffects: [],
+        effects: {} as EffectComponentsRecord,
+        supportedItems: "#minecraft:enchantable/foot_armor",
+        tags: ["minecraft:non_treasure"],
+        slots: ["feet"]
+    },
+    {
+        identifier: { namespace: "enchantplus", registry: "enchantment", resource: "elytra/armored" },
+        description: {
+            translate: "enchantment.enchantplus.armored",
+            fallback: "Armored"
+        },
+        maxLevel: 1,
+        weight: 1,
+        anvilCost: 4,
+        minCostBase: 20,
+        minCostPerLevelAboveFirst: 9,
+        maxCostBase: 65,
+        maxCostPerLevelAboveFirst: 9,
+        exclusiveSet: "",
+        primaryItems: "",
+        mode: "normal" as const,
+        disabledEffects: [],
+        effects: {} as EffectComponentsRecord,
+        supportedItems: "#voxel:enchantable/elytra",
+        tags: ["minecraft:non_treasure"],
+        slots: ["chest"]
+    },
+    {
+        identifier: { namespace: "enchantplus", registry: "enchantment", resource: "sword/attack_speed" },
+        description: {
+            translate: "enchantment.enchantplus.harvest",
+            fallback: "Harvest"
+        },
+        maxLevel: 1,
+        weight: 2,
+        anvilCost: 4,
+        minCostBase: 20,
+        minCostPerLevelAboveFirst: 9,
+        maxCostBase: 65,
+        maxCostPerLevelAboveFirst: 9,
+        exclusiveSet: "",
+        primaryItems: "",
+        mode: "normal" as const,
+        disabledEffects: [],
+        effects: {} as EffectComponentsRecord,
+        supportedItems: "#voxel:enchantable/hoes",
+        tags: ["minecraft:non_treasure", "foo:bar"],
+        slots: ["mainhand"]
+    },
+    {
+        identifier: { namespace: "enchantplus", registry: "enchantment", resource: "sword/poison_aspect" },
+        description: {
+            translate: "enchantment.enchantplus.poison_aspect",
+            fallback: "Poison Aspect"
+        },
+        maxLevel: 1,
+        weight: 2,
+        anvilCost: 4,
+        minCostBase: 20,
+        minCostPerLevelAboveFirst: 9,
+        maxCostBase: 65,
+        maxCostPerLevelAboveFirst: 9,
+        exclusiveSet: "#enchantplus:exclusive_set/aspect",
+        primaryItems: "#minecraft:enchantable/sword",
+        mode: "normal" as const,
+        disabledEffects: [],
+        effects: {} as EffectComponentsRecord,
+        supportedItems: "#minecraft:enchantable/weapon",
+        tags: ["minecraft:non_treasure", "enchantplus:sword/poison_aspect"],
+        slots: ["mainhand"]
+    }
+];
+
+export const makeAdvancedEnchantment: (props: Partial<EnchantmentProps>) => DataDrivenRegistryElement<Enchantment> = (props) => {
+    const base = {
+        identifier: { namespace: "enchantplus", registry: "enchantment", resource: "bow/accuracy_shot" },
+        data: {
+            ...advancedBaseEnchantment,
+            tags: []
+        }
+    };
+
+    const clone = structuredClone(base);
+    const { identifier, data } = clone;
+    return {
+        identifier,
+        data: { ...data, ...props }
+    };
+};

@@ -1,4 +1,4 @@
-import { getConditionFields, getLockFields, getRendererFields } from "@/lib/minecraft/core/engine/utils/field_parsing";
+import { getConditionFields, getLockFields, getRendererFields } from "@/lib/minecraft/core/engine/utils/field";
 import type { Condition } from "@/lib/minecraft/core/engine/condition";
 import type { Lock } from "@/lib/minecraft/core/schema/primitive/component";
 import { describe, expect, it } from "vitest";

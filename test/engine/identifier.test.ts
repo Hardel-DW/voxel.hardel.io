@@ -64,17 +64,17 @@ describe("Identifier", () => {
     describe("toFilePath", () => {
         it("should generate default file path", () => {
             const identifier = new Identifier({ namespace: "minecraft", registry: "block", resource: "stone" });
-            expect(identifier.toFilePath()).toBe("data/minecraft/block/stone");
+            expect(identifier.toFilePath()).toBe("data/minecraft/block/stone.json");
         });
 
         it("should generate custom base path", () => {
             const identifier = new Identifier({ namespace: "minecraft", registry: "block", resource: "stone" });
-            expect(identifier.toFilePath("assets")).toBe("assets/minecraft/block/stone");
+            expect(identifier.toFilePath("assets")).toBe("assets/minecraft/block/stone.json");
         });
 
         it("should handle nested resource paths", () => {
             const identifier = new Identifier({ namespace: "enchantplus", registry: "enchantment", resource: "sword/life_steal" });
-            expect(identifier.toFilePath()).toBe("data/enchantplus/enchantment/sword/life_steal");
+            expect(identifier.toFilePath()).toBe("data/enchantplus/enchantment/sword/life_steal.json");
         });
     });
 

@@ -13,11 +13,12 @@ export default function ToolTagViewer({
     component: ToolTagViewerType;
 }) {
     const fieldValue = component.properties ? useElementValue<string>(component.properties) : null;
-    const configuration = useConfiguratorStore((state) => state.configuration);
+    const configuration = useConfiguratorStore((state) => state.config);
     const version = useConfiguratorStore((state) => state.version);
     const compile = useConfiguratorStore((state) => state.compile);
 
     if (!configuration || !version || !fieldValue) return null;
+    if (typeof fieldValue !== "string") return null;
 
     const assembleDatapack = compile();
     const tagIdentifier = Identifier.of(fieldValue, component.registry);
@@ -39,6 +40,7 @@ export default function ToolTagViewer({
                         path={component.include.path}
                         fileName={new Identifier(tagIdentifier).toFileName()}
                         namespace={component.include.namespace}
+                        values={initialValues}
                     />
                 )}
             </div>

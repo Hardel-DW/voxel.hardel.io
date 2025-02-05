@@ -1,5 +1,5 @@
 import type { VoxelElement } from "@/lib/minecraft/core/Element";
-import type { DataDrivenRegistryElement, VoxelRegistryElement } from "@/lib/minecraft/core/Element";
+import type { DataDrivenRegistryElement } from "@/lib/minecraft/core/Element";
 import { Identifier, type IdentifierObject } from "@/lib/minecraft/core/Identifier";
 import { tagsToIdentifiers } from "@/lib/minecraft/core/Tag";
 import type { Analysers } from "@/lib/minecraft/core/engine/Analyser.ts";
@@ -8,7 +8,6 @@ import type { Parser, ParserParams } from "@/lib/minecraft/core/engine/Parser.ts
 import type { SlotRegistryType } from "@/lib/minecraft/core/engine/managers/SlotManager.ts";
 import type { FieldProperties } from "@/lib/minecraft/core/schema/primitive/properties";
 import { I18n } from "@/lib/minecraft/i18n/i18n";
-import generateUUID from "@/lib/utils/uuid";
 import type { EffectComponentsRecord, Enchantment, TextComponentType } from "@voxel/definitions";
 
 const tags_related_to_functionality = [
@@ -126,7 +125,7 @@ export const DataDrivenToVoxelFormat: Parser<EnchantmentProps, Enchantment> = ({
     element,
     tags = [],
     configurator
-}: ParserParams<Enchantment>): VoxelRegistryElement<EnchantmentProps> => {
+}: ParserParams<Enchantment>): EnchantmentProps => {
     const clone = structuredClone(element);
     const data = clone.data;
 
@@ -158,27 +157,24 @@ export const DataDrivenToVoxelFormat: Parser<EnchantmentProps, Enchantment> = ({
     }
 
     return {
-        identifier: generateUUID(),
-        data: {
-            identifier: element.identifier,
-            description,
-            exclusiveSet,
-            supportedItems,
-            primaryItems,
-            maxLevel,
-            weight,
-            anvilCost,
-            minCostBase,
-            minCostPerLevelAboveFirst,
-            maxCostBase,
-            maxCostPerLevelAboveFirst,
-            effects,
-            tags: tagsWithoutExclusiveSet,
-            slots,
-            mode,
-            disabledEffects: [],
-            override: configurator
-        }
+        identifier: element.identifier,
+        description,
+        exclusiveSet,
+        supportedItems,
+        primaryItems,
+        maxLevel,
+        weight,
+        anvilCost,
+        minCostBase,
+        minCostPerLevelAboveFirst,
+        maxCostBase,
+        maxCostPerLevelAboveFirst,
+        effects,
+        tags: tagsWithoutExclusiveSet,
+        slots,
+        mode,
+        disabledEffects: [],
+        override: configurator
     };
 };
 

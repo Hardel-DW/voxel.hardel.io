@@ -34,6 +34,10 @@ export class Identifier {
         return `${this.namespace}:${this.resource}`;
     }
 
+    toUniqueKey() {
+        return `${this.namespace}:${this.resource}$${this.registry}`;
+    }
+
     equals(other: Identifier | undefined) {
         if (!other) return false;
         return this.namespace === other.namespace && this.registry === other.registry && this.resource === other.resource;

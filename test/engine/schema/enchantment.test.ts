@@ -139,7 +139,7 @@ describe("Enchantment Schema", () => {
                 const analyser = getAnalyserForVersion("enchantment", 61).analyser;
                 const compiled = analyser.parser({ element: dataDrivenEnchantment });
                 expect(compiled).toBeDefined();
-                expect(compiled.data.mode).toBe("soft_delete");
+                expect(compiled.mode).toBe("soft_delete");
             });
 
             it("Should be only creative", () => {
@@ -160,7 +160,7 @@ describe("Enchantment Schema", () => {
                 const analyser = getAnalyserForVersion("enchantment", 61).analyser;
                 const compiled = analyser.parser({ element: dataDrivenEnchantment });
                 expect(compiled).toBeDefined();
-                expect(compiled.data.mode).toBe("only_creative");
+                expect(compiled.mode).toBe("only_creative");
             });
 
             it("Should be only creative even with exclusive set", () => {
@@ -182,7 +182,7 @@ describe("Enchantment Schema", () => {
                 const analyser = getAnalyserForVersion("enchantment", 61).analyser;
                 const compiled = analyser.parser({ element: dataDrivenEnchantment });
                 expect(compiled).toBeDefined();
-                expect(compiled.data.mode).toBe("only_creative");
+                expect(compiled.mode).toBe("only_creative");
             });
 
             it("Should be soft delete even with exclusive set", () => {
@@ -195,7 +195,7 @@ describe("Enchantment Schema", () => {
                 const analyser = getAnalyserForVersion("enchantment", 61).analyser;
                 const compiled = analyser.parser({ element: dataDrivenEnchantment });
                 expect(compiled).toBeDefined();
-                expect(compiled.data.mode).toBe("soft_delete");
+                expect(compiled.mode).toBe("soft_delete");
             });
         });
     });

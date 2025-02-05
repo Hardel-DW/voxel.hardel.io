@@ -3,7 +3,7 @@ import { useConfiguratorStore } from "@/lib/minecraft/core/engine/Store";
 import type { LabeledElement } from "@/lib/minecraft/core/schema/primitive/label";
 import { useState } from "react";
 import { createPortal } from "react-dom";
-import DebugPanel from "./DebugPanel";
+import DebugPanel from "@/components/tools/debug/DebugPanel";
 
 export default function DebugConfigurator() {
     const [isDebugging, setIsDebugging] = useState(false);

@@ -1,5 +1,5 @@
 import type { LabeledElement } from "@/lib/minecraft/core/schema/primitive/label";
-import { NamespaceElement } from "./NamespaceElement";
+import { NamespaceElement } from "@/components/tools/debug/NamespaceElement";
 
 interface RegistryListProps {
     registry: string;

@@ -3,9 +3,11 @@ import { createZipFile, filesRecord, filesRecordWithInvalidPackMcmeta, filesReco
 import Datapack from "@/lib/minecraft/core/Datapack";
 import type { TagType } from "@voxel/definitions";
 import { DatapackError } from "@/lib/minecraft/core/errors/DatapackError";
-import type { CompileDatapackResult, Compiler } from "@/lib/minecraft/core/engine/Compiler";
+import type { Compiler } from "@/lib/minecraft/core/engine/Compiler";
+import type { LabeledElement } from "@/lib/minecraft/core/schema/primitive/label";
 import { attack_speed_element, test_attack_speed_files } from "@test/template/special";
 import { getAnalyserForVersion } from "@/lib/minecraft/core/engine/Analyser";
+
 import type { DataDrivenRegistryElement } from "@/lib/minecraft/core/Element";
 import { mergeDataDrivenRegistryElement } from "@/lib/minecraft/core/Tag";
 
@@ -174,7 +176,7 @@ describe("Datapack", () => {
     describe("generate", () => {
         it("should generate a new datapack with updated content", async () => {
             const datapack = new Datapack(filesRecord);
-            const content: CompileDatapackResult[] = [
+            const content: LabeledElement[] = [
                 {
                     type: "updated",
                     element: {
@@ -197,7 +199,7 @@ describe("Datapack", () => {
 
         it("should handle deleted elements by keeping empty tags", async () => {
             const datapack = new Datapack(filesRecord);
-            const content: CompileDatapackResult[] = [
+            const content: LabeledElement[] = [
                 {
                     type: "deleted",
                     identifier: {

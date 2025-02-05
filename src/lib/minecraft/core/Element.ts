@@ -1,5 +1,6 @@
 import type { IdentifierObject } from "@/lib/minecraft/core/Identifier";
 import type { Analysers, GetAnalyserVoxel } from "@/lib/minecraft/core/engine/Analyser";
+import type { LabeledElement } from "@/lib/minecraft/core/schema/primitive/label";
 
 export type DataDrivenElement = Record<string, unknown>;
 export interface VoxelElement extends Record<string, unknown> {
@@ -44,4 +45,13 @@ export function sortVoxelElements(elements: Map<string, VoxelElement>): string[]
             return resourceA.localeCompare(resourceB);
         })
         .map(([key]) => key);
+}
+
+/**
+ * Get the identifier from a labeled element
+ * @param comp - The labeled element
+ * @returns The identifier
+ */
+export function getLabeledIdentifier(comp: LabeledElement): IdentifierObject {
+    return comp.type === "deleted" ? comp.identifier : comp.element.identifier;
 }

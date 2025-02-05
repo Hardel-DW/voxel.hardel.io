@@ -1,17 +1,17 @@
 import { RegistryElement } from "@/components/tools/debug/RegistryElement";
 import { Identifier } from "@/lib/minecraft/core/Identifier";
-import type { CompileDatapackResult } from "@/lib/minecraft/core/engine/Compiler";
-import { getIdentifierFromCompiler } from "@/lib/minecraft/core/engine/Compiler";
+import type { LabeledElement } from "@/lib/minecraft/core/schema/primitive/label";
+import { getLabeledIdentifier } from "@/lib/minecraft/core/Element";
 
 interface NamespaceElementProps {
     namespace: string;
-    elements: CompileDatapackResult[];
-    selectedElement: CompileDatapackResult | undefined;
-    onElementSelect: (element: CompileDatapackResult) => void;
+    elements: LabeledElement[];
+    selectedElement: LabeledElement | undefined;
+    onElementSelect: (element: LabeledElement) => void;
 }
 
 export function NamespaceElement({ namespace, elements, selectedElement, onElementSelect }: NamespaceElementProps) {
-    if (!elements.some((element) => getIdentifierFromCompiler(element).namespace === namespace)) return null;
+    if (!elements.some((element) => getLabeledIdentifier(element).namespace === namespace)) return null;
 
     return (
         <div key={namespace} className="grid grid-cols-2 gap-4 pr-4 bg-black/30 rounded-2xl p-4 mb-4">
@@ -22,10 +22,10 @@ export function NamespaceElement({ namespace, elements, selectedElement, onEleme
             </div>
 
             {elements
-                .filter((element) => getIdentifierFromCompiler(element).namespace === namespace)
+                .filter((element) => getLabeledIdentifier(element).namespace === namespace)
                 .map((e) => (
                     <RegistryElement
-                        key={new Identifier(getIdentifierFromCompiler(e)).toFilePath()}
+                        key={new Identifier(getLabeledIdentifier(e)).toFilePath()}
                         element={e}
                         selectedElement={selectedElement}
                         onElementSelect={onElementSelect}

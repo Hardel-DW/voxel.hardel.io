@@ -72,12 +72,12 @@ const createConfiguratorStore = <T extends keyof Analysers>() =>
             const isElementValid = isVoxelElement(updatedElement);
             if (!isElementValid || !elementId) return;
 
-            if (state.logger && state.version && typeof state.config?.analyser.id === "string") {
+            if (state.logger && state.version && typeof state.config?.analyser === "string") {
                 state.logger.handleActionDifference(
                     action,
                     element,
                     state.version ?? Number.POSITIVE_INFINITY,
-                    state.config?.analyser.id as T,
+                    state.config?.analyser as T,
                     value
                 );
             }
@@ -94,7 +94,7 @@ const createConfiguratorStore = <T extends keyof Analysers>() =>
                 return [];
             }
 
-            return compileDatapack({ elements: Array.from(elements.values()), version, files, tool: configuration.analyser.id });
+            return compileDatapack({ elements: Array.from(elements.values()), version, files, tool: configuration.analyser });
         }
     }));
 

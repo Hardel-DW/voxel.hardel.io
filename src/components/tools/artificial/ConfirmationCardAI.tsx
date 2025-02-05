@@ -16,7 +16,7 @@ export default function ConfirmationCardAI(props: PropsConfirmationCardAI) {
     const { lang, t } = useTranslate();
     const store = useConfiguratorStore();
     const element = store.elements.get(props.identifier);
-    const analyserId = store.config?.analyser.id;
+    const analyserId = store.config?.analyser;
 
     if (!element) {
         console.error("Element not found with identifier", props.identifier);

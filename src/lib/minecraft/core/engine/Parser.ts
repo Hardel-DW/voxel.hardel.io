@@ -49,10 +49,10 @@ export async function parseDatapack<T extends keyof Analysers>(tool: T, file: Fi
     const { analyser, config } = getAnalyserForVersion(tool, version);
     const toggleSection = calculateInitialToggle(config.interface);
 
-    const mainRegistry = datapack.getRegistry<GetAnalyserMinecraft<T>>(config.analyser.registries.main);
+    const mainRegistry = datapack.getRegistry<GetAnalyserMinecraft<T>>(config.analyser);
     const compiled = mainRegistry.map((element) => {
         const configurator = datapack.readFile<ConfiguratorConfigFromDatapack>(element.identifier, "voxel");
-        const tags = datapack.getRelatedTags(config.analyser.registries.tags, element.identifier);
+        const tags = datapack.getRelatedTags(`tags/${config.analyser}`, element.identifier);
         return analyser.parser({ element, tags, configurator });
     });
 

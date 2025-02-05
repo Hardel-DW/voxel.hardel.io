@@ -185,12 +185,13 @@ export const DataDrivenToVoxelFormat: Parser<EnchantmentProps, Enchantment> = ({
  */
 export const VoxelToDataDriven: Compiler<EnchantmentProps, Enchantment> = (
     element: EnchantmentProps,
-    config: keyof Analysers
+    config: keyof Analysers,
+    original?: Enchantment
 ): {
     element: DataDrivenRegistryElement<Enchantment>;
     tags: IdentifierObject[];
 } => {
-    const enchantment = {} as Enchantment;
+    const enchantment = structuredClone(original ?? {}) as Enchantment;
     const enchant = structuredClone(element);
     const tagRegistry = `tags/${config}`;
     let tags = [...tagsToIdentifiers(enchant.tags, tagRegistry)];

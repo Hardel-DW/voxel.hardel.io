@@ -1,12 +1,12 @@
-import type { CompileDatapackResult } from "@/lib/minecraft/core/engine/Compiler";
-import { NamespaceElement } from "./NamespaceElement";
+import type { LabeledElement } from "@/lib/minecraft/core/schema/primitive/label";
+import { NamespaceElement } from "@/components/tools/debug/NamespaceElement";
 
 interface RegistryListProps {
     registry: string;
-    elements: CompileDatapackResult[];
+    elements: LabeledElement[];
     namespaces: string[];
-    selectedElement: CompileDatapackResult | undefined;
-    onElementSelect: (element: CompileDatapackResult) => void;
+    selectedElement: LabeledElement | undefined;
+    onElementSelect: (element: LabeledElement) => void;
 }
 
 export function RegistrySection({ registry, elements, namespaces, selectedElement, onElementSelect }: RegistryListProps) {

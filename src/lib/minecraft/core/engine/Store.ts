@@ -1,6 +1,7 @@
 import { isVoxelElement, sortVoxelElements } from "@/lib/minecraft/core/Element";
 import type { Analysers, GetAnalyserVoxel } from "@/lib/minecraft/core/engine/Analyser";
-import { type CompileDatapackResult, compileDatapack } from "@/lib/minecraft/core/engine/Compiler";
+import { compileDatapack } from "@/lib/minecraft/core/engine/Compiler";
+import type { LabeledElement } from "@/lib/minecraft/core/schema/primitive/label";
 import type { ParseDatapackResult } from "@/lib/minecraft/core/engine/Parser";
 import type { Action, ActionValue } from "@/lib/minecraft/core/engine/actions";
 import { updateData } from "@/lib/minecraft/core/engine/actions";
@@ -23,17 +24,11 @@ export interface ConfiguratorState<T extends keyof Analysers> {
     sortedIdentifiers: string[];
     setName: (name: string) => void;
     setMinify: (minify: boolean) => void;
-    setLogger: (logger: Logger | undefined) => void;
-    setFiles: (files: Record<string, Uint8Array>) => void;
     setCurrentElementId: (id: string | undefined) => void;
-    setToggleSection: (section: Record<string, ToggleSection> | undefined) => void;
     changeToggleValue: (id: string, name: ToggleSection) => void;
-    setConfiguration: (config: ToolConfiguration | null) => void;
-    setIsJar: (isJar: boolean) => void;
-    setVersion: (version: number | null) => void;
     handleChange: (action: Action, identifier?: string, value?: ActionValue) => void;
     setup: (updates: ParseDatapackResult<GetAnalyserVoxel<T>>) => void;
-    compile: () => Array<CompileDatapackResult>;
+    compile: () => Array<LabeledElement>;
 }
 
 const createConfiguratorStore = <T extends keyof Analysers>() =>
@@ -48,43 +43,27 @@ const createConfiguratorStore = <T extends keyof Analysers>() =>
         sortedIdentifiers: [],
         setName: (name) => set({ name }),
         setMinify: (minify) => set({ minify }),
-        setLogger: (logger) => set({ logger }),
-        setFiles: (files) => set({ files }),
         setCurrentElementId: (currentElementId) => set({ currentElementId }),
-        setToggleSection: (toggleSection) => set({ toggleSection }),
-        setConfiguration: (configuration) => set({ config: configuration }),
-        setIsJar: (isJar) => set({ isJar }),
-        setVersion: (version) => set({ version }),
         changeToggleValue: (id, name) => set((state) => ({ toggleSection: { ...state.toggleSection, [id]: name } })),
         handleChange: (action, identifier, value) => {
             const state = get();
             const elementId = identifier ?? state.currentElementId;
-            const element = elementId ? state.elements.get(elementId) : undefined;
+            if (!elementId) return;
 
-            if (!element) {
-                console.error("Element not found");
-                return;
-            }
+            const element = state.elements.get(elementId);
+            if (!element) return;
 
             const updatedElement = updateData(action, element, state.version ?? Number.POSITIVE_INFINITY, value);
             if (!updatedElement) return;
 
             const isElementValid = isVoxelElement(updatedElement);
-            if (!isElementValid || !elementId) return;
+            if (!isElementValid) return;
 
-            if (state.logger && state.version && typeof state.config?.analyser.id === "string") {
-                state.logger.handleActionDifference(
-                    action,
-                    element,
-                    state.version ?? Number.POSITIVE_INFINITY,
-                    state.config?.analyser.id as T,
-                    value
-                );
+            if (state.logger && state.version && typeof state.config?.analyser === "string") {
+                state.logger.handleActionDifference(action, element, state.config?.analyser, value, state.version);
             }
 
-            set((state) => ({
-                elements: state.elements.set(elementId, updatedElement)
-            }));
+            set((state) => ({ elements: state.elements.set(elementId, updatedElement) }));
         },
         setup: (updates) => set({ ...updates, sortedIdentifiers: sortVoxelElements(updates.elements) }),
         compile: () => {
@@ -94,7 +73,7 @@ const createConfiguratorStore = <T extends keyof Analysers>() =>
                 return [];
             }
 
-            return compileDatapack({ elements: Array.from(elements.values()), version, files, tool: configuration.analyser.id });
+            return compileDatapack({ elements: Array.from(elements.values()), version, files, tool: configuration.analyser });
         }
     }));
 

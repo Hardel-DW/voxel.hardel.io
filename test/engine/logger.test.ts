@@ -176,60 +176,6 @@ describe("Logger System", () => {
         });
     });
 
-    describe("Logging file operations", () => {
-        it("should log file deletion", () => {
-            const logger = new Logger(existingLog());
-
-            logger.logDeletion("minecraft:strength", "enchantment");
-
-            const logs = logger.getLogs();
-            expect(logs.logs).toHaveLength(1);
-            expect(logs.logs[0]).toMatchObject({
-                identifier: "minecraft:strength",
-                registry: "enchantment",
-                type: "deleted"
-            });
-        });
-
-        it("should log file addition", () => {
-            const logger = new Logger(existingLog());
-            const newValue = {
-                id: "minecraft:strength",
-                max_level: 5,
-                effects: { strength: { level: 1 } }
-            };
-
-            logger.logAddition("minecraft:strength", "enchantment", newValue);
-
-            const logs = logger.getLogs();
-            expect(logs.logs).toHaveLength(1);
-            expect(logs.logs[0]).toMatchObject({
-                identifier: "minecraft:strength",
-                registry: "enchantment",
-                type: "added",
-                value: newValue
-            });
-        });
-
-        it("should update existing file log when status changes", () => {
-            const logger = new Logger(existingLog());
-
-            // D'abord on ajoute un fichier
-            logger.logAddition("minecraft:strength", "enchantment", { id: "minecraft:strength" });
-
-            // Puis on le marque comme supprimé
-            logger.logDeletion("minecraft:strength", "enchantment");
-
-            const logs = logger.getLogs();
-            expect(logs.logs).toHaveLength(1);
-            expect(logs.logs[0]).toMatchObject({
-                identifier: "minecraft:strength",
-                registry: "enchantment",
-                type: "deleted"
-            });
-        });
-    });
-
     describe("Logging sequential actions", () => {
         it("should log multiple differences from sequential actions", () => {
             const logger = new Logger(existingLog());

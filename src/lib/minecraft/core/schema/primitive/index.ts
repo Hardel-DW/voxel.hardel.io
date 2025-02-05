@@ -14,13 +14,7 @@ export type SidebarConfig = {
 export type ToolConfiguration = {
     interface: InterfaceConfiguration[];
     sidebar: SidebarConfig;
-    analyser: {
-        id: keyof Analysers;
-        registries: {
-            main: string;
-            tags?: string;
-        };
-    };
+    analyser: keyof Analysers;
 };
 
 export type InterfaceConfiguration = {

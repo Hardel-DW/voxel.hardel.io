@@ -31,12 +31,7 @@ export class Logger {
         let fileLog = this.log.logs.find((log) => log.identifier === identifier);
 
         if (!fileLog) {
-            fileLog = {
-                identifier,
-                registry,
-                type: "updated",
-                differences: []
-            };
+            fileLog = { identifier, registry, type: "updated", differences: [] };
             this.log.logs.push(fileLog);
         }
 
@@ -75,46 +70,6 @@ export class Logger {
         }
     }
 
-    // Marque un fichier comme supprimé
-    public logDeletion(identifier: string, registry: string) {
-        const index = this.log.logs.findIndex((log) => log.identifier === identifier);
-
-        if (index !== -1) {
-            this.log.logs[index] = {
-                identifier,
-                registry,
-                type: "deleted"
-            };
-        } else {
-            this.log.logs.push({
-                identifier,
-                registry,
-                type: "deleted"
-            });
-        }
-    }
-
-    // Marque un fichier comme ajouté
-    public logAddition(identifier: string, registry: string, value: LogValue) {
-        const index = this.log.logs.findIndex((log) => log.identifier === identifier);
-
-        if (index !== -1) {
-            this.log.logs[index] = {
-                identifier,
-                registry,
-                type: "added",
-                value
-            };
-        } else {
-            this.log.logs.push({
-                identifier,
-                registry,
-                type: "added",
-                value
-            });
-        }
-    }
-
     // Ajouter une nouvelle méthode pour récupérer la valeur originale
     public getOriginalValue(identifier: string, field: string): LogValue | undefined {
         const fileLog = this.log.logs.find((log) => log.identifier === identifier);
@@ -128,9 +83,9 @@ export class Logger {
     public handleActionDifference<T extends keyof Analysers>(
         action: Action,
         element: GetAnalyserVoxel<T>,
-        version: number,
         tool: T,
-        value?: ActionValue
+        value?: ActionValue,
+        version: number = Number.POSITIVE_INFINITY
     ): void {
         const difference = createDifferenceFromAction(action, element, version, tool, this, value);
         if (difference) {

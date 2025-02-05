@@ -26,7 +26,8 @@ export default function DownloadButton() {
         <Dialog>
             <DialogTrigger asChild>
                 <Button type="button" className="w-full" variant="white-shimmer" onClick={handleClick} onKeyDown={handleClick}>
-                    {t("tools.download")}
+                    <span className="text-sm hidden xl:block">{t("tools.download")}</span>
+                    <span className="text-sm block xl:hidden">{t("tools.download.small")}</span>
                     <span className="text-xs ml-2">(.zip)</span>
                 </Button>
             </DialogTrigger>

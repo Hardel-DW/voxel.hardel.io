@@ -57,11 +57,5 @@ export const ENCHANT_TOOL_CONFIG: ToolConfiguration = {
             value: "soft_delete"
         }
     },
-    analyser: {
-        id: "enchantment",
-        registries: {
-            main: "enchantment",
-            tags: "tags/enchantment"
-        }
-    }
+    analyser: "enchantment"
 };

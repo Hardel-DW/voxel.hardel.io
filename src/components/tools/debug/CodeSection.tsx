@@ -2,11 +2,12 @@ import CodeBlock from "@/components/ui/codeblock/CodeBlock";
 import EmptyCodeBlock from "@/components/ui/codeblock/EmptyCodeBlock";
 import { useTranslate } from "@/components/useTranslate";
 import { Identifier } from "@/lib/minecraft/core/Identifier";
-import { type CompileDatapackResult, getIdentifierFromCompiler } from "@/lib/minecraft/core/engine/Compiler";
+import { getLabeledIdentifier } from "@/lib/minecraft/core/Element";
 import { useConfiguratorStore } from "@/lib/minecraft/core/engine/Store";
+import type { LabeledElement } from "@/lib/minecraft/core/schema/primitive/label";
 
 interface CodeSectionProps {
-    code: CompileDatapackResult | undefined;
+    code: LabeledElement | undefined;
     onClose: () => void;
 }
 
@@ -16,7 +17,7 @@ export function CodeSection({ code, onClose }: CodeSectionProps) {
     const { name, version } = storeValues;
 
     if (!code) return null;
-    const identifier = getIdentifierFromCompiler(code);
+    const identifier = getLabeledIdentifier(code);
 
     return (
         <div className="overflow-hidden h-full pt-12 relative">

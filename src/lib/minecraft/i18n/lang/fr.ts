@@ -50,6 +50,7 @@ export const french = {
     "tools.enchantments.import_vanilla": "Importer les enchantements vanilla",
     "tools.toast.soon": "Cette fonctionnalité est en cours de développement, elle sera bientôt disponible, restez à l'écoute !",
     "tools.download": "Télécharger le data pack",
+    "tools.download.small": "Télécharger",
     "tools.upload.start": "Cliquer pour commencer",
     "tools.upload.drop": "Ou dépose ton fichier ici",
     "tools.upload.description": "Déposez vos data packs en .zip ici pour commencer à les configurer.",

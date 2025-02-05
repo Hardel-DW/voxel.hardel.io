@@ -1,17 +1,17 @@
 import { Identifier } from "@/lib/minecraft/core/Identifier";
-import type { CompileDatapackResult } from "@/lib/minecraft/core/engine/Compiler";
-import { getIdentifierFromCompiler } from "@/lib/minecraft/core/engine/Compiler";
+import type { LabeledElement } from "@/lib/minecraft/core/schema/primitive/label";
+import { getLabeledIdentifier } from "@/lib/minecraft/core/Element";
 import { cn } from "@/lib/utils";
 
 interface RegistryElementProps {
-    element: CompileDatapackResult;
-    selectedElement: CompileDatapackResult | undefined;
-    onElementSelect: (element: CompileDatapackResult) => void;
+    element: LabeledElement;
+    selectedElement: LabeledElement | undefined;
+    onElementSelect: (element: LabeledElement) => void;
 }
 
 export function RegistryElement({ element, selectedElement, onElementSelect }: RegistryElementProps) {
-    const identifier = getIdentifierFromCompiler(element);
-    const isSelected = selectedElement && new Identifier(getIdentifierFromCompiler(selectedElement)).equalsObject(identifier);
+    const identifier = getLabeledIdentifier(element);
+    const isSelected = selectedElement && new Identifier(getLabeledIdentifier(selectedElement)).equalsObject(identifier);
 
     return (
         <div

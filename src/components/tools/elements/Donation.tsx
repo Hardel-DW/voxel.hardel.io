@@ -5,7 +5,7 @@ import translate from "@/lib/minecraft/i18n/translate";
 
 export default function Donation({ component }: { component: ToolDonationType }) {
     return (
-        <div className="w-full h-96 rounded-2xl border-zinc-900 border relative overflow-hidden">
+        <div className="w-full rounded-2xl border-zinc-900 border relative overflow-hidden">
             <div className="opacity-10">
                 <TriangleWave />
             </div>
@@ -21,14 +21,14 @@ export default function Donation({ component }: { component: ToolDonationType })
                             value: "tools.supports.title"
                         })}
                     </h1>
-                    <p className="text-zinc-400 pt-2 w-3/4">
+                    <p className="text-zinc-400 pt-2 w-full lg:w-3/4">
                         {translate({
                             type: "translate",
                             value: "tools.supports.description"
                         })}
                     </p>
                 </div>
-                <div className="flex justify-between gap-4">
+                <div className="xl:flex justify-between gap-4 mt-4">
                     <div>
                         <h3 className="text-white font-bold text-xl pb-4">
                             {translate({
@@ -75,14 +75,24 @@ export default function Donation({ component }: { component: ToolDonationType })
                             </li>
                         </ul>
                     </div>
-                    <div className="grid self-end relative z-10 gap-y-4">
-                        <Button target="_blank" rel="noreferrer" href="https://streamelements.com/hardoudou/tip" variant="white-shimmer">
+                    <div className="flex lg:flex-row flex-col lg:flex-none self-end relative z-10 gap-4 pt-8">
+                        <Button
+                            className="w-full flex-1 px-8"
+                            target="_blank"
+                            rel="noreferrer"
+                            href="https://streamelements.com/hardoudou/tip"
+                            variant="white-shimmer">
                             {translate({
                                 type: "translate",
                                 value: "dialog.footer.donate"
                             })}
                         </Button>
-                        <Button variant="patreon-shimmer" href={component.link} target="_blank" rel="noreferrer">
+                        <Button
+                            className="w-full flex-1 px-8"
+                            variant="patreon-shimmer"
+                            href={component.link}
+                            target="_blank"
+                            rel="noreferrer">
                             <img src="/icons/company/patreon.svg" alt="Patreon" className="w-4 h-4" />
                             {translate({
                                 type: "translate",

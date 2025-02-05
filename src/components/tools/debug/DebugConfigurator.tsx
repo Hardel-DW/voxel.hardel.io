@@ -1,20 +1,21 @@
-import { type CompileDatapackResult, getIdentifierFromCompiler } from "@/lib/minecraft/core/engine/Compiler.ts";
+import { getLabeledIdentifier } from "@/lib/minecraft/core/Element";
 import { useConfiguratorStore } from "@/lib/minecraft/core/engine/Store";
+import type { LabeledElement } from "@/lib/minecraft/core/schema/primitive/label";
 import { useState } from "react";
 import { createPortal } from "react-dom";
-import DebugPanel from "./DebugPanel";
+import DebugPanel from "@/components/tools/debug/DebugPanel";
 
 export default function DebugConfigurator() {
     const [isDebugging, setIsDebugging] = useState(false);
-    const [datapack, setDatapack] = useState<Record<string, CompileDatapackResult[]>>();
-    const [selectedElement, setSelectedElement] = useState<CompileDatapackResult>();
+    const [datapack, setDatapack] = useState<Record<string, LabeledElement[]>>();
+    const [selectedElement, setSelectedElement] = useState<LabeledElement>();
     const [namespaces, setNamespaces] = useState<string[]>([]);
 
-    const groupByRegistry = (elements: CompileDatapackResult[]): Record<string, CompileDatapackResult[]> => {
-        const groups: Record<string, CompileDatapackResult[]> = {};
+    const groupByRegistry = (elements: LabeledElement[]): Record<string, LabeledElement[]> => {
+        const groups: Record<string, LabeledElement[]> = {};
 
         for (const element of elements) {
-            const identifier = getIdentifierFromCompiler(element);
+            const identifier = getLabeledIdentifier(element);
             const registry = identifier.registry;
             if (!registry) continue;
 
@@ -39,7 +40,7 @@ export default function DebugConfigurator() {
         setDatapack(registries);
         setIsDebugging((prev) => !prev);
         setSelectedElement(registries[Object.keys(registries)[0]][0]);
-        setNamespaces(Array.from(new Set(assembleDatapack.map((element) => getIdentifierFromCompiler(element).namespace))));
+        setNamespaces(Array.from(new Set(assembleDatapack.map((element) => getLabeledIdentifier(element).namespace))));
     };
 
     const debugPanel =
@@ -59,11 +60,7 @@ export default function DebugConfigurator() {
     return (
         <>
             {debugPanel}
-            <button
-                className="p-2 bottom-36 cursor-pointer right-4 z-50 rounded-xl size-10"
-                onClick={handleDebugging}
-                onKeyDown={handleDebugging}
-                type="button">
+            <button className="p-2 bottom-36 cursor-pointer right-4 z-50 rounded-xl size-10" onClick={handleDebugging} type="button">
                 <img src="/icons/debug.svg" alt="Debug Configurator" className="invert" />
             </button>
         </>

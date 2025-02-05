@@ -1,12 +1,12 @@
 import { CodeSection } from "@/components/tools/debug/CodeSection";
 import { RegistrySection } from "@/components/tools/debug/RegistrySection";
-import type { CompileDatapackResult } from "@/lib/minecraft/core/engine/Compiler";
+import type { LabeledElement } from "@/lib/minecraft/core/schema/primitive/label";
 
 type Props = {
-    selectedElement: CompileDatapackResult | undefined;
-    onElementSelect: (element: CompileDatapackResult) => void;
+    selectedElement: LabeledElement | undefined;
+    onElementSelect: (element: LabeledElement) => void;
     onClose: () => void;
-    datapack: Record<string, CompileDatapackResult[]>;
+    datapack: Record<string, LabeledElement[]>;
     namespaces: string[];
 };
 

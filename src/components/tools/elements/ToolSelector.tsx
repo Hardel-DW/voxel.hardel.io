@@ -13,7 +13,7 @@ export default function ToolSelector({ component, interactiveProps }: Interactiv
 
     return (
         <div className="flex justify-between items-center py-2 px-1">
-            <div className="flex flex-col">
+            <div className="flex flex-col flex-1">
                 <div className="flex items-center gap-2">
                     <span className="text-white line-clamp-1">{translate(component.title)}</span>
                 </div>

@@ -4,8 +4,9 @@ import { Identifier, type IdentifierObject } from "@/lib/minecraft/core/Identifi
 import { createTagFromElement, isPresentInTag, mergeDataDrivenRegistryElement } from "@/lib/minecraft/core/Tag";
 import { getMinecraftVersion } from "@/lib/minecraft/core/Version";
 import type { Analysers, GetAnalyserMinecraft } from "@/lib/minecraft/core/engine/Analyser";
-import type { CompileDatapackResult, Compiler } from "@/lib/minecraft/core/engine/Compiler";
+import type { Compiler } from "@/lib/minecraft/core/engine/Compiler";
 import type { Logger } from "@/lib/minecraft/core/engine/migrations/logger";
+import type { LabeledElement } from "@/lib/minecraft/core/schema/primitive/label";
 import { parseZip } from "@/lib/minecraft/core/engine/utils/zip";
 import { DatapackError } from "@/lib/minecraft/core/errors/DatapackError";
 import type { TagType } from "@voxel/definitions";
@@ -229,14 +230,11 @@ export default class Datapack {
      * @param elements - The elements of the datapack.
      * @returns The elements of the datapack.
      */
-    labelElements<T extends keyof Analysers>(
-        registry: T,
-        elements: DataDrivenRegistryElement<DataDrivenElement>[]
-    ): CompileDatapackResult[] {
+    labelElements<T extends keyof Analysers>(registry: T, elements: DataDrivenRegistryElement<DataDrivenElement>[]): LabeledElement[] {
         const mainRegistry = this.getRegistry<GetAnalyserMinecraft<T>>(registry);
         const tagsRegistry = this.getRegistry<TagType>(`tags/${registry}`);
         const identifiers = [...mainRegistry, ...tagsRegistry].map((element) => element.identifier);
-        const result: CompileDatapackResult[] = [];
+        const result: LabeledElement[] = [];
         const processedIds = new Set<string>();
 
         for (const original of identifiers) {
@@ -265,7 +263,7 @@ export default class Datapack {
      * @returns The new datapack.
      */
     generate(
-        content: CompileDatapackResult[],
+        content: LabeledElement[],
         params: { isMinified: boolean; logger?: Logger; include?: DataDrivenRegistryElement<DataDrivenElement>[] }
     ) {
         const { isMinified, logger, include = [] } = params;
@@ -295,7 +293,7 @@ export default class Datapack {
      * @param zip - The zip.
      * @param content - The content of the datapack.
      */
-    private copyExistingFiles(zip: JSZip, content: CompileDatapackResult[]) {
+    private copyExistingFiles(zip: JSZip, content: LabeledElement[]) {
         const filesToDelete = new Set(
             content.filter((file) => file.type === "deleted").map((file) => new Identifier(file.identifier).toFilePath())
         );
@@ -325,7 +323,7 @@ export default class Datapack {
      * @param content - The content of the datapack.
      * @param isMinified - Whether the file is minified.
      */
-    private processContentFiles(zip: JSZip, content: CompileDatapackResult[], isMinified: boolean) {
+    private processContentFiles(zip: JSZip, content: LabeledElement[], isMinified: boolean) {
         for (const file of content) {
             if (file.type === "deleted" && file.identifier.registry.startsWith("tags")) {
                 this.addJsonFile(zip, file.identifier, { values: [] }, isMinified);

@@ -128,9 +128,9 @@ export class Logger {
     public handleActionDifference<T extends keyof Analysers>(
         action: Action,
         element: GetAnalyserVoxel<T>,
-        version: number,
         tool: T,
-        value?: ActionValue
+        value?: ActionValue,
+        version: number = Number.POSITIVE_INFINITY
     ): void {
         const difference = createDifferenceFromAction(action, element, version, tool, this, value);
         if (difference) {

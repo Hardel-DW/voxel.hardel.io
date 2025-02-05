@@ -48,32 +48,22 @@ const createConfiguratorStore = <T extends keyof Analysers>() =>
         handleChange: (action, identifier, value) => {
             const state = get();
             const elementId = identifier ?? state.currentElementId;
-            const element = elementId ? state.elements.get(elementId) : undefined;
+            if (!elementId) return;
 
-            if (!element) {
-                console.error("Element not found");
-                return;
-            }
+            const element = state.elements.get(elementId);
+            if (!element) return;
 
             const updatedElement = updateData(action, element, state.version ?? Number.POSITIVE_INFINITY, value);
             if (!updatedElement) return;
 
             const isElementValid = isVoxelElement(updatedElement);
-            if (!isElementValid || !elementId) return;
+            if (!isElementValid) return;
 
             if (state.logger && state.version && typeof state.config?.analyser === "string") {
-                state.logger.handleActionDifference(
-                    action,
-                    element,
-                    state.version ?? Number.POSITIVE_INFINITY,
-                    state.config?.analyser as T,
-                    value
-                );
+                state.logger.handleActionDifference(action, element, state.config?.analyser, value, state.version);
             }
 
-            set((state) => ({
-                elements: state.elements.set(elementId, updatedElement)
-            }));
+            set((state) => ({ elements: state.elements.set(elementId, updatedElement) }));
         },
         setup: (updates) => set({ ...updates, sortedIdentifiers: sortVoxelElements(updates.elements) }),
         compile: () => {

@@ -16,7 +16,7 @@ export default function ToolSection({
     return (
         <div className="not-first:mt-8">
             <div className="bg-black/50 p-4 flex flex-col ring-0 transition-all rounded-xl">
-                <div className="py-2 px-2 flex justify-between items-center cursor-pointer">
+                <div className="py-2 px-2 gap-4 flex flex-col lg:flex-row justify-between items-center cursor-pointer">
                     <div>
                         <h2 className="text-2xl font-semibold">{translate(component.title)}</h2>
                         {component.toggle?.some((toggle) => toggle.name === toggleSection?.[component.id]?.name) && (
@@ -42,7 +42,7 @@ export default function ToolSection({
                                     key={element.name}
                                     onKeyDown={() => changeToggleValue(component.id, element)}
                                     onClick={() => changeToggleValue(component.id, element)}>
-                                    <p className="text-sm font-semibold">{translate(element.title)}</p>
+                                    <p className="font-semibold line-clamp-1 text-xs md:text-sm">{translate(element.title)}</p>
                                 </div>
                             ))}
                         </div>

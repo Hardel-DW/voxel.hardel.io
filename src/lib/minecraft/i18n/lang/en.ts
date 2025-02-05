@@ -53,6 +53,7 @@ export const english = {
     "tools.enchantments.import_vanilla": "Import Vanilla Enchantments",
     "tools.toast.soon": "This feature is under development, it will be available soon, stay tuned!",
     "tools.download": "Download the data pack",
+    "tools.download.small": "Download",
     "tools.upload.start": "Click to upload",
     "tools.upload.drop": "or drag and drop",
     "tools.disabled_because_vanilla": "Content disabled, Minecraft does not allow modifying this content.",

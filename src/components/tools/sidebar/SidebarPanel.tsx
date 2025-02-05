@@ -18,8 +18,8 @@ export default function SidebarPanel() {
         <>
             <div
                 ref={panelRef}
-                className="shrink-0 overflow-hidden container-type transition-[width] ease-in-out xl:py-4 pl-4 w-87.5 in-has-data-hidden:w-0 in-has-data-hidden:pl-0">
-                <div className="flex flex-col h-full z-10 px-4 md:pl-0 md:pt-0 pt-4 w-87.5 in-has-data-hidden:w-0">
+                className="shrink-0 overflow-hidden container-type transition-[width] ease-in-out xl:py-4 pl-4 w-64 xl:w-87.5 in-has-data-hidden:w-0 in-has-data-hidden:pl-0">
+                <div className="flex flex-col h-full z-10 px-4 md:pl-0 md:pt-0 pt-4 w-64 xl:w-87.5 in-has-data-hidden:w-0">
                     <div className="overflow-hidden -mr-2 pr-2" style={{ flex: 1 }}>
                         <div className="relative size-full px-2 border-zinc-800 border-t border-l bg-header-translucent rounded-2xl shadow-black">
                             <div className="overflow-y-auto mt-2" style={{ flex: 1, height: "calc(100% - 56px)" }}>

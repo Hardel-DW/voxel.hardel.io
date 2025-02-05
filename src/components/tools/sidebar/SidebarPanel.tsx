@@ -4,11 +4,10 @@ import SettingsButton from "@/components/tools/sidebar/SettingsButton";
 import { SidebarContainer } from "@/components/tools/sidebar/SidebarContainer";
 import { useTranslate } from "@/components/useTranslate";
 import { useConfiguratorStore } from "@/lib/minecraft/core/engine/Store";
-import { cn } from "@/lib/utils.ts";
 import { useRef } from "react";
 
 export default function SidebarPanel() {
-    const widthRef = useRef(350);
+    const isHiddenRef = useRef<boolean>(false);
     const panelRef = useRef<HTMLDivElement>(null);
 
     const { t } = useTranslate();
@@ -19,11 +18,8 @@ export default function SidebarPanel() {
         <>
             <div
                 ref={panelRef}
-                style={{ width: widthRef.current }}
-                className={cn("shrink-0 overflow-hidden container-type transition-[width] ease-in-out xl:py-4", {
-                    "pl-4": widthRef.current > 0
-                })}>
-                <div style={{ width: "350px" }} className="flex flex-col h-full z-10 px-4 md:pl-0 md:pt-0 pt-4">
+                className="shrink-0 overflow-hidden container-type transition-[width] ease-in-out xl:py-4 pl-4 w-87.5 in-has-data-hidden:w-0 in-has-data-hidden:pl-0">
+                <div className="flex flex-col h-full z-10 px-4 md:pl-0 md:pt-0 pt-4 w-87.5 in-has-data-hidden:w-0">
                     <div className="overflow-hidden -mr-2 pr-2" style={{ flex: 1 }}>
                         <div className="relative size-full px-2 border-zinc-800 border-t border-l bg-header-translucent rounded-2xl shadow-black">
                             <div className="overflow-y-auto mt-2" style={{ flex: 1, height: "calc(100% - 56px)" }}>
@@ -47,17 +43,17 @@ export default function SidebarPanel() {
                 </div>
             </div>
 
-            <div className="fixed p-4 bottom-0 right-0 flex flex-col gap-4">
+            <div className="fixed z-100 p-4 bottom-0 right-0 flex flex-col gap-4 cursor-pointer">
                 <button
                     type="button"
                     onClick={() => {
-                        widthRef.current = widthRef.current === 350 ? 0 : 350;
+                        isHiddenRef.current = !isHiddenRef.current;
                         if (panelRef.current) {
-                            panelRef.current.style.width = `${widthRef.current}px`;
+                            panelRef.current.toggleAttribute("data-hidden", isHiddenRef.current);
                         }
                     }}
-                    className="bg-header-cloudy text-white p-2 size-12 rounded-xl border-zinc-700 border-t border-l">
-                    {widthRef.current === 350 ? "<<" : ">>"}
+                    className="bg-header-cloudy text-white p-2 size-12 rounded-xl border-zinc-700 border-t border-l cursor-pointer">
+                    <img src="/icons/menu.svg" alt="Sidebar Arrow" className="size-6 invert" />
                 </button>
             </div>
         </>

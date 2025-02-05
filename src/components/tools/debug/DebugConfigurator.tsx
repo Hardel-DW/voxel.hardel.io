@@ -60,11 +60,7 @@ export default function DebugConfigurator() {
     return (
         <>
             {debugPanel}
-            <button
-                className="p-2 bottom-36 cursor-pointer right-4 z-50 rounded-xl size-10"
-                onClick={handleDebugging}
-                onKeyDown={handleDebugging}
-                type="button">
+            <button className="p-2 bottom-36 cursor-pointer right-4 z-50 rounded-xl size-10" onClick={handleDebugging} type="button">
                 <img src="/icons/debug.svg" alt="Debug Configurator" className="invert" />
             </button>
         </>

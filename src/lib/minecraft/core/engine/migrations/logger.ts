@@ -31,12 +31,7 @@ export class Logger {
         let fileLog = this.log.logs.find((log) => log.identifier === identifier);
 
         if (!fileLog) {
-            fileLog = {
-                identifier,
-                registry,
-                type: "updated",
-                differences: []
-            };
+            fileLog = { identifier, registry, type: "updated", differences: [] };
             this.log.logs.push(fileLog);
         }
 
@@ -72,46 +67,6 @@ export class Logger {
             }
         } else if (difference.type !== "remove") {
             fileLog.differences.push(difference);
-        }
-    }
-
-    // Marque un fichier comme supprimé
-    public logDeletion(identifier: string, registry: string) {
-        const index = this.log.logs.findIndex((log) => log.identifier === identifier);
-
-        if (index !== -1) {
-            this.log.logs[index] = {
-                identifier,
-                registry,
-                type: "deleted"
-            };
-        } else {
-            this.log.logs.push({
-                identifier,
-                registry,
-                type: "deleted"
-            });
-        }
-    }
-
-    // Marque un fichier comme ajouté
-    public logAddition(identifier: string, registry: string, value: LogValue) {
-        const index = this.log.logs.findIndex((log) => log.identifier === identifier);
-
-        if (index !== -1) {
-            this.log.logs[index] = {
-                identifier,
-                registry,
-                type: "added",
-                value
-            };
-        } else {
-            this.log.logs.push({
-                identifier,
-                registry,
-                type: "added",
-                value
-            });
         }
     }
 

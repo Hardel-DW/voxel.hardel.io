@@ -51,6 +51,29 @@ describe("Enchantment Schema", () => {
                     expect(compiled).toBeDefined();
                 });
 
+                it("All required fields are defined", () => {
+                    expect(compiled.element.data.description).toBeDefined();
+                    expect(compiled.element.data.exclusive_set).toBeDefined();
+                    expect(compiled.element.data.supported_items).toBeDefined();
+                    expect(compiled.element.data.weight).toBeDefined();
+                    expect(compiled.element.data.max_level).toBeDefined();
+                    expect(compiled.element.data.min_cost).toBeDefined();
+                    expect(compiled.element.data.max_cost).toBeDefined();
+                    expect(compiled.element.data.slots).toBeDefined();
+                    expect(compiled.element.data.effects).toBeDefined();
+
+                    expect(compiled.element.data.slots).toBeInstanceOf(Array);
+                    expect(compiled.element.data.weight).toBe(2);
+                    expect(compiled.element.data.max_level).toBe(1);
+                    expect(compiled.element.data.min_cost).toBeInstanceOf(Object);
+                    expect(compiled.element.data.max_cost).toBeInstanceOf(Object);
+                    expect(compiled.element.data.min_cost.base).toBe(20);
+                    expect(compiled.element.data.min_cost.per_level_above_first).toBe(9);
+                    expect(compiled.element.data.max_cost.base).toBe(65);
+                    expect(compiled.element.data.max_cost.per_level_above_first).toBe(9);
+                    expect(compiled.element.data.effects).toEqual(expect.any(Object));
+                });
+
                 it("should have effects defined", () => {
                     expect(compiled.element.data.effects).toBeDefined();
                 });

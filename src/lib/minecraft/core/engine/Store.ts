@@ -23,14 +23,8 @@ export interface ConfiguratorState<T extends keyof Analysers> {
     sortedIdentifiers: string[];
     setName: (name: string) => void;
     setMinify: (minify: boolean) => void;
-    setLogger: (logger: Logger | undefined) => void;
-    setFiles: (files: Record<string, Uint8Array>) => void;
     setCurrentElementId: (id: string | undefined) => void;
-    setToggleSection: (section: Record<string, ToggleSection> | undefined) => void;
     changeToggleValue: (id: string, name: ToggleSection) => void;
-    setConfiguration: (config: ToolConfiguration | null) => void;
-    setIsJar: (isJar: boolean) => void;
-    setVersion: (version: number | null) => void;
     handleChange: (action: Action, identifier?: string, value?: ActionValue) => void;
     setup: (updates: ParseDatapackResult<GetAnalyserVoxel<T>>) => void;
     compile: () => Array<CompileDatapackResult>;
@@ -48,13 +42,7 @@ const createConfiguratorStore = <T extends keyof Analysers>() =>
         sortedIdentifiers: [],
         setName: (name) => set({ name }),
         setMinify: (minify) => set({ minify }),
-        setLogger: (logger) => set({ logger }),
-        setFiles: (files) => set({ files }),
         setCurrentElementId: (currentElementId) => set({ currentElementId }),
-        setToggleSection: (toggleSection) => set({ toggleSection }),
-        setConfiguration: (configuration) => set({ config: configuration }),
-        setIsJar: (isJar) => set({ isJar }),
-        setVersion: (version) => set({ version }),
         changeToggleValue: (id, name) => set((state) => ({ toggleSection: { ...state.toggleSection, [id]: name } })),
         handleChange: (action, identifier, value) => {
             const state = get();

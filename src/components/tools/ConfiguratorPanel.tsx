@@ -1,7 +1,7 @@
 import { TabsList, TabsTrigger } from "@/components/ui/shadcn/tabs.tsx";
-import { useConfiguratorStore } from "@/lib/minecraft/core/engine/Store";
-import { resolve } from "@/lib/minecraft/core/engine/renderer/resolve";
-import translate from "@/lib/minecraft/i18n/translate";
+import { useConfiguratorStore } from "@voxelio/breeze/core";
+import { resolve } from "@voxelio/breeze/core";
+import { translate } from "@/components/useTranslate";
 import { Tabs } from "@radix-ui/react-tabs";
 import type React from "react";
 import ConfiguratorContent from "./ConfiguratorContent";

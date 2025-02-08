@@ -1,5 +1,5 @@
 import { migrationLog, migrationNamespace } from "@/database/schema";
-import type { Log } from "@/lib/minecraft/core/engine/migrations/types";
+import type { Log } from "@voxelio/breeze/core";
 import generateUUID from "@/lib/utils/uuid";
 import { neon } from "@neondatabase/serverless";
 import { eq } from "drizzle-orm";

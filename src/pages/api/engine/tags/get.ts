@@ -1,5 +1,5 @@
-import { getTagsFromRegistry } from "@/lib/minecraft/core/Tag";
-import type { TagType } from "@voxel/definitions";
+import { getTagsFromRegistry } from "@voxelio/breeze/core";
+import type { TagType } from "@voxelio/breeze/schema";
 import type { APIRoute } from "astro";
 import JSZip from "jszip";
 

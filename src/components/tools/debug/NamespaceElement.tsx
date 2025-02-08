@@ -1,7 +1,6 @@
 import { RegistryElement } from "@/components/tools/debug/RegistryElement";
-import { Identifier } from "@/lib/minecraft/core/Identifier";
-import type { LabeledElement } from "@/lib/minecraft/core/schema/primitive/label";
-import { getLabeledIdentifier } from "@/lib/minecraft/core/Element";
+import { getLabeledIdentifier, Identifier } from "@voxelio/breeze/core";
+import type { LabeledElement } from "@voxelio/breeze/core";
 
 interface NamespaceElementProps {
     namespace: string;

@@ -1,10 +1,8 @@
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/shadcn/dropdown";
 import { useTranslate } from "@/components/useTranslate";
 import useAsyncError from "@/lib/hook/useAsyncError";
-import { parseDatapack } from "@/lib/minecraft/core/engine/Parser";
-import { useConfiguratorStore } from "@/lib/minecraft/core/engine/Store";
-import { DatapackError } from "@/lib/minecraft/core/errors/DatapackError";
-import type { TranslationKey } from "@/lib/minecraft/i18n/translations";
+import { parseDatapack, useConfiguratorStore, DatapackError } from "@voxelio/breeze/core";
+import type { TranslationKey } from "@voxelio/breeze/i18n";
 
 export default function VanillaImportButton() {
     const { t } = useTranslate();

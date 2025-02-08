@@ -1,7 +1,6 @@
 import Button from "@/components/ui/react/Button";
-import { useTranslate } from "@/components/useTranslate";
-import type { ToolRevealElementType as RevealElementType } from "@/lib/minecraft/core/schema/primitive/component";
-import translate from "@/lib/minecraft/i18n/translate";
+import { translate, useTranslate } from "@/components/useTranslate";
+import type { ToolRevealElementType as RevealElementType } from "@voxelio/breeze/core";
 import { cn } from "@/lib/utils";
 import { memo } from "react";
 import { toast } from "sonner";

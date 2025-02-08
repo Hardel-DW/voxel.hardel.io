@@ -1,7 +1,7 @@
-import { useConfiguratorStore } from "@/lib/minecraft/core/engine/Store";
-import type { ActionValue } from "@/lib/minecraft/core/engine/actions";
-import { useElementCondition, useElementLocks, useElementValue } from "@/lib/minecraft/core/engine/utils/hooks";
-import type { BaseInteractiveComponent, LockRenderer } from "@/lib/minecraft/core/schema/primitive/component";
+import { useConfiguratorStore } from "@voxelio/breeze/core";
+import type { ActionValue } from "@voxelio/breeze/core";
+import { useElementCondition, useElementLocks, useElementValue } from "@voxelio/breeze/core";
+import type { BaseInteractiveComponent, LockRenderer } from "@voxelio/breeze/core";
 
 export interface InteractiveProps<T> {
     value: T;

@@ -1,4 +1,4 @@
-import { useConfiguratorStore } from "@/lib/minecraft/core/engine/Store";
+import { useConfiguratorStore } from "@voxelio/breeze/core";
 import { SidebarItem } from "./SidebarItem";
 
 export const SidebarContainer = () => {

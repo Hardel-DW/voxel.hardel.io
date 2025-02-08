@@ -1,6 +1,6 @@
 import ToolListItem from "@/components/tools/elements/text/ToolListItem";
-import type { UnorderedListChildren } from "@/lib/minecraft/core/schema/primitive/text";
-import { getKey } from "@/lib/minecraft/i18n/translations";
+import type { UnorderedListChildren } from "@voxelio/breeze/core";
+import { getKey } from "@voxelio/breeze/i18n";
 
 export default function ToolUnorderedList({ sublist }: { sublist: UnorderedListChildren[] }) {
     const renderChild = (child: UnorderedListChildren) => {

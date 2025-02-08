@@ -1,6 +1,6 @@
 import { ToolTagCard } from "@/components/tools/elements/schema/tags/ToolTagCard";
 import { useTranslate } from "@/components/useTranslate";
-import { useTag } from "@/lib/minecraft/net/api/ComputedTag";
+import { useTag } from "@/components/tools/elements/schema/tags/useTag";
 
 interface TagLoaderProps {
     registry: string;
@@ -34,7 +34,7 @@ export function TagLoader({ registry, path, fileName, namespace, values }: TagLo
         return <div className="text-center py-6 text-zinc-500 text-sm">{t("enchantment.component.tag_viewer.error")}</div>;
     }
     if (!data) {
-        return <div className="text-center py-6 text-zinc-500 text-sm">{t("enchantment.component.tag_viewer.no_entry")}</div>;
+        return <div className="text-center py-6 text-zinc-500 text-sm">{t("enchantment.component.tag_viewer.error")}</div>;
     }
 
     return (

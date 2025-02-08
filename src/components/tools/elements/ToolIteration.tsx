@@ -1,9 +1,7 @@
 import { RenderComponent } from "@/components/tools/RenderComponent";
-import { useConfiguratorStore } from "@/lib/minecraft/core/engine/Store";
-import { createIterations } from "@/lib/minecraft/core/engine/renderer/iteration/createIterations.ts";
-import { resolveIterationValue } from "@/lib/minecraft/core/engine/renderer/iteration/resolveIterationValue.ts";
-import type { TemplateReplacer } from "@/lib/minecraft/core/engine/renderer/iteration/type";
-import type { FormComponent, ToolIterationType } from "@/lib/minecraft/core/schema/primitive/component.ts";
+import { useConfiguratorStore } from "@voxelio/breeze/core";
+import { createIterations, resolveIterationValue } from "@voxelio/breeze/core";
+import type { FormComponent, ToolIterationType, TemplateReplacer } from "@voxelio/breeze/core";
 
 export default function ToolIteration({ component }: { component: ToolIterationType }) {
     const files = useConfiguratorStore((state) => state.files);

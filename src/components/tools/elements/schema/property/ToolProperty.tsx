@@ -1,7 +1,7 @@
 import type { InteractiveProps } from "@/components/tools/elements/InteractiveComponent";
 import { useTranslate } from "@/components/useTranslate";
-import type { ToolPropertyType } from "@/lib/minecraft/core/schema/primitive/component";
-import { ToolPropertyElement } from "./ToolPropertyElement";
+import type { ToolPropertyType } from "@voxelio/breeze/core";
+import { ToolPropertyElement } from "@/components/tools/elements/schema/property/ToolPropertyElement";
 
 export default function ToolProperty({
     component,

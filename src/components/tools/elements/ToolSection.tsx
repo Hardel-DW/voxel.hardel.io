@@ -1,9 +1,9 @@
 import { RenderComponent } from "@/components/tools/RenderComponent";
 import Button from "@/components/ui/react/Button.tsx";
-import { useConfiguratorStore } from "@/lib/minecraft/core/engine/Store";
-import type { ToolSectionType } from "@/lib/minecraft/core/schema/primitive/component";
-import translate from "@/lib/minecraft/i18n/translate";
+import { useConfiguratorStore } from "@voxelio/breeze/core";
+import type { ToolSectionType } from "@voxelio/breeze/core";
 import { cn } from "@/lib/utils.ts";
+import { translate } from "@/components/useTranslate";
 
 export default function ToolSection({
     component

@@ -1,7 +1,7 @@
 import { RenderComponent } from "@/components/tools/RenderComponent";
-import type { ToolRevealType } from "@/lib/minecraft/core/schema/primitive/component";
+import type { ToolRevealType } from "@voxelio/breeze/core";
 import React from "react";
-import ToolRevealElement from "./ToolRevealElementType";
+import ToolRevealElement from "@/components/tools/elements/schema/reveal/ToolRevealElementType";
 
 export default function ToolReveal({ component }: { component: ToolRevealType }) {
     const [reveal, setReveal] = React.useState<string>(component.elements[0].id);

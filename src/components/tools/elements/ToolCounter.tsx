@@ -1,6 +1,6 @@
 import Counter from "@/components/ui/react/Counter";
-import type { ToolCounterType } from "@/lib/minecraft/core/schema/primitive/component";
-import translate from "@/lib/minecraft/i18n/translate";
+import type { ToolCounterType } from "@voxelio/breeze/core";
+import { translate } from "@/components/useTranslate";
 import type { InteractiveComponentProps } from "./InteractiveComponent";
 
 export default function ToolCounter({ component, interactiveProps }: InteractiveComponentProps<number, ToolCounterType>) {

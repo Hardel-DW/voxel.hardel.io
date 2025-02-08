@@ -1,4 +1,4 @@
-import { useConfiguratorStore } from "@/lib/minecraft/core/engine/Store";
+import { useConfiguratorStore } from "@voxelio/breeze/core";
 import { cn } from "@/lib/utils.ts";
 import { useRef } from "react";
 import SidebarItemContent from "./SidebarItemContent";

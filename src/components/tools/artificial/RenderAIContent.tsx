@@ -1,6 +1,6 @@
 import ConfirmationCardAI, { type PropsConfirmationCardAI } from "@/components/tools/artificial/ConfirmationCardAI";
 import Reference from "@/components/tools/artificial/Reference";
-import { Identifier, type IdentifierObject } from "@/lib/minecraft/core/Identifier";
+import { Identifier, type IdentifierObject } from "@voxelio/breeze/core";
 
 interface Props {
     content: string;

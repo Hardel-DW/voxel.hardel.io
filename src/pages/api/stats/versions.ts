@@ -1,6 +1,6 @@
 import { db } from "@/database/db";
 import { migrationLog } from "@/database/schema";
-import { getDescription } from "@/lib/minecraft/core/Version";
+import { getDescription } from "@voxelio/breeze/core";
 import type { APIRoute } from "astro";
 import { sql } from "drizzle-orm";
 

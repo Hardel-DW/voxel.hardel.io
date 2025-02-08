@@ -1,5 +1,5 @@
-import type { ToolInlineType } from "@/lib/minecraft/core/schema/primitive/component";
-import translate from "@/lib/minecraft/i18n/translate";
+import type { ToolInlineType } from "@voxelio/breeze/core";
+import { translate } from "@/components/useTranslate";
 import { cn } from "@/lib/utils";
 import type { InteractiveComponentProps } from "./InteractiveComponent";
 

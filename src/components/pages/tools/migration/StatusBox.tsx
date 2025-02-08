@@ -1,5 +1,5 @@
 import Button from "@/components/ui/react/Button";
-import { getMinecraftVersion } from "@/lib/minecraft/core/Version";
+import { getMinecraftVersion } from "@voxelio/breeze/core";
 import { cn } from "@/lib/utils";
 
 interface StatusBoxProps {

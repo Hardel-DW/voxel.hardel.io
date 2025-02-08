@@ -1,6 +1,6 @@
-import { getCurrentElement, useConfiguratorStore } from "@/lib/minecraft/core/engine/Store";
-import type { InterfaceConfiguration } from "@/lib/minecraft/core/schema/primitive";
-import translate from "@/lib/minecraft/i18n/translate";
+import { getCurrentElement, useConfiguratorStore } from "@voxelio/breeze/core";
+import type { InterfaceConfiguration } from "@voxelio/breeze/core";
+import { translate } from "@/components/useTranslate";
 import { TabsContent } from "@radix-ui/react-tabs";
 import { RenderComponent } from "./RenderComponent";
 

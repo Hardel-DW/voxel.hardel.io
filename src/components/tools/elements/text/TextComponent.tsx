@@ -1,4 +1,4 @@
-import type { TextComponentType } from "@voxel/definitions";
+import type { TextComponentType } from "@voxelio/breeze/schema";
 
 export default function TextComponent({
     data

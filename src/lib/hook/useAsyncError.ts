@@ -1,5 +1,5 @@
-import { DatapackError } from "@/lib/minecraft/core/errors/DatapackError";
-import type { TranslationKey } from "@/lib/minecraft/i18n/translations";
+import { DatapackError } from "@voxelio/breeze/core";
+import type { TranslationKey } from "@voxelio/breeze/i18n";
 import React from "react";
 
 export default function useAsyncError() {

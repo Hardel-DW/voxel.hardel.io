@@ -1,5 +1,5 @@
 import { RenderComponent } from "@/components/tools/RenderComponent";
-import type { FormComponent, ToolListType } from "@/lib/minecraft/core/schema/primitive/component";
+import type { FormComponent, ToolListType } from "@voxelio/breeze/core";
 import { cn } from "@/lib/utils";
 
 export default function ToolFlexible({ component }: { component: ToolListType }) {

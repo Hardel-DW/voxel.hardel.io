@@ -1,8 +1,6 @@
 import { useTranslate } from "@/components/useTranslate";
-import { Identifier } from "@/lib/minecraft/core/Identifier";
-import { type Analysers, getAnalyserForVersion } from "@/lib/minecraft/core/engine/Analyser";
-import { useConfiguratorStore } from "@/lib/minecraft/core/engine/Store";
-import { type Action, updateData } from "@/lib/minecraft/core/engine/actions";
+import { Identifier, type Analysers, getAnalyserForVersion, useConfiguratorStore } from "@voxelio/breeze/core";
+import { type Action, updateData } from "@voxelio/breeze/core";
 import { useState } from "react";
 import { ValueRenderer, type ValueRendererProps } from "./value/ValueRenderer";
 

@@ -1,6 +1,6 @@
 import Tabs from "@/components/ui/react/Tabs";
-import type { ToolSelectorType } from "@/lib/minecraft/core/schema/primitive/component";
-import translate from "@/lib/minecraft/i18n/translate";
+import type { ToolSelectorType } from "@voxelio/breeze/core";
+import { translate } from "@/components/useTranslate";
 import type { InteractiveComponentProps } from "./InteractiveComponent";
 
 export default function ToolSelector({ component, interactiveProps }: InteractiveComponentProps<string, ToolSelectorType>) {

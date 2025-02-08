@@ -1,6 +1,6 @@
 import Button from "@/components/ui/react/Button";
-import type { ModMetadata } from "@/lib/minecraft/converter";
-import { ModPlatforms, convertDatapack } from "@/lib/minecraft/converter";
+import type { ModMetadata } from "@voxelio/breeze/converter";
+import { ModPlatforms, convertDatapack } from "@voxelio/breeze/converter";
 import { trackEvent } from "@/lib/server/telemetry";
 import { cn } from "@/lib/utils";
 import { useState } from "react";

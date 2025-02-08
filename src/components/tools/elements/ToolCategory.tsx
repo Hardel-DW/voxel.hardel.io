@@ -1,6 +1,6 @@
 import { RenderComponent } from "@/components/tools/RenderComponent";
-import type { ToolCategoryType } from "@/lib/minecraft/core/schema/primitive/component";
-import translate from "@/lib/minecraft/i18n/translate";
+import type { ToolCategoryType } from "@voxelio/breeze/core";
+import { translate } from "@/components/useTranslate";
 
 export default function ToolCategory({ component }: { component: ToolCategoryType }) {
     return (

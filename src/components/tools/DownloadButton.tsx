@@ -1,9 +1,9 @@
 import Button from "@/components/ui/react/Button.tsx";
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/shadcn/dialog.tsx";
 import { useTranslate } from "@/components/useTranslate";
-import Datapack from "@/lib/minecraft/core/Datapack.ts";
-import { useConfiguratorStore } from "@/lib/minecraft/core/engine/Store.ts";
-import { voxelDatapacks } from "@/lib/minecraft/voxel/VoxelDatapack.ts";
+import { Datapack } from "@voxelio/breeze/core";
+import { useConfiguratorStore } from "@voxelio/breeze/core";
+import { voxelDatapacks } from "@voxelio/breeze/core";
 import { saveLogs } from "@/lib/server/telemetry.ts";
 import { downloadArchive } from "@/lib/utils/download.ts";
 import { DialogDescription } from "@radix-ui/react-dialog";

@@ -1,11 +1,7 @@
 import { TagLoader } from "@/components/tools/elements/schema/tags/TagLoader";
 import { ToolTagCard } from "@/components/tools/elements/schema/tags/ToolTagCard";
-import { Identifier } from "@/lib/minecraft/core/Identifier";
-import { isTag } from "@/lib/minecraft/core/Tag";
-import { getLabeledIdentifier } from "@/lib/minecraft/core/Element";
-import { useConfiguratorStore } from "@/lib/minecraft/core/engine/Store";
-import { useElementValue } from "@/lib/minecraft/core/engine/utils/hooks";
-import type { ToolTagViewerType } from "@/lib/minecraft/core/schema/primitive/component";
+import type { ToolTagViewerType } from "@voxelio/breeze/core";
+import { Identifier, getLabeledIdentifier, isTag, useConfiguratorStore, useElementValue } from "@voxelio/breeze/core";
 
 export default function ToolTagViewer({
     component

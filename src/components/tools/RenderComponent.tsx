@@ -17,7 +17,7 @@ import ToolProperty from "@/components/tools/elements/schema/property/ToolProper
 import ToolReveal from "@/components/tools/elements/schema/reveal/ToolReveal";
 import ToolTagViewer from "@/components/tools/elements/schema/tags/ToolTagViewer";
 import TextRender from "@/components/tools/elements/text/TextRender.tsx";
-import type { FormComponent } from "@/lib/minecraft/core/schema/primitive/component.ts";
+import type { FormComponent } from "@voxelio/breeze/core";
 import ErrorBoundary from "../ui/react/ErrorBoundary";
 import { BaseComponent } from "./elements/BaseComponent";
 import ErrorPlaceholder from "./elements/error/Card";

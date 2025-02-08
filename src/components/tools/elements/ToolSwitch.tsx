@@ -1,5 +1,5 @@
-import type { ToolSwitchType } from "@/lib/minecraft/core/schema/primitive/component";
-import translate from "@/lib/minecraft/i18n/translate";
+import type { ToolSwitchType } from "@voxelio/breeze/core";
+import { translate } from "@/components/useTranslate";
 import type { InteractiveComponentProps } from "./InteractiveComponent";
 
 export default function ToolSwitch({ component, interactiveProps }: InteractiveComponentProps<boolean, ToolSwitchType>) {

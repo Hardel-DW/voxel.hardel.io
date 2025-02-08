@@ -1,10 +1,8 @@
 import CodeBlock from "@/components/ui/codeblock/CodeBlock";
 import EmptyCodeBlock from "@/components/ui/codeblock/EmptyCodeBlock";
 import { useTranslate } from "@/components/useTranslate";
-import { Identifier } from "@/lib/minecraft/core/Identifier";
-import { getLabeledIdentifier } from "@/lib/minecraft/core/Element";
-import { useConfiguratorStore } from "@/lib/minecraft/core/engine/Store";
-import type { LabeledElement } from "@/lib/minecraft/core/schema/primitive/label";
+import { Identifier, getLabeledIdentifier, useConfiguratorStore } from "@voxelio/breeze/core";
+import type { LabeledElement } from "@voxelio/breeze/core";
 
 interface CodeSectionProps {
     code: LabeledElement | undefined;

@@ -1,4 +1,4 @@
-import type { LabeledElement } from "@/lib/minecraft/core/schema/primitive/label";
+import type { LabeledElement } from "@voxelio/breeze/core";
 import { NamespaceElement } from "@/components/tools/debug/NamespaceElement";
 
 interface RegistryListProps {

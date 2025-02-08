@@ -1,4 +1,4 @@
-import ITEMS from "@/lib/minecraft/render/items";
+import { ITEMS } from "@voxelio/breeze/schema";
 
 export default function TextureRenderer(props: { id: string }) {
     if (!(props.id in ITEMS)) {

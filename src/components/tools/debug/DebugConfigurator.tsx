@@ -1,6 +1,6 @@
-import { getLabeledIdentifier } from "@/lib/minecraft/core/Element";
-import { useConfiguratorStore } from "@/lib/minecraft/core/engine/Store";
-import type { LabeledElement } from "@/lib/minecraft/core/schema/primitive/label";
+import { getLabeledIdentifier } from "@voxelio/breeze/core";
+import { useConfiguratorStore } from "@voxelio/breeze/core";
+import type { LabeledElement } from "@voxelio/breeze/core";
 import { useState } from "react";
 import { createPortal } from "react-dom";
 import DebugPanel from "@/components/tools/debug/DebugPanel";

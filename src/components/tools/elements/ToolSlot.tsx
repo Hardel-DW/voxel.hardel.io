@@ -1,12 +1,11 @@
-import type { ToolSlotType } from "@/lib/minecraft/core/schema/primitive/component";
-import translate from "@/lib/minecraft/i18n/translate";
-import { getKey } from "@/lib/minecraft/i18n/translations";
+import type { ToolSlotType } from "@voxelio/breeze/core";
+import { getKey } from "@voxelio/breeze/i18n";
 import { cn } from "@/lib/utils";
 import type { InteractiveComponentProps } from "./InteractiveComponent";
+import { translate } from "@/components/useTranslate";
 
 export default function ToolSlot({ component, interactiveProps }: InteractiveComponentProps<boolean, ToolSlotType>) {
     const { value, lock, handleChange } = interactiveProps;
-
     return (
         <div
             className={cn(

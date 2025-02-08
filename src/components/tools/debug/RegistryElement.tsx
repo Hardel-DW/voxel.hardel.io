@@ -1,6 +1,5 @@
-import { Identifier } from "@/lib/minecraft/core/Identifier";
-import type { LabeledElement } from "@/lib/minecraft/core/schema/primitive/label";
-import { getLabeledIdentifier } from "@/lib/minecraft/core/Element";
+import { Identifier, getLabeledIdentifier } from "@voxelio/breeze/core";
+import type { LabeledElement } from "@voxelio/breeze/core";
 import { cn } from "@/lib/utils";
 
 interface RegistryElementProps {

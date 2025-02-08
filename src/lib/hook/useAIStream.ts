@@ -1,7 +1,4 @@
-import { Identifier, type IdentifierObject } from "@/lib/minecraft/core/Identifier";
-import { useConfiguratorStore } from "@/lib/minecraft/core/engine/Store";
-import type { Action } from "@/lib/minecraft/core/engine/actions";
-import { searchRelevantElements } from "@/lib/searchElements";
+import { Identifier, searchRelevantElements, useConfiguratorStore, type Action, type IdentifierObject } from "@voxelio/breeze/core";
 import { JSONBuilder } from "@/lib/utils/JSONBuilder";
 import { useState } from "react";
 

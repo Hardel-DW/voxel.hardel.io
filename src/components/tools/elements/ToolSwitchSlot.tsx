@@ -1,7 +1,7 @@
-import type { ToolSwitchSlotType } from "@/lib/minecraft/core/schema/primitive/component";
-import translate from "@/lib/minecraft/i18n/translate";
+import type { ToolSwitchSlotType } from "@voxelio/breeze/core";
 import { cn } from "@/lib/utils";
 import type { InteractiveComponentProps } from "./InteractiveComponent";
+import { translate } from "@/components/useTranslate";
 
 export default function ToolSwitchSlot({ component, interactiveProps }: InteractiveComponentProps<boolean, ToolSwitchSlotType>) {
     const { value, lock, handleChange } = interactiveProps;

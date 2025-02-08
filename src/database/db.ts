@@ -1,7 +1,7 @@
 import { migrationLog, migrationNamespace } from "@/database/schema";
-import type { Log } from "@voxelio/breeze/core";
 import generateUUID from "@/lib/utils/uuid";
 import { neon } from "@neondatabase/serverless";
+import type { Log } from "@voxelio/breeze/core";
 import { eq } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/neon-http";
 

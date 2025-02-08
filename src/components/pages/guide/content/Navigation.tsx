@@ -1,7 +1,7 @@
 import type { CollectionEntry } from "astro:content";
 import GuideTree from "@/components/pages/guide/content/GuideTree.tsx";
 import NavigationTree from "@/components/pages/guide/content/NavigationTree.tsx";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/shadcn/tabs.tsx";
+import { MenuTabs, MenuTabsContent, MenuTabsList, MenuTabsTrigger } from "@/components/ui/react/MenuTabs";
 
 export type Guides = {
     slug: string;
@@ -21,27 +21,27 @@ interface Props {
 export default function Navigation({ schema, guides, slug }: Props) {
     return (
         <div className="flex flex-col overflow-hidden my-4 -mr-2 pr-2" style={{ flex: 1 }}>
-            <Tabs defaultValue="chapter" asChild>
+            <MenuTabs defaultValue="chapter">
                 <div className="size-full px-2">
                     {/* Switch between chapter and guide */}
-                    <TabsList className="mb-4 grid grid-cols-2 bg-transparent relative overflow-hidden">
+                    <MenuTabsList className="mb-4 grid grid-cols-2 bg-transparent relative overflow-hidden">
                         <div className="absolute inset-0 -z-10 hue-rotate-45 brightness-20">
                             <img src="/images/shine.avif" alt="Shine" />
                         </div>
 
-                        <TabsTrigger className="data-[state=active]:bg-zinc-700/40" value="chapter">
+                        <MenuTabsTrigger className="data-[state=active]:bg-zinc-700/40" value="chapter">
                             Chapitre
-                        </TabsTrigger>
-                        <TabsTrigger className="data-[state=active]:bg-zinc-700/40" value="guide">
+                        </MenuTabsTrigger>
+                        <MenuTabsTrigger className="data-[state=active]:bg-zinc-700/40" value="guide">
                             Guides
-                        </TabsTrigger>
-                    </TabsList>
+                        </MenuTabsTrigger>
+                    </MenuTabsList>
 
                     {/* Display the content of the selected tab */}
-                    <TabsContent
+                    <MenuTabsContent
                         value="chapter"
                         className="overflow-y-auto overflow-x-hidden pr-2 -mr-2"
-                        style={{ flex: 1, height: "calc(100% - 64px)" }}>
+                        style={{ flex: 1, height: "calc(100% - 56px)" }}>
                         <div className="space-y-2">
                             {schema.data.sections.map((element, index) => (
                                 <NavigationTree
@@ -59,9 +59,9 @@ export default function Navigation({ schema, guides, slug }: Props) {
                                 />
                             ))}
                         </div>
-                    </TabsContent>
+                    </MenuTabsContent>
 
-                    <TabsContent value="guide" className="overflow-y-auto h-[inherit] pr-2 -mr-2" style={{ flex: 1 }}>
+                    <MenuTabsContent value="guide" className="overflow-y-auto h-[inherit] pr-2 -mr-2" style={{ flex: 1 }}>
                         <div className="space-y-2">
                             {guides.map((element, index) => (
                                 <GuideTree
@@ -74,9 +74,9 @@ export default function Navigation({ schema, guides, slug }: Props) {
                                 />
                             ))}
                         </div>
-                    </TabsContent>
+                    </MenuTabsContent>
                 </div>
-            </Tabs>
+            </MenuTabs>
         </div>
     );
 }

@@ -1,8 +1,8 @@
-import { I18n } from "@voxelio/breeze/i18n";
-import { createContext, useContext } from "react";
-import type { TranslateContextType } from "./TranslateContext";
 import type { TranslateTextType } from "@voxelio/breeze/core";
+import { I18n } from "@voxelio/breeze/i18n";
 import { translate as translateCore } from "@voxelio/breeze/i18n";
+import { createContext, useContext } from "react";
+import type { TranslateContextType } from "@/components/tools/TranslateContext";
 
 export const TranslateContext = createContext<TranslateContextType | undefined>(undefined);
 export const i18nInstance = new I18n();

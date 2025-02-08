@@ -1,4 +1,4 @@
-import TextureRenderer from "../minecraft/TextureRenderer";
+import TextureRenderer from "@/components/minecraft/TextureRenderer";
 
 export default function RewardLine(props: {
     count?: number | { min: number; max: number };

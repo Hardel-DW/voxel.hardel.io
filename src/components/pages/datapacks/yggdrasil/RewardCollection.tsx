@@ -1,5 +1,5 @@
 import type { CollectionEntry } from "astro:content";
-import RewardLine from "@/components/ui/RewardLine";
+import RewardLine from "@/components/pages/datapacks/yggdrasil/RewardLine";
 import useSWR from "swr";
 
 export default function RewardCollection(props: { rewardId: string }) {

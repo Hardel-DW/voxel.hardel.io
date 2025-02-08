@@ -1,14 +1,14 @@
+import { MenuTabsContent } from "@/components/ui/react/MenuTabs";
+import { translate } from "@/lib/hook/useTranslate";
 import { getCurrentElement, useConfiguratorStore } from "@voxelio/breeze/core";
 import type { InterfaceConfiguration } from "@voxelio/breeze/core";
-import { translate } from "@/components/useTranslate";
-import { TabsContent } from "@radix-ui/react-tabs";
 import { RenderComponent } from "./RenderComponent";
 
 export default function ConfiguratorContent(props: { section: InterfaceConfiguration }) {
     const currentNamespace = useConfiguratorStore((state) => getCurrentElement(state)?.identifier.namespace);
 
     return (
-        <TabsContent key={props.section.id} value={props.section.id}>
+        <MenuTabsContent value={props.section.id}>
             {currentNamespace === "minecraft" && (
                 <div className="text-xs text-zinc-400 text-center font-light mb-4">
                     {translate({ type: "translate", value: "tools.enchantments.vanilla" })}
@@ -27,6 +27,6 @@ export default function ConfiguratorContent(props: { section: InterfaceConfigura
                     <RenderComponent key={index.toString()} component={component} />
                 ))}
             </div>
-        </TabsContent>
+        </MenuTabsContent>
     );
 }

@@ -1,5 +1,5 @@
-import { useConfiguratorStore } from "@voxelio/breeze/core";
 import { cn } from "@/lib/utils.ts";
+import { useConfiguratorStore } from "@voxelio/breeze/core";
 import { useRef } from "react";
 import SidebarItemContent from "./SidebarItemContent";
 

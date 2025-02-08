@@ -1,6 +1,6 @@
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/shadcn/card";
-import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/shadcn/recharts";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/shadcn/select";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/react/Card";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/react/Select.tsx";
+import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/react/recharts";
 import React from "react";
 import { Area, AreaChart, CartesianGrid, XAxis, YAxis } from "recharts";
 
@@ -43,7 +43,7 @@ export function DashboardInteractiveAreaChart(props: {
                     <CardTitle>{props.title}</CardTitle>
                     <CardDescription>{props.description}</CardDescription>
                 </div>
-                <Select value={timeRange} onValueChange={setTimeRange}>
+                <Select value={timeRange} setValue={setTimeRange}>
                     <SelectTrigger className="w-[160px] rounded-lg sm:ml-auto" aria-label="Select a value">
                         <SelectValue placeholder="Last 3 months" />
                     </SelectTrigger>

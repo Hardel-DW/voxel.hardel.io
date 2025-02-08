@@ -1,7 +1,7 @@
+import { TranslateContext, i18nInstance } from "@/lib/hook/useTranslate";
 import type { LanguageCode, TranslationKey } from "@voxelio/breeze/i18n";
 import { useEffect, useMemo, useState } from "react";
 import type { ReactNode } from "react";
-import { TranslateContext, i18nInstance } from "@/components/useTranslate";
 
 export interface TranslateContextType {
     lang: LanguageCode;

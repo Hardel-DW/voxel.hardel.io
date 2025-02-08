@@ -1,5 +1,5 @@
 import { RegistryElement } from "@/components/tools/debug/RegistryElement";
-import { getLabeledIdentifier, Identifier } from "@voxelio/breeze/core";
+import { Identifier, getLabeledIdentifier } from "@voxelio/breeze/core";
 import type { LabeledElement } from "@voxelio/breeze/core";
 
 interface NamespaceElementProps {

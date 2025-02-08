@@ -1,4 +1,4 @@
-import { TranslateProvider } from "@/components/TranslateContext";
+import { TranslateProvider } from "@/components/tools/TranslateContext";
 import type React from "react";
 import { Toaster } from "sonner";
 

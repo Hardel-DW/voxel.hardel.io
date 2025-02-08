@@ -1,6 +1,6 @@
 import { ToolTagCard } from "@/components/tools/elements/schema/tags/ToolTagCard";
-import { useTranslate } from "@/components/useTranslate";
 import { useTag } from "@/components/tools/elements/schema/tags/useTag";
+import { useTranslate } from "@/lib/hook/useTranslate";
 
 interface TagLoaderProps {
     registry: string;

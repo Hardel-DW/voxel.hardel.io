@@ -1,7 +1,7 @@
 import VanillaImportButton from "@/components/pages/tools/enchant/VanillaImportButton";
 import DatapackUploader from "@/components/tools/DatapackUploader.tsx";
 import ToastBoundary from "@/components/tools/elements/error/ToastBoundary";
-import { useTranslate } from "@/components/useTranslate";
+import { useTranslate } from "@/lib/hook/useTranslate";
 import type { FaqType } from "@/content/config.ts";
 import type { Analysers } from "@voxelio/breeze/core";
 import { useConfiguratorStore } from "@voxelio/breeze/core";

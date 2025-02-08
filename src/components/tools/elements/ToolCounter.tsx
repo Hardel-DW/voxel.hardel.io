@@ -1,6 +1,6 @@
 import Counter from "@/components/ui/react/Counter";
+import { translate } from "@/lib/hook/useTranslate";
 import type { ToolCounterType } from "@voxelio/breeze/core";
-import { translate } from "@/components/useTranslate";
 import type { InteractiveComponentProps } from "./InteractiveComponent";
 
 export default function ToolCounter({ component, interactiveProps }: InteractiveComponentProps<number, ToolCounterType>) {
@@ -32,6 +32,9 @@ export default function ToolCounter({ component, interactiveProps }: Interactive
                 {component.short && (
                     <p className="text-xs text-zinc-400 pt-4 mt-4 border-t border-zinc-700">{translate(component.short)}</p>
                 )}
+            </div>
+            <div className="absolute inset-0 -z-10 hue-rotate-90 brightness-30">
+                <img src="/images/shine.avif" alt="Shine" />
             </div>
         </div>
     );

@@ -213,8 +213,8 @@ export async function getStaticPaths() {
                                                 class="w-32"
                                                 size="sm"
                                                 variant="ghost"
-                                                href={item.asset}
                                                 data-marketplace-download
+                                                data-asset-url={item.asset}
                                             >
                                                 {translate["marketplace.download"]}
                                             </Button>
@@ -313,7 +313,16 @@ export async function getStaticPaths() {
 
     for (const download of marketplaceDownload) {
         download.addEventListener("click", async () => {
-            await trackEvent("marketplace_download");
+            const assetUrl = download.getAttribute('data-asset-url');
+            if (assetUrl) {
+                const link = document.createElement('a');
+                link.href = assetUrl;
+                link.download = assetUrl.split('/').pop() || 'asset';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                await trackEvent("marketplace_download");
+            }
         });
     }
 </script>

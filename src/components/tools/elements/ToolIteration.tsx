@@ -1,7 +1,7 @@
 import { RenderComponent } from "@/components/tools/RenderComponent";
 import { useConfiguratorStore } from "@voxelio/breeze/core";
 import { createIterations, resolveIterationValue } from "@voxelio/breeze/core";
-import type { FormComponent, ToolIterationType, TemplateReplacer } from "@voxelio/breeze/core";
+import type { FormComponent, TemplateReplacer, ToolIterationType } from "@voxelio/breeze/core";
 
 export default function ToolIteration({ component }: { component: ToolIterationType }) {
     const files = useConfiguratorStore((state) => state.files);

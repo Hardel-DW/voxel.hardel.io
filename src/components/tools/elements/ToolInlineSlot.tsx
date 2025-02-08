@@ -1,6 +1,6 @@
-import type { ToolInlineType } from "@voxelio/breeze/core";
-import { translate } from "@/components/useTranslate";
+import { translate } from "@/lib/hook/useTranslate";
 import { cn } from "@/lib/utils";
+import type { ToolInlineType } from "@voxelio/breeze/core";
 import type { InteractiveComponentProps } from "./InteractiveComponent";
 
 export default function ToolInlineSlot({ component, interactiveProps }: InteractiveComponentProps<boolean, ToolInlineType>) {

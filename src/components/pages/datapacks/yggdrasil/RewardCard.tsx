@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils";
-import TextureRenderer from "../minecraft/TextureRenderer";
+import TextureRenderer from "@/components/minecraft/TextureRenderer";
 
 const RewardCard = (props: {
     id: string;

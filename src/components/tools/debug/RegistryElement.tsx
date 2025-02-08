@@ -1,6 +1,6 @@
+import { cn } from "@/lib/utils";
 import { Identifier, getLabeledIdentifier } from "@voxelio/breeze/core";
 import type { LabeledElement } from "@voxelio/breeze/core";
-import { cn } from "@/lib/utils";
 
 interface RegistryElementProps {
     element: LabeledElement;

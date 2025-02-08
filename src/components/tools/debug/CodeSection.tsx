@@ -1,6 +1,6 @@
 import CodeBlock from "@/components/ui/codeblock/CodeBlock";
 import EmptyCodeBlock from "@/components/ui/codeblock/EmptyCodeBlock";
-import { useTranslate } from "@/components/useTranslate";
+import { useTranslate } from "@/lib/hook/useTranslate";
 import { Identifier, getLabeledIdentifier, useConfiguratorStore } from "@voxelio/breeze/core";
 import type { LabeledElement } from "@voxelio/breeze/core";
 

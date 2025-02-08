@@ -1,9 +1,11 @@
 import { DatapackDropzone } from "@/components/pages/tools/migration/DatapackDropzone";
 import { StatusBox } from "@/components/pages/tools/migration/StatusBox";
 import Button from "@/components/ui/react/Button";
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/react/Dialog";
+import { Toaster } from "@/components/ui/react/Sonner";
 import { useConfetti } from "@/components/ui/react/confetti/useConfetti";
-import { Toaster } from "@/components/ui/shadcn/Sonner";
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/shadcn/dialog";
+import { trackEvent } from "@/lib/server/telemetry";
+import { downloadArchive } from "@/lib/utils/download";
 import { compileDatapack } from "@voxelio/breeze/core";
 import { parseDatapack } from "@voxelio/breeze/core";
 import { applyActions } from "@voxelio/breeze/core";
@@ -11,12 +13,10 @@ import { logToActions } from "@voxelio/breeze/core";
 import { Logger } from "@voxelio/breeze/core";
 import type { Log } from "@voxelio/breeze/core";
 import { voxelDatapacks } from "@voxelio/breeze/core";
-import { trackEvent } from "@/lib/server/telemetry";
-import { downloadArchive } from "@/lib/utils/download";
+import { Datapack } from "@voxelio/breeze/core";
 import type React from "react";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
-import { Datapack } from "@voxelio/breeze/core";
 
 interface MigrationToolProps {
     translate: Record<string, string>;

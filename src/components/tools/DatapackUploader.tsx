@@ -1,5 +1,5 @@
 import Dropzone from "@/components/ui/react/Dropzone.tsx";
-import { useTranslate } from "@/components/useTranslate";
+import { useTranslate } from "@/lib/hook/useTranslate";
 import useAsyncError from "@/lib/hook/useAsyncError";
 import type { Analysers } from "@voxelio/breeze/core";
 import { parseDatapack } from "@voxelio/breeze/core";

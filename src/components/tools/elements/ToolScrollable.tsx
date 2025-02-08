@@ -1,6 +1,6 @@
 import { RenderComponent } from "@/components/tools/RenderComponent";
-import type { ToolScrollableType } from "@voxelio/breeze/core";
 import { cn } from "@/lib/utils.ts";
+import type { ToolScrollableType } from "@voxelio/breeze/core";
 
 export default function ToolScrollable({ component }: { component: ToolScrollableType }) {
     return (

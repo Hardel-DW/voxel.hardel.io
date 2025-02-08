@@ -1,5 +1,5 @@
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/shadcn/card";
-import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/shadcn/recharts";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/react/Card";
+import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/react/recharts";
 import { Bar, BarChart, CartesianGrid, LabelList, XAxis, YAxis } from "recharts";
 
 type GroupedData = {

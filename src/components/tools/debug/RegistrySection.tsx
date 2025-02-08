@@ -1,5 +1,5 @@
-import type { LabeledElement } from "@voxelio/breeze/core";
 import { NamespaceElement } from "@/components/tools/debug/NamespaceElement";
+import type { LabeledElement } from "@voxelio/breeze/core";
 
 interface RegistryListProps {
     registry: string;

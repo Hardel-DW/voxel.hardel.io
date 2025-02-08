@@ -1,9 +1,9 @@
+import DebugPanel from "@/components/tools/debug/DebugPanel";
 import { getLabeledIdentifier } from "@voxelio/breeze/core";
 import { useConfiguratorStore } from "@voxelio/breeze/core";
 import type { LabeledElement } from "@voxelio/breeze/core";
 import { useState } from "react";
 import { createPortal } from "react-dom";
-import DebugPanel from "@/components/tools/debug/DebugPanel";
 
 export default function DebugConfigurator() {
     const [isDebugging, setIsDebugging] = useState(false);

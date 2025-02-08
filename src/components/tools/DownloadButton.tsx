@@ -1,12 +1,19 @@
 import Button from "@/components/ui/react/Button.tsx";
-import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/shadcn/dialog.tsx";
-import { useTranslate } from "@/components/useTranslate";
+import {
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogFooter,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger
+} from "@/components/ui/react/Dialog.tsx";
+import { useTranslate } from "@/lib/hook/useTranslate.ts";
+import { saveLogs } from "@/lib/server/telemetry.ts";
+import { downloadArchive } from "@/lib/utils/download.ts";
 import { Datapack } from "@voxelio/breeze/core";
 import { useConfiguratorStore } from "@voxelio/breeze/core";
 import { voxelDatapacks } from "@voxelio/breeze/core";
-import { saveLogs } from "@/lib/server/telemetry.ts";
-import { downloadArchive } from "@/lib/utils/download.ts";
-import { DialogDescription } from "@radix-ui/react-dialog";
 import SettingsDialog from "./SettingsDialog.tsx";
 
 export default function DownloadButton() {
@@ -24,7 +31,7 @@ export default function DownloadButton() {
 
     return (
         <Dialog>
-            <DialogTrigger asChild>
+            <DialogTrigger>
                 <Button type="button" className="w-full" variant="white-shimmer" onClick={handleClick} onKeyDown={handleClick}>
                     <span className="text-sm hidden xl:block">{t("tools.download")}</span>
                     <span className="text-sm block xl:hidden">{t("tools.download.small")}</span>

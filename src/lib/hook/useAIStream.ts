@@ -1,5 +1,5 @@
-import { Identifier, searchRelevantElements, useConfiguratorStore, type Action, type IdentifierObject } from "@voxelio/breeze/core";
 import { JSONBuilder } from "@/lib/utils/JSONBuilder";
+import { type Action, Identifier, type IdentifierObject, searchRelevantElements, useConfiguratorStore } from "@voxelio/breeze/core";
 import { useState } from "react";
 
 interface UseAIStreamReturn {

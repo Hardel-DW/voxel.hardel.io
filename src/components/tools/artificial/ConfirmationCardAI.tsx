@@ -1,5 +1,5 @@
-import { useTranslate } from "@/components/useTranslate";
-import { Identifier, type Analysers, getAnalyserForVersion, useConfiguratorStore } from "@voxelio/breeze/core";
+import { useTranslate } from "@/lib/hook/useTranslate";
+import { type Analysers, Identifier, getAnalyserForVersion, useConfiguratorStore } from "@voxelio/breeze/core";
 import { type Action, updateData } from "@voxelio/breeze/core";
 import { useState } from "react";
 import { ValueRenderer, type ValueRendererProps } from "./value/ValueRenderer";

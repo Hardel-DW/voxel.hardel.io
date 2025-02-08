@@ -1,7 +1,7 @@
 import Button from "@/components/ui/react/Button";
-import { translate, useTranslate } from "@/components/useTranslate";
-import type { ToolRevealElementType as RevealElementType } from "@voxelio/breeze/core";
+import { translate, useTranslate } from "@/lib/hook/useTranslate";
 import { cn } from "@/lib/utils";
+import type { ToolRevealElementType as RevealElementType } from "@voxelio/breeze/core";
 import { memo } from "react";
 import { toast } from "sonner";
 

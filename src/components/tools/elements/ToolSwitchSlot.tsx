@@ -1,6 +1,6 @@
-import type { ToolSwitchSlotType } from "@/lib/minecraft/core/schema/primitive/component";
-import translate from "@/lib/minecraft/i18n/translate";
+import { translate } from "@/lib/hook/useTranslate";
 import { cn } from "@/lib/utils";
+import type { ToolSwitchSlotType } from "@voxelio/breeze/core";
 import type { InteractiveComponentProps } from "./InteractiveComponent";
 
 export default function ToolSwitchSlot({ component, interactiveProps }: InteractiveComponentProps<boolean, ToolSwitchSlotType>) {
@@ -9,9 +9,9 @@ export default function ToolSwitchSlot({ component, interactiveProps }: Interact
     return (
         <div
             className={cn(
-                "bg-blue-50/5 ring-0 ring-zinc-700 transition-all hover:ring-1 px-6 py-4 rounded-xl cursor-pointer",
-                { "ring-1 ring-rose-900": value },
-                { "opacity-50 ring-1 ring-rose-950": lock.isLocked }
+                "bg-blue-50/5 ring-0 ring-zinc-700 transition-all hover:ring-1 px-6 py-4 rounded-xl cursor-pointer relative",
+                { "bg-zinc-500/5 ring-1 ring-rose-950": value },
+                { "opacity-50 ring-1 ring-zinc-700": lock.isLocked }
             )}
             onClick={() => handleChange(!value)}
             onKeyDown={() => handleChange(!value)}>
@@ -32,8 +32,12 @@ export default function ToolSwitchSlot({ component, interactiveProps }: Interact
                     {lock.isLocked && (
                         <span className="text-xs text-zinc-400 font-light w-max flex items-center">{translate(lock.text)}</span>
                     )}
-                    {(value || lock.isLocked) && <img src="/icons/check.svg" alt="checkbox" className="w-6 h-6 invert" />}
+                    {value && <img src="/icons/check.svg" alt="checkbox" className="w-6 h-6 invert" />}
+                    {lock.isLocked && <img src="/icons/tools/lock.svg" alt="checkbox" className="w-6 h-6 invert" />}
                 </div>
+            </div>
+            <div className="absolute inset-0 -z-10 brightness-15 border-t border-l border-zinc-800">
+                <img src="/images/shine.avif" alt="Shine" />
             </div>
         </div>
     );

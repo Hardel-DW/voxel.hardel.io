@@ -1,12 +1,10 @@
 import { InnerGlow } from "@/components/tools/artificial/InnerGlow";
 import { RenderAIContent } from "@/components/tools/artificial/RenderAIContent";
-import { useTranslate } from "@/components/useTranslate";
+import { useTranslate } from "@/lib/hook/useTranslate";
 import { type IActionResponse, useAIStream } from "@/lib/hook/useAIStream";
 import { useClickOutside } from "@/lib/hook/useClickOutside";
-import { Identifier } from "@/lib/minecraft/core/Identifier";
-import { useConfiguratorStore } from "@/lib/minecraft/core/engine/Store";
-import { SplitSequentialAction } from "@/lib/minecraft/core/engine/actions";
 import { cn } from "@/lib/utils";
+import { Identifier, SplitSequentialAction, useConfiguratorStore } from "@voxelio/breeze/core";
 import { useState } from "react";
 import type { PropsConfirmationCardAI } from "./ConfirmationCardAI";
 

@@ -1,4 +1,4 @@
-import { getRegistry } from "@voxel/registry";
+import { getRegistry } from "@voxelio/breeze/net";
 import { useEffect, useState } from "react";
 
 export function useRegistry(registryType: string, isOpen: boolean) {

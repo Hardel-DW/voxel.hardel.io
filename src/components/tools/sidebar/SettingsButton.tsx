@@ -1,6 +1,6 @@
 import Button from "@/components/ui/react/Button.tsx";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/shadcn/popover.tsx";
-import { useConfiguratorStore } from "@/lib/minecraft/core/engine/Store";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/react/Popover.tsx";
+import { useConfiguratorStore } from "@voxelio/breeze/core";
 
 export default function SettingsButton() {
     const name = useConfiguratorStore((state) => state.name);
@@ -24,12 +24,12 @@ export default function SettingsButton() {
 
     return (
         <Popover>
-            <PopoverTrigger asChild>
+            <PopoverTrigger>
                 <Button type="button" variant="transparent" size="square" className="bg-zinc-900 border border-zinc-800 select-none">
                     <img src="/icons/settings.svg" alt="settings" className="size-8 invert" />
                 </Button>
             </PopoverTrigger>
-            <PopoverContent align="end">
+            <PopoverContent>
                 <div>
                     <p className="text-xs font-semibold border-b border-zinc-700">External Configuration</p>
                     <div className="flex flex-col gap-8">

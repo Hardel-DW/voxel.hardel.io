@@ -1,9 +1,7 @@
-import { useTranslate } from "@/components/useTranslate";
-import { Identifier } from "@/lib/minecraft/core/Identifier";
-import { useConfiguratorStore } from "@/lib/minecraft/core/engine/Store";
-import type { Condition } from "@/lib/minecraft/core/engine/condition";
-import { useElementCondition } from "@/lib/minecraft/core/engine/utils/hooks";
-
+import { useTranslate } from "@/lib/hook/useTranslate";
+import type { Condition } from "@voxelio/breeze";
+import { Identifier, useConfiguratorStore, useElementCondition } from "@voxelio/breeze/core";
+import type { TranslationKey } from "@voxelio/breeze/i18n";
 interface ToolPropertyElementProps {
     name: string;
     condition: Condition;
@@ -20,7 +18,7 @@ export function ToolPropertyElement({ name, condition, onChange }: ToolPropertyE
             <label htmlFor={name} className="flex items-center justify-between w-full">
                 <div className="flex flex-col w-3/4">
                     <span className="text-white line-clamp-1">{Identifier.toDisplay(name)}</span>
-                    <span className="text-xs text-zinc-400 font-light line-clamp-2">{t(`tools.effects.${name}`)}</span>
+                    <span className="text-xs text-zinc-400 font-light line-clamp-2">{t(`tools.effects.${name}` as TranslationKey)}</span>
                 </div>
                 <input id={name} name={name} type="checkbox" checked={!isChecked} onChange={onChange} />
             </label>

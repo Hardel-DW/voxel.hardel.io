@@ -1,4 +1,4 @@
-import { Identifier } from "@/lib/minecraft/core/Identifier";
+import { Identifier } from "@voxelio/breeze/core";
 
 interface ToolTagCardProps {
     value: string;

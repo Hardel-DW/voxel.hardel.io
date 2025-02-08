@@ -1,10 +1,8 @@
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/shadcn/dropdown";
-import { useTranslate } from "@/components/useTranslate";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/react/Dropdown";
+import { useTranslate } from "@/lib/hook/useTranslate";
 import useAsyncError from "@/lib/hook/useAsyncError";
-import { parseDatapack } from "@/lib/minecraft/core/engine/Parser";
-import { useConfiguratorStore } from "@/lib/minecraft/core/engine/Store";
-import { DatapackError } from "@/lib/minecraft/core/errors/DatapackError";
-import type { TranslationKey } from "@/lib/minecraft/i18n/translations";
+import { DatapackError, parseDatapack, useConfiguratorStore } from "@voxelio/breeze/core";
+import type { TranslationKey } from "@voxelio/breeze/i18n";
 
 export default function VanillaImportButton() {
     const { t } = useTranslate();
@@ -37,7 +35,7 @@ export default function VanillaImportButton() {
 
     return (
         <DropdownMenu>
-            <DropdownMenuTrigger asChild>
+            <DropdownMenuTrigger>
                 <button
                     type="button"
                     className="h-10 px-4 py-2 rounded-md inline-flex items-center justify-center whitespace-nowrap cursor-pointer truncate text-sm ring-offset-background focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 animate-shimmer bg-[linear-gradient(110deg,#FCFCFC,45%,#d0d0d0,55%,#FCFCFC)] bg-[length:200%_100%] text-black font-medium border-t border-l border-zinc-900 hover:opacity-75 transition">

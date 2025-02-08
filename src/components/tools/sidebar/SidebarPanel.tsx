@@ -2,8 +2,8 @@ import DownloadButton from "@/components/tools/DownloadButton.tsx";
 import DebugConfigurator from "@/components/tools/debug/DebugConfigurator";
 import SettingsButton from "@/components/tools/sidebar/SettingsButton";
 import { SidebarContainer } from "@/components/tools/sidebar/SidebarContainer";
-import { useTranslate } from "@/components/useTranslate";
-import { useConfiguratorStore } from "@/lib/minecraft/core/engine/Store";
+import { useTranslate } from "@/lib/hook/useTranslate";
+import { useConfiguratorStore } from "@voxelio/breeze/core";
 import { useRef } from "react";
 
 export default function SidebarPanel() {

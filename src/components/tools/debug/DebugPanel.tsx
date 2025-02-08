@@ -1,6 +1,6 @@
 import { CodeSection } from "@/components/tools/debug/CodeSection";
 import { RegistrySection } from "@/components/tools/debug/RegistrySection";
-import type { LabeledElement } from "@/lib/minecraft/core/schema/primitive/label";
+import type { LabeledElement } from "@voxelio/breeze/core";
 
 type Props = {
     selectedElement: LabeledElement | undefined;

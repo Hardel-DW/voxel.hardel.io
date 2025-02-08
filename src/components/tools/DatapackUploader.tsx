@@ -1,11 +1,11 @@
 import Dropzone from "@/components/ui/react/Dropzone.tsx";
-import { useTranslate } from "@/components/useTranslate";
+import { useTranslate } from "@/lib/hook/useTranslate";
 import useAsyncError from "@/lib/hook/useAsyncError";
-import type { Analysers } from "@/lib/minecraft/core/engine/Analyser";
-import { parseDatapack } from "@/lib/minecraft/core/engine/Parser.ts";
-import { useConfiguratorStore } from "@/lib/minecraft/core/engine/Store";
-import { DatapackError } from "@/lib/minecraft/core/errors/DatapackError";
-import type { TranslationKey } from "@/lib/minecraft/i18n/translations";
+import type { Analysers } from "@voxelio/breeze/core";
+import { parseDatapack } from "@voxelio/breeze/core";
+import { useConfiguratorStore } from "@voxelio/breeze/core";
+import { DatapackError } from "@voxelio/breeze/core";
+import type { TranslationKey } from "@voxelio/breeze/i18n";
 import { toast } from "sonner";
 
 export default function DatapackUploader(props: { tool: keyof Analysers }) {

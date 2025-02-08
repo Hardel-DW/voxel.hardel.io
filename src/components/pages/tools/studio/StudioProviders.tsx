@@ -1,4 +1,4 @@
-import { TranslateProvider } from "@/components/TranslateContext";
+import { TranslateProvider } from "@/components/tools/TranslateContext";
 import type { TranslationRecord } from "@/lib/i18n.ts";
 import type React from "react";
 import { Toaster } from "sonner";

@@ -1,24 +1,29 @@
-import type { ToolSlotType } from "@/lib/minecraft/core/schema/primitive/component";
-import translate from "@/lib/minecraft/i18n/translate";
-import { getKey } from "@/lib/minecraft/i18n/translations";
+import { translate } from "@/lib/hook/useTranslate";
 import { cn } from "@/lib/utils";
+import type { ToolSlotType } from "@voxelio/breeze/core";
+import { getKey } from "@voxelio/breeze/i18n";
 import type { InteractiveComponentProps } from "./InteractiveComponent";
 
 export default function ToolSlot({ component, interactiveProps }: InteractiveComponentProps<boolean, ToolSlotType>) {
     const { value, lock, handleChange } = interactiveProps;
-
     return (
         <div
             className={cn(
-                "bg-blue-50/5 select-none ring-0 cursor-pointer ring-zinc-700 relative transition-all hover:ring-1 p-6 rounded-xl",
-                { "ring-1 ring-rose-900": value },
-                { "opacity-50 ring-1 ring-rose-950": lock.isLocked }
+                "bg-blue-50/5 select-none ring-0 cursor-pointer ring-zinc-700 relative transition-all hover:ring-1 p-6 rounded-xl border-t border-l border-zinc-800",
+                { "bg-zinc-500/5 ring-1 ring-rose-950": value },
+                { "opacity-50 ring-1 ring-zinc-700": lock.isLocked }
             )}
             onClick={() => handleChange(!value)}
             onKeyDown={() => handleChange(!value)}>
-            {(value || lock.isLocked) && (
+            {value && (
                 <div className="absolute p-4 top-0 right-0">
                     <img src="/icons/check.svg" alt="checkbox" className="w-6 h-6 invert" />
+                </div>
+            )}
+
+            {lock.isLocked && (
+                <div className="absolute p-4 top-0 right-0">
+                    <img src="/icons/tools/lock.svg" alt="checkbox" className="w-6 h-6 invert" />
                 </div>
             )}
 
@@ -40,6 +45,9 @@ export default function ToolSlot({ component, interactiveProps }: InteractiveCom
                         height: component.size ? component.size : "64px"
                     }}
                 />
+            </div>
+            <div className="absolute inset-0 -z-10 brightness-30">
+                <img src="/images/shine.avif" alt="Shine" />
             </div>
         </div>
     );

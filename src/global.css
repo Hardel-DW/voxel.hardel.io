@@ -4,6 +4,8 @@
 @plugin "./lib/tailwind-animate.ts";
 @source "components";
 
+@custom-variant hidden (&[hidden]);
+
 @font-face {
     font-family: 'Rubik';
     font-style: normal;
@@ -52,7 +54,7 @@
     --animate-rainbow: rainbow 10s linear infinite;
     --animate-shimmer: shimmer 2s linear infinite;
     --animate-progress: progress 5s linear;
-
+    --ease-bounce: cubic-bezier(0.735, 0.590, 0.660, 1.225);
 
     @keyframes shimmer {
         from {
@@ -130,8 +132,6 @@
         }
     }
 }
-
-
 @layer utilities {
     .pixelated {
         image-rendering: pixelated;

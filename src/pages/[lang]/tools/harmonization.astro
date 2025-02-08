@@ -50,7 +50,7 @@ export async function getStaticPaths() {
                 <Dropzone
                         accept="image/*"
                         maxSize={5242880}
-                        multiple={false}
+                        multiple={false} 
                         class="w-full"
                 >
                     <p class="text-center text-zinc-400">
@@ -93,7 +93,7 @@ export async function getStaticPaths() {
 </PageLayout>
 
 <script>
-    import {extractPalette, loadImage, quantizeImage, type RGB, cleanPalette} from "@/lib/image/harmonization";
+    import {extractPalette, loadImage, quantizeImage, type RGB, cleanPalette} from "@/lib/utils/image";
 
     const dropzoneInput = document.getElementById("dropzone-file");
     const outputCanvas = document.getElementById("output") as HTMLCanvasElement;

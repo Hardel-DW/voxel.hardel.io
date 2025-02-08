@@ -1,11 +1,11 @@
 import { RenderComponent } from "@/components/tools/RenderComponent";
-import type { FormComponent, ToolListType } from "@/lib/minecraft/core/schema/primitive/component";
 import { cn } from "@/lib/utils";
+import type { FormComponent, ToolListType } from "@voxelio/breeze/core";
 
 export default function ToolFlexible({ component }: { component: ToolListType }) {
     return (
         <div
-            className={cn("flex gap-4", {
+            className={cn("flex gap-4 overflow-y-hidden", {
                 "flex-row": component.direction === "horizontal",
                 "flex-col": component.direction === "vertical"
             })}>

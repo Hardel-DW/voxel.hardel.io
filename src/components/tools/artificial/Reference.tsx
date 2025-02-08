@@ -1,4 +1,4 @@
-import { Identifier, type IdentifierObject } from "@/lib/minecraft/core/Identifier";
+import { Identifier, type IdentifierObject } from "@voxelio/breeze/core";
 
 export default function Reference(props: { reference: IdentifierObject }) {
     return (

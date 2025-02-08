@@ -1,8 +1,5 @@
-import { Identifier, type IdentifierObject } from "@/lib/minecraft/core/Identifier";
-import { useConfiguratorStore } from "@/lib/minecraft/core/engine/Store";
-import type { Action } from "@/lib/minecraft/core/engine/actions";
-import { searchRelevantElements } from "@/lib/searchElements";
 import { JSONBuilder } from "@/lib/utils/JSONBuilder";
+import { type Action, Identifier, type IdentifierObject, searchRelevantElements, useConfiguratorStore } from "@voxelio/breeze/core";
 import { useState } from "react";
 
 interface UseAIStreamReturn {

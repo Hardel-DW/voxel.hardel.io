@@ -1,19 +1,19 @@
 import { DatapackDropzone } from "@/components/pages/tools/migration/DatapackDropzone";
 import { StatusBox } from "@/components/pages/tools/migration/StatusBox";
 import Button from "@/components/ui/react/Button";
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/react/Dialog";
+import { Toaster } from "@/components/ui/react/Sonner";
 import { useConfetti } from "@/components/ui/react/confetti/useConfetti";
-import { Toaster } from "@/components/ui/shadcn/Sonner";
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/shadcn/dialog";
-import Datapack from "@/lib/minecraft/core/Datapack";
-import { compileDatapack } from "@/lib/minecraft/core/engine/Compiler";
-import { parseDatapack } from "@/lib/minecraft/core/engine/Parser";
-import { applyActions } from "@/lib/minecraft/core/engine/migrations/applyActions";
-import { logToActions } from "@/lib/minecraft/core/engine/migrations/logToActions";
-import { Logger } from "@/lib/minecraft/core/engine/migrations/logger";
-import type { Log } from "@/lib/minecraft/core/engine/migrations/types";
-import { voxelDatapacks } from "@/lib/minecraft/voxel/VoxelDatapack";
 import { trackEvent } from "@/lib/server/telemetry";
 import { downloadArchive } from "@/lib/utils/download";
+import { compileDatapack } from "@voxelio/breeze/core";
+import { parseDatapack } from "@voxelio/breeze/core";
+import { applyActions } from "@voxelio/breeze/core";
+import { logToActions } from "@voxelio/breeze/core";
+import { Logger } from "@voxelio/breeze/core";
+import type { Log } from "@voxelio/breeze/core";
+import { voxelDatapacks } from "@voxelio/breeze/core";
+import { Datapack } from "@voxelio/breeze/core";
 import type React from "react";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
@@ -67,7 +67,7 @@ export default function MigrationTool({ translate, children }: MigrationToolProp
         try {
             const logs: Log = JSON.parse(new TextDecoder().decode(logFile));
             const actions = logToActions(logs);
-            const modifiedTarget = await applyActions(target, actions);
+            const modifiedTarget = applyActions(target, actions);
             const finalDatapack = compileDatapack({
                 elements: Array.from(modifiedTarget.elements.values()),
                 version: modifiedTarget.version,

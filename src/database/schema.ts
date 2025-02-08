@@ -1,4 +1,4 @@
-import type { FileLog } from "@/lib/minecraft/core/engine/migrations/types";
+import type { FileLog } from "@voxelio/breeze/core";
 import { boolean, integer, json, pgTable, text, timestamp, varchar } from "drizzle-orm/pg-core";
 
 export const userTable = pgTable("user", {

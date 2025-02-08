@@ -1,6 +1,6 @@
-import { useTranslate } from "@/components/useTranslate";
-import { type CategorySound, getCategory, searchSound } from "@/lib/minecraft/net/api/Sound.ts";
+import { useTranslate } from "@/lib/hook/useTranslate";
 import { cn } from "@/lib/utils.ts";
+import { type CategorySound, getCategory, searchSound } from "@voxelio/breeze/net";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { toast } from "sonner";
 

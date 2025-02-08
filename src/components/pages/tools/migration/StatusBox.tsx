@@ -1,6 +1,6 @@
 import Button from "@/components/ui/react/Button";
-import { getMinecraftVersion } from "@/lib/minecraft/core/Version";
 import { cn } from "@/lib/utils";
+import { getMinecraftVersion } from "@voxelio/breeze/core";
 
 interface StatusBoxProps {
     files: FileList;

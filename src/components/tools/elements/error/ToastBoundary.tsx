@@ -1,5 +1,5 @@
-import { DatapackError } from "@/lib/minecraft/core/errors/DatapackError";
-import type { TranslationKey } from "@/lib/minecraft/i18n/types";
+import { DatapackError } from "@voxelio/breeze/core";
+import type { TranslationKey } from "@voxelio/breeze/i18n";
 import { Component, type ReactNode } from "react";
 import { toast } from "sonner";
 
@@ -29,7 +29,7 @@ export default class ToastBoundary extends Component<Props, State> {
             });
         } else {
             toast.error(this.props.i18n("generic.error"), {
-                description: this.props.i18n("generic.unexpected_error")
+                description: this.props.i18n("generic.error")
             });
         }
     }

@@ -1,5 +1,5 @@
 import { RenderComponent } from "@/components/tools/RenderComponent";
-import type { FormComponent, ToolGridType } from "@/lib/minecraft/core/schema/primitive/component";
+import type { FormComponent, ToolGridType } from "@voxelio/breeze/core";
 
 export default function ToolGrid({ component }: { component: ToolGridType }) {
     return (

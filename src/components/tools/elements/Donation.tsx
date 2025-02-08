@@ -1,7 +1,7 @@
 import TriangleWave from "@/components/ui/pattern/TriangleWave.tsx";
 import Button from "@/components/ui/react/Button.tsx";
-import type { ToolDonationType } from "@/lib/minecraft/core/schema/primitive/component";
-import translate from "@/lib/minecraft/i18n/translate";
+import { translate } from "@/lib/hook/useTranslate";
+import type { ToolDonationType } from "@voxelio/breeze/core";
 
 export default function Donation({ component }: { component: ToolDonationType }) {
     return (

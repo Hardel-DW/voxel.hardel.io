@@ -1,5 +1,5 @@
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/shadcn/card";
-import { ChartContainer, ChartLegend, ChartLegendContent, ChartTooltip, ChartTooltipContent } from "@/components/ui/shadcn/recharts";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/react/Card";
+import { ChartContainer, ChartLegend, ChartLegendContent, ChartTooltip, ChartTooltipContent } from "@/components/ui/react/recharts";
 import * as React from "react";
 import { Cell, Label, Pie, PieChart } from "recharts";
 

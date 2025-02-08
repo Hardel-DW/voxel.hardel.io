@@ -1,7 +1,7 @@
-import { Identifier } from "@/lib/minecraft/core/Identifier";
-import { useConfiguratorStore } from "@/lib/minecraft/core/engine/Store";
-import { useElementLocks } from "@/lib/minecraft/core/engine/utils/hooks";
-import { useElementCondition } from "@/lib/minecraft/core/engine/utils/hooks";
+import { Identifier } from "@voxelio/breeze/core";
+import { useConfiguratorStore } from "@voxelio/breeze/core";
+import { useElementLocks } from "@voxelio/breeze/core";
+import { useElementCondition } from "@voxelio/breeze/core";
 import type { RefObject } from "react";
 
 export default function SidebarItemContent({ elementId, switchRef }: { elementId: string; switchRef: RefObject<HTMLDivElement | null> }) {

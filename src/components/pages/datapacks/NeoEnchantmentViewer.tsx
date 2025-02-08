@@ -1,4 +1,4 @@
-import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/shadcn/select.tsx";
+import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/react/Select.tsx";
 import useLoadedPage from "@/lib/hook/useLoadedPage.ts";
 import { cn } from "@/lib/utils.ts";
 import React, { useState } from "react";
@@ -125,7 +125,8 @@ export default function NeoEnchantmentViewer({
                 {/* Mobile */}
                 <div className="md:hidden flex z-20">
                     <Select
-                        onValueChange={(value: string) => {
+                        value={currentEnchantment.id}
+                        setValue={(value: string) => {
                             const selectedEnchant = enchant.flatMap((item) => item.enchants).find((e) => e.id === value);
                             if (selectedEnchant) {
                                 setCurrentEnchantment(selectedEnchant);

@@ -1,6 +1,6 @@
 import Dropzone from "@/components/ui/react/Dropzone";
-import { DEFAULT_MOD_METADATA, extractMetadata } from "@/lib/minecraft/converter";
-import { parseZip } from "@/lib/minecraft/core/engine/utils/zip";
+import { DEFAULT_MOD_METADATA, extractMetadata } from "@voxelio/breeze/converter";
+import { parseZip } from "@voxelio/breeze/core";
 import { useState } from "react";
 import DatapackForm from "./DatapackForm";
 

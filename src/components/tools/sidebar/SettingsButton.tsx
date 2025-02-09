@@ -1,6 +1,6 @@
+import { useConfiguratorStore } from "@/components/tools/Store";
 import Button from "@/components/ui/react/Button.tsx";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/react/Popover.tsx";
-import { useConfiguratorStore } from "@voxelio/breeze/core";
 
 export default function SettingsButton() {
     const name = useConfiguratorStore((state) => state.name);

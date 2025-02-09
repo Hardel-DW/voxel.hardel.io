@@ -1,5 +1,5 @@
 import { useTranslate } from "@/lib/hook/useTranslate";
-import { useConfiguratorStore } from "@voxelio/breeze/core";
+import { useConfiguratorStore } from "@/components/tools/Store";
 
 export default function SettingsDialog() {
     const { t } = useTranslate();

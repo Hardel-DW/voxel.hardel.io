@@ -1,6 +1,6 @@
 import { MenuTabsContent } from "@/components/ui/react/MenuTabs";
 import { translate } from "@/lib/hook/useTranslate";
-import { getCurrentElement, useConfiguratorStore } from "@voxelio/breeze/core";
+import { getCurrentElement, useConfiguratorStore } from "@/components/tools/Store";
 import type { InterfaceConfiguration } from "@voxelio/breeze/core";
 import { RenderComponent } from "./RenderComponent";
 

@@ -1,6 +1,6 @@
 import { MenuTabs, MenuTabsList, MenuTabsTrigger } from "@/components/ui/react/MenuTabs";
 import { translate } from "@/lib/hook/useTranslate";
-import { useConfiguratorStore } from "@voxelio/breeze/core";
+import { useConfiguratorStore } from "@/components/tools/Store";
 import { resolve } from "@voxelio/breeze/core";
 import type React from "react";
 import ConfiguratorContent from "./ConfiguratorContent";

@@ -1,7 +1,9 @@
 import { useTranslate } from "@/lib/hook/useTranslate";
 import type { Condition } from "@voxelio/breeze";
-import { Identifier, useConfiguratorStore, useElementCondition } from "@voxelio/breeze/core";
+import { Identifier } from "@voxelio/breeze/core";
 import type { TranslationKey } from "@voxelio/breeze/i18n";
+import { useConfiguratorStore } from "@/components/tools/Store";
+import { useElementCondition } from "@/lib/hook/useBreezeElement";
 interface ToolPropertyElementProps {
     name: string;
     condition: Condition;

@@ -4,7 +4,7 @@ import ToastBoundary from "@/components/tools/elements/error/ToastBoundary";
 import { useTranslate } from "@/lib/hook/useTranslate";
 import type { FaqType } from "@/content/config.ts";
 import type { Analysers } from "@voxelio/breeze/core";
-import { useConfiguratorStore } from "@voxelio/breeze/core";
+import { useConfiguratorStore } from "@/components/tools/Store";
 import type React from "react";
 
 export default function HelpGuide(props: {

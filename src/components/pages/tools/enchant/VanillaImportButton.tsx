@@ -1,8 +1,9 @@
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/react/Dropdown";
 import { useTranslate } from "@/lib/hook/useTranslate";
 import useAsyncError from "@/lib/hook/useAsyncError";
-import { DatapackError, parseDatapack, useConfiguratorStore } from "@voxelio/breeze/core";
+import { DatapackError, parseDatapack } from "@voxelio/breeze/core";
 import type { TranslationKey } from "@voxelio/breeze/i18n";
+import { useConfiguratorStore } from "@/components/tools/Store";
 
 export default function VanillaImportButton() {
     const { t } = useTranslate();

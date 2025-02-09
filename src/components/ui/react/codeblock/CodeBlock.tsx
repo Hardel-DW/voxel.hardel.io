@@ -1,7 +1,7 @@
-import ButtonCopy from "@/components/ui/codeblock/ButtonCopy.tsx";
-import ButtonDownload from "@/components/ui/codeblock/ButtonDownload.tsx";
-import HighlightSection from "@/components/ui/codeblock/HighlightSection.tsx";
-import { cn } from "@/lib/utils.ts";
+import ButtonCopy from "@/components/ui/react/codeblock/ButtonCopy";
+import ButtonDownload from "@/components/ui/react/codeblock/ButtonDownload";
+import HighlightSection from "@/components/ui/react/codeblock/HighlightSection";
+import { cn } from "@/lib/utils";
 
 export default function CodeBlock(props: {
     children: string;

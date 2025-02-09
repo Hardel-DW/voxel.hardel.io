@@ -1,8 +1,8 @@
 // TriangleWave.tsx
 
-import { animate } from "@/lib/triangle/AnimationTriangle.ts";
-import { setupCanvas } from "@/lib/triangle/CanvasSetup.ts";
-import { createTriangle } from "@/lib/triangle/TriangleUtils.ts";
+import { animate } from "@/lib/geometry/AnimationTriangle";
+import { setupCanvas } from "@/lib/geometry/CanvasSetup";
+import { createTriangle } from "@/lib/geometry/TriangleUtils";
 import type React from "react";
 import { useEffect, useRef } from "react";
 

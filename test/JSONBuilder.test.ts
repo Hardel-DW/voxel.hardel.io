@@ -1,4 +1,4 @@
-import { JSONBuilder } from "../src/lib/utils/JSONBuilder";
+import { JSONBuilder } from "../src/lib/utils/json";
 import { expect, describe, it } from "vitest";
 
 describe("JSONBuilder", () => {

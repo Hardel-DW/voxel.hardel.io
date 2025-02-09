@@ -1,4 +1,4 @@
-import { JSONBuilder } from "@/lib/utils/JSONBuilder";
+import { JSONBuilder } from "@/lib/utils/json";
 import { type Action, Identifier, type IdentifierObject, searchRelevantElements, useConfiguratorStore } from "@voxelio/breeze/core";
 import { useState } from "react";
 

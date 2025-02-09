@@ -1,4 +1,4 @@
-import { premium as syntax } from "@/lib/utils/premium";
+import { premium as syntax } from "@/lib/utils/theme";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 
 export default function HighlightSection(props: {

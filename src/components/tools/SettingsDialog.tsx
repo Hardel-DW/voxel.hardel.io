@@ -4,12 +4,12 @@ import { useConfiguratorStore } from "@/components/tools/Store";
 export default function SettingsDialog() {
     const { t } = useTranslate();
     const name = useConfiguratorStore((state) => state.name);
-    const isJar = useConfiguratorStore((state) => state.isJar);
+    const isModded = useConfiguratorStore((state) => state.isModded);
 
     return (
         <>
             <div className="py-2">
-                <span className="font-semibold text-zinc-400">{`${name}.${isJar ? "jar" : "zip"}`}</span>
+                <span className="font-semibold text-zinc-400">{`${name}.${isModded ? "jar" : "zip"}`}</span>
             </div>
             <div className="h-1 w-full bg-zinc-700 rounded-full" />
             <div className="pt-8">

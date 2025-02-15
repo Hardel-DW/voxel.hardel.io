@@ -24,7 +24,9 @@ export default function DatapackUploader(props: { tool: keyof Analysers }) {
                 description: t("tools.upload.success.description")
             });
 
+            console.log(result);
             useConfiguratorStore.getState().setup(result);
+            console.log(useConfiguratorStore.getState());
         } catch (e: unknown) {
             if (e instanceof DatapackError) {
                 throwError(e.message as TranslationKey);

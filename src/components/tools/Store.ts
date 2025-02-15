@@ -20,7 +20,7 @@ export interface ConfiguratorState<T extends keyof Analysers> {
     currentElementId?: string;
     toggleSection?: Record<string, ToggleSection>;
     config: ToolConfiguration | null;
-    isJar: boolean;
+    isModded: boolean;
     version: number | null;
     sortedIdentifiers: string[];
     setName: (name: string) => void;
@@ -39,7 +39,7 @@ const createConfiguratorStore = <T extends keyof Analysers>() =>
         files: {},
         elements: new Map(),
         config: null,
-        isJar: false,
+        isModded: false,
         version: null,
         sortedIdentifiers: [],
         setName: (name) => set({ name }),

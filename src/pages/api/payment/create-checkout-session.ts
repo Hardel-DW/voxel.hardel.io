@@ -8,7 +8,7 @@ if (!import.meta.env.STRIPE_SECRET_KEY) {
 }
 
 const stripe = new Stripe(import.meta.env.STRIPE_SECRET_KEY, {
-    apiVersion: "2025-01-27.acacia"
+    apiVersion: "2024-06-20"
 });
 
 export const POST: APIRoute = async ({ request }) => {

@@ -24,13 +24,7 @@ export default defineConfig({
     },
     output: "server",
     vite: {
-        plugins: [tailwindcss()],
-        server: {
-            hmr: {
-                overlay: false,
-                protocol: "ws"
-            }
-        }
+        plugins: [tailwindcss()]
     },
     integrations: [
         react({

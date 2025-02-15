@@ -7,7 +7,7 @@ import Stripe from "stripe";
 export const prerender = false;
 
 const stripe = new Stripe(import.meta.env.STRIPE_SECRET_KEY, {
-    apiVersion: "2024-12-18.acacia"
+    apiVersion: "2025-01-27.acacia"
 });
 
 export const GET: APIRoute = async ({ params }) => {

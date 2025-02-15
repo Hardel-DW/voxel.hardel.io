@@ -56,7 +56,7 @@ const Dropzone: React.FC<Props> = ({ dropzone, onFileUpload, children, id, disab
                     onDrop={handleDrop}
                     className={cn(
                         "w-full h-64 border-2 border-dashed flex flex-col items-center justify-center bg-gray border-t-2 border-r border-zinc-800 rounded-3xl shadow-2xl shadow-black transition",
-                        isDragging ? "opacity-100 scale-[1.02] border-pink-700" : "opacity-75 hover:opacity-100",
+                        isDragging ? "opacity-100 scale-[1.02] border-pink-700" : "hover:border-zinc-700",
                         disabled && "opacity-50 cursor-not-allowed"
                     )}>
                     <label

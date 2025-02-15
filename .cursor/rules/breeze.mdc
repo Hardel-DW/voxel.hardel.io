@@ -1,0 +1,261 @@
+---
+description: Minecraft datapack and data manipulation in typescript react
+globs: *.tsx
+---
+You're an expert in the use of Breeze, an internal tool for this project.
+
+Main Principe
+- You need import it from "@voxelio/breeze"
+- The user mainly use Zustand store to store datapack and interacts with value.
+- This import must be used in tsx files.
+- Breeze is a Typescript dependency that can be used to manipulate Minecraft data.
+- These type are mostly used.
+
+export declare type DataDrivenElement = Record<string, unknown>;
+
+export declare type DataDrivenRegistryElement<T extends DataDrivenElement> = {
+    identifier: IdentifierObject;
+    data: T;
+};
+
+Tags :
+- Tags in minecraft are used to lists some elements.
+- When user want to get value, make sure to get the value from string and objet.
+
+export declare interface TagType extends DataDrivenElement {
+    replace?: boolean;
+    values: (string | OptionalTag)[];
+}
+
+export declare type OptionalTag = {
+    required: boolean;
+    id: string;
+};
+
+Identifier
+- The Identifer class is used to manipulate Resource Location like "minecraft:stone".
+- Unique Key, provide more information is build like this "minecraft:stone$block" so "namespace:resource$registry"
+export declare class Identifier {
+    readonly namespace: string;
+    readonly registry: string;
+    readonly resource: string;
+    constructor(identifier: IdentifierObject);
+    static of(identifier: string, registry: string): Identifier;
+    /**
+     * The Unique key is built like this:
+     * namespace:resource$registry
+     *
+     * @param uniqueKey
+     * @returns
+     */
+    static fromUniqueKey(uniqueKey: string): Identifier;
+    get(): IdentifierObject;
+    toString(): string;
+    toUniqueKey(): string;
+    equals(other: Identifier | undefined): boolean;
+    equalsObject(other: IdentifierObject | undefined): boolean;
+    /**
+     * Generates a file path for the identifier
+     * @param basePath - Base path (default: "data")
+     * @returns Full file path
+     * @example
+     * const path = id.toFilePath(); // "data/minecraft/block/stone"
+     * const modPath = id.toFilePath("mod"); // "mod/minecraft/block/stone"
+     */
+    toFilePath(basePath?: string): string;
+    /**
+     * Generates a filename for the identifier
+     * @param extension - Add .json extension (default: false)
+     * @returns Filename
+     * @example
+     * const name = id.toFileName(); // "stone"
+     * const fullName = id.toFileName(true); // "stone.json"
+     */
+    toFileName(extension?: boolean): string;
+    /**
+     * Renders namespace for display
+     * @returns Formatted namespace
+     * @example
+     * id.toNamespace(); // "Minecraft"
+     */
+    toNamespace(): string;
+    /**
+     * Renders resource name from path
+     * @returns Formatted resource name
+     * @example
+     * id.toResourceName(); // "Sword" (from "items/weapons/sword")
+     * id.toResourceName(); // "Fire Sword" (from "items/weapons/fire_sword")
+     */
+    toResourceName(): string;
+    /**
+     * Renders full resource path for display
+     * @returns Formatted resource path
+     * @example
+     * id.toResourcePath(); // "Items - Wooden Sword" (from "items/wooden_sword")
+     */
+    toResourcePath(): string;
+    /**
+     * Renders string identifier for display
+     * @param identifier - The identifier string
+     * @returns Formatted text
+     * @example
+     * Identifier.toDisplay("minecraft:stone"); // "Stone"
+     */
+    static toDisplay(identifier: string): string;
+}
+
+Datapack
+- Used to transform zip into class datapack for manipulate registry, files and content. 
+
+export declare class Datapack {
+    private fileName;
+    private pack;
+    private files;
+    constructor(files: Record<string, Uint8Array<ArrayBufferLike>>, fileName?: string);
+    static parse(file: File): Promise<Datapack>;
+    /**
+     * Get the namespaces of the datapack. (From Data)
+     * @returns The namespaces of the datapack.
+     */
+    getNamespaces(): string[];
+    /**
+     * Check if the datapack is modded.
+     * @returns Whether the datapack is modded.
+     */
+    isModded(): boolean;
+    /**
+     * Get the pack format of the datapack. Or throw an error if it's not found.
+     * @returns The pack format of the datapack.
+     */
+    getPackFormat(): number;
+    /**
+     * Get the formatted version of the datapack.
+     * @returns The version of the datapack.
+     * @example
+     * getVersion() // "1.21.1"
+     */
+    getVersion(): string;
+    /**
+     * Get the description of the datapack. If no description is found, the fallback will be used, and if no fallback is provided, an error will be thrown.
+     * @param fallback - The fallback description.
+     * @returns The description of the datapack.
+     */
+    getDescription(fallback?: string): string;
+    /**
+     * Processes a datapack name by handling versioning and file extensions
+     * @example
+     * datapackName("test.zip") // Returns "V0-test"
+     * datapackName("V1-test") // Returns "V2-test"
+     */
+    getFileName(): string;
+    /**
+     * Get the voxel logs of the datapack. from the logs.json file.
+     * @returns The voxel logs of the datapack.
+     */
+    getVoxelLogs(): Uint8Array<ArrayBufferLike>;
+    /**
+     * Get the files of the datapack.
+     * @returns The files of the datapack.
+     */
+    getFiles(): Record<string, Uint8Array<ArrayBufferLike>>;
+    /**
+     * For an element, get all the tags where the identifier appears.
+     * @param registry - The registry of the tags.
+     * @param identifier - The identifier of the tags.
+     * @returns The related tags of the identifier.
+     */
+    getRelatedTags(registry: string | undefined, identifier: IdentifierObject): string[];
+    /**
+     * Get the registry of the datapack. Find all jsons for a registry.
+     * @param registry - The registry of the datapack.
+     * @returns The registry of the datapack.
+     * @example
+     * getRegistry("enchantment") // Returns all the enchantments of the datapack like Fire Aspect, Looting, etc.
+     */
+    getRegistry<T extends DataDrivenElement>(registry: string | undefined): DataDrivenRegistryElement<T>[];
+    /**
+     * Get the values of the tags of an element.
+     * @param identifier - The identifier of the Tags element.
+     * @param blacklist - The blacklist of values to exclude.
+     * @returns The values of the tags of the element.
+     */
+    getTag(identifier: IdentifierObject, blacklist?: string[]): TagType;
+    /**
+     * Find for each identifier all corresponding tags in the datapack, (excluding the blacklist).
+     * @param identifier - The identifier of the Tags element.
+     * @param blacklist - The blacklist of values to exclude.
+     * @returns The values of the tags of the element.
+     */
+    getTags(identifier: IdentifierObject[], blacklist?: string[]): DataDrivenRegistryElement<TagType>[];
+    /**
+     * Get the compiled tags of the elements.
+     * @param elements - The elements to compile.
+     * @param blacklist - The blacklist of values to exclude.
+     * @returns The compiled tags.
+     */
+    getCompiledTags(elements: ReturnType<Compiler>[]): DataDrivenRegistryElement<TagType>[];
+    /**
+     * Read a file from the datapack.
+     * @param identifier - The identifier of the file.
+     * @param basePath - The base path of the file.
+     * @returns The file.
+     */
+    readFile<T>(identifier: IdentifierObject, basePath?: string): T | undefined;
+    /**
+     * Determine if the element is new, updated or deleted.
+     * If the ones that were there at the beginning are no longer there, I'll delete them.
+     * If it wasn't in the initial list but is new, I create it.
+     * If it was there at the beginning and is still there at the end, just keep it.
+     * if it wasn't there at the beginning and isn't there at the end, I do nothing.
+     * @param registry - The registry of the elements.
+     * @param elements - The elements of the datapack.
+     * @returns The elements of the datapack.
+     */
+    labelElements<T extends keyof Analysers>(registry: T, elements: DataDrivenRegistryElement<DataDrivenElement>[]): LabeledElement[];
+    /**
+     * Generate a new datapack.
+     * @param content - The content of the datapack.
+     * @param params - The parameters of the datapack.
+     * @returns The new datapack.
+     */
+    generate(content: LabeledElement[], params: {
+        isMinified: boolean;
+        logger?: Logger;
+        include?: DataDrivenRegistryElement<DataDrivenElement>[];
+    }): Promise<Uint8Array<ArrayBufferLike>>;
+    /**
+     * Add a JSON file to the zip using the identifier to determine the path, data will be JSON.stringify.
+     * @param zip - The zip.
+     * @param path - The path of the file.
+     * @param data - The data of the file.
+     * @param isMinified - Whether the file is minified.
+     */
+    private addJsonFile;
+    /**
+     * Copy the existing files to the zip. File marked as deleted will be skipped.
+     * @param zip - The zip.
+     * @param content - The content of the datapack.
+     */
+    private copyExistingFiles;
+    /**
+     * Add the included files to the zip. E.G Voxel Datapacks. No operation is made on the files.
+     * @param zip - The zip.
+     * @param include - The included files.
+     * @param isMinified - Whether the file is minified.
+     */
+    private addIncludedFiles;
+    /**
+     * Process files, deleted tags will continue to exist but will be empty, and other files will be deleted, the rest will be added as is.
+     * @param zip - The zip.
+     * @param content - The content of the datapack.
+     * @param isMinified - Whether the file is minified.
+     */
+    private processContentFiles;
+    /**
+     * Add the logs files to the zip.
+     * @param zip - The zip.
+     * @param logger - The logger.
+     * @param isMinified - Whether the file is minified.
+     */
+    private addLogger;
+}

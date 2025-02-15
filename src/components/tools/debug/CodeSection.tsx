@@ -1,8 +1,9 @@
-import CodeBlock from "@/components/ui/codeblock/CodeBlock";
-import EmptyCodeBlock from "@/components/ui/codeblock/EmptyCodeBlock";
+import CodeBlock from "@/components/ui/react/codeblock/CodeBlock";
+import EmptyCodeBlock from "@/components/ui/react/codeblock/EmptyCodeBlock";
 import { useTranslate } from "@/lib/hook/useTranslate";
-import { Identifier, getLabeledIdentifier, useConfiguratorStore } from "@voxelio/breeze/core";
+import { Identifier, getLabeledIdentifier } from "@voxelio/breeze/core";
 import type { LabeledElement } from "@voxelio/breeze/core";
+import { useConfiguratorStore } from "@/components/tools/Store";
 
 interface CodeSectionProps {
     code: LabeledElement | undefined;

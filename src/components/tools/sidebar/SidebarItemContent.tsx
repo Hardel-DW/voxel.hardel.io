@@ -1,7 +1,6 @@
+import { useConfiguratorStore } from "@/components/tools/Store";
+import { useElementCondition, useElementLocks } from "@/lib/hook/useBreezeElement";
 import { Identifier } from "@voxelio/breeze/core";
-import { useConfiguratorStore } from "@voxelio/breeze/core";
-import { useElementLocks } from "@voxelio/breeze/core";
-import { useElementCondition } from "@voxelio/breeze/core";
 import type { RefObject } from "react";
 
 export default function SidebarItemContent({ elementId, switchRef }: { elementId: string; switchRef: RefObject<HTMLDivElement | null> }) {

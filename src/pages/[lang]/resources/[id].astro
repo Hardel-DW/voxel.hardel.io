@@ -5,7 +5,7 @@ import MarketplaceCard from "@/components/pages/resource/MarketplaceCard.astro";
 import StripeScript from "@/components/ui/Stripe.astro";
 import Button from "@/components/ui/button.astro";
 import ShiningStars from "@/components/ui/pattern/ShiningStars.astro";
-import TriangleWave from "@/components/ui/pattern/TriangleWave";
+import TriangleWave from "@/components/ui/react/geometry/triangle/TriangleWave";
 import Star from "@/components/ui/star.astro";
 import { db } from "@/database/db";
 import { product } from "@/database/schema";
@@ -16,8 +16,12 @@ export const prerender = true;
 const { lang, translate } = await getTranslations(Astro.url);
 
 export async function getStaticPaths() {
+    if (!import.meta.env.STRIPE_SECRET_KEY) {
+        throw new Error("STRIPE_SECRET_KEY is not set");
+    }
+
     const stripe = new Stripe(import.meta.env.STRIPE_SECRET_KEY, {
-        apiVersion: "2024-12-18.acacia"
+        apiVersion: "2025-01-27.acacia"
     });
 
     const packs = await db.select().from(product);

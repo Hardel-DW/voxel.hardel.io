@@ -1,14 +1,14 @@
 ---
 import PageLayout from "@/components/layouts/PageLayout.astro";
 import Button from "@/components/ui/button.astro";
-import ButtonCopy from "@/components/ui/codeblock/ButtonCopy";
+import ButtonCopy from "@/components/ui/react/codeblock/ButtonCopy";
 import { getTranslations } from "@/lib/i18n";
 import Stripe from "stripe";
 
 export const prerender = false;
 const { translate } = await getTranslations(Astro.url);
 const stripe = new Stripe(import.meta.env.STRIPE_SECRET_KEY, {
-    apiVersion: "2024-12-18.acacia"
+    apiVersion: "2025-01-27.acacia"
 });
 
 const { session } = Astro.params;

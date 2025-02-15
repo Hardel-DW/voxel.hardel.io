@@ -29,7 +29,7 @@ export function DropdownMenuTrigger(props: {
 export function DropdownMenuContent(props: { children: ReactNode; className?: string }) {
     const { open, setOpen, triggerRef } = useDropdown();
     const contentRef = useRef<HTMLDivElement>(null);
-    const isVisible = usePopoverVisibility({ open });
+    const { isVisible } = usePopoverVisibility({ open });
     const position = usePopoverPosition({ triggerRef, contentRef, open });
     const clickOutsideRef = useClickOutside(() => setOpen(false));
 

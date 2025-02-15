@@ -54,7 +54,7 @@ export function DialogTrigger(props: {
     children: ReactElement<{ ref?: React.Ref<HTMLElement>; onClick?: (e: React.MouseEvent) => void; className?: string }>;
     className?: string;
 }) {
-    const { setOpen, triggerRef } = useDialog();
+    const { open, setOpen, triggerRef } = useDialog();
     const { onOpenChange, isControlled } = useContext(DialogContext);
 
     const handleToggle = () => {
@@ -78,7 +78,7 @@ export function DialogContent(props: {
 }) {
     const { open, setOpen } = useDialog();
     const contentRef = useRef<HTMLDivElement>(null);
-    const isVisible = usePopoverVisibility({ open, transitionDuration: 150 });
+    const { isVisible } = usePopoverVisibility({ open, transitionDuration: 150 });
     const clickOutsideRef = useClickOutside(() => setOpen(false));
 
     if (!isVisible && !open) return null;

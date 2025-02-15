@@ -26,9 +26,14 @@
             "nursery": {
                 "useComponentExportOnlyModules": "warn"
             },
+            "a11y": {
+                "noSvgWithoutTitle": "off",
+                "useKeyWithClickEvents": "off"
+            },
             "recommended": true
         }
     },
+
     "javascript": {
         "formatter": {
             "jsxQuoteStyle": "double",

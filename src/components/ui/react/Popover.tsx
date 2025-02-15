@@ -40,7 +40,7 @@ export function PopoverContent(props: {
 }) {
     const { open, setOpen, triggerRef } = usePopover();
     const contentRef = useRef<HTMLDivElement>(null);
-    const isVisible = usePopoverVisibility({ open, transitionDuration: 150 });
+    const { isVisible } = usePopoverVisibility({ open, transitionDuration: 150 });
     const position = usePopoverPosition({ triggerRef, contentRef, open });
     const clickOutsideRef = useClickOutside(() => setOpen(false));
     if (!isVisible && !open) return null;

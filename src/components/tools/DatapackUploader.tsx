@@ -3,7 +3,7 @@ import { useTranslate } from "@/lib/hook/useTranslate";
 import useAsyncError from "@/lib/hook/useAsyncError";
 import type { Analysers } from "@voxelio/breeze/core";
 import { parseDatapack } from "@voxelio/breeze/core";
-import { useConfiguratorStore } from "@voxelio/breeze/core";
+import { useConfiguratorStore } from "@/components/tools/Store";
 import { DatapackError } from "@voxelio/breeze/core";
 import type { TranslationKey } from "@voxelio/breeze/i18n";
 import { toast } from "sonner";
@@ -24,7 +24,9 @@ export default function DatapackUploader(props: { tool: keyof Analysers }) {
                 description: t("tools.upload.success.description")
             });
 
+            console.log(result);
             useConfiguratorStore.getState().setup(result);
+            console.log(useConfiguratorStore.getState());
         } catch (e: unknown) {
             if (e instanceof DatapackError) {
                 throwError(e.message as TranslationKey);

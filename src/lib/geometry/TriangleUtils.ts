@@ -1,4 +1,4 @@
-import type { TriangleType } from "@/components/ui/pattern/Triangle.tsx";
+import type { TriangleType } from "@/components/ui/react/geometry/triangle/Triangle";
 
 export const createTriangle = (centerX: number, centerY: number, maxDistance: number, centralRadius: number): TriangleType => {
     const angle = Math.random() * Math.PI * 2;

@@ -4,9 +4,10 @@ import { useTranslate } from "@/lib/hook/useTranslate";
 import { type IActionResponse, useAIStream } from "@/lib/hook/useAIStream";
 import { useClickOutside } from "@/lib/hook/useClickOutside";
 import { cn } from "@/lib/utils";
-import { Identifier, SplitSequentialAction, useConfiguratorStore } from "@voxelio/breeze/core";
+import { Identifier, SplitSequentialAction } from "@voxelio/breeze/core";
 import { useState } from "react";
 import type { PropsConfirmationCardAI } from "./ConfirmationCardAI";
+import { useConfiguratorStore } from "@/components/tools/Store";
 
 export const Island: React.FC = () => {
     const { t } = useTranslate();

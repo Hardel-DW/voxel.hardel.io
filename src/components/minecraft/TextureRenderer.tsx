@@ -1,15 +1,16 @@
+import { cn } from "@/lib/utils";
 import { ITEMS } from "@voxelio/breeze/schema";
 
-export default function TextureRenderer(props: { id: string }) {
+export default function TextureRenderer(props: { id: string; className?: string }) {
     if (!(props.id in ITEMS)) {
         return null;
     }
 
     const asset = ITEMS[props.id as keyof typeof ITEMS];
     return (
-        <div className="h-10 w-10 relative shrink-0">
+        <div className={cn("h-10 w-10 relative shrink-0", props.className)}>
             <div
-                className="atlas absolute inset-0 pixelated scale-110"
+                className="atlas absolute inset-0 pixelated"
                 style={{
                     backgroundPosition: `${-asset[0]}px ${-asset[1]}px`,
                     width: `${asset[2]}px`,

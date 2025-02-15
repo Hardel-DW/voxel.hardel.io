@@ -1,5 +1,5 @@
 import { RenderComponent } from "@/components/tools/RenderComponent";
-import { useConfiguratorStore } from "@voxelio/breeze/core";
+import { useConfiguratorStore } from "@/components/tools/Store";
 import { createIterations, resolveIterationValue } from "@voxelio/breeze/core";
 import type { FormComponent, TemplateReplacer, ToolIterationType } from "@voxelio/breeze/core";
 

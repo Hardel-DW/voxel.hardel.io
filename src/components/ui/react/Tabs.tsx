@@ -69,7 +69,7 @@ export default function Tabs({ tabs, defaultTab, onChange, className, disabled }
                             }
                         }}
                         className={cn(
-                            "text-zinc-500 whitespace-nowrap rounded-xl px-3 py-1.5 font-medium transition-all cursor-pointer disabled:pointer-events-none hover:text-white",
+                            "text-zinc-500 flex-1 whitespace-nowrap rounded-xl px-3 py-1.5 font-medium transition-all cursor-pointer disabled:pointer-events-none hover:text-white",
                             disabled && "cursor-not-allowed",
                             isActive ? "text-white" : "text-muted-foreground hover:text-foreground/80"
                         )}>

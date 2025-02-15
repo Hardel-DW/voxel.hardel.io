@@ -1,4 +1,4 @@
-import { useConfiguratorStore } from "@voxelio/breeze/core";
+import { useConfiguratorStore } from "@/components/tools/Store";
 import { SidebarItem } from "./SidebarItem";
 
 export const SidebarContainer = () => {

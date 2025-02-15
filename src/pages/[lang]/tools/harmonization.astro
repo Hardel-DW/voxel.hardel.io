@@ -95,7 +95,7 @@ export async function getStaticPaths() {
 <script>
     import {extractPalette, loadImage, quantizeImage, type RGB, cleanPalette} from "@/lib/utils/image";
 
-    const dropzoneInput = document.getElementById("dropzone-file");
+    const dropzoneContainer = document.getElementById('dropzone-container');
     const outputCanvas = document.getElementById("output") as HTMLCanvasElement;
     const paletteDisplay = document.getElementById("paletteDisplay");
     const downloadBtn = document.getElementById("downloadBtn");
@@ -236,7 +236,8 @@ export async function getStaticPaths() {
     };
 
     // Gérer le téléchargement et le traitement de l'image
-    dropzoneInput?.addEventListener("fileUpload", async (e: Event) => {
+    dropzoneContainer?.addEventListener("fileUpload", async (e: Event) => {
+        console.log(e);
         const files = (e as CustomEvent).detail.files;
         if (!files.length) return;
 

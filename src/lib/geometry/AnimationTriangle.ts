@@ -1,6 +1,6 @@
-import type { TriangleType } from "@/components/ui/pattern/Triangle.tsx";
-import { drawTriangle } from "@/lib/triangle/DrawUtils.ts";
-import { createTriangle } from "@/lib/triangle/TriangleUtils.ts";
+import type { TriangleType } from "@/components/ui/react/geometry/triangle/Triangle";
+import { drawTriangle } from "@/lib/geometry/DrawUtils";
+import { createTriangle } from "@/lib/geometry/TriangleUtils";
 
 export const animate = (
     ctx: CanvasRenderingContext2D,

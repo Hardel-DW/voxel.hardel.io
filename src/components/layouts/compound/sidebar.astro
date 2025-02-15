@@ -24,13 +24,14 @@ export type NavigationGroup = {
 
 export interface Props {
     groups: NavigationGroup[];
+    slot?: string;
 }
 
-const { groups }: Props = Astro.props;
+const { groups, slot }: Props = Astro.props;
 const isActive = (href: string) => Astro.url.pathname === href;
 ---
 
-<nav class="flex-1 overflow-y-auto py-6">
+<nav class="flex-1 overflow-y-auto py-6" slot={slot}>
     {groups.map((group) => (
         <SidebarGroup title={group.title}>
             {group.items.map((item) => {

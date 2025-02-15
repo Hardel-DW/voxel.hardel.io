@@ -1,4 +1,4 @@
-import type { TriangleType } from "@/components/ui/react/geometry/Triangle";
+import type { TriangleType } from "@/components/ui/react/geometry/triangle/Triangle";
 import { drawTriangle } from "@/lib/geometry/DrawUtils";
 import { createTriangle } from "@/lib/geometry/TriangleUtils";
 

@@ -1,6 +1,7 @@
 ---
 import DashboardLayout from "@/components/layouts/DashboardLayout.astro";
 import type { Props as SidebarProps } from "@/components/layouts/compound/sidebar.astro";
+import Sidebar from "@/components/layouts/compound/sidebar.astro";
 import { getTranslations } from "@/lib/i18n";
 import { GET as getTelemetry } from "@/pages/api/stats/telemetry";
 
@@ -31,10 +32,13 @@ const telemetry = await getTelemetry(Astro);
 const telemetryData = await telemetry.json();
 ---
 
-<DashboardLayout title={translate["stats.telemetry.title"]} description={translate["stats.telemetry.description"]} image="/images/opengraph/stats.webp" sidebar={defaultSidebar}>
+<DashboardLayout title={translate["stats.telemetry.title"]} description={translate["stats.telemetry.description"]} image="/images/opengraph/stats.webp">
+    <Sidebar groups={defaultSidebar.groups} slot="sidebar"/>
+
     <h1 class="text-3xl font-bold px-8">{translate["stats.telemetry.title"]}</h1>
     <p class="text-sm text-zinc-400 px-8"> 
         {translate["stats.telemetry.description"]}
+
     </p>
 
     <hr class="my-8" /> 

@@ -5,7 +5,7 @@ interface UsePopoverVisibilityProps {
     transitionDuration?: number;
 }
 
-export const usePopoverVisibility = ({ open, transitionDuration = 500 }: UsePopoverVisibilityProps) => {
+export const usePopoverVisibility = ({ open, transitionDuration = 150 }: UsePopoverVisibilityProps) => {
     const [isVisible, setIsVisible] = useState(false);
 
     useEffect(() => {
@@ -17,5 +17,5 @@ export const usePopoverVisibility = ({ open, transitionDuration = 500 }: UsePopo
         }
     }, [open, transitionDuration]);
 
-    return isVisible;
+    return { isVisible, isLeaving: !open && isVisible };
 };

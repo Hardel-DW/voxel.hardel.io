@@ -1,0 +1,21 @@
+---
+import DashboardLayout from "@/components/layouts/DashboardLayout.astro";
+import CopilotTool from "@/components/pages/tools/copilot/CopilotTool";
+import { getTranslations, names } from "@/lib/i18n";
+import CopilotSidebar from "@/components/pages/tools/copilot/sidebar/CopilotSidebar";
+const { lang, translate } = await getTranslations(Astro.url);
+
+export const prerender = true;
+export async function getStaticPaths() {
+    return names.map((element) => ({
+        params: { lang: element.lang }
+    }));
+}
+---
+
+<DashboardLayout title={translate["tools.enchantments.seo.title"]} description={translate["tools.enchantments.seo.description"]} image="/images/background/blog/update/month/december.webp">
+    <div slot="sidebar" class="contents">
+        <CopilotSidebar lang={lang} client:only="react" />
+    </div>
+    <CopilotTool lang={lang} client:only="react" />
+</DashboardLayout>

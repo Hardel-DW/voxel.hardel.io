@@ -21,7 +21,7 @@ if (!import.meta.env.PUBLIC_SITE_URL) {
 }
 
 const stripe = new Stripe(import.meta.env.STRIPE_SECRET_KEY, {
-    apiVersion: "2024-06-20"
+    apiVersion: "2024-12-18.acacia"
 });
 
 const resend = new Resend(import.meta.env.RESEND_API_KEY);

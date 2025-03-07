@@ -1,0 +1,43 @@
+---
+import DashboardLayout from "@/components/layouts/DashboardLayout.astro";
+import SidebarStats from "@/components/pages/stats/SidebarStats.astro";
+import { getTranslations } from "@/lib/i18n";
+import { GET as getEnchantmentLogs } from "@/pages/api/stats/enchantment-logs";
+import type { Log } from "@voxelio/breeze";
+import { EnchantmentModeChart } from "@/components/pages/stats/enchantment/EnchantmentModeCharts";
+
+let logsData: Log[] = [];
+try {
+    const logsResponse = await getEnchantmentLogs(Astro);
+    logsData = await logsResponse.json();
+} catch (error) {
+    console.error("Error fetching enchantment logs:", error);
+}
+
+const { lang } = await getTranslations(Astro.url);
+---
+
+<DashboardLayout 
+    title="Enchantment Mode Analysis" 
+    description="Analyze the distribution of enchantment modes across different namespaces" 
+    image="/images/opengraph/stats.webp"
+>
+    <SidebarStats lang={lang} slot="sidebar" />
+
+    <h1 class="text-3xl font-bold px-8">Enchantment Mode Analysis</h1>
+    <p class="text-sm text-zinc-400 px-8">
+        This dashboard shows the distribution of enchantment modes (normal, soft_delete, only_creative) across different namespaces.
+    </p>
+
+    <hr class="my-8" />
+
+    <div class="flex flex-col gap-8 pb-8">
+        <EnchantmentModeChart 
+            client:load
+            client:only="react"
+            logs={logsData}
+            title="Enchantment Mode Distribution"
+            description="Analysis of enchantment modes across different namespaces"
+        />
+    </div>
+</DashboardLayout> 

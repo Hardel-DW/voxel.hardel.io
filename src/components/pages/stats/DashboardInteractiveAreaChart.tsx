@@ -1,8 +1,8 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/react/Card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/react/Select.tsx";
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/react/recharts";
-import React from "react";
 import { Area, AreaChart, CartesianGrid, XAxis, YAxis } from "recharts";
+import React from "react";
 
 export function DashboardInteractiveAreaChart(props: {
     data: {

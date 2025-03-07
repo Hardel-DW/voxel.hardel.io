@@ -8,7 +8,7 @@ interface TextInputProps extends InputHTMLAttributes<HTMLInputElement> {
 
 export function TextInput({ id, label, onValueChange, ...props }: TextInputProps) {
     return (
-        <div className="relative w-full mt-4">
+        <div className="relative w-full">
             {label && (
                 <label htmlFor={id} className="block text-sm font-medium text-zinc-400 mb-1">
                     {label}
@@ -18,7 +18,7 @@ export function TextInput({ id, label, onValueChange, ...props }: TextInputProps
                 id={id}
                 type="text"
                 onChange={(e) => onValueChange?.(e.target.value)}
-                className="w-full border px-4 py-2 text-sm font-normal outline-0 focus-visible:border-fuchsia-700 border-zinc-700 hover:border-zinc-600 text-zinc-400 hover:text-zinc-200 bg-black/50 transition-colors rounded-[0.5rem] shadow-2xl shadow-black"
+                className="w-full border px-4 py-2 text-sm font-normal outline-0 focus-visible:border-fuchsia-700 border-zinc-700 hover:border-zinc-600 text-zinc-400 hover:text-zinc-200 transition-colors rounded-[0.5rem] shadow-2xl shadow-black"
                 {...props}
             />
         </div>

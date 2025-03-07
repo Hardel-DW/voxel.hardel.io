@@ -1,0 +1,49 @@
+---
+import DashboardLayout from "@/components/layouts/DashboardLayout.astro";
+import SidebarStats from "@/components/pages/stats/SidebarStats.astro";
+import { getTranslations } from "@/lib/i18n";
+import { GET as getEnchantmentLogs } from "@/pages/api/stats/enchantment-logs";
+import { EnchantmentStatsChart } from "@/components/pages/stats/enchantment/EnchantmentStatsCharts";
+
+let enchantmentData = [];
+try {
+    const response = await getEnchantmentLogs(Astro);
+    enchantmentData = await response.json();
+    console.log(`Stats page received ${enchantmentData.length} enchantments`);
+} catch (error) {
+    console.error("Error fetching enchantment data:", error);
+}
+
+const { lang } = await getTranslations(Astro.url);
+---
+
+<DashboardLayout 
+    title="Enchantment Stats Analysis" 
+    description="Analyze enchantment statistics across different namespaces" 
+    image="/images/opengraph/stats.webp"
+>
+    <SidebarStats lang={lang} slot="sidebar" />
+
+    <h1 class="text-3xl font-bold px-8">Enchantment Stats Analysis</h1>
+    <p class="text-sm text-zinc-400 px-8">
+        This dashboard shows statistical analysis of enchantment properties (max level, anvil cost, weight) across different namespaces.
+    </p>
+
+    <hr class="my-8" />
+
+    <div class="flex flex-col gap-8 pb-8">
+        {enchantmentData.length > 0 ? (
+            <EnchantmentStatsChart 
+                client:load
+                client:only="react"
+                data={enchantmentData}
+                title="Enchantment Properties Analysis"
+                description="Statistical analysis of enchantment properties showing original, average, and median values"
+            />
+        ) : (
+            <div class="text-center p-8 bg-zinc-900 rounded-lg">
+                <p>No enchantment data available. Please check the server logs for more information.</p>
+            </div>
+        )}
+    </div>
+</DashboardLayout> 

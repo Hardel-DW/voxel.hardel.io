@@ -1,39 +1,16 @@
 ---
 import DashboardLayout from "@/components/layouts/DashboardLayout.astro";
-import type { Props as SidebarProps } from "@/components/layouts/compound/sidebar.astro";
-import Sidebar from "@/components/layouts/compound/sidebar.astro";
+import SidebarStats from "@/components/pages/stats/SidebarStats.astro";
 import { getTranslations } from "@/lib/i18n";
 import { GET as getTelemetry } from "@/pages/api/stats/telemetry";
 
-const { translate } = await getTranslations(Astro.url);
-const defaultSidebar: SidebarProps = {
-    groups: [
-        {
-            title: "General",
-            items: [
-                {
-                    type: "item",
-                    title: "Dashboard",
-                    href: "overview",
-                    icon: "/icons/layout/grid.svg"
-                },
-                {
-                    type: "item",
-                    title: "Telemetry",
-                    href: "telemetry",
-                    icon: "/icons/layout/list.svg"
-                }
-            ]
-        }
-    ]
-};
-
+const { translate, lang } = await getTranslations(Astro.url);
 const telemetry = await getTelemetry(Astro);
 const telemetryData = await telemetry.json();
 ---
 
 <DashboardLayout title={translate["stats.telemetry.title"]} description={translate["stats.telemetry.description"]} image="/images/opengraph/stats.webp">
-    <Sidebar groups={defaultSidebar.groups} slot="sidebar"/>
+    <SidebarStats lang={lang} slot="sidebar" />
 
     <h1 class="text-3xl font-bold px-8">{translate["stats.telemetry.title"]}</h1>
     <p class="text-sm text-zinc-400 px-8"> 

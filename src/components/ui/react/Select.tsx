@@ -103,7 +103,7 @@ export function SelectContent({ children, className }: { children: ReactNode; cl
             }}
             hidden={!open}
             className={cn(
-                "z-50 max-h-96 min-w-[8rem] overflow-hidden rounded-md border border-zinc-700 bg-zinc-950 text-zinc-400 shadow-md outline-hidden",
+                "z-50 max-h-[50vh] min-w-[8rem] overflow-y-auto rounded-md border border-zinc-700 bg-zinc-950 text-zinc-400 shadow-md outline-hidden",
                 "starting:scale-95 duration-150 ease-bounce transition-[translate,scale,display,opacity]",
                 "hidden:scale-95 transition-discrete",
                 className
@@ -129,7 +129,7 @@ export function SelectItem<T>({ value, children, className }: { value: T; childr
                 setOpen(false);
             }}
             className={cn(
-                "relative flex w-full cursor-default select-none items-center rounded-xs py-1.5 pl-8 pr-2 text-sm outline-hidden hover:bg-zinc-900 hover:text-zinc-200 data-disabled:pointer-events-none data-disabled:opacity-50",
+                "relative flex w-full cursor-default select-none items-center rounded-xs py-1.5 pl-8 pr-2 text-sm text-left outline-hidden hover:bg-zinc-900 hover:text-zinc-200 data-disabled:pointer-events-none data-disabled:opacity-50",
                 className
             )}>
             <span className="absolute left-2 flex h-3.5 w-3.5 items-center justify-center">

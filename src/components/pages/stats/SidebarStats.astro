@@ -1,0 +1,51 @@
+---
+import type { Props as SidebarProps } from "@/components/layouts/compound/sidebar.astro";
+import Sidebar from "@/components/layouts/compound/sidebar.astro";
+
+interface Props {
+    lang: string;
+}
+
+const { lang } = Astro.props;
+
+const sidebarLinks: SidebarProps = {
+    groups: [
+        {
+            title: "General",
+            items: [
+                {
+                    type: "item",
+                    title: "Dashboard",
+                    href: `/${lang}/stats`,
+                    icon: "/icons/layout/grid.svg"
+                },
+                {
+                    type: "item",
+                    title: "Telemetry",
+                    href: `/${lang}/stats/telemetry`,
+                    icon: "/icons/layout/list.svg"
+                }
+            ]
+        },
+        {
+            title: "Enchantments",
+            items: [
+                {
+                    type: "item",
+                    title: "Enchantment Mode",
+                    href: `/${lang}/stats/enchantment`,
+                    icon: "/icons/layout/list.svg"
+                },
+                {
+                    type: "item",
+                    title: "Enchantment Stats",
+                    href: `/${lang}/stats/enchantment-stats`,
+                    icon: "/icons/layout/list.svg"
+                }
+            ]
+        }
+    ]
+};
+---
+
+<Sidebar groups={sidebarLinks.groups} /> 

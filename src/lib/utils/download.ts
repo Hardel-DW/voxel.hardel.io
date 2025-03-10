@@ -20,9 +20,9 @@ export const downloadFile = (content: Uint8Array, filename: string, type: string
  * Télécharge un fichier ZIP ou JAR
  * @param content Le contenu du fichier
  * @param name Le nom du fichier sans extension
- * @param isJar Si true, utilise l'extension .jar, sinon .zip
+ * @param isModded Si true, utilise l'extension .jar, sinon .zip
  */
-export const downloadArchive = (content: Uint8Array, name: string, isJar = false) => {
-    const extension = isJar ? "jar" : "zip";
+export const downloadArchive = (content: Uint8Array, name: string, isModded = false) => {
+    const extension = isModded ? "jar" : "zip";
     downloadFile(content, `${name}.${extension}`, `application/${extension}`);
 };

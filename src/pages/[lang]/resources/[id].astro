@@ -16,6 +16,10 @@ export const prerender = true;
 const { lang, translate } = await getTranslations(Astro.url);
 
 export async function getStaticPaths() {
+    if (!import.meta.env.STRIPE_SECRET_KEY) {
+        throw new Error("STRIPE_SECRET_KEY is not set");
+    }
+
     const stripe = new Stripe(import.meta.env.STRIPE_SECRET_KEY, {
         apiVersion: "2025-02-24.acacia"
     });

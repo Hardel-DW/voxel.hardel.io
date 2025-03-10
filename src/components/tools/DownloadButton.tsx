@@ -21,12 +21,12 @@ export default function DownloadButton() {
 
     const handleClick = async () => {
         const store = useConfiguratorStore.getState();
-        const { logger, files, minify, name, isJar } = store;
+        const { logger, files, minify, name, isModded } = store;
 
         const content = store.compile();
         const compiledContent = await new Datapack(files).generate(content, { isMinified: minify, logger, include: voxelDatapacks });
         await saveLogs({ logs: logger?.getLogs() });
-        downloadArchive(compiledContent, name, isJar);
+        downloadArchive(compiledContent, name, isModded);
     };
 
     return (

@@ -81,7 +81,7 @@ export function SelectValue({ placeholder }: { placeholder?: string }) {
 export function SelectContent({ children, className }: { children: ReactNode; className?: string }) {
     const { open, setOpen, triggerRef } = SelectContext.useDisclosure();
     const contentRef = useRef<HTMLDivElement>(null);
-    const isVisible = usePopoverVisibility({ open, transitionDuration: 150 });
+    const { isVisible } = usePopoverVisibility({ open, transitionDuration: 150 });
     const position = usePopoverPosition({ triggerRef, contentRef, open });
     const clickOutsideRef = useClickOutside(() => setOpen(false));
 

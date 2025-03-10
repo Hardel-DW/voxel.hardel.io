@@ -12,7 +12,6 @@ export default function CraftingPage() {
     const [recipeType, setRecipeType] = useState<RecipeOfEnum>(RECIPES[0]);
     const elements = useCopilotStore((state) => getElementByRegistry<Recipe>(state, "recipe"));
     const recipeComparator = new RecipeComparator(elements).groupRecipes();
-    console.log(recipeComparator);
 
     return (
         <div className="relative mt-4">

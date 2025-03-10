@@ -1,4 +1,4 @@
-import { getElementByRegistry, useCopilotStore } from "@/components/pages/tools/copilot/store/DatapackStore";
+// import { getElementByRegistry, useCopilotStore } from "@/components/pages/tools/copilot/store/DatapackStore";
 
 export default function SidebarLoot() {
     // const elements = useCopilotStore((state) => getElementByRegistry<any>(state, "loot_table"));

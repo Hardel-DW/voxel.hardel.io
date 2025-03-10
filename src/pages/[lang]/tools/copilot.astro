@@ -15,7 +15,7 @@ export async function getStaticPaths() {
 
 <DashboardLayout title={translate["tools.enchantments.seo.title"]} description={translate["tools.enchantments.seo.description"]} image="/images/background/blog/update/month/december.webp">
     <div slot="sidebar" class="contents">
-        <CopilotSidebar lang={lang} client:only="react" />
+        <CopilotSidebar client:only="react" />
     </div>
     <CopilotTool lang={lang} client:only="react" />
 </DashboardLayout>

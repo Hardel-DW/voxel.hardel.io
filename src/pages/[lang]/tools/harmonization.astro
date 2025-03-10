@@ -237,7 +237,6 @@ export async function getStaticPaths() {
 
     // Gérer le téléchargement et le traitement de l'image
     dropzoneContainer?.addEventListener("fileUpload", async (e: Event) => {
-        console.log(e);
         const files = (e as CustomEvent).detail.files;
         if (!files.length) return;
 

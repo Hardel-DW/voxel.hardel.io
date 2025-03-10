@@ -55,8 +55,6 @@ describe("LootTable", () => {
             const table = new LootTable(mock);
             const items = table.getAllItems();
 
-            console.log(items);
-
             // Total weight is 33 (1 + 10 + 20 + 2)
             expect(items).toHaveLength(4);
 

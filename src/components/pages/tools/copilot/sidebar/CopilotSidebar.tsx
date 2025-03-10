@@ -15,7 +15,7 @@ const tabs = [
     }
 ];
 
-export default function CopilotSidebar(props: { lang: string }) {
+export default function CopilotSidebar() {
     const [activeTab, setActiveTab] = useState<string>("concepts");
 
     return (

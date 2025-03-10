@@ -1,5 +1,3 @@
-import type { LootPool } from "./LootTable";
-
 export interface LootPoolEntryObject {
     type: string;
 }
@@ -9,40 +7,40 @@ export interface BaseLootPoolEntry {
     quality?: number;
 }
 
-interface LootPoolEntryAlternative extends LootPoolEntryObject {
-    type: "minecraft:alternatives";
-    children: LootPoolEntryObject[];
-}
-
-interface LootPoolEntrySequence extends LootPoolEntryObject {
-    type: "minecraft:sequence";
-    children: LootPoolEntryObject[];
-}
-
-interface LootPoolEntryGroup extends LootPoolEntryObject {
-    type: "minecraft:group";
-    children: LootPoolEntryObject[];
-}
-
 interface LootPoolEntryItem extends LootPoolEntryObject, BaseLootPoolEntry {
     type: "minecraft:item";
     name: string;
 }
 
-interface LootPoolEntryEmpty extends LootPoolEntryObject, BaseLootPoolEntry {
-    type: "minecraft:empty";
-}
+// interface LootPoolEntryAlternative extends LootPoolEntryObject {
+//     type: "minecraft:alternatives";
+//     children: LootPoolEntryObject[];
+// }
 
-interface LootPoolEntryTag extends LootPoolEntryObject, BaseLootPoolEntry {
-    type: "minecraft:tag";
-    name: string;
-    expand: boolean;
-}
+// interface LootPoolEntrySequence extends LootPoolEntryObject {
+//     type: "minecraft:sequence";
+//     children: LootPoolEntryObject[];
+// }
 
-interface LootPoolEntryLootTable extends LootPoolEntryObject, BaseLootPoolEntry {
-    type: "minecraft:loot_table";
-    name: string | LootPool;
-}
+// interface LootPoolEntryGroup extends LootPoolEntryObject {
+//     type: "minecraft:group";
+//     children: LootPoolEntryObject[];
+// }
+
+// interface LootPoolEntryEmpty extends LootPoolEntryObject, BaseLootPoolEntry {
+//     type: "minecraft:empty";
+// }
+
+// interface LootPoolEntryTag extends LootPoolEntryObject, BaseLootPoolEntry {
+//     type: "minecraft:tag";
+//     name: string;
+//     expand: boolean;
+// }
+
+// interface LootPoolEntryLootTable extends LootPoolEntryObject, BaseLootPoolEntry {
+//     type: "minecraft:loot_table";
+//     name: string | LootPool;
+// }
 
 export interface ItemWithChance {
     item: LootPoolEntryItem;

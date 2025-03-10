@@ -1,7 +1,7 @@
 ---
 import DashboardLayout from "@/components/layouts/DashboardLayout.astro";
 import SidebarStats from "@/components/pages/stats/SidebarStats.astro";
-import { EnchantmentStatsChart, type PropertyMapConfig } from "@/components/pages/stats/enchantment/EnchantmentStatsCharts";
+import { EnchantmentStatsChart } from "@/components/pages/stats/enchantment/EnchantmentStatsCharts";
 import { getTranslations } from "@/lib/i18n";
 import { GET as getEnchantmentLogs } from "@/pages/api/stats/enchantment-logs";
 
@@ -9,7 +9,6 @@ let enchantmentData = [];
 try {
     const response = await getEnchantmentLogs(Astro);
     enchantmentData = await response.json();
-    console.log(`Stats page received ${enchantmentData.length} enchantments`);
 } catch (error) {
     console.error("Error fetching enchantment data:", error);
 }

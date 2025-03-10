@@ -1,5 +1,6 @@
 import { db } from "@/database/db";
 import { migrationLog, migrationNamespace } from "@/database/schema";
+import { snakeToTitleCase } from "@/lib/utils";
 import type { APIRoute } from "astro";
 import { sql } from "drizzle-orm";
 
@@ -26,6 +27,11 @@ export type ResponseNamespaceStats = {
 
 export const GET: APIRoute = async () => {
     try {
+        const minOccurence = 10;
+        const limit = 10;
+        const minMonthlyOccurence = 5;
+        const monthlyLimit = 10;
+
         // Get overall namespace stats
         const overallStats = await db.execute<NamespaceStats>(sql`
             WITH total_datapacks AS (
@@ -69,6 +75,18 @@ export const GET: APIRoute = async () => {
             ORDER BY mn.month DESC, mn.count DESC
         `);
 
+        // Process overall stats with filters et formatage
+        const summaries = overallStats.rows
+            .map((stat) => ({
+                ...stat,
+                occurence: Number(stat.occurence),
+                proportion: Number(stat.proportion),
+                namespace: snakeToTitleCase(stat.namespace)
+            }))
+            .filter((stat) => stat.occurence >= minOccurence)
+            .sort((a, b) => b.occurence - a.occurence)
+            .slice(0, limit);
+
         // Group monthly stats by month
         const per_month: Record<string, NamespaceStats[]> = {};
 
@@ -85,22 +103,23 @@ export const GET: APIRoute = async () => {
             const proportion = (Number(occurence) / monthTotal) * 100;
 
             per_month[month].push({
-                namespace,
+                namespace: snakeToTitleCase(namespace),
                 occurence: Number(occurence),
                 proportion: Number(proportion.toFixed(2))
             });
+        }
 
-            // Sort by occurence descending
-            per_month[month].sort((a, b) => b.occurence - a.occurence);
+        // Filtrer et limiter les données mensuelles
+        for (const month of Object.keys(per_month)) {
+            per_month[month] = per_month[month]
+                .filter((item) => item.occurence >= minMonthlyOccurence)
+                .sort((a, b) => b.occurence - a.occurence)
+                .slice(0, monthlyLimit);
         }
 
         // Prepare response
         const response = {
-            summaries: overallStats.rows.map((stat) => ({
-                ...stat,
-                occurence: Number(stat.occurence),
-                proportion: Number(stat.proportion)
-            })),
+            summaries,
             per_month
         };
 

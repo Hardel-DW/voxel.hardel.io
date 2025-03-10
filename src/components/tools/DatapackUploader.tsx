@@ -1,9 +1,9 @@
+import { useConfiguratorStore } from "@/components/tools/Store";
 import Dropzone from "@/components/ui/react/Dropzone.tsx";
-import { useTranslate } from "@/lib/hook/useTranslate";
 import useAsyncError from "@/lib/hook/useAsyncError";
+import { useTranslate } from "@/lib/hook/useTranslate";
 import type { Analysers } from "@voxelio/breeze/core";
 import { parseDatapack } from "@voxelio/breeze/core";
-import { useConfiguratorStore } from "@/components/tools/Store";
 import { DatapackError } from "@voxelio/breeze/core";
 import type { TranslationKey } from "@voxelio/breeze/i18n";
 import { toast } from "sonner";

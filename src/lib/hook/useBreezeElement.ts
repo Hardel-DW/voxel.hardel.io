@@ -1,7 +1,7 @@
-import { getConditionFields, getLockFields, getRendererFields, getValue, checkLocks, checkCondition } from "@voxelio/breeze/core";
-import type { VoxelElement, Condition, Lock, ValueRenderer, TranslateTextType } from "@voxelio/breeze/core";
-import { useShallow } from "zustand/shallow";
 import { getCurrentElement, useConfiguratorStore } from "@/components/tools/Store";
+import { checkCondition, checkLocks, getConditionFields, getLockFields, getRendererFields, getValue } from "@voxelio/breeze/core";
+import type { Condition, Lock, TranslateTextType, ValueRenderer, VoxelElement } from "@voxelio/breeze/core";
+import { useShallow } from "zustand/shallow";
 
 const useElementFields = (fields: string[], elementId?: string): Partial<VoxelElement> | null => {
     return useConfiguratorStore(

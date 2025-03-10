@@ -1,6 +1,6 @@
-import type { ComponentType } from "react";
-import { CONCEPTS } from "@/components/pages/tools/copilot/store/data/elements";
 import { useSidebarStore } from "@/components/pages/tools/copilot/store/SidebarStore";
+import { CONCEPTS } from "@/components/pages/tools/copilot/store/data/elements";
+import type { ComponentType } from "react";
 
 type WithConceptProps = {};
 

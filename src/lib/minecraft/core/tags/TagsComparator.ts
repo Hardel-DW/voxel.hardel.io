@@ -1,4 +1,4 @@
-import type { DataDrivenRegistryElement, TagType, OptionalTag } from "@voxelio/breeze";
+import type { DataDrivenRegistryElement, OptionalTag, TagType } from "@voxelio/breeze";
 import { Identifier, type IdentifierObject } from "@voxelio/breeze";
 
 /**

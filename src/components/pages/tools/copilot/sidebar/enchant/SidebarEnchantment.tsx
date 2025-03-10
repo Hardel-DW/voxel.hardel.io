@@ -1,7 +1,7 @@
+import EnchantmentCard from "@/components/pages/tools/copilot/sidebar/enchant/EnchantmentCard";
 import { getElementByRegistry, useCopilotStore } from "@/components/pages/tools/copilot/store/DatapackStore";
 import { EnchantmentComparator } from "@/lib/minecraft/core/enchant/EnchantmentComparator";
 import type { Enchantment } from "@voxelio/breeze/schema";
-import EnchantmentCard from "@/components/pages/tools/copilot/sidebar/enchant/EnchantmentCard";
 
 export default function SidebarEnchantment() {
     const elements = useCopilotStore((state) => getElementByRegistry<Enchantment>(state, "enchantment"));

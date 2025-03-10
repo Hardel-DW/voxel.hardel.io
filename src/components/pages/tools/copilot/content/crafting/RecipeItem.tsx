@@ -1,6 +1,6 @@
+import TextureRenderer from "@/components/minecraft/TextureRenderer";
 import type { Recipe } from "@/lib/minecraft/core/recipe/Recipe";
 import type { DataDrivenRegistryElement } from "@voxelio/breeze";
-import TextureRenderer from "@/components/minecraft/TextureRenderer";
 import { Identifier } from "@voxelio/breeze";
 
 export default function RecipeItem(props: { key: string; recipe: DataDrivenRegistryElement<Recipe>[] }) {

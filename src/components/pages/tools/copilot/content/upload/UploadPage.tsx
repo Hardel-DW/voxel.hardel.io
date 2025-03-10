@@ -1,6 +1,6 @@
-import ToastBoundary from "@/components/tools/elements/error/ToastBoundary";
-import { useCopilotStore } from "@/components/pages/tools/copilot/store/DatapackStore";
 import UploadButton from "@/components/pages/tools/copilot/content/upload/UploadButton";
+import { useCopilotStore } from "@/components/pages/tools/copilot/store/DatapackStore";
+import ToastBoundary from "@/components/tools/elements/error/ToastBoundary";
 import { useTranslate } from "@/lib/hook/useTranslate";
 
 export default function UploadPage() {

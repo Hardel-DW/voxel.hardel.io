@@ -1,9 +1,9 @@
+import { useConfiguratorStore } from "@/components/tools/Store";
 import { useTranslate } from "@/lib/hook/useTranslate";
 import { type Analysers, Identifier, getAnalyserForVersion } from "@voxelio/breeze/core";
 import { type Action, updateData } from "@voxelio/breeze/core";
 import { useState } from "react";
 import { ValueRenderer, type ValueRendererProps } from "./value/ValueRenderer";
-import { useConfiguratorStore } from "@/components/tools/Store";
 
 export type PropsConfirmationCardAI = {
     action: Action;

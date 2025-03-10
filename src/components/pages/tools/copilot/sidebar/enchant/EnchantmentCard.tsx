@@ -1,7 +1,7 @@
-import type { IdentifierObject } from "@voxelio/breeze";
 import EnchantmentElement from "@/components/pages/tools/copilot/sidebar/enchant/EnchantmentElement";
 import EnchantmentLabel from "@/components/pages/tools/copilot/sidebar/enchant/EnchantmentLabel";
-import { useRef, useEffect, useState } from "react";
+import type { IdentifierObject } from "@voxelio/breeze";
+import { useEffect, useRef, useState } from "react";
 
 export default function EnchantmentCard(props: { item: string; value: IdentifierObject[] }) {
     const reveal = useRef<HTMLDivElement>(null);

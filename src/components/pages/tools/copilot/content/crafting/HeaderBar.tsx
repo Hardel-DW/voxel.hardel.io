@@ -1,5 +1,5 @@
-import { RECIPES, type RecipeOfEnum } from "@/components/pages/tools/copilot/store/data/recipe";
 import TextureRenderer from "@/components/minecraft/TextureRenderer";
+import { RECIPES, type RecipeOfEnum } from "@/components/pages/tools/copilot/store/data/recipe";
 import { BoxHoveredContent, BoxHoveredTrigger } from "@/components/ui/react/BoxHovered";
 import { BoxHovered } from "@/components/ui/react/BoxHovered";
 import { cn } from "@/lib/utils";

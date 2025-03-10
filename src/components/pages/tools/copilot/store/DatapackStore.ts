@@ -1,4 +1,4 @@
-import { Identifier, type DataDrivenRegistryElement } from "@voxelio/breeze";
+import { type DataDrivenRegistryElement, Identifier } from "@voxelio/breeze";
 import type { DataDrivenElement } from "@voxelio/breeze/core";
 import { create } from "zustand";
 

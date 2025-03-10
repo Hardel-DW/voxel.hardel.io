@@ -1,5 +1,5 @@
-import { useTranslate } from "@/lib/hook/useTranslate";
 import { useConfiguratorStore } from "@/components/tools/Store";
+import { useTranslate } from "@/lib/hook/useTranslate";
 
 export default function SettingsDialog() {
     const { t } = useTranslate();

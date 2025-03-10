@@ -1,4 +1,4 @@
-import { animateLines, createLine, type Line } from "@/lib/geometry/LineAnimationUtils";
+import { type Line, animateLines, createLine } from "@/lib/geometry/LineAnimationUtils";
 import { useEffect, useRef } from "react";
 
 interface LineBackgroundProps {

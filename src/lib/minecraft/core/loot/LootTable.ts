@@ -1,5 +1,5 @@
 import type { NumberProviderObject } from "../NumberProvider";
-import type { LootPoolEntryObject, ItemWithChance } from "./LootPoolEntry";
+import type { ItemWithChance, LootPoolEntryObject } from "./LootPoolEntry";
 import { LootPoolEntry } from "./LootPoolEntry";
 
 export interface LootTableObject {

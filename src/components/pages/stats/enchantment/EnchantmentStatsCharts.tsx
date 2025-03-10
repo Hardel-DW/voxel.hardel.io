@@ -1,47 +1,45 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/react/Card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/react/Select";
-import { useState, useMemo } from "react";
-import { calculateMedian, PACK_VERSION } from "@/lib/utils";
-import { ChartContainer } from "@/components/ui/react/recharts";
-import { Bar, BarChart, CartesianGrid, Legend, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
-import { VersionRangeSelect, type VersionOption } from "../VersionRangeSelect";
-import { Identifier } from "@voxelio/breeze/core";
 import { TextInput } from "@/components/ui/react/TextInput";
-
+import { ChartContainer } from "@/components/ui/react/recharts";
+import { PACK_VERSION, calculateMedian } from "@/lib/utils";
+import { Identifier } from "@voxelio/breeze/core";
+import { useMemo, useState } from "react";
+import { Bar, BarChart, CartesianGrid, Legend, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
+import { type VersionOption, VersionRangeSelect } from "../VersionRangeSelect";
+import { PROPERTY_CONFIG, PROPERTY_KEYS } from "./enchantment-const";
 
 type PayloadEntry<T> = {
     name: string;
     value: number;
     fill: string;
     payload: T;
-}
+};
 
 // Custom tooltip component that displays the count
 const CustomTooltip = <T extends EnchantmentStatData>(props: any) => {
     const { active, payload, label } = props;
-    
+
     if (!active || !payload || payload.length === 0) {
         return null;
     }
-    
+
     // Get the count from the payload (it should be the same for all entries)
     const occurrenceCount = (payload[0].payload as T).count;
-    
+
     return (
         <div className="bg-zinc-950 border border-zinc-800 p-2 rounded-md shadow-lg">
             <p className="font-medium text-white mb-1">{label}</p>
-            {payload.map((entry: PayloadEntry<T>, index: number) => (
-                <div key={`item-${index}`} className="flex gap-2 items-center text-sm">
+            {payload.map((entry: PayloadEntry<T>) => (
+                <div key={`item-${entry.name}`} className="flex gap-2 items-center text-sm">
                     <div className="w-2 h-2 rounded-full" style={{ backgroundColor: entry.fill }} />
                     <span className="text-zinc-300">{entry.name}: </span>
                     <span className="text-white font-medium">{entry.value}</span>
                 </div>
             ))}
-            
+
             {/* Afficher le nombre d'occurrences en dessous */}
-            <div className="mt-1 pt-1 border-t border-zinc-800 text-xs text-zinc-400">
-                Basé sur {occurrenceCount} valeurs
-            </div>
+            <div className="mt-1 pt-1 border-t border-zinc-800 text-xs text-zinc-400">Basé sur {occurrenceCount} valeurs</div>
         </div>
     );
 };
@@ -49,20 +47,10 @@ const CustomTooltip = <T extends EnchantmentStatData>(props: any) => {
 // Types for property selection
 export type EnchantmentProperty = string;
 
-// Types for property mapping configuration 
+// Types for property mapping configuration
 export interface PropertyMapConfig {
     label: string;
 }
-
-// Configuration des propriétés - facile à étendre en ajoutant simplement une nouvelle propriété ici
-export const PROPERTY_CONFIG: Record<string, PropertyMapConfig> = {
-    maxLevel: { label: "Maximum Level" },
-    weight: { label: "Weight" },
-    anvilCost: { label: "Anvil Cost" }
-};
-
-// Liste des propriétés supportées
-export const PROPERTY_KEYS = Object.keys(PROPERTY_CONFIG);
 
 // Configuration for chart display
 export type PropertyConfig = Record<
@@ -104,12 +92,12 @@ type EnchantmentTracker = {
 
 // Extract namespaces from optimized data
 function extractNamespaces(data: OptimizedEnchantmentData[]): string[] {
-    return [...new Set(data.map(item => item.namespace))];
+    return [...new Set(data.map((item) => item.namespace))];
 }
 
 // Extract versions from optimized data
 function extractVersions(data: OptimizedEnchantmentData[]): number[] {
-    return [...new Set(data.map(item => item.version))].sort((a, b) => a - b);
+    return [...new Set(data.map((item) => item.version))].sort((a, b) => a - b);
 }
 
 // Process optimized data to extract statistics
@@ -125,86 +113,82 @@ function processEnchantmentData(
     if (data.length === 0 || !selectedNamespace) {
         return [];
     }
-    
+
     // Convert versions to numbers for comparison
     const minVersion = fromVersion ? Number.parseInt(fromVersion, 10) : 0;
     const maxVersion = toVersion ? Number.parseInt(toVersion, 10) : Number.MAX_SAFE_INTEGER;
-    
+
     // Parse maximum value filter if provided
-    const maxValue = maxValueFilter && !Number.isNaN(parseFloat(maxValueFilter)) 
-        ? parseFloat(maxValueFilter) 
-        : Infinity;
-    
+    const maxValue =
+        maxValueFilter && !Number.isNaN(Number.parseFloat(maxValueFilter)) ? Number.parseFloat(maxValueFilter) : Number.POSITIVE_INFINITY;
+
     // Filter data by namespace, version, and property value
-    const filteredData = data.filter(item => {
+    const filteredData = data.filter((item) => {
         // Check namespace
         if (item.namespace !== selectedNamespace) return false;
-        
+
         // Check version range
         if (item.version < minVersion || item.version > maxVersion) return false;
-        
+
         // Check property value against max threshold
         const propValue = item.properties[selectedProperty] || 0;
-        
+
         // First check the current property value
         if (propValue > maxValue) return false;
-        
+
         // Also check history values if they exist
         const history = item.history[selectedProperty] || [];
         if (history.length > 0) {
             // If any history value exceeds the max value, exclude this enchantment
-            const exceedsMaxValue = history.some(val => val > maxValue);
+            const exceedsMaxValue = history.some((val) => val > maxValue);
             if (exceedsMaxValue) return false;
         }
-        
+
         return true;
     });
-    
+
     // Build tracker for each enchantment
-    return filteredData.map(item => {
+    return filteredData.map((item) => {
         const enchantId = item.name;
-        
+
         // Get history array and original value
         const history = item.history[selectedProperty] || [];
         const originalValue = item.originalValues[selectedProperty] || 0;
-        
+
         return {
             id: enchantId,
-            values: history.length > 0 ? history : [item.properties[selectedProperty] || 0], 
+            values: history.length > 0 ? history : [item.properties[selectedProperty] || 0],
             originalValue: originalValue
         };
     });
 }
 
 // Convert tracker data to chart data
-function prepareChartData(
-    trackers: EnchantmentTracker[],
-    namespace: string,
-    searchQuery: string
-): EnchantmentStatData[] {
+function prepareChartData(trackers: EnchantmentTracker[], namespace: string, searchQuery: string): EnchantmentStatData[] {
     if (trackers.length === 0) return [];
-    
+
     return trackers
         .map(({ id, values, originalValue }) => {
             const average = values.length > 0 ? values.reduce((sum, val) => sum + val, 0) / values.length : 0;
             const median = calculateMedian(values);
-            
+
             // Ensure all values are correctly formatted
             return {
-                name: new Identifier({ namespace, registry: "enchantment", resource: id}).toResourceName(),
+                name: new Identifier({ namespace, registry: "enchantment", resource: id }).toResourceName(),
                 id,
                 namespace,
                 originalValue: originalValue,
-                averageValue: parseFloat(average.toFixed(2)),
-                medianValue: parseFloat(median.toFixed(2)),
+                averageValue: Number.parseFloat(average.toFixed(2)),
+                medianValue: Number.parseFloat(median.toFixed(2)),
                 count: values.length
             };
         })
         .filter((item) => item.averageValue > 0 || item.medianValue > 0)
         .filter((item) => {
             if (searchQuery.trim()) {
-                return item.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                      item.id.toLowerCase().includes(searchQuery.toLowerCase());
+                return (
+                    item.name.toLowerCase().includes(searchQuery.toLowerCase()) || item.id.toLowerCase().includes(searchQuery.toLowerCase())
+                );
             }
             return true;
         })
@@ -222,21 +206,23 @@ export function EnchantmentStatsChart(props: {
 }) {
     // Extract namespaces and options
     const namespaces = useMemo(() => extractNamespaces(props.data), [props.data]);
-    const namespaceOptions = useMemo(() => 
-        namespaces.map((namespace) => ({
-            value: namespace,
-            label: namespace.charAt(0).toUpperCase() + namespace.slice(1).replace(/_/g, " ")
-        })), 
+    const namespaceOptions = useMemo(
+        () =>
+            namespaces.map((namespace) => ({
+                value: namespace,
+                label: namespace.charAt(0).toUpperCase() + namespace.slice(1).replace(/_/g, " ")
+            })),
         [namespaces]
     );
 
     // Extract versions and options
     const versions = useMemo(() => extractVersions(props.data), [props.data]);
-    const versionOptions: VersionOption[] = useMemo(() => 
-        versions.map((version) => ({
-            value: version.toString(),
-            label: PACK_VERSION[version.toString() as keyof typeof PACK_VERSION] || "Unknown"
-        })),
+    const versionOptions: VersionOption[] = useMemo(
+        () =>
+            versions.map((version) => ({
+                value: version.toString(),
+                label: PACK_VERSION[version.toString() as keyof typeof PACK_VERSION] || "Unknown"
+            })),
         [versions]
     );
 
@@ -249,26 +235,23 @@ export function EnchantmentStatsChart(props: {
     const [searchQuery, setSearchQuery] = useState<string>("");
 
     // Process logs and prepare data using memoization
-    const trackers = useMemo(() => 
-        processEnchantmentData(props.data, selectedNamespace, fromVersion, toVersion, selectedProperty, maxValueFilter),
+    const trackers = useMemo(
+        () => processEnchantmentData(props.data, selectedNamespace, fromVersion, toVersion, selectedProperty, maxValueFilter),
         [props.data, selectedNamespace, fromVersion, toVersion, selectedProperty, maxValueFilter]
     );
-    
-    const statData = useMemo(() => 
-        prepareChartData(trackers, selectedNamespace, searchQuery),
-        [trackers, selectedNamespace, searchQuery]
-    );
-    
+
+    const statData = useMemo(() => prepareChartData(trackers, selectedNamespace, searchQuery), [trackers, selectedNamespace, searchQuery]);
+
     // Calculate total enchantments and filtered count for statistics
     const totalEnchantments = useMemo(() => {
         if (!selectedNamespace) return 0;
-        return props.data.filter(item => item.namespace === selectedNamespace).length;
+        return props.data.filter((item) => item.namespace === selectedNamespace).length;
     }, [props.data, selectedNamespace]);
-    
+
     const displayedCount = useMemo(() => {
         return statData.length;
     }, [statData]);
-    
+
     const filteredCount = useMemo(() => {
         return trackers.length;
     }, [trackers]);
@@ -338,7 +321,7 @@ export function EnchantmentStatsChart(props: {
                                 />
                             </div>
                         </div>
-                        
+
                         {/* Column 2: Namespace and Property */}
                         <div className="grid grid-cols-2 gap-2">
                             <div className="flex flex-col gap-1">
@@ -372,7 +355,7 @@ export function EnchantmentStatsChart(props: {
                                 </Select>
                             </div>
                         </div>
-                        
+
                         {/* Column 3: Version Range */}
                         <VersionRangeSelect
                             className="grid grid-cols-2 gap-2"
@@ -401,9 +384,7 @@ export function EnchantmentStatsChart(props: {
                             <span>Median Value</span>
                         </div>
                     </div>
-                    <div className="text-zinc-400">
-                        {PROPERTY_CONFIG[selectedProperty]?.label || "Property"} Analysis
-                    </div>
+                    <div className="text-zinc-400">{PROPERTY_CONFIG[selectedProperty]?.label || "Property"} Analysis</div>
                 </div>
 
                 {/* Stats summary row */}
@@ -452,4 +433,3 @@ export function EnchantmentStatsChart(props: {
         </Card>
     );
 }
- 

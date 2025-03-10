@@ -1,7 +1,7 @@
-import type { ActionValue } from "@voxelio/breeze/core";
-import type { BaseInteractiveComponent, LockRenderer } from "@voxelio/breeze/core";
 import { useConfiguratorStore } from "@/components/tools/Store";
 import { useElementCondition, useElementLocks, useElementValue } from "@/lib/hook/useBreezeElement";
+import type { ActionValue } from "@voxelio/breeze/core";
+import type { BaseInteractiveComponent, LockRenderer } from "@voxelio/breeze/core";
 
 export interface InteractiveProps<T> {
     value: T;

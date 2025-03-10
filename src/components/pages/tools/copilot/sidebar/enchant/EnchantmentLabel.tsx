@@ -1,10 +1,10 @@
-import { getElementByRegistry, useCopilotStore } from "@/components/pages/tools/copilot/store/DatapackStore";
-import { Identifier, type TagType } from "@voxelio/breeze";
 import TextureRenderer from "@/components/minecraft/TextureRenderer";
+import { getElementByRegistry, useCopilotStore } from "@/components/pages/tools/copilot/store/DatapackStore";
 import { useResource } from "@/components/pages/tools/copilot/store/hooks/useResource";
-import TagsComparator from "@/lib/minecraft/core/tags/TagsComparator";
-import { useShallow } from "zustand/react/shallow";
 import Loader from "@/components/ui/react/Loader";
+import TagsComparator from "@/lib/minecraft/core/tags/TagsComparator";
+import { Identifier, type TagType } from "@voxelio/breeze";
+import { useShallow } from "zustand/react/shallow";
 
 export default function EnchantmentLabel(props: { item: string }) {
     const identifier = Identifier.of(props.item, "tags/item");

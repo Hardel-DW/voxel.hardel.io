@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
 import { useResourceStore } from "@/components/pages/tools/copilot/store/ResourceStore";
-import { useShallow } from "zustand/react/shallow";
 import type { DataDrivenElement, DataDrivenRegistryElement } from "@voxelio/breeze";
+import { useEffect, useState } from "react";
+import { useShallow } from "zustand/react/shallow";
 
 interface ResourceState<T extends DataDrivenElement> {
     data: DataDrivenRegistryElement<T>[] | null;

@@ -1,8 +1,8 @@
 import type { CollectionEntry } from "astro:content";
 import RewardCard from "@/components/pages/datapacks/yggdrasil/RewardCard";
+import RewardCollection from "@/components/pages/datapacks/yggdrasil/RewardCollection";
 import type React from "react";
 import { useRef, useState } from "react";
-import RewardCollection from "@/components/pages/datapacks/yggdrasil/RewardCollection";
 
 interface RewardsModalProps {
     structures: CollectionEntry<"structure">[];

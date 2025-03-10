@@ -1,11 +1,11 @@
-import { useState } from "react";
-import type { RecipeOfEnum } from "@/components/pages/tools/copilot/store/data/recipe";
-import { RECIPES } from "@/components/pages/tools/copilot/store/data/recipe";
-import HeaderBar from "./HeaderBar";
 import { getElementByRegistry } from "@/components/pages/tools/copilot/store/DatapackStore";
 import { useCopilotStore } from "@/components/pages/tools/copilot/store/DatapackStore";
-import { RecipeComparator } from "@/lib/minecraft/core/recipe/RecipeComparator";
+import type { RecipeOfEnum } from "@/components/pages/tools/copilot/store/data/recipe";
+import { RECIPES } from "@/components/pages/tools/copilot/store/data/recipe";
 import type { Recipe } from "@/lib/minecraft/core/recipe/Recipe";
+import { RecipeComparator } from "@/lib/minecraft/core/recipe/RecipeComparator";
+import { useState } from "react";
+import HeaderBar from "./HeaderBar";
 import RecipeTypeSection from "./RecipeTypeSection";
 
 export default function CraftingPage() {

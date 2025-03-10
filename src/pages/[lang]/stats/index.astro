@@ -5,13 +5,13 @@ import { DashboardInteractiveAreaChart } from "@/components/pages/stats/Dashboar
 import { DashboardPieChart } from "@/components/pages/stats/DashboardPieChart.tsx";
 import SidebarStats from "@/components/pages/stats/SidebarStats.astro";
 import { getTranslations } from "@/lib/i18n";
+import { getColorFromIndex } from "@/lib/utils/color";
 import { GET as getMigrationsByDays } from "@/pages/api/stats/migrations";
 import type { ResponseMigrationsByDays } from "@/pages/api/stats/migrations";
 import { GET as getNamespaces } from "@/pages/api/stats/namespaces";
 import type { ResponseNamespaceStats } from "@/pages/api/stats/namespaces";
 import { GET as getVersions } from "@/pages/api/stats/versions";
 import type { ResponseVersionsStats } from "@/pages/api/stats/versions";
-import { getColorFromIndex } from "@/lib/utils/color";
 
 const [migrationsResponse, versionsResponse, namespaceResponse] = await Promise.all([
     getMigrationsByDays(Astro),

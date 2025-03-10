@@ -1,13 +1,13 @@
+import { useConfiguratorStore } from "@/components/tools/Store";
 import { InnerGlow } from "@/components/tools/artificial/InnerGlow";
 import { RenderAIContent } from "@/components/tools/artificial/RenderAIContent";
-import { useTranslate } from "@/lib/hook/useTranslate";
 import { type IActionResponse, useAIStream } from "@/lib/hook/useAIStream";
 import { useClickOutside } from "@/lib/hook/useClickOutside";
+import { useTranslate } from "@/lib/hook/useTranslate";
 import { cn } from "@/lib/utils";
 import { Identifier, SplitSequentialAction } from "@voxelio/breeze/core";
 import { useState } from "react";
 import type { PropsConfirmationCardAI } from "./ConfirmationCardAI";
-import { useConfiguratorStore } from "@/components/tools/Store";
 
 export const Island: React.FC = () => {
     const { t } = useTranslate();

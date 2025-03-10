@@ -1,9 +1,9 @@
+import { useConfiguratorStore } from "@/components/tools/Store";
 import { TagLoader } from "@/components/tools/elements/schema/tags/TagLoader";
 import { ToolTagCard } from "@/components/tools/elements/schema/tags/ToolTagCard";
+import { useElementValue } from "@/lib/hook/useBreezeElement";
 import type { ToolTagViewerType } from "@voxelio/breeze/core";
 import { Identifier, getLabeledIdentifier, isTag } from "@voxelio/breeze/core";
-import { useConfiguratorStore } from "@/components/tools/Store";
-import { useElementValue } from "@/lib/hook/useBreezeElement";
 
 export default function ToolTagViewer({
     component

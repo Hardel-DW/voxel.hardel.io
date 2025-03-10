@@ -1,8 +1,8 @@
 import ConceptTab from "@/components/pages/tools/copilot/sidebar/ConceptTab";
 import DetailTab from "@/components/pages/tools/copilot/sidebar/DetailTab";
 import ShareButton from "@/components/pages/tools/copilot/sidebar/ShareButton";
-import { useState } from "react";
 import Tabs from "@/components/ui/react/Tabs";
+import { useState } from "react";
 
 const tabs = [
     {

@@ -1,7 +1,7 @@
+import { useConfiguratorStore } from "@/components/tools/Store";
 import { JSONBuilder } from "@/lib/utils/json";
 import { type Action, Identifier, type IdentifierObject, searchRelevantElements } from "@voxelio/breeze/core";
 import { useState } from "react";
-import { useConfiguratorStore } from "@/components/tools/Store";
 
 interface UseAIStreamReturn {
     streamingText: string;

@@ -1,11 +1,11 @@
-import PanelProvider from "@/components/tools/PanelProvider";
-import LineSetup from "@/components/ui/react/geometry/line/LineSetup";
-import { useSidebarStore } from "@/components/pages/tools/copilot/store/SidebarStore";
-import LootPage from "@/components/pages/tools/copilot/content/loot/LootPage";
 import CraftingPage from "@/components/pages/tools/copilot/content/crafting/CraftingPage";
 import EnchantmentPage from "@/components/pages/tools/copilot/content/enchantment/EnchantmentPage";
+import LootPage from "@/components/pages/tools/copilot/content/loot/LootPage";
 import UploadPage from "@/components/pages/tools/copilot/content/upload/UploadPage";
 import { useCopilotStore } from "@/components/pages/tools/copilot/store/DatapackStore";
+import { useSidebarStore } from "@/components/pages/tools/copilot/store/SidebarStore";
+import PanelProvider from "@/components/tools/PanelProvider";
+import LineSetup from "@/components/ui/react/geometry/line/LineSetup";
 
 const PAGES = {
     loot_table: LootPage,

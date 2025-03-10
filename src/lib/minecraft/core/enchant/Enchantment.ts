@@ -1,5 +1,5 @@
-import type { Enchantment, EnchantmentCost } from "@voxelio/breeze/schema";
 import toRoman from "@/lib/minecraft/utils";
+import type { Enchantment, EnchantmentCost } from "@voxelio/breeze/schema";
 
 /**
  * Represents a Minecraft enchantment with its properties and calculation methods.

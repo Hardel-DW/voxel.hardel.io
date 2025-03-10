@@ -1,3 +1,4 @@
+import { useConfiguratorStore } from "@/components/tools/Store";
 import Button from "@/components/ui/react/Button.tsx";
 import {
     Dialog,
@@ -12,7 +13,6 @@ import { useTranslate } from "@/lib/hook/useTranslate.ts";
 import { saveLogs } from "@/lib/server/telemetry.ts";
 import { downloadArchive } from "@/lib/utils/download.ts";
 import { Datapack } from "@voxelio/breeze/core";
-import { useConfiguratorStore } from "@/components/tools/Store";
 import { voxelDatapacks } from "@voxelio/breeze/core";
 import SettingsDialog from "./SettingsDialog.tsx";
 

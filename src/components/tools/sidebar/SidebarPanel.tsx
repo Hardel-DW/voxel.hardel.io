@@ -1,9 +1,9 @@
 import DownloadButton from "@/components/tools/DownloadButton.tsx";
+import { useConfiguratorStore } from "@/components/tools/Store";
 import DebugConfigurator from "@/components/tools/debug/DebugConfigurator";
 import SettingsButton from "@/components/tools/sidebar/SettingsButton";
 import { SidebarContainer } from "@/components/tools/sidebar/SidebarContainer";
 import { useTranslate } from "@/lib/hook/useTranslate";
-import { useConfiguratorStore } from "@/components/tools/Store";
 import { useRef } from "react";
 
 export default function SidebarPanel() {

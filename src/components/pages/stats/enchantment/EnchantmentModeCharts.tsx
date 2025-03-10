@@ -1,12 +1,12 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/react/Card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/react/Select";
-import { useState, useEffect } from "react";
-import type { Log } from "@voxelio/breeze";
-import { PACK_VERSION } from "@/lib/utils";
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/react/recharts";
-import { Bar, BarChart, CartesianGrid, Cell, Legend, Tooltip, XAxis, YAxis } from "recharts";
-import { VersionRangeSelect, type VersionOption } from "../VersionRangeSelect";
+import { PACK_VERSION } from "@/lib/utils";
+import type { Log } from "@voxelio/breeze";
 import { Identifier } from "@voxelio/breeze/core";
+import { useEffect, useState } from "react";
+import { Bar, BarChart, CartesianGrid, Cell, Legend, Tooltip, XAxis, YAxis } from "recharts";
+import { type VersionOption, VersionRangeSelect } from "../VersionRangeSelect";
 
 // Types of enchantment modes
 export type EnchantmentMode = "normal" | "soft_delete" | "only_creative";
@@ -79,7 +79,7 @@ export function EnchantmentModeChart(props: {
     // Extract versions
     const versions = new Set<number>();
     for (const log of props.logs) {
-        if (typeof log.version === 'number') {
+        if (typeof log.version === "number") {
             versions.add(log.version);
         }
     }
@@ -127,11 +127,10 @@ export function EnchantmentModeChart(props: {
         // Process logs
         for (const log of props.logs) {
             // Skip if namespace doesn't match or datapack info is missing
-            if (!log.datapack || !Array.isArray(log.datapack.namespaces) || 
-                !log.datapack.namespaces.includes(selectedNamespace)) continue;
+            if (!log.datapack || !Array.isArray(log.datapack.namespaces) || !log.datapack.namespaces.includes(selectedNamespace)) continue;
 
             // Skip if version is out of range
-            if (typeof log.version !== 'number' || log.version < minVersion || log.version > maxVersion) continue;
+            if (typeof log.version !== "number" || log.version < minVersion || log.version > maxVersion) continue;
 
             // Skip if logs not present
             if (!Array.isArray(log.logs)) continue;
@@ -214,7 +213,7 @@ export function EnchantmentModeChart(props: {
                         registry: "enchantment",
                         resource: enchantId
                     }).toResourceName();
-                    
+
                     return {
                         name,
                         normal: modes.normal,
@@ -367,14 +366,13 @@ export function EnchantmentModeChart(props: {
                             <div>
                                 <h3 className="text-sm font-medium text-zinc-400 mb-4">Mode Distribution by Enchantment</h3>
                                 <ChartContainer config={chartConfig} className="aspect-auto h-[400px] w-full">
-                                    <BarChart 
-                                        data={enchantmentData} 
-                                        layout="vertical" 
-                                        margin={{ top: 20, right: 30, left: 120, bottom: 5 }}
-                                    >
+                                    <BarChart
+                                        data={enchantmentData}
+                                        layout="vertical"
+                                        margin={{ top: 20, right: 30, left: 120, bottom: 5 }}>
                                         <CartesianGrid horizontal={false} />
                                         <XAxis type="number" />
-                                        <YAxis dataKey="name" type="category" width={100} tickLine={false} axisLine={false}/>
+                                        <YAxis dataKey="name" type="category" width={100} tickLine={false} axisLine={false} />
                                         <Tooltip />
                                         <Legend />
                                         {modeKeys.map((key) => (

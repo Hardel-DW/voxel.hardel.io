@@ -1,5 +1,5 @@
-import TriangleWave from "@/components/ui/react/geometry/triangle/TriangleWave";
 import Button from "@/components/ui/react/Button.tsx";
+import TriangleWave from "@/components/ui/react/geometry/triangle/TriangleWave";
 import { translate } from "@/lib/hook/useTranslate";
 import type { ToolDonationType } from "@voxelio/breeze/core";
 

@@ -1,7 +1,7 @@
 import type { CollectionEntry } from "astro:content";
+import RewardsModal from "@/components/pages/datapacks/yggdrasil/RewardsModal";
 import Button from "@/components/ui/react/Button";
 import { useEffect, useState } from "react";
-import RewardsModal from "@/components/pages/datapacks/yggdrasil/RewardsModal";
 
 export default function YggdrasilLootViewer(props: {
     structures: CollectionEntry<"structure">[];

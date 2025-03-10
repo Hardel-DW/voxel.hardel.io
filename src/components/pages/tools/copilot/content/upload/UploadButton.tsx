@@ -1,14 +1,14 @@
+import { useCopilotStore } from "@/components/pages/tools/copilot/store/DatapackStore";
+import { CONCEPTS } from "@/components/pages/tools/copilot/store/data/elements";
+import Dropzone from "@/components/ui/react/Dropzone";
+import useAsyncError from "@/lib/hook/useAsyncError";
+import { useTranslate } from "@/lib/hook/useTranslate";
 import { Datapack } from "@voxelio/breeze/core";
 import type { DataDrivenElement } from "@voxelio/breeze/core";
 import { Identifier } from "@voxelio/breeze/core";
 import { DatapackError } from "@voxelio/breeze/core";
-import { useCopilotStore } from "@/components/pages/tools/copilot/store/DatapackStore";
 import type { TranslationKey } from "@voxelio/breeze/i18n";
 import { toast } from "sonner";
-import useAsyncError from "@/lib/hook/useAsyncError";
-import { useTranslate } from "@/lib/hook/useTranslate";
-import Dropzone from "@/components/ui/react/Dropzone";
-import { CONCEPTS } from "@/components/pages/tools/copilot/store/data/elements";
 
 const REGISTRIES = ["loot_table", "enchantment", "recipe", "tags/enchantment", "tags/item"];
 

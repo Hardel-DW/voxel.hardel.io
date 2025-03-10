@@ -1,6 +1,6 @@
 import SidebarCard from "@/components/pages/tools/copilot/sidebar/SidebarCard";
-import { useSidebarStore } from "@/components/pages/tools/copilot/store/SidebarStore";
 import { useCopilotStore } from "@/components/pages/tools/copilot/store/DatapackStore";
+import { useSidebarStore } from "@/components/pages/tools/copilot/store/SidebarStore";
 import { CONCEPTS } from "@/components/pages/tools/copilot/store/data/elements";
 
 export default function ConceptTab() {

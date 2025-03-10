@@ -1,6 +1,6 @@
+import { useConfiguratorStore } from "@/components/tools/Store";
 import DebugPanel from "@/components/tools/debug/DebugPanel";
 import { getLabeledIdentifier } from "@voxelio/breeze/core";
-import { useConfiguratorStore } from "@/components/tools/Store";
 import type { LabeledElement } from "@voxelio/breeze/core";
 import { useState } from "react";
 import { createPortal } from "react-dom";

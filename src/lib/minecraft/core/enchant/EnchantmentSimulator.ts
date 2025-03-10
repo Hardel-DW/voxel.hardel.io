@@ -1,7 +1,7 @@
 import type { DataDrivenRegistryElement } from "@voxelio/breeze";
-import type { Enchant } from "./Enchantment";
 import type { TagType } from "@voxelio/breeze/schema";
 import TagsComparator from "../tags/TagsComparator";
+import type { Enchant } from "./Enchantment";
 
 interface EnchantmentResult {
     level: number;

@@ -1,8 +1,8 @@
-import { useSidebarStore } from "@/components/pages/tools/copilot/store/SidebarStore";
 import { withConcept } from "@/components/pages/tools/copilot/sidebar/HocConcept";
-import SidebarEnchantment from "@/components/pages/tools/copilot/sidebar/enchant/SidebarEnchantment";
 import SidebarCrafting from "@/components/pages/tools/copilot/sidebar/crafting/SidebarCrafting";
+import SidebarEnchantment from "@/components/pages/tools/copilot/sidebar/enchant/SidebarEnchantment";
 import SidebarLoot from "@/components/pages/tools/copilot/sidebar/loot/SidebarLoot";
+import { useSidebarStore } from "@/components/pages/tools/copilot/store/SidebarStore";
 
 export default function DetailTab() {
     const selectedConcept = useSidebarStore((state) => state.selectedConcept);

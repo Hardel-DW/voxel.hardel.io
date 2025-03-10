@@ -2,11 +2,49 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/react/Select";
 import { useState, useMemo } from "react";
 import { calculateMedian, PACK_VERSION } from "@/lib/utils";
-import { ChartContainer, ChartTooltipContent } from "@/components/ui/react/recharts";
+import { ChartContainer } from "@/components/ui/react/recharts";
 import { Bar, BarChart, CartesianGrid, Legend, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
 import { VersionRangeSelect, type VersionOption } from "../VersionRangeSelect";
 import { Identifier } from "@voxelio/breeze/core";
 import { TextInput } from "@/components/ui/react/TextInput";
+
+
+type PayloadEntry<T> = {
+    name: string;
+    value: number;
+    fill: string;
+    payload: T;
+}
+
+// Custom tooltip component that displays the count
+const CustomTooltip = <T extends EnchantmentStatData>(props: any) => {
+    const { active, payload, label } = props;
+    
+    if (!active || !payload || payload.length === 0) {
+        return null;
+    }
+    
+    // Get the count from the payload (it should be the same for all entries)
+    const occurrenceCount = (payload[0].payload as T).count;
+    
+    return (
+        <div className="bg-zinc-950 border border-zinc-800 p-2 rounded-md shadow-lg">
+            <p className="font-medium text-white mb-1">{label}</p>
+            {payload.map((entry: PayloadEntry<T>, index: number) => (
+                <div key={`item-${index}`} className="flex gap-2 items-center text-sm">
+                    <div className="w-2 h-2 rounded-full" style={{ backgroundColor: entry.fill }} />
+                    <span className="text-zinc-300">{entry.name}: </span>
+                    <span className="text-white font-medium">{entry.value}</span>
+                </div>
+            ))}
+            
+            {/* Afficher le nombre d'occurrences en dessous */}
+            <div className="mt-1 pt-1 border-t border-zinc-800 text-xs text-zinc-400">
+                Basé sur {occurrenceCount} valeurs
+            </div>
+        </div>
+    );
+};
 
 // Types for property selection
 export type EnchantmentProperty = string;
@@ -43,6 +81,7 @@ export type EnchantmentStatData = {
     medianValue: number;
     namespace: string;
     id: string;
+    count: number;
 };
 
 // Structure générique pour les données d'enchantement optimisées
@@ -106,7 +145,19 @@ function processEnchantmentData(
         
         // Check property value against max threshold
         const propValue = item.properties[selectedProperty] || 0;
-        return propValue <= maxValue;
+        
+        // First check the current property value
+        if (propValue > maxValue) return false;
+        
+        // Also check history values if they exist
+        const history = item.history[selectedProperty] || [];
+        if (history.length > 0) {
+            // If any history value exceeds the max value, exclude this enchantment
+            const exceedsMaxValue = history.some(val => val > maxValue);
+            if (exceedsMaxValue) return false;
+        }
+        
+        return true;
     });
     
     // Build tracker for each enchantment
@@ -145,11 +196,11 @@ function prepareChartData(
                 namespace,
                 originalValue: originalValue,
                 averageValue: parseFloat(average.toFixed(2)),
-                medianValue: parseFloat(median.toFixed(2))
+                medianValue: parseFloat(median.toFixed(2)),
+                count: values.length
             };
         })
         .filter((item) => item.averageValue > 0 || item.medianValue > 0)
-        .sort((a, b) => b.averageValue - a.averageValue)
         .filter((item) => {
             if (searchQuery.trim()) {
                 return item.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -157,7 +208,8 @@ function prepareChartData(
             }
             return true;
         })
-        .slice(0, 15);
+        .sort((a, b) => b.averageValue - a.averageValue)
+        .slice(0, 25);
 }
 
 /**
@@ -206,6 +258,20 @@ export function EnchantmentStatsChart(props: {
         prepareChartData(trackers, selectedNamespace, searchQuery),
         [trackers, selectedNamespace, searchQuery]
     );
+    
+    // Calculate total enchantments and filtered count for statistics
+    const totalEnchantments = useMemo(() => {
+        if (!selectedNamespace) return 0;
+        return props.data.filter(item => item.namespace === selectedNamespace).length;
+    }, [props.data, selectedNamespace]);
+    
+    const displayedCount = useMemo(() => {
+        return statData.length;
+    }, [statData]);
+    
+    const filteredCount = useMemo(() => {
+        return trackers.length;
+    }, [trackers]);
 
     // Handlers for filter changes
     const handleNamespaceChange = (value: string) => setSelectedNamespace(value);
@@ -340,6 +406,26 @@ export function EnchantmentStatsChart(props: {
                     </div>
                 </div>
 
+                {/* Stats summary row */}
+                <div className="bg-zinc-900/30 rounded-md p-2 mb-4 flex justify-between text-xs">
+                    <div className="flex gap-4">
+                        <span>
+                            <strong className="text-zinc-300">Total:</strong> {totalEnchantments} enchantements
+                        </span>
+                        <span>
+                            <strong className="text-zinc-300">Après filtres:</strong> {filteredCount} enchantements
+                        </span>
+                        <span>
+                            <strong className="text-zinc-300">Affichés:</strong> {displayedCount} enchantements (top {displayedCount})
+                        </span>
+                    </div>
+                    {maxValueFilter && (
+                        <span className="text-pink-500">
+                            Filtrant {selectedProperty}: max {maxValueFilter}
+                        </span>
+                    )}
+                </div>
+
                 <div className="mt-4">
                     {statData.length > 0 ? (
                         <ChartContainer config={chartConfig}>
@@ -348,7 +434,7 @@ export function EnchantmentStatsChart(props: {
                                     <CartesianGrid strokeDasharray="3 3" />
                                     <XAxis type="number" />
                                     <YAxis dataKey="name" type="category" width={140} tick={{ fontSize: 12 }} />
-                                    <Tooltip content={<ChartTooltipContent indicator="line" />} />
+                                    <Tooltip content={(props) => <CustomTooltip {...props} />} />
                                     <Legend />
                                     <Bar name="Original Value" dataKey="originalValue" fill={statColors.original} barSize={10} />
                                     <Bar name="Average Value" dataKey="averageValue" fill={statColors.average} barSize={10} />
@@ -366,3 +452,4 @@ export function EnchantmentStatsChart(props: {
         </Card>
     );
 }
+ 

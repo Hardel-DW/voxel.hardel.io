@@ -31,8 +31,12 @@ export async function GET(_: APIContext): Promise<Response> {
 
                 const namespaces = new Set<string>();
                 for (const entry of enchantmentFileEntries) {
-                    const [namespace] = entry.identifier.split(":");
-                    namespaces.add(namespace);
+                    if (entry.identifier) {
+                        const [namespace] = entry.identifier.split(":");
+                        if (namespace) {
+                            namespaces.add(namespace);
+                        }
+                    }
                 }
 
                 return {

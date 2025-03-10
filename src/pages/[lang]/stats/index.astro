@@ -12,6 +12,7 @@ import { GET as getNamespaces } from "@/pages/api/stats/namespaces";
 import type { ResponseNamespaceStats } from "@/pages/api/stats/namespaces";
 import { GET as getVersions } from "@/pages/api/stats/versions";
 import type { ResponseVersionsStats } from "@/pages/api/stats/versions";
+import { getColorFromIndex } from "@/lib/utils/color";
 
 const [migrationsResponse, versionsResponse, namespaceResponse] = await Promise.all([
     getMigrationsByDays(Astro),
@@ -22,19 +23,46 @@ const [migrationsResponse, versionsResponse, namespaceResponse] = await Promise.
 const [migrationsData, versionsData, namespaceData] = await Promise.all([
     migrationsResponse.json() as Promise<ResponseMigrationsByDays[]>,
     versionsResponse.json() as Promise<ResponseVersionsStats>,
-    namespaceResponse.json().then((data: ResponseNamespaceStats[]) =>
-        data
-            .filter((item) => item.occurence >= 10)
-            .sort((a, b) => b.occurence - a.occurence)
-            .slice(0, 10)
-            .map((item) => ({
-                ...item,
-                namespace: snakeToTitleCase(item.namespace)
-            }))
-    )
+    namespaceResponse.json() as Promise<ResponseNamespaceStats>
 ]);
 
+// Process the namespace data to format namespace names
+const processedNamespaceData = namespaceData.summaries
+    ? namespaceData.summaries
+          .filter((item) => item.occurence >= 10)
+          .sort((a, b) => b.occurence - a.occurence)
+          .slice(0, 10)
+          .map((item) => ({
+              ...item,
+              namespace: snakeToTitleCase(item.namespace)
+          }))
+    : [];
+
+// Process the per_month data for namespaces to format names
+const processedPerMonthData = namespaceData.per_month
+    ? Object.fromEntries(
+          Object.entries(namespaceData.per_month).map(([month, items]) => [
+              month,
+              items
+                  .filter((item) => item.occurence >= 5) // Lower threshold for monthly data
+                  .slice(0, 10)
+                  .map((item) => ({
+                      ...item,
+                      namespace: snakeToTitleCase(item.namespace)
+                  }))
+          ])
+      )
+    : undefined;
+
 const { translate, lang } = await getTranslations(Astro.url);
+
+const translatedTimePeriods = [
+    { label: translate["stats.overview.time.year"], value: "365d", days: 365 },
+    { label: translate["stats.overview.time.6months"], value: "180d", days: 180 },
+    { label: translate["stats.overview.time.3months"], value: "90d", days: 90 },
+    { label: translate["stats.overview.time.30days"], value: "30d", days: 30 },
+    { label: translate["stats.overview.time.7days"], value: "7d", days: 7 }
+];
 ---
 
 <DashboardLayout title={translate["stats.overview.title"]} description={translate["stats.overview.description"]} image="/images/opengraph/stats.webp">
@@ -50,17 +78,10 @@ const { translate, lang } = await getTranslations(Astro.url);
     <div class="flex flex-col gap-8">
         <div class="w-full">
             <DashboardInteractiveAreaChart
-                client:load
                 client:only="react"
                 data={migrationsData} 
                 config={{ label: translate["stats.overview.migrations.title"], color: "#be185d" }}
-                select={[
-                    { label: translate["stats.overview.time.year"], value: "365d", days: 365 },
-                    { label: translate["stats.overview.time.6months"], value: "180d", days: 180 },
-                    { label: translate["stats.overview.time.3months"], value: "90d", days: 90 },
-                    { label: translate["stats.overview.time.30days"], value: "30d", days: 30 },
-                    { label: translate["stats.overview.time.7days"], value: "7d", days: 7 }
-                ]}
+                select={translatedTimePeriods}
                 title={translate["stats.overview.migrations.title"]}
                 description={translate["stats.overview.migrations.description"]}
             />
@@ -68,33 +89,31 @@ const { translate, lang } = await getTranslations(Astro.url);
     
         <div class="grid grid-cols-2 gap-8 w-full pb-8">
             <DashboardPieChart 
-                client:load
+                client:only="react"
                 data={versionsData.summaries} 
+                per_month={versionsData.per_month}
                 config={Object.fromEntries(
                     versionsData.summaries.map((item) => [
                         item.minecraft_version,
                         {
                             label: item.minecraft_version,
-                            color: [
-                                "hsl(339, 76%, 42%)",
-                                "hsl(280, 60%, 50%)",
-                                "hsl(220, 70%, 55%)",
-                                "hsl(160, 65%, 45%)",
-                                "hsl(100, 55%, 40%)"
-                            ][versionsData.summaries.indexOf(item) % 5]
+                            color: getColorFromIndex(item, versionsData.summaries, { hueCount: 18 })
                         }
                     ])
                 )}
+                select={translatedTimePeriods}
                 title={translate["stats.overview.versions.title"]} 
                 description={translate["stats.overview.versions.description"]} 
                 text={translate["stats.overview.versions.text"]}
             />    
 
             <DashboardBarChart
-                client:load
-                data={namespaceData}
+                client:only="react"
+                data={processedNamespaceData}
+                per_month={processedPerMonthData}
+                select={translatedTimePeriods}
                 config={Object.fromEntries(
-                    namespaceData.map((item) => [
+                    processedNamespaceData.map((item) => [
                         item.namespace,
                         { label: item.namespace, color: "#be185d" }
                     ])

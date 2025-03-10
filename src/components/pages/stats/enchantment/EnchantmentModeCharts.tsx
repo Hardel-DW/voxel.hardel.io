@@ -42,12 +42,32 @@ export function EnchantmentModeChart(props: {
     title: string;
     description: string;
 }) {
+    // Check if logs are empty
+    if (!props.logs || props.logs.length === 0) {
+        return (
+            <Card className="bg-zinc-950/50 shadow-2xl">
+                <CardHeader>
+                    <CardTitle>{props.title}</CardTitle>
+                    <CardDescription>{props.description}</CardDescription>
+                </CardHeader>
+                <CardContent>
+                    <div className="flex items-center justify-center h-[300px]">
+                        <p className="text-zinc-400">No enchantment data available.</p>
+                    </div>
+                </CardContent>
+            </Card>
+        );
+    }
+
     // Extract namespaces
     const namespaces = new Set<string>();
     for (const log of props.logs) {
-        for (const namespace of log.datapack.namespaces) {
-            if (namespace === "[object Object]") continue;
-            namespaces.add(namespace);
+        if (log.datapack && Array.isArray(log.datapack.namespaces)) {
+            for (const namespace of log.datapack.namespaces) {
+                if (namespace && namespace !== "[object Object]") {
+                    namespaces.add(namespace);
+                }
+            }
         }
     }
 
@@ -59,7 +79,9 @@ export function EnchantmentModeChart(props: {
     // Extract versions
     const versions = new Set<number>();
     for (const log of props.logs) {
-        versions.add(log.version);
+        if (typeof log.version === 'number') {
+            versions.add(log.version);
+        }
     }
 
     // Create version options for selects
@@ -104,19 +126,23 @@ export function EnchantmentModeChart(props: {
 
         // Process logs
         for (const log of props.logs) {
-            // Skip if namespace doesn't match
-            if (!log.datapack.namespaces.includes(selectedNamespace)) continue;
+            // Skip if namespace doesn't match or datapack info is missing
+            if (!log.datapack || !Array.isArray(log.datapack.namespaces) || 
+                !log.datapack.namespaces.includes(selectedNamespace)) continue;
 
             // Skip if version is out of range
-            if (log.version < minVersion || log.version > maxVersion) continue;
+            if (typeof log.version !== 'number' || log.version < minVersion || log.version > maxVersion) continue;
+
+            // Skip if logs not present
+            if (!Array.isArray(log.logs)) continue;
 
             for (const fileLog of log.logs) {
                 // Only process enchantment registries
-                if (fileLog.registry !== "enchantment") continue;
+                if (fileLog.registry !== "enchantment" || !fileLog.identifier) continue;
 
                 // Check if this enchantment belongs to the selected namespace
                 const [namespace, enchantName] = fileLog.identifier.split(":");
-                if (namespace !== selectedNamespace) continue;
+                if (namespace !== selectedNamespace || !enchantName) continue;
 
                 // Get the enchantment name without the namespace
                 const enchantId = enchantName;
@@ -138,12 +164,15 @@ export function EnchantmentModeChart(props: {
                 };
 
                 // Extract mode from updated enchantments
-                if (fileLog.type === "updated" && fileLog.differences) {
+                if (fileLog.type === "updated" && Array.isArray(fileLog.differences)) {
                     const modeDiff = fileLog.differences.find((diff) => diff.path === "mode");
                     if (modeDiff && modeDiff.type === "set" && typeof modeDiff.value === "string") {
                         const mode = modeDiff.value as EnchantmentMode;
-                        modeCounter[mode]++;
-                        modes[mode]++;
+                        // Ensure mode is one of the valid types
+                        if (mode === "normal" || mode === "soft_delete" || mode === "only_creative") {
+                            modeCounter[mode]++;
+                            modes[mode]++;
+                        }
                     }
                 }
 
@@ -152,8 +181,11 @@ export function EnchantmentModeChart(props: {
                     const enchantmentData = fileLog.value as Record<string, unknown>;
                     if (enchantmentData.mode && typeof enchantmentData.mode === "string") {
                         const mode = enchantmentData.mode as EnchantmentMode;
-                        modeCounter[mode]++;
-                        modes[mode]++;
+                        // Ensure mode is one of the valid types
+                        if (mode === "normal" || mode === "soft_delete" || mode === "only_creative") {
+                            modeCounter[mode]++;
+                            modes[mode]++;
+                        }
                     } else {
                         // Default to normal if not specified
                         modeCounter.normal++;
@@ -175,21 +207,35 @@ export function EnchantmentModeChart(props: {
         const newEnchantmentData = Array.from(enchantmentModes.entries())
             .map(([enchantId, modes]) => {
                 const total = modes.normal + modes.soft_delete + modes.only_creative;
-                return {
-                    name: new Identifier({
+                try {
+                    // Try to create a readable name
+                    const name = new Identifier({
                         namespace: selectedNamespace,
                         registry: "enchantment",
                         resource: enchantId
-                    }).toResourceName(),
-                    normal: modes.normal,
-                    soft_delete: modes.soft_delete,
-                    only_creative: modes.only_creative,
-                    total
-                };
+                    }).toResourceName();
+                    
+                    return {
+                        name,
+                        normal: modes.normal,
+                        soft_delete: modes.soft_delete,
+                        only_creative: modes.only_creative,
+                        total
+                    };
+                } catch (error) {
+                    // Fallback if identifier creation fails
+                    return {
+                        name: enchantId.replace(/_/g, " ").replace(/\b\w/g, (l) => l.toUpperCase()),
+                        normal: modes.normal,
+                        soft_delete: modes.soft_delete,
+                        only_creative: modes.only_creative,
+                        total
+                    };
+                }
             })
             .filter((item) => item.total > 0) // Only keep items with at least one mode
             .sort((a, b) => b.total - a.total) // Sort by total count descending
-            .slice(0, 20); // Limit to top 10 enchantments
+            .slice(0, 20); // Limit to top 20 enchantments
 
         // Update state
         setModeData(newModeData);
@@ -213,6 +259,9 @@ export function EnchantmentModeChart(props: {
     // Mode keys for stacked bar chart
     const modeKeys: EnchantmentMode[] = ["normal", "soft_delete", "only_creative"];
 
+    // Check if data is empty
+    const hasData = modeData.length > 0 && enchantmentData.length > 0;
+
     // Main render
     return (
         <Card className="bg-zinc-950/50 shadow-2xl">
@@ -223,9 +272,9 @@ export function EnchantmentModeChart(props: {
                         <CardDescription>{props.description}</CardDescription>
                     </div>
                     <div className="flex flex-col sm:flex-row gap-2">
-                        <div>
+                        <div className="flex flex-col gap-1">
                             <p className="text-xs text-zinc-400 mb-1">Namespace</p>
-                            <Select value={selectedNamespace} setValue={setSelectedNamespace}>
+                            <Select value={selectedNamespace} setValue={setSelectedNamespace} className="min-w-48">
                                 <SelectTrigger className="w-full rounded-lg" aria-label="Select a namespace">
                                     <SelectValue placeholder="Select namespace" />
                                 </SelectTrigger>
@@ -249,86 +298,100 @@ export function EnchantmentModeChart(props: {
                 </div>
             </CardHeader>
             <CardContent className="grid grid-cols-1 gap-6 px-6 pt-6">
-                {/* Mode Distribution Chart */}
-                <div>
-                    <h3 className="text-sm font-medium text-zinc-400 mb-4">Mode Distribution (Count)</h3>
-                    <ChartContainer config={chartConfig} className="aspect-auto h-[250px] w-full">
-                        <BarChart data={modeData}>
-                            <CartesianGrid vertical={false} />
-                            <XAxis
-                                dataKey="mode"
-                                tickLine={false}
-                                axisLine={false}
-                                tickMargin={8}
-                                tickFormatter={(value) => {
-                                    const modeKey = value as string;
-                                    return chartConfig[modeKey]?.label || modeKey;
-                                }}
-                            />
-                            <YAxis axisLine={false} tickLine={false} tickMargin={8} />
-                            <ChartTooltip
-                                content={
-                                    <ChartTooltipContent
-                                        formatter={(value) => [value, "Count"]}
-                                        labelFormatter={(value) => {
+                {!hasData ? (
+                    <div className="flex items-center justify-center h-[300px]">
+                        <p className="text-zinc-400">No enchantment mode data for the selected criteria.</p>
+                    </div>
+                ) : (
+                    <>
+                        {/* Mode Distribution Chart */}
+                        <div>
+                            <h3 className="text-sm font-medium text-zinc-400 mb-4">Mode Distribution (Count)</h3>
+                            <ChartContainer config={chartConfig} className="aspect-auto h-[250px] w-full">
+                                <BarChart data={modeData}>
+                                    <CartesianGrid vertical={false} />
+                                    <XAxis
+                                        dataKey="mode"
+                                        tickLine={false}
+                                        axisLine={false}
+                                        tickMargin={8}
+                                        tickFormatter={(value) => {
                                             const modeKey = value as string;
                                             return chartConfig[modeKey]?.label || modeKey;
                                         }}
                                     />
-                                }
-                            />
-                            <Bar dataKey="count">
-                                {modeData.map((entry) => (
-                                    <Cell
-                                        key={`cell-${entry.mode}`}
-                                        fill={chartConfig[entry.mode as keyof typeof chartConfig]?.color || "#cccccc"}
+                                    <YAxis axisLine={false} tickLine={false} tickMargin={8} />
+                                    <ChartTooltip
+                                        content={
+                                            <ChartTooltipContent
+                                                formatter={(value) => [value, "Count"]}
+                                                labelFormatter={(value) => {
+                                                    const modeKey = value as string;
+                                                    return chartConfig[modeKey]?.label || modeKey;
+                                                }}
+                                            />
+                                        }
                                     />
+                                    <Bar dataKey="count">
+                                        {modeData.map((entry) => (
+                                            <Cell
+                                                key={`cell-${entry.mode}`}
+                                                fill={chartConfig[entry.mode as keyof typeof chartConfig]?.color || "#cccccc"}
+                                            />
+                                        ))}
+                                    </Bar>
+                                </BarChart>
+                            </ChartContainer>
+                        </div>
+
+                        {/* Summary Data */}
+                        <div>
+                            <h3 className="text-sm font-medium text-zinc-400 mb-4">Summary</h3>
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                {modeData.map((item) => (
+                                    <div key={item.mode} className="bg-zinc-900/50 rounded-lg p-4 border border-zinc-800">
+                                        <h4 className="text-zinc-200 mb-1">
+                                            {chartConfig[item.mode as keyof typeof chartConfig]?.label || item.mode}
+                                        </h4>
+                                        <div className="flex flex-col">
+                                            <span className="text-2xl font-bold text-zinc-100">{item.count}</span>
+                                            <span className="text-xs text-zinc-400">{item.percentage}% of total enchantments</span>
+                                        </div>
+                                    </div>
                                 ))}
-                            </Bar>
-                        </BarChart>
-                    </ChartContainer>
-                </div>
-
-                {/* Summary Data */}
-                <div>
-                    <h3 className="text-sm font-medium text-zinc-400 mb-4">Summary</h3>
-                    <div className="grid grid-cols-3 gap-4">
-                        {modeData.map((item) => (
-                            <div key={item.mode} className="bg-zinc-900/50 rounded-lg p-4 border border-zinc-800">
-                                <h4 className="text-zinc-200 mb-1">
-                                    {chartConfig[item.mode as keyof typeof chartConfig]?.label || item.mode}
-                                </h4>
-                                <div className="flex flex-col">
-                                    <span className="text-2xl font-bold text-zinc-100">{item.count}</span>
-                                    <span className="text-xs text-zinc-400">{item.percentage}% of total enchantments</span>
-                                </div>
                             </div>
-                        ))}
-                    </div>
-                </div>
+                        </div>
 
-                {/* Enchantment Mode Distribution Chart */}
-                <div>
-                    <h3 className="text-sm font-medium text-zinc-400 mb-4">Mode Distribution by Enchantment</h3>
-                    <ChartContainer config={chartConfig} className="aspect-auto h-[400px] w-full">
-                        <BarChart data={enchantmentData} layout="vertical" margin={{ top: 20, right: 30, left: 120, bottom: 5 }}>
-                            <CartesianGrid horizontal={false} />
-                            <XAxis type="number" />
-                            <YAxis dataKey="name" type="category" width={100} tickLine={false} axisLine={false} />
-                            <Tooltip />
-                            <Legend />
-                            {modeKeys.map((key) => (
-                                <Bar
-                                    key={key}
-                                    dataKey={key}
-                                    name={chartConfig[key as keyof typeof chartConfig]?.label || key}
-                                    stackId="a"
-                                    fill={chartConfig[key as keyof typeof chartConfig]?.color || "#cccccc"}
-                                />
-                            ))}
-                        </BarChart>
-                    </ChartContainer>
-                </div>
+                        {/* Enchantment Mode Distribution Chart */}
+                        {enchantmentData.length > 0 && (
+                            <div>
+                                <h3 className="text-sm font-medium text-zinc-400 mb-4">Mode Distribution by Enchantment</h3>
+                                <ChartContainer config={chartConfig} className="aspect-auto h-[400px] w-full">
+                                    <BarChart 
+                                        data={enchantmentData} 
+                                        layout="vertical" 
+                                        margin={{ top: 20, right: 30, left: 120, bottom: 5 }}
+                                    >
+                                        <CartesianGrid horizontal={false} />
+                                        <XAxis type="number" />
+                                        <YAxis dataKey="name" type="category" width={100} tickLine={false} axisLine={false}/>
+                                        <Tooltip />
+                                        <Legend />
+                                        {modeKeys.map((key) => (
+                                            <Bar
+                                                key={key}
+                                                dataKey={key}
+                                                name={chartConfig[key as keyof typeof chartConfig]?.label || key}
+                                                stackId="a"
+                                                fill={chartConfig[key as keyof typeof chartConfig]?.color || "#cccccc"}
+                                            />
+                                        ))}
+                                    </BarChart>
+                                </ChartContainer>
+                            </div>
+                        )}
+                    </>
+                )}
             </CardContent>
         </Card>
     );

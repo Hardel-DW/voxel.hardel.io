@@ -2,13 +2,13 @@
 import DashboardLayout from "@/components/layouts/DashboardLayout.astro";
 import SidebarStats from "@/components/pages/stats/SidebarStats.astro";
 import { getTranslations } from "@/lib/i18n";
-import { GET as getEnchantmentLogs } from "@/pages/api/stats/enchantment-logs";
+import { GET as getEnchantmentModeLogs } from "@/pages/api/stats/enchantment-mode";
 import type { Log } from "@voxelio/breeze";
 import { EnchantmentModeChart } from "@/components/pages/stats/enchantment/EnchantmentModeCharts";
 
 let logsData: Log[] = [];
 try {
-    const logsResponse = await getEnchantmentLogs(Astro);
+    const logsResponse = await getEnchantmentModeLogs(Astro);
     logsData = await logsResponse.json();
 } catch (error) {
     console.error("Error fetching enchantment logs:", error);

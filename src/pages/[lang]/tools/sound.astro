@@ -19,6 +19,6 @@ export async function getStaticPaths() {
         <ShiningStars/>
     </div>
     <section class="w-3/4 mx-auto mt-40 relative z-50">
-        <SoundTool client:load lang={lang}/>
+        <SoundTool client:only="react" lang={lang}/>
     </section>
 </CompoundLayout> 

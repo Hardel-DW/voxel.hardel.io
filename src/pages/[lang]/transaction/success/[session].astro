@@ -104,7 +104,7 @@ const products = await Promise.all(
 
                 <div class="mt-8 bg-zinc-900/50 p-4 rounded-2xl px-6 py-4 flex justify-between items-center">
                     <p class="text-zinc-300">{session}</p>
-                    <ButtonCopy client:load snippet={session} />
+                    <ButtonCopy client:only="react" snippet={session} />
                 </div>
             )}
         </section>

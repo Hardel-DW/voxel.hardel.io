@@ -70,7 +70,7 @@ export async function getStaticPaths() {
                 <Star/>
             </div>
 
-            <MigrationTool client:load translate={translate} />
+            <MigrationTool client:only="react" translate={translate} />
         </div>
     </section>
 

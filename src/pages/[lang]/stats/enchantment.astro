@@ -33,7 +33,6 @@ const { lang } = await getTranslations(Astro.url);
 
     <div class="flex flex-col gap-8 pb-8">
         <EnchantmentModeChart 
-            client:load
             client:only="react"
             logs={logsData}
             title="Enchantment Mode Distribution"

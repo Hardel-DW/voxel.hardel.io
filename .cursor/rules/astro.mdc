@@ -1,4 +1,9 @@
 ---
+description: 
+globs: 
+alwaysApply: false
+---
+---
 description: Rules for Astro and Tailwind project. Includes file tree to locate a file. and General rules of this project. The routing. Content management. Astro only Performance optimisation. Data Fetching on server component. SEO and Meta Tags and unit testing with vitest
 globs: *.tsx, *.astro
 ---

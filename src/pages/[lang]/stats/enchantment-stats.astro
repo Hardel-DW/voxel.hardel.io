@@ -33,7 +33,6 @@ const { lang } = await getTranslations(Astro.url);
     <div class="flex flex-col gap-8 pb-8">
         {enchantmentData.length > 0 ? (
             <EnchantmentStatsChart 
-                client:load
                 client:only="react"
                 data={enchantmentData}
                 title="Enchantment Properties Analysis"

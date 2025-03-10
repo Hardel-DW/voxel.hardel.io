@@ -24,7 +24,7 @@ export async function getStaticPaths() {
     </div>
     <div class="absolute rounded-full w-3/4 h-1/2 bg-linear-to-r from-[#830335] to-[#311e7696] opacity-20 blur-[10rem] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"/>
 
-    <EnchantTool client:load lang={lang} faq={values}>
+    <EnchantTool client:only="react" lang={lang} faq={values}>
         <Navbar transparent={false} full={false} className="relative mt-0 mb-8 w-full"/>
     </EnchantTool>
 </Layout>

@@ -80,7 +80,7 @@ export async function getStaticPaths() {
                 <Star/> 
             </div>
 
-            <DatapackDropzone client:load translateForm={translateForm}>
+            <DatapackDropzone client:only="react" translateForm={translateForm}>
                 {translate["tools.converter.dropzone"]}
             </DatapackDropzone>
         </div>

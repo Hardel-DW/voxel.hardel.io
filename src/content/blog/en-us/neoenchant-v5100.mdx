@@ -1,0 +1,452 @@
+---
+draft: false
+title: "NeoEnchant - Version 5.10.0"
+snippet: "Update 5.10, adding 6 new enchantments including several for mounts and balance changes."
+image: {
+    src: "https://uy64vwmxhf.ufs.sh/f/llTsukoqRt5QTmKu936JsdbAYGw6NoMQU1XkaVSh39xi5K8B",
+    alt: "NeoEnchant - 5.10"
+}
+authors: ["hardel"]
+publishDate: "2025-03-18"
+category: "Datapacks"
+---
+
+import Star from "@/components/ui/star.astro";
+import DownloadModrinth from "@/components/ui/note/DonwloadModrinth.astro";
+import Changelog from "@/components/ui/note/Changelog.astro";
+import ChangelogContainer from "@/components/ui/note/ChangelogContainer.astro";
+import ChangelogSection from "@/components/ui/note/ChangelogSection.astro";
+import ChangelogItem from "@/components/ui/note/ChangelogItem.astro";
+
+# Overview
+Hello everyone, I'm really excited to present NeoEnchant version 5.10.0. This update adds 6 new enchantments, including several specially designed for mounts and pets, as well as balance changes for existing enchantments.
+
+NeoEnchant 5.10.0 also includes full compatibility with Minecraft 1.21.5 and Yggdrasil with new items for Asgard.
+
+<DownloadModrinth soon asset="/images/addons/picture/ne.webp" name="NeoEnchant" version="5.10.0" link="https://modrinth.com/datapack/neoenchant" />  
+
+<Star />
+
+# New Enchantments
+
+<Changelog>
+    <ChangelogContainer
+        title="Midas Touch"
+        citation="Transform blocks into gold with a simple touch! This legendary enchantment allows your stick to convert ordinary blocks into gold ore (or occasionally gold blocks). Perfect for treasure hunters and gold enthusiasts!"
+        stats={{
+            maxLevel: 1,
+            anvilCost: 2,
+            weight: 1
+        }}
+        applicable={{ name: "Stick", asset: "stick" }}
+    >
+        <ChangelogSection>
+            <ChangelogItem title="Obtaining">
+                This enchantment is designated as an Asgard reward and can only be obtained in this structure.
+            </ChangelogItem>
+            <ChangelogItem title="Particularity">
+                It can be found on a book that has durability.
+            </ChangelogItem>
+            <ChangelogItem title="Effects">
+                Allows transforming ordinary blocks into gold ore or sometimes complete gold blocks.
+            </ChangelogItem>
+        </ChangelogSection>
+    </ChangelogContainer>
+
+    <ChangelogContainer
+        title="Magnet"
+        citation="Never bend down to pick up items again! This chestplate enchantment automatically attracts nearby items directly to you. A must for efficient mining and combat."
+        stats={{
+            maxLevel: 3,
+            anvilCost: 2,
+            weight: 4
+        }}
+        applicable={{ name: "Chestplates", asset: "chestplate" }}
+    >
+        <ChangelogSection>
+            <ChangelogItem title="Effects">
+                Automatically attracts nearby items to you within a 10-block radius.
+            </ChangelogItem>
+            <ChangelogItem title="Limitations">
+                Only attracts items you have mined or items from monsters you have attacked. Does not attract items thrown by a player or items older than 1 second.
+            </ChangelogItem>
+            <ChangelogItem title="Technical Note">
+                Due to technical limitations, it may attract rewards from blocks/monsters destroyed by other nearby players.
+            </ChangelogItem>
+        </ChangelogSection>
+    </ChangelogContainer>
+
+    <ChangelogContainer
+        title="Ethereal Leap"
+        citation="Transform your mount into a legendary jumper! Significantly increases jump height and reduces fall damage. Even the highest obstacles are no longer a problem for your mount."
+        stats={{
+            maxLevel: 7,
+            anvilCost: 2,
+            weight: 5
+        }}
+        applicable={{ name: "Horse Armor", asset: "horse_armor" }}
+    >
+        <ChangelogSection>
+            <ChangelogItem title="Effects">
+                Increases your mount's jump height and reduces fall damage.
+            </ChangelogItem>
+            <ChangelogItem title="Equivalence">
+                This is the equivalent of the Leaping enchantment, but specially designed for mounts.
+            </ChangelogItem>
+            <ChangelogItem title="Obtaining">
+                Due to technical limitations, this enchantment cannot appear in the enchantment table.
+            </ChangelogItem>
+        </ChangelogSection>
+    </ChangelogContainer>
+
+    <ChangelogContainer
+        title="Velocity"
+        citation="Speed enthusiasts will rejoice! This enchantment increases your mount's movement speed up to 175% at maximum level. Travel across the landscape at unprecedented speed."
+        stats={{
+            maxLevel: 5,
+            anvilCost: 2,
+            weight: 5
+        }}
+        applicable={{ name: "Horse Armor", asset: "horse_armor" }}
+    >
+        <ChangelogSection>
+            <ChangelogItem title="Effects">
+                Increases your mount's movement speed up to 175% at maximum level.
+            </ChangelogItem>
+            <ChangelogItem title="Equivalence">
+                This is the equivalent of the Agility enchantment, but specially designed for mounts.
+            </ChangelogItem>
+            <ChangelogItem title="Obtaining">
+                Due to technical limitations, this enchantment cannot appear in the enchantment table.
+            </ChangelogItem>
+        </ChangelogSection>
+    </ChangelogContainer>
+
+    <ChangelogContainer
+        title="Steel Fang"
+        citation="Enhance your wolf companion's bite! This specialized enchantment increases your dog's attack damage, making them formidable fighters. Perfect for adventuring with your faithful canine."
+        stats={{
+            maxLevel: 5,
+            anvilCost: 2,
+            weight: 5
+        }}
+        applicable={{ name: "Dog Armor", asset: "dog_armor" }}
+    >
+        <ChangelogSection>
+            <ChangelogItem title="Effects">
+                Increases your dog's attack damage, making them more effective in combat.
+            </ChangelogItem>
+            <ChangelogItem title="Equivalence">
+                This is the equivalent of the Sharpness enchantment, but specially designed for dogs.
+            </ChangelogItem>
+            <ChangelogItem title="Obtaining">
+                Due to technical limitations, this enchantment cannot appear in the enchantment table.
+            </ChangelogItem>
+        </ChangelogSection>
+    </ChangelogContainer>
+
+    <ChangelogContainer
+        title="Rider's Aegis"
+        citation="Protection for mounted warriors! Reduces damage taken while riding, making mounted combat much safer. The perfect defensive complement to your offensive capabilities."
+        stats={{
+            maxLevel: 4,
+            anvilCost: 2,
+            weight: 5
+        }}
+        applicable={{ name: "Horse Armor", asset: "horse_armor" }}
+    >
+        <ChangelogSection>
+            <ChangelogItem title="Effects">
+                Reduces damage taken while riding your mount.
+            </ChangelogItem>
+            <ChangelogItem title="Equivalence">
+                This is the equivalent of the Protection enchantment, but specially designed for riders.
+            </ChangelogItem>
+            <ChangelogItem title="Obtaining">
+                Due to technical limitations, this enchantment cannot appear in the enchantment table.
+            </ChangelogItem>
+        </ChangelogSection>
+    </ChangelogContainer>
+</Changelog>
+
+<Star />
+
+# Modifications and Balance Changes
+
+<Changelog>
+    <ChangelogContainer
+        title="Fury"
+        citation="Following an analysis of statistics collected with the enchantment configurator, this enchantment has been rebalanced."
+        stats={{
+            maxLevel: {
+                currentValue: 4,
+                newValue: 3,
+                type: "Nerf"
+            },
+            anvilCost: 2,
+            weight: 5
+        }}
+        applicable={{ name: "Swords", asset: "sword" }}
+    >
+        <ChangelogSection>
+            <ChangelogItem title="Balance">
+                The maximum level has been reduced from 5 to 3 for better balance.
+            </ChangelogItem>
+        </ChangelogSection>
+    </ChangelogContainer>
+
+    <ChangelogContainer
+        title="Wind-Breaking Arrow"
+        citation="To improve the overall balance of the game, this enchantment has been adjusted according to observed median statistics."
+        stats={{
+            maxLevel: {
+                currentValue: 3,
+                newValue: 2,
+                type: "Nerf"
+            },
+            anvilCost: 2,
+            weight: 5
+        }}
+        applicable={{ name: "Bows", asset: "bow" }}
+    >
+        <ChangelogSection>
+            <ChangelogItem title="Balance">
+                The maximum level has been reduced to 2 for better gameplay balance.
+            </ChangelogItem>
+        </ChangelogSection>
+    </ChangelogContainer>
+
+    <ChangelogContainer
+        title="Builder's Arm"
+        citation="Statistics showed that this enchantment was too powerful at higher levels."
+        stats={{
+            maxLevel: {
+                currentValue: 5,
+                newValue: 3,
+                type: "Nerf"
+            },
+            anvilCost: 2,
+            weight: 5
+        }}
+        applicable={{ name: "Tools", asset: "durability" }}
+    >
+        <ChangelogSection>
+            <ChangelogItem title="Balance">
+                The maximum level has been reduced to 3 to prevent too rapid constructions.
+            </ChangelogItem>
+        </ChangelogSection>
+    </ChangelogContainer>
+
+    <ChangelogContainer
+        title="Echo Shot"
+        citation="This enchantment has been adjusted to offer a more balanced experience in ranged combat."
+        stats={{
+            maxLevel: {
+                currentValue: 3,
+                newValue: 2,
+                type: "Nerf"
+            },
+            anvilCost: 2,
+            weight: 5
+        }}
+        applicable={{ name: "Bows", asset: "bow" }}
+    >
+        <ChangelogSection>
+            <ChangelogItem title="Balance">
+                The maximum level has been reduced to 2 for better balance.
+            </ChangelogItem>
+        </ChangelogSection>
+    </ChangelogContainer>
+
+    <ChangelogContainer
+        title="Eternal Frost"
+        citation="Due to its power, this enchantment has been limited to a single level."
+        stats={{
+            maxLevel: {
+                currentValue: 2,
+                newValue: 1,
+                type: "Nerf"
+            },
+            anvilCost: 2,
+            weight: 3
+        }}
+        applicable={{ name: "Swords", asset: "sword" }}
+    >
+        <ChangelogSection>
+            <ChangelogItem title="Balance">
+                The maximum level has been reduced to 1 to prevent an overly dominant effect.
+            </ChangelogItem>
+        </ChangelogSection>
+    </ChangelogContainer>
+
+    <ChangelogContainer
+        title="Explosive Arrow"
+        citation="Players found this enchantment underused, so we increased its maximum power."
+        stats={{
+            maxLevel: {
+                currentValue: 3,
+                newValue: 4,
+                type: "Buff"
+            },
+            anvilCost: 2,
+            weight: 4
+        }}
+        applicable={{ name: "Bows", asset: "bow" }}
+    >
+        <ChangelogSection>
+            <ChangelogItem title="Balance">
+                The maximum level has been increased to 4 to make it a more viable option.
+            </ChangelogItem>
+        </ChangelogSection>
+    </ChangelogContainer>
+
+    <ChangelogContainer
+        title="Kinetic Protection"
+        citation="Following player feedback, this enchantment has been strengthened to provide better protection during Elytra flights."
+        stats={{
+            maxLevel: {
+                currentValue: 4,
+                newValue: 5,
+                type: "Buff"
+            },
+            anvilCost: 2,
+            weight: 5
+        }}
+        applicable={{ name: "Elytra", asset: "elytra" }}
+    >
+        <ChangelogSection>
+            <ChangelogItem title="Balance">
+                The maximum level has been increased to 5 for better protection against collisions.
+            </ChangelogItem>
+        </ChangelogSection>
+    </ChangelogContainer>
+
+    <ChangelogContainer
+        title="Stunted"
+        citation="This enchantment has been strengthened to make it more attractive to players."
+        stats={{
+            maxLevel: {
+                currentValue: 4,
+                newValue: 5,
+                type: "Buff"
+            },
+            anvilCost: 2,
+            weight: 5
+        }}
+        applicable={{ name: "Armors", asset: "armor" }}
+    >
+        <ChangelogSection>
+            <ChangelogItem title="Balance">
+                The maximum level has been increased to 5 to make it a more interesting option.
+            </ChangelogItem>
+        </ChangelogSection>
+    </ChangelogContainer>
+
+    <ChangelogContainer
+        title="Bouncy Jump"
+        citation="To match improvements made to movement enchantments, this one has also been strengthened."
+        stats={{
+            maxLevel: {
+                currentValue: 2,
+                newValue: 3,
+                type: "Buff"
+            },
+            anvilCost: 2,
+            weight: 2
+        }}
+        applicable={{ name: "Leggings", asset: "leggings" }}
+    >
+        <ChangelogSection>
+            <ChangelogItem title="Balance">
+                The maximum level has been increased to 3 to offer more vertical mobility options.
+            </ChangelogItem>
+        </ChangelogSection>
+    </ChangelogContainer>
+
+    <ChangelogContainer
+        title="Critical Strike"
+        citation="This powerful attack enchantment has been slightly attenuated to balance combat."
+        stats={{
+            maxLevel: {
+                currentValue: 5,
+                newValue: 4,
+                type: "Nerf"
+            },
+            anvilCost: 2,
+            weight: 4
+        }}
+        applicable={{ name: "Swords", asset: "sword" }}
+    >
+        <ChangelogSection>
+            <ChangelogItem title="Balance">
+                The maximum level has been reduced to 4 for improved PvP balance.
+            </ChangelogItem>
+        </ChangelogSection>
+    </ChangelogContainer>
+
+    <ChangelogContainer
+        title="Aspect of Poison"
+        citation="This enchantment created combat situations that were too dominant at higher levels."
+        stats={{
+            maxLevel: {
+                currentValue: 4,
+                newValue: 3,
+                type: "Nerf"
+            },
+            anvilCost: 2,
+            weight: 3
+        }}
+        applicable={{ name: "Swords", asset: "sword" }}
+    >
+        <ChangelogSection>
+            <ChangelogItem title="Balance">
+                The maximum level has been reduced to 3 to reduce overly powerful status effects.
+            </ChangelogItem>
+        </ChangelogSection>
+    </ChangelogContainer>
+
+    <ChangelogContainer
+        title="Tears of Asflors"
+        citation="This unique enchantment has been adjusted to align with other sword enchantment nerfs."
+        stats={{
+            maxLevel: {
+                currentValue: 4,
+                newValue: 3,
+                type: "Nerf"
+            },
+            anvilCost: 2,
+            weight: 4
+        }}
+        applicable={{ name: "Swords", asset: "sword" }}
+    >
+        <ChangelogSection>
+            <ChangelogItem title="Balance">
+                The maximum level has been reduced to 3 to maintain balance between sword enchantments.
+            </ChangelogItem>
+        </ChangelogSection>
+    </ChangelogContainer>
+</Changelog>
+
+<Star />
+
+# Other Changes
+- Translations have been updated to include new enchantments.
+- Full compatibility with Minecraft 1.21.5.
+- Yggdrasil has received a special update ensuring complete compatibility with NeoEnchant 5.10.0.
+- New items have been added for Asgard.
+- Several datapacks have been migrated for version 1.21.5.
+
+### Contribution
+- Join the [Discord](https://discord.gg/TAmVFvkHep) to follow updates and contribute to the translation or improvement of the datapack.
+- You can also contribute to translation by creating a ticket on Github.
+
+<Star />
+
+# Compatibility and Support
+- Full support for Minecraft 1.21.5
+- Compatibility with Yggdrasil
+- Support for the latest versions of BeyondEnchant
+
+Thank you for your continued support! Your feedback helps us improve NeoEnchant with each version. Join our server to test these exciting new enchantments and share your impressions!
+
+See you soon for more magical adventures! 

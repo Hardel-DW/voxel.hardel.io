@@ -1,0 +1,452 @@
+---
+draft: false
+title: "NeoEnchant - Version 5.10.0"
+snippet: "La mise à jour 5.10, ajoutant 6 nouveaux enchantements dont plusieurs pour les montures et de l'équilibrage."
+image: {
+    src: "https://uy64vwmxhf.ufs.sh/f/llTsukoqRt5QTmKu936JsdbAYGw6NoMQU1XkaVSh39xi5K8B",
+    alt: "NeoEnchant - 5.10"
+}
+authors: ["hardel"]
+publishDate: "2025-03-18"
+category: "Datapacks"
+---
+
+import Star from "@/components/ui/star.astro";
+import DownloadModrinth from "@/components/ui/note/DonwloadModrinth.astro";
+import Changelog from "@/components/ui/note/Changelog.astro";
+import ChangelogContainer from "@/components/ui/note/ChangelogContainer.astro";
+import ChangelogSection from "@/components/ui/note/ChangelogSection.astro";
+import ChangelogItem from "@/components/ui/note/ChangelogItem.astro";
+
+# Aperçu
+Bonjour à tous, Je suis vraiment ravi de vous présenter la version 5.10.0 de NeoEnchant. Cette mise à jour ajoute 6 nouveaux enchantements, dont plusieurs spécialement conçus pour les montures et animaux de compagnie, ainsi que de l'équilibrage pour les enchantements existants.
+
+NeoEnchant 5.10.0 intègre également la compatibilité complète avec Minecraft 1.21.5 et Yggdrasil avec de nouveaux objets pour Asgard.
+
+<DownloadModrinth soon asset="/images/addons/picture/ne.webp" name="NeoEnchant" version="5.10.0" link="https://modrinth.com/datapack/neoenchant" />  
+
+<Star />
+
+# Nouveaux Enchantements
+
+<Changelog>
+    <ChangelogContainer
+        title="Toucher de Midas"
+        citation="Transformez les blocs en or d'un simple toucher ! Cet enchantement légendaire permet à votre bâton de convertir des blocs ordinaires en minerai d'or (ou occasionnellement en blocs d'or). Parfait pour les chasseurs de trésors et les amateurs d'or !"
+        stats={{
+            maxLevel: 1,
+            anvilCost: 2,
+            weight: 1
+        }}
+        applicable={{ name: "Bâton", asset: "stick" }}
+    >
+        <ChangelogSection>
+            <ChangelogItem title="Obtention">
+                Cet enchantement est désigné comme une récompense d'Asgard, et ne peut être obtenu que dans cette structure.
+            </ChangelogItem>
+            <ChangelogItem title="Particularité">
+                Il peut être trouvé sur un livre qui possède de la durabilité.
+            </ChangelogItem>
+            <ChangelogItem title="Effets">
+                Permet de transformer des blocs ordinaires en minerai d'or ou parfois en blocs d'or complets.
+            </ChangelogItem>
+        </ChangelogSection>
+    </ChangelogContainer>
+
+    <ChangelogContainer
+        title="Magnet"
+        citation="Ne vous penchez plus jamais pour ramasser des objets ! Cet enchantement de plastron attire automatiquement les objets à proximité directement vers vous. Un must pour le minage et le combat efficaces."
+        stats={{
+            maxLevel: 3,
+            anvilCost: 2,
+            weight: 4
+        }}
+        applicable={{ name: "Plastrons", asset: "chestplate" }}
+    >
+        <ChangelogSection>
+            <ChangelogItem title="Effets">
+                Attire automatiquement les objets à proximité vers vous dans un rayon de 10 blocs.
+            </ChangelogItem>
+            <ChangelogItem title="Limitations">
+                Attire uniquement les objets que vous avez minés ou les objets des monstres que vous avez attaqués. N'attire pas les objets lancés par un joueur ou les objets plus anciens que 1 seconde.
+            </ChangelogItem>
+            <ChangelogItem title="Note technique">
+                En raison de limitations techniques, il peut attirer les récompenses de blocs/monstres détruits par d'autres joueurs à proximité.
+            </ChangelogItem>
+        </ChangelogSection>
+    </ChangelogContainer>
+
+    <ChangelogContainer
+        title="Saut Éthéré"
+        citation="Transformez votre monture en sauteur légendaire ! Augmente considérablement la hauteur de saut et réduit les dégâts de chute. Même les obstacles les plus hauts ne sont plus un problème pour votre monture."
+        stats={{
+            maxLevel: 7,
+            anvilCost: 2,
+            weight: 5
+        }}
+        applicable={{ name: "Armure de Cheval", asset: "horse_armor" }}
+    >
+        <ChangelogSection>
+            <ChangelogItem title="Effets">
+                Augmente la hauteur de saut de votre monture et réduit les dégâts de chute.
+            </ChangelogItem>
+            <ChangelogItem title="Équivalence">
+                C'est l'équivalent de l'enchantement Leaping, mais spécialement conçu pour les montures.
+            </ChangelogItem>
+            <ChangelogItem title="Obtention">
+                En raison de limitations techniques, cet enchantement ne peut pas apparaître dans la table d'enchantement.
+            </ChangelogItem>
+        </ChangelogSection>
+    </ChangelogContainer>
+
+    <ChangelogContainer
+        title="Vélocité"
+        citation="Les amateurs de vitesse vont se réjouir ! Cet enchantement augmente la vitesse de déplacement de votre monture jusqu'à 175% au niveau maximum. Parcourez le paysage à une vitesse sans précédent."
+        stats={{
+            maxLevel: 5,
+            anvilCost: 2,
+            weight: 5
+        }}
+        applicable={{ name: "Armure de Cheval", asset: "horse_armor" }}
+    >
+        <ChangelogSection>
+            <ChangelogItem title="Effets">
+                Augmente la vitesse de déplacement de votre monture jusqu'à 175% au niveau maximum.
+            </ChangelogItem>
+            <ChangelogItem title="Équivalence">
+                C'est l'équivalent de l'enchantement Agility, mais spécialement conçu pour les montures.
+            </ChangelogItem>
+            <ChangelogItem title="Obtention">
+                En raison de limitations techniques, cet enchantement ne peut pas apparaître dans la table d'enchantement.
+            </ChangelogItem>
+        </ChangelogSection>
+    </ChangelogContainer>
+
+    <ChangelogContainer
+        title="Croc d'Acier"
+        citation="Améliorez la morsure de votre compagnon loup ! Cet enchantement spécialisé augmente les dégâts d'attaque de votre chien, en faisant des combattants redoutables. Parfait pour partir à l'aventure avec votre fidèle canidé."
+        stats={{
+            maxLevel: 5,
+            anvilCost: 2,
+            weight: 5
+        }}
+        applicable={{ name: "Armure de Chien", asset: "dog_armor" }}
+    >
+        <ChangelogSection>
+            <ChangelogItem title="Effets">
+                Augmente les dégâts d'attaque de votre chien, le rendant plus efficace au combat.
+            </ChangelogItem>
+            <ChangelogItem title="Équivalence">
+                C'est l'équivalent de l'enchantement Sharpness, mais spécialement conçu pour les chiens.
+            </ChangelogItem>
+            <ChangelogItem title="Obtention">
+                En raison de limitations techniques, cet enchantement ne peut pas apparaître dans la table d'enchantement.
+            </ChangelogItem>
+        </ChangelogSection>
+    </ChangelogContainer>
+
+    <ChangelogContainer
+        title="Égide du Cavalier"
+        citation="Protection pour les guerriers montés ! Réduit les dégâts subis pendant que vous chevauchez, rendant le combat monté beaucoup plus sûr. Le complément défensif parfait à vos capacités offensives."
+        stats={{
+            maxLevel: 4,
+            anvilCost: 2,
+            weight: 5
+        }}
+        applicable={{ name: "Armure de Cheval", asset: "horse_armor" }}
+    >
+        <ChangelogSection>
+            <ChangelogItem title="Effets">
+                Réduit les dégâts subis pendant que vous chevauchez votre monture.
+            </ChangelogItem>
+            <ChangelogItem title="Équivalence">
+                C'est l'équivalent de l'enchantement Protection, mais spécialement conçu pour les cavaliers.
+            </ChangelogItem>
+            <ChangelogItem title="Obtention">
+                En raison de limitations techniques, cet enchantement ne peut pas apparaître dans la table d'enchantement.
+            </ChangelogItem>
+        </ChangelogSection>
+    </ChangelogContainer>
+</Changelog>
+
+<Star />
+
+# Modifications et Équilibrage
+
+<Changelog>
+    <ChangelogContainer
+        title="Fureur"
+        citation="Suite à une analyse des statistiques recueillies avec le configurateur d'enchantements, cet enchantement a été rééquilibré."
+        stats={{
+            maxLevel: {
+                currentValue: 4,
+                newValue: 3,
+                type: "Nerf"
+            },
+            anvilCost: 2,
+            weight: 5
+        }}
+        applicable={{ name: "Épées", asset: "sword" }}
+    >
+        <ChangelogSection>
+            <ChangelogItem title="Équilibrage">
+                Le niveau maximum a été réduit de 5 à 3 pour un meilleur équilibre.
+            </ChangelogItem>
+        </ChangelogSection>
+    </ChangelogContainer>
+
+    <ChangelogContainer
+        title="Flèche Brise-Vent"
+        citation="Afin d'améliorer l'équilibre général du jeu, cet enchantement a été ajusté selon les statistiques médianes observées."
+        stats={{
+            maxLevel: {
+                currentValue: 3,
+                newValue: 2,
+                type: "Nerf"
+            },
+            anvilCost: 2,
+            weight: 5
+        }}
+        applicable={{ name: "Arcs", asset: "bow" }}
+    >
+        <ChangelogSection>
+            <ChangelogItem title="Équilibrage">
+                Le niveau maximum a été réduit à 2 pour un meilleur équilibre du gameplay.
+            </ChangelogItem>
+        </ChangelogSection>
+    </ChangelogContainer>
+
+    <ChangelogContainer
+        title="Bras de Bâtisseur"
+        citation="Les statistiques ont montré que cet enchantement était trop puissant à des niveaux élevés."
+        stats={{
+            maxLevel: {
+                currentValue: 5,
+                newValue: 3,
+                type: "Nerf"
+            },
+            anvilCost: 2,
+            weight: 5
+        }}
+        applicable={{ name: "Outils", asset: "durability" }}
+    >
+        <ChangelogSection>
+            <ChangelogItem title="Équilibrage">
+                Le niveau maximum a été réduit à 3 pour éviter des constructions trop rapides.
+            </ChangelogItem>
+        </ChangelogSection>
+    </ChangelogContainer>
+
+    <ChangelogContainer
+        title="Tir d'Écho"
+        citation="Cet enchantement a été ajusté pour offrir une expérience plus équilibrée en combat à distance."
+        stats={{
+            maxLevel: {
+                currentValue: 3,
+                newValue: 2,
+                type: "Nerf"
+            },
+            anvilCost: 2,
+            weight: 5
+        }}
+        applicable={{ name: "Arcs", asset: "bow" }}
+    >
+        <ChangelogSection>
+            <ChangelogItem title="Équilibrage">
+                Le niveau maximum a été réduit à 2 pour un meilleur équilibre.
+            </ChangelogItem>
+        </ChangelogSection>
+    </ChangelogContainer>
+
+    <ChangelogContainer
+        title="Gel Éternel"
+        citation="En raison de sa puissance, cet enchantement a été limité à un seul niveau."
+        stats={{
+            maxLevel: {
+                currentValue: 2,
+                newValue: 1,
+                type: "Nerf"
+            },
+            anvilCost: 2,
+            weight: 3
+        }}
+        applicable={{ name: "Épées", asset: "sword" }}
+    >
+        <ChangelogSection>
+            <ChangelogItem title="Équilibrage">
+                Le niveau maximum a été réduit à 1 pour éviter un effet trop dominant.
+            </ChangelogItem>
+        </ChangelogSection>
+    </ChangelogContainer>
+
+    <ChangelogContainer
+        title="Flèche Explosive"
+        citation="Les joueurs ont trouvé cet enchantement sous-utilisé, donc nous avons augmenté sa puissance maximum."
+        stats={{
+            maxLevel: {
+                currentValue: 3,
+                newValue: 4,
+                type: "Buff"
+            },
+            anvilCost: 2,
+            weight: 4
+        }}
+        applicable={{ name: "Arcs", asset: "bow" }}
+    >
+        <ChangelogSection>
+            <ChangelogItem title="Équilibrage">
+                Le niveau maximum a été augmenté à 4 pour en faire une option plus viable.
+            </ChangelogItem>
+        </ChangelogSection>
+    </ChangelogContainer>
+
+    <ChangelogContainer
+        title="Protection Cinétique"
+        citation="Suite aux retours des joueurs, cet enchantement a été renforcé pour offrir une meilleure protection lors des vols en Elytra."
+        stats={{
+            maxLevel: {
+                currentValue: 4,
+                newValue: 5,
+                type: "Buff"
+            },
+            anvilCost: 2,
+            weight: 5
+        }}
+        applicable={{ name: "Elytra", asset: "elytra" }}
+    >
+        <ChangelogSection>
+            <ChangelogItem title="Équilibrage">
+                Le niveau maximum a été augmenté à 5 pour une meilleure protection contre les collisions.
+            </ChangelogItem>
+        </ChangelogSection>
+    </ChangelogContainer>
+
+    <ChangelogContainer
+        title="Rabougri"
+        citation="Cet enchantement a été renforcé pour le rendre plus attractif aux joueurs."
+        stats={{
+            maxLevel: {
+                currentValue: 4,
+                newValue: 5,
+                type: "Buff"
+            },
+            anvilCost: 2,
+            weight: 5
+        }}
+        applicable={{ name: "Armures", asset: "armor" }}
+    >
+        <ChangelogSection>
+            <ChangelogItem title="Équilibrage">
+                Le niveau maximum a été augmenté à 5 pour en faire une option plus intéressante.
+            </ChangelogItem>
+        </ChangelogSection>
+    </ChangelogContainer>
+
+    <ChangelogContainer
+        title="Saut Bondissant"
+        citation="Pour correspondre aux améliorations apportées aux enchantements de mouvement, celui-ci a également été renforcé."
+        stats={{
+            maxLevel: {
+                currentValue: 2,
+                newValue: 3,
+                type: "Buff"
+            },
+            anvilCost: 2,
+            weight: 2
+        }}
+        applicable={{ name: "Jambières", asset: "leggings" }}
+    >
+        <ChangelogSection>
+            <ChangelogItem title="Équilibrage">
+                Le niveau maximum a été augmenté à 3 pour offrir plus d'options de mobilité verticale.
+            </ChangelogItem>
+        </ChangelogSection>
+    </ChangelogContainer>
+
+    <ChangelogContainer
+        title="Coup Critique"
+        citation="Ce puissant enchantement d'attaque a été légèrement atténué pour équilibrer les combats."
+        stats={{
+            maxLevel: {
+                currentValue: 5,
+                newValue: 4,
+                type: "Nerf"
+            },
+            anvilCost: 2,
+            weight: 4
+        }}
+        applicable={{ name: "Épées", asset: "sword" }}
+    >
+        <ChangelogSection>
+            <ChangelogItem title="Équilibrage">
+                Le niveau maximum a été réduit à 4 pour un équilibre PvP amélioré.
+            </ChangelogItem>
+        </ChangelogSection>
+    </ChangelogContainer>
+
+    <ChangelogContainer
+        title="Aspect du Poison"
+        citation="Cet enchantement créait des situations de combat trop dominantes aux niveaux supérieurs."
+        stats={{
+            maxLevel: {
+                currentValue: 4,
+                newValue: 3,
+                type: "Nerf"
+            },
+            anvilCost: 2,
+            weight: 3
+        }}
+        applicable={{ name: "Épées", asset: "sword" }}
+    >
+        <ChangelogSection>
+            <ChangelogItem title="Équilibrage">
+                Le niveau maximum a été réduit à 3 pour réduire les effets de statut trop puissants.
+            </ChangelogItem>
+        </ChangelogSection>
+    </ChangelogContainer>
+
+    <ChangelogContainer
+        title="Larmes d'Asflors"
+        citation="Cet enchantement unique a été ajusté pour s'aligner sur les autres nerfs d'enchantements d'épée."
+        stats={{
+            maxLevel: {
+                currentValue: 4,
+                newValue: 3,
+                type: "Nerf"
+            },
+            anvilCost: 2,
+            weight: 4
+        }}
+        applicable={{ name: "Épées", asset: "sword" }}
+    >
+        <ChangelogSection>
+            <ChangelogItem title="Équilibrage">
+                Le niveau maximum a été réduit à 3 pour maintenir l'équilibre entre les enchantements d'épée.
+            </ChangelogItem>
+        </ChangelogSection>
+    </ChangelogContainer>
+</Changelog>
+
+<Star />
+
+# Autres Modifications
+- Les traductions ont été mises à jour pour inclure les nouveaux enchantements.
+- Compatibilité complète avec Minecraft 1.21.5.
+- Yggdrasil a reçu une mise à jour spéciale assurant une compatibilité totale avec NeoEnchant 5.10.0.
+- De nouveaux objets ont été ajoutés pour Asgard.
+- Plusieurs datapacks ont été migrés pour la version 1.21.5.
+
+### Contribution
+- Rejoignez le [Discord](https://discord.gg/TAmVFvkHep) pour suivre les mises à jour et contribuer à la traduction ou à l'amélioration du datapack.
+- Vous pouvez également contribuer à la traduction en faisant un ticket sur Github.
+
+<Star />
+
+# Compatibilité et Support
+- Support complet de Minecraft 1.21.5
+- Compatibilité avec Yggdrasil
+- Support des dernières versions de BeyondEnchant
+
+Merci pour votre soutien continu ! Vos retours nous aident à améliorer NeoEnchant à chaque version. Rejoignez notre serveur pour tester ces nouveaux enchantements passionnants et partager vos impressions !
+
+À bientôt pour plus d'aventures magiques ! 

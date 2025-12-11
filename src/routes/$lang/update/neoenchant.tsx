@@ -1,12 +1,13 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
-import { Button } from "@/components/ui/Button";;
+import { Button } from "@/components/ui/Button";
 import { cn } from "@/lib/utils";
 import { neoenchant } from "@/lib/content/NeoEnchantCollection";
 import LineSetup from "@/components/ui/line/LineSetup";
 import Markdown from "@/components/ui/markdown";
+import TableOfContents from "@/components/ui/TableOfContents";
 
 export const Route = createFileRoute("/$lang/update/neoenchant")({
     component: RouteComponent,
@@ -21,9 +22,10 @@ function RouteComponent() {
     const entries = neoenchant.byLang(lang);
     const [selectedVersionId, setSelectedVersionId] = useState<string>(entries[0]?.data.version ?? "");
     const selectedEntry = entries.find((e) => e.data.version === selectedVersionId) ?? entries[0];
+    const contentRef = useRef<HTMLDivElement>(null);
 
     return (
-        <div className="relative min-h-screen w-full bg-zinc-950 text-zinc-200 font-rubik overflow-hidden selection:bg-pink-500/30">
+        <div className="relative min-h-screen w-full bg-zinc-950 text-zinc-200 font-rubik overflow-clip selection:bg-pink-500/30">
             <div className="relative z-10 flex flex-col min-h-screen">
                 <div className="absolute -top-16 -right-16 size-96 rounded-full blur-3xl bg-linear-to-br from-red-900/20 to-blue-900/20" />
                 <LineSetup />
@@ -131,7 +133,7 @@ function RouteComponent() {
                                     </div>
                                 </div>
 
-                                <div className="border border-zinc-800/50 rounded-3xl p-8 mt-16 backdrop-blur-md">
+                                <div ref={contentRef} className="border border-zinc-800/50 rounded-3xl p-8 mt-16 backdrop-blur-md">
                                     <Markdown content={selectedEntry.content} />
                                 </div>
                             </div>
@@ -143,6 +145,12 @@ function RouteComponent() {
                             </div>
                         )}
                     </div>
+
+                    <aside className="hidden xl:block w-56 shrink-0">
+                        <div className="sticky top-32">
+                            <TableOfContents content={selectedEntry?.content} containerRef={contentRef} />
+                        </div>
+                    </aside>
                 </main>
                 <Footer />
             </div>

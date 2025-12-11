@@ -2,7 +2,7 @@ import type { ReactNode } from "react";
 import type { BlockToken, Document, InlineToken } from "./types";
 import { tokenize } from "./lexer";
 
-export type DirectiveComponent = (props: { children?: ReactNode } & Record<string, string | ReactNode | undefined>) => ReactNode;
+export type DirectiveComponent = (props: Record<string, unknown>) => ReactNode;
 export type Directives = Record<string, DirectiveComponent>;
 
 export type Components = {

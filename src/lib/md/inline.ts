@@ -6,15 +6,6 @@ type Pattern = {
 };
 
 const patterns: Pattern[] = [
-    // Hard line break: backslash + newline
-    {
-        match: (text, pos) => {
-            if (text[pos] === "\\" && text[pos + 1] === "\n") {
-                return { length: 2, token: { type: "br" } };
-            }
-            return null;
-        },
-    },
     // Hard line break: two+ spaces + newline
     {
         match: (text, pos) => {

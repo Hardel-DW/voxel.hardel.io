@@ -34,7 +34,6 @@ export function parseDirectiveProps(raw: string): DirectiveProps {
 
 function parseDirectiveLine(line: string): { name: string; props: DirectiveProps } | null {
     if (!line.startsWith("::")) return null;
-
     const rest = line.slice(2);
     if (rest.endsWith(".end")) return null;
 
@@ -48,7 +47,6 @@ function parseDirectiveLine(line: string): { name: string; props: DirectiveProps
 
     const name = rest.slice(0, braceStart).trim();
     const propsRaw = rest.slice(braceStart + 1, braceEnd);
-
     return { name, props: parseDirectiveProps(propsRaw) };
 }
 
@@ -70,22 +68,25 @@ export function tokenize(markdown: string): Document {
             continue;
         }
 
-        // Directive with children ::name{props} ... ::name.end
+        // Directive ::name{props} - auto-close if no ::name.end found
         const directive = parseDirectiveLine(line);
         if (directive) {
             i++;
-            const childLines: string[] = [];
-            while (i < lines.length && !isDirectiveEnd(lines[i], directive.name)) {
-                childLines.push(lines[i]);
-                i++;
-            }
-            if (childLines.length > 0) {
+            const hasEnd = lines.slice(i).some((l) => isDirectiveEnd(l, directive.name));
+
+            if (hasEnd) {
+                const childLines: string[] = [];
+                while (i < lines.length && !isDirectiveEnd(lines[i], directive.name)) {
+                    childLines.push(lines[i]);
+                    i++;
+                }
                 tokens.push({
                     type: "directive",
                     name: directive.name,
                     props: directive.props,
                     children: tokenize(childLines.join("\n")),
                 });
+                i++;
             } else {
                 tokens.push({
                     type: "directive_leaf",
@@ -93,7 +94,6 @@ export function tokenize(markdown: string): Document {
                     props: directive.props,
                 });
             }
-            i++;
             continue;
         }
 

@@ -1,6 +1,8 @@
 import RawMarkdown from "@lib/md/render";
-import { Video } from "./Video";
-import { Changelog } from "@/components/Changelog";
+import { Changelog } from "@/components/markdown/Changelog";
+import { Balancing } from "@/components/markdown/Balancing";
+import { Video } from "@/components/ui/Video";
+import { NewEnchant } from "@/components/markdown/NewEnchant";
 
 export default function Markdown({ content }: { content?: string }) {
     if (!content) return null;
@@ -22,7 +24,7 @@ export default function Markdown({ content }: { content?: string }) {
     prose-pre:bg-[#0c0c0e] prose-pre:border prose-pre:border-white/5 prose-pre:rounded-2xl prose-pre:p-6 prose-pre:shadow-2xl
     prose-img:w-full prose-img:rounded-xl prose-img:border prose-img:border-white/5 prose-img:bg-zinc-900/50 prose-img:shadow-2xl prose-img:my-8
     prose-hr:border-white/5 prose-hr:my-12">
-            <RawMarkdown content={content} directives={{ "video": Video, "enchant.changelog": Changelog }} />
+            <RawMarkdown content={content} directives={{ "video": Video, "enchant.changelog": Changelog, "enchant.balancing": Balancing, "enchant.newenchant": NewEnchant }} />
         </div>
     );
 }

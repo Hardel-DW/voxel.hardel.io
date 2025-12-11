@@ -1,7 +1,7 @@
 import { parseInline } from "./inline";
 import type { DirectiveProps, Document, ListItem } from "./types";
 
-function parseDirectiveProps(raw: string): DirectiveProps {
+export function parseDirectiveProps(raw: string): DirectiveProps {
     const props: DirectiveProps = {};
     let pos = 0;
 

@@ -34,6 +34,11 @@ export type Components = {
     br?: () => ReactNode;
 };
 
+type RenderContext = {
+    components: Required<Components>;
+    directives: Directives;
+};
+
 const defaults: Required<Components> = {
     h1: ({ children }) => <h1>{children}</h1>,
     h2: ({ children }) => <h2>{children}</h2>,
@@ -63,39 +68,40 @@ const defaults: Required<Components> = {
     br: () => <br />,
 };
 
-function renderInlineToken(token: InlineToken, components: Required<Components>, key: string): ReactNode {
+function renderInlineToken(token: InlineToken, ctx: RenderContext, key: string): ReactNode {
+    const { components, directives } = ctx;
     switch (token.type) {
         case "text":
             return token.content;
         case "bold":
-            return <components.strong key={key}>{renderInline(token.children, components, key)}</components.strong>;
+            return <components.strong key={key}>{renderInline(token.children, ctx, key)}</components.strong>;
         case "italic":
-            return <components.em key={key}>{renderInline(token.children, components, key)}</components.em>;
+            return <components.em key={key}>{renderInline(token.children, ctx, key)}</components.em>;
         case "strike":
-            return <components.del key={key}>{renderInline(token.children, components, key)}</components.del>;
+            return <components.del key={key}>{renderInline(token.children, ctx, key)}</components.del>;
         case "code":
             return <components.code key={key}>{token.content}</components.code>;
         case "link":
             return (
                 <components.a key={key} href={token.href}>
-                    {renderInline(token.children, components, key)}
+                    {renderInline(token.children, ctx, key)}
                 </components.a>
             );
         case "image":
             return <components.img key={key} src={token.src} alt={token.alt} />;
+        case "directive": {
+            const Component = directives[token.name];
+            if (!Component) return null;
+            return <Component key={key} {...token.props} />;
+        }
         case "br":
             return <components.br key={key} />;
     }
 }
 
-function renderInline(tokens: InlineToken[], components: Required<Components>, prefix: string): ReactNode {
-    return tokens.map((token, i) => renderInlineToken(token, components, `${prefix}-i${i}`));
+function renderInline(tokens: InlineToken[], ctx: RenderContext, prefix: string): ReactNode {
+    return tokens.map((token, i) => renderInlineToken(token, ctx, `${prefix}-i${i}`));
 }
-
-type RenderContext = {
-    components: Required<Components>;
-    directives: Directives;
-};
 
 function renderBlock(token: BlockToken, ctx: RenderContext, prefix: string): ReactNode {
     const { components, directives } = ctx;
@@ -114,10 +120,10 @@ function renderBlock(token: BlockToken, ctx: RenderContext, prefix: string): Rea
         }
         case "heading": {
             const Tag = components[`h${token.level}`];
-            return <Tag key={prefix}>{renderInline(token.children, components, prefix)}</Tag>;
+            return <Tag key={prefix}>{renderInline(token.children, ctx, prefix)}</Tag>;
         }
         case "paragraph":
-            return <components.p key={prefix}>{renderInline(token.children, components, prefix)}</components.p>;
+            return <components.p key={prefix}>{renderInline(token.children, ctx, prefix)}</components.p>;
         case "blockquote":
             return <components.blockquote key={prefix}>{renderBlocks(token.children, ctx)}</components.blockquote>;
         case "hr":
@@ -134,7 +140,7 @@ function renderBlock(token: BlockToken, ctx: RenderContext, prefix: string): Rea
                 <Tag key={prefix}>
                     {token.items.map((item, i) => {
                         const liKey = `${prefix}-li${i}`;
-                        return <components.li key={liKey}>{renderInline(item.children, components, liKey)}</components.li>;
+                        return <components.li key={liKey}>{renderInline(item.children, ctx, liKey)}</components.li>;
                     })}
                 </Tag>
             );
@@ -146,7 +152,7 @@ function renderBlock(token: BlockToken, ctx: RenderContext, prefix: string): Rea
                         <components.tr>
                             {token.headers.map((cell, i) => {
                                 const thKey = `${prefix}-th${i}`;
-                                return <components.th key={thKey}>{renderInline(cell, components, thKey)}</components.th>;
+                                return <components.th key={thKey}>{renderInline(cell, ctx, thKey)}</components.th>;
                             })}
                         </components.tr>
                     </components.thead>
@@ -157,7 +163,7 @@ function renderBlock(token: BlockToken, ctx: RenderContext, prefix: string): Rea
                                 <components.tr key={trKey}>
                                     {row.map((cell, ci) => {
                                         const tdKey = `${trKey}-td${ci}`;
-                                        return <components.td key={tdKey}>{renderInline(cell, components, tdKey)}</components.td>;
+                                        return <components.td key={tdKey}>{renderInline(cell, ctx, tdKey)}</components.td>;
                                     })}
                                 </components.tr>
                             );

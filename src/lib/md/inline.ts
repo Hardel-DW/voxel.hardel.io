@@ -1,3 +1,4 @@
+import { parseDirectiveProps } from "./lexer";
 import type { InlineToken } from "./types";
 
 type Pattern = {
@@ -33,6 +34,19 @@ const patterns: Pattern[] = [
                 return { length: 1, token: { type: "text", content: " " } };
             }
             return null;
+        },
+    },
+    // Inline directive ::name{props}
+    {
+        match: (text, pos) => {
+            if (text[pos] !== ":" || text[pos + 1] !== ":") return null;
+            const rest = text.slice(pos + 2);
+            const match = rest.match(/^([\w.-]+)(?:\{([^}]*)\})?/);
+            if (!match) return null;
+            return {
+                length: 2 + match[0].length,
+                token: { type: "directive", name: match[1], props: match[2] ? parseDirectiveProps(match[2]) : {} },
+            };
         },
     },
     // Image ![alt](src)

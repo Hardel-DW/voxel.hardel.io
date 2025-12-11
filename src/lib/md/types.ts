@@ -1,3 +1,5 @@
+export type DirectiveProps = Record<string, string>;
+
 export type InlineToken =
     | { type: "text"; content: string }
     | { type: "bold"; children: InlineToken[] }
@@ -6,9 +8,8 @@ export type InlineToken =
     | { type: "code"; content: string }
     | { type: "link"; href: string; children: InlineToken[] }
     | { type: "image"; src: string; alt: string }
+    | { type: "directive"; name: string; props: DirectiveProps }
     | { type: "br" };
-
-export type DirectiveProps = Record<string, string>;
 
 export type BlockToken =
     | { type: "heading"; level: 1 | 2 | 3 | 4 | 5 | 6; children: InlineToken[] }

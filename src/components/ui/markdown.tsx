@@ -1,9 +1,9 @@
 import RawMarkdown from "@lib/md/render";
 import { Balancing } from "@/components/markdown/Balancing";
 import { Changelog } from "@/components/markdown/Changelog";
+import Gallery from "@/components/markdown/Gallery";
 import { NewEnchant } from "@/components/markdown/NewEnchant";
 import { Video } from "@/components/ui/Video";
-import Gallery from "@/components/markdown/Gallery";
 
 export default function Markdown({ content }: { content?: string }) {
     if (!content) return null;

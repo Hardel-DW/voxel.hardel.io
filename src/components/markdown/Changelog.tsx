@@ -8,9 +8,7 @@ export function Changelog({ children, name }: { children?: React.ReactNode; name
     return (
         <div className="rounded-2xl border border-white/10 bg-zinc-900/30 px-6 my-6">
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 p-0! my-4">
-                <h3 className="text-base text-white m-0! p-0!">
-                    {name}
-                </h3>
+                <h3 className="text-base text-white m-0! p-0!">{name}</h3>
 
                 <div className="flex justify-start md:justify-end gap-x-6 gap-y-2 items-center flex-wrap w-full md:w-auto">
                     {changelogItems.map((item) => (

@@ -19,7 +19,9 @@ export default function Footer() {
             name: translate("footer.content.other"),
             links: {
                 "/$lang/blog": translate("footer.content.navigation.blog"),
-                "/$lang/update/studio": translate("footer.content.other.studio_updates")
+                "/$lang/update/studio": translate("footer.content.other.studio_updates"),
+                "/$lang/patchnote/neoenchant": translate("footer.content.other.patchnote.neoenchant"),
+                "/$lang/patchnote/yggdrasil": translate("footer.content.other.patchnote.yggdrasil")
             }
         },
         {

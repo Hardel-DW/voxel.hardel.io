@@ -41,6 +41,7 @@ export default function Navbar() {
 
     const links = {
         blog: "/$lang/blog",
+        patchnote: "/$lang/patchnote/neoenchant",
         packs: "/$lang/packs/neoenchant",
         resources: "/$lang/resources/asset",
         contact: "/$lang/contact"
@@ -67,6 +68,34 @@ export default function Navbar() {
                                         {translate("navbar.item.blog")}
                                     </Link>
                                 </li>
+
+                                <NavigationDropdown label={translate("navbar.item.patchnote")}>
+                                    <div className="p-6 space-y-6 md:w-[400px] lg:w-[500px]">
+                                        <HeroCard
+                                            title={translate("navbar.patchnote.neoenchant.title")}
+                                            description={translate("navbar.patchnote.neoenchant.description")}
+                                            image="/images/background/blog/hero-ne.webp"
+                                            to="/$lang/patchnote/neoenchant"
+                                            params={{ lang }}
+                                        />
+                                        <ul className="grid gap-3 mt-3">
+                                            <ListItem
+                                                to="/$lang/patchnote/neoenchant"
+                                                params={{ lang }}
+                                                title={translate("navbar.patchnote.neoenchant.title")}
+                                                image="/images/features/title/ne.png">
+                                                {translate("navbar.patchnote.neoenchant.description")}
+                                            </ListItem>
+                                            <ListItem
+                                                to="/$lang/patchnote/yggdrasil"
+                                                params={{ lang }}
+                                                title={translate("navbar.patchnote.yggdrasil.title")}
+                                                image="/images/features/title/yg.webp">
+                                                {translate("navbar.patchnote.yggdrasil.description")}
+                                            </ListItem>
+                                        </ul>
+                                    </div>
+                                </NavigationDropdown>
 
                                 <NavigationDropdown label={translate("navbar.item.data_pack")}>
                                     <div className="p-6 space-y-6 md:w-[400px] lg:w-[500px]">

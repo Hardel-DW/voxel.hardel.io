@@ -15,10 +15,13 @@ export const Route = createFileRoute("/$lang/patchnote/$slug")({
     validateSearch: (search: Record<string, unknown>) => ({
         version: typeof search.version === "string" ? search.version : undefined
     }),
-    head: ({ params, }) => {
+    head: ({ params }) => {
         const translate = t(params.lang);
         return {
-            meta: [{ title: translate(`${params.slug}.seo.title`) }, { name: "description", content: translate(`${params.slug}.seo.description`) }]
+            meta: [
+                { title: translate(`${params.slug}.seo.title`) },
+                { name: "description", content: translate(`${params.slug}.seo.description`) }
+            ]
         };
     }
 });
@@ -61,7 +64,9 @@ function RouteComponent() {
                 <main className="flex-1 container mx-auto px-4 py-20 md:py-32 flex flex-col lg:flex-row gap-12">
                     <aside className="lg:w-64 shrink-0 max-md:hidden">
                         <div className="space-y-8">
-                            <h3 className="text-zinc-500 font-medium text-sm tracking-wider uppercase mb-4">{translate("patchnote.version_history")}</h3>
+                            <h3 className="text-zinc-500 font-medium text-sm tracking-wider uppercase mb-4">
+                                {translate("patchnote.version_history")}
+                            </h3>
                             <div className="relative border-l-2 border-zinc-800 ml-3 space-y-0">
                                 {entries.map((entry) => {
                                     const isActive = entry.data.version === selectedVersionId;
@@ -107,7 +112,9 @@ function RouteComponent() {
                             </div>
 
                             <div className="p-4 rounded-xl bg-zinc-900/50 border border-zinc-800/50 backdrop-blur-md">
-                                <h4 className="text-zinc-400 text-xs font-bold uppercase tracking-widest mb-2">{translate("patchnote.latest_stable")}</h4>
+                                <h4 className="text-zinc-400 text-xs font-bold uppercase tracking-widest mb-2">
+                                    {translate("patchnote.latest_stable")}
+                                </h4>
                                 <div className="text-2xl font-bold text-white mb-4">v{entries[0]?.data.version}</div>
                                 <div className="flex flex-col gap-2">
                                     <Button

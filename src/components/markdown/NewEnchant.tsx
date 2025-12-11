@@ -4,12 +4,7 @@ const newEnchantIcons = [
     { icon: "/icons/tools/weight.svg", alt: "weight" }
 ];
 
-export function NewEnchant(props: {
-    icon?: string;
-    max_level?: number;
-    anvil_cost?: number;
-    rarity?: number;
-}) {
+export function NewEnchant(props: { icon?: string; max_level?: number; anvil_cost?: number; rarity?: number }) {
     const values = [props.max_level, props.anvil_cost, props.rarity];
 
     return (
@@ -20,7 +15,7 @@ export function NewEnchant(props: {
                     <span className="text-zinc-400 font-bold text-lg md:text-xl">
                         {props.icon
                             ? (props.icon.split("/").pop()?.charAt(0).toUpperCase() ?? "") +
-                            (props.icon.split("/").pop()?.slice(1).replace(".webp", "") ?? "")
+                              (props.icon.split("/").pop()?.slice(1).replace(".webp", "") ?? "")
                             : "Icon not found"}
                     </span>
                 </div>

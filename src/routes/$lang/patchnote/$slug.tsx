@@ -6,19 +6,19 @@ import { Button } from "@/components/ui/Button";
 import LineSetup from "@/components/ui/line/LineSetup";
 import Markdown from "@/components/ui/markdown";
 import TableOfContents from "@/components/ui/TableOfContents";
-import { neoenchant } from "@/lib/content/NeoEnchantCollection";
+import { patchnote } from "@/lib/content/PatchNoteCollection";
 import { t } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 
-export const Route = createFileRoute("/$lang/update/neoenchant")({
+export const Route = createFileRoute("/$lang/patchnote/$slug")({
     component: RouteComponent,
     validateSearch: (search: Record<string, unknown>) => ({
         version: typeof search.version === "string" ? search.version : undefined
     }),
-    head: ({ params }) => {
+    head: ({ params, }) => {
         const translate = t(params.lang);
         return {
-            meta: [{ title: translate("neoenchant.seo.title") }, { name: "description", content: translate("neoenchant.seo.description") }]
+            meta: [{ title: translate(`${params.slug}.seo.title`) }, { name: "description", content: translate(`${params.slug}.seo.description`) }]
         };
     }
 });
@@ -28,11 +28,11 @@ function formatDate(date: Date, lang: string): string {
 }
 
 function RouteComponent() {
-    const { lang } = Route.useParams();
+    const { lang, slug } = Route.useParams();
     const { version } = Route.useSearch();
     const navigate = useNavigate({ from: Route.fullPath });
     const translate = t(lang);
-    const entries = neoenchant.byLang(lang);
+    const entries = patchnote.byLang(lang, slug);
     const selectedVersionId = version ?? entries[0]?.data.version ?? "";
     const selectedEntry = entries.find((e) => e.data.version === selectedVersionId) ?? entries[0];
     const contentRef = useRef<HTMLDivElement>(null);
@@ -61,7 +61,7 @@ function RouteComponent() {
                 <main className="flex-1 container mx-auto px-4 py-20 md:py-32 flex flex-col lg:flex-row gap-12">
                     <aside className="lg:w-64 shrink-0 max-md:hidden">
                         <div className="space-y-8">
-                            <h3 className="text-zinc-500 font-medium text-sm tracking-wider uppercase mb-4">{translate("neoenchant.version_history")}</h3>
+                            <h3 className="text-zinc-500 font-medium text-sm tracking-wider uppercase mb-4">{translate("patchnote.version_history")}</h3>
                             <div className="relative border-l-2 border-zinc-800 ml-3 space-y-0">
                                 {entries.map((entry) => {
                                     const isActive = entry.data.version === selectedVersionId;
@@ -107,7 +107,7 @@ function RouteComponent() {
                             </div>
 
                             <div className="p-4 rounded-xl bg-zinc-900/50 border border-zinc-800/50 backdrop-blur-md">
-                                <h4 className="text-zinc-400 text-xs font-bold uppercase tracking-widest mb-2">{translate("neoenchant.latest_stable")}</h4>
+                                <h4 className="text-zinc-400 text-xs font-bold uppercase tracking-widest mb-2">{translate("patchnote.latest_stable")}</h4>
                                 <div className="text-2xl font-bold text-white mb-4">v{entries[0]?.data.version}</div>
                                 <div className="flex flex-col gap-2">
                                     <Button
@@ -115,14 +115,14 @@ function RouteComponent() {
                                         variant="default"
                                         className="w-full justify-center gap-2 text-white transition flex items-center rounded-xl bg-transparent hover:bg-green-900/10 border-green-900 hover:border-green-800">
                                         <img src="/icons/company/modrinth.svg" alt="Modrinth" className="size-4 invert" />
-                                        {translate("neoenchant.download_modrinth")}
+                                        {translate("patchnote.download_modrinth")}
                                     </Button>
                                     <Button
                                         href="https://modrinth.com/datapack/neoenchant"
                                         variant="default"
                                         className="w-full justify-center gap-2 text-white transition flex items-center rounded-xl bg-transparent hover:bg-orange-900/10 border-orange-900 hover:border-orange-800">
                                         <img src="/icons/company/curseforge.svg" alt="CurseForge" className="size-4 invert" />
-                                        {translate("neoenchant.download_curseforge")}
+                                        {translate("patchnote.download_curseforge")}
                                     </Button>
                                 </div>
                             </div>
@@ -165,7 +165,7 @@ function RouteComponent() {
 
                         {!selectedEntry && (
                             <div className="border border-dashed border-zinc-800 rounded-2xl p-12 text-center bg-white/2">
-                                <p className="text-zinc-500 font-mono">{translate("neoenchant.no_updates")}</p>
+                                <p className="text-zinc-500 font-mono">{translate("patchnote.no_updates")}</p>
                             </div>
                         )}
                     </div>

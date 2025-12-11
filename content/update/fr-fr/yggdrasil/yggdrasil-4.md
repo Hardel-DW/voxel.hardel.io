@@ -1,7 +1,9 @@
 ---
 draft: false
+version: "4.0.0"
+type: "Major"
+description: "La mise à jour 4.0.0 de Yggdrasil, elle introduit Helheim et 5 sous structures."
 title: "Pack Yggdrasil - Version 4.0 et 4.1"
-snippet: "La mise à jour 4.0 et 4.1 de Yggdrasil, elle introduit Helheim et 5 sous structures."
 imageSrc: "https://uy64vwmxhf.ufs.sh/f/llTsukoqRt5QTwI1mZ6JsdbAYGw6NoMQU1XkaVSh39xi5K8B"
 imageAlt: "Yggdrasil - 4.0"
 author: "hardel"

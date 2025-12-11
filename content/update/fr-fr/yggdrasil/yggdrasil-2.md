@@ -1,11 +1,13 @@
 ---
 draft: false
+publishDate: "2024-10-14"
+version: "2.0.0"
 title: "Pack Yggdrasil - Version Preview 1.21.2"
-snippet: "La mise à jour 2.0.0 de Yggdrasil est maintenant disponible, elle introduit le village de Asflors, la Fracture Runique, et une nouvelle version de Alfheim."
+type: "Major"
+description: "La mise à jour 2.0.0 de Yggdrasil est maintenant disponible, elle introduit le village de Asflors, la Fracture Runique, et une nouvelle version de Alfheim."
 imageSrc: "/images/background/blog/yggdrasil-2.webp"
 imageAlt: "Yggdrasil - 2.0"
 author: "hardel"
-publishDate: "2024-10-14"
 category: "Datapacks"
 video: "https://www.youtube.com/embed/UNYxJkHhb8w"
 ---

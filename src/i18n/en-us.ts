@@ -46,11 +46,13 @@ export const en = {
 
     "neoenchant.seo.title": "NeoEnchant Update · Voxel",
     "neoenchant.seo.description": "Discover the latest updates and features of NeoEnchant.",
-    "neoenchant.version_history": "Version History",
-    "neoenchant.latest_stable": "Latest Stable",
-    "neoenchant.download_modrinth": "Download on Modrinth",
-    "neoenchant.download_curseforge": "Download on CurseForge",
-    "neoenchant.no_updates": "No updates available",
+    "yggdrasil.seo.title": "Yggdrasil Update · Voxel",
+    "yggdrasil.seo.description": "Discover the latest updates and features of Yggdrasil.",
+    "patchnote.version_history": "Version History",
+    "patchnote.latest_stable": "Latest Stable",
+    "patchnote.download_modrinth": "Download on Modrinth",
+    "patchnote.download_curseforge": "Download on CurseForge",
+    "patchnote.no_updates": "No updates available",
 
     "seo.title": "Voxel",
     "seo.description":

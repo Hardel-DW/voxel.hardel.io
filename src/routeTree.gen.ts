@@ -20,9 +20,9 @@ import { Route as LangLegalRouteImport } from './routes/$lang/legal'
 import { Route as LangContactRouteImport } from './routes/$lang/contact'
 import { Route as LangBlogIndexRouteImport } from './routes/$lang/blog/index'
 import { Route as LangUpdateStudioRouteImport } from './routes/$lang/update/studio'
-import { Route as LangUpdateNeoenchantRouteImport } from './routes/$lang/update/neoenchant'
 import { Route as LangResourcesAssetRouteImport } from './routes/$lang/resources/asset'
 import { Route as LangResourcesIdRouteImport } from './routes/$lang/resources/$id'
+import { Route as LangPatchnoteSlugRouteImport } from './routes/$lang/patchnote/$slug'
 import { Route as LangPacksYggdrasilRouteImport } from './routes/$lang/packs/yggdrasil'
 import { Route as LangPacksNeoenchantRouteImport } from './routes/$lang/packs/neoenchant'
 import { Route as LangBlogSlugRouteImport } from './routes/$lang/blog/$slug'
@@ -82,11 +82,6 @@ const LangUpdateStudioRoute = LangUpdateStudioRouteImport.update({
   path: '/update/studio',
   getParentRoute: () => LangRoute,
 } as any)
-const LangUpdateNeoenchantRoute = LangUpdateNeoenchantRouteImport.update({
-  id: '/update/neoenchant',
-  path: '/update/neoenchant',
-  getParentRoute: () => LangRoute,
-} as any)
 const LangResourcesAssetRoute = LangResourcesAssetRouteImport.update({
   id: '/resources/asset',
   path: '/resources/asset',
@@ -95,6 +90,11 @@ const LangResourcesAssetRoute = LangResourcesAssetRouteImport.update({
 const LangResourcesIdRoute = LangResourcesIdRouteImport.update({
   id: '/resources/$id',
   path: '/resources/$id',
+  getParentRoute: () => LangRoute,
+} as any)
+const LangPatchnoteSlugRoute = LangPatchnoteSlugRouteImport.update({
+  id: '/patchnote/$slug',
+  path: '/patchnote/$slug',
   getParentRoute: () => LangRoute,
 } as any)
 const LangPacksYggdrasilRoute = LangPacksYggdrasilRouteImport.update({
@@ -126,9 +126,9 @@ export interface FileRoutesByFullPath {
   '/$lang/blog/$slug': typeof LangBlogSlugRoute
   '/$lang/packs/neoenchant': typeof LangPacksNeoenchantRoute
   '/$lang/packs/yggdrasil': typeof LangPacksYggdrasilRoute
+  '/$lang/patchnote/$slug': typeof LangPatchnoteSlugRoute
   '/$lang/resources/$id': typeof LangResourcesIdRoute
   '/$lang/resources/asset': typeof LangResourcesAssetRoute
-  '/$lang/update/neoenchant': typeof LangUpdateNeoenchantRoute
   '/$lang/update/studio': typeof LangUpdateStudioRoute
   '/$lang/blog': typeof LangBlogIndexRoute
 }
@@ -144,9 +144,9 @@ export interface FileRoutesByTo {
   '/$lang/blog/$slug': typeof LangBlogSlugRoute
   '/$lang/packs/neoenchant': typeof LangPacksNeoenchantRoute
   '/$lang/packs/yggdrasil': typeof LangPacksYggdrasilRoute
+  '/$lang/patchnote/$slug': typeof LangPatchnoteSlugRoute
   '/$lang/resources/$id': typeof LangResourcesIdRoute
   '/$lang/resources/asset': typeof LangResourcesAssetRoute
-  '/$lang/update/neoenchant': typeof LangUpdateNeoenchantRoute
   '/$lang/update/studio': typeof LangUpdateStudioRoute
   '/$lang/blog': typeof LangBlogIndexRoute
 }
@@ -164,9 +164,9 @@ export interface FileRoutesById {
   '/$lang/blog/$slug': typeof LangBlogSlugRoute
   '/$lang/packs/neoenchant': typeof LangPacksNeoenchantRoute
   '/$lang/packs/yggdrasil': typeof LangPacksYggdrasilRoute
+  '/$lang/patchnote/$slug': typeof LangPatchnoteSlugRoute
   '/$lang/resources/$id': typeof LangResourcesIdRoute
   '/$lang/resources/asset': typeof LangResourcesAssetRoute
-  '/$lang/update/neoenchant': typeof LangUpdateNeoenchantRoute
   '/$lang/update/studio': typeof LangUpdateStudioRoute
   '/$lang/blog/': typeof LangBlogIndexRoute
 }
@@ -185,9 +185,9 @@ export interface FileRouteTypes {
     | '/$lang/blog/$slug'
     | '/$lang/packs/neoenchant'
     | '/$lang/packs/yggdrasil'
+    | '/$lang/patchnote/$slug'
     | '/$lang/resources/$id'
     | '/$lang/resources/asset'
-    | '/$lang/update/neoenchant'
     | '/$lang/update/studio'
     | '/$lang/blog'
   fileRoutesByTo: FileRoutesByTo
@@ -203,9 +203,9 @@ export interface FileRouteTypes {
     | '/$lang/blog/$slug'
     | '/$lang/packs/neoenchant'
     | '/$lang/packs/yggdrasil'
+    | '/$lang/patchnote/$slug'
     | '/$lang/resources/$id'
     | '/$lang/resources/asset'
-    | '/$lang/update/neoenchant'
     | '/$lang/update/studio'
     | '/$lang/blog'
   id:
@@ -222,9 +222,9 @@ export interface FileRouteTypes {
     | '/$lang/blog/$slug'
     | '/$lang/packs/neoenchant'
     | '/$lang/packs/yggdrasil'
+    | '/$lang/patchnote/$slug'
     | '/$lang/resources/$id'
     | '/$lang/resources/asset'
-    | '/$lang/update/neoenchant'
     | '/$lang/update/studio'
     | '/$lang/blog/'
   fileRoutesById: FileRoutesById
@@ -313,13 +313,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LangUpdateStudioRouteImport
       parentRoute: typeof LangRoute
     }
-    '/$lang/update/neoenchant': {
-      id: '/$lang/update/neoenchant'
-      path: '/update/neoenchant'
-      fullPath: '/$lang/update/neoenchant'
-      preLoaderRoute: typeof LangUpdateNeoenchantRouteImport
-      parentRoute: typeof LangRoute
-    }
     '/$lang/resources/asset': {
       id: '/$lang/resources/asset'
       path: '/resources/asset'
@@ -332,6 +325,13 @@ declare module '@tanstack/react-router' {
       path: '/resources/$id'
       fullPath: '/$lang/resources/$id'
       preLoaderRoute: typeof LangResourcesIdRouteImport
+      parentRoute: typeof LangRoute
+    }
+    '/$lang/patchnote/$slug': {
+      id: '/$lang/patchnote/$slug'
+      path: '/patchnote/$slug'
+      fullPath: '/$lang/patchnote/$slug'
+      preLoaderRoute: typeof LangPatchnoteSlugRouteImport
       parentRoute: typeof LangRoute
     }
     '/$lang/packs/yggdrasil': {
@@ -369,9 +369,9 @@ interface LangRouteChildren {
   LangBlogSlugRoute: typeof LangBlogSlugRoute
   LangPacksNeoenchantRoute: typeof LangPacksNeoenchantRoute
   LangPacksYggdrasilRoute: typeof LangPacksYggdrasilRoute
+  LangPatchnoteSlugRoute: typeof LangPatchnoteSlugRoute
   LangResourcesIdRoute: typeof LangResourcesIdRoute
   LangResourcesAssetRoute: typeof LangResourcesAssetRoute
-  LangUpdateNeoenchantRoute: typeof LangUpdateNeoenchantRoute
   LangUpdateStudioRoute: typeof LangUpdateStudioRoute
   LangBlogIndexRoute: typeof LangBlogIndexRoute
 }
@@ -387,9 +387,9 @@ const LangRouteChildren: LangRouteChildren = {
   LangBlogSlugRoute: LangBlogSlugRoute,
   LangPacksNeoenchantRoute: LangPacksNeoenchantRoute,
   LangPacksYggdrasilRoute: LangPacksYggdrasilRoute,
+  LangPatchnoteSlugRoute: LangPatchnoteSlugRoute,
   LangResourcesIdRoute: LangResourcesIdRoute,
   LangResourcesAssetRoute: LangResourcesAssetRoute,
-  LangUpdateNeoenchantRoute: LangUpdateNeoenchantRoute,
   LangUpdateStudioRoute: LangUpdateStudioRoute,
   LangBlogIndexRoute: LangBlogIndexRoute,
 }

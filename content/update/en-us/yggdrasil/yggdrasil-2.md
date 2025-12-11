@@ -1,7 +1,9 @@
 ---
 draft: false
+version: "2.0.0"
+type: "Major"
+description: "The 2.0.0 update of Yggdrasil is now available, it introduces the village of Asflors, the Runic Fracture, and a new version of Alfheim."
 title: "Yggdrasil Pack - Version Preview 1.21.2"
-snippet: "The 2.0.0 update of Yggdrasil is now available, it introduces the village of Asflors, the Runic Fracture, and a new version of Alfheim."
 imageSrc: "/images/background/blog/yggdrasil-2.webp"
 imageAlt: "Yggdrasil - 2.0"
 author: "hardel"

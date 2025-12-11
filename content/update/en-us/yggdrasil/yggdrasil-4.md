@@ -1,7 +1,9 @@
 ---
 draft: false
+version: "4.0.0"
+type: "Major"
+description: "The 4.0.0 update of Yggdrasil, it introduces Helheim and 5 sub-structures."
 title: "Yggdrasil Pack - Version 4.0 and 4.1"
-snippet: "Yggdrasil's 4.0 and 4.1 update introduces Helheim and 5 sub-structures."
 imageSrc: "https://uy64vwmxhf.ufs.sh/f/llTsukoqRt5QTwI1mZ6JsdbAYGw6NoMQU1XkaVSh39xi5K8B"
 imageAlt: "Yggdrasil - 4.0"
 author: "hardel"
@@ -73,7 +75,7 @@ The addition of cartography altars, these are mini-structures that you can find 
 
 Each structure provides a map to reach the closest corresponding main structure.
 
-::gallery
+::gallery{grid=3}
 ![Helblom](https://uy64vwmxhf.ufs.sh/f/llTsukoqRt5QTspbmWv6JsdbAYGw6NoMQU1XkaVSh39xi5K8)  
 
 ![Lifblom](https://uy64vwmxhf.ufs.sh/f/llTsukoqRt5QO6A0eysBkwa7SbIxLQiWf5XFsqJl4PopZ1mh)  

@@ -1,7 +1,9 @@
 ---
 draft: false
+version: "3.0.0"
+type: "Major"
+description: "The 3.0.0 update of Yggdrasil in detail, this update introduces the Runic dimension, and 6 new structures to explore, and a mega structure."
 title: "Yggdrasil Pack - Version 3.0.0"
-snippet: "The 3.0.0 update of Yggdrasil in detail, this update introduces the Runic dimension, and 6 new structures to explore, and a mega structure."
 imageSrc: "/images/background/blog/yggdrasil-3.webp"
 imageAlt: "Yggdrasil - 3.0"
 author: "hardel"

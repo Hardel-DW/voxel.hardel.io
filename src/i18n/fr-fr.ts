@@ -289,6 +289,7 @@ export const fr = {
     "marketplace.success.download.description_4": "Et en derniére espoir, tu pourras utiliser le code ci-dessous en me contactant.",
 
     "navbar.item.blog": "Blog",
+    "navbar.item.packs": "Packs",
     "navbar.item.guides": "Guides",
     "navbar.item.data_pack": "Packs",
     "navbar.item.resources": "Ressources",
@@ -352,16 +353,26 @@ export const fr = {
     "studio.label.login_to_github": "Connexion... (Maintenance en cours)",
     "studio.label.voxel_labs": "VOXEL LABS",
     "studio.label.voxel_studio": "Voxel Studio",
-    "studio.label.voxel_studio_description": "Un outil pour modifier le contenu des DATAPACKS avec l'interface la plus simple et intuitive qui ne nécessite pas de connaissances en développement.",
+    "studio.label.voxel_studio_description":
+        "Un outil pour modifier le contenu des DATAPACKS avec l'interface la plus simple et intuitive qui ne nécessite pas de connaissances en développement.",
     "studio.label.voxel_studio_description_2": "Dépose ton datapack ou mod (.zip ou .jar) ici pour commencer à configurer",
     "studio.label.latest_update": "Dernière mise à jour",
     "studio.label.faq": "FAQ",
     "studio.label.restore_last_session": "Restaurer... (Désactivé)",
     "studio.label.import_vanilla": "Importer... (Désactivé)",
     "studio.label.upload_a_datapack": "Télécharger un DATAPACK",
-    "studio.label.drop_your_datapack_or_mod_here_to_start_configuring": "Ce contenu est en maintenance et arrive prochainement avec une nouvelle version.",
+    "studio.label.drop_your_datapack_or_mod_here_to_start_configuring":
+        "Ce contenu est en maintenance et arrive prochainement avec une nouvelle version.",
     "studio.label.click_to_upload": "Maintenance en cours",
     "studio.label.open_a_github_repository": "Ouvrir un repository GitHub",
+
+    "neoenchant.seo.title": "Mise à jour NeoEnchant · Voxel",
+    "neoenchant.seo.description": "Découvre les dernières mises à jour et fonctionnalités de NeoEnchant.",
+    "neoenchant.version_history": "Historique des versions",
+    "neoenchant.latest_stable": "Dernière version stable",
+    "neoenchant.download_modrinth": "Télécharger sur Modrinth",
+    "neoenchant.download_curseforge": "Télécharger sur CurseForge",
+    "neoenchant.no_updates": "Aucune mise à jour disponible",
 
     "blog.seo.title": "Blog · Voxel",
     "blog.seo.description": "Découvre nos dernières actualités et mises à jour.",
@@ -543,6 +554,7 @@ export const fr = {
     "tools.see_latest_updates": "Voir les dernières mises à jour",
 
     "error.title": "Une erreur est survenue",
-    "error.description": "Quelque chose s'est mal passé, retourne à la page d'accueil ou contacte le support si tu penses que c'est une erreur.",
+    "error.description":
+        "Quelque chose s'est mal passé, retourne à la page d'accueil ou contacte le support si tu penses que c'est une erreur.",
     "error.go_home": "Retour à l'accueil"
 } as const;

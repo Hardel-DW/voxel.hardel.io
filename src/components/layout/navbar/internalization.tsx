@@ -33,9 +33,7 @@ export default function Internalization() {
                                 element.lang === currentLocale ? "font-semibold text-rose-700" : ""
                             )}>
                             {element.name}
-                            {element.lang === currentLocale && (
-                                <img src="/icons/valid.svg" alt="Check" className="w-4 h-4" />
-                            )}
+                            {element.lang === currentLocale && <img src="/icons/valid.svg" alt="Check" className="w-4 h-4" />}
                         </a>
                     </li>
                 ))}

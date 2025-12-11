@@ -1,9 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
+import DatapackCard from "@/components/DatapackCard";
+import GallerySection, { type ImageItem } from "@/components/GallerySection";
 import CompoundLayout from "@/components/layout/CompoundLayout";
 import VideoSection from "@/components/VideoSection";
-import GallerySection, { type ImageItem } from "@/components/GallerySection";
-import DatapackCard from "@/components/DatapackCard";
 import { t } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 
@@ -52,7 +52,12 @@ function YggdrasilPage() {
     const [selectedIndex, setSelectedIndex] = useState(0);
     const { lang } = Route.useParams();
     const translate = t(lang);
-    const structures: Structure[] = Object.entries(structuresData).map(([id, name]) => ({ id, name, image: `/images/addons/card/yggdrasil/${id}.webp`, icon: `/images/addons/icon/yggdrasil/${id}.webp` }));
+    const structures: Structure[] = Object.entries(structuresData).map(([id, name]) => ({
+        id,
+        name,
+        image: `/images/addons/card/yggdrasil/${id}.webp`,
+        icon: `/images/addons/icon/yggdrasil/${id}.webp`
+    }));
     const currentStructure = structures[selectedIndex];
     const handleStructureSelect = (index: number) => setSelectedIndex(index);
 

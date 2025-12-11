@@ -51,5 +51,3 @@ export default function BlogCard({ href, src, alt, date, lang, category, title, 
         </li>
     );
 }
-
-

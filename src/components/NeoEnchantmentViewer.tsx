@@ -1,9 +1,9 @@
-import React, { useState } from "react";
 import { useParams } from "@tanstack/react-router";
+import React, { useState } from "react";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/Select.tsx";
 import useLoadedPage from "@/lib/hook/useLoadedPage.ts";
-import { cn } from "@/lib/utils.ts";
 import { t } from "@/lib/i18n";
+import { cn } from "@/lib/utils.ts";
 
 export type EnchantViewer = {
     id: string;
@@ -42,7 +42,9 @@ export default function NeoEnchantmentViewer({ enchant }: { enchant: SectionView
                 <div className="flex flex-col flex-1">
                     <h3 className="text-3xl font-bold text-white">{currentEnchantment.name}</h3>
                     <div>
-                        <small className="text-zinc-400">{translate("datapacks.neoenchant.viewer.max_level")}: {currentEnchantment.level}</small>
+                        <small className="text-zinc-400">
+                            {translate("datapacks.neoenchant.viewer.max_level")}: {currentEnchantment.level}
+                        </small>
                         {currentEnchantment.addons && (
                             <>
                                 <span className="text-zinc-400"> - </span>

@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import type React from "react";
 import { cn } from "@/lib/utils";
+
 interface Props extends Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, "title"> {
     title: string;
     image?: string;

@@ -1,9 +1,13 @@
 import type { ReactNode } from "react";
-import type { BlockToken, Document, InlineToken } from "./types";
 import { tokenize } from "./lexer";
+import type { BlockToken, Document, InlineToken } from "./types";
 
 export type DirectiveComponent = (props: Record<string, unknown>) => ReactNode;
 export type Directives = Record<string, DirectiveComponent>;
+type RenderContext = {
+    components: Required<Components>;
+    directives: Directives;
+};
 
 export type Components = {
     h1?: (props: { children: ReactNode }) => ReactNode;
@@ -34,11 +38,6 @@ export type Components = {
     br?: () => ReactNode;
 };
 
-type RenderContext = {
-    components: Required<Components>;
-    directives: Directives;
-};
-
 const defaults: Required<Components> = {
     h1: ({ children }) => <h1>{children}</h1>,
     h2: ({ children }) => <h2>{children}</h2>,
@@ -65,7 +64,7 @@ const defaults: Required<Components> = {
     tr: ({ children }) => <tr>{children}</tr>,
     th: ({ children }) => <th>{children}</th>,
     td: ({ children }) => <td>{children}</td>,
-    br: () => <br />,
+    br: () => <br />
 };
 
 function renderInlineToken(token: InlineToken, ctx: RenderContext, key: string): ReactNode {
@@ -111,7 +110,11 @@ function renderBlock(token: BlockToken, ctx: RenderContext, prefix: string): Rea
             const Component = directives[token.name];
             if (!Component) return null;
             const children = renderBlocks(token.children, ctx);
-            return <Component key={prefix} {...token.props}>{children}</Component>;
+            return (
+                <Component key={prefix} {...token.props}>
+                    {children}
+                </Component>
+            );
         }
         case "directive_leaf": {
             const Component = directives[token.name];
@@ -181,7 +184,7 @@ function renderBlocks(tokens: Document, ctx: RenderContext): ReactNode {
 export function render(tokens: Document, components: Components = {}, directives: Directives = {}): ReactNode {
     const ctx: RenderContext = {
         components: { ...defaults, ...components },
-        directives,
+        directives
     };
     return renderBlocks(tokens, ctx);
 }

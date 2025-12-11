@@ -19,7 +19,7 @@ export default function Footer() {
             name: translate("footer.content.other"),
             links: {
                 "/$lang/blog": translate("footer.content.navigation.blog"),
-                "/$lang/update/studio": translate("footer.content.other.studio_updates"),
+                "/$lang/update/studio": translate("footer.content.other.studio_updates")
             }
         },
         {
@@ -40,8 +40,8 @@ export default function Footer() {
                 "/studio": translate("footer.content.voxel_studio.studio"),
                 "/harmonization": translate("footer.content.voxel_studio.harmonization"),
                 "/converter": translate("footer.content.voxel_studio.converter"),
-                "/migration": translate("footer.content.voxel_studio.migration"),
-            },
+                "/migration": translate("footer.content.voxel_studio.migration")
+            }
         }
     ];
 
@@ -71,9 +71,7 @@ export default function Footer() {
                         <img loading="lazy" src="/icons/logo.svg" alt="Voxel Logo" className="w-6 h-6 brightness-90 mr-2" />
                         <span className="text-lg text-white font-bold">VOXEL</span>
                     </Link>
-                    <p className="mt-4 text-sm text-zinc-400 tracking-tight font-light max-w-xs">
-                        {translate("footer.description")}
-                    </p>
+                    <p className="mt-4 text-sm text-zinc-400 tracking-tight font-light max-w-xs">{translate("footer.description")}</p>
                     <div className="flex gap-3 mt-4 items-center">
                         {socialLinks.map((item) => (
                             <a
@@ -108,7 +106,10 @@ export default function Footer() {
                         <h3 className="font-medium text-sm text-zinc-200">{section.name}</h3>
                         <div className="flex flex-col mt-2">
                             {Object.entries(section.links).map(([to, title]) => (
-                                <a key={title} href={`${studioUrl}/${lang}${to}`} className="py-1 text-sm text-zinc-400 hover:text-zinc-200">
+                                <a
+                                    key={title}
+                                    href={`${studioUrl}/${lang}${to}`}
+                                    className="py-1 text-sm text-zinc-400 hover:text-zinc-200">
                                     {title}
                                 </a>
                             ))}
@@ -118,7 +119,9 @@ export default function Footer() {
             </div>
 
             <div className="mt-8 text-center text-zinc-400 text-sm">
-                <p className="text-sm mt-2 tracking-tight">{translate("footer.copyright_left")} {new Date().getFullYear()} Voxel. {translate("footer.copyright_right")}.</p>
+                <p className="text-sm mt-2 tracking-tight">
+                    {translate("footer.copyright_left")} {new Date().getFullYear()} Voxel. {translate("footer.copyright_right")}.
+                </p>
             </div>
         </footer>
     );

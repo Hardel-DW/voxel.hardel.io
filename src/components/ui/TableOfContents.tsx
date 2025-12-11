@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 
 interface Heading {
@@ -14,7 +14,10 @@ function extractHeadings(markdown: string): Heading[] {
         if (!match) continue;
 
         const text = match[1].trim();
-        const id = text.toLowerCase().replace(/[^a-z0-9\s-]/g, "").replace(/\s+/g, "-");
+        const id = text
+            .toLowerCase()
+            .replace(/[^a-z0-9\s-]/g, "")
+            .replace(/\s+/g, "-");
         headings.push({ id, text });
     }
 

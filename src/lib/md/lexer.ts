@@ -84,14 +84,14 @@ export function tokenize(markdown: string): Document {
                     type: "directive",
                     name: directive.name,
                     props: directive.props,
-                    children: tokenize(childLines.join("\n")),
+                    children: tokenize(childLines.join("\n"))
                 });
                 i++;
             } else {
                 tokens.push({
                     type: "directive_leaf",
                     name: directive.name,
-                    props: directive.props,
+                    props: directive.props
                 });
             }
             continue;
@@ -238,4 +238,3 @@ function parseHeading(line: string): { level: 1 | 2 | 3 | 4 | 5 | 6; content: st
 
     return { level: level as 1 | 2 | 3 | 4 | 5 | 6, content: line.slice(level + 1) };
 }
-

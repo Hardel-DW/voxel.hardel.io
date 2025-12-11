@@ -31,16 +31,26 @@ export const en = {
     "studio.label.login_to_github": "Login to GitHub",
     "studio.label.voxel_labs": "VOXEL LABS",
     "studio.label.voxel_studio": "Voxel Studio",
-    "studio.label.voxel_studio_description": "A tool to modify DATAPACKS content with the simplest and most intuitive interface that requires no development knowledge.",
+    "studio.label.voxel_studio_description":
+        "A tool to modify DATAPACKS content with the simplest and most intuitive interface that requires no development knowledge.",
     "studio.label.voxel_studio_description_2": "Drop your datapack or mod (.zip or .jar) here to start configuring",
     "studio.label.latest_update": "Latest update",
     "studio.label.faq": "FAQ",
     "studio.label.restore_last_session": "Restore Last Session",
     "studio.label.import_vanilla": "Import Vanilla",
     "studio.label.upload_a_datapack": "Upload a DATAPACK",
-    "studio.label.drop_your_datapack_or_mod_here_to_start_configuring": "Drop your datapack or mod (.zip or .jar) here to start configuring",
+    "studio.label.drop_your_datapack_or_mod_here_to_start_configuring":
+        "Drop your datapack or mod (.zip or .jar) here to start configuring",
     "studio.label.click_to_upload": "Click to Upload",
     "studio.label.open_a_github_repository": "Open a GitHub repository",
+
+    "neoenchant.seo.title": "NeoEnchant Update · Voxel",
+    "neoenchant.seo.description": "Discover the latest updates and features of NeoEnchant.",
+    "neoenchant.version_history": "Version History",
+    "neoenchant.latest_stable": "Latest Stable",
+    "neoenchant.download_modrinth": "Download on Modrinth",
+    "neoenchant.download_curseforge": "Download on CurseForge",
+    "neoenchant.no_updates": "No updates available",
 
     "seo.title": "Voxel",
     "seo.description":
@@ -294,6 +304,7 @@ export const en = {
 
     "navbar.item.blog": "Blog",
     "navbar.item.data_pack": "Packs",
+    "navbar.item.packs": "Packs",
     "navbar.item.guides": "Guides",
     "navbar.item.resources": "Resources",
     "navbar.item.contact": "Contact",

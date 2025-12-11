@@ -79,9 +79,15 @@ export default function GallerySection({ title, images }: GallerySectionProps) {
                         )}
                         onClick={() => openLightbox(index)}
                         onKeyDown={(e) => e.key === "Enter" && openLightbox(index)}
-                        tabIndex={0}
-                    >
-                        <img src={image.path} alt="Gallery" width="768" height="560" loading="eager" className="absolute inset-0 w-full h-full object-cover object-center hover:scale-110 transition-transform duration-500" />
+                        tabIndex={0}>
+                        <img
+                            src={image.path}
+                            alt="Gallery"
+                            width="768"
+                            height="560"
+                            loading="eager"
+                            className="absolute inset-0 w-full h-full object-cover object-center hover:scale-110 transition-transform duration-500"
+                        />
                         <div className="absolute inset-0 bg-linear-to-b from-transparent to-black/50 opacity-0 hover:opacity-100 transition-opacity duration-300" />
                     </button>
                 ))}
@@ -89,11 +95,24 @@ export default function GallerySection({ title, images }: GallerySectionProps) {
 
             {/* Lightbox */}
             {lightboxOpen && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center backdrop-blur-md" onKeyDown={handleKeyDown} role="dialog" aria-modal="true">
+                <div
+                    className="fixed inset-0 z-50 flex items-center justify-center backdrop-blur-md"
+                    onKeyDown={handleKeyDown}
+                    role="dialog"
+                    aria-modal="true">
                     <button type="button" className="absolute inset-0 bg-black/80" onClick={handleOverlayClick} />
                     <div className="relative w-full h-full flex items-center justify-center p-8 select-none">
-                        <button type="button" onClick={closeLightbox} className="absolute top-8 right-8 z-10 p-2 rounded-full bg-black/50 hover:bg-black/80 transition-colors cursor-pointer">
-                            <svg xmlns="http://www.w3.org/2000/svg" className="size-8 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <button
+                            type="button"
+                            onClick={closeLightbox}
+                            className="absolute top-8 right-8 z-10 p-2 rounded-full bg-black/50 hover:bg-black/80 transition-colors cursor-pointer">
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                className="size-8 text-white"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                strokeWidth="2">
                                 <path d="M6 18L18 6M6 6l12 12" />
                             </svg>
                         </button>
@@ -116,8 +135,7 @@ export default function GallerySection({ title, images }: GallerySectionProps) {
                         />
                     </div>
                 </div>
-            )
-            }
-        </section >
+            )}
+        </section>
     );
 }

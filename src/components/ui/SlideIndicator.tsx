@@ -10,7 +10,14 @@ interface SlideIndicatorProps {
     className?: string;
 }
 
-export default function SlideIndicator({ count, currentIndex, onSelect, direction = "horizontal", interval = 5000, className }: SlideIndicatorProps) {
+export default function SlideIndicator({
+    count,
+    currentIndex,
+    onSelect,
+    direction = "horizontal",
+    interval = 5000,
+    className
+}: SlideIndicatorProps) {
     const isVertical = direction === "vertical";
 
     return (
@@ -30,7 +37,10 @@ export default function SlideIndicator({ count, currentIndex, onSelect, directio
                         )}>
                         {isActive && (
                             <span
-                                className={cn("absolute inset-0 rounded-full bg-pink-700", isVertical ? "origin-top animate-fill-vertical" : "origin-left animate-fill-horizontal")}
+                                className={cn(
+                                    "absolute inset-0 rounded-full bg-pink-700",
+                                    isVertical ? "origin-top animate-fill-vertical" : "origin-left animate-fill-horizontal"
+                                )}
                                 style={{ animationDuration: `${interval}ms` }}
                             />
                         )}

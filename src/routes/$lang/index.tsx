@@ -199,7 +199,12 @@ function HomePage() {
                             <Button className="w-full xl:w-fit" to="/$lang/resources/asset" params={{ lang }} size="sm" variant="primary">
                                 {translate("generic.take_a_look")}
                             </Button>
-                            <Button className="w-full xl:w-fit" to="/$lang/resources/asset" params={{ lang }} size="sm" variant="transparent">
+                            <Button
+                                className="w-full xl:w-fit"
+                                to="/$lang/resources/asset"
+                                params={{ lang }}
+                                size="sm"
+                                variant="transparent">
                                 {translate("generic.learn_more")}
                             </Button>
                         </div>

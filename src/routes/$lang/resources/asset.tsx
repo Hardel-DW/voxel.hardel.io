@@ -132,9 +132,7 @@ function MarketplacePage() {
                                                 }
                                             />
                                             <Box loading="lazy" image={`/images/marketplace/feature/${packId}.webp`} data-marketplace="">
-                                                <h2 className="text-white font-semibold text-center line-clamp-1 mt-8">
-                                                    {packName}
-                                                </h2>
+                                                <h2 className="text-white font-semibold text-center line-clamp-1 mt-8">{packName}</h2>
                                                 <div className="flex gap-2 mt-6 w-full justify-center">
                                                     <Button
                                                         size="sm"

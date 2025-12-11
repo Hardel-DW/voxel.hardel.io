@@ -16,7 +16,7 @@ const patterns: Pattern[] = [
                 return { length: spaces + 1, token: { type: "br" } };
             }
             return null;
-        },
+        }
     },
     // Soft line break: single newline becomes space
     {
@@ -25,7 +25,7 @@ const patterns: Pattern[] = [
                 return { length: 1, token: { type: "text", content: " " } };
             }
             return null;
-        },
+        }
     },
     // Inline directive ::name{props}
     {
@@ -36,9 +36,9 @@ const patterns: Pattern[] = [
             if (!match) return null;
             return {
                 length: 2 + match[0].length,
-                token: { type: "directive", name: match[1], props: match[2] ? parseDirectiveProps(match[2]) : {} },
+                token: { type: "directive", name: match[1], props: match[2] ? parseDirectiveProps(match[2]) : {} }
             };
-        },
+        }
     },
     // Image ![alt](src)
     {
@@ -50,9 +50,9 @@ const patterns: Pattern[] = [
             if (srcEnd === -1) return null;
             return {
                 length: srcEnd - pos + 1,
-                token: { type: "image", alt: text.slice(pos + 2, altEnd), src: text.slice(altEnd + 2, srcEnd) },
+                token: { type: "image", alt: text.slice(pos + 2, altEnd), src: text.slice(altEnd + 2, srcEnd) }
             };
-        },
+        }
     },
     // Link [text](href)
     {
@@ -64,9 +64,9 @@ const patterns: Pattern[] = [
             if (hrefEnd === -1) return null;
             return {
                 length: hrefEnd - pos + 1,
-                token: { type: "link", href: text.slice(textEnd + 2, hrefEnd), children: parseInline(text.slice(pos + 1, textEnd)) },
+                token: { type: "link", href: text.slice(textEnd + 2, hrefEnd), children: parseInline(text.slice(pos + 1, textEnd)) }
             };
-        },
+        }
     },
     // Bold **text**
     {
@@ -76,9 +76,9 @@ const patterns: Pattern[] = [
             if (end === -1) return null;
             return {
                 length: end - pos + 2,
-                token: { type: "bold", children: parseInline(text.slice(pos + 2, end)) },
+                token: { type: "bold", children: parseInline(text.slice(pos + 2, end)) }
             };
-        },
+        }
     },
     // Strikethrough ~~text~~
     {
@@ -88,9 +88,9 @@ const patterns: Pattern[] = [
             if (end === -1) return null;
             return {
                 length: end - pos + 2,
-                token: { type: "strike", children: parseInline(text.slice(pos + 2, end)) },
+                token: { type: "strike", children: parseInline(text.slice(pos + 2, end)) }
             };
-        },
+        }
     },
     // Italic *text*
     {
@@ -100,9 +100,9 @@ const patterns: Pattern[] = [
             if (end === -1) return null;
             return {
                 length: end - pos + 1,
-                token: { type: "italic", children: parseInline(text.slice(pos + 1, end)) },
+                token: { type: "italic", children: parseInline(text.slice(pos + 1, end)) }
             };
-        },
+        }
     },
     // Inline code `code`
     {
@@ -112,10 +112,10 @@ const patterns: Pattern[] = [
             if (end === -1) return null;
             return {
                 length: end - pos + 1,
-                token: { type: "code", content: text.slice(pos + 1, end) },
+                token: { type: "code", content: text.slice(pos + 1, end) }
             };
-        },
-    },
+        }
+    }
 ];
 
 export function parseInline(text: string): InlineToken[] {
@@ -151,4 +151,3 @@ export function parseInline(text: string): InlineToken[] {
     flushBuffer();
     return tokens;
 }
-

@@ -106,16 +106,25 @@ export default function Navbar() {
                                             image="/images/background/tools/configurator.webp"
                                         />
                                         <ul className="grid gap-3 mt-3 lg:grid-cols-[.75fr_1fr]">
-                                            <ListItem href={`${studioUrl}/${lang}/harmonization`} title={translate("navbar.resources.harmonization.title")}>
+                                            <ListItem
+                                                href={`${studioUrl}/${lang}/harmonization`}
+                                                title={translate("navbar.resources.harmonization.title")}>
                                                 {translate("navbar.resources.harmonization.description")}
                                             </ListItem>
-                                            <ListItem to="/$lang/resources/asset" params={{ lang }} title={translate("navbar.resources.asset.title")}>
+                                            <ListItem
+                                                to="/$lang/resources/asset"
+                                                params={{ lang }}
+                                                title={translate("navbar.resources.asset.title")}>
                                                 {translate("navbar.resources.asset.description")}
                                             </ListItem>
-                                            <ListItem href={`${studioUrl}/${lang}/converter`} title={translate("navbar.resources.converter.title")}>
+                                            <ListItem
+                                                href={`${studioUrl}/${lang}/converter`}
+                                                title={translate("navbar.resources.converter.title")}>
                                                 {translate("navbar.resources.converter.description")}
                                             </ListItem>
-                                            <ListItem href={`${studioUrl}/${lang}/migration`} title={translate("navbar.resources.migration.title")}>
+                                            <ListItem
+                                                href={`${studioUrl}/${lang}/migration`}
+                                                title={translate("navbar.resources.migration.title")}>
                                                 {translate("navbar.resources.migration.description")}
                                             </ListItem>
                                         </ul>

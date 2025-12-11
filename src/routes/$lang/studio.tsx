@@ -1,8 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import ShiningStars from "@/components/ui/ShiningStars";
-import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
+import Navbar from "@/components/layout/Navbar";
 import { Button } from "@/components/ui/Button";
+import ShiningStars from "@/components/ui/ShiningStars";
 import { t } from "@/lib/i18n";
 
 export const Route = createFileRoute("/$lang/studio")({
@@ -11,30 +11,30 @@ export const Route = createFileRoute("/$lang/studio")({
 
 const questions = [
     {
-        "question": "What is this tool for?",
-        "answer": "This tool is designed to modify enchantments of existing content, such as NeoEnchant+, Dungeons & Taverns, or any other pack, with the simplest and most intuitive interface that requires no development knowledge."
+        question: "What is this tool for?",
+        answer: "This tool is designed to modify enchantments of existing content, such as NeoEnchant+, Dungeons & Taverns, or any other pack, with the simplest and most intuitive interface that requires no development knowledge."
     },
     {
-        "question": "Minecraft Java Edition or Bedrock Edition?",
-        "answer": "This tool is designed for Minecraft Java Edition. Bedrock Edition is not supported."
+        question: "Minecraft Java Edition or Bedrock Edition?",
+        answer: "This tool is designed for Minecraft Java Edition. Bedrock Edition is not supported."
     },
     {
-        "question": "How do I get started?",
-        "answer": "Simply drop existing content into the gray area. You can also modify Minecraft's base content using the white button."
+        question: "How do I get started?",
+        answer: "Simply drop existing content into the gray area. You can also modify Minecraft's base content using the white button."
     },
     {
-        "question": "Mods or Datapacks?",
-        "answer": "This tool is designed to support both datapacks and mods (Forge, Fabric, NeoForge, Quilt)."
+        question: "Mods or Datapacks?",
+        answer: "This tool is designed to support both datapacks and mods (Forge, Fabric, NeoForge, Quilt)."
     },
     {
-        "question": "How do I download the modified content?",
-        "answer": "When you are in the configuration interface, in the bottom left, you will find a white download button."
+        question: "How do I download the modified content?",
+        answer: "When you are in the configuration interface, in the bottom left, you will find a white download button."
     },
     {
-        "question": "If the content gets updated, will I have to redo everything?",
-        "answer": "If you want to update your configuration to a different version of the original work, there is a migration tool available."
+        question: "If the content gets updated, will I have to redo everything?",
+        answer: "If you want to update your configuration to a different version of the original work, there is a migration tool available."
     }
-]
+];
 
 function StudioLayout() {
     const { lang } = Route.useParams();
@@ -60,8 +60,12 @@ function StudioLayout() {
                         </div>
 
                         <div className="size-full flex flex-col justify-center">
-                            <small className="text-zinc-400 font-bold tracking-wide text-[16px]">{translate("studio.label.voxel_labs")}</small>
-                            <h1 className="text-white text-4xl md:text-6xl font-bold mt-4 text-balance">{translate("studio.label.voxel_studio")}</h1>
+                            <small className="text-zinc-400 font-bold tracking-wide text-[16px]">
+                                {translate("studio.label.voxel_labs")}
+                            </small>
+                            <h1 className="text-white text-4xl md:text-6xl font-bold mt-4 text-balance">
+                                {translate("studio.label.voxel_studio")}
+                            </h1>
                             <p className="text-gray-300 mt-4">{translate("studio.label.voxel_studio_description")}</p>
 
                             <div className="flex items-center flex-col sm:flex-row gap-4 mt-8">
@@ -78,8 +82,7 @@ function StudioLayout() {
                     </div>
                     <div className="relative w-full flex justify-center items-center">
                         <div className="w-full max-w-md">
-                            <label
-                                className="group relative flex flex-col items-center justify-center w-full h-full transition-all duration-300 rounded-3xl border-2 border-dashed cursor-pointer border-zinc-700/50 bg-zinc-900/20 backdrop-blur-sm hover:bg-zinc-800/30 hover:border-zinc-500 gap-6 p-12 min-h-[300px]">
+                            <label className="group relative flex flex-col items-center justify-center w-full h-full transition-all duration-300 rounded-3xl border-2 border-dashed cursor-pointer border-zinc-700/50 bg-zinc-900/20 backdrop-blur-sm hover:bg-zinc-800/30 hover:border-zinc-500 gap-6 p-12 min-h-[300px]">
                                 <div className="size-20 rounded-2xl bg-zinc-800/50 flex items-center justify-center border border-zinc-700 shadow-inner group-hover:scale-110 transition-transform duration-300">
                                     <img
                                         src="/icons/upload.svg"
@@ -91,16 +94,16 @@ function StudioLayout() {
                                     <p className="text-zinc-200 font-medium text-xl group-hover:text-white transition-colors">
                                         {translate("studio.label.click_to_upload")}
                                     </p>
-                                    <p className="text-sm text-zinc-500 group-hover:text-zinc-400 transition-colors">{translate("studio.label.drop_your_datapack_or_mod_here_to_start_configuring")}</p>
+                                    <p className="text-sm text-zinc-500 group-hover:text-zinc-400 transition-colors">
+                                        {translate("studio.label.drop_your_datapack_or_mod_here_to_start_configuring")}
+                                    </p>
                                 </div>
                                 <input type="file" className="hidden" disabled={true} />
                             </label>
 
                             <Button className="w-full mt-8 flex items-center gap-x-2 shimmer-zinc-950 border border-zinc-800 text-white">
                                 <img src="/icons/company/github.svg" alt="GitHub" className="size-4 invert" />
-                                <span className="text-sm">
-                                    {translate("studio.label.login_to_github")}
-                                </span>
+                                <span className="text-sm">{translate("studio.label.login_to_github")}</span>
                             </Button>
                         </div>
                         <img className="absolute -z-10 opacity-10 select-none" src="/icons/circle.svg" alt="box" />
@@ -137,16 +140,20 @@ function StudioLayout() {
                 <div className="bg-zinc-950/80 backdrop-blur-xl py-6 px-4 flex flex-col md:flex-row items-center justify-center gap-4 md:gap-8 shadow-2xl rounded-xl border border-zinc-800">
                     <div className="p-3 bg-yellow-500/10 rounded-xl border border-yellow-500/20 shadow-[0_0_15px_-3px_rgba(234,179,8,0.3)]">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="size-6 text-yellow-500">
-                            <path fillRule="evenodd" d="M9.401 3.003c1.155-2 4.043-2 5.197 0l7.355 12.748c1.154 2-.29 4.5-2.599 4.5H4.645c-2.309 0-3.752-2.5-2.598-4.5L9.4 3.003zM12 8.25a.75.75 0 01.75.75v3.75a.75.75 0 01-1.5 0V9a.75.75 0 01.75-.75zm0 8.25a.75.75 0 100-1.5.75.75 0 000 1.5z" clipRule="evenodd" />
+                            <path
+                                fillRule="evenodd"
+                                d="M9.401 3.003c1.155-2 4.043-2 5.197 0l7.355 12.748c1.154 2-.29 4.5-2.599 4.5H4.645c-2.309 0-3.752-2.5-2.598-4.5L9.4 3.003zM12 8.25a.75.75 0 01.75.75v3.75a.75.75 0 01-1.5 0V9a.75.75 0 01.75-.75zm0 8.25a.75.75 0 100-1.5.75.75 0 000 1.5z"
+                                clipRule="evenodd"
+                            />
                         </svg>
                     </div>
                     <div className="space-y-1 text-center md:text-left">
                         <h3 className="font-semibold text-zinc-100 text-lg tracking-tight">{translate("studio.maintenance.title")}</h3>
-                        <p className="text-zinc-400 font-medium text-sm md:text-base">
-                            {translate("studio.maintenance.description")}
-                        </p>
+                        <p className="text-zinc-400 font-medium text-sm md:text-base">{translate("studio.maintenance.description")}</p>
                         <p className="text-zinc-500 text-xs">
-                            {translate("studio.maintenance.date", { date: new Intl.DateTimeFormat(lang, { dateStyle: 'long' }).format(new Date('2025-12-15')) })}
+                            {translate("studio.maintenance.date", {
+                                date: new Intl.DateTimeFormat(lang, { dateStyle: "long" }).format(new Date("2025-12-15"))
+                            })}
                         </p>
                     </div>
                 </div>

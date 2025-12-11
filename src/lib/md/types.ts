@@ -25,4 +25,3 @@ export type BlockToken =
 export type ListItem = { children: InlineToken[] };
 
 export type Document = BlockToken[];
-

@@ -33,7 +33,6 @@ function BlogDetailPage() {
         );
     }
 
-
     return (
         <CompoundLayout>
             <section className="w-full md:w-3/4 max-w-4xl mx-auto px-8 mt-24 md:mt-40">
@@ -53,9 +52,7 @@ function BlogDetailPage() {
                             </small>
                         </div>
                     </div>
-                    <a
-                        href={`https://github.com/${AUTHOR_GITHUB.replace("@", "")}`}
-                        className="items-center gap-4 hidden md:flex">
+                    <a href={`https://github.com/${AUTHOR_GITHUB.replace("@", "")}`} className="items-center gap-4 hidden md:flex">
                         <img src={AUTHOR_IMAGE} width="40" height="40" className="rounded-full" alt={AUTHOR_NAME} />
                         <div>
                             <p className="text-sm text-zinc-400 font-bold">{AUTHOR_NAME}</p>

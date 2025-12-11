@@ -1,0 +1,18 @@
+{
+    "name": "Artifacts and Magic",
+    "description": "Collection of magical artifacts and items",
+    "items": {
+        "/images/marketplace/items/magic/falling_star.png": "Falling Star",
+        "/images/marketplace/items/magic/solarium.png": "Solarium",
+        "/images/marketplace/items/magic/letter.png": "Letter",
+        "/images/marketplace/items/magic/card_variant_2.png": "Card Variant 2",
+        "/images/marketplace/items/magic/card_variant_1.png": "Card Variant 1",
+        "/images/marketplace/items/magic/rainbow_diamond.png": "Rainbow Diamond",
+        "/images/marketplace/items/magic/small_scroll.png": "Small Scroll",
+        "/images/marketplace/items/magic/big_scroll.png": "Big Scroll",
+        "/images/marketplace/items/magic/speed_rune.png": "Speed Rune",
+        "/images/marketplace/items/magic/quantity_rune.png": "Quantity Rune",
+        "/images/marketplace/items/magic/unpowered_crystal.png": "Unpowered Crystal",
+        "/images/marketplace/items/magic/crystal.png": "Crystal"
+    }
+}

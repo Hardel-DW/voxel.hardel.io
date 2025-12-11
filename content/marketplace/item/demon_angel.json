@@ -1,0 +1,12 @@
+{
+    "name": "Angel and Demon",
+    "description": "Collection of demonic and angelic items",
+    "items": {
+        "/images/marketplace/items/demon_angel/big_angel_ring.png": "Big Angel Ring",
+        "/images/marketplace/items/demon_angel/small_angel_ring.png": "Small Angel Ring",
+        "/images/marketplace/items/demon_angel/double wing.png": "Double Wing",
+        "/images/marketplace/items/demon_angel/wing_variant.png": "Wing Variant",
+        "/images/marketplace/items/demon_angel/wing.png": "Wing",
+        "/images/marketplace/items/demon_angel/blood.png": "Blood"
+    }
+}

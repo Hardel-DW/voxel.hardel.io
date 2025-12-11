@@ -1,0 +1,56 @@
+---
+draft: false
+title: "Pack Yggdrasil - Version Preview 1.21.2"
+snippet: "La mise à jour 2.0.0 de Yggdrasil est maintenant disponible, elle introduit le village de Asflors, la Fracture Runique, et une nouvelle version de Alfheim."
+imageSrc: "/images/background/blog/yggdrasil-2.webp"
+imageAlt: "Yggdrasil - 2.0"
+author: "hardel"
+publishDate: "2024-10-14"
+category: "Datapacks"
+video: "https://www.youtube.com/embed/UNYxJkHhb8w"
+---
+
+# Aperçu
+La nouvelle version du pack Yggdrasil 2.0.0 ajoute deux nouvelles structures, le village d'Asflors et la Fracture Runique, et introduit "L'Alfheim Sinistre" avec des remaniements importants. La difficulté des combats a été revue ainsi que le système de butin et de nombreuses nouvelles mécaniques ont été ajoutées.
+
+## Comment obtenir les traductions
+- Tu dois mettre le pack **NeoEnchant** dans ton dossier de packs de ressources.
+- Alternativement, tu peux utiliser le resource pack **Voxel Translation**, qui inclut des traductions pour tout le contenu **Voxel** (NeoEnchant, Yggdrasil, et les futurs packs).
+
+# Villages Asflors
+Découvre, le tranquille **Villages Asflors**, une communauté pacifique. Ces colonies vivant dans des lieux florissants, possèdent une histoire riche, triste et émouvante. Plonge toi dans l'histoire d'Yggdrasil et découvre le récit de son premier personnage, perdu dans les secrets du village.
+
+### Quête épique et arme légendaire
+Embarque dans une quête épique qui met à l'épreuve, l'intelligence et la persévérance. Au fur et à mesure de ta progression, débloque des enchantements exclusifs et uniques. Une armes est cachée, l'**Épée Asflors**, obtenable uniquement après avoir accompli une longue et difficile série de tâches.
+
+### Récompenses et secrets
+- **Enchantements exclusifs** : Accéde à deux puissants enchantements jamais vus auparavant.
+- **Épée légendaire Asflors** : Découvre le prix ultime, une arme d'une puissance inégalée.
+- **Lore riche** : Immerge toi dans l'histoire profonde et émouvante d'un ancien personnage.
+- **Trésors cachés** : Explore minutieusement le village, et découvre de nombreux secrets dispersés.
+
+# Fracture Runique
+Explore l'énigmatique **Fracture Runique**, une structure compacte intrinsèquement liée aux Villages Asflors. Cette zone est verrouillée par un cadenas et ne peut être accessible qu'à l'aide d'une clé spécifiques.
+
+![Fracture Runique](/images/background/blog/runic_fracture.jpg)
+
+# Alfheim
+L'Alfheim Sinistre, cette version alternative est accessible uniquement avec des potions sinistres, elle introduit un nouveau niveau de défi. Les monstres dans ce royaume utilise des armures et des enchantements suppérieurs. Les créatures ici ont développé des immunités au feu, au recul et aux dégâts de chute.
+
+Des nouveaux monstres et clés apparaissent dans cette version sinistres, explore bien les lieux, je te souhaite un bon jeu.
+
+![Alfheim](https://cdn.modrinth.com/data/cached_images/59cfeed443538125c4c40af5bba64ef2bb282c83.png)
+
+### Comparaison Alfheim
+
+|  | Version Normale | Version Sinistre |
+|---------|----------------|-----------------|
+| **Difficulté** | Réduite | Élevée |
+| **Monstres** | Standard | Plus nombreux et puissants |
+| **Clés normales** | Faciles à trouver | Faciles à trouver |
+| **Clés sinistres** | Très rares | Fréquentes |
+| **Récompenses** | Normales | Améliorées |
+| **Potions sinistres** | Trouvables | Nécessaires |
+| **Armure des monstres** | Aucune | Enchantée |
+| **Enchantements exclusifs** | Communs et Rares | Rares et Uniques |
+| **Effets sur les monstres** | Aucun | Résistants au feu, au recul et aux dégâts de chute |

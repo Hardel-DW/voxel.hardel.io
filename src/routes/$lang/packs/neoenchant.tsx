@@ -1,0 +1,546 @@
+import { createFileRoute } from "@tanstack/react-router";
+import DatapackCard from "@/components/DatapackCard";
+import CompoundLayout from "@/components/layout/CompoundLayout";
+import NeoEnchantmentViewer, { type SectionViewer } from "@/components/NeoEnchantmentViewer";
+import { Button } from "@/components/ui/Button";
+import { DashedPattern } from "@/components/ui/DashedPattern";
+import VortexSetup from "@/components/ui/vortex/VortexSetup";
+import { t } from "@/lib/i18n";
+
+export const Route = createFileRoute("/$lang/packs/neoenchant")({
+    component: NeoEnchantPage
+});
+
+function NeoEnchantPage() {
+    const { lang } = Route.useParams();
+    const translate = t(lang);
+    const studioUrl = import.meta.env.VITE_VOXEL_STUDIO_URL as string;
+
+    const sections: SectionViewer[] = [
+        {
+            id: "range",
+            short: translate("datapacks.neoenchant.type.range.short"),
+            image: "/images/features/item/range.webp",
+            enchants: [
+                {
+                    id: "breezing_arrow",
+                    name: translate("datapacks.neoenchant.enchant.breezing_arrow.title"),
+                    description: translate("datapacks.neoenchant.enchant.breezing_arrow.description"),
+                    image: "/images/features/item/range.webp",
+                    video: "llTsukoqRt5QbKQEFL7KYneEWflk3iCJPsS7juLBvIxha480",
+                    level: 3,
+                    addons: true
+                },
+                {
+                    id: "explosive_arrow",
+                    name: translate("datapacks.neoenchant.enchant.explosive_arrow.title"),
+                    description: translate("datapacks.neoenchant.enchant.explosive_arrow.description"),
+                    image: "/images/features/item/range.webp",
+                    video: "llTsukoqRt5Qo3xtIaF7jUQAeVKza8P9DrZXMCJwntfRiyO1",
+                    level: 3,
+                    addons: true
+                },
+                {
+                    id: "accuracy_shot",
+                    name: translate("datapacks.neoenchant.enchant.accuracy_shot.title"),
+                    description: translate("datapacks.neoenchant.enchant.accuracy_shot.description"),
+                    image: "/images/features/item/range.webp",
+                    video: "llTsukoqRt5QWVCDOI1Kb71m9C8Xc2YswJ5IxuzoHvBn3gfZ",
+                    level: 1
+                },
+                {
+                    id: "echo_shot",
+                    name: translate("datapacks.neoenchant.enchant.echo_shot.title"),
+                    description:
+                        "The arrow has the power of the warden, it will explode on impact, inflicting damage to entities and not destroying blocks, the shooter is immune to this explosion.",
+                    image: "/images/features/item/range.webp",
+                    video: "llTsukoqRt5QnOStSjqyvX7px9U1EhbNYeGQjKsL6f4SWi0q",
+                    level: 3
+                },
+                {
+                    id: "storm_arrow",
+                    name: translate("datapacks.neoenchant.enchant.storm_arrow.title"),
+                    description: translate("datapacks.neoenchant.enchant.storm_arrow.description"),
+                    image: "/images/features/item/range.webp",
+                    video: "llTsukoqRt5QGoen82LD6IpisNSVcLaF4qf7gZmRX09EOto2",
+                    level: 2,
+                    addons: true
+                },
+                {
+                    id: "eternal_frost",
+                    name: translate("datapacks.neoenchant.enchant.eternal_frost.title"),
+                    description: translate("datapacks.neoenchant.enchant.eternal_frost.description"),
+                    image: "/images/features/item/range.webp",
+                    video: "llTsukoqRt5QOzClm7sBkwa7SbIxLQiWf5XFsqJl4PopZ1mh",
+                    level: 2,
+                    addons: true
+                },
+                {
+                    id: "rebound",
+                    name: translate("datapacks.neoenchant.enchant.rebound.title"),
+                    description: translate("datapacks.neoenchant.enchant.rebound.description"),
+                    image: "/images/features/item/range.webp",
+                    video: "llTsukoqRt5QhLGGJX8gfMybo6NQ2z0nTSkjXlsY19Dv74ac",
+                    level: 3
+                }
+            ]
+        },
+        {
+            id: "sword",
+            image: "/images/features/item/sword.webp",
+            short: translate("datapacks.neoenchant.type.weapon.short"),
+            enchants: [
+                {
+                    id: "gungnir",
+                    name: translate("datapacks.neoenchant.enchant.gugnir.title"),
+                    description: translate("datapacks.neoenchant.enchant.gugnir.description"),
+                    image: "/images/features/item/trident.webp",
+                    video: "llTsukoqRt5Qg6Le32Gk0VdLMDJUNnaI7xqQAt3ziBR5KEfP",
+                    level: 1,
+                    addons: true
+                },
+                {
+                    id: "striker",
+                    name: translate("datapacks.neoenchant.enchant.striker.title"),
+                    description: translate("datapacks.neoenchant.enchant.striker.description"),
+                    image: "/images/features/item/mace.webp",
+                    video: "llTsukoqRt5QaU2sWAMY78TiyXScnzU6W4dbJCIF1OmZjgxq",
+                    level: 2,
+                    addons: true
+                },
+                {
+                    id: "wind_propulsion",
+                    name: translate("datapacks.neoenchant.enchant.wind_propulsion.title"),
+                    description: translate("datapacks.neoenchant.enchant.wind_propulsion.description"),
+                    image: "/images/features/item/mace.webp",
+                    video: "llTsukoqRt5QS7yam6P7HuVPZrGXA9tLCByTxDmKa4i1WYjU",
+                    level: 3,
+                    addons: true
+                },
+                {
+                    id: "teluric",
+                    name: translate("datapacks.neoenchant.enchant.teluric.title"),
+                    description: translate("datapacks.neoenchant.enchant.teluric.description"),
+                    image: "/images/features/item/mace.webp",
+                    video: "llTsukoqRt5Qo6Aqy3F7jUQAeVKza8P9DrZXMCJwntfRiyO1",
+                    level: 1,
+                    addons: true
+                },
+                {
+                    id: "fear",
+                    name: translate("datapacks.neoenchant.enchant.fear.title"),
+                    description: translate("datapacks.neoenchant.enchant.fear.description"),
+                    image: "/images/features/item/sword.webp",
+                    video: "llTsukoqRt5QYp0bdC9HtcPZDoVr4wBAaTdMyQEKkzn8Nuvj",
+                    level: 1
+                },
+                {
+                    id: "life_steal",
+                    name: translate("datapacks.neoenchant.enchant.life_steal.title"),
+                    description: translate("datapacks.neoenchant.enchant.life_steal.description"),
+                    image: "/images/features/item/sword.webp",
+                    video: "llTsukoqRt5QXYWWQhjJnh7aP8VYfq1mvyGSz2WUBCIprki4",
+                    level: 2
+                },
+                {
+                    id: "pull",
+                    name: translate("datapacks.neoenchant.enchant.pull.title"),
+                    description: translate("datapacks.neoenchant.enchant.pull.description"),
+                    image: "/images/features/item/sword.webp",
+                    video: "llTsukoqRt5QgBAw8nGk0VdLMDJUNnaI7xqQAt3ziBR5KEfP",
+                    level: 1,
+                    addons: true
+                },
+                {
+                    id: "attack_speed",
+                    name: translate("datapacks.neoenchant.enchant.attack_speed.title"),
+                    description: translate("datapacks.neoenchant.enchant.attack_speed.description"),
+                    image: "/images/features/item/sword.webp",
+                    video: "llTsukoqRt5QUS2sYEiAdur5jh26RH1QVm8leUgXzqKaTWc9",
+                    level: 2
+                },
+                {
+                    id: "reach",
+                    name: translate("datapacks.neoenchant.enchant.reach.title"),
+                    description: translate("datapacks.neoenchant.enchant.reach.description"),
+                    image: "/images/features/item/sword.webp",
+                    video: "llTsukoqRt5QQwzTAX12X0B27kiVaIOHmP1ldyJvZwKA9UnN",
+                    level: 3
+                },
+                {
+                    id: "xp_boost",
+                    name: translate("datapacks.neoenchant.enchant.xp_boost.title"),
+                    description: translate("datapacks.neoenchant.enchant.xp_boost.description"),
+                    image: "/images/features/item/sword.webp",
+                    video: "llTsukoqRt5QlUxjDIAoqRt5QfzZI6HNj9K8aX2OhcvMypFP",
+                    level: 3
+                },
+                {
+                    id: "tears_of_asflors",
+                    name: translate("datapacks.neoenchant.enchant.tears_of_asflors.title"),
+                    description: translate("datapacks.neoenchant.enchant.tears_of_asflors.description"),
+                    image: "/images/features/item/sword.webp",
+                    video: "llTsukoqRt5QYaxd7q9HtcPZDoVr4wBAaTdMyQEKkzn8Nuvj",
+                    level: 3,
+                    addons: true
+                },
+                {
+                    id: "last_hope",
+                    name: translate("datapacks.neoenchant.enchant.last_hope.title"),
+                    description: translate("datapacks.neoenchant.enchant.last_hope.description"),
+                    image: "/images/features/item/sword.webp",
+                    video: "llTsukoqRt5QokUmN3F7jUQAeVKza8P9DrZXMCJwntfRiyO1",
+                    level: 1,
+                    addons: true
+                }
+            ]
+        },
+        {
+            id: "tools",
+            image: "/images/features/item/pickaxe.webp",
+            short: translate("datapacks.neoenchant.type.tool.short"),
+            enchants: [
+                {
+                    id: "auto_smelt",
+                    name: translate("datapacks.neoenchant.enchant.auto_smelt.title"),
+                    description: translate("datapacks.neoenchant.enchant.auto_smelt.description"),
+                    image: "/images/features/item/mining.webp",
+                    video: "llTsukoqRt5QBow517XCXAjYys14dS9QNEavenpWcPhGr8qw",
+                    level: 1
+                },
+                {
+                    id: "miningplus",
+                    name: translate("datapacks.neoenchant.enchant.miningplus.title"),
+                    description: translate("datapacks.neoenchant.enchant.miningplus.description"),
+                    image: "/images/features/item/mining.webp",
+                    video: "llTsukoqRt5QFVdl35eULHyeDvqRMbW7JY4dxziUuKsZImPo",
+                    level: 1
+                },
+                {
+                    id: "vein_miner",
+                    name: translate("datapacks.neoenchant.enchant.vein_miner.title"),
+                    description: translate("datapacks.neoenchant.enchant.vein_miner.description"),
+                    image: "/images/features/item/pickaxe.webp",
+                    video: "llTsukoqRt5QA7waseheMHvl6praJELYuzwRhtZjcyNPgUQA",
+                    level: 1
+                },
+                {
+                    id: "timber",
+                    name: translate("datapacks.neoenchant.enchant.timber.title"),
+                    description: translate("datapacks.neoenchant.enchant.timber.description"),
+                    image: "/images/features/item/axe.webp",
+                    video: "llTsukoqRt5QbnbccN7KYneEWflk3iCJPsS7juLBvIxha480",
+                    level: 1
+                },
+                {
+                    id: "scyther",
+                    name: translate("datapacks.neoenchant.enchant.scyther.title"),
+                    description: translate("datapacks.neoenchant.enchant.scyther.description"),
+                    image: "/images/features/item/hoe.webp",
+                    video: "llTsukoqRt5Qf1C4I4jms3hKYzGX1A5V6jTlx2JyPLEWUeSo",
+                    level: 3
+                },
+                {
+                    id: "bedrock_breaker",
+                    name: translate("datapacks.neoenchant.enchant.bedrock_breaker.title"),
+                    description: translate("datapacks.neoenchant.enchant.bedrock_breaker.description"),
+                    image: "/images/features/item/pickaxe.webp",
+                    video: "llTsukoqRt5QlGfGgVoqRt5QfzZI6HNj9K8aX2OhcvMypFPW",
+                    level: 1,
+                    addons: true
+                },
+                {
+                    id: "spawner_touch",
+                    name: translate("datapacks.neoenchant.enchant.spawner_touch.title"),
+                    description: translate("datapacks.neoenchant.enchant.spawner_touch.description"),
+                    image: "/images/features/item/pickaxe.webp",
+                    video: "llTsukoqRt5QoidbutPF7jUQAeVKza8P9DrZXMCJwntfRiyO",
+                    level: 1,
+                    addons: true
+                }
+            ]
+        },
+        {
+            id: "armor",
+            image: "/images/features/item/chestplate.webp",
+            short: translate("datapacks.neoenchant.type.armor.short"),
+            enchants: [
+                {
+                    id: "lifeplus",
+                    name: translate("datapacks.neoenchant.enchant.lifeplus.title"),
+                    description: translate("datapacks.neoenchant.enchant.lifeplus.description"),
+                    image: "/images/features/item/armor.webp",
+                    video: "llTsukoqRt5QY1JqYJ9HtcPZDoVr4wBAaTdMyQEKkzn8Nuvj",
+                    level: 5
+                },
+                {
+                    id: "curse_of_breaking",
+                    name: translate("datapacks.neoenchant.enchant.curse_of_breaking.title"),
+                    description: translate("datapacks.neoenchant.enchant.curse_of_breaking.description"),
+                    image: "/images/features/item/armor.webp",
+                    video: "llTsukoqRt5QdFwuflctOeqRzaZ7QspT5rmgnwbXG42xWiy9",
+                    level: 5,
+                    addons: true
+                },
+                {
+                    id: "curse_of_enchant",
+                    name: translate("datapacks.neoenchant.enchant.curse_of_enchant.title"),
+                    description: translate("datapacks.neoenchant.enchant.curse_of_enchant.description"),
+                    image: "/images/features/item/armor.webp",
+                    video: "llTsukoqRt5Q11Okk3rXzoOIZNaWCsDHt0RSBeGqKLE2YVTp",
+                    level: 5,
+                    addons: true
+                },
+                {
+                    id: "venom_protection",
+                    name: translate("datapacks.neoenchant.enchant.venom_protection.title"),
+                    description: translate("datapacks.neoenchant.enchant.venom_protection.description"),
+                    image: "/images/features/item/armor.webp",
+                    video: "llTsukoqRt5QBsHyELXCXAjYys14dS9QNEavenpWcPhGr8qw",
+                    level: 1,
+                    addons: true
+                },
+                {
+                    id: "fury",
+                    name: translate("datapacks.neoenchant.enchant.fury.title"),
+                    description: translate("datapacks.neoenchant.enchant.fury.description"),
+                    image: "/images/features/item/armor.webp",
+                    thumbnail: "llTsukoqRt5QEf4q41x4bW3SnQVrT2AgHid7NhIeJRZp59yj",
+                    level: 4
+                },
+                {
+                    id: "voidless",
+                    name: translate("datapacks.neoenchant.enchant.voidless.title"),
+                    description: translate("datapacks.neoenchant.enchant.voidless.description"),
+                    image: "/images/features/item/helmet.webp",
+                    video: "llTsukoqRt5QwvQ148n90xo2VChLPZjAU8gq4ycMsa5bY7Kz",
+                    level: 1,
+                    addons: true
+                },
+                {
+                    id: "bright_vision",
+                    name: translate("datapacks.neoenchant.enchant.bright_vision.title"),
+                    description: translate("datapacks.neoenchant.enchant.bright_vision.description"),
+                    image: "/images/features/item/helmet.webp",
+                    video: "llTsukoqRt5QoeXnrGF7jUQAeVKza8P9DrZXMCJwntfRiyO1",
+                    level: 1
+                },
+                {
+                    id: "auto_feed",
+                    name: translate("datapacks.neoenchant.enchant.auto_feed.title"),
+                    description: translate("datapacks.neoenchant.enchant.auto_feed.description"),
+                    image: "/images/features/item/helmet.webp",
+                    video: "llTsukoqRt5Qa93f54AMY78TiyXScnzU6W4dbJCIF1OmZjgx",
+                    level: 1
+                },
+                {
+                    id: "builder_arm",
+                    name: translate("datapacks.neoenchant.enchant.builder_arm.title"),
+                    description: translate("datapacks.neoenchant.enchant.builder_arm.description"),
+                    image: "/images/features/item/chestplate.webp",
+                    video: "llTsukoqRt5QfBarSwms3hKYzGX1A5V6jTlx2JyPLEWUeSoM",
+                    level: 5
+                },
+                {
+                    id: "armored",
+                    name: translate("datapacks.neoenchant.enchant.armored.title"),
+                    description: translate("datapacks.neoenchant.enchant.armored.description"),
+                    image: "/images/features/item/elytra.webp",
+                    thumbnail: "llTsukoqRt5QESR4S7Jx4bW3SnQVrT2AgHid7NhIeJRZp59y",
+                    level: 4,
+                    addons: true
+                },
+                {
+                    id: "dwarfed",
+                    name: translate("datapacks.neoenchant.enchant.dwarfed.title"),
+                    description: translate("datapacks.neoenchant.enchant.dwarfed.description"),
+                    image: "/images/features/item/leggings.webp",
+                    video: "llTsukoqRt5QfKeverms3hKYzGX1A5V6jTlx2JyPLEWUeSoM",
+                    level: 4
+                },
+                {
+                    id: "fast_swim",
+                    name: translate("datapacks.neoenchant.enchant.fast_swim.title"),
+                    description: translate("datapacks.neoenchant.enchant.fast_swim.description"),
+                    image: "/images/features/item/leggings.webp",
+                    video: "llTsukoqRt5QBaJhuqXCXAjYys14dS9QNEavenpWcPhGr8qw",
+                    level: 1,
+                    addons: true
+                },
+                {
+                    id: "leaping",
+                    name: translate("datapacks.neoenchant.enchant.leaping.title"),
+                    description: translate("datapacks.neoenchant.enchant.leaping.description"),
+                    image: "/images/features/item/leggings.webp",
+                    video: "llTsukoqRt5Qikh120VLH1rSyPeCQj4thiW62XDVaqZ9RKof",
+                    level: 2
+                },
+                {
+                    id: "oversize",
+                    name: translate("datapacks.neoenchant.enchant.oversize.title"),
+                    description: translate("datapacks.neoenchant.enchant.oversize.description"),
+                    image: "/images/features/item/leggings.webp",
+                    video: "llTsukoqRt5Qp42vFABs9r1yCxWkibmgAYJUDO8LPvaS2e6K",
+                    level: 4
+                },
+                {
+                    id: "lava_walker",
+                    name: translate("datapacks.neoenchant.enchant.lava_walker.title"),
+                    description: translate("datapacks.neoenchant.enchant.lava_walker.description"),
+                    image: "/images/features/item/boots.webp",
+                    video: "llTsukoqRt5Qi1xpeoVLH1rSyPeCQj4thiW62XDVaqZ9RKof",
+                    level: 3,
+                    addons: true
+                },
+                {
+                    id: "sky_walk",
+                    name: translate("datapacks.neoenchant.enchant.sky_walk.title"),
+                    description: translate("datapacks.neoenchant.enchant.sky_walk.description"),
+                    image: "/images/features/item/boots.webp",
+                    video: "llTsukoqRt5Q2DK6kYMNnzoIOYfFTU4LCbwgVxBAlpycKMdS",
+                    level: 3
+                },
+                {
+                    id: "step_assist",
+                    name: translate("datapacks.neoenchant.enchant.step_assist.title"),
+                    description: translate("datapacks.neoenchant.enchant.step_assist.description"),
+                    image: "/images/features/item/boots.webp",
+                    video: "llTsukoqRt5QUGDcggiAdur5jh26RH1QVm8leUgXzqKaTWc9",
+                    level: 3,
+                    addons: true
+                },
+                {
+                    id: "agility",
+                    name: translate("datapacks.neoenchant.enchant.agility.title"),
+                    description: translate("datapacks.neoenchant.enchant.agility.description"),
+                    image: "/images/features/item/boots.webp",
+                    video: "llTsukoqRt5Ql5Rw3IoqRt5QfzZI6HNj9K8aX2OhcvMypFPW",
+                    level: 5
+                }
+            ]
+        }
+    ];
+
+    return (
+        <CompoundLayout>
+            <section className="max-h-dvh relative z-20 border-b border-pink-300/50">
+                <img
+                    src="/images/background/datapacks/neoenchant.webp"
+                    alt="Neo Enchant"
+                    width="1920"
+                    height="1080"
+                    loading="eager"
+                    className="w-full h-full absolute object-cover object-center -z-10"
+                />
+
+                <div className="py-80 gap-8 flex flex-col md:flex-row items-center h-full justify-start w-10/12 mx-auto">
+                    <div className="max-w-3xl">
+                        <h1 className="text-6xl xl:text-8xl tracking-wide wrap-break-words font-bold text-white">
+                            {translate("datapacks.neoenchant.title")}
+                        </h1>
+                        <p className="text-rose-50 font-light wrap-break-words text-sm xl:text-lg mt-4">
+                            {translate("datapacks.neoenchant.description")}
+                        </p>
+                        <div className="mt-8 flex gap-4 flex-col md:flex-row items-center">
+                            <Button href="https://modrinth.com/datapack/neoenchant" variant="modrinth" className="w-full md:w-auto">
+                                <img src="/icons/company/modrinth.svg" alt="Modrinth" className="w-6 h-6 mr-4" />
+                                {translate("datapacks.modrinth.download")}
+                            </Button>
+                            <Button href="https://discord.gg/mVpYB6kF93" variant="shimmer" className="w-full md:w-auto">
+                                <img src="/icons/company/discord.svg" alt="GitHub" className="w-6 h-6 mr-4 invert" />
+                                {translate("footer.social.discord")}
+                            </Button>
+                            <Button href="https://github.com/Hardel-DW/NeoEnchant/wiki/Custom-Enchantments" className="w-full md:w-auto">
+                                {translate("datapacks.wiki")}
+                            </Button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section className="mt-40 mb-20 relative">
+                <div className="w-5/6 mx-auto">
+                    <NeoEnchantmentViewer enchant={sections} />
+                </div>
+            </section>
+
+            <section className="w-3/4 mx-auto relative grid md:grid-cols-2 items-center gap-x-8 gap-y-24 my-40">
+                <div className="absolute w-full inset-0 shadow-2xl bg-linear-to-r from-[#401727] to-[#311e7696] opacity-20 rounded-full blur-[10rem]" />
+                <DashedPattern className="mask-[radial-gradient(white,transparent_60%)]" />
+
+                <div className="h-full w-full mx-auto relative">
+                    <div className="size-full flex flex-col justify-center">
+                        <small className="text-pink-700 font-bold tracking-wide text-[16px]">{translate("generic.section")}</small>
+                        <h1 className="text-white text-4xl md:text-6xl font-bold mt-4 text-balance">
+                            {translate("datapacks.neoenchant.personalize.title")}
+                        </h1>
+                        <p className="text-gray-300 mt-4">{translate("datapacks.neoenchant.personalize.description")}</p>
+
+                        <div className="mt-8 flex flex-col md:flex-row gap-4">
+                            <Button href={`${studioUrl}/${lang}/studio`} size="xl" variant="primary" className="w-full md:w-auto">
+                                {translate("generic.start")}
+                            </Button>
+                            <Button href={`${studioUrl}/${lang}/studio`} size="xl" variant="ghost" className="w-full md:w-auto">
+                                {translate("generic.learn_more")}
+                            </Button>
+                        </div>
+                    </div>
+                </div>
+                <div className="relative w-full flex justify-center items-center">
+                    <img className="absolute opacity-10 select-none" src="/icons/circle.svg" alt="box" />
+                    <img
+                        loading="eager"
+                        width="1200"
+                        height="900"
+                        src="/images/background/tools/enchant-hero.webp"
+                        alt="404"
+                        className="aspect-auto select-none"
+                    />
+                </div>
+            </section>
+
+            <section className="relative mt-40">
+                <div className="absolute inset-0 h-full overflow-hidden p-8 opacity-50">
+                    <VortexSetup />
+                </div>
+
+                <div className="w-3/4 mx-auto gap-8">
+                    <div className="mb-24">
+                        <h1 className="text-4xl md:text-6xl wrap-break-words font-bold text-white text-center w-full md:w-1/2 mx-auto">
+                            {translate("datapacks.neoenchant.ecosystem")}
+                        </h1>
+                        <hr className="shrink-0 h-px opacity-25 w-full bg-transparent beam-white border-t-0 border-t-black/2 border-b-[none] border-x-0 border-x-black/2 border-solid" />
+                    </div>
+                    <div className="grid md:grid-cols-2 items-center w-full gap-y-36 gap-x-16 min-h-[568px] py-24 mb-24">
+                        <DatapackCard
+                            href="https://modrinth.com/datapack/beyondenchant"
+                            asset="/images/background/datapacks/beyond.webp"
+                            title={translate("datapacks.beyondenchant.short")}
+                            description={translate("datapacks.beyondenchant.description")}
+                            buttonText={translate("datapacks.modrinth.download")}
+                            buttonTextMobile={translate("generic.more")}
+                        />
+
+                        <DatapackCard
+                            href="https://modrinth.com/datapack/yggdrasil-structure"
+                            asset="/images/background/datapacks/yggdrasil.webp"
+                            title={translate("datapacks.yggdrasil.short")}
+                            description={translate("datapacks.yggdrasil.description")}
+                            buttonText={translate("datapacks.modrinth.download")}
+                            buttonTextMobile={translate("generic.more")}
+                        />
+
+                        <DatapackCard
+                            href="https://modrinth.com/datapack/better-furnace"
+                            asset="/images/background/datapacks/better_furnace.webp"
+                            title={translate("datapacks.better_furnace.short")}
+                            description={translate("datapacks.better_furnace.description")}
+                            buttonText={translate("datapacks.modrinth.download")}
+                            buttonTextMobile={translate("generic.more")}
+                        />
+                    </div>
+                </div>
+            </section>
+        </CompoundLayout>
+    );
+}

@@ -1,0 +1,38 @@
+---
+draft: false
+title: "Launch of the Voxel Marketplace"
+snippet: "Discover our new collection of resources, to create your own Minecraft content"
+imageSrc: "/images/opengraph/marketplace.webp"
+imageAlt: "Voxel Marketplace Launch"
+author: "hardel"
+publishDate: "2024-12-05"
+category: "Marketplace"
+---
+
+# Launch of the Voxel Marketplace
+After weeks of work, Voxel is delighted to announce the launch of the Marketplace. It's a project close to my heart. This project required many hours of work.
+
+## Free Resources for the Community
+I am proud to offer you a wide selection of free resources for your personal or commercial projects. This has been created with the same care and attention as other projects, I hope you will enjoy.
+
+## An Exceptional Premium Collection
+Beyond the free content it is natural to want to make a living from it, Voxel offers a premium collection that consists of three distinct packs, each on a specific theme:
+- **The flame pack** (€3.99): 28 textures on the flaming theme, including a legendary bow, equipment and a ton of thematic resources like flames, rocks, runes.
+- **The frozen pack** (€3.99): 33 textures on the frozen theme, with a complete arsenal of icy weapons, it also brings its thematic items, snowflake, ice, shard or frozen leaves.
+- **The ice and fire pack** (€7.99): The complete collection including 83 textures, combining the flame and frozen packs with exclusive textures.
+
+![Ice and Fire Collection](/images/background/blog/marketplace/pack_volume_one.webp)
+
+## Exclusive Advantage for our Patreons
+
+In recognition of the continued support of our Patreons, I am happy to announce that all three packs are offered free to all our Patreon supporters. It's our way of saying thank you.
+
+
+
+## The Future of the Marketplace
+
+This launch is just the beginning. Many projects are under consideration, including new thematic packs.
+I want to warmly thank all those who believed in me so that Voxel could propose this project.
+
+Don't hesitate to join [Discord](https://discord.gg/TAmVFvkHep) to be part of our community and follow updates.
+See you soon on the Voxel Marketplace!

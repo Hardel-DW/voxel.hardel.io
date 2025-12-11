@@ -1,0 +1,30 @@
+---
+draft: false
+title: "Le Configurateur d'Enchantements"
+snippet: "Personnalise et modifie les enchantements d'un pack Minecraft en toute simplicité. Découvre un outil intuitif pour personnaliser ton expérience de jeu."
+imageSrc: "/images/background/blog/enchant-configurator.webp"
+imageAlt: "Enchantment Configurator"
+author: "hardel"
+publishDate: "2024-08-25"
+category: "Tools"
+---
+
+# Libére ta créativité avec le Configurateur d'Enchantements
+Le **Configurateur d'Enchantements** est un outil qui te permet de modifier et de personnaliser les enchantements d'un contenu **(Mods et datapack)** et pas seulement ceux créer par Voxel.   
+Que tu utilise un contenu populaire ou une création personnelle, cet outil te donne le plein contrôle sur la configuration des enchantements et te permet de personnaliser ton expérience de jeu.
+
+### Un outil pour tout public
+Tu demande maintenant, qu'est-ce que tu peux faire avec le Configurateur d'Enchantements ?
+- Désactiver un enchantement.
+- Modifier le niveau maximum des enchantements, leurs raretés et le cout en niveau.
+- Rendre un enchantement exclusif au menu créatif.
+- Modifier l'obtention d'un enchantement.
+- Indiquer les objets qui peuvent supporter l'enchantement.
+- Indiquer les structures où l'enchantement peut être trouvé.
+- Indiquer les compatibilités entre enchantements.
+
+Vous l'aurez compris, il a été conçu pour le grand public, l'outil vous offre la flexibilité de modifier les enchantements de manière simple, intuitive, et minimaliste, autrefois réservée aux développeurs expérimentés.  
+
+### Toujours à jour avec les dernières fonctionnalités
+Je m'engage à améliorer continuellement le Configurateur d'Enchantements avec d'avantage de fonctionnalité, et de le maintenir à jour avec les dernière version de Minecraft.   
+Tu peux consulter la listes des modifications apportées au Configurateur d'Enchantements sur [Mise à jour](https://voxel.hadel.io/fr-fr/update/enchant-configurator) et découvrir les nouveautés.

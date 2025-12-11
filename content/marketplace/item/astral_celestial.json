@@ -1,0 +1,20 @@
+{
+    "name": "Astral and Celestial",
+    "description": "Collection of celestial and cosmic items",
+    "items": {
+        "/images/marketplace/items/astral/amethysm_coral_crystal_variant.png": "Amethyst Coral Crystal Variant",
+        "/images/marketplace/items/astral/amethysm_coral_crystal.png": "Amethyst Coral Crystal",
+        "/images/marketplace/items/astral/astral_powder.png": "Astral Powder",
+        "/images/marketplace/items/astral/orb.png": "Orb",
+        "/images/marketplace/items/astral/quartz_meteorite.png": "Quartz Meteorite",
+        "/images/marketplace/items/astral/diamond_meteorite.png": "Diamond Meteorite",
+        "/images/marketplace/items/astral/zinc_meteorite.png": "Zinc Meteorite",
+        "/images/marketplace/items/astral/iron_meteorite.png": "Iron Meteorite",
+        "/images/marketplace/items/astral/diamond_meteorite_variant.png": "Diamond Meteorite Variant",
+        "/images/marketplace/items/astral/stars.png": "Stars",
+        "/images/marketplace/items/astral/lunar_compass.png": "Lunar Compass",
+        "/images/marketplace/items/astral/lunar_compass_variant.png": "Lunar Compass Variant",
+        "/images/marketplace/items/astral/pure_crystal_variant.png": "Pure Crystal Variant",
+        "/images/marketplace/items/astral/pure_crystal.png": "Pure Crystal"
+    }
+}

@@ -1,0 +1,29 @@
+{
+    "name": "Resource and Materials",
+    "description": "Collection of various resources and materials",
+    "items": {
+        "/images/marketplace/items/ressource/leaf/three_spring_leaf.png": "Three Spring Leaf",
+        "/images/marketplace/items/ressource/leaf/three_spring_leaf_variant_darker.png": "Three Spring Leaf Darker",
+        "/images/marketplace/items/ressource/leaf/simple_spring_leaf.png": "Simple Spring Leaf",
+        "/images/marketplace/items/ressource/leaf/autnom_leaf.png": "Autumn Leaf",
+        "/images/marketplace/items/ressource/sandwich.png": "Sandwich",
+        "/images/marketplace/items/ressource/gold_coin.png": "Gold Coin",
+        "/images/marketplace/items/ressource/lapis_powder.png": "Lapis Powder",
+        "/images/marketplace/items/ressource/myhtril.png": "Mythril",
+        "/images/marketplace/items/ressource/white_quartz.png": "White Quartz",
+        "/images/marketplace/items/ressource/sapphir.png": "Sapphire",
+        "/images/marketplace/items/ressource/copper_pebbles.png": "Copper Pebbles",
+        "/images/marketplace/items/ressource/pebbles.png": "Pebbles",
+        "/images/marketplace/items/ressource/fragment.png": "Fragment",
+        "/images/marketplace/items/ressource/gold_fish.png": "Gold Fish",
+        "/images/marketplace/items/ressource/raw_quartz.png": "Raw Quartz",
+        "/images/marketplace/items/ressource/clover.png": "Clover",
+        "/images/marketplace/items/ressource/floral_egg.png": "Floral Egg",
+        "/images/marketplace/items/ressource/rainbow_candy.png": "Rainbow Candy",
+        "/images/marketplace/items/ressource/redstone_ingot.png": "Redstone Ingot",
+        "/images/marketplace/items/ressource/diamond_ingot.png": "Diamond Ingot",
+        "/images/marketplace/items/ressource/turquoise_ingot.png": "Turquoise Ingot",
+        "/images/marketplace/items/ressource/manganese_ingot.png": "Manganese Ingot",
+        "/images/marketplace/items/ressource/tungsten_ingot.png": "Tungsten Ingot"
+    }
+}

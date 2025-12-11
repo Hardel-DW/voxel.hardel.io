@@ -1,0 +1,234 @@
+---
+draft: false
+title: "La feuille de route de Voxel - 2025"
+snippet: "Les objectifs de Voxel pour 2024 et 2025. La feuille de route des futurs projets"
+imageSrc: "/images/background/blog/roadmap-2025.webp"
+imageAlt: "Voxel Roadmap"
+author: "hardel"
+publishDate: "2024-11-02"
+category: "Voxel"
+---
+
+# Feuille de route de Voxel - 2025
+Je suis très excité de te présenter la feuille de route de Voxel pour 2025.
+
+## Annonces mises à jour - Semaine prochaine
+
+Avant tout, une petite annonce : les mises à jour de contenu pour Yggdrasil
+2.0.0 et NeoEnchant 5.7.0 seront disponibles dans la semaine qui vient, incluant
+huit nouveaux enchantements, des refontes, de l'équilibrage et des améliorations
+des performances.
+
+Ainsi que deux nouvelles structures : "Le Village d'Asflors" et "La Fracture
+Runique", ainsi qu'une variante de **Alfheim** : "L'Alfheim Sinistre". Cette
+mise à jour inclut une histoire profonde, de l'équilibrage et des objets
+uniques.
+
+![Fracture Runique](/images/background/blog/runic_fracture.jpg)
+
+## Le configurateur d'enchantements recevra également une mise à jour.
+
+- Support des nouvelles structures avec une refonte de la section de Yggdrasil
+  pour plus de personnalisation et de simplicité.
+- Nouveaux onglets pour gérer les enchantements "non combinables".
+- Un nouveau bouton "Paramètres" pour gérer les informations du datapack.
+- Refonte des textes de certaines sections et de leurs explications.
+
+![exclusive](/images/background/blog/roadmap/exclusive.webp)
+
+
+
+# Rétrospective - 2024
+
+Voxel a été initialement créé pour offrir des ressources en programmation, Java,
+modding, shaders, resource packs et datapacks, tout en approfondissant la
+compréhension du fonctionnement de Minecraft.
+
+Voxel a changé de cap et a évolué pour devenir une plateforme fournissant une
+expérience de personnalisation de contenu Minecraft, notamment grâce à son
+configurateur de datapacks.
+
+Ce configurateur était initialement destiné à modifier les enchantements de
+n'importe quel pack de données Minecraft, il a subi plusieurs évolutions tout au
+long de l'année.
+
+- Après une utilisation massive, j'ai décidé de procéder à une réécriture
+  interne. L'objectif était de transformer le projet en un moteur permettant de
+  créer plusieurs types de configurateurs pour n'importe quel type de contenu
+  Minecraft.
+
+- Peu après, une seconde étape de réécriture a été entreprise. L'objectif cette
+  fois-ci était de pouvoir charger le configurateur à partir d'un simple fichier
+  de données. Cette fonctionnalité n'est pas encore exploitée, mais elle aura un
+  impact important dans le futur, permettant d'utiliser plusieurs contenus en
+  même temps.
+
+- Quelques mois plus tard, le configurateur a été étendu pour supporter les mods
+  Minecraft, que ce soit Forge, NeoForge, Quilt ou Fabric, une étape importante.
+
+- Et pour la fin de cette année, le configurateur a récemment reçu d'énormes
+  évolutions internes, notamment l'exportation d'une partie du code en
+  dépendances JavaScript, mais cela est beaucoup trop technique pour en parler
+  ici. Je ferai un article spécialement sur le fonctionnement interne du
+  configurateur.
+
+
+
+
+# Voxel Studio - Nouveau projet
+
+Voxel Studio est en cours de développement et répondra à divers besoins. Grâce à
+une interface de **Programmation Visuelle**, il permet de créer et de manipuler des
+datapacks sans aucune ligne de code. Inspiré par des outils puissants tels que
+**Unity**, **Unreal Engine** et **Blender**, Voxel Studio offre un contrôle
+simple, intuitif et visuel de vos créations.
+
+- Pour les utilisateurs : Ces outils seront intégrés dans le configurateur pour
+gérer des éléments complexes, comme les effets des enchantements (équilibrage,
+ajout de nouveaux effets, etc.)
+
+- Pour les développeurs, cela vous permettra de gérer vos datapacks, facilitant
+un travail plus rapide, efficace et mieux organisé.
+
+![Studio](/images/background/blog/roadmap/studio.webp)
+
+
+
+# Voxelia - Intelligence Artificielle
+
+Voxelia est un projet destiné au configurateur et au studio. Il intégrera des
+fonctionnalités d'intelligence artificielle. D'un simple prompt textuel, vous
+pourrez modifier l'équilibrage et créer du contenu. Elle vous proposera des
+suggestions, tout cela en restant dans l'environnement du configurateur et du
+studio.
+
+Exemple concret de ma vision de Voxelia :
+
+- "Hey, je souhaite modifier la structure Alfheim et rajouter des torches dans
+les coffres communs."
+- "Je voudrais créer un enchantement qui permet de marcher sur la lave, qui sera
+trouvable dans la table d'enchantements et dans le Nether."
+- "Je voudrais éditer toutes les recettes relatives à ce contenu (...)."
+
+De plus, grâce à la "validation des contenus" précédemment citée, cela ne pourra
+théoriquement pas proposer des choses qui n'existent pas et s'assurer que votre
+contenu se chargera correctement sur Minecraft sans possibilité d'erreurs. En
+cas d'erreurs, l'IA comprendra les erreurs envoyées et appliquera les solutions
+automatiquement en arrière-plan.
+
+
+
+# Configurateur de génération du monde
+Ce sera le point central de 2025. Je souhaite étendre le configurateur à
+davantage de contenus.
+
+Je planifie de développer tout ce qui est relatif à la génération du monde,
+incluant **les biomes**, **les structures**, **les dimensions** et **les générateurs d'épreuves**. Concrètement :
+
+- Vous pourrez désactiver les biomes, les structures et les dimensions d'un pack
+  en toute simplicité.
+- Ajuster la difficulté des combats et des monstres.
+- Modifier les récompenses pour l'équilibrage.
+- (En cours de réflexion) Gérer les contenus qui se génèrent dans un biome, la
+  densité d'arbres, quels minerais apparaissent et à quelle couche, etc.
+
+## Configurateur de futurs contenus
+
+Je reste réactif aux snapshots. Si Minecraft entreprend de rajouter des **objets
+personnalisés** ou des **effets de potions personnalisés** pour la 1.21.4..., ou
+la 1.22, ce contenu deviendra ma priorité et sera supporté dans le configurateur
+au plus vite.
+
+## Les autres fonctionnalités des datapacks
+
+Qu'en est-il des autres fonctionnalités des datapacks, c'est-à-dire les éléments
+suivants :
+
+- **Advancements**
+- **Type de Dégâts**
+- **Ornement d'armure**
+- **Variants de loup**
+- **Sons de jukebox**
+- **Patterns de bannière**
+- **Instruments**
+- **Recettes**
+- **Prédicats**
+- **Modificateurs d'objets**
+- **Table de butin**
+
+Ces éléments sont plus simples à intégrer et seront supportés parallèlement dans
+le configurateur, sans être prioritaires. Certains, comme les **prédicats** et
+les **Modificateurs d'objets**, ne seront pas configurables directement afin de
+préserver une utilisation intuitive et simplifiée. Ces fonctionnalités
+techniques fonctionneront en arrière-plan, sans nécessiter d'intervention de
+votre part.
+
+## Configurateur sur-mesure
+
+Et une dernière info : grâce à la refonte du configurateur, et comme il peut
+maintenant se charger à partir d'un fichier de données, les datapacks/mods
+pourront inclure directement un configurateur dans leurs datapacks/mods. Cela
+permettra de créer des configurateurs sur-mesure spécifiques à leur contenu.
+
+Voici quelques exemples :
+
+- **Mystical Agriculture** : configurateur pour gérer, modifier, ajouter ou
+  supprimer des plantes.
+- **Productive Bees** : configurateur pour gérer, modifier, ajouter ou supprimer
+  des abeilles.
+
+
+
+# Autres projets
+Ici, je vais vous présenter les autres projets que j'ai en tête pour Voxel, deux d'entre eux sont déjà en cours de développement, mais sont des projets techniques.
+
+### Convertisseur de Packs de Données
+
+Ce projet n'était pas prévu initialement, mais grâce aux récentes évolutions et
+aux nouvelles dépendances en développement, cette fonctionnalité sera simple et
+rapide à mettre en place. L'objectif est de permettre la conversion des
+datapacks d'une version de Minecraft à une autre sans perte de fonctionnalités.
+Misode propose déjà ce service sur son site, et je souhaite le développer
+également et l'intégrer à mes outils internes. Cette fonctionnalité sera
+utilisée pour le configurateur ainsi que pour des projets futurs comme Voxel
+Studio, facilitant la transition entre différentes versions de Minecraft.
+
+### Validation des contenus
+
+La validation des contenus est un système intelligent qui analyse en
+arrière-plan vos datapacks et mods pour détecter automatiquement les erreurs
+potentielles. Les erreurs se corrigent automatiquement en arrière-plan.
+
+### L'application Voxel - Application de bureau
+
+Ce n'est qu'à l'état d'idée, mais ce projet me tient à cœur. Il permettra
+d'obtenir "Voxel Studio", "Voxelia" et le configurateur dans une application de
+bureau, destinée aux joueurs, mais aussi aux développeurs.
+
+Cette version pourra directement trouver l'emplacement de vos datapacks/mods, un
+gain de temps significatif.
+
+Pour les développeurs, l'intérêt est de pouvoir continuer à utiliser votre
+éditeur de code favori et d'avoir en parallèle Voxel pour gérer vos
+datapacks/mods comme avec Unity. Vous pouvez modifier vos scripts et voir les
+changements en temps réel dans l'application.
+
+
+
+# Financement de Voxel
+
+Voxel est un projet récent, et je ne vous cache pas que les moyens d'en vivre
+sont inexistants, mais malgré tout, j'aime ce que je fais et ce que nous avons
+pu apporter à l'écosystème Minecraft.
+
+Je souhaite intégrer un moyen de vivre de ce projet, mais je n'ai pas encore
+trouvé le moyen idéal. Ce qui est prévu est de continuer les exclusivités sur
+Patreon, mais aussi d'inclure des publicités Google, mais pas d'une manière intrusive. Je
+souhaite avoir un équilibre comme a pu le faire Modrinth.
+
+# Conclusion
+
+Voilà, c'est Voxel pour 2024 et 2025. Je suis très heureux de vous présenter
+tout cela et j'ai hâte de vous montrer toutes ces fonctionnalités. Si vous avez
+des questions ou des suggestions, n'hésitez pas à les partager avec moi. Merci
+pour votre lecture et à très bientôt sur Voxel.

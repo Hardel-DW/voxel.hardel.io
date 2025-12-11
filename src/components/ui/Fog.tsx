@@ -1,0 +1,17 @@
+export default function Fog() {
+    return (
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="-8.7671 1.5919 73.18 32.93" className="blur-[60px] opacity-10">
+            <defs>
+                <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" style={{ stopColor: "rgb(52,52,52)", stopOpacity: 1 }} />
+                    <stop offset="100%" style={{ stopColor: "rgb(227,224,224)", stopOpacity: 1 }} />
+                </linearGradient>
+            </defs>
+            <path
+                d="M 6 5 C 0 -4 -16 7 -5 13 C 6 19 6 29 9 32 C 19 41 30 23 40 23 C 49 23 59 33 64 25 C 67 18 53 1 42 4 C 34 10 19 21 16 16"
+                fill="url(#grad1)"
+                strokeWidth="1"
+            />
+        </svg>
+    );
+}

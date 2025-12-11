@@ -44,12 +44,15 @@ This massive structure is entirely dark, featuring Deepslate and Mangrove blocks
 
 Furthermore, this structure adapts to cave biomes, meaning it will have a different appearance depending on the original biome. Here's an example in a "Lush Cave" biome:
 
-<div class="grid grid-cols-2 gap-4 mt-4 *:m-0">
-  <img src="https://uy64vwmxhf.ufs.sh/f/llTsukoqRt5QdEAMVCActOeqRzaZ7QspT5rmgnwbXG42xWiy" alt="Main Hall" />
-  <img src="https://uy64vwmxhf.ufs.sh/f/llTsukoqRt5QJayjcWIHlSFatd6fN2G8CYswE50vjPWuZOkx" alt="Crossroad" />
-  <img src="https://uy64vwmxhf.ufs.sh/f/llTsukoqRt5Qh48WWegfMybo6NQ2z0nTSkjXlsY19Dv74ace" alt="Crystal Cube - Treasure Room" />
-  <img src="https://uy64vwmxhf.ufs.sh/f/llTsukoqRt5QTUUpEw6JsdbAYGw6NoMQU1XkaVSh39xi5K8B" alt="Libraries - Final Boss" />
-</div>
+::gallery
+![Main Hall](https://uy64vwmxhf.ufs.sh/f/llTsukoqRt5QdEAMVCActOeqRzaZ7QspT5rmgnwbXG42xWiy)  
+
+![Crossroad](https://uy64vwmxhf.ufs.sh/f/llTsukoqRt5QJayjcWIHlSFatd6fN2G8CYswE50vjPWuZOkx)  
+
+![Crystal Cube - Treasure Room](https://uy64vwmxhf.ufs.sh/f/llTsukoqRt5Qh48WWegfMybo6NQ2z0nTSkjXlsY19Dv74ace)  
+
+![Libraries - Final Boss](https://uy64vwmxhf.ufs.sh/f/llTsukoqRt5QTUUpEw6JsdbAYGw6NoMQU1XkaVSh39xi5K8B)
+::gallery.end
 
 # Runic Island Revamp and Access to the Runic Dimension
 The Runic Island has been improved, with the main hall still present with some minor modifications, but the island now features numerous secret passages. These new passages won't be revealed in this update note to avoid spoiling your experience.
@@ -70,15 +73,22 @@ The addition of cartography altars, these are mini-structures that you can find 
 
 Each structure provides a map to reach the closest corresponding main structure.
 
-<div class="grid grid-cols-2 gap-4 mt-4 *:m-0">
-  <img src="https://uy64vwmxhf.ufs.sh/f/llTsukoqRt5QTspbmWv6JsdbAYGw6NoMQU1XkaVSh39xi5K8" alt="Helblom" />
-  <img src="https://uy64vwmxhf.ufs.sh/f/llTsukoqRt5QO6A0eysBkwa7SbIxLQiWf5XFsqJl4PopZ1mh" alt="Lifblom" />
-  <img src="https://uy64vwmxhf.ufs.sh/f/llTsukoqRt5QMT8R1SwVkq6xgfy38YBmdawcRnGHAX1Kpzj5" alt="Proto-Fracture" />
-  <img src="https://uy64vwmxhf.ufs.sh/f/llTsukoqRt5QeCCDjZJEvn20moyA5wR8lfriYzbQ9cStKBXJ" alt="Zenflors" />
-  <img src="https://uy64vwmxhf.ufs.sh/f/llTsukoqRt5QUllFUJiAdur5jh26RH1QVm8leUgXzqKaTWc9" alt="Voroblom" />
-  <img src="https://uy64vwmxhf.ufs.sh/f/llTsukoqRt5QiUuLoxVLH1rSyPeCQj4thiW62XDVaqZ9RKof" alt="Glaosheimr" />
-  <img src="https://uy64vwmxhf.ufs.sh/f/llTsukoqRt5QiUuLoxVLH1rSyPeCQj4thiW62XDVaqZ9RKof" alt="Zenflors Underground" />
-</div>
+::gallery
+![Helblom](https://uy64vwmxhf.ufs.sh/f/llTsukoqRt5QTspbmWv6JsdbAYGw6NoMQU1XkaVSh39xi5K8)  
+
+![Lifblom](https://uy64vwmxhf.ufs.sh/f/llTsukoqRt5QO6A0eysBkwa7SbIxLQiWf5XFsqJl4PopZ1mh)  
+
+![Proto-Fracture](https://uy64vwmxhf.ufs.sh/f/llTsukoqRt5QMT8R1SwVkq6xgfy38YBmdawcRnGHAX1Kpzj5)  
+
+![Zenflors](https://uy64vwmxhf.ufs.sh/f/llTsukoqRt5QeCCDjZJEvn20moyA5wR8lfriYzbQ9cStKBXJ)  
+
+![Voroblom](https://uy64vwmxhf.ufs.sh/f/llTsukoqRt5QUllFUJiAdur5jh26RH1QVm8leUgXzqKaTWc9)  
+
+![Glaosheimr](https://uy64vwmxhf.ufs.sh/f/llTsukoqRt5QiUuLoxVLH1rSyPeCQj4thiW62XDVaqZ9RKof)  
+
+![Zenflors Underground](https://uy64vwmxhf.ufs.sh/f/llTsukoqRt5QiUuLoxVLH1rSyPeCQj4thiW62XDVaqZ9RKof)  
+
+::gallery.end
 
 # The New Villagers
 There are 5 of them, located in 5 different places, each offering exchanges related to the keys of each main structure. Here's where you can find them and their exchanges:

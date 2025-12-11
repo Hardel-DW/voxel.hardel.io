@@ -3,6 +3,7 @@ import { Balancing } from "@/components/markdown/Balancing";
 import { Changelog } from "@/components/markdown/Changelog";
 import { NewEnchant } from "@/components/markdown/NewEnchant";
 import { Video } from "@/components/ui/Video";
+import Gallery from "@/components/markdown/Gallery";
 
 export default function Markdown({ content }: { content?: string }) {
     if (!content) return null;
@@ -22,6 +23,7 @@ export default function Markdown({ content }: { content?: string }) {
                 content={content}
                 directives={{
                     video: Video,
+                    gallery: Gallery,
                     "enchant.changelog": Changelog,
                     "enchant.balancing": Balancing,
                     "enchant.newenchant": NewEnchant

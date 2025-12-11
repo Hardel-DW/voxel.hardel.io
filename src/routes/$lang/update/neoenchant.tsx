@@ -1,5 +1,5 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { useRef, useState } from "react";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { useRef } from "react";
 import Footer from "@/components/layout/Footer";
 import Navbar from "@/components/layout/Navbar";
 import { Button } from "@/components/ui/Button";
@@ -12,6 +12,9 @@ import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/$lang/update/neoenchant")({
     component: RouteComponent,
+    validateSearch: (search: Record<string, unknown>) => ({
+        version: typeof search.version === "string" ? search.version : undefined
+    }),
     head: ({ params }) => {
         const translate = t(params.lang);
         return {
@@ -26,11 +29,14 @@ function formatDate(date: Date, lang: string): string {
 
 function RouteComponent() {
     const { lang } = Route.useParams();
+    const { version } = Route.useSearch();
+    const navigate = useNavigate({ from: Route.fullPath });
     const translate = t(lang);
     const entries = neoenchant.byLang(lang);
-    const [selectedVersionId, setSelectedVersionId] = useState<string>(entries[0]?.data.version ?? "");
+    const selectedVersionId = version ?? entries[0]?.data.version ?? "";
     const selectedEntry = entries.find((e) => e.data.version === selectedVersionId) ?? entries[0];
     const contentRef = useRef<HTMLDivElement>(null);
+    const selectVersion = (newVersion: string) => navigate({ search: { version: newVersion } });
 
     return (
         <div className="relative min-h-screen w-full bg-zinc-950 text-zinc-200 font-rubik overflow-clip selection:bg-pink-500/30">
@@ -63,7 +69,7 @@ function RouteComponent() {
                                         <div key={entry.data.version} className="relative pl-6 pb-6 last:pb-0">
                                             <button
                                                 type="button"
-                                                onClick={() => setSelectedVersionId(entry.data.version)}
+                                                onClick={() => selectVersion(entry.data.version)}
                                                 className={cn(
                                                     "absolute -left-[5px] top-1.5 size-2.5 rounded-full transition-all duration-300 ring-4 ring-zinc-950 cursor-pointer",
                                                     isActive
@@ -74,7 +80,7 @@ function RouteComponent() {
                                             />
                                             <button
                                                 type="button"
-                                                onClick={() => setSelectedVersionId(entry.data.version)}
+                                                onClick={() => selectVersion(entry.data.version)}
                                                 className={cn(
                                                     "text-left transition-all duration-200 group w-full cursor-pointer",
                                                     isActive ? "opacity-100 translate-x-1" : "opacity-50 hover:opacity-80"
@@ -105,12 +111,14 @@ function RouteComponent() {
                                 <div className="text-2xl font-bold text-white mb-4">v{entries[0]?.data.version}</div>
                                 <div className="flex flex-col gap-2">
                                     <Button
+                                        href="https://www.curseforge.com/minecraft/mc-mods/neoenchant"
                                         variant="default"
                                         className="w-full justify-center gap-2 text-white transition flex items-center rounded-xl bg-transparent hover:bg-green-900/10 border-green-900 hover:border-green-800">
                                         <img src="/icons/company/modrinth.svg" alt="Modrinth" className="size-4 invert" />
                                         {translate("neoenchant.download_modrinth")}
                                     </Button>
                                     <Button
+                                        href="https://modrinth.com/datapack/neoenchant"
                                         variant="default"
                                         className="w-full justify-center gap-2 text-white transition flex items-center rounded-xl bg-transparent hover:bg-orange-900/10 border-orange-900 hover:border-orange-800">
                                         <img src="/icons/company/curseforge.svg" alt="CurseForge" className="size-4 invert" />

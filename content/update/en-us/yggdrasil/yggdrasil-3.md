@@ -33,12 +33,15 @@ The second mega structure of Yggdrasil spanning 500x500 blocks and rising 150 bl
 - Its own story to discover
 - A more than difficult challenge
 
-<div class="grid grid-cols-2 gap-4 mt-4 *:m-0">
-  <img src="/images/background/blog/yggdrasil/labyrinth_1.webp" alt="Runic Labyrinth - Exterior view" />
-  <img src="/images/background/blog/yggdrasil/labyrinth_2.webp" alt="Runic Labyrinth - Corridors" />
-  <img src="/images/background/blog/yggdrasil/labyrinth_3.webp" alt="Runic Labyrinth - Treasure room" />
-  <img src="/images/background/blog/yggdrasil/labyrinth_4.webp" alt="Runic Labyrinth - Final boss" />
-</div>
+::gallery
+![Runic Labyrinth - Exterior view](/images/background/blog/yggdrasil/labyrinth_1.webp)
+
+![Runic Labyrinth - Corridors](/images/background/blog/yggdrasil/labyrinth_2.webp)
+
+![Runic Labyrinth - Treasure room](/images/background/blog/yggdrasil/labyrinth_3.webp)
+
+![Runic Labyrinth - Final boss](/images/background/blog/yggdrasil/labyrinth_4.webp)
+::gallery.end
 
 ## The Dokkalfar Ruins
 A mysterious portal allowing return to the normal world, but hiding much more than its primary function:

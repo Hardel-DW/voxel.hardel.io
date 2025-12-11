@@ -22,14 +22,12 @@ Ce pack propose une liste d'enchantements conçus pour chaque type d'équipement
 
 La liste complète des enchantements de [NeoEnchant+](https://voxel.hadel.io/fr-fr/datapacks/neoenchant)
 
-<video class="rounded-3xl relative" autoPlay loop muted>
-    <source src="https://utfs.io/f/llTsukoqRt5Qo6Aqy3F7jUQAeVKza8P9DrZXMCJwntfRiyO1" type="video/webm" />
-</video>
+::video{src="https://utfs.io/f/llTsukoqRt5Qo6Aqy3F7jUQAeVKza8P9DrZXMCJwntfRiyO1"}
 
 # Le configurateur d'enchantements
 C'est un outil qui te permet de personnaliser les enchantements d'un packs ou d'un mods. Tu peux ajuster l'équilibrage, désactiver les enchantements ou modifier leurs obtentions, cela permet de créer une expérience unique à ton style de jeu. [Configurateur d'Enchantements](https://voxel.hadel.io/fr-fr/tools/studio)
 
-[![Video](/images/background/tools/enchant-hero.webp)](https://voxel.hadel.io/fr-fr/tools/enchant)
+::video{src="https://utfs.io/f/llTsukoqRt5Qo6Aqy3F7jUQAeVKza8P9DrZXMCJwntfRiyO1"}
 
 # Écosystème de Datapacks - Yggdrasil & BeyondEnchant
 Avec tous ces enchantments, le jeu risque d'être trop simple non ?  
@@ -38,16 +36,11 @@ C'est pourquoi NeoEnchant+ n'est pas simplement un pack – c'est un écosystèm
 - **Yggdrasil** est un pack rajoutant des gigantesques structures avec une difficulté extrême, des récompenses uniques, certains enchantements de NeoEnchant+ sont exclusifs a ces structures, et pour rendre la chose plus amusante les monstres utilisent les enchantements de NeoEnchant+. BONNE CHANCE.  
 - **BeyondEnchant** permet quant a lui de briser les limites vanilla. Le niveaux des enchantements du jeu de base sont tous augmentés, ce qui débloque des nouvelle possibilités.
 
-<div class="flex flex-col md:flex-row gap-8 justify-center">
-  <div class="w-full md:w-1/2">
-        <img src="https://github.com/Hardel-DW/BeyondEnchant/assets/42413417/d107bc40-c48c-47b2-91eb-8a012a55c95c" alt="BeyondEnchant" />
-    </div>
-    <div class="w-full md:w-1/2">
-        <img src="https://github.com/Hardel-DW/Yggdrasil-Structure/assets/42413417/b481d58c-a1f4-4d04-a884-6ac538c02bbd" alt="Yggdrasil" />
-    </div>
-</div>
+::gallery
+![BeyondEnchant](https://github.com/Hardel-DW/BeyondEnchant/assets/42413417/d107bc40-c48c-47b2-91eb-8a012a55c95c)  
 
-  
+![Yggdrasil](https://github.com/Hardel-DW/Yggdrasil-Structure/assets/42413417/b481d58c-a1f4-4d04-a884-6ac538c02bbd)
+::gallery.end
 
 N'hésite pas à rejoindre le [Discord](https://discord.gg/TAmVFvkHep) pour faire partie de notre communauté et suivre les mises à jour.
 A bientôt !

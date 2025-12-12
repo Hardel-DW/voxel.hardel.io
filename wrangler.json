@@ -1,6 +1,6 @@
 {
     "$schema": "node_modules/wrangler/config-schema.json",
-    "name": "voxel.io",
+    "name": "voxelio",
     "compatibility_date": "2025-12-03",
     "workers_dev": false,
     "preview_urls": false,

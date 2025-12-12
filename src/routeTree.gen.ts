@@ -13,7 +13,6 @@ import { Route as LangRouteImport } from './routes/$lang'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as LangIndexRouteImport } from './routes/$lang/index'
 import { Route as LangTermsRouteImport } from './routes/$lang/terms'
-import { Route as LangStudioRouteImport } from './routes/$lang/studio'
 import { Route as LangSoonRouteImport } from './routes/$lang/soon'
 import { Route as LangPrivacyRouteImport } from './routes/$lang/privacy'
 import { Route as LangLegalRouteImport } from './routes/$lang/legal'
@@ -45,11 +44,6 @@ const LangIndexRoute = LangIndexRouteImport.update({
 const LangTermsRoute = LangTermsRouteImport.update({
   id: '/terms',
   path: '/terms',
-  getParentRoute: () => LangRoute,
-} as any)
-const LangStudioRoute = LangStudioRouteImport.update({
-  id: '/studio',
-  path: '/studio',
   getParentRoute: () => LangRoute,
 } as any)
 const LangSoonRoute = LangSoonRouteImport.update({
@@ -120,7 +114,6 @@ export interface FileRoutesByFullPath {
   '/$lang/legal': typeof LangLegalRoute
   '/$lang/privacy': typeof LangPrivacyRoute
   '/$lang/soon': typeof LangSoonRoute
-  '/$lang/studio': typeof LangStudioRoute
   '/$lang/terms': typeof LangTermsRoute
   '/$lang/': typeof LangIndexRoute
   '/$lang/blog/$slug': typeof LangBlogSlugRoute
@@ -138,7 +131,6 @@ export interface FileRoutesByTo {
   '/$lang/legal': typeof LangLegalRoute
   '/$lang/privacy': typeof LangPrivacyRoute
   '/$lang/soon': typeof LangSoonRoute
-  '/$lang/studio': typeof LangStudioRoute
   '/$lang/terms': typeof LangTermsRoute
   '/$lang': typeof LangIndexRoute
   '/$lang/blog/$slug': typeof LangBlogSlugRoute
@@ -158,7 +150,6 @@ export interface FileRoutesById {
   '/$lang/legal': typeof LangLegalRoute
   '/$lang/privacy': typeof LangPrivacyRoute
   '/$lang/soon': typeof LangSoonRoute
-  '/$lang/studio': typeof LangStudioRoute
   '/$lang/terms': typeof LangTermsRoute
   '/$lang/': typeof LangIndexRoute
   '/$lang/blog/$slug': typeof LangBlogSlugRoute
@@ -179,7 +170,6 @@ export interface FileRouteTypes {
     | '/$lang/legal'
     | '/$lang/privacy'
     | '/$lang/soon'
-    | '/$lang/studio'
     | '/$lang/terms'
     | '/$lang/'
     | '/$lang/blog/$slug'
@@ -197,7 +187,6 @@ export interface FileRouteTypes {
     | '/$lang/legal'
     | '/$lang/privacy'
     | '/$lang/soon'
-    | '/$lang/studio'
     | '/$lang/terms'
     | '/$lang'
     | '/$lang/blog/$slug'
@@ -216,7 +205,6 @@ export interface FileRouteTypes {
     | '/$lang/legal'
     | '/$lang/privacy'
     | '/$lang/soon'
-    | '/$lang/studio'
     | '/$lang/terms'
     | '/$lang/'
     | '/$lang/blog/$slug'
@@ -262,13 +250,6 @@ declare module '@tanstack/react-router' {
       path: '/terms'
       fullPath: '/$lang/terms'
       preLoaderRoute: typeof LangTermsRouteImport
-      parentRoute: typeof LangRoute
-    }
-    '/$lang/studio': {
-      id: '/$lang/studio'
-      path: '/studio'
-      fullPath: '/$lang/studio'
-      preLoaderRoute: typeof LangStudioRouteImport
       parentRoute: typeof LangRoute
     }
     '/$lang/soon': {
@@ -363,7 +344,6 @@ interface LangRouteChildren {
   LangLegalRoute: typeof LangLegalRoute
   LangPrivacyRoute: typeof LangPrivacyRoute
   LangSoonRoute: typeof LangSoonRoute
-  LangStudioRoute: typeof LangStudioRoute
   LangTermsRoute: typeof LangTermsRoute
   LangIndexRoute: typeof LangIndexRoute
   LangBlogSlugRoute: typeof LangBlogSlugRoute
@@ -381,7 +361,6 @@ const LangRouteChildren: LangRouteChildren = {
   LangLegalRoute: LangLegalRoute,
   LangPrivacyRoute: LangPrivacyRoute,
   LangSoonRoute: LangSoonRoute,
-  LangStudioRoute: LangStudioRoute,
   LangTermsRoute: LangTermsRoute,
   LangIndexRoute: LangIndexRoute,
   LangBlogSlugRoute: LangBlogSlugRoute,

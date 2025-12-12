@@ -128,8 +128,7 @@ export default function Navbar() {
                                 <NavigationDropdown label={translate("navbar.item.resources")}>
                                     <div className="p-6 md:w-[400px] lg:w-[500px]">
                                         <HeroCard
-                                            to="/$lang/studio"
-                                            params={{ lang }}
+                                            href={`${studioUrl}/${lang}/studio`}
                                             title={translate("navbar.resources.tool.enchant.title")}
                                             description={translate("navbar.resources.tool.enchant.description")}
                                             image="/images/background/tools/configurator.webp"

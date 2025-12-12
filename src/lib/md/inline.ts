@@ -40,6 +40,27 @@ const patterns: Pattern[] = [
             };
         }
     },
+    // Linked Image [![alt](src)](href)
+    {
+        match: (text, pos) => {
+            if (text[pos] !== "[" || text[pos + 1] !== "!" || text[pos + 2] !== "[") return null;
+            const altEnd = text.indexOf("]", pos + 3);
+            if (altEnd === -1 || text[altEnd + 1] !== "(") return null;
+            const srcEnd = text.indexOf(")", altEnd + 2);
+            if (srcEnd === -1 || text[srcEnd + 1] !== "]" || text[srcEnd + 2] !== "(") return null;
+            const hrefEnd = text.indexOf(")", srcEnd + 3);
+            if (hrefEnd === -1) return null;
+            return {
+                length: hrefEnd - pos + 1,
+                token: {
+                    type: "linked_image",
+                    alt: text.slice(pos + 3, altEnd),
+                    src: text.slice(altEnd + 2, srcEnd),
+                    href: text.slice(srcEnd + 3, hrefEnd)
+                }
+            };
+        }
+    },
     // Image ![alt](src)
     {
         match: (text, pos) => {

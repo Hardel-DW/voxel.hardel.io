@@ -17,11 +17,13 @@ export type Components = {
     h5?: (props: { children: ReactNode }) => ReactNode;
     h6?: (props: { children: ReactNode }) => ReactNode;
     p?: (props: { children: ReactNode }) => ReactNode;
+    small?: (props: { children: ReactNode }) => ReactNode;
     strong?: (props: { children: ReactNode }) => ReactNode;
     em?: (props: { children: ReactNode }) => ReactNode;
     del?: (props: { children: ReactNode }) => ReactNode;
     a?: (props: { href: string; children: ReactNode }) => ReactNode;
     img?: (props: { src: string; alt: string }) => ReactNode;
+    linked_img?: (props: { src: string; alt: string; href: string }) => ReactNode;
     code?: (props: { children: ReactNode }) => ReactNode;
     pre?: (props: { lang?: string; children: ReactNode }) => ReactNode;
     blockquote?: (props: { children: ReactNode }) => ReactNode;
@@ -46,11 +48,17 @@ const defaults: Required<Components> = {
     h5: ({ children }) => <h5>{children}</h5>,
     h6: ({ children }) => <h6>{children}</h6>,
     p: ({ children }) => <p>{children}</p>,
+    small: ({ children }) => <small>{children}</small>,
     strong: ({ children }) => <strong>{children}</strong>,
     em: ({ children }) => <em>{children}</em>,
     del: ({ children }) => <del>{children}</del>,
     a: ({ href, children }) => <a href={href}>{children}</a>,
     img: ({ src, alt }) => <img src={src} alt={alt} />,
+    linked_img: ({ src, alt, href }) => (
+        <a href={href}>
+            <img src={src} alt={alt} />
+        </a>
+    ),
     code: ({ children }) => <code>{children}</code>,
     pre: ({ children }) => <pre>{children}</pre>,
     blockquote: ({ children }) => <blockquote>{children}</blockquote>,
@@ -88,6 +96,8 @@ function renderInlineToken(token: InlineToken, ctx: RenderContext, key: string):
             );
         case "image":
             return <components.img key={key} src={token.src} alt={token.alt} />;
+        case "linked_image":
+            return <components.linked_img key={key} src={token.src} alt={token.alt} href={token.href} />;
         case "directive": {
             const Component = directives[token.name];
             if (!Component) return null;
@@ -127,6 +137,8 @@ function renderBlock(token: BlockToken, ctx: RenderContext, prefix: string): Rea
         }
         case "paragraph":
             return <components.p key={prefix}>{renderInline(token.children, ctx, prefix)}</components.p>;
+        case "small_text":
+            return <components.small key={prefix}>{renderInline(token.children, ctx, prefix)}</components.small>;
         case "blockquote":
             return <components.blockquote key={prefix}>{renderBlocks(token.children, ctx)}</components.blockquote>;
         case "hr":

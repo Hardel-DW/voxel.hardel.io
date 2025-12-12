@@ -126,6 +126,13 @@ export function tokenize(markdown: string): Document {
             continue;
         }
 
+        // Small text -# (like Discord)
+        if (line.startsWith("-# ")) {
+            tokens.push({ type: "small_text", children: parseInline(line.slice(3)) });
+            i++;
+            continue;
+        }
+
         // Blockquote >
         if (line.startsWith(">")) {
             const quoteLines: string[] = [];
@@ -198,6 +205,7 @@ function isBlockStart(line: string): boolean {
     if (line.startsWith("::")) return true;
     if (isHorizontalRule(line)) return true;
     if (line.startsWith("#")) return true;
+    if (line.startsWith("-# ")) return true;
     if (line.startsWith(">")) return true;
     if (line.startsWith("```")) return true;
     if (line.startsWith("|")) return true;

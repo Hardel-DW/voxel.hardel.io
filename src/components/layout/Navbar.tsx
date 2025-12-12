@@ -78,20 +78,30 @@ export default function Navbar() {
                                             to="/$lang/patchnote/neoenchant"
                                             params={{ lang }}
                                         />
-                                        <ul className="grid gap-3 mt-3">
+                                        <ul className="grid grid-cols-2 gap-3 mt-3">
                                             <ListItem
                                                 to="/$lang/patchnote/neoenchant"
                                                 params={{ lang }}
-                                                title={translate("navbar.patchnote.neoenchant.title")}
-                                                image="/images/features/title/ne.png">
+                                                title={translate("navbar.patchnote.neoenchant.title")}>
                                                 {translate("navbar.patchnote.neoenchant.description")}
                                             </ListItem>
                                             <ListItem
                                                 to="/$lang/patchnote/yggdrasil"
                                                 params={{ lang }}
-                                                title={translate("navbar.patchnote.yggdrasil.title")}
-                                                image="/images/features/title/yg.webp">
+                                                title={translate("navbar.patchnote.yggdrasil.title")}>
                                                 {translate("navbar.patchnote.yggdrasil.description")}
+                                            </ListItem>
+                                            <ListItem
+                                                to="/$lang/patchnote/woe"
+                                                params={{ lang }}
+                                                title={translate("navbar.patchnote.woe.title")}>
+                                                {translate("navbar.patchnote.woe.description")}
+                                            </ListItem>
+                                            <ListItem
+                                                to="/$lang/patchnote/upcoming"
+                                                params={{ lang }}
+                                                title={translate("navbar.patchnote.upcoming.title")}>
+                                                {translate("navbar.patchnote.upcoming.description")}
                                             </ListItem>
                                         </ul>
                                     </div>

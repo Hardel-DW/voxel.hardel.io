@@ -6,6 +6,8 @@ title: "L'Avènement des Enchantements"
 type: "Major"
 description: "NeoEnchant+ est un contenu 1.21 qui introduit une nouvelle suite d'enchantements. Utilise le avec Yggdrasil pour une meilleur immersion."
 imageSrc: "/images/background/blog/hero-ne.webp"
+modrinth: "https://modrinth.com/datapack/neoenchant"
+curseforge: "https://www.curseforge.com/minecraft/mc-mods/neoenchant"
 ---
 
 # NeoEnchant+ V5 - L'avénement des enchantements
@@ -20,12 +22,12 @@ Ce pack propose une liste d'enchantements conçus pour chaque type d'équipement
 - **Minage+** : Les fameux hammer que l'on retrouve dans des mods et sur Paladium, un bon moyen de creuser en zone.
 - **Auto-Cuisson** : Un réve de tout joueurs UHC, qui permet de cuire ses minerais automatiquement.
 
-La liste complète des enchantements de [NeoEnchant+](https://voxel.hadel.io/fr-fr/datapacks/neoenchant)
+La liste complète des enchantements de [NeoEnchant+](https://voxel.hadel.io/fr-fr/packs/neoenchant)
 
 ::video{src="https://utfs.io/f/llTsukoqRt5Qo6Aqy3F7jUQAeVKza8P9DrZXMCJwntfRiyO1"}
 
 # Le configurateur d'enchantements
-C'est un outil qui te permet de personnaliser les enchantements d'un packs ou d'un mods. Tu peux ajuster l'équilibrage, désactiver les enchantements ou modifier leurs obtentions, cela permet de créer une expérience unique à ton style de jeu. [Configurateur d'Enchantements](https://voxel.hadel.io/fr-fr/tools/studio)
+C'est un outil qui te permet de personnaliser les enchantements d'un packs ou d'un mods. Tu peux ajuster l'équilibrage, désactiver les enchantements ou modifier leurs obtentions, cela permet de créer une expérience unique à ton style de jeu. [Configurateur d'Enchantements](https://labs.hadel.io/fr-fr/studio)
 
 ::video{src="https://utfs.io/f/llTsukoqRt5Qo6Aqy3F7jUQAeVKza8P9DrZXMCJwntfRiyO1"}
 

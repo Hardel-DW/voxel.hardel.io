@@ -10,6 +10,8 @@ author: "hardel"
 publishDate: "2024-10-14"
 category: "Datapacks"
 video: "https://www.youtube.com/embed/UNYxJkHhb8w"
+modrinth: "https://modrinth.com/datapack/yggdrasil-structure"
+curseforge: "https://www.curseforge.com/minecraft/mc-mods/yggdrasils"
 ---
 
 # Overview

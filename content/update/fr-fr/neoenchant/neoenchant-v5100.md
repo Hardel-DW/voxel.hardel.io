@@ -6,6 +6,8 @@ title: "La Mise à Jour des Montures"
 type: "Feature"
 description: "La mise à jour 5.10, ajoutant 6 nouveaux enchantements dont plusieurs pour les montures et de l'équilibrage."
 imageSrc: "https://uy64vwmxhf.ufs.sh/f/llTsukoqRt5QTmKu936JsdbAYGw6NoMQU1XkaVSh39xi5K8B"
+modrinth: "https://modrinth.com/datapack/neoenchant"
+curseforge: "https://www.curseforge.com/minecraft/mc-mods/neoenchant"
 ---
 
 # Aperçu

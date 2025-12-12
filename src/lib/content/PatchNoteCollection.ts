@@ -8,6 +8,8 @@ export interface PatchNoteData extends Record<string, unknown> {
     type: string;
     description?: string;
     imageSrc?: string;
+    modrinth?: string;
+    curseforge?: string;
 }
 
 class PatchNoteCollection extends ContentCollection<PatchNoteData> {

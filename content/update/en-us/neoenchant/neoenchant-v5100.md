@@ -6,6 +6,8 @@ title: "The Mount Update"
 type: "Feature"
 description: "Update 5.10, adding 6 new enchantments including several for mounts and balance changes."
 imageSrc: "https://uy64vwmxhf.ufs.sh/f/llTsukoqRt5QTmKu936JsdbAYGw6NoMQU1XkaVSh39xi5K8B"
+modrinth: "https://modrinth.com/datapack/neoenchant"
+curseforge: "https://www.curseforge.com/minecraft/mc-mods/neoenchant"
 ---
 
 # Overview

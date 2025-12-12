@@ -6,6 +6,8 @@ title: "Performance Update"
 type: "Feature"
 description: "A new update for NeoEnchant+ is now available, it introduces new enchantments, with some reworks, and a significant improvement in performance."
 imageSrc: "/images/background/blog/hero-ne.webp"
+modrinth: "https://modrinth.com/datapack/neoenchant"
+curseforge: "https://www.curseforge.com/minecraft/mc-mods/neoenchant"
 ---
 
 # Overview

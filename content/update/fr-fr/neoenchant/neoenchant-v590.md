@@ -6,6 +6,8 @@ title: "Compatibilité Helheim"
 type: "Feature"
 description: "La mise a jour de 5.9, ajoutant 6 nouveaux enchantements dont un très attendu et de l'équilibrage."
 imageSrc: "/images/background/blog/hero-ne.webp"
+modrinth: "https://modrinth.com/datapack/neoenchant"
+curseforge: "https://www.curseforge.com/minecraft/mc-mods/neoenchant"
 ---
 
 # Aperçu

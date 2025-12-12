@@ -39,7 +39,7 @@ The NeoEnchant page gets a new look with a more modern and clearer interface, th
 These new pages will be updated regularly respectively during an update of NeoEnchant+ or Yggdrasil.
 Our priority is to provide you with clear and precise information, so you can enjoy your gaming experience.
 
-Check out now the [Yggdrasil Documentation](https://voxel.hadel.io/datapacks/yggdrasil) and the [NeoEnchant Wiki](https://voxel.hadel.io/datapacks/neoenchant).
+Check out now the [Yggdrasil Documentation](https://voxel.hadel.io/packs/yggdrasil) and the [NeoEnchant Wiki](https://voxel.hadel.io/packs/neoenchant).
 
 ## Your Feedback
 Your feedback is precious! Don't hesitate to share it with us [Discord](https://discord.gg/TAmVFvkHep)

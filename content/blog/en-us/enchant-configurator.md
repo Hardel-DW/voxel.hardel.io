@@ -27,4 +27,4 @@ As you can see, it has been designed for the general public, the tool offers you
 
 ### Always up to date with the latest features
 I am committed to continuously improving the Enchantment Configurator with more features, and keeping it up to date with the latest version of Minecraft.   
-You can check the list of changes made to the Enchantment Configurator on [Updates](https://voxel.hadel.io/fr-fr/update/enchant-configurator) and discover what's new.
+You can check the list of changes made to the Enchantment Configurator on [Updates](https://voxel.hadel.io/fr-fr/update/studio) and discover what's new.

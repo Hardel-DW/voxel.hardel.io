@@ -6,6 +6,8 @@ title: "The Advent of Enchantments"
 type: "Major"
 description: "NeoEnchant+ is a 1.21 content that introduces a new suite of enchantments. Use it with Yggdrasil for better immersion."
 imageSrc: "/images/background/blog/hero-ne.webp"
+modrinth: "https://modrinth.com/datapack/neoenchant"
+curseforge: "https://www.curseforge.com/minecraft/mc-mods/neoenchant"
 ---
 
 # NeoEnchant+ V5 - The advent of enchantments
@@ -20,12 +22,12 @@ This pack offers a list of enchantments designed for each type of equipment, 45 
 - **Mining+**: The famous hammers found in mods and on Paladium, a good way to dig in zones.
 - **Auto-Smelting**: A dream of all UHC players, which allows you to automatically smelt your ores.
 
-The complete list of enchantments from [NeoEnchant+](https://voxel.hadel.io/fr-fr/datapacks/neoenchant)
+The complete list of enchantments from [NeoEnchant+](https://voxel.hadel.io/fr-fr/packs/neoenchant)
 
 ::video{src="https://utfs.io/f/llTsukoqRt5Qo6Aqy3F7jUQAeVKza8P9DrZXMCJwntfRiyO1"}
 
 # The enchantment configurator
-It's a tool that allows you to customize the enchantments of a pack or mod. You can adjust the balance, disable enchantments or modify their obtention, this allows you to create a unique experience for your gameplay style. [Enchantment Configurator](https://voxel.hadel.io/fr-fr/tools/studio)
+It's a tool that allows you to customize the enchantments of a pack or mod. You can adjust the balance, disable enchantments or modify their obtention, this allows you to create a unique experience for your gameplay style. [Enchantment Configurator](https://labs.hadel.io/fr-fr/studio)
 
 ::video{src="https://utfs.io/f/llTsukoqRt5Qo6Aqy3F7jUQAeVKza8P9DrZXMCJwntfRiyO1"}
 

@@ -6,6 +6,8 @@ title: "Multilingual Support"
 type: "Feature"
 description: "A major update for NeoEnchant that brings improvements to performance, balance and support for new languages!"
 imageSrc: "/images/background/blog/hero-ne.webp"
+modrinth: "https://modrinth.com/datapack/neoenchant"
+curseforge: "https://www.curseforge.com/minecraft/mc-mods/neoenchant"
 ---
 
 # Overview

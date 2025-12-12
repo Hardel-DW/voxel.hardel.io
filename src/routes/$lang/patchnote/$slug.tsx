@@ -118,14 +118,14 @@ function RouteComponent() {
                                 <div className="text-2xl font-bold text-white mb-4">v{entries[0]?.data.version}</div>
                                 <div className="flex flex-col gap-2">
                                     <Button
-                                        href="https://www.curseforge.com/minecraft/mc-mods/neoenchant"
+                                        href={selectedEntry.data.modrinth ?? ""}
                                         variant="default"
                                         className="w-full justify-center gap-2 text-white transition flex items-center rounded-xl bg-transparent hover:bg-green-900/10 border-green-900 hover:border-green-800">
                                         <img src="/icons/company/modrinth.svg" alt="Modrinth" className="size-4 invert" />
                                         {translate("patchnote.download_modrinth")}
                                     </Button>
                                     <Button
-                                        href="https://modrinth.com/datapack/neoenchant"
+                                        href={selectedEntry.data.curseforge ?? ""}
                                         variant="default"
                                         className="w-full justify-center gap-2 text-white transition flex items-center rounded-xl bg-transparent hover:bg-orange-900/10 border-orange-900 hover:border-orange-800">
                                         <img src="/icons/company/curseforge.svg" alt="CurseForge" className="size-4 invert" />

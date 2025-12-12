@@ -10,6 +10,8 @@ imageAlt: "Yggdrasil - 2.0"
 author: "hardel"
 category: "Datapacks"
 video: "https://www.youtube.com/embed/UNYxJkHhb8w"
+modrinth: "https://modrinth.com/datapack/yggdrasil-structure"
+curseforge: "https://www.curseforge.com/minecraft/mc-mods/yggdrasils"
 ---
 
 # Aperçu

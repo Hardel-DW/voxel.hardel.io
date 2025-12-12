@@ -9,6 +9,8 @@ imageAlt: "Yggdrasil - 3.0"
 author: "hardel"
 publishDate: "2024-12-05"
 category: "Datapacks"
+modrinth: "https://modrinth.com/datapack/yggdrasil-structure"
+curseforge: "https://www.curseforge.com/minecraft/mc-mods/yggdrasils"
 ---
 
 # Aperçu

@@ -1,4 +1,4 @@
-import RawMarkdown from "@lib/md/render";
+import { RawMarkdown } from "@voxelio/markdown";
 import { Balancing } from "@/components/markdown/Balancing";
 import { Changelog } from "@/components/markdown/Changelog";
 import Gallery from "@/components/markdown/Gallery";

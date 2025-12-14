@@ -19,7 +19,7 @@ NeoEnchant 5.13.0 atteint une étape majeure : 100% des enchantements sont déso
 
 # Nouveaux Enchantements
 
-::enchant.changelog{name="Propulsion"}
+:::enchant.changelog{name="Propulsion"}
 Transformez vos vols en élytre en aventures supersoniques ! Cet enchantement vous donne un boost de vitesse directionnel en plein vol lorsque vous appuyez sur le bouton de saut. Parfait pour atteindre des destinations éloignées plus rapidement tout en gardant le contrôle.
 
 ::enchant.newenchant{icon="/images/features/item/elytra.webp", max_level=3, anvil_cost=1, rarity=1}
@@ -43,7 +43,7 @@ Chaque boost consomme de l'épuisement en fonction du niveau. Les niveaux supér
 
 ### Obtention
 Disponible dans les coffres au trésor aléatoires à travers le monde, dans les coffres sinistres et les générateurs d'essai d'Asgard (addon Yggdrasil), et dans les coffres de l'End City (addon Vanilla Structure).
-::enchant.changelog.end
+:::
 
 ---
 
@@ -84,21 +84,21 @@ Disponibles via les tables de butin général :
 
 # Mises à Jour des Addons
 
-::enchant.changelog{name="NeoEnchant - Addons - Yggdrasil"}
+:::enchant.changelog{name="NeoEnchant - Addons - Yggdrasil"}
 L'addon Yggdrasil a été mis à jour pour supporter exclusivement Minecraft 1.21.11.
 
 ### Nouveau Contenu
 L'enchantement **Propulsion** peut désormais être trouvé dans les coffres sinistres et les générateurs d'essai sinistres d'Asgard.
-::enchant.changelog.end
+:::
 
-::enchant.changelog{name="NeoEnchant - Addons - Vanilla Structure"}
+:::enchant.changelog{name="NeoEnchant - Addons - Vanilla Structure"}
 L'addon Vanilla Structure a été mis à jour pour supporter exclusivement Minecraft 1.21.11. Cet addon est disponible depuis 6 mois, enrichissant les structures vanilla avec du butin NeoEnchant.
 
 ### Nouveau Contenu
 L'enchantement **Propulsion** peut désormais être trouvé dans les coffres de l'End City.
-::enchant.changelog.end
+:::
 
-::enchant.changelog{name="NeoEnchant - Addons - Table d'Enchantement"}
+:::enchant.changelog{name="NeoEnchant - Addons - Table d'Enchantement"}
 **NOUVEL ADDON :** Ce tout nouvel addon permet à 100% des enchantements NeoEnchant d'apparaître dans les tables d'enchantement. Cela peut être déséquilibré, utilisez-le à vos risques et périls !
 
 ### Fonctionnalités
@@ -108,7 +108,7 @@ L'enchantement **Propulsion** peut désormais être trouvé dans les coffres de 
 
 ### Avertissement
 Cet addon modifie significativement l'équilibre du jeu en rendant tous les enchantements facilement obtenables. N'installez que si vous voulez une expérience plus décontractée.
-::enchant.changelog.end
+:::
 
 ---
 

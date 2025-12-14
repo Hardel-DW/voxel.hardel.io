@@ -8,7 +8,6 @@ export type InlineToken =
     | { type: "code"; content: string }
     | { type: "link"; href: string; children: InlineToken[] }
     | { type: "image"; src: string; alt: string }
-    | { type: "linked_image"; src: string; alt: string; href: string }
     | { type: "directive"; name: string; props: DirectiveProps }
     | { type: "br" };
 
@@ -21,8 +20,8 @@ export type BlockToken =
     | { type: "code_block"; lang?: string; content: string }
     | { type: "list"; ordered: boolean; items: ListItem[] }
     | { type: "table"; headers: InlineToken[][]; rows: InlineToken[][][] }
-    | { type: "directive"; name: string; props: DirectiveProps; children: BlockToken[] }
-    | { type: "directive_leaf"; name: string; props: DirectiveProps };
+    | { type: "directive_leaf"; name: string; props: DirectiveProps }
+    | { type: "directive_container"; name: string; props: DirectiveProps; children: BlockToken[] };
 
 export type ListItem = { children: InlineToken[] };
 

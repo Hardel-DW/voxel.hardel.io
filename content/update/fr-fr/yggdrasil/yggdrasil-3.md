@@ -37,7 +37,7 @@ La seconde giga structure de Yggdrasil s'étendant sur 500x500 blocs et s'éleva
 - Sa propre histoire à découvrir
 - Une difficulté plus que difficile
 
-::gallery
+:::gallery
 ![Labyrinthe Runique - Vue extérieure](/images/background/blog/yggdrasil/labyrinth_1.webp)  
 
 ![Labyrinthe Runique - Couloirs](/images/background/blog/yggdrasil/labyrinth_2.webp)  
@@ -45,7 +45,7 @@ La seconde giga structure de Yggdrasil s'étendant sur 500x500 blocs et s'éleva
 ![Labyrinthe Runique - Salle du trésor](/images/background/blog/yggdrasil/labyrinth_3.webp)  
 
 ![Labyrinthe Runique - Boss final](/images/background/blog/yggdrasil/labyrinth_4.webp)
-::gallery.end
+:::
 
 ## Les Ruines Dokkalfar
 Un portail mystérieux permettant de retourner vers le monde normal, mais cachant bien plus que sa fonction première :

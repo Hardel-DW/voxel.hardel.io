@@ -40,7 +40,7 @@ Runes come in **5 different tiers**, each with increasing power and success rate
 
 Higher tier runes significantly increase the probability of **Critical Success** when forging.
 
-::gallery{grid=5}
+:::gallery{grid=5}
 ![Rune](/images/patchnote/woe/010/rune.webp)  
 
 ![Reinforced Rune](/images/patchnote/woe/010/reinforced_rune.webp)  
@@ -50,7 +50,7 @@ Higher tier runes significantly increase the probability of **Critical Success**
 ![Nether Rune](/images/patchnote/woe/010/nether_rune.webp)  
 
 ![Dragon Rune](/images/patchnote/woe/010/dragon_rune.webp)
-::gallery.end
+:::
 
 > Note: Rune textures shown are not final and may change before release.
 
@@ -64,21 +64,21 @@ A dedicated **Creative Tab** is available to easily access all runic content:
 
 In the **Search Tab**, like enchanted books, all runes are available with every tier and every attribute combination for easy access.
 
-::gallery{grid=2}
+:::gallery{grid=2}
 ![Runic Creative Tab](/images/patchnote/woe/010/runic_creative_tab.webp)
 
 ![Search Tab](/images/patchnote/woe/010/search_tab.webp)
-::gallery.end
+:::
 
 ---
 
 # The Runic Table
 
-::gallery{grid=2}
+:::gallery{grid=2}
 ![Runic Table Block](/images/patchnote/woe/010/runic_table.webp)  
 
 ![Runic Table Empty](/images/patchnote/woe/010/runic_table_screen_empty.webp)
-::gallery.end
+:::
 
 The **Runic Table** is the central block for applying runes to your equipment. I designed a beautiful custom interface for this block!
 
@@ -214,11 +214,11 @@ When you hit an enemy, you steal a portion of their health as **healing over tim
 
 # Training Dummy
 
-::gallery{grid=2}
+:::gallery{grid=2}
 ![Training Dummy](/images/patchnote/woe/010/target_dummy_entity.webp)  
 
 ![Training Dummy Craft](/images/patchnote/woe/010/target_dummy_craft.webp)
-::gallery.end
+:::
 
 A useful tool created during development, now available to you! The **Training Dummy** displays the exact damage you deal, perfect for testing your builds.
 

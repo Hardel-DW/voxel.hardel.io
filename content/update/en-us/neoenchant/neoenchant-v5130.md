@@ -19,7 +19,7 @@ NeoEnchant 5.13.0 achieves a major milestone: 100% of enchantments are now obtai
 
 # New Enchantments
 
-::enchant.changelog{name="Propulsion"}
+:::enchant.changelog{name="Propulsion"}
 Transform your elytra flights into supersonic adventures! This enchantment gives you a directional speed boost mid-air when you press the jump button. Perfect for reaching distant locations faster while maintaining control.
 
 ::enchant.newenchant{icon="/images/features/item/elytra.webp", max_level=3, anvil_cost=1, rarity=1}
@@ -43,7 +43,7 @@ Each boost consumes exhaustion based on level. Higher levels provide stronger bo
 
 ### Obtaining
 Available through random loot chests across the world, in Asgard's ominous vaults and trial spawners (Yggdrasil addon), and in End City chests (Vanilla Structure addon).
-::enchant.changelog.end
+:::
 
 ---
 
@@ -84,21 +84,21 @@ Available through general loot tables:
 
 # Addons Updates
 
-::enchant.changelog{name="NeoEnchant - Yggdrasil Structure"}
+:::enchant.changelog{name="NeoEnchant - Yggdrasil Structure"}
 The Yggdrasil addon has been updated to support Minecraft 1.21.11 exclusively.
 
 ### New Content
 **Propulsion** enchantment can now be found in Asgard's ominous vaults and ominous trial spawners.
-::enchant.changelog.end
+:::
 
-::enchant.changelog{name="NeoEnchant - Addons - Vanilla Structure"}
+:::enchant.changelog{name="NeoEnchant - Addons - Vanilla Structure"}
 The Vanilla Structure addon has been updated to support Minecraft 1.21.11 exclusively. This addon has been available for the past 6 months, enhancing vanilla structures with NeoEnchant loot.
 
 ### New Content
 **Propulsion** enchantment can now be found in End City chests.
-::enchant.changelog.end
+:::
 
-::enchant.changelog{name="NeoEnchant - Addons - Enchanting Table"}
+:::enchant.changelog{name="NeoEnchant - Addons - Enchanting Table"}
 **NEW ADDON:** This brand new addon allows 100% of NeoEnchant enchantments to appear in enchanting tables. This may be unbalanced, use at your own risk!
 
 ### Features
@@ -108,7 +108,7 @@ The Vanilla Structure addon has been updated to support Minecraft 1.21.11 exclus
 
 ### Warning
 This addon significantly changes game balance by making all enchantments easily obtainable. Install only if you want a more casual experience.
-::enchant.changelog.end
+:::
 
 ---
 

@@ -18,13 +18,13 @@ Présentation de **Yggdrasil Alternative**, une variante entièrement nouvelle e
 
 **Yggdrasil Alternative** se concentre sur la fourniture des structures principales et de l'histoire sans les problèmes de compatibilité liés aux dimensions. Cela le rend entièrement compatible avec Paper, Bukkit, Purpur et d'autres implémentations de serveur légères.
 
-::gallery
+:::gallery
 ![Yggdrasil Alternative](/images/patchnote/yggdrasil/401/3PtFvWglfx.webp)
 
 ![Yggdrasil Alternative](/images/patchnote/yggdrasil/401/oM5xW6lKPD.webp)
 
 ![Yggdrasil Alternative](/images/patchnote/yggdrasil/401/oNDau1JqGR.webp)
-::gallery.end
+:::
 ---
 
 # Qu'est-ce qui rend Alternative différent ?

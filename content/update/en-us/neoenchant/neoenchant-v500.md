@@ -24,8 +24,6 @@ This pack offers a list of enchantments designed for each type of equipment, 45 
 
 The complete list of enchantments from [NeoEnchant+](https://voxel.hadel.io/fr-fr/packs/neoenchant)
 
-::video{src="https://utfs.io/f/llTsukoqRt5Qo6Aqy3F7jUQAeVKza8P9DrZXMCJwntfRiyO1"}
-
 # The enchantment configurator
 It's a tool that allows you to customize the enchantments of a pack or mod. You can adjust the balance, disable enchantments or modify their obtention, this allows you to create a unique experience for your gameplay style. [Enchantment Configurator](https://labs.hadel.io/fr-fr/studio)
 
@@ -38,11 +36,11 @@ That's why NeoEnchant+ is not just a pack – it's an ecosystem here's **Yggdras
 - **Yggdrasil** is a pack adding gigantic structures with extreme difficulty, unique rewards, some NeoEnchant+ enchantments are exclusive to these structures, and to make things more fun, monsters use NeoEnchant+ enchantments. GOOD LUCK.  
 - **BeyondEnchant** allows you to break vanilla limits. The levels of base game enchantments are all increased, which unlocks new possibilities.
 
-::gallery
+:::gallery
 ![BeyondEnchant](https://github.com/Hardel-DW/BeyondEnchant/assets/42413417/d107bc40-c48c-47b2-91eb-8a012a55c95c)
 
 ![Yggdrasil](https://github.com/Hardel-DW/Yggdrasil-Structure/assets/42413417/b481d58c-a1f4-4d04-a884-6ac538c02bbd)
-::gallery.end
+:::
 
 Don't hesitate to join [Discord](https://discord.gg/TAmVFvkHep) to be part of our community and follow updates.
 See you soon!

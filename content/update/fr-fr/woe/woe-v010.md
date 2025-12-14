@@ -40,7 +40,7 @@ Les runes existent en **5 niveaux différents**, avec une puissance et un taux d
 
 Les runes de niveau supérieur augmentent significativement la probabilité de **Succès Critique** lors du forgeage.
 
-::gallery{grid=5}
+:::gallery{grid=5}
 ![Rune](/images/patchnote/woe/010/rune.webp)  
 
 ![Rune Renforcée](/images/patchnote/woe/010/reinforced_rune.webp)  
@@ -50,7 +50,7 @@ Les runes de niveau supérieur augmentent significativement la probabilité de *
 ![Rune du Nether](/images/patchnote/woe/010/nether_rune.webp)  
 
 ![Rune du Dragon](/images/patchnote/woe/010/dragon_rune.webp)
-::gallery.end
+:::
 
 > Note : Les textures des runes présentées ne sont pas définitives et peuvent changer avant la sortie.
 
@@ -64,21 +64,21 @@ Un **Onglet Créatif** dédié est disponible pour accéder facilement à tout l
 
 Dans l'**Onglet de Recherche**, comme pour les livres enchantés, toutes les runes sont disponibles avec tous les niveaux et toutes les combinaisons d'attributs pour un accès facile.
 
-::gallery{grid=2}
+:::gallery{grid=2}
 ![Onglet Créatif Runique](/images/patchnote/woe/010/runic_creative_tab.webp)
 
 ![Onglet de Recherche](/images/patchnote/woe/010/search_tab.webp)
-::gallery.end
+:::
 
 ---
 
 # La Table Runique
 
-::gallery{grid=2}
+:::gallery{grid=2}
 ![Bloc Table Runique](/images/patchnote/woe/010/runic_table.webp)  
 
 ![Table Runique Vide](/images/patchnote/woe/010/runic_table_screen_empty.webp)
-::gallery.end
+:::
 
 La **Table Runique** est le bloc central pour appliquer les runes à votre équipement. J'ai conçu une magnifique interface personnalisée pour ce bloc !
 
@@ -214,11 +214,11 @@ Lorsque vous frappez un ennemi, vous volez une partie de sa vie sous forme de **
 
 # Mannequin d'Entraînement
 
-::gallery{grid=2}
+:::gallery{grid=2}
 ![Mannequin d'Entraînement](/images/patchnote/woe/010/target_dummy_entity.webp)  
 
 ![Craft Mannequin d'Entraînement](/images/patchnote/woe/010/target_dummy_craft.webp)
-::gallery.end
+:::
 
 Un outil utile créé pendant le développement, maintenant disponible pour vous ! Le **Mannequin d'Entraînement** affiche les dégâts exacts que vous infligez, parfait pour tester vos builds.
 

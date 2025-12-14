@@ -55,7 +55,7 @@ Le site **voxel.hardel.io** a été entièrement réécrit ! Les nouvelles pages
 
 Le Configurateur d'Enchantements a été temporairement désactivé. Il reviendra dans quelques jours sous le nom **Voxel Studio**, un outil plus puissant pour éditer les datapacks — pas seulement les enchantements.
 
-::gallery{grid=2}
+:::gallery{grid=2}
 ![Voxel Studio Preview 1](/images/blog/decembrer_2025/studio_enchant.webp)
 
 ![Voxel Studio Preview 2](/images/blog/decembrer_2025/studio_loot.webp)
@@ -63,7 +63,7 @@ Le Configurateur d'Enchantements a été temporairement désactivé. Il reviendr
 ![Voxel Studio Preview 3](/images/blog/decembrer_2025/studio_recipe.webp)
 
 ![Voxel Studio Preview 4](/images/blog/decembrer_2025/studio_download.webp)
-::gallery.end
+:::
 
 ## Nouveau Site d'Outils
 

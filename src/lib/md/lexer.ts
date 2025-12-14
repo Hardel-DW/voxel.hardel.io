@@ -1,10 +1,13 @@
 import { parseInline } from "./inline";
 import type { DirectiveProps, Document, ListItem } from "./types";
 
-export function parseDirectiveProps(raw: string): DirectiveProps {
+const MAX_ITERATIONS = 100_000;
+const HR_REGEX = /^-{3,}$/;
+const ORDERED_LIST_REGEX = /^\d+\.\s/;
+
+function parseProps(raw: string): DirectiveProps {
     const props: DirectiveProps = {};
     let pos = 0;
-
     while (pos < raw.length) {
         while (pos < raw.length && (raw[pos] === " " || raw[pos] === ",")) pos++;
         if (pos >= raw.length) break;
@@ -28,71 +31,81 @@ export function parseDirectiveProps(raw: string): DirectiveProps {
             props[key] = raw.slice(valueStart, pos);
         }
     }
-
     return props;
 }
 
-function parseDirectiveLine(line: string): { name: string; props: DirectiveProps } | null {
-    if (!line.startsWith("::")) return null;
-    const rest = line.slice(2);
-    if (rest.endsWith(".end")) return null;
-
-    const braceStart = rest.indexOf("{");
-    if (braceStart === -1) {
-        return { name: rest.trim(), props: {} };
+function parseDirectiveHeader(line: string): { type: "leaf" | "container"; name: string; props: DirectiveProps } | null {
+    if (line.startsWith(":::")) {
+        const rest = line.slice(3);
+        const braceStart = rest.indexOf("{");
+        if (braceStart === -1) return { type: "container", name: rest.trim(), props: {} };
+        const braceEnd = rest.lastIndexOf("}");
+        if (braceEnd === -1) return null;
+        return { type: "container", name: rest.slice(0, braceStart).trim(), props: parseProps(rest.slice(braceStart + 1, braceEnd)) };
     }
-
-    const braceEnd = rest.lastIndexOf("}");
-    if (braceEnd === -1) return null;
-
-    const name = rest.slice(0, braceStart).trim();
-    const propsRaw = rest.slice(braceStart + 1, braceEnd);
-    return { name, props: parseDirectiveProps(propsRaw) };
+    if (line.startsWith("::")) {
+        const rest = line.slice(2);
+        const braceStart = rest.indexOf("{");
+        if (braceStart === -1) return { type: "leaf", name: rest.trim(), props: {} };
+        const braceEnd = rest.lastIndexOf("}");
+        if (braceEnd === -1) return null;
+        return { type: "leaf", name: rest.slice(0, braceStart).trim(), props: parseProps(rest.slice(braceStart + 1, braceEnd)) };
+    }
+    return null;
 }
 
-function isDirectiveEnd(line: string, name: string): boolean {
-    return line === `::${name}.end`;
+function parseHeading(line: string): { level: 1 | 2 | 3 | 4 | 5 | 6; content: string } | null {
+    if (line[0] !== "#") return null;
+    let level = 0;
+    while (level < line.length && line[level] === "#") level++;
+    if (level < 1 || level > 6 || line[level] !== " ") return null;
+    return { level: level as 1 | 2 | 3 | 4 | 5 | 6, content: line.slice(level + 1) };
+}
+
+function isBlockStart(line: string): boolean {
+    const c = line[0];
+    return (
+        line.startsWith("::") ||
+        HR_REGEX.test(line.trim()) ||
+        c === "#" ||
+        line.startsWith("-# ") ||
+        c === ">" ||
+        line.startsWith("```") ||
+        c === "|" ||
+        ORDERED_LIST_REGEX.test(line) ||
+        ((c === "-" || c === "*") && line[1] === " ")
+    );
 }
 
 export function tokenize(markdown: string): Document {
     const lines = markdown.replace(/\r\n?/g, "\n").split("\n");
     const tokens: Document = [];
     let i = 0;
+    let iterations = 0;
 
     while (i < lines.length) {
-        const line = lines[i];
+        if (++iterations > MAX_ITERATIONS) throw new Error("Lexer limit exceeded");
 
-        // Empty line
+        const line = lines[i];
         if (!line.trim()) {
             i++;
             continue;
         }
 
-        // Directive ::name{props} - auto-close if no ::name.end found
-        const directive = parseDirectiveLine(line);
+        // Directives: ::leaf{props} or :::container{props}...:::
+        const directive = parseDirectiveHeader(line);
         if (directive) {
             i++;
-            const hasEnd = lines.slice(i).some((l) => isDirectiveEnd(l, directive.name));
-
-            if (hasEnd) {
+            if (directive.type === "leaf") {
+                tokens.push({ type: "directive_leaf", name: directive.name, props: directive.props });
+            } else {
                 const childLines: string[] = [];
-                while (i < lines.length && !isDirectiveEnd(lines[i], directive.name)) {
+                while (i < lines.length && lines[i] !== ":::") {
                     childLines.push(lines[i]);
                     i++;
                 }
-                tokens.push({
-                    type: "directive",
-                    name: directive.name,
-                    props: directive.props,
-                    children: tokenize(childLines.join("\n"))
-                });
-                i++;
-            } else {
-                tokens.push({
-                    type: "directive_leaf",
-                    name: directive.name,
-                    props: directive.props
-                });
+                tokens.push({ type: "directive_container", name: directive.name, props: directive.props, children: tokenize(childLines.join("\n")) });
+                if (i < lines.length) i++; // Skip closing :::
             }
             continue;
         }
@@ -111,7 +124,7 @@ export function tokenize(markdown: string): Document {
             continue;
         }
 
-        // Heading # to ######
+        // Heading
         const heading = parseHeading(line);
         if (heading) {
             tokens.push({ type: "heading", level: heading.level, children: parseInline(heading.content) });
@@ -119,67 +132,59 @@ export function tokenize(markdown: string): Document {
             continue;
         }
 
-        // Horizontal rule ---
-        if (isHorizontalRule(line)) {
+        // Horizontal rule
+        if (HR_REGEX.test(line.trim())) {
             tokens.push({ type: "hr" });
             i++;
             continue;
         }
 
-        // Small text -# (like Discord)
+        // Small text -#
         if (line.startsWith("-# ")) {
             tokens.push({ type: "small_text", children: parseInline(line.slice(3)) });
             i++;
             continue;
         }
 
-        // Blockquote >
-        if (line.startsWith(">")) {
+        // Blockquote
+        if (line[0] === ">") {
             const quoteLines: string[] = [];
-            while (i < lines.length && lines[i].startsWith(">")) {
-                quoteLines.push(lines[i].slice(1).trim());
+            while (i < lines.length && lines[i][0] === ">") {
+                quoteLines.push(lines[i].slice(1).trimStart());
                 i++;
             }
             tokens.push({ type: "blockquote", children: tokenize(quoteLines.join("\n")) });
             continue;
         }
 
-        // Table |
-        if (line.startsWith("|") && lines[i + 1]?.includes("---")) {
-            const headerCells = line
-                .split("|")
-                .slice(1, -1)
-                .map((c) => parseInline(c.trim()));
-            i += 2; // Skip header and separator
-
+        // Table
+        if (line[0] === "|" && lines[i + 1]?.includes("---")) {
+            const headers = line.split("|").slice(1, -1).map((c) => parseInline(c.trim()));
+            i += 2;
             const rows: ReturnType<typeof parseInline>[][] = [];
-            while (i < lines.length && lines[i].startsWith("|")) {
-                const row = lines[i]
-                    .split("|")
-                    .slice(1, -1)
-                    .map((c) => parseInline(c.trim()));
-                rows.push(row);
+            while (i < lines.length && lines[i][0] === "|") {
+                rows.push(lines[i].split("|").slice(1, -1).map((c) => parseInline(c.trim())));
                 i++;
             }
-            tokens.push({ type: "table", headers: headerCells, rows });
+            tokens.push({ type: "table", headers, rows });
             continue;
         }
 
-        // Ordered list 1. 2. 3.
-        if (isOrderedListItem(line)) {
+        // Ordered list
+        if (ORDERED_LIST_REGEX.test(line)) {
             const items: ListItem[] = [];
-            while (i < lines.length && isOrderedListItem(lines[i])) {
-                items.push({ children: parseInline(stripOrderedListPrefix(lines[i])) });
+            while (i < lines.length && ORDERED_LIST_REGEX.test(lines[i])) {
+                items.push({ children: parseInline(lines[i].replace(ORDERED_LIST_REGEX, "")) });
                 i++;
             }
             tokens.push({ type: "list", ordered: true, items });
             continue;
         }
 
-        // Unordered list - or *
-        if (isUnorderedListItem(line)) {
+        // Unordered list
+        if ((line[0] === "-" || line[0] === "*") && line[1] === " ") {
             const items: ListItem[] = [];
-            while (i < lines.length && isUnorderedListItem(lines[i])) {
+            while (i < lines.length && (lines[i][0] === "-" || lines[i][0] === "*") && lines[i][1] === " ") {
                 items.push({ children: parseInline(lines[i].slice(2)) });
                 i++;
             }
@@ -187,7 +192,7 @@ export function tokenize(markdown: string): Document {
             continue;
         }
 
-        // Paragraph (default)
+        // Paragraph
         const paragraphLines: string[] = [];
         while (i < lines.length && lines[i].trim() && !isBlockStart(lines[i])) {
             paragraphLines.push(lines[i]);
@@ -199,50 +204,4 @@ export function tokenize(markdown: string): Document {
     }
 
     return tokens;
-}
-
-function isBlockStart(line: string): boolean {
-    if (line.startsWith("::")) return true;
-    if (isHorizontalRule(line)) return true;
-    if (line.startsWith("#")) return true;
-    if (line.startsWith("-# ")) return true;
-    if (line.startsWith(">")) return true;
-    if (line.startsWith("```")) return true;
-    if (line.startsWith("|")) return true;
-    if (isOrderedListItem(line)) return true;
-    if (isUnorderedListItem(line)) return true;
-    return false;
-}
-
-function isHorizontalRule(line: string): boolean {
-    const trimmed = line.trim();
-    return trimmed.length >= 3 && [...trimmed].every((c) => c === "-");
-}
-
-function isOrderedListItem(line: string): boolean {
-    let i = 0;
-    while (i < line.length && line[i] >= "0" && line[i] <= "9") i++;
-    return i > 0 && line[i] === "." && line[i + 1] === " ";
-}
-
-function isUnorderedListItem(line: string): boolean {
-    return (line[0] === "-" || line[0] === "*") && line[1] === " ";
-}
-
-function stripOrderedListPrefix(line: string): string {
-    let i = 0;
-    while (i < line.length && line[i] >= "0" && line[i] <= "9") i++;
-    return line.slice(i + 2);
-}
-
-function parseHeading(line: string): { level: 1 | 2 | 3 | 4 | 5 | 6; content: string } | null {
-    if (line[0] !== "#") return null;
-
-    let level = 0;
-    while (level < line.length && line[level] === "#") level++;
-
-    if (level < 1 || level > 6) return null;
-    if (line[level] !== " ") return null;
-
-    return { level: level as 1 | 2 | 3 | 4 | 5 | 6, content: line.slice(level + 1) };
 }

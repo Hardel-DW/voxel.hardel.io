@@ -38,11 +38,11 @@ C'est pourquoi NeoEnchant+ n'est pas simplement un pack – c'est un écosystèm
 - **Yggdrasil** est un pack rajoutant des gigantesques structures avec une difficulté extrême, des récompenses uniques, certains enchantements de NeoEnchant+ sont exclusifs a ces structures, et pour rendre la chose plus amusante les monstres utilisent les enchantements de NeoEnchant+. BONNE CHANCE.  
 - **BeyondEnchant** permet quant a lui de briser les limites vanilla. Le niveaux des enchantements du jeu de base sont tous augmentés, ce qui débloque des nouvelle possibilités.
 
-::gallery
+:::gallery
 ![BeyondEnchant](https://github.com/Hardel-DW/BeyondEnchant/assets/42413417/d107bc40-c48c-47b2-91eb-8a012a55c95c)  
 
 ![Yggdrasil](https://github.com/Hardel-DW/Yggdrasil-Structure/assets/42413417/b481d58c-a1f4-4d04-a884-6ac538c02bbd)
-::gallery.end
+:::
 
 N'hésite pas à rejoindre le [Discord](https://discord.gg/TAmVFvkHep) pour faire partie de notre communauté et suivre les mises à jour.
 A bientôt !

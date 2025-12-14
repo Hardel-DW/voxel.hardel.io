@@ -4,10 +4,6 @@ import type { BlockToken, Document, InlineToken } from "./types";
 
 export type DirectiveComponent = (props: Record<string, unknown>) => ReactNode;
 export type Directives = Record<string, DirectiveComponent>;
-type RenderContext = {
-    components: Required<Components>;
-    directives: Directives;
-};
 
 export type Components = {
     h1?: (props: { children: ReactNode }) => ReactNode;
@@ -23,7 +19,6 @@ export type Components = {
     del?: (props: { children: ReactNode }) => ReactNode;
     a?: (props: { href: string; children: ReactNode }) => ReactNode;
     img?: (props: { src: string; alt: string }) => ReactNode;
-    linked_img?: (props: { src: string; alt: string; href: string }) => ReactNode;
     code?: (props: { children: ReactNode }) => ReactNode;
     pre?: (props: { lang?: string; children: ReactNode }) => ReactNode;
     blockquote?: (props: { children: ReactNode }) => ReactNode;
@@ -54,11 +49,6 @@ const defaults: Required<Components> = {
     del: ({ children }) => <del>{children}</del>,
     a: ({ href, children }) => <a href={href}>{children}</a>,
     img: ({ src, alt }) => <img src={src} alt={alt} />,
-    linked_img: ({ src, alt, href }) => (
-        <a href={href}>
-            <img src={src} alt={alt} />
-        </a>
-    ),
     code: ({ children }) => <code>{children}</code>,
     pre: ({ children }) => <pre>{children}</pre>,
     blockquote: ({ children }) => <blockquote>{children}</blockquote>,
@@ -74,6 +64,8 @@ const defaults: Required<Components> = {
     td: ({ children }) => <td>{children}</td>,
     br: () => <br />
 };
+
+type RenderContext = { components: Required<Components>; directives: Directives };
 
 function renderInlineToken(token: InlineToken, ctx: RenderContext, key: string): ReactNode {
     const { components, directives } = ctx;
@@ -96,12 +88,9 @@ function renderInlineToken(token: InlineToken, ctx: RenderContext, key: string):
             );
         case "image":
             return <components.img key={key} src={token.src} alt={token.alt} />;
-        case "linked_image":
-            return <components.linked_img key={key} src={token.src} alt={token.alt} href={token.href} />;
         case "directive": {
             const Component = directives[token.name];
-            if (!Component) return null;
-            return <Component key={key} {...token.props} />;
+            return Component ? <Component key={key} {...token.props} /> : null;
         }
         case "br":
             return <components.br key={key} />;
@@ -112,77 +101,68 @@ function renderInline(tokens: InlineToken[], ctx: RenderContext, prefix: string)
     return tokens.map((token, i) => renderInlineToken(token, ctx, `${prefix}-i${i}`));
 }
 
-function renderBlock(token: BlockToken, ctx: RenderContext, prefix: string): ReactNode {
+function renderBlock(token: BlockToken, ctx: RenderContext, key: string): ReactNode {
     const { components, directives } = ctx;
 
     switch (token.type) {
-        case "directive": {
+        case "directive_container": {
             const Component = directives[token.name];
-            if (!Component) return null;
-            const children = renderBlocks(token.children, ctx);
-            return (
-                <Component key={prefix} {...token.props}>
-                    {children}
+            return Component ? (
+                <Component key={key} {...token.props}>
+                    {renderBlocks(token.children, ctx)}
                 </Component>
-            );
+            ) : null;
         }
         case "directive_leaf": {
             const Component = directives[token.name];
-            if (!Component) return null;
-            return <Component key={prefix} {...token.props} />;
+            return Component ? <Component key={key} {...token.props} /> : null;
         }
         case "heading": {
             const Tag = components[`h${token.level}`];
-            return <Tag key={prefix}>{renderInline(token.children, ctx, prefix)}</Tag>;
+            return <Tag key={key}>{renderInline(token.children, ctx, key)}</Tag>;
         }
         case "paragraph":
-            return <components.p key={prefix}>{renderInline(token.children, ctx, prefix)}</components.p>;
+            return <components.p key={key}>{renderInline(token.children, ctx, key)}</components.p>;
         case "small_text":
-            return <components.small key={prefix}>{renderInline(token.children, ctx, prefix)}</components.small>;
+            return <components.small key={key}>{renderInline(token.children, ctx, key)}</components.small>;
         case "blockquote":
-            return <components.blockquote key={prefix}>{renderBlocks(token.children, ctx)}</components.blockquote>;
+            return <components.blockquote key={key}>{renderBlocks(token.children, ctx)}</components.blockquote>;
         case "hr":
-            return <components.hr key={prefix} />;
+            return <components.hr key={key} />;
         case "code_block":
             return (
-                <components.pre key={prefix} lang={token.lang}>
+                <components.pre key={key} lang={token.lang}>
                     <components.code>{token.content}</components.code>
                 </components.pre>
             );
         case "list": {
             const Tag = token.ordered ? components.ol : components.ul;
             return (
-                <Tag key={prefix}>
-                    {token.items.map((item, i) => {
-                        const liKey = `${prefix}-li${i}`;
-                        return <components.li key={liKey}>{renderInline(item.children, ctx, liKey)}</components.li>;
-                    })}
+                <Tag key={key}>
+                    {token.items.map((item, i) => (
+                        <components.li key={`${key}-li${i.toString()}`}>{renderInline(item.children, ctx, `${key}-li${i.toString()}`)}</components.li>
+                    ))}
                 </Tag>
             );
         }
         case "table":
             return (
-                <components.table key={prefix}>
+                <components.table key={key}>
                     <components.thead>
                         <components.tr>
-                            {token.headers.map((cell, i) => {
-                                const thKey = `${prefix}-th${i}`;
-                                return <components.th key={thKey}>{renderInline(cell, ctx, thKey)}</components.th>;
-                            })}
+                            {token.headers.map((cell, i) => (
+                                <components.th key={`${key}-th${i.toString()}`}>{renderInline(cell, ctx, `${key}-th${i.toString()}`)}</components.th>
+                            ))}
                         </components.tr>
                     </components.thead>
                     <components.tbody>
-                        {token.rows.map((row, ri) => {
-                            const trKey = `${prefix}-tr${ri}`;
-                            return (
-                                <components.tr key={trKey}>
-                                    {row.map((cell, ci) => {
-                                        const tdKey = `${trKey}-td${ci}`;
-                                        return <components.td key={tdKey}>{renderInline(cell, ctx, tdKey)}</components.td>;
-                                    })}
-                                </components.tr>
-                            );
-                        })}
+                        {token.rows.map((row, ri) => (
+                            <components.tr key={`${key}-tr${ri.toString()}`}>
+                                {row.map((cell, ci) => (
+                                    <components.td key={`${key}-tr${ri}-td${ci.toString()}`}>{renderInline(cell, ctx, `${key}-tr${ri}-td${ci.toString()}`)}</components.td>
+                                ))}
+                            </components.tr>
+                        ))}
                     </components.tbody>
                 </components.table>
             );
@@ -194,15 +174,10 @@ function renderBlocks(tokens: Document, ctx: RenderContext): ReactNode {
 }
 
 export function render(tokens: Document, components: Components = {}, directives: Directives = {}): ReactNode {
-    const ctx: RenderContext = {
-        components: { ...defaults, ...components },
-        directives
-    };
-    return renderBlocks(tokens, ctx);
+    return renderBlocks(tokens, { components: { ...defaults, ...components }, directives });
 }
 
 export default function RawMarkdown({ content, directives }: { content?: string; directives?: Directives }) {
     if (!content) return null;
-    const tokens = tokenize(content);
-    return render(tokens, {}, directives);
+    return render(tokenize(content), {}, directives);
 }

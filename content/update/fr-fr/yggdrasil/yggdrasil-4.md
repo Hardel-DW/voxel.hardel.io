@@ -48,7 +48,7 @@ Cette structure massive est entièrement sombre, avec des blocs de Deepslate et 
 
 De plus, cette structure s'adapte aux biomes de grotte, elle aura donc une apparence différente selon le biome d'origine, voici un exemple dans un biome "Lush Cave" :
 
-::gallery
+:::gallery
 ![Salle principale](https://uy64vwmxhf.ufs.sh/f/llTsukoqRt5QdEAMVCActOeqRzaZ7QspT5rmgnwbXG42xWiy)  
 
 ![Crossroad](https://uy64vwmxhf.ufs.sh/f/llTsukoqRt5QJayjcWIHlSFatd6fN2G8CYswE50vjPWuZOkx)  
@@ -56,7 +56,7 @@ De plus, cette structure s'adapte aux biomes de grotte, elle aura donc une appar
 ![Cube de cristal - Salle du trésor](https://uy64vwmxhf.ufs.sh/f/llTsukoqRt5Qh48WWegfMybo6NQ2z0nTSkjXlsY19Dv74ace)  
 
 ![Librairies - Boss final](https://uy64vwmxhf.ufs.sh/f/llTsukoqRt5QTUUpEw6JsdbAYGw6NoMQU1XkaVSh39xi5K8B)
-::gallery.end
+:::
 
 # Refonte de l'île Runique et de l'accès à la dimension Runique
 L'île Runique a été améliorée, la salle principale est toujours présente avec quelques modifications mineures, mais l'île possède maintenant de nombreux passages secrets. Ces nouveaux passages ne seront pas dévoilés dans cette note de mise à jour pour ne pas ruiner votre expérience.
@@ -77,7 +77,7 @@ L'ajout des autels de cartographie, ce sont des mini-structures que vous pourrez
 
 Chaque structure permet d'obtenir une carte pour se rendre à la structure principale correspondante la plus proche.
 
-::gallery{grid=3}
+:::gallery{grid=3}
 ![Helblom](https://uy64vwmxhf.ufs.sh/f/llTsukoqRt5QTspbmWv6JsdbAYGw6NoMQU1XkaVSh39xi5K8)  
 
 ![Lifblom](https://uy64vwmxhf.ufs.sh/f/llTsukoqRt5QO6A0eysBkwa7SbIxLQiWf5XFsqJl4PopZ1mh)  
@@ -91,7 +91,7 @@ Chaque structure permet d'obtenir une carte pour se rendre à la structure princ
 ![Glaosheimr](https://uy64vwmxhf.ufs.sh/f/llTsukoqRt5QiUuLoxVLH1rSyPeCQj4thiW62XDVaqZ9RKof)  
 
 ![Zenflors Underground](https://uy64vwmxhf.ufs.sh/f/llTsukoqRt5QiUuLoxVLH1rSyPeCQj4thiW62XDVaqZ9RKof)
-::gallery.end
+:::
 
 # Les nouveaux villageois
 Il y en a 5, situés à 5 endroits différents, chacun propose des échanges liés au clefs de chaque structure principale, voici où vous pouvez les trouver et leurs échanges :

@@ -18,13 +18,13 @@ Introducing **Yggdrasil Alternative**, a completely new downloadable variant of 
 
 **Yggdrasil Alternative** focuses on delivering the core structures and storyline without dimension-related compatibility issues. This makes it fully compatible with Paper, Bukkit, Purpur, and other lightweight server implementations.
 
-::gallery
+:::gallery
 ![Yggdrasil Alternative](/images/patchnote/yggdrasil/401/3PtFvWglfx.webp)
 
 ![Yggdrasil Alternative](/images/patchnote/yggdrasil/401/oM5xW6lKPD.webp)
 
 ![Yggdrasil Alternative](/images/patchnote/yggdrasil/401/oNDau1JqGR.webp)
-::gallery.end
+:::
 ---
 
 # What Makes Alternative Different?

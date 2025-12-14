@@ -9,6 +9,7 @@ interface LineBackgroundProps {
 export default function LineBackground({ className, delay }: LineBackgroundProps) {
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const linesRef = useRef<Line[]>([]);
+    const lastFrameTimeRef = useRef(0);
 
     useEffect(() => {
         const canvas = canvasRef.current;
@@ -26,38 +27,50 @@ export default function LineBackground({ className, delay }: LineBackgroundProps
         window.addEventListener("resize", resizeCanvas);
 
         let animationFrameId: number;
-        let timeoutId: NodeJS.Timeout;
-        let isVisible = true;
+        let timeoutId: ReturnType<typeof setTimeout>;
 
-        const handleVisibilityChange = () => {
-            isVisible = !document.hidden;
-            if (!isVisible) {
-                clearTimeout(timeoutId);
-                cancelAnimationFrame(animationFrameId);
+        const animate = (timestamp: number) => {
+            if (document.hidden) return;
+
+            // Reset si trop de temps s'est écoulé (page était en background)
+            if (lastFrameTimeRef.current && timestamp - lastFrameTimeRef.current > 100) {
                 linesRef.current = [];
-            } else {
-                animate();
-                createNewLine();
             }
-        };
+            lastFrameTimeRef.current = timestamp;
 
-        const animate = () => {
-            if (!isVisible) return;
             animateLines(ctx, canvas, linesRef.current);
             animationFrameId = requestAnimationFrame(animate);
         };
 
         const createNewLine = () => {
-            if (!isVisible) return;
-            const delayRange = Math.random() * delay;
+            if (document.hidden) return;
+
             const newLine = createLine(canvas.width, canvas.height);
             linesRef.current.push(newLine);
-            timeoutId = setTimeout(createNewLine, delayRange);
+            scheduleNextLine();
+        };
+
+        const scheduleNextLine = () => {
+            clearTimeout(timeoutId);
+            if (document.hidden) return;
+            timeoutId = setTimeout(createNewLine, Math.random() * delay);
+        };
+
+        const handleVisibilityChange = () => {
+            if (document.hidden) {
+                clearTimeout(timeoutId);
+                cancelAnimationFrame(animationFrameId);
+            } else {
+                lastFrameTimeRef.current = 0;
+                linesRef.current = [];
+                animationFrameId = requestAnimationFrame(animate);
+                scheduleNextLine();
+            }
         };
 
         document.addEventListener("visibilitychange", handleVisibilityChange);
-        animate();
-        createNewLine();
+        animationFrameId = requestAnimationFrame(animate);
+        scheduleNextLine();
 
         return () => {
             document.removeEventListener("visibilitychange", handleVisibilityChange);

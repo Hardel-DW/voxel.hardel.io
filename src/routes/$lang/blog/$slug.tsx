@@ -24,7 +24,7 @@ function BlogDetailPage() {
                 <div className="min-h-screen flex items-center justify-center">
                     <div className="text-center">
                         <h1 className="text-4xl font-bold mb-4">{translate("blog.not_found")}</h1>
-                        <Button to="/$lang/blog" params={{ lang }} variant="primary">
+                        <Button to="/$lang/blog" params={{ lang }} variant="default">
                             {translate("blog.back")}
                         </Button>
                     </div>
@@ -95,7 +95,7 @@ function BlogDetailPage() {
             </section>
 
             <section className="text-center mb-40 mt-12">
-                <Button to="/$lang/blog" params={{ lang }} size="lg" variant="primary">
+                <Button to="/$lang/blog" params={{ lang }} size="lg" variant="default">
                     {translate("blog.back")}
                 </Button>
             </section>

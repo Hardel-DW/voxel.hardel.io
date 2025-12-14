@@ -477,7 +477,7 @@ function NeoEnchantPage() {
                         <p className="text-gray-300 mt-4">{translate("datapacks.neoenchant.personalize.description")}</p>
 
                         <div className="mt-8 flex flex-col md:flex-row gap-4">
-                            <Button href={`${studioUrl}/${lang}/studio`} size="xl" variant="primary" className="w-full md:w-auto">
+                            <Button href={`${studioUrl}/${lang}/studio`} size="xl" variant="default" className="w-full md:w-auto">
                                 {translate("generic.start")}
                             </Button>
                             <Button href={`${studioUrl}/${lang}/studio`} size="xl" variant="ghost" className="w-full md:w-auto">

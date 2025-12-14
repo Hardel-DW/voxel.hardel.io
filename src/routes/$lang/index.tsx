@@ -96,7 +96,7 @@ function HomePage() {
                                         to={slide.button.main.to}
                                         params={slide.button.main.params}
                                         size="xl"
-                                        variant="primary">
+                                        variant="default">
                                         {slide.button.main.text}
                                     </Button>
                                     <Button to={slide.button.secondary.to} params={slide.button.secondary.params} size="xl" variant="ghost">
@@ -180,7 +180,7 @@ function HomePage() {
                             {translate("home.product.tools.description")}
                         </p>
                         <div className="flex flex-wrap gap-2 mt-6">
-                            <Button className="w-full xl:w-fit" href={`${studioUrl}/${lang}/studio`} size="sm" variant="primary">
+                            <Button className="w-full xl:w-fit" href={`${studioUrl}/${lang}/studio`} size="sm" variant="default">
                                 {translate("generic.start")}
                             </Button>
                             <Button className="w-full xl:w-fit" href={`/${lang}/blog/enchant-configurator`} size="sm" variant="transparent">
@@ -196,7 +196,7 @@ function HomePage() {
                             {translate("home.product.resource.description")}
                         </p>
                         <div className="flex flex-wrap gap-2 mt-6">
-                            <Button className="w-full xl:w-fit" to="/$lang/resources/asset" params={{ lang }} size="sm" variant="primary">
+                            <Button className="w-full xl:w-fit" to="/$lang/resources/asset" params={{ lang }} size="sm" variant="default">
                                 {translate("generic.take_a_look")}
                             </Button>
                             <Button
@@ -217,7 +217,7 @@ function HomePage() {
                             {translate("home.product.datapack.description")}
                         </p>
                         <div className="flex flex-wrap gap-2 mt-6">
-                            <Button className="w-full xl:w-fit" href={`/${lang}/packs/neoenchant`} size="sm" variant="primary">
+                            <Button className="w-full xl:w-fit" href={`/${lang}/packs/neoenchant`} size="sm" variant="default">
                                 NeoEnchant+
                             </Button>
                             <Button className="w-full xl:w-fit" href={`/${lang}/packs/yggdrasil`} size="sm" variant="transparent">

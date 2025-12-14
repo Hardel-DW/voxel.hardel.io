@@ -25,7 +25,7 @@ function MarketplaceDetailPage() {
                 <div className="min-h-screen flex items-center justify-center">
                     <div className="text-center">
                         <h1 className="text-4xl font-bold mb-4">{translate("marketplace.not_found")}</h1>
-                        <Button to="/$lang/resources/asset" params={{ lang }} variant="primary">
+                        <Button to="/$lang/resources/asset" params={{ lang }} variant="default">
                             {translate("marketplace.back")}
                         </Button>
                     </div>

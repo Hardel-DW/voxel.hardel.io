@@ -65,12 +65,12 @@ function BlogListPage() {
                 <section className="max-w-(--breakpoint-xl) mx-auto px-8 my-16">
                     <div className="flex justify-center items-center mt-10 gap-4">
                         {hasPrev && (
-                            <Button variant="primary" to="/$lang/blog" params={{ lang }} search={{ page: currentPage - 1 }}>
+                            <Button variant="default" to="/$lang/blog" params={{ lang }} search={{ page: currentPage - 1 }}>
                                 &larr; {translate("blog.previous")}
                             </Button>
                         )}
                         {hasNext && (
-                            <Button variant="primary" to="/$lang/blog" params={{ lang }} search={{ page: currentPage + 1 }}>
+                            <Button variant="default" to="/$lang/blog" params={{ lang }} search={{ page: currentPage + 1 }}>
                                 {translate("blog.next")} &rarr;
                             </Button>
                         )}

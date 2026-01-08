@@ -6,7 +6,6 @@ import { Button } from "@/components/ui/Button";
 import { DashedPattern } from "@/components/ui/DashedPattern";
 import Fog from "@/components/ui/Fog";
 import SlideIndicator from "@/components/ui/SlideIndicator";
-import VortexSetup from "@/components/ui/vortex/VortexSetup";
 import { blog } from "@/lib/content/BlogCollection";
 import { useSlideshow } from "@/lib/hook/useSlideshow";
 import { t } from "@/lib/i18n";
@@ -67,11 +66,6 @@ function HomePage() {
         <CompoundLayout>
             <div>
                 <div className="absolute rounded-full w-3/4 h-1/2 bg-linear-to-r from-[#401727] to-[#311e7696] opacity-20 blur-[10rem] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
-
-                <div className="absolute inset-0 h-full overflow-hidden p-8 opacity-50">
-                    <VortexSetup />
-                </div>
-
                 <section className="h-dvh" data-direction="horizontal">
                     <div className="absolute w-full inset-0 shadow-2xl bg-linear-to-r from-[#401727] to-[#311e7696] opacity-20 rounded-full blur-[10rem]" />
 

@@ -98,10 +98,10 @@ export default function Navbar() {
                                                 {translate("navbar.patchnote.woe.description")}
                                             </ListItem>
                                             <ListItem
-                                                to="/$lang/patchnote/upcoming"
+                                                to="/$lang/patchnote/studio"
                                                 params={{ lang }}
-                                                title={translate("navbar.patchnote.upcoming.title")}>
-                                                {translate("navbar.patchnote.upcoming.description")}
+                                                title={translate("navbar.patchnote.studio.title")}>
+                                                {translate("navbar.patchnote.studio.description")}
                                             </ListItem>
                                         </ul>
                                     </div>

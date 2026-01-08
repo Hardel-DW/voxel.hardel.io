@@ -4,7 +4,6 @@ import CompoundLayout from "@/components/layout/CompoundLayout";
 import NeoEnchantmentViewer, { type SectionViewer } from "@/components/NeoEnchantmentViewer";
 import { Button } from "@/components/ui/Button";
 import { DashedPattern } from "@/components/ui/DashedPattern";
-import VortexSetup from "@/components/ui/vortex/VortexSetup";
 import { t } from "@/lib/i18n";
 
 export const Route = createFileRoute("/$lang/packs/neoenchant")({
@@ -500,10 +499,6 @@ function NeoEnchantPage() {
             </section>
 
             <section className="relative mt-40">
-                <div className="absolute inset-0 h-full overflow-hidden p-8 opacity-50">
-                    <VortexSetup />
-                </div>
-
                 <div className="w-3/4 mx-auto gap-8">
                     <div className="mb-24">
                         <h1 className="text-4xl md:text-6xl wrap-break-words font-bold text-white text-center w-full md:w-1/2 mx-auto">
